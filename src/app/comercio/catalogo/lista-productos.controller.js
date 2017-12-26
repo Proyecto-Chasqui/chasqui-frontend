@@ -1,0 +1,345 @@
+(function() {
+	'use strict';
+
+	angular.module('chasqui').controller('ListaProductosController',
+		ListaProductosController);
+
+	/**
+	 * @ngInject Lista de productos.
+	 */
+	function ListaProductosController($scope, $rootScope, $log, CTE_REST,
+		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
+		gccService, $mdDialog, productorService, contextoCompraService, 
+        usuario_dao) {
+
+		$log.debug('ListaProductosController',
+			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
+
+		var CANT_ITEMS = CTE_REST.PRODUCTOS_X_PAG; // TODO : pasar a constante
+
+		var vm = this;
+
+		vm.otherCtrl = $scope.$parent.$parent.catalogoCtrl.isFiltro1;
+
+		vm.urlBase = CTE_REST.url_base;
+		vm.productos = [];
+		vm.ultimoFiltro = {};
+		vm.medallaSelect = undefined;
+		vm.pedidoSelected = undefined;
+		vm.grupoSelected = undefined;
+		vm.emprendedores = [];
+		vm.emprendedorSelect = {};
+
+		//////// dialogo medalla
+		vm.showPrerenderedDialog = function(medalla) {
+			vm.medallaSelect = medalla;
+			$mdDialog.show({
+				contentElement: '#myDialog',
+				parent: angular.element(document.body),
+				//targetEvent: ev,
+				clickOutsideToClose: true
+			});
+		};
+
+		vm.showPrerenderedDialogProductor = function(id) {
+
+			angular.forEach(vm.emprendedores, function(empr, key) {
+				if (empr.idProductor === id)
+					vm.emprendedorSelect = empr;
+			});
+
+			$mdDialog.show({
+				contentElement: '#productorDialog',
+				parent: angular.element(document.body),
+				//targetEvent: ev,
+				clickOutsideToClose: true
+			});
+
+		}
+
+		vm.cerrarDialogoMedalla = function() {
+			$mdDialog.hide();
+		}
+
+		////////////// dialogo producto
+
+		vm.verProducto = function(productoParam) {
+			$mdDialog.show({
+					controller: 'ProductoDialogController as ctrl',
+					templateUrl: 'app/comercio/catalogo/producto.dialog.html',
+					//     parent: angular.element(document.body),
+					//      targetEvent: ev,
+					clickOutsideToClose: true,
+					fullscreen: false, // Only for -xs, -sm breakpoints.
+					locals: { parm: productoParam }
+				})
+				.then(function(answer) {
+					//  vm.mensaje = 'You said the information was "' + answer + '".';
+				}, function() {
+					//  vm.mensaje = 'You cancelled the dialog.';
+				});
+
+		}
+		////////////// PAGINACION
+		vm.currentPage = 0;
+		vm.paging = {
+			total: 0,
+			current: 1,
+			onPageChanged: loadPages,
+		};
+
+		function loadPages() {
+			console.log('Current page is : ' + vm.paging.current);
+			// TODO : Load current page Data here
+			vm.currentPage = vm.paging.current;
+			findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro)
+		}
+		//////////////////////////////
+
+		vm.agregar = function(variante) {
+			vm.grupoSelected = contextoCompraService.getGroupSelected();
+			vm.pedidoSelected = contextoCompraService.getOrderSelected();
+
+            console.log(vm.grupoSelected, vm.pedidoSelected);
+			if (usuario_dao.isLogged()) {
+				agregarProducto(variante);
+			} else {
+				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
+				$log.log('not logued" ', variante);
+				contextoCompraService.ls.varianteSelected = variante;
+				$state.go('login');
+			}
+		}
+
+		vm.verMedalla = function(medalla) {
+			$log.debug("ver medalla", medalla);
+
+			$state.go('medalla', {
+				'idMedalla': medalla
+			});
+		}
+
+		vm.mostrarDecimales = function(parteDecimal) {
+			var res = Number(parteDecimal).toFixed(0).toString();
+			if (res.length == 1) res += "0";
+			return res;
+		}
+
+		vm.identificadorProducto = function(producto) {
+			return producto.nombreProducto;
+		}
+
+
+		// ///////////////////////
+		// / Recive el evento de filtrado
+
+		$scope.$on('filterEvent', function(event, arg) {
+			$log.debug("filterEvent", arg);
+			vm.ultimoFiltro = arg;
+			vm.paging.total = 0;
+			vm.paging.current = 1;
+			actualizar(arg);
+		});
+
+		function actualizar(arg) {
+			findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, arg);
+		}
+
+		function agregarProducto(variante) {
+			if (contextoCompraService.isGrupoIndividualSelected()) {
+                console.log("Agregar producto al pedido individual:", variante);
+				agregarProductoIndividual(variante); // es individual
+			} else {
+				agregarProductoDialog(variante);
+			}
+		}
+		/** Si no tiene un pedido individual lo crea */
+		function agregarProductoIndividual(variante) {
+			if (contextoCompraService.tienePedidoInividual()) {
+				agregarProductoDialog(variante);
+			} else {
+                
+                function actualizarPedidoIndividual() {
+                    function doOkPedido(response) {
+                        $log.debug("setPedidoYagregarProducto", response);
+                        contextoCompraService.setContextoByPedido(response.data);
+                        //contextoCompraService.refresh();
+                        agregarProductoDialog(variante);
+                    }
+
+                    productoService.verPedidoIndividual().then(doOkPedido);
+                }
+				// crear pedido y dialog
+				function doNoOK(response) {
+					if (us.contieneCadena(response.data.error, CTE_REST.ERROR_YA_TIENE_PEDIDO)) {
+						ToastCommons.mensaje(us.translate('AGREAR_EN_PEDIDO_EXISTENTE'));
+						agregarProductoDialog(variante);
+					}
+				}
+
+				var json = {};
+				json.idVendedor = StateCommons.vendedor().id;
+
+				//si falla es poque ya tiene un pedido abierto TODO mejorar
+				productoService.crearPedidoIndividual(json, doNoOK).then(actualizarPedidoIndividual)
+
+			}
+
+		}
+
+		function callCrearPedidoGrupal(variante) { 
+            // TODO mover a contexto compra service
+			function doOK(response) {
+				$log.debug("callCrearPedidoGrupal", response);
+
+				contextoCompraService.refresh();
+                contextoCompraService.getGrupos().then(
+					function(grupos) {
+						contextoCompraService.setContextoByGrupo(parseInt(vm.grupoSelected.idGrupo));
+						agregarProductoDialog(variante)
+					}
+				)
+			}
+
+			function doNoOK(response) {
+				$log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
+		 		contextoCompraService.refreshPedidos().then(
+					function(pedido) {
+						agregarProductoDialog(variante)
+					}
+				)
+			}
+
+			var params = {}
+			params.idGrupo = contextoCompraService.getGroupSelected().idGrupo;
+			params.idVendedor = StateCommons.vendedor().id;
+
+			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
+		}
+
+		function agregarProductoDialog(variante) {
+			$log.debug("agregarProductoDialog ", variante)
+
+			function doOk(result) {
+				$log.debug("Agregar al carro cantidad ", result);
+
+				if (!isNaN(result) && result > 0) {
+					$log.debug("Entrada valida", result);
+					callAgregarAlCarro(variante, result);
+				} else {
+					$log.debug("Entrada invalida", result);
+				}
+
+			}
+
+			function doNoOk() {
+				$log.debug("Cancelo Agregar")
+			}
+			
+			dialogCommons.prompt('Agregar al changuito', '¿Cuántos ' + variante.nombreProducto + ' necesitas?',
+				'Cantidad', 'Agregar', 'Cancelar', doOk, doNoOk);
+		}
+
+
+
+		// /////////// REST
+
+		var callAgregarAlCarro = function(variante, cantidad) {
+			$log.debug('callAgregarAlCarro para pedido: ',
+				contextoCompraService.getOrderSelected());
+
+			var doOk = function(response) {
+				$log.log('Agregar producto Response ', response);
+                
+                contextoCompraService.refreshPedidos();
+				ToastCommons.mensaje(us.translate('PRODUCTO_AGREGADO'));
+				$rootScope.$emit('lista-producto-agrego-producto');
+
+			}
+
+			var params = {};
+			params.idPedido = contextoCompraService.getOrderSelected().id;
+			params.idVariante = variante.idVariante;
+			params.cantidad = cantidad;
+
+			$log.debug(params)
+
+			productoService.agregarPedidoIndividual(params).then(doOk);
+		}
+		
+		var findProductosPorMultiplesFiltros = function(pagina, items, params){
+			console.log('find productos multiples filtros');
+			function doOk(response) {
+				$log.log('findProductos Response ', response);
+				
+				vm.productos = response.data.productos;
+
+				vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
+				vm.paging.current = response.data.pagina;
+			}
+
+
+			var params = {
+				query : params.query,
+				idVendedor : StateCommons.vendedor().id,
+				idMedalla : params.sello,
+				idProductor: params.productor,
+				idMedallaProductor: params.selloProductor,
+				idCategoria: params.categoria, 
+				pagina: pagina,
+				cantItems: items,
+				precio: 'Down'
+			}
+
+			$log.log("parametros",params);
+
+			productoService.getProductosByMultiplesFiltros(params).then(doOk);
+
+		}
+        //Posiblemente deprecado por findProductosPorMultiplesFiltros
+		var findProductos = function(pagina, items, filtro) {
+			$log.log('findProductos: ' + pagina + " " + items + " " +
+				filtro.tipo + " " + filtro.valor);
+
+			function doOk(response) {
+				$log.log('findProductos Response ', response);
+				
+				vm.productos = response.data.productos;
+
+				vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
+				vm.paging.current = response.data.pagina;
+			}
+
+			var params = {
+				idVendedor: StateCommons.vendedor().id,
+				pagina: pagina,
+				cantItems: items,
+				precio: 'Down'
+				// ,idVendedor =CTE_REST.vendedor //TODO: que se dinamico
+			}
+
+			productoService.getProductosByMultiplesFiltros(params).then(doOk);
+
+		}
+
+
+
+		function callEmprendedores() {
+			$log.debug("---callEmprendedor ---");
+
+			productorService.getProductores()
+				.then(function(data) { vm.emprendedores = data.data; })
+		}
+
+		// findProductos();
+		if (!us.isUndefinedOrNull(contextoCompraService.ls.varianteSelected)) {
+			$log.debug("tiene una variante seleccionda", contextoCompraService.ls.varianteSelected)
+			vm.agregar(contextoCompraService.ls.varianteSelected)
+			contextoCompraService.ls.varianteSelected = undefined;
+		}
+
+		//vm.productos = findProductos(1,10,{});
+		callEmprendedores();
+	}
+
+})();

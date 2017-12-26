@@ -1,0 +1,14 @@
+{
+    "ALIAS_DOMICILIO": "Apodo del domicilio",
+    "CAMPO_OBLIGATORIO": "Campo obligatorio",
+    "CALLE_DIRECCION": "Calle",
+    "ALTURA_DIRECCION": "Altura",
+    "DEPARTAMENTO_DIRECCION": "Piso y/o departamento",
+    "ENTRE_CALLES_DIRECCION": "Entre calles:",
+    "CALLE_1_DOMICILIO": "Calle 1",
+    "CALLE_2_DOMICILIO": "Calle 2",
+    "LOCALIDAD_DOMICILIO": "Localidad",
+    "CODIGO_POSTAL_DOMICILIO": "Código postal",
+    "COMENTARIOS_DOMICILIO": "Comentarios:",
+    "PREDETERMINADO_DOMICILIO": "Domicilio predeterminado"
+}

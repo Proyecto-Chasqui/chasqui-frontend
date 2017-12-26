@@ -1,0 +1,21 @@
+@mixin user-select($select) {
+  user-select: $select;
+}
+
+@mixin touch-callout() {
+  -webkit-touch-callout: none;
+}
+
+@mixin disable-outlines() {
+  * {
+    outline: none;
+  }
+}
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

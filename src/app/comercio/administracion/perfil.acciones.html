@@ -1,0 +1,31 @@
+<head>
+	<meta charset="UTF-8">
+</head>
+<div layout="row" layout-align="center center">
+	<div> <label translate>CAMBIAR_PASS</label>
+		<md-button ng-click="perfilCtrl.cambiarPass()">
+			<md-icon> compare_arrows </md-icon>
+			<md-tooltip md-direction="left">
+				<label translate>CAMBIAR_PASS</label>
+			</md-tooltip>
+	</div>
+</div>
+<!-- DIALOG -->
+<div style="visibility: hidden">
+	<div class="md-dialog-container" id="changePassDialogId">
+		<md-dialog layout-padding>
+			<h2 translate>CAMBIAR_PASS</h2>
+			<md-input-container>
+				<label translate>PASS</label>
+				<input ng-model="perfilCtrl.pass1" type="password">
+			</md-input-container>
+			<md-input-container>
+				<label translate>PASS_CONFIRMAR</label>
+				<input ng-model="perfilCtrl.pass2" type="password">
+			</md-input-container>
+			<md-button class="md-primary md-raised md-button md-ink-ripple" ng-click="perfilCtrl.cambiarPassConfirmar()">
+				<label translate>CONFIRMAR</label>				
+			</md-button>
+		</md-dialog>
+	</div>
+</div>

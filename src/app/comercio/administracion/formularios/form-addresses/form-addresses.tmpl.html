@@ -1,0 +1,54 @@
+<md-card>
+	<md-card-content>
+        <div layout=row layout-align="space-betwen start">
+            <div>
+                <md-button ng-click="addDireccion()" class="btn-agregar">
+                    Nueva
+                    <md-icon style="color:white"> add_circle_outline </md-icon>
+                    <md-tooltip md-direction="right">
+                        Agregar una dirección
+                    </md-tooltip>
+                </md-button>
+            </div>
+        </div>
+        <div>
+            <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndexDireccion">
+                <md-tab ng-repeat="address in addresses" label="{{address.alias}}">
+                    <md-content class="md-padding">
+                        <form-address address="address"
+                                      on-save="onSave"
+                                      on-delete="onDelete"
+                                      on-mark-as-primary="onMarkAsPrimary"></form-address>
+                    </md-content>
+                </md-tab>
+            </md-tabs>            
+        </div>
+	</md-card-content>
+    
+    <md-card-actions layout="row" layout-align="end center">
+        <md-button class="btn-confirmar" ng-click="labelAction()" ng-show="labelButtonLabel">
+            <label translate="{{labelButtonLabel}}"></label>
+        </md-button>
+        
+        <md-button class="btn-confirmar" ng-click="cancel()" ng-show="buttonCancelLabel">
+            <md-icon style="color:white"> undo </md-icon>
+            <md-tooltip md-direction="left" >
+                <label translate="{{buttonCancelLabel}}"></label>
+            </md-tooltip>
+        </md-button>
+
+        <md-button class="btn-confirmar" ng-click="next()" ng-show="buttonNextLabel">
+            <md-icon style="color:white"> done </md-icon>
+            <md-tooltip md-direction="left" >
+                <label translate="{{buttonNextLabel}}"></label>
+            </md-tooltip>
+        </md-button>
+
+        <md-button ng-click="edit()"  ng-show="buttonEditLabel">
+            <md-icon> mode_edit </md-icon>
+            <md-tooltip md-direction="left" >
+                <label translate="{{buttonEditLabel}}"></label>
+            </md-tooltip>
+        </md-button>
+    </md-card-actions>
+</md-card>

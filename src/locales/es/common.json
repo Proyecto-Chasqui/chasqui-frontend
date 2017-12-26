@@ -1,0 +1,21 @@
+{
+  "INFO": "Información",
+  "GENERIC_ERROR": "Hubo un error, vuelva a intentarlo",
+  "TRANS_EXA" : "Esto es un ejemplo de una texto traducido",
+  "GUARDAR" : "Guardar",
+  "NOMBRE" : "Nombre",
+  "APELLIDO" : "Apellido",
+  "APODO" : "Apodo",
+  "EMAIL" : "Correo",
+  "SI" : "Sí",
+  "NO" : "No",
+  "TU" : "Vos",
+  "DESCRIPCION" : "Descripción",
+  "CONTACTO" : "Contacto",
+  "DOMICILIO" : "Domicilio",
+  "CANCELAR" : "Cancelar",
+  "CANCELADO" : "Cancelado",
+  "CONFIRMAR" : "Confirmar",
+  "ENTIENDO" : "Entiendo",
+  "CERRAR" : "Cerrar"
+}

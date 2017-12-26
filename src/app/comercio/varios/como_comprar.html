@@ -1,0 +1,19 @@
+<div class="ch-content">
+    <md-card ng-repeat="instruccion in instrucciones">
+        <md-card-title>
+            <md-card-title-text>
+                <span> {{instruccion.titulo}} </span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <ol>
+                <div ng-repeat="paso in instruccion.pasos">
+                    <li>{{paso.principal}}</li>
+                    <ol type="a">
+                        <li ng-repeat="subpaso in paso.subPasos"> {{subpaso}}</li>
+                    </ol>
+                </div>
+            </ol><br>
+        </md-card-content>
+    </md-card>
+</div>

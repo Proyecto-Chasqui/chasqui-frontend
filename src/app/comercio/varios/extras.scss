@@ -1,0 +1,133 @@
+.notificcion-entrante {
+	background: red;
+	width: 1em;
+	height: 1em;
+	border-radius: 50%;
+	margin-top: .7em;
+	box-shadow: 0px 2px 2px rgba(255, 255, 255, .3);
+	span {
+		font-size: .7em;
+	}
+}
+
+.hf-chasqui {
+	//solo para pruebas
+	min-height: 560px;
+}
+
+
+.btn-chango {
+	text-align: center;
+	background: #efeae6;
+	color: #000 !important;
+	text-shadow: 0px 1px 2px rgba(0, 0, 0, .5);
+	padding-bottom: .5em;
+}
+
+.changuito {
+	width: 50%;
+}
+
+.changuito-sm {
+	width: 2.5em;
+}
+
+.medallas {
+	margin: 1.3em !important;
+}
+
+.pchasqui {
+	text-align: justify;
+}
+
+.wrapper {
+	margin: 4em auto;
+	max-width: 1024px;
+	width: 100%;
+}
+
+.height-min {
+	height: 100%;
+	min-height: 60vh;
+}
+
+.width-total {
+	width: 100%;
+}
+
+.img-destacados {
+	width: 30%;
+}
+
+.img-productor {
+	max-width: 40%;
+	background: #bdcbcd !important;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, .5);
+}
+
+.cont-destacados {
+	width: 100%;
+}
+
+
+/* .footer{
+	background: linear-gradient(#F7F7F7,#D7D7D7) !important;
+	color: #fff !important;
+	text-shadow: 0px 1px 2px rgba(0, 0, 0, .5);
+	text-align: right;
+	.wrapper{
+		padding: 0;
+		margin: 0;
+		img{
+			width: 5%;
+		}
+		h3{
+			font-size: 1em;
+		}
+	}
+} */
+
+.chasqui {
+
+	padding: 1em 0;
+	text-shadow: 0px 1px 2px rgba(0, 0, 0, .5);
+
+	font-family: Andale Mono;
+}
+
+.nav-header.nav-header-sticky {
+	position: fixed;
+	width: 100%;
+	z-index: 900;
+}
+
+div.ch-content {
+	width: 80%;
+	margin: 0px auto;
+	padding-top: 11%;
+}
+
+div.ch-content-full {
+	margin: 0px auto;
+	padding-top: 11%;
+}
+
+md-toast.md-center {
+	left: 50%;
+	transform: translate3d(-50%, 0, 0);
+	position: fixed;
+}
+
+.chq-destacado{
+	background-color: gray;
+	opacity: .2;
+}
+
+/*
+md-dialog {
+  position: fixed;
+    top: 40%;
+    left: 50%;
+    z-index: 1050;
+    margin-left: -10%;
+}*/

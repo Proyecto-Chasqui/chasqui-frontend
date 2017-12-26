@@ -1,0 +1,58 @@
+<md-dialog style="width:50%; margin-top: 10rem;">
+    <md-toolbar>
+        <div class="md-toolbar-tools chq-color-toolbar">
+            <h2> {{ctrl.producto.nombreProducto}} </h2>
+            <span flex></span>
+            <div ng-click="ctrl.cerrariDalogo()">
+                <i style="font-size: 36px;" class="material-icons">close</i>
+            </div>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div layout="row" layout-align="space-between center">
+            <div flex>
+                <img ng-src="{{ctrl.urlBase}}{{ctrl.producto.imagenPrincipal}}" style="max-height:200px;padding: 10px;">
+            </div>
+            <md-card flex="50">
+                <md-card-content>
+                    <div layout="column">
+                        <div class="md-subhead">
+                            {{ctrl.producto.nombreFabricante}}
+                        </div>
+                        <div class="md-subhead">
+                            <div ng-bind-html="ctrl.producto.descripcion">
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="space-around center">
+                        <div>
+                            <h1>$ {{ctrl.producto.precioParteEntera}} <sup>{{ctrl.mostrarDecimales(ctrl.producto.precioParteDecimal)}}</sup></h1>
+                        </div>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </div>
+        <md-divider md-inset></md-divider>
+        <md-card>
+            <div layout="row">
+                <div ng-repeat="imagen in ctrl.imagenes" class="image-mini-preview">
+                    <img ng-src="{{ctrl.urlBase}}{{imagen.path}}" style="height:100px;">
+                </div>
+            </div>
+        </md-card>
+    </md-dialog-content>
+</md-dialog>
+<style type="text/css">
+.image-preview {
+    padding: 15px 15px 15px 15px;
+}
+
+.image-mini-preview {
+    padding: 15px 15px 15px 15px;
+}
+
+div.image-mini-preview:hover {
+    border: 1px solid #777;
+}
+
+</style>

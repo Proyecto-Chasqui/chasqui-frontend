@@ -1,0 +1,100 @@
+
+
+    <div ng-controller="MapGeocoderController" style="visibility: hidden"  >  	
+    	<div class="md-dialog-container" id="myMap" >
+      		<md-dialog layout-padding>
+      			<md-toolbar class="md-primary" style="min-height:30px" layout="row" layout-align="center center" ng-show="mostrarBotonesEnMapa()">Por favor, confirme si la ubicacion es correcta</md-toolbar>
+      			<md-toolbar class="md-primary" style="min-height:30px" layout="row" layout-align="center center" ng-show="mostrarBotonesMarcaManual()"> Coloque la marca en su domicilio</md-toolbar>
+                <!--   Area de se dibuja el mapa  -->
+      		 	<md-dialog-content>
+        				<leaflet id="mapaDirecciones" width="850px" height="350px"></leaflet>
+        		</md-dialog-content>
+        		
+                <!--    Area de Botones segun el tipo de accion requerida -->
+                
+                <!-- 	Botones para la accion "Buscar" en el mapa	      -->                
+   				<md-dialog-actions ng-show="mostrarBotonesEnMapa()" layout="row" layout-align="space-between stretch">
+					<div layout="row">
+						<md-button  ng-click="direccionCorrecta()" class="md-raised md-primary">
+							<md-icon md-font-set="material-icons"> check_circle </md-icon>
+       						Es Correcta
+      					</md-button>      				
+      					<md-button ng-click="direccionIncorrecta()" class="md-raised md-primary ">
+      						<md-icon md-font-set="material-icons"> highlight_off</md-icon>
+       						Es Incorrecta
+      					</md-button>
+					</div>
+          			<md-button ng-click="toggleRight()" class="md-raised">
+          				<md-icon md-font-set="material-icons"> help_outline</md-icon>
+            			Ayuda
+          			</md-button>      				
+    			</md-dialog-actions>
+    			
+    			<!-- 	Botones para la accion "Manual" en el mapa	      -->    			
+    			<md-dialog-actions ng-show="mostrarBotonesMarcaManual()" layout="row"  layout-align="space-between stretch" >
+    				<div layout="row" >
+      					<md-button  ng-click="direccionCorrecta()" class="md-raised md-primary">
+      						<md-icon md-font-set="material-icons"> check_circle </md-icon>
+       						Aceptar
+      					</md-button>      				
+      					<md-button  ng-click="direccionIncorrecta()" class="md-raised md-primary">
+      					<md-icon md-font-set="material-icons"> highlight_off</md-icon>
+       						Cancelar
+      					</md-button>
+      				</div>
+      				<md-button ng-click="toggleRight()" class="md-raised">
+      					<md-icon md-font-set="material-icons"> help_outline</md-icon>
+            			Ayuda
+          			</md-button> 
+      			</md-dialog-actions>
+      			
+				<!--   Area de declaración para el menu desplegable -->
+      			<div>
+ 					<section layout="row" flex>
+    					<md-sidenav class="md-sidenav-right" md-component-id="right" md-disable-backdrop md-whiteframe="4">
+    					
+					      	<md-toolbar style="min-height:30px">
+					        		<md-truncate style="position: absolute; right: 45%;">Ayuda</md-truncate>
+					      	</md-toolbar>
+					      	
+							<!--  Ayuda para las acciones "Manuales" -->
+					      	<md-content layout-margin ng-show="mostrarBotonesMarcaManual()">
+					      	
+					        	<p>
+					          		<div layout="row" ><md-icon md-font-set="material-icons"> mouse </md-icon> Haga click sobre el mapa para marcar la posicion. </div>
+					          		<div layout="row" ><md-icon md-font-set="material-icons"> mouse </md-icon> Puede arrastrar el marcador para una mejor precision. </div>
+					          		<div layout="row"><md-icon md-font-set="material-icons"> mouse </md-icon> Usando la rueda del mouse controla el zoom. </div>
+					          		<div layout="row" ><md-icon md-font-set="material-icons"> info </md-icon> Si el mapa no es visible, puede deberse a problemas con la conexion o una baja velocidad en la misma</div>
+					        		<div class="menu" align="center"><font size="5">Referencias</font> </div>
+					          		<div><img src="assets/images/map-marker-40-predet.png"> Domicilio Predeterminado </div>
+					          		<div><img src="assets/images/map-marker-40-alter.png"> Domicilio Alternativo</div>
+					          		<div><img src="assets/images/map-marker-40-manual.png"> Marca manual</div>
+					        	</p>
+					        	
+					      	</md-content>
+					      	<md-content layout-margin ng-show="mostrarBotonesEnMapa()">
+					      		
+								<!-- Area para la ayuda de las acciones Automaticas -->
+					        	<p>					          		
+					          		<div layout="row"><md-icon md-font-set="material-icons"> mouse </md-icon> Usando la rueda del mouse controla el zoom. </div>
+					          		<div layout="row" ><md-icon md-font-set="material-icons"> location_on </md-icon> Haga click sobre un marcador para ver los detalles.</div>
+					          		<div layout="row" ><md-icon md-font-set="material-icons"> info </md-icon> Si la posicion no es correcta, puede marcarla manualmente usando la opcion "Marcar" en el formulario</div>
+					          		<div layout="row" ><md-icon md-font-set="material-icons"> info </md-icon> Si el mapa no es visible, puede deberse a problemas con la conexion o una baja velocidad en la misma</div>
+					        		<div class="menu" align="center"><font size="5">Referencias</font> </div>
+					          		<div><img src="assets/images/map-marker-40-predet.png"> Domicilio Predeterminado </div>
+					          		<div><img src="assets/images/map-marker-40-alter.png"> Domicilio Alternativo</div>
+					        	</p>
+					        	
+					      	</md-content>
+					      	<div align="center">
+								<md-button ng-click="toggleRight()" class="md-raised">
+					         	 	Cerrar
+					       	 	</md-button>
+					      	</div>
+				    	</md-sidenav>
+  					</section>
+  				</div>
+  				
+      		</md-dialog>      		
+       </div>
+     </div>

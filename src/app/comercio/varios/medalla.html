@@ -1,0 +1,49 @@
+<md-content>
+	<div layout="row" layout-wrap layout-align="space-around center" ng-show="! medallaCtrl.isVistaUnica">
+		<div flex="25" ng-repeat="item in medallaCtrl.medallas">
+			<md-card>
+				<md-card-header>
+					<md-card-avatar>
+						<!-- 
+	          <ng-md-icon icon="info_outline"   size="48"></ng-md-icon> -->
+						<img ng-src="{{medallaCtrl.urlBase}}{{item.pathImagen}}">
+					</md-card-avatar>
+					<md-card-header-text>
+						<span class="md-title">{{item.nombre}}</span>
+						<!-- 
+	            <span class="md-subhead">subhead</span> -->
+					</md-card-header-text>
+				</md-card-header>
+				<div ng-bind-html="item.descripcion"></div>
+				<md-card-actions layout="row" layout-align="end center">
+					<md-button>ver productos</md-button>
+				</md-card-actions>
+			</md-card>
+		</div>
+	</div>
+	<div layout="row" layout-align="center center" ng-show="medallaCtrl.isVistaUnica">
+		<div flex="25">
+			<!-- blanco -->
+		</div>
+		<div flex="50">
+			<md-card>
+				<md-card-header>
+					<md-card-avatar>
+						<ng-md-icon icon="info_outline" size="48"></ng-md-icon>
+					</md-card-avatar>
+					<md-card-header-text>
+						<span class="md-title">{{medallaCtrl.medalla.nombre}}</span>
+						<span class="md-subhead">taria bueno una descrip corta</span>
+					</md-card-header-text>
+				</md-card-header>
+				{{medallaCtrl.medalla.descripcion}}
+				<md-card-actions layout="row" layout-align="end center">
+					<md-button>ver productos</md-button>
+				</md-card-actions>
+			</md-card>
+		</div>
+		<div flex="25">
+			<!-- blanco -->
+		</div>
+	</div>
+</md-content>

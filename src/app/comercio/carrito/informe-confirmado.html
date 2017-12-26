@@ -1,0 +1,46 @@
+<div ng-controller="ListaPedidosController">
+    <div layout="column" style="width: 100%; height: auto;">
+
+        <!-- <div ng-repeat="item in pedidosPorCategoria" class="filtroCategoria"> -->
+        <div class="item">
+            <h2>{{pedidosPorCategoria.estado}}</h2>
+            <p>Su pedido del día <span>{{pedidosPorCategoria.fechaCreacion}}</span> con un monto total de <span>{{pedidosPorCategoria.montoActual | currency}}</span> ha sido <span>{{pedidosPorCategoria.estado}}</span> exitosamente.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .filtroCategoria{
+        width: 98%;
+        box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+        margin: 0.4rem auto;
+        border-radius: 10px;
+        margin-bottom: 2.4rem;
+    }
+    .filtroCategoria .item{
+        margin: 0.2rem;
+        border-radius: 10px;
+        border: 3px solid gray;
+        padding: 0 1.5rem;
+        color: gray;
+    }
+
+    .filtroCategoria .item > h2{
+        text-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+    }
+
+    .filtroCategoria .item > h2:hover{
+        color: #43a047;
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, .9);
+    }
+
+    .filtroCategoria .item  span{
+        font-weight: bold;
+    }
+
+    .filtroCategoria .item  span:hover{
+        color: #462342;
+        text-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+    }
+    }
+</style>

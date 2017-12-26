@@ -1,0 +1,18 @@
+{
+	"QUITO_PRODUCTO": "Producto eliminado",
+	"QUITAR_PRODUCTO_TIT": "Sacar producto del changuito",
+	"QUITAR_PRODUCTO_MSG": "¿Está seguro de querer sacar el producto del changuito?",
+	"PEDIDO_CONFIRMADO_MSG": "Pedido confirmado",
+	"ELIGE_DOMICILIO": "Elige un domicilio",
+	"IR_CATALOGO": "Ir a catálogo",
+	"SEGUIR_AGREGENDO": "Podés seguir agregando productos al changuito",
+	"PRODUCTOS_CARRO_TIT": "Productos en el changuito",
+	"PEDIDO_CREADO": "Pedido creado",
+	"SIN_PEDIDO_MSG_1": "Aún no tenés pedidos, podés empezar a agregar productos a tu pedido personal",
+	"SIN_PEDIDO_MSG_2": " desde el catálogo ",
+	"SIN_PEDIDO_MSG_3": "  , o armar tu ",
+	"SIN_PEDIDO_MSG_4": "Grupo de compras",
+	"CONFIRMAR_CANCELAR_PEDIDO" : "¿Está seguro que desea cancelar su pedido?",
+	"ADVERTENCIA" : "Advertencia",
+	"IR_PERFIL" : "Ir a perfil"
+}

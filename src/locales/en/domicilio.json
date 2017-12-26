@@ -1,0 +1,14 @@
+{
+    "ALIAS_DOMICILIO": "Address nickname",
+    "CAMPO_OBLIGATORIO": "Required field",
+    "CALLE_DIRECCION": "Street",
+    "ALTURA_DIRECCION": "Number",
+    "DEPARTAMENTO_DIRECCION": "Flat",
+    "ENTRE_CALLES_DIRECCION": "Between streets:",
+    "CALLE_1_DOMICILIO": "Street 1",
+    "CALLE_2_DOMICILIO": "Street 2",
+    "LOCALIDAD_DOMICILIO": "City",
+    "CODIGO_POSTAL_DOMICILIO": "Postal code",
+    "COMENTARIOS_DOMICILIO": "Comments:",
+    "PREDETERMINADO_DOMICILIO": "Default address"
+}

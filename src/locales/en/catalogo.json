@@ -1,0 +1,20 @@
+{
+	"BUSCAR": "Buscar",
+	"BORRAR_FILTROS": "Limpiar Filtros",
+	"SELLO_PRODUCTOR": "Sello de productor",
+	"CAMBIAR_CHANGO": "Cambiar de changuito",
+	"TOTAL": "Total",
+	"PROD_EN_PEDIDO": "Productos en el pedido ",
+	"SIN_PROD_PEDIDO": "No hay productos en el pedido",
+	"BUSCAR_POR": "Buscar por",
+	"CATEGORIA": "Categoría",
+	"PRODUCTOR": "Productor",
+	"SELLO": "Sello de producto",
+	"PROD_DESTACADOS": "Productos destacados",
+	"INVITARMOS_INGRESAR": "Te invitamos a ingresar",
+	"AGREAR_EN_PEDIDO_EXISTENTE": "El producto se agregará el pedido existente",
+	"PRODUCTO_AGREGADO": "Producto agregado",
+	"SIN_PRODUCTOS": "Resultado de la búsqueda sin productos",
+	"AGREGAR_BTN": "Agregar",
+	"AGREGAR_BTN_TT": "Agregar al changuito"
+}

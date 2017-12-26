@@ -1,0 +1,147 @@
+<form name="usuarioForm" layout="column" ng-cloak class="md-inline-form">
+    <md-card>
+        <md-card-content>
+
+            <md-content layout-padding>
+                <div layout-gt-sm="row" ng-repeat="fieldRow in fieldRows">
+                    <md-input-container ng-repeat="field in fieldRow" class="md-block" flex-gt-sm ng-if="!hideField(field.name)">
+                        <label translate>{{field.translate}}</label>
+                        <input id="{{field.id}}"
+                               type="{{field.type}}"
+                               name="{{field.model}}"
+                               ng-model="profile[field.model]" 
+                               ng-readonly="disableField(field.name)"
+                               ng-required="field.required()" 
+                               ng-minlength="field.minLength"
+                               ng-maxlength="field.maxLength"
+                               ng-change="{{field.onChange(usuarioForm)}}">
+                        <div ng-messages="usuarioForm[field.model].$error" ng-messages-multiple>
+                            <div ng-repeat="error in field.errors">
+                                 <div ng-message="{{error.name}}" translate="{{error.label}}"></div>
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </md-content>
+
+            <md-content>
+                <label>Elegir foto de perfil</label>
+                <div>
+                    <img id="avatarSelected" ng-src="{{avatarSelected.src}}">
+                </div>
+
+                <label>Opciones</label>
+                <div id="avatarSelection">
+                    <md-button ng-repeat="pred_avatar in preds_avatars" 
+                               ng-click="selectAvatar(pred_avatar)"
+                               ng-disabled="disableAvatarSelection()"
+                               ng-mouseleave="desPreSelectAvatar(pred_avatar.id)"
+                               ng-mouseover="preSelectAvatar(pred_avatar.id)"
+                               style="height: 80px; 
+                                    width: 80px;
+                                    padding: 0;
+                                    margin: 0;
+                                    margin-right: 1.5rem;
+                                    "
+                               class="avatarSelection"
+                               >
+                        <img 
+                             id="{{pred_avatar.id}}" ng-src="{{pred_avatar.src}}"
+                             class="avatarSelection"
+                             style="height: 80px; 
+                                    width: 80px;
+                                    padding: 0;
+                                    margin: 0;
+                                    margin-right: 1.5rem;
+                                    ">
+                    </md-button>
+                    <!--div>
+                        <input type="file" oninput="angular.element(this).scope().cargarAvatar(this)"
+                           accept="image/*"
+                           style="position: absolute;
+                                  width: 80px;
+                                  height: 80px;
+                                  min-width: 80px;
+                                  min-height: 80px;
+                                  margin: 0px;
+                                  rigth: 0px;
+                                  opacity:0;
+                                  z-index: 100"
+                           ng-disabled="!(isAlta || isModoEdit)">
+                        <img ng-mouseover="preSelectAvatar(pred_avatar.id)"
+                             ng-mouseleave="desPreSelectAvatar(pred_avatar.id)"
+                             class="avatarSelection"
+                             style="height: 80px; 
+                                    width: 80px;
+                                    padding: 0;
+                                    margin: 0;
+                                    margin-right: 1.5rem;
+                                    ">
+                    </div-->
+
+                </div>
+            </md-content>
+
+            <!--
+
+
+            <div id="load_avatar" style="position: relative">
+                <label>Cargar foto de profile</label>
+                <div>
+                    <input type="file" oninput="angular.element(this).scope().cargarAvatar(this)"
+                           accept="image/*"
+                           style="position: absolute;
+                                  width: 64px;
+                                  height: 32px;
+                                  min-width: 32px;
+                                  min-height: 32px;
+                                  margin: 0px;
+                                  rigth: 0px;
+                                  opacity:0;
+                                  z-index: 100"
+                           ng-disabled="!(isAlta || isModoEdit)">
+
+
+                    <md-button class="md-secondary" 
+                               style="  position: absolute;
+                                        width: 64px;
+                                        height: 32px;
+                                        min-width: 32px;
+                                        min-height: 32px;
+                                        margin: 0px;
+                                        rigth: 0px;" >
+                        <md-icon style="color: grey" > photo_camera </md-icon> 
+                    </md-button>
+                </div>
+            </div> -->
+        </md-card-content>
+
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button class="btn-confirmar" ng-click="labelButtonSave(profile)" ng-show="labelButtonLabel && labelButtonShow(profile)">
+                <label translate="{{labelButtonLabel}}"></label>
+            </md-button>
+            
+            <md-button class="btn-confirmar" ng-click="buttonCancelAction(profile)" ng-show="buttonCancelLabel && buttonCancelShow(profile)">
+                <md-icon style="color:white"> undo </md-icon>
+                <md-tooltip md-direction="left" >
+                    <label translate="{{buttonCancelLabel}}"></label>
+                </md-tooltip>
+            </md-button>
+
+            <md-button class="btn-confirmar" ng-click="buttonNextSave(profile)" ng-show="buttonNextLabel && buttonNextShow(profile)">
+                <md-icon style="color:white"> done </md-icon>
+                <md-tooltip md-direction="left" >
+                    <label translate="{{buttonNextLabel}}"></label>
+                </md-tooltip>
+            </md-button>
+            
+            <md-button ng-click="buttonEditAction(profile)"  ng-show="buttonEditLabel && buttonEditShow(profile)">
+                <md-icon> mode_edit </md-icon>
+                <md-tooltip md-direction="left" >
+                    <label translate="{{buttonEditLabel}}"></label>
+                </md-tooltip>
+            </md-button>
+
+        </md-card-actions>
+    </md-card>
+</form>

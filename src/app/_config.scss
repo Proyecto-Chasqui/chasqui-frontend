@@ -1,0 +1,42 @@
+// Colors
+
+$color1: #007550;
+$color2: #4d4b4c;
+$color3: #898989;
+$color4: #dadada;
+$color5: #f2f2f2;
+$color6: #ffffff;
+
+$background-color: #ededed;
+
+// Logo
+
+//$logo: '../assets/images/logo-default.png'; // Max size 235x67
+//$logo-small: '../assets/images/logo-default.png'; // Max size 65x49
+
+// Fonts
+
+$icon-font-outline: 'streamline';
+
+// Header
+
+$header-height-small: 50px;
+$header-height: 68px;
+
+// Tabs
+$tab-fade-time: 350ms;
+
+// Breakpoints
+
+$mobile-breakpoint: 321px;
+$tablet-breakpoint: 641px;
+$desktop-breakpoint: 1260px;
+
+// Susy configuration
+$susy: (
+  columns: 24,
+  gutters: 1/2,
+  math: fluid,
+  output: float,
+  gutter-position: inside,
+);

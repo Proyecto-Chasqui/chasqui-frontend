@@ -1,0 +1,32 @@
+<!-- 04/07/17 cambio el sidenav para dejerlo siempre visible -->
+<div ng-controller="ContextoPedidoController as contextoPedidoCtrl">
+  <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop md-whiteframe="4" style="top:15%;">
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">{{contextoPedidoCtrl.checkAlias()}}</h1>
+    </md-toolbar>
+    <div ng-show="contextoPedidoCtrl.pedidoSelected != undefined && contextoPedidoCtrl.pedidoSelected.productosResponse.length > 0">
+      <md-list class="md-dense" flex>
+        <md-subheader class="md-no-sticky"> {{'PROD_EN_PEDIDO' | translate}} {{contextoPedidoCtrl.checkAlias()}}
+        </md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="item in contextoPedidoCtrl.pedidoSelected.productosResponse">
+          <img ng-src="{{contextoPedidoCtrl.urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
+          <div class="md-list-item-text" layout="column">
+            <h4>{{ item.nombre }}</h4>
+            <p>{{item.cantidad}} X $ {{ item.precio }} = ${{item.cantidad * item.precio }} </p>
+          </div>
+        </md-list-item>
+        <md-divider></md-divider>
+      </md-list>
+      <div>
+        {{'TOTAL' | translate}}
+        <strong> $ {{contextoPedidoCtrl.pedidoSelected.montoActual}}</strong>
+      </div>
+    </div>
+    <div ng-show="contextoPedidoCtrl.pedidoSelected == undefined ">
+      <p> {{'SIN_PROD_PEDIDO' | translate}}</p>
+    </div>
+    <md-button ng-click="catalogoCtrl.toggleLeft()" class="md-accent">
+      {{'CERRAR' | translate}}
+    </md-button>
+  </md-sidenav>
+</div>

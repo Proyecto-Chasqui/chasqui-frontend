@@ -1,0 +1,25 @@
+<div class="ch-content">
+	<h1>{{demoCtrl.texto}}</h1>
+	<md-card>
+		<md-card-title>
+			ejemplo directiva
+		</md-card-title>
+		<demo-directive numero="1">
+		</demo-directive>
+	</md-card>
+	<md-card>
+		<md-card-title>
+			i18N - https://angular-translate.github.io/
+		</md-card-title>
+		<div>En locales estan los textos divididos por idioma , se puede agrupar por archivos. Cada arhivo definiado hay que AGREGARLO en index.config (VAR files) </div>
+		<div>Para probar cambiar la configuración del navegador</div>
+		<div style="border-style: outset">
+			<p translate> TRANS_EXA </p>
+		</div>
+		<div style="border-style: outset">
+			desde un controller
+			<p>{{demoCtrl.textoTraducido}}</p>
+			<p>{{demoCtrl.textoTraducidoService}}</p>
+		</div>
+	</md-card>
+</div>

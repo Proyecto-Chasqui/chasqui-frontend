@@ -1,0 +1,27 @@
+<md-card ng-controller="ContextoPedidoController">
+  <div ng-show="pedidoSelected != undefined 
+                && pedidoSelected.productosResponse.length > 0
+                && pedidoSelected.estado === 'ABIERTO' ">
+    <md-list class="md-dense" flex>
+      <md-subheader class="md-no-sticky">{{'PROD_EN_PEDIDO' | translate}}  {{pedidoSelected.aliasGrupo}}
+      </md-subheader>
+      <md-subheader>
+         {{'TOTAL' | translate}}
+          <strong> $ {{pedidoSelected.montoActual}}</strong>
+      </md-subheader>
+      <md-list-item class="md-3-line" ng-repeat="item in pedidoSelected.productosResponse">
+        <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
+        <div class="md-list-item-text" layout="column">
+          <h4>{{ item.nombre }}</h4>
+          <p>{{item.cantidad}} X $ {{ item.precio }} = ${{item.cantidad * item.precio }} </p>
+        </div>
+      </md-list-item>
+      <md-divider></md-divider>
+    </md-list>
+  </div>
+  <md-subheader ng-show="pedidoSelected == undefined 
+        || pedidoSelected.productosResponse.length == 0
+        || pedidoSelected.estado === 'CANCELADO' ">
+    <p> {{'SIN_PROD_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}} </p>
+  </md-subheader>
+</md-card>

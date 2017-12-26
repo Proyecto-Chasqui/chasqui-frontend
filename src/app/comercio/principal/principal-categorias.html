@@ -1,0 +1,8 @@
+<!-- Estension de principal. Muestra las categorias disponibles -->
+<div layout="column" layout-wrap>
+	<md-card ng-repeat="categoria in principalCtrl.categorias">
+		<md-card-content layout="row">
+			<span class="md-headline"> {{categoria.nombre}} </span>
+		</md-card-content>
+	</md-card>
+</div>

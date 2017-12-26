@@ -1,0 +1,58 @@
+<!-- incluido en catalogo.html -->
+<div layout="column">
+	<md-card>
+		<md-card-title>
+			</br> {{'BUSCAR_POR' | translate}}</br>
+		</md-card-title>
+		<md-card-content>
+			<div>
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>{{'CATEGORIA' | translate}}</label>
+					<md-select  ng-model="catalogoCtrl.categoriaSelect">
+						<md-option ng-repeat="categoria in catalogoCtrl.categorias" value="{{categoria.idCategoria}}"> {{categoria.nombre}} </md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+			<div flex>
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>{{'PRODUCTOR' | translate}}</label>
+					<md-select ng-model="catalogoCtrl.productorSelect">
+						<md-option ng-repeat="productor in catalogoCtrl.productores" value="{{productor.idProductor}}"> {{productor.nombreProductor}} </md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+			<div flex>
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>{{'SELLO' | translate}}</label>
+					<md-select ng-model="catalogoCtrl.medallaSelect">
+						<md-option ng-repeat="medalla in catalogoCtrl.medallas" value="{{medalla.idMedalla}}">
+							<div layout="row" layout-align="start center">
+								<img ng-src="{{catalogoCtrl.urlBase}}{{medalla.pathImagen}}" class="md-avatar" width="40" height="40"> <span style="padding-left: 1rem;">{{medalla.id}} {{medalla.nombre}}</span>
+							</div>
+						</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+			<div flex>
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>{{'SELLO_PRODUCTOR' | translate}}</label>
+					<md-select ng-model="catalogoCtrl.medallaProductorSelect">
+						<md-option ng-repeat="medallaProductor in catalogoCtrl.medallasProductor" value="{{medallaProductor.idMedalla}}">
+							<div layout="row" layout-align="start center">
+								<img ng-src="{{catalogoCtrl.urlBase}}{{medallaProductor.pathImagen}}" class="md-avatar" width="40" height="40"> <span style="padding-left: 1rem;">{{medallaProductor.id}} {{medallaProductor.nombre}}</span>
+							</div>
+						</md-option>
+					</md-select>
+				</md-input-container>
+			</div>
+			<div>                    
+			<md-button ng-click="catalogoCtrl.filtrar()" >
+				{{'BUSCAR' | translate}}
+            </md-button>
+            <md-button ng-click="catalogoCtrl.limpiarFiltros()">
+				{{'BORRAR_FILTROS' | translate}}
+            </md-button>
+            </div>
+		</md-card-content>
+	</md-card>
+</div>
