@@ -1,0 +1,9 @@
+node_modules/
+bower_components/
+src/app/index.constants.js
+dist/
+coverage/
+.sass-cache/
+.idea/
+.tmp/
+/.project
