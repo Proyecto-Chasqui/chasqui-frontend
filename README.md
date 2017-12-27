@@ -34,6 +34,7 @@ $ cd chasqui
 $ npm install
 $ bower install
 ```
+Antes de usarlo, hay que copiar el archivo index.constants.js a "src/app/" y luego configurar los parámetros necesarios para su funcionamiento explicados ahí dentro.
 
 Para usar en entorno de desarrollo se recomienda correrlo con gulp
 ```sh
