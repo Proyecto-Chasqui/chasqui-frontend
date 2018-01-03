@@ -9,9 +9,27 @@
   function ComoComprarController($log, navigation_state, $scope) {
     $log.debug('ComoComprarController ..... ')
     navigation_state.goHowToBuyTab();
+      
+    $scope.instruccionesCards = [
+        {
+            titulo: "Ingresa un catalogo",
+            contenido: "Ingresa a cada catálogo para poder ver sus productos."
+        },{
+            titulo: "Elegí tu forma de consumo",
+            contenido: "Chasqui te permite comprar de forma colectiva o individual."
+        },{
+            titulo: "Arma tu pedido", 
+            contenido: "Elegí tus productos y completa tu compra."
+        },{
+            titulo: "Coordinar con el vendedor",
+            contenido: "Coordina la fecha y lugar de entrega o retiro."
+        }
+    ];
+      
     $scope.instrucciones = [
         {
-            titulo: "Registración",
+            titulo: "¿Cómo me registro?",
+            id: "registracion",
             pasos: [{
                         principal: "Haga click en [INGRESA].",
                         subPasos:[]
@@ -33,7 +51,8 @@
                      }
                     ]
         }, {
-            titulo: "Agregar domicilio",
+            titulo: "¿Cómo agrego un domicilio?",
+            id: "agregarDomicilio",
             pasos: [{
                         principal: "Vaya a Perfil.",
                         subPasos:[]
@@ -52,7 +71,8 @@
                      }
                     ]
         }, {
-            titulo: "Realizar compra individual",
+            titulo: "¿Cómo realizo una compra individual?",
+            id: "realizarCompraIndividual",
             pasos: [{
                         principal: "Vaya a Catálogo.",
                         subPasos:[]
@@ -80,7 +100,8 @@
                      }
                     ]
         }, {
-            titulo: "Realizar compra colectiva",
+            titulo: "¿Cómo realizo una compra colectiva?",
+            id: "realizarCompraColectiva",
             pasos: [{
                         principal: "Cree un grupo:",
                         subPasos:[
@@ -118,6 +139,14 @@
     ];
       
       
+    $scope.idFrom = function(instruccion){
+        return "#instructionContent_" + instruccion.id;
+    }
+    
+    
+    $scope.idFor = function(instruccion){
+        return "instructionContent_" + instruccion.id;
+    }
     
   }
 })();
