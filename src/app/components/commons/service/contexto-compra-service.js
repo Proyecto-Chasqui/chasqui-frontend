@@ -16,7 +16,7 @@
 		productoService, gccService, $q, $timeout, $rootScope,moment,CTE_REST, 
         usuario_dao, orders_dao, groups_dao, order_context) {
 		var vm = this;
-		//alert("contextoCompraService")
+		
 		vm.ls = $localStorage;
         
         
