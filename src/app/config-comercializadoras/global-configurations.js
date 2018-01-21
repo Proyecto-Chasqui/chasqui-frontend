@@ -2,11 +2,11 @@
     'use strict';
     
     angular.module('chasqui').factory('globalConfigurations', 
-                    ['puenteDelSur', 'mercadoTerritorial', 
-            function( puenteDelSur,   mercadoTerritorial){
+                    ['puenteDelSur', 'mercadoTerritorial', 'CTE_REST',
+            function( puenteDelSur,   mercadoTerritorial,   CTE_REST){
                 
                 var configurations = {};
-                configurations["2"] = puenteDelSur;
+                configurations[CTE_REST.idVendedor.toString()] = puenteDelSur;
                 configurations["3"] = mercadoTerritorial;
                 
                 return configurations;
