@@ -65,13 +65,13 @@
 
 		vm.verProducto = function(productoParam) {
 			$mdDialog.show({
-					controller: 'ProductoDialogController as ctrl',
+					controller: 'ProductoDialogController',
 					templateUrl: 'app/comercio/catalogo/producto.dialog.html',
 					//     parent: angular.element(document.body),
 					//      targetEvent: ev,
 					clickOutsideToClose: true,
 					fullscreen: false, // Only for -xs, -sm breakpoints.
-					locals: { parm: productoParam }
+					locals: { productSelected: productoParam }
 				})
 				.then(function(answer) {
 					//  vm.mensaje = 'You said the information was "' + answer + '".';
