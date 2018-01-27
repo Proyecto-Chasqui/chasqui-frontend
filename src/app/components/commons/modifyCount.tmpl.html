@@ -1,0 +1,44 @@
+<md-dialog aria-label="Mango (Fruit)">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancelAction()">
+            <i class="material-icons" aria-label="Cancelar">close</i>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <div class="content" >
+            <div style="text-align: center;">
+                <i class="material-icons" ng-click="countPlus(-2)">exposure_neg_2</i>
+                <i class="material-icons" ng-click="countPlus(-1)">exposure_neg_1</i>
+                	
+                <md-input-container style="font-size: 18;">
+                    <input ng-model="count" ng-model-options="{ getterSetter: true }">
+                </md-input-container>
+                
+                <i class="material-icons" ng-click="countPlus(1)">exposure_plus_1</i>
+                <i class="material-icons" ng-click="countPlus(2)">exposure_plus_2</i>
+            </div>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+        <md-button ng-click="okAction(count())" class="md-raised md-primary">
+            {{okButton}}
+        </md-button>
+        <md-button ng-click="cancelAction()" class="md-primary">
+            {{cancelButton}}
+        </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
+
+
+
+
+<!--md-dialog ng-class="dialog.css">
+    
