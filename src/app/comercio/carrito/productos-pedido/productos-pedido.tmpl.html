@@ -1,23 +1,30 @@
-<md-card ng-repeat="item in pedido.productosResponse" style="width: 100%" ng-cloak>
+<md-card ng-repeat="variety in pedido.productosResponse" style="width: 100%">
     <div layout="row" layout-align="space-between center">
+        <md-button ng-click="modifyVarietyCount(variety)">
+            <div layout="row" layout-align="space-between center">
+                <div>
+                    <img ng-src="{{urlBase}}{{variety.imagen}}" style="height: 100px;">
+                </div>            
+                <div layout="column" layout-align="end end" ng-cloak>
+                    <span>{{ variety.nombre }}</span>
+                    <span class="md-subhead">
+                        <p>
+                            {{variety.cantidad}} x ${{ variety.precio}} = <strong>${{variety.cantidad * variety.precio}}</strong>
+                        </p>
+                    </span>
+                </div>
+            </div>
+            <md-tooltip md-direction="bottom">
+                Modificar cantidad
+            </md-tooltip>
+        </md-button>
         <div>
-            <img ng-src="{{urlBase}}{{item.imagen}}" style="height: 100px;">
-        </div>
-        <div layout="row" layout-align="end center">
-            <div layout="column" layout-align="end end">
-                <span>{{ item.nombre }}</span>
-                <span class="md-subhead">
-                $ {{ item.precio }} x  {{ item.cantidad }} </span>
-                <strong>$ {{ item.precio * item.cantidad }}</strong>
-            </div>
-            <div>
-                <md-button ng-click="eliminar(item)">
-                    <md-icon style="color: #f00;"> remove_circle_outline</md-icon>
-                    <md-tooltip md-direction="left">
-                        <label translate="QUITAR_PRODUCTO_TIT">
-                    </md-tooltip>
-                </md-button>
-            </div>
+            <md-button ng-click="eliminar(variety)">
+                <md-icon style="color: #f00;"> remove_circle_outline</md-icon>
+                <md-tooltip md-direction="bottom">
+                    <label translate="QUITAR_PRODUCTO_TIT">
+                </md-tooltip>
+            </md-button>
         </div>
     </div>
 </md-card>

@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function ProductosPedidoController($log, $state, $scope, CTE_REST, ToastCommons, dialogCommons, productoService, 
-                                        contextoCompraService,us) {
+                                        contextoCompraService, us, ModifyVarietyCount) {
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
 		$scope.urlBase = CTE_REST.url_base;
@@ -44,6 +44,10 @@
 
 			productoService.quitarProductoIndividual(params).then(doOk)
 		}
+        
+        $scope.modifyVarietyCount = function(variety){
+          ModifyVarietyCount.modifyDialog(variety);
+      }
 
 		
 	}

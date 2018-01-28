@@ -7,7 +7,7 @@
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
             productoService,ToastCommons, gccService, contextoCompraService,us, promiseService, CTE_REST, 
-            navigation_state) {
+            navigation_state, $rootScope) {
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
@@ -101,6 +101,10 @@
         } 
         $scope.fitrarPorEstadoConfirmado();
 
+        $rootScope.$on('lista-producto-agrego-producto', function(event) {
+            $log.debug("on lista-producto-agrego-producto");
+            load();
+        });
 
 
 		load();
