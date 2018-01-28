@@ -7,6 +7,9 @@
 
         this.modifyDialog = function(variety){
                         
+            console.log(variety);
+            var varietyName = (variety.nombreProducto === undefined)? variety.nombre : variety.nombreProducto;
+            
             var initialCount = initialCountForVariety(variety);
        
             function doOk(result) {
@@ -24,7 +27,7 @@
 
             //dialogCommons.prompt('Agregar al changuito', '¿Cuántos ' + variety.nombreProducto + ' necesitas?','Cantidad', 'Agregar', 'Cancelar', doOk, doNoOk);
             dialogCommons.modifyVarietyCount({
-                                                title: "¿Cuántos " + variety.nombreProducto + " necesitas?",
+                                                title: "¿Cuántos " + varietyName + " necesitas?",
                                                 okButton: "Agregar al carrito",
                                                 cancelButton: "Cancelar"
                                             },
