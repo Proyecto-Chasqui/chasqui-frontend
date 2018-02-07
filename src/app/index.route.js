@@ -52,7 +52,7 @@
                 controllerAs: 'listaGruposCtrl',
                 auth: true
             })
-            .state('catalog.perfil', {
+            .state('catalog.profile', {
                 url: '/perfil',
                 templateUrl: 'app/comercio/administracion/perfil.html',
                 controller: 'PerfilController',
