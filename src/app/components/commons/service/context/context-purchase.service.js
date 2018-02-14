@@ -12,7 +12,7 @@
 		 */
 	function contextPurchaseService($log, us, StateCommons, $localStorage, $stateParams, 
 		productoService, gccService, $q, $timeout, $rootScope,moment,CTE_REST, 
-        usuario_dao, orders_dao, groups_dao, order_context) {
+        usuario_dao, orders_dao, groups_dao, order_context, getContext) {
 		var vm = this;
 		
 		vm.ls = $localStorage;
@@ -81,23 +81,10 @@
         
         /////////////////////////////////////
         
-        function getContext(contextName, context, cacheIsEmpty, returnFromServer){
-			var defered = $q.defer();
-			var promise = defered.promise;
-
-			if (vencioTiempoChache() || cacheIsEmpty) {
-                $log.debug("NO tiene " + contextName + " en cache");
-                returnFromServer(defered);
-			} else {
-				context().then(defered.resolve);
-			}
-
-			return promise;
-		}
-        
         
 		vm.getGrupos = function() {
             return getContext(
+                vm.ls.lastUpdate,
                 "grupos", 
                 function(){
                     var defered = $q.defer();
@@ -120,6 +107,7 @@
 
 		vm.getPedidos = function() {
             return getContext(
+                vm.ls.lastUpdate, 
                 "pedidos", 
                 function(){
                     var defered = $q.defer();
@@ -337,13 +325,6 @@
 		function getPedidoByGrupo(grupo) {
             return grupo.idPedidoIndividual;
 		}
-
-		function vencioTiempoChache(){
-			return parseInt(moment().diff(vm.ls.lastUpdate))/1000 > CTE_REST.TIEMPO_MAX_CACHE;
-		}
-
-		
-
 
 		////////////////////
 		////////// INIT 
