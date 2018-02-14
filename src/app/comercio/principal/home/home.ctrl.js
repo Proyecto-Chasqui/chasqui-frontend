@@ -6,7 +6,7 @@
 		.controller('HomeController', HomeController);
 
     
-	function HomeController($scope, sellerService, CTE_REST, catalogs_dao, $state, contextoCompraService) {
+	function HomeController($scope, sellerService, CTE_REST, catalogs_dao, $state) {
         
         $scope.catalogs = catalogs_dao.getCatalogs();
         
