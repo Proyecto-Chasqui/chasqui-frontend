@@ -7,7 +7,7 @@
 
 	
 	function CatalogMenuController($scope, $log, $state, StateCommons, CTE_REST, $interval, ToastCommons,
-		perfilService, contextoCompraService,us, usuario_dao, navigation_state, globalConfigurations) {
+		perfilService, contextoCompraService,us, usuario_dao, navigation_state) {
         
 		
 		$scope.urlBase = CTE_REST.url_base;
