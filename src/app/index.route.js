@@ -6,13 +6,8 @@
     .config(routerConfig);
 
   
-  function routerConfig($stateProvider, $urlRouterProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider, CTE_REST) {
     $stateProvider
-        .state('home', {
-            url: '/',
-            templateUrl: 'app/comercio/principal/home/home.tmpl.html',
-            controller: 'HomeController'
-        })
     
         .state('catalog', {
             url: '/:idCatalog',
@@ -166,7 +161,7 @@
       
     ;
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/' + CTE_REST.idVendedor + '/bienvenida');
   }
 
 })();
