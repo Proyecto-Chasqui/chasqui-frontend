@@ -4,7 +4,6 @@
   angular.module('chasqui').service('StateCommons', StateCommons);
 
   function StateCommons($localStorage, $log, us, CTE_REST, usuario_dao) {
-    $log.debug('INIT localstorage', $localStorage);
 
     var vm = this;
     vm.ls = $localStorage;

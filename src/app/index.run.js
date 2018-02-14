@@ -10,9 +10,6 @@
 
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-			$log.debug("is log", usuario_dao.isLogged());
-			$log.debug("devbe ", toState.auth);
-
 			if (us.isUndefinedOrNull(toState.auth))
 				toState.auth = false
 
@@ -23,9 +20,6 @@
 			}
 
 		});
-
-
-		$log.debug('runBlock end');
 	}
 
 })();

@@ -69,7 +69,6 @@ angular.module('chasqui').factory('catalogs_dao',
                 }
             ]
         });
-        console.log("Starting catalogs_dao:", getCatalogs());
     }
                         
     init();
