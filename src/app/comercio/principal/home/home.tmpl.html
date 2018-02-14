@@ -5,7 +5,7 @@
         <md-grid-list md-cols="3"  md-row-height="260px">
             <md-grid-tile md-colspan="1" md-rowspan="1" ng-repeat="catalog in catalogs">
                 <md-card>
-                    <a ui-sref="catalog.landingPage({id: catalog.id})"> 					
+                    <a ng-click="goToCatalog(catalog.id)"> 					
                         <md-card-title> 
                             <md-card-title-text>
                                 <span class="md-headline">{{catalog.nombre}}</span>

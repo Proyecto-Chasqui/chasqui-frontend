@@ -6,7 +6,7 @@
 		.controller('HomeController', HomeController);
 
     
-	function HomeController($scope, sellerService, CTE_REST, catalogs_dao) {
+	function HomeController($scope, sellerService, CTE_REST, catalogs_dao, $state, contextoCompraService) {
         
         $scope.catalogs = catalogs_dao.getCatalogs();
         
@@ -17,6 +17,10 @@
         
         $scope.url = function(path){
             return CTE_REST.url_base + path;
+        }
+        
+        $scope.goToCatalog = function(catalogId){
+            $state.go('catalog.landingPage', {idCatalog: catalogId});
         }
 	}
 })();
