@@ -10,10 +10,9 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($log, us, StateCommons, $localStorage, $stateParams, 
-		productoService, gccService, $q, $timeout, $rootScope,moment,CTE_REST, 
-        usuario_dao, orders_dao, groups_dao, order_context, getContext, 
-        contextOrdersService, contextAgrupationsService, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal) {
+	function contextPurchaseService($log, $localStorage, orders_dao, groups_dao, order_context, 
+                                     contextOrdersService, contextAgrupationsService, 
+                                     idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal) {
         
 		var vm = this;
 		
@@ -30,7 +29,6 @@
         }
         
 		vm.ls.varianteSelected = undefined;
-		vm.ls.lastUpdate = moment();		
 		
         
         /////////////////////////////////////
