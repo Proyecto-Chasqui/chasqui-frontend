@@ -3,19 +3,18 @@
 
 	angular.module('chasqui').service('gccService', gccService);
 
-	function gccService($log, CTE_REST, StateCommons, promiseService, ToastCommons) {
+	function gccService($log, CTE_REST, StateCommons, promiseService, ToastCommons, $stateParams) {
 		var vm = this;
-		var idVend = StateCommons.vendedor().id;
 
 		vm.gruposByusuario = function() {
 			$log.debug(" service gruposByusuario ");
-			return promiseService.doGetPrivate(CTE_REST.gruposByusuario(StateCommons.vendedor().id), {});
+			return promiseService.doGetPrivate(CTE_REST.gruposByusuario($stateParams.idCatalog), {});
 		}
 
 		vm.nuevoGrupo = function(params) {
 			$log.debug(" service gruposByusuario ");
 			//return promiseService.doPost(CTE_REST.gruposByusuario(id),contacts);
-			params.idVendedor = idVend;
+			params.idVendedor = $stateParams.idCatalog;
 			return promiseService.doPost(CTE_REST.nuevoGrupo, params);
 		}
 
@@ -46,7 +45,7 @@
 
 		vm.pedidosByUser = function(doNoOK) {
 			$log.debug(" service pedidosByUser ");
-			return promiseService.doGetPrivate(CTE_REST.pedidosByUser(StateCommons.vendedor().id), {}, doNoOK);
+			return promiseService.doGetPrivate(CTE_REST.pedidosByUser($stateParams.idCatalog), {}, doNoOK);
 		}
 
 		vm.quitarMiembro = function(params) {
@@ -91,21 +90,5 @@
 			return promiseService.doPost(CTE_REST.direccionGrupo(id), direccion);
 		}
 
-		//-------- DESCOMENTADOS Y DESMOCKEADOS EN index.constants.js por FAVIO 13-6
-		/////////////////////////////////////////
-
-		/*
-		  
-
-        	productosDestacadosByVendedor : function(idVendedor){
-        		return URL_REST_BASE +"client/producto/destacados/"+idVendedor;
-        	},
-        	
-
-            
-
-            
-            
-	 */
 	} // function
 })(); // anonimo

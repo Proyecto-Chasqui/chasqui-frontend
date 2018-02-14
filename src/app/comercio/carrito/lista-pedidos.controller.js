@@ -7,7 +7,7 @@
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
             productoService,ToastCommons, gccService, contextoCompraService,us, promiseService, CTE_REST, 
-            navigation_state, $rootScope) {
+            navigation_state, $rootScope, $stateParams) {
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
@@ -62,7 +62,7 @@
 				callPedidoIndividual();
 			}
 			var json = {};
-			json.idVendedor = StateCommons.vendedor().id;
+			json.idVendedor = $stateParams.idCatalog;
 
 			productoService.crearPedidoIndividual(json).then(doOk)
 		}
@@ -89,7 +89,7 @@
         $scope.fitrarPorEstadoConfirmado = function(){
             console.log("HOOOOOOOOOOOOOOOOOOOOOOOOOla");
             var params = {};
-            params.idVendedor = CTE_REST.idVendedor;
+            params.idVendedor = $stateParams.idCatalog;
             params.estados = ["CONFIRMADO"];
             return promiseService.doPost(CTE_REST.filtrarPedidosConEstado, params).then(
                 function doOk(response) {

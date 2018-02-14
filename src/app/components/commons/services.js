@@ -3,7 +3,7 @@
 
   angular.module('chasqui').factory('restProxy', ChasquiRest);
 
-  function ChasquiRest($http, $rootScope, $log, $state, StateCommons, ToastCommons, usuario_dao) {
+  function ChasquiRest($http, $rootScope, $log, $state, StateCommons, ToastCommons, usuario_dao, $stateParams) {
 
     /*
      * LocalStorage conserva el token del usuario. Para acceder él:
@@ -173,7 +173,7 @@
         header = {
           'Content-Type': 'application/json',
           'Authorization': createHeader(),
-          'idVendedor': StateCommons.vendedor().id /// TODO: VENDEDOR HARCODEADO
+          'idVendedor': $stateParams.idCatalog
         };
 
         post(url, header, params, doOk, noOk);

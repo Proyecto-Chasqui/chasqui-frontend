@@ -12,7 +12,7 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextoCompraService($log, us, StateCommons, $localStorage, 
+	function contextoCompraService($log, us, StateCommons, $localStorage, $stateParams, 
 		productoService, gccService, $q, $timeout, $rootScope,moment,CTE_REST, 
         usuario_dao, orders_dao, groups_dao, order_context) {
 		var vm = this;
@@ -213,7 +213,7 @@
             
 			var params = {}
 			params.idGrupo = group.idGrupo;
-			params.idVendedor = StateCommons.vendedor().id;
+			params.idVendedor = $stateParams.idCatalog;
 			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
             
             return promise;

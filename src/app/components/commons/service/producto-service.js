@@ -3,12 +3,12 @@
 
 	angular.module('chasqui').service('productoService', productoService);
 
-	function productoService(restProxy, $q, $log, CTE_REST, StateCommons, promiseService, ToastCommons) {
+	function productoService(restProxy, $q, $log, CTE_REST, StateCommons, promiseService, ToastCommons, $stateParams) {
 		var vm = this;
 
 		vm.getCategorias = function() {
 			$log.debug(" service getCategorias ");
-			return promiseService.doGet(CTE_REST.categorias(StateCommons.vendedor().id), {});
+			return promiseService.doGet(CTE_REST.categorias($stateParams.idCatalog), {});
 		}
 
 		vm.getMedallas = function() {
@@ -23,17 +23,17 @@
 
 		vm.getProductosDestacados = function() {
 			$log.debug(" service getProductosDestacados ");
-			return promiseService.doGet(CTE_REST.productosDestacadosByVendedor(StateCommons.vendedor().id), {});
+			return promiseService.doGet(CTE_REST.productosDestacadosByVendedor($stateParams.idCatalog), {});
 		}
 		//crear funcion de REST
 		vm.getProductosByMultiplesFiltros = function(params){
 			$log.debug(" service getProductosByMultiplesFiltros ");
-			return promiseService.doPostPublic(CTE_REST.productosByMultiplesFiltros(StateCommons.vendedor().id), params);
+			return promiseService.doPostPublic(CTE_REST.productosByMultiplesFiltros($stateParams.idCatalog), params);
 		}
 
 		vm.getProductosSinFiltro = function(params) {
 			$log.debug(" service getProductosSinFiltro ");
-			return promiseService.doPostPublic(CTE_REST.productosSinFiltro(StateCommons.vendedor().id), params);
+			return promiseService.doPostPublic(CTE_REST.productosSinFiltro($stateParams.idCatalog), params);
 		}
 
 		vm.getProductosByCategoria = function(params) {
@@ -94,7 +94,7 @@
 				}
 			}
 
-			return promiseService.doGetPrivate(CTE_REST.verPedidoIndividual(StateCommons.vendedor().id), {}, doNoOk);
+			return promiseService.doGetPrivate(CTE_REST.verPedidoIndividual($stateParams.idCatalog), {}, doNoOk);
 		}
 
 		vm.quitarProductoIndividual = function(params) {
@@ -129,7 +129,7 @@
 	        var defered = $q.defer();
 	        var promise = defered.promise;
 	        
-	        restProxy.get(CTE_REST.productosPedidoByUser(StateCommons.vendedor().id), {},      
+	        restProxy.get(CTE_REST.productosPedidoByUser($stateParams.idCatalog), {},      
 	        		function doOk(response) {defered.resolve(response);},
 					function doNoOk(response) {defered.reject(response);}
 	        );
