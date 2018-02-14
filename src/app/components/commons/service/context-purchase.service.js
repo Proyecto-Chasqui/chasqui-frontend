@@ -1,18 +1,16 @@
 (function() {
 	'use strict';
 
-	angular.module('chasqui').service('contextoCompraService', contextoCompraService);
+	angular.module('chasqui').service('contextPurchaseService', contextPurchaseService);
 	/** Orquesta grupos y pedidos
-		- Utils con Logica que podria estar en backend
 		- Cache para evitar llamadas continuas
 		- La cache limpia automaticamente 
 				- a los N segundos
 				- ante un F5 del browser
-				- cuando llega una notificacion (supone algun cambio)
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextoCompraService($log, us, StateCommons, $localStorage, $stateParams, 
+	function contextPurchaseService($log, us, StateCommons, $localStorage, $stateParams, 
 		productoService, gccService, $q, $timeout, $rootScope,moment,CTE_REST, 
         usuario_dao, orders_dao, groups_dao, order_context) {
 		var vm = this;
@@ -21,7 +19,7 @@
         
         
         function init(){
-            console.log("contextoCompraService init");
+            console.log("contextPurchaseService init");
             initGroups();
             order_context.setGroupSelected(idGrupoPedidoIndividual); 
             initOrders();

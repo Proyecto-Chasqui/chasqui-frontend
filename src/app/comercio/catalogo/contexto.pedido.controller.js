@@ -9,7 +9,7 @@
    *  FAB Button de contexto de compra.
    */
   function ContextoPedidoController($rootScope, $log, CTE_REST, $scope, gccService, us, 
-                                     productoService, $timeout, contextoCompraService, 
+                                     productoService, $timeout, contextPurchaseService, 
                                      usuario_dao, ModifyVarietyCount) {
 
         $log.debug("ContextoPedidoController .....");
@@ -21,9 +21,9 @@
 
         function load() {
             console.log("Load");
-            contextoCompraService.getPedidos().then(
+            contextPurchaseService.getPedidos().then(
                 function(orders) {
-                    $scope.pedidoSelected = contextoCompraService.getOrderSelected();
+                    $scope.pedidoSelected = contextPurchaseService.getOrderSelected();
                     //console.log("Pedido: ", $scope.pedidoSelected.id);
             });
         }

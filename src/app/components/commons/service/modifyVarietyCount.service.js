@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('ModifyVarietyCount', ModifyVarietyCount);
 
-	function ModifyVarietyCount($log, dialogCommons, contextoCompraService, ToastCommons, $rootScope, productoService, us, $state){
+	function ModifyVarietyCount($log, dialogCommons, contextPurchaseService, ToastCommons, $rootScope, productoService, us, $state){
 
         this.modifyDialog = function(variety){
                         
@@ -50,12 +50,12 @@
         function modifyVarietyCount(variety, count, modifierFunction, modifierOkText){
             function doOk(response) {
 				ToastCommons.mensaje(us.translate(modifierOkText));
-				contextoCompraService.refreshPedidos();
+				contextPurchaseService.refreshPedidos();
 				$rootScope.$emit('lista-producto-agrego-producto');
 			}
             
 			var params = {
-                idPedido: contextoCompraService.getOrderSelected().id,
+                idPedido: contextPurchaseService.getOrderSelected().id,
                 idVariante: variety.idVariante,
                 cantidad: count
             };
@@ -65,7 +65,7 @@
         
         
         function initialCountForVariety(variety){
-            var varietyInOrder = contextoCompraService.getOrderSelected().productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
+            var varietyInOrder = contextPurchaseService.getOrderSelected().productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
             return (varietyInOrder.length === 1)? varietyInOrder[0].cantidad : 0;
         }
 	} 

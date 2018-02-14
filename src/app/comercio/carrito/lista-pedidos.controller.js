@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
-            productoService,ToastCommons, gccService, contextoCompraService,us, promiseService, CTE_REST, 
+            productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, CTE_REST, 
             navigation_state, $rootScope, $stateParams) {
         
 		$log.debug('ListaPedidosController ..... ');
@@ -69,9 +69,9 @@
 	
 
 		function load() {
-			contextoCompraService.getPedidos().then(function(orders) {
+			contextPurchaseService.getPedidos().then(function(orders) {
 				$scope.orders = orders.getOrders().filter(function(o){return o.estado === "ABIERTO"});
-				setTabSeleccionado(contextoCompraService.getOrderContext().getOrderSelected());
+				setTabSeleccionado(contextPurchaseService.getOrderContext().getOrderSelected());
 			});
 		}
         

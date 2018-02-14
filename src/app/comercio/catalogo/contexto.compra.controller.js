@@ -8,7 +8,7 @@
 	/**
 	 * Lista lateral de productos del pedido seleccionado
 	 */
-	function ContextoCompraController($rootScope, $log, $scope, contextoCompraService, 
+	function ContextoCompraController($rootScope, $log, $scope, contextPurchaseService, 
                                        usuario_dao) {
 
 		$log.debug("ContextoCompraController ..... ");
@@ -18,11 +18,11 @@
         $scope.grupoSelected = {};
         
         function init(){
-            contextoCompraService.getGrupos().then(
+            contextPurchaseService.getGrupos().then(
                 function(groups) {
                     $scope.grupos = groups.getGroups();
-                    $scope.grupoSelected = contextoCompraService.getGroupSelected().idGrupo;     
-                    console.log("Grupos: ", $scope.grupos, "Selected id: ", contextoCompraService.getGroupSelected().idGrupo);
+                    $scope.grupoSelected = contextPurchaseService.getGroupSelected().idGrupo;     
+                    console.log("Grupos: ", $scope.grupos, "Selected id: ", contextPurchaseService.getGroupSelected().idGrupo);
                 });
         }
         
@@ -30,7 +30,7 @@
         
 
 		$scope.cambiarContexto = function() {
-			contextoCompraService.setContextoByGrupo(parseInt($scope.grupoSelected));
+			contextPurchaseService.setContextoByGrupo(parseInt($scope.grupoSelected));
 			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.grupoSelected);
 		}
 

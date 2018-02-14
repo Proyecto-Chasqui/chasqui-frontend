@@ -6,14 +6,14 @@
 
 	/** @ngInject */
 	function DetallePedidoGrupalController($log, $state, $scope, CTE_REST, ToastCommons, $mdDialog, dialogCommons, productoService, perfilService, gccService,
-		contextoCompraService,us) {
+		contextPurchaseService,us) {
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
 		$scope.urlBase = CTE_REST.url_base;
 		$scope.direcciones ;
 		$scope.direccionSelected;
 		$scope.productoEliminar;
-		$scope.isAdmin = contextoCompraService.isAdmin($scope.pedido);
+		$scope.isAdmin = contextPurchaseService.isAdmin($scope.pedido);
 		$scope.comentario = "";
 	
 
@@ -54,7 +54,7 @@
 		function confirmarPedidoIndividualGcc() {
 			function doOk(response) {
 				ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
-				contextoCompraService.refreshPedidos().then(
+				contextPurchaseService.refreshPedidos().then(
 					function() {						
 						$state.reload();
 					});				
@@ -73,7 +73,7 @@
 			function doOk(response) {
 				$log.debug("--- confirmar pedido response ", response.data);
 				ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
-				contextoCompraService.refreshPedidos().then(
+				contextPurchaseService.refreshPedidos().then(
 			        function(pedidos) {
 			          $state.reload();			          
 			        });
@@ -95,8 +95,8 @@
 			function doOk(response) {
 				$log.debug("--- eliminar pedido response ", response.data);
 				ToastCommons.mensaje(us.translate('QUITO_PRODUCTO'));
-			//	contextoCompraService.refreshPedido();
-				contextoCompraService.refreshPedidos().then(
+			//	contextPurchaseService.refreshPedido();
+				contextPurchaseService.refreshPedidos().then(
 			        function(pedidos) {
 			          $state.reload();			          
 			        });
@@ -112,7 +112,7 @@
 		}
 
 		$scope.comprar = function() {
-			contextoCompraService.setContextoByPedido($scope.pedido);
+			contextPurchaseService.setContextoByPedido($scope.pedido);
 			$state.go('catalogo')
 		}
 
@@ -134,7 +134,7 @@
 			function doOk(response) {
 				$log.debug("--- cancelar pedido response ", response.data);
 				ToastCommons.mensaje(us.translate('CANCELADO'));
-				contextoCompraService.refreshPedidos().then(
+				contextPurchaseService.refreshPedidos().then(
 					function() {
 						$state.reload();
 					});
@@ -145,8 +145,8 @@
 		}
 
 		$scope.confirmarClick = function(){
-            contextoCompraService.setContextoByPedido($scope.pedido);
-			if (contextoCompraService.isPedidoInividualSelected()){
+            contextPurchaseService.setContextoByPedido($scope.pedido);
+			if (contextPurchaseService.isPedidoInividualSelected()){
                 console.log("Individual");
 				callDirecciones();
 			}else{

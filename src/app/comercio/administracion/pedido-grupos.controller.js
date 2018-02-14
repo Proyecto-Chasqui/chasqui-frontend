@@ -9,7 +9,7 @@
    *           grupo
    */
   function PedidoGruposController($scope, StateCommons, $log, perfilService, $mdDialog, 
-    gccService, us,ToastCommons,contextoCompraService,$state, usuario_dao) {
+    gccService, us,ToastCommons,contextPurchaseService,$state, usuario_dao) {
     $log.debug('PedidoGruposController', $scope.grupo);
 
     var vm = this;
@@ -68,7 +68,7 @@
       function doOk(response) {
         $log.debug("--- confirmar pedido response ", response.data);
         ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
-        contextoCompraService.refreshPedidos().then(
+        contextPurchaseService.refreshPedidos().then(
           function(pedidos) {
             $state.reload();
           });

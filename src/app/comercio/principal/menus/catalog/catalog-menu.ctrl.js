@@ -7,7 +7,7 @@
 
 	
 	function CatalogMenuController($scope, $log, $state, StateCommons, CTE_REST, $interval, ToastCommons,
-		perfilService, contextoCompraService,us, usuario_dao, navigation_state) {
+		perfilService, contextPurchaseService,us, usuario_dao, navigation_state) {
         
 		
 		$scope.urlBase = CTE_REST.url_base;
@@ -56,7 +56,7 @@
 			$log.debug("Log Out ..... ");
 
 			usuario_dao.logOut();
-			contextoCompraService.clean();
+			contextPurchaseService.clean();
 
 			$interval.cancel(llamadoPeriodico);
 

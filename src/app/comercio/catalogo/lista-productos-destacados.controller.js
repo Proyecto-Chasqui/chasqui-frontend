@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function ListaProductosDestacadosController($log, $scope,
-		CTE_REST, productoService, $state, $mdDialog, $rootScope, us, dialogCommons, gccService, contextoCompraService) {
+		CTE_REST, productoService, $state, $mdDialog, $rootScope, us, dialogCommons, gccService) {
 		$log.log('ListaProductosDestacadosController ..... ');
 
 		var vm = this;

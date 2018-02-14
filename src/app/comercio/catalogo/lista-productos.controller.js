@@ -9,7 +9,7 @@
 	 */
 	function ListaProductosController($scope, $rootScope, $log, CTE_REST,
 		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
-		gccService, $mdDialog, productorService, contextoCompraService, 
+		gccService, $mdDialog, productorService, contextPurchaseService, 
         usuario_dao, ModifyVarietyCount, $stateParams) {
 
 		$log.debug('ListaProductosController',
@@ -97,8 +97,8 @@
 		//////////////////////////////
 
 		vm.agregar = function(variety) {
-			vm.grupoSelected = contextoCompraService.getGroupSelected();
-			vm.pedidoSelected = contextoCompraService.getOrderSelected();
+			vm.grupoSelected = contextPurchaseService.getGroupSelected();
+			vm.pedidoSelected = contextPurchaseService.getOrderSelected();
 
             console.log(vm.grupoSelected, vm.pedidoSelected);
 			if (usuario_dao.isLogged()) {
@@ -106,7 +106,7 @@
 			} else {
 				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
 				$log.log('not logued" ', variety);
-				contextoCompraService.ls.varianteSelected = variety;
+				contextPurchaseService.ls.varianteSelected = variety;
 				$state.go('login');
 			}
 		}
@@ -146,7 +146,7 @@
 		}
 
 		function agregarProducto(variety) {
-			if (contextoCompraService.isGrupoIndividualSelected()) {
+			if (contextPurchaseService.isGrupoIndividualSelected()) {
                 console.log("Agregar producto al pedido individual:", variety);
 				agregarProductoIndividual(variety); // es individual
 			} else {
@@ -155,15 +155,15 @@
 		}
 		function agregarProductoIndividual(variety) {
 		/** Si no tiene un pedido individual lo crea */
-			if (contextoCompraService.tienePedidoInividual()) {
+			if (contextPurchaseService.tienePedidoInividual()) {
 				ModifyVarietyCount.modifyDialog(variety);
 			} else {
                 
                 function actualizarPedidoIndividual() {
                     function doOkPedido(response) {
                         $log.debug("setPedidoYagregarProducto", response);
-                        contextoCompraService.setContextoByPedido(response.data);
-                        //contextoCompraService.refresh();
+                        contextPurchaseService.setContextoByPedido(response.data);
+                        //contextPurchaseService.refresh();
                         ModifyVarietyCount.modifyDialog(variety);
                     }
 
@@ -191,10 +191,10 @@
 			function doOK(response) {
 				$log.debug("callCrearPedidoGrupal", response);
 
-				contextoCompraService.refresh();
-                contextoCompraService.getGrupos().then(
+				contextPurchaseService.refresh();
+                contextPurchaseService.getGrupos().then(
 					function(grupos) {
-						contextoCompraService.setContextoByGrupo(parseInt(vm.grupoSelected.idGrupo));
+						contextPurchaseService.setContextoByGrupo(parseInt(vm.grupoSelected.idGrupo));
 						ModifyVarietyCount.modifyDialog(variety);
 					}
 				)
@@ -202,7 +202,7 @@
 
 			function doNoOK(response) {
 				$log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
-		 		contextoCompraService.refreshPedidos().then(
+		 		contextPurchaseService.refreshPedidos().then(
 					function(pedido) {
 						ModifyVarietyCount.modifyDialog(variety);
 					}
@@ -210,7 +210,7 @@
 			}
 
 			var params = {}
-			params.idGrupo = contextoCompraService.getGroupSelected().idGrupo;
+			params.idGrupo = contextPurchaseService.getGroupSelected().idGrupo;
 			params.idVendedor = $stateParams.idCatalog;
 
 			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
@@ -284,10 +284,10 @@
 		}
 
 		// findProductos();
-		if (!us.isUndefinedOrNull(contextoCompraService.ls.varianteSelected)) {
-			$log.debug("tiene una variante seleccionda", contextoCompraService.ls.varianteSelected)
-			vm.agregar(contextoCompraService.ls.varianteSelected)
-			contextoCompraService.ls.varianteSelected = undefined;
+		if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
+			$log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
+			vm.agregar(contextPurchaseService.ls.varianteSelected)
+			contextPurchaseService.ls.varianteSelected = undefined;
 		}
 
 		//vm.productos = findProductos(1,10,{});
