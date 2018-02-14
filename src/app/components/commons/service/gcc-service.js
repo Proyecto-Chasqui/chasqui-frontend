@@ -6,14 +6,18 @@
 	function gccService($log, CTE_REST, StateCommons, promiseService, ToastCommons, $stateParams) {
 		var vm = this;
 
-		vm.gruposByusuario = function() {
-			$log.debug(" service gruposByusuario ");
-			return promiseService.doGetPrivate(CTE_REST.gruposByusuario($stateParams.idCatalog), {});
+		vm.pedidosByUser = function(doNoOK) {
+			$log.debug(" service pedidosByUser ");
+			return promiseService.doGetPrivate(CTE_REST.pedidosByUser($stateParams.idCatalog), {}, doNoOK);
+		}
+        
+		vm.groupsByUser = function() {
+			$log.debug(" service groupsByUser ");
+			return promiseService.doGetPrivate(CTE_REST.groupsByUser($stateParams.idCatalog), {});
 		}
 
 		vm.nuevoGrupo = function(params) {
-			$log.debug(" service gruposByusuario ");
-			//return promiseService.doPost(CTE_REST.gruposByusuario(id),contacts);
+			$log.debug(" service groupsByUser ");
 			params.idVendedor = $stateParams.idCatalog;
 			return promiseService.doPost(CTE_REST.nuevoGrupo, params);
 		}
@@ -41,11 +45,6 @@
 		vm.crearPedidoGrupal = function(params, doNoOK) {
 			$log.debug(" service crearPedidoGrupal ");
 			return promiseService.doPost(CTE_REST.crearPedidoGrupal, params, doNoOK);
-		}
-
-		vm.pedidosByUser = function(doNoOK) {
-			$log.debug(" service pedidosByUser ");
-			return promiseService.doGetPrivate(CTE_REST.pedidosByUser($stateParams.idCatalog), {}, doNoOK);
 		}
 
 		vm.quitarMiembro = function(params) {

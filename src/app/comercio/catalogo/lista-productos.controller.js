@@ -10,7 +10,7 @@
 	function ListaProductosController($scope, $rootScope, $log, CTE_REST,
 		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
 		gccService, $mdDialog, productorService, contextPurchaseService, 
-        usuario_dao, ModifyVarietyCount, $stateParams) {
+        usuario_dao, ModifyVarietyCount, $stateParams, contextAgrupationsService) {
 
 		$log.debug('ListaProductosController',
 			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -192,7 +192,7 @@
 				$log.debug("callCrearPedidoGrupal", response);
 
 				contextPurchaseService.refresh();
-                contextPurchaseService.getGrupos().then(
+                contextAgrupationsService.getAgrupations().then(
 					function(grupos) {
 						contextPurchaseService.setContextoByGrupo(parseInt(vm.grupoSelected.idGrupo));
 						ModifyVarietyCount.modifyDialog(variety);

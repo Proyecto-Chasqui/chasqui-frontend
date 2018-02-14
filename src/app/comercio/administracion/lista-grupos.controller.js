@@ -7,7 +7,7 @@
 	/** @ngInject . Tabs de grupos con el panel de info y botones de acciones */
 	function ListaGruposController($log, $scope, $state, $stateParams,
 		StateCommons, dialogCommons, ToastCommons, perfilService, gccService, CTE_REST, 
-		contextPurchaseService, us, usuario_dao, navigation_state) {
+		contextPurchaseService, us, usuario_dao, navigation_state, contextAgrupationsService) {
 
 		$log.debug("controler ListaGruposController");
 		navigation_state.goMyGroupsTab();
@@ -59,7 +59,7 @@
 			});
 		*/
 		vm.edit = function(grupo) {
-			$state.go("form-grupo", { "grupo": grupo });
+			$state.go("catalog.form-grupo", { "grupo": grupo });
 		}
 
 		/** habilita el panel para agregar integrantes. */
@@ -98,7 +98,7 @@
 
 		/** Redirecciona al formulario crear grupo */
 		vm.crearGrupo = function(ev) {
-			$state.go('form-grupo');			
+			$state.go('catalog.form-grupo');			
 		};
 
 
@@ -146,7 +146,7 @@
 		function callLoadGrupos() {
 			$log.debug("--- find grupos--------");
 
-			contextPurchaseService.getGrupos().then(function(groups){
+			contextAgrupationsService.getAgrupations().then(function(groups){
 				$log.debug("--- find grupos respuesta", groups);
 				vm.groups = groups.getGroups().filter(function(g){return g.alias != "Personal"});
 				setTabSeleccionado(contextPurchaseService.getGroupSelected());

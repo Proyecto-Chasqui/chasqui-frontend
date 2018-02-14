@@ -10,7 +10,7 @@
    */
   function ContextoPedidoController($rootScope, $log, CTE_REST, $scope, gccService, us, 
                                      productoService, $timeout, contextPurchaseService, 
-                                     usuario_dao, ModifyVarietyCount) {
+                                     usuario_dao, ModifyVarietyCount, contextOrdersService) {
 
         $log.debug("ContextoPedidoController .....");
 
@@ -21,7 +21,7 @@
 
         function load() {
             console.log("Load");
-            contextPurchaseService.getPedidos().then(
+            contextOrdersService.getOrders().then(
                 function(orders) {
                     $scope.pedidoSelected = contextPurchaseService.getOrderSelected();
                     //console.log("Pedido: ", $scope.pedidoSelected.id);

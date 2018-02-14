@@ -7,7 +7,7 @@
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
             productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, CTE_REST, 
-            navigation_state, $rootScope, $stateParams) {
+            navigation_state, $rootScope, $stateParams, contextOrdersService) {
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
@@ -69,7 +69,7 @@
 	
 
 		function load() {
-			contextPurchaseService.getPedidos().then(function(orders) {
+			contextOrdersService.getOrders().then(function(orders) {
 				$scope.orders = orders.getOrders().filter(function(o){return o.estado === "ABIERTO"});
 				setTabSeleccionado(contextPurchaseService.getOrderContext().getOrderSelected());
 			});

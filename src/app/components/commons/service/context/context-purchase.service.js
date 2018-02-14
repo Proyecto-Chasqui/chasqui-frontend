@@ -12,199 +12,29 @@
 		 */
 	function contextPurchaseService($log, us, StateCommons, $localStorage, $stateParams, 
 		productoService, gccService, $q, $timeout, $rootScope,moment,CTE_REST, 
-        usuario_dao, orders_dao, groups_dao, order_context, getContext) {
+        usuario_dao, orders_dao, groups_dao, order_context, getContext, 
+        contextOrdersService, contextAgrupationsService, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal) {
+        
 		var vm = this;
 		
-		vm.ls = $localStorage;
-        
+		vm.ls = $localStorage;        
+                
         
         function init(){
             console.log("contextPurchaseService init");
-            initGroups();
+            contextAgrupationsService.init();
             order_context.setGroupSelected(idGrupoPedidoIndividual); 
-            initOrders();
+            
+            contextOrdersService.init();
             order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
-        }
-        
-        
-        function initGroups(){
-            groups_dao.reset();
-            groups_dao.newGroup(grupoIndividualVirtual);
-        }
-        
-        function initOrders(){
-            orders_dao.reset();
-            //order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
-            addNewOrder(pedidoIndividualVirtual);
-        }
-        
-        var idGrupoPedidoIndividual = 0;            // Ningún grupo tiene id = 0
-        var idPedidoIndividualGrupoPersonal = 0;    // Ningún pedido tiene id = 0
-
-		// Representa el concepto de grupo indivial para el caso de que no tiene un pedido abierto
-		var grupoIndividualVirtual = {
-            alias: "Personal",
-            esAdministrador: true,
-            idGrupo: idGrupoPedidoIndividual,
-            idPedidoIndividual: idPedidoIndividualGrupoPersonal
-        }
-        
-        var pedidoIndividualVirtual = {
-            aliasGrupo: "Personal",
-            estado: "CANCELADO",
-            id: idPedidoIndividualGrupoPersonal,
-            idGrupo: idGrupoPedidoIndividual,
-            productosResponse: []
         }
         
 		vm.ls.varianteSelected = undefined;
 		vm.ls.lastUpdate = moment();		
-			 
-        
-        function addNewOrder(newOrder){
-            if(orders_dao.getOrders().filter(function(o){return o.id == newOrder.id}).length === 0){
-                if(newOrder.idGrupo == null){ // Esto significa que es el pedido individual cargado desde el BE
-                    newOrder.idGrupo = idGrupoPedidoIndividual;
-                    newOrder.aliasGrupo = "Personal";
-                    orders_dao.removeOrder(idPedidoIndividualGrupoPersonal);
-                    vm.getGrupos().then(function(grupos){
-                        grupos.modifyGroup(idGrupoPedidoIndividual, function(group){
-                            group.idPedidoIndividual = newOrder.id;
-                            return group;
-                        })
-                    })
-                    order_context.setOrderSelected(newOrder.id);
-                }
-                orders_dao.newOrder(newOrder);
-            }
-        }
+		
         
         /////////////////////////////////////
-        
-        
-		vm.getGrupos = function() {
-            return getContext(
-                vm.ls.lastUpdate,
-                "grupos", 
-                function(){
-                    var defered = $q.defer();
-                    var promise = defered.promise;
-                    defered.resolve(groups_dao);
-                    return promise;                
-                },                
-                groups_dao.getGroups().length === 1, 
-                function(defered){
-                    function doOK(response) {					
-                        vm.ls.lastUpdate=moment();	
-                        initGroups();
-                        response.data.forEach(groups_dao.newGroup);
-                        defered.resolve(groups_dao);
-                    }
-                    gccService.gruposByusuario().then(doOK);    
-                });
-           
-		}
-
-		vm.getPedidos = function() {
-            return getContext(
-                vm.ls.lastUpdate, 
-                "pedidos", 
-                function(){
-                    var defered = $q.defer();
-                    var promise = defered.promise;
-                    addOrdersFromGroupsWithoutOrders(orders_dao.getOrders()).then(function(orders){
-                            orders.forEach(addNewOrder);
-                            console.log("New orders: ", orders_dao.getOrders());
-                            defered.resolve(orders_dao);
-                        });
-                    return promise;                
-                },   
-                orders_dao.getOrders().length === 1, 
-                function(defered){
-
-                    function doOk(response) {	
-                        vm.ls.lastUpdate=moment();	
-                        initOrders();
-                        addOrdersFromGroupsWithoutOrders(response.data).then(function(orders){
-                            orders.forEach(addNewOrder);
-                            console.log("New orders: ", orders_dao.getOrders());
-                            defered.resolve(orders_dao);
-                        });
-                    }
-
-                    gccService.pedidosByUser().then(doOk);                  
-                });
-		}
-        
-        
-        /* Prop:   creates orders for every group without a created order (order-group is a relation bidirectional)
-         * Params: orders :: [Order], a list with all user's open orders.
-         * Return: [Order], a list with an order for every user's group plus the individual order
-         */
-        function addOrdersFromGroupsWithoutOrders(orders){
-			var defered = $q.defer();
-			var promise = defered.promise;
-            vm.getGrupos().then(
-                function(grupos){
-                    var groupsWithoutOrders = grupos.getGroups().filter(function(g){
-                        return !(orders.map(function(o){return o.idGrupo}).includes(g.idGrupo) ||  // Filtra los grupos que no tienen pedidos creados
-                                 g.alias === "Personal");
-                    });                    
-                    createOrdersForGroupsWithoutOrders(groupsWithoutOrders, orders).then(defered.resolve);
-                });                   
-            return promise;
-        }
-        
-                            
-        function createOrdersForGroupsWithoutOrders(groupsWithoutOrders, orders){
-            var defered = $q.defer();
-			var promise = defered.promise;
-			console.log("Groups wo order:", groupsWithoutOrders);
-            
-            async.each(groupsWithoutOrders, function(group, callback) {  
-                console.log("Inside");
-                createOrderForGroup(group).then(function(newOrder){
-                    orders.push(newOrder);
-                    console.log('Pedido agregado', newOrder, orders);
-                    callback();
-                })
                 
-            }, function(err) {
-                if( err ) {
-                  console.log('A file failed to process');
-                } else {
-                  defered.resolve(orders);
-                }
-            });
-            
-            return promise;
-        }
-      
-        
-        /* Prop: Creates
-         *
-         */
-        function createOrderForGroup(group){
-			var defered = $q.defer();
-			var promise = defered.promise;
-            
-            function doOK(response) {
-				$log.debug("callCrearPedidoGrupal", response);
-                defered.resolve(response.data);
-			}
-                        
-            function doNoOK(response) {
-				$log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
-			}
-            
-			var params = {}
-			params.idGrupo = group.idGrupo;
-			params.idVendedor = $stateParams.idCatalog;
-			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
-            
-            return promise;
-        }
-        
         
         /*
          *  Prec: Caché inicializada
@@ -252,14 +82,14 @@
 
 		vm.refreshPedidos = function() {
 			$log.debug("refreshPedidos");
-            initOrders();
-			return vm.getPedidos();
+            contextOrdersService.init();
+			return contextOrdersService.getOrders();
 		}
 
 		vm.refreshGrupos = function() {
 			$log.debug("refreshGrupos");
-            initGroups();
-			return vm.getGrupos();
+            contextAgrupationsService.init();
+			return contextAgrupationsService.getAgrupations();
 		}
 
         /* Prop: setea el contexto de compra segun el pedido para el usuario logeado

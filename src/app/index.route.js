@@ -51,7 +51,14 @@
                 controller: 'ListaGruposController',
                 controllerAs: 'listaGruposCtrl',
                 auth: true
-            })
+            })            
+            .state('catalog.form-grupo', {
+                url: '/form-grupo',
+                templateUrl: 'app/comercio/administracion/formularios/form-grupo.html',
+                controller: 'FormGrupoController',
+                controllerAs: 'formGrupoCtrl',
+                params: { "grupo": null }
+            })    
             .state('catalog.profile', {
                 url: '/perfil',
                 templateUrl: 'app/comercio/administracion/perfil.html',
@@ -92,13 +99,6 @@
             controller: 'FormDireccionController',
             controllerAs: 'direccionCtrl',
             params: { test: null }
-        })
-        .state('form-grupo', {
-            url: '/form-grupo',
-            templateUrl: 'app/comercio/administracion/formularios/form-grupo.html',
-            controller: 'FormGrupoController',
-            controllerAs: 'formGrupoCtrl',
-            params: { "grupo": null }
         })
         .state('login', {
             url: '/login/:toPage',

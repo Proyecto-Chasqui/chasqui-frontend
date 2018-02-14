@@ -9,7 +9,7 @@
 	 * Lista lateral de productos del pedido seleccionado
 	 */
 	function ContextoCompraController($rootScope, $log, $scope, contextPurchaseService, 
-                                       usuario_dao) {
+                                       usuario_dao, contextAgrupationsService) {
 
 		$log.debug("ContextoCompraController ..... ");
 
@@ -18,7 +18,7 @@
         $scope.grupoSelected = {};
         
         function init(){
-            contextPurchaseService.getGrupos().then(
+            contextAgrupationsService.getAgrupations().then(
                 function(groups) {
                     $scope.grupos = groups.getGroups();
                     $scope.grupoSelected = contextPurchaseService.getGroupSelected().idGrupo;     
