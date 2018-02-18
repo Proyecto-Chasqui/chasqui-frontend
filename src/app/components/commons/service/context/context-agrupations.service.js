@@ -1,3 +1,4 @@
+
 (function() {
 	'use strict';
 
@@ -5,40 +6,17 @@
     
 	function contextAgrupationsService($localStorage, $q, getContext, groups_dao, moment, gccService, 
                                         createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, 
-                                        idPedidoIndividualGrupoPersonal){
+                                        idPedidoIndividualGrupoPersonal, agrupationTypeVAL){
      
-        ///////////////////////////////////////// Configuration \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
-		var vm = this;
-		
-		vm.ls = $localStorage;
+        ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
-        var TYPE_PERSONAL = 'PERSONAL';
-        var TYPE_GROUP = 'GROUP';
-        var TYPE_NODE = 'NODE';
-        
-        
-        // Representa el concepto de grupo indivial para el caso de que no tiene un pedido abierto
-		var grupoIndividualVirtual = {
-            alias: "Personal",
-            esAdministrador: true,
-            idGrupo: idGrupoPedidoIndividual,
-            idPedidoIndividual: idPedidoIndividualGrupoPersonal
-        }
-        
-		vm.ls.lastUpdate = moment();	        
-        
-        ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        
-        
-        function agrupationsDispatcher(agrupation, personal_function, group_function){ // Agregar nuevos tipos            
-            if(agrupation.type === TYPE_PERSONAL){
-                return personal_function(agrupation);
-            }
-            
-            if(agrupation.type === TYPE_GROUP){
-                return group_function(agrupation);
-            }
+        var contextAgrupationsServiceInt = {
+            init: init,
+            reset: reset,
+            getAgrupationsTypes: getAgrupationsTypes,
+            getAgrupation: getAgrupation,
+            getAgrupations: getAgrupations
         }
         
         
@@ -49,16 +27,17 @@
             groups_dao.newGroup(grupoIndividualVirtual);            
         }
             
-        function reload(){
-            
+        function reset(){
+            groups_dao.reset();
         }
             
         function getAgrupationsTypes(){
             
         }
             
-        function getAgrupation(){
-            
+        function getAgrupation(searchedAgrupation){
+            return groups_dao.getGroup(searchedAgrupation);
+            //return agrupationDispatcher(searchedAgrupation.type, function(personalAgrupation){return personalAgrupation})
         }
         
         function getAgrupations() {
@@ -76,7 +55,7 @@
                     function doOK(response) {					
                         vm.ls.lastUpdate=moment();	
                         init();
-                        response.data.forEach(groups_dao.newGroup);
+                        response.data.map(function(g){g.type = agrupationTypeVAL.TYPE_GROUP; return g;}).forEach(groups_dao.newGroup);
                         defered.resolve(groups_dao);
                     }
                     gccService.groupsByUser().then(doOK);    
@@ -84,13 +63,40 @@
            
 		}
         
-        // Interfaz 
-        return {
-            init: init,
-            reload: reload,
-            getAgrupationsTypes: getAgrupationsTypes,
-            getAgrupation: getAgrupation,
-            getAgrupations: getAgrupations
+        
+        ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        
+        
+        function agrupationDispatcher(type, agrupationId, personal_function, group_function){ 
+            // Agregar nuevos tipos            
+            if(type === agrupationTypeVAL.TYPE_PERSONAL){
+                return personal_function(agrupationId);
+            }
+            
+            if(type === agrupationTypeVAL.TYPE_GROUP){
+                return group_function(agrupationId);
+            }
         }
+        
+        
+        ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        
+		var vm = this;
+		
+		vm.ls = $localStorage;
+        
+        
+        // Representa el concepto de grupo indivial para el caso de que no tiene un pedido abierto
+		var grupoIndividualVirtual = {
+            type: agrupationTypeVAL.TYPE_PERSONAL,
+            alias: "Personal",
+            esAdministrador: true,
+            idGrupo: idGrupoPedidoIndividual,
+            idPedidoIndividual: idPedidoIndividualGrupoPersonal
+        }
+        
+		vm.ls.lastUpdate = moment();
+        
+        return contextAgrupationsServiceInt;
     }
 })();     

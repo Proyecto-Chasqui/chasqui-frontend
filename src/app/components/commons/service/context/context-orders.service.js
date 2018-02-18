@@ -4,27 +4,81 @@
 	angular.module('chasqui').service('contextOrdersService', contextOrdersService);
     
 	function contextOrdersService(getContext, $q, orders_dao, $localStorage, gccService, moment, contextAgrupationsService,
-                                  createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal){
-     
-        ///////////////////////////////////////// Configuration \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                                  createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal,
+                                  agrupationTypeVAL){
         
-        var vm = this;
-		
-		vm.ls = $localStorage;
         
-        var TYPE_PERSONAL = 'PERSONAL';
-        var TYPE_GROUP = 'GROUP';
-        var TYPE_NODE = 'NODE';
-                
-        var pedidoIndividualVirtual = {
-            aliasGrupo: "Personal",
-            estado: "CANCELADO",
-            id: idPedidoIndividualGrupoPersonal,
-            idGrupo: idGrupoPedidoIndividual,
-            productosResponse: []
+        ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+         
+        var contextOrdersServiceInt = {
+            init: init,
+            reset: reset,
+            getOrdersTypes: getOrdersTypes,
+            getOrder: getOrder,
+            getOrders: getOrders,
         }
         
-		vm.ls.lastUpdate = moment();	        
+        
+        ///////////////////////////////////////// Public \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        
+        /*  
+         *  PROP:
+         *  PREC:
+         *  RET:
+         */ 
+        function init(){
+            orders_dao.reset();
+            //order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
+            addNewOrder(pedidoIndividualVirtual);
+        }
+            
+        function reset(){
+            orders_dao.reset();
+        }
+            
+        function getOrdersTypes(){
+            return agrupationTypeVAL;
+        }
+            
+        function getOrder(orderId){
+            return orders_dao.getOrder(orderId);
+        }
+        
+        
+        /*  
+         *  PROP:
+         *  PREC:
+         *  RET:
+         */ 
+        function getOrders() {
+            return getContext(
+                vm.ls.lastUpdate, 
+                "pedidos", 
+                function(){
+                    var defered = $q.defer();
+                    var promise = defered.promise;
+                    addOrdersFromGroupsWithoutOrders(orders_dao.getOrders()).then(function(orders){
+                            orders.forEach(addNewOrder);
+                            defered.resolve(orders_dao);
+                        });
+                    return promise;                
+                },   
+                orders_dao.getOrders().length === 1, 
+                function(defered){
+
+                    function doOk(response) {	
+                        vm.ls.lastUpdate=moment();	
+                        init();
+                        addOrdersFromGroupsWithoutOrders(response.data).then(function(orders){
+                            orders.forEach(addNewOrder);
+                            defered.resolve(orders_dao);
+                        });
+                    }
+
+                    gccService.pedidosByUser().then(doOk);                  
+                });
+		}
+             
         
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
         
@@ -34,11 +88,11 @@
          *  RET:
          */        
         function ordersDispatcher(order, personal_function, group_function){ // Agregar nuevos tipos            
-            if(order.type === TYPE_PERSONAL){
+            if(order.type === agrupationTypeVAL.TYPE_PERSONAL){
                 return personal_function(order);
             }
             
-            if(order.type === TYPE_GROUP){
+            if(order.type === agrupationTypeVAL.TYPE_GROUP){
                 return group_function(order);
             }
         }
@@ -86,76 +140,25 @@
         }
         
         
-        ///////////////////////////////////////// Public \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
-        /*  
-         *  PROP:
-         *  PREC:
-         *  RET:
-         */ 
-        function init(){
-            orders_dao.reset();
-            //order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
-            addNewOrder(pedidoIndividualVirtual);
-        }
-            
-        function reload(){
-            
-        }
-            
-        function getOrdersTypes(){
-            
-        }
-            
-        function getOrder(){
-            
+        var vm = this;
+		
+		vm.ls = $localStorage;
+        
+                
+        var pedidoIndividualVirtual = {
+            type: agrupationTypeVAL.TYPE_PERSONAL,
+            aliasGrupo: "Personal",
+            estado: "CANCELADO",
+            id: idPedidoIndividualGrupoPersonal,
+            idGrupo: idGrupoPedidoIndividual,
+            productosResponse: []
         }
         
+		vm.ls.lastUpdate = moment();
         
-        /*  
-         *  PROP:
-         *  PREC:
-         *  RET:
-         */ 
-        function getOrders() {
-            return getContext(
-                vm.ls.lastUpdate, 
-                "pedidos", 
-                function(){
-                    var defered = $q.defer();
-                    var promise = defered.promise;
-                    addOrdersFromGroupsWithoutOrders(orders_dao.getOrders()).then(function(orders){
-                            orders.forEach(addNewOrder);
-                            console.log("New orders: ", orders_dao.getOrders());
-                            defered.resolve(orders_dao);
-                        });
-                    return promise;                
-                },   
-                orders_dao.getOrders().length === 1, 
-                function(defered){
-
-                    function doOk(response) {	
-                        vm.ls.lastUpdate=moment();	
-                        init();
-                        addOrdersFromGroupsWithoutOrders(response.data).then(function(orders){
-                            orders.forEach(addNewOrder);
-                            console.log("New orders: ", orders_dao.getOrders());
-                            defered.resolve(orders_dao);
-                        });
-                    }
-
-                    gccService.pedidosByUser().then(doOk);                  
-                });
-		}
-        
-        // Interfaz 
-        return {
-            init: init,
-            reload: reload,
-            getOrdersTypes: getOrdersTypes,
-            getOrder: getOrder,
-            getOrders: getOrders,
-        }
+        return contextOrdersServiceInt;
     }
      
 })();   

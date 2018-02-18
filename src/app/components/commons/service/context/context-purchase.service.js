@@ -11,33 +11,36 @@
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
 	function contextPurchaseService($log, $localStorage, orders_dao, groups_dao, order_context, 
-                                     contextOrdersService, contextAgrupationsService, 
+                                     contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal) {
         
-		var vm = this;
-		
-		vm.ls = $localStorage;        
-                
+        ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
-        function init(){
-            console.log("contextPurchaseService init");
-            contextAgrupationsService.init();
-            order_context.setGroupSelected(idGrupoPedidoIndividual); 
-            
-            contextOrdersService.init();
-            order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
+        var contextPurchaseServiceInt = {
+            clean: clean,
+            refresh: refresh,
+            refreshPedidos: refreshPedidos,
+            refreshGrupos: refreshGrupos,
+            getOrderContext: getOrderContext,
+            getOrderSelected: getOrderSelected,
+            getGroupSelected: getGroupSelected,
+            tienePedidoInividual: tienePedidoInividual, // TODO: cambiar a nombre más descriptivo
+            setContextoByPedido: setContextoByPedido,
+            setContextoByGrupo: setContextoByGrupo,
+            isGrupoIndividualSelected: isGrupoIndividualSelected, // TODO: cambiar a nombre más descriptivo
+            isPedidoInividualSelected: isPedidoInividualSelected, // TODO: cambiar a nombre más descriptivo
+            isAdmin: isAdmin,
+            ls: $localStorage
         }
+        	
         
-		vm.ls.varianteSelected = undefined;
-		
-        
-        /////////////////////////////////////
+        ///////////////////////////////////////// Public \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 
         
         /*
          *  Prec: Caché inicializada
          */
-        vm.getOrderContext = function(){
+        function getOrderContext(){
             return order_context;
         }
 
@@ -45,46 +48,46 @@
          *  Prec: Caché inicializada
          *  Retorna: Pedido seleccionado
          */
-        vm.getOrderSelected = function(){
-            return orders_dao.getOrder(vm.getOrderContext().getOrderSelected());
+        function getOrderSelected(){
+            return contextOrdersService.getOrder(getOrderContext().getOrderSelected());
         }
 
         /*
          *  Prec: Caché inicializada
          *  Retorna: Grupo seleccionado
          */
-        vm.getGroupSelected = function(){
-            return groups_dao.getGroup(vm.getOrderContext().getGroupSelected());
+        function getGroupSelected(){
+            return contextAgrupationsService.getAgrupation(getOrderContext().getGroupSelected());
         }
 
                 
-		vm.tienePedidoInividual = function() {
-            return vm.getOrderSelected().estado === "ABIERTO";
+		function tienePedidoInividual() {
+            return getOrderSelected().estado === "ABIERTO";
 		}
 
         
         /* Prop: cleans orders and groups cache. 
          */
-        vm.clean = function(){
-            orders_dao.reset();
-            groups_dao.reset();
+        function clean(){
+            contextOrdersService.reset();
+            contextAgrupationsService.reset();
         }
         
         
-		vm.refresh = function() {
-            var prevGroupSelected = vm.getGroupSelected();
-			vm.refreshGrupos();
-			vm.refreshPedidos();
-            vm.setContextoByGrupo(prevGroupSelected.idGrupo);
+		function refresh() {
+            //var prevGroupSelected = getGroupSelected();
+			refreshGrupos();
+			refreshPedidos();
+            //setContextoByGrupo(prevGroupSelected.idGrupo);
 		}
 
-		vm.refreshPedidos = function() {
+		function refreshPedidos() {
 			$log.debug("refreshPedidos");
             contextOrdersService.init();
 			return contextOrdersService.getOrders();
 		}
 
-		vm.refreshGrupos = function() {
+		function refreshGrupos() {
 			$log.debug("refreshGrupos");
             contextAgrupationsService.init();
 			return contextAgrupationsService.getAgrupations();
@@ -96,7 +99,7 @@
          * Intenta agregar el pedido a travez de addNewOrder, que lo agrega si es el pedido personal reemplazante del placeholder
          * Prec: cache actualizada
          */
-		vm.setContextoByPedido = function(newOrder) {
+		function setContextoByPedido(newOrder) {
             addNewOrder(newOrder);
 			order_context.setOrderSelected(newOrder.id);
 			order_context.setGroupSelected(getGrupoByPedido(newOrder));
@@ -107,19 +110,17 @@
          *              order_context <- orderSelectedId
          * Prec: cache actualizada; debe existir un pedido con id idPedidoIndividual del grupo referenciado por groupId
          */
-		vm.setContextoByGrupo = function(groupId) {
-			$log.debug("setContextoByGrupo", groupId);
+		function setContextoByGrupo(groupId) {
             order_context.setGroupSelected(groupId);
-            order_context.setOrderSelected(groups_dao.getGroup(groupId).idPedidoIndividual);            
-			$log.debug("pedidoSelected es ", order_context.getOrderSelected());
+            order_context.setOrderSelected(contextAgrupationsService.getAgrupation(groupId).idPedidoIndividual); 
 		}
 
-		vm.isGrupoIndividualSelected = function() {
-			return groups_dao.getGroup(order_context.getGroupSelected()).alias === "Personal";
+		function isGrupoIndividualSelected() {
+			return contextAgrupationsService.getAgrupation(order_context.getGroupSelected()).type === agrupationTypeVAL.TYPE_PERSONAL;
 		}
 
-		vm.isPedidoInividualSelected = function() {
-			return orders_dao.getOrder(order_context.getOrderSelected()).aliasGrupo === "Personal";
+		function isPedidoInividualSelected() {
+			return contextOrdersService.getOrder(order_context.getOrderSelected()).type === agrupationTypeVAL.TYPE_PERSONAL;
 		}
 
         
@@ -127,9 +128,9 @@
         /* TODO Revisar si sigue teniendo sentido esta funcion
          * ProxDeprec (04/12/17)
          */
-		vm.isAdmin = function(pedidoParam) {
+		function isAdmin(pedidoParam) {
 			var result = false;
-			angular.forEach(groups_dao.getGroups(), function(grupo, key) {
+			angular.forEach(contextAgrupationsService.getAgrupations(), function(grupo, key) {
 				if (grupo.esAdministrador) {
 					angular.forEach(grupo.miembros, function(miembro, key) {
 						if (miembro.pedido && miembro.pedido.id === pedidoParam.id) {
@@ -142,8 +143,8 @@
 			return result;
 		}
 
-		////////////
-		/// privados 
+        
+		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
        
 
 		function getGrupoByPedido(pedido) {
@@ -154,14 +155,26 @@
             return grupo.idPedidoIndividual;
 		}
 
-		////////////////////
-		////////// INIT 
+        
+        ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
+        
+		contextPurchaseServiceInt.ls.varianteSelected = undefined;
+        
+        function init(){
+            contextAgrupationsService.init();
+            order_context.setGroupSelected(idGrupoPedidoIndividual); 
+            
+            contextOrdersService.init();
+            order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
+        }
         
         init();
         
 		$(window).unload(function() {
 			$log.debug("reset por F5");
-            vm.clean();
+            clean();
 		});
-	} // function
-})(); // anonimo
+        
+        return contextPurchaseServiceInt;
+	} 
+})(); 
