@@ -100,7 +100,7 @@
          * Prec: cache actualizada
          */
 		function setContextoByPedido(newOrder) {
-            addNewOrder(newOrder);
+            //addNewOrder(newOrder);
 			order_context.setOrderSelected(newOrder.id);
 			order_context.setGroupSelected(getGrupoByPedido(newOrder));
 		}

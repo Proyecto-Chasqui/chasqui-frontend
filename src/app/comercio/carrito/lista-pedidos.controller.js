@@ -47,7 +47,7 @@
 
 
 		function setTabSeleccionado(tabSelected) {
-			$scope.selectedIndex = $scope.orders.map(function(t){return t.id}).indexOf(tabSelected)
+			$scope.selectedIndex = $scope.orders.map(function(o){return o.id}).indexOf(tabSelected)
             $scope.selectedIndex = ($scope.selectedIndex === -1)?0:$scope.selectedIndex;
             console.log("Tab selected:", tabSelected, "Index: ", $scope.selectedIndex);
 			$scope.selected = $scope.orders[$scope.selectedIndex];
@@ -71,7 +71,7 @@
 		function load() {
 			contextOrdersService.getOrders().then(function(orders) {
 				$scope.orders = orders.getOrders().filter(function(o){return o.estado === "ABIERTO"});
-				setTabSeleccionado(contextPurchaseService.getOrderContext().getOrderSelected());
+				setTabSeleccionado(contextPurchaseService.getOrderSelected().id);
 			});
 		}
         
