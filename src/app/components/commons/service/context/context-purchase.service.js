@@ -49,7 +49,7 @@
          *  Retorna: Pedido seleccionado
          */
         function getOrderSelected(){
-            return contextOrdersService.getOrder(getOrderContext().getOrderSelected());
+            return contextOrdersService.getOrder(getOrderContext().getOrderId());
         }
 
         /*
@@ -57,7 +57,7 @@
          *  Retorna: Grupo seleccionado
          */
         function getGroupSelected(){
-            return contextAgrupationsService.getAgrupation(getOrderContext().getGroupSelected());
+            return contextAgrupationsService.getAgrupation(getOrderContext().getGroupId());
         }
 
                 
@@ -101,8 +101,8 @@
          */
 		function setContextoByPedido(newOrder) {
             //addNewOrder(newOrder);
-			order_context.setOrderSelected(newOrder.id);
-			order_context.setGroupSelected(getGrupoByPedido(newOrder));
+			order_context.setOrderId(newOrder.id);
+			order_context.setGroupId(getGrupoByPedido(newOrder));
 		}
 
         /* Prop: setea el contexto de compra segun el grupo para el usuario logeado
@@ -111,16 +111,16 @@
          * Prec: cache actualizada; debe existir un pedido con id idPedidoIndividual del grupo referenciado por groupId
          */
 		function setContextoByGrupo(groupId) {
-            order_context.setGroupSelected(groupId);
-            order_context.setOrderSelected(contextAgrupationsService.getAgrupation(groupId).idPedidoIndividual); 
+            order_context.setGroupId(groupId);
+            order_context.setOrderId(contextAgrupationsService.getAgrupation(groupId).idPedidoIndividual); 
 		}
 
 		function isGrupoIndividualSelected() {
-			return contextAgrupationsService.getAgrupation(order_context.getGroupSelected()).type === agrupationTypeVAL.TYPE_PERSONAL;
+			return contextAgrupationsService.getAgrupation(order_context.getGroupId()).type === agrupationTypeVAL.TYPE_PERSONAL;
 		}
 
 		function isPedidoInividualSelected() {
-			return contextOrdersService.getOrder(order_context.getOrderSelected()).type === agrupationTypeVAL.TYPE_PERSONAL;
+			return contextOrdersService.getOrder(order_context.getOrderId()).type === agrupationTypeVAL.TYPE_PERSONAL;
 		}
 
         
@@ -162,10 +162,10 @@
         
         function init(){
             contextAgrupationsService.init();
-            order_context.setGroupSelected(idGrupoPedidoIndividual); 
+            order_context.setGroupId(idGrupoPedidoIndividual); 
             
             contextOrdersService.init();
-            order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
+            order_context.setOrderId(idPedidoIndividualGrupoPersonal);
         }
         
         init();
