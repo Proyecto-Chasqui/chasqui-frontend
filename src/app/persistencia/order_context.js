@@ -7,8 +7,8 @@
 
         var initFields = {
                             catalogId: -1,
-                            groupId: -1,
-                            groupType: "",
+                            agrupationId: -1,
+                            agrupationType: "",
                             orderId: -1,
                             productId: -1
                         }
@@ -25,9 +25,12 @@
         var set = fn_set(ss_connection);
         var get = fn_get(ss_connection);
 
-        //////////////////////////                        
+        //////////////////////////        
+        
+        var order_context = settersAndGettersBuilder(set, get, Object.keys(initFields));
+        order_context.reset = init;
 
-        return settersAndGettersBuilder(set, get, Object.keys(initFields));
+        return order_context;
     
     }
 })();

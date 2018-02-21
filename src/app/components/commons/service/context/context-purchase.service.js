@@ -16,7 +16,18 @@
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
-        var contextPurchaseServiceInt = {
+        var contextPurchaseServiceInt = { 
+            //Nueva interfaz
+            setContextByCatalog: setContextByCatalog,       // :: catalog -> null
+            setContextByOrder: setContextByOrder,           // :: order -> null
+            setContextByAgrupation: setContextByAgrupation,  // :: agrupation -> null
+            
+            getCatalogContext: getCatalogContext,
+            getOrderContext: getOrderContext,
+            getAgrupationContext: getAgrupationContext,
+            resetContext: resetContext,
+            
+            // Vieja interfaz
             clean: clean,
             refresh: refresh,
             refreshPedidos: refreshPedidos,
@@ -36,6 +47,62 @@
         
         ///////////////////////////////////////// Public \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 
+        /////////////////// Nueva interfaz
+        
+        /* Prop: setea el contexto de compra segun el catalogo para el usuario logeado
+         * Modifica:    order_context.agrupationId
+         *              order_context.agrupationType
+         *              order_context.orderId
+         */
+        function setContextByCatalog(catalog){
+            // Dadas las estrategias del catalogo depende el contexto inicial. TODO: Dinamizar
+            
+            order_context.setCatalogId(catalog.id);
+            
+            // Por el momento se setea por defecto el pedido individual
+            order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+            order_context.setOrderId(idPedidoIndividualGrupoPersonal);
+        }
+        
+        /* Prop: setea el contexto de compra segun el pedido para el usuario logeado
+         * Modifica:    order_context.agrupationId
+         *              order_context.agrupationType
+         *              order_context.orderId
+         */
+        function setContextByOrder(order){
+            order_context.setOrderId(order.id);
+            order_context.setAgrupationId(getGrupoByPedido(order));
+            order_context.setAgrupationType(order.type);
+        }
+        
+        function setContextByAgrupation(agrupation){
+            order_context.setOrderId(getPedidoByGrupo(agrupation));
+            order_context.setAgrupationId(agrupation.id);
+            order_context.setAgrupationType(agrupation.type);            
+        }
+        
+        function getCatalogContext(){
+            return order_context.getCatalogId();   
+        }
+        
+        function getOrderContext(){
+            return order_context.getOrderId();
+        }
+        
+        function getAgrupationContext(){
+            return {
+                id: order_context.getAgrupationId(),
+                type: order_context.getAgrupationType()
+            };
+        }
+        
+        function resetContext(){
+            order_context.reset();
+        }
+                
+        
+        /////////////////// Vieja interfaz
         
         /*
          *  Prec: Caché inicializada
@@ -57,7 +124,7 @@
          *  Retorna: Grupo seleccionado
          */
         function getGroupSelected(){
-            return contextAgrupationsService.getAgrupation(getOrderContext().getGroupId());
+            return contextAgrupationsService.getAgrupation(getOrderContext().getAgrupationId());
         }
 
                 
@@ -102,7 +169,7 @@
 		function setContextoByPedido(newOrder) {
             //addNewOrder(newOrder);
 			order_context.setOrderId(newOrder.id);
-			order_context.setGroupId(getGrupoByPedido(newOrder));
+			order_context.setAgrupationId(getGrupoByPedido(newOrder));
 		}
 
         /* Prop: setea el contexto de compra segun el grupo para el usuario logeado
@@ -111,12 +178,12 @@
          * Prec: cache actualizada; debe existir un pedido con id idPedidoIndividual del grupo referenciado por groupId
          */
 		function setContextoByGrupo(groupId) {
-            order_context.setGroupId(groupId);
+            order_context.setAgrupationId(groupId);
             order_context.setOrderId(contextAgrupationsService.getAgrupation(groupId).idPedidoIndividual); 
 		}
 
 		function isGrupoIndividualSelected() {
-			return contextAgrupationsService.getAgrupation(order_context.getGroupId()).type === agrupationTypeVAL.TYPE_PERSONAL;
+			return contextAgrupationsService.getAgrupation(order_context.getAgrupationId()).type === agrupationTypeVAL.TYPE_PERSONAL;
 		}
 
 		function isPedidoInividualSelected() {
@@ -162,7 +229,7 @@
         
         function init(){
             contextAgrupationsService.init();
-            order_context.setGroupId(idGrupoPedidoIndividual); 
+            order_context.setAgrupationId(idGrupoPedidoIndividual); 
             
             contextOrdersService.init();
             order_context.setOrderId(idPedidoIndividualGrupoPersonal);
