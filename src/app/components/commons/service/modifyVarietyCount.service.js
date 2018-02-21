@@ -55,7 +55,7 @@
 			}
             
 			var params = {
-                idPedido: contextPurchaseService.getOrderSelected().id,
+                idPedido: contextPurchaseService.getOrderContext(),
                 idVariante: variety.idVariante,
                 cantidad: count
             };
@@ -65,7 +65,7 @@
         
         
         function initialCountForVariety(variety){
-            var varietyInOrder = contextPurchaseService.getOrderSelected().productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
+            var varietyInOrder = contextPurchaseService.getSelectedOrder().productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
             return (varietyInOrder.length === 1)? varietyInOrder[0].cantidad : 0;
         }
 	} 

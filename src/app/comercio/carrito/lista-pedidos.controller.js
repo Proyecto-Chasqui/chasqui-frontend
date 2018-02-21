@@ -71,7 +71,7 @@
 		function load() {
 			contextOrdersService.getOrders().then(function(orders) {
 				$scope.orders = orders.getOrders().filter(function(o){return o.estado === "ABIERTO"});
-				setTabSeleccionado(contextPurchaseService.getOrderSelected().id);
+				setTabSeleccionado(contextPurchaseService.getOrderContext());
 			});
 		}
         

@@ -97,8 +97,8 @@
 		//////////////////////////////
 
 		vm.agregar = function(variety) {
-			vm.grupoSelected = contextPurchaseService.getGroupSelected();
-			vm.pedidoSelected = contextPurchaseService.getOrderSelected();
+			vm.grupoSelected = contextPurchaseService.getSelectedAgrupation();
+			vm.pedidoSelected = contextPurchaseService.getSelectedOrder();
 
             console.log(vm.grupoSelected, vm.pedidoSelected);
 			if (usuario_dao.isLogged()) {
@@ -162,7 +162,7 @@
                 function actualizarPedidoIndividual() {
                     function doOkPedido(response) {
                         $log.debug("setPedidoYagregarProducto", response);
-                        contextPurchaseService.setContextoByPedido(response.data);
+                        contextPurchaseService.setContextByOrder(response.data);
                         //contextPurchaseService.refresh();
                         ModifyVarietyCount.modifyDialog(variety);
                     }
@@ -194,7 +194,7 @@
 				contextPurchaseService.refresh();
                 contextAgrupationsService.getAgrupations().then(
 					function(grupos) {
-						contextPurchaseService.setContextoByGrupo(parseInt(vm.grupoSelected.idGrupo));
+						contextPurchaseService.setContextByAgrupation(vm.grupoSelected);
 						ModifyVarietyCount.modifyDialog(variety);
 					}
 				)
@@ -210,7 +210,7 @@
 			}
 
 			var params = {}
-			params.idGrupo = contextPurchaseService.getGroupSelected().idGrupo;
+			params.idGrupo = contextPurchaseService.getAgrupationContext().id;
 			params.idVendedor = $stateParams.idCatalog;
 
 			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);

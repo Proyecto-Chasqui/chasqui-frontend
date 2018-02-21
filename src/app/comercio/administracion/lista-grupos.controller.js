@@ -26,7 +26,7 @@
 			
 			if (! us.isUndefinedOrNull(vm.selected)){
                 console.log("Select group:", vm.selected, vm.groups);
-				contextPurchaseService.setContextoByGrupo(vm.selected.idGrupo);
+				contextPurchaseService.setContextByAgrupation(vm.selected);
 			}
 		});
 
@@ -149,7 +149,7 @@
 			contextAgrupationsService.getAgrupations().then(function(groups){
 				$log.debug("--- find grupos respuesta", groups);
 				vm.groups = groups.getGroups().filter(function(g){return g.alias != "Personal"});
-				setTabSeleccionado(contextPurchaseService.getGroupSelected());
+				setTabSeleccionado(contextPurchaseService.getSelectedAgrupation());
             });
 		}
 

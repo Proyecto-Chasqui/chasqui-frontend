@@ -15,6 +15,7 @@ function storageConnection(){
                 },
             
             get: function(key){
+                    if(key === "orderId")console.log(storage.getItem(key));
                     return JSON.parse(storage.getItem(key));
                 },
             

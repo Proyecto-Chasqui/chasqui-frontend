@@ -122,7 +122,7 @@
 		}
 
 		$scope.comprar = function() {
-			contextPurchaseService.setContextoByPedido($scope.pedido);
+			contextPurchaseService.setContextByOrder($scope.pedido);
 			$state.go('catalogo')
 		}
 
@@ -165,7 +165,7 @@
 		}
 
 		$scope.confirmarClick = function(){
-            contextPurchaseService.setContextoByPedido($scope.pedido);
+            contextPurchaseService.setContextByOrder($scope.pedido);
 			if (contextPurchaseService.isPedidoInividualSelected()){
                 console.log("Individual");
 				callDirecciones();

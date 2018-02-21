@@ -36,7 +36,8 @@
         }
             
         function getAgrupation(searchedAgrupation){
-            return groups_dao.getGroup(searchedAgrupation);
+            console.log(searchedAgrupation);
+            return groups_dao.getGroup(searchedAgrupation.id);
             //return agrupationDispatcher(searchedAgrupation.type, function(personalAgrupation){return personalAgrupation})
         }
         

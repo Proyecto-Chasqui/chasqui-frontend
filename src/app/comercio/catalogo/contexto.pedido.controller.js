@@ -19,11 +19,13 @@
         $scope.urlBase = CTE_REST.url_base;
         $scope.isLogued = usuario_dao.isLogged();
 
+      
+        // TODO: creo que no corresponde esta recarga. Revisar
         function load() {
             console.log("Load");
             contextOrdersService.getOrders().then(
                 function(orders) {
-                    $scope.pedidoSelected = contextPurchaseService.getOrderSelected();
+                    $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
                     //console.log("Pedido: ", $scope.pedidoSelected.id);
             });
         }

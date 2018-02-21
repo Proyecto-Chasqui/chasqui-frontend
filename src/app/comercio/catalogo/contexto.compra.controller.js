@@ -21,8 +21,8 @@
             contextAgrupationsService.getAgrupations().then(
                 function(groups) {
                     $scope.grupos = groups.getGroups();
-                    $scope.grupoSelected = contextPurchaseService.getGroupSelected().idGrupo;     
-                    console.log("Grupos: ", $scope.grupos, "Selected id: ", contextPurchaseService.getGroupSelected().idGrupo);
+                    $scope.grupoSelected = contextPurchaseService.getAgrupationContext().id;     
+                    console.log("Grupos: ", $scope.grupos, "Selected id: ", contextPurchaseService.getAgrupationContext().id);
                 });
         }
         
@@ -30,7 +30,8 @@
         
 
 		$scope.cambiarContexto = function() {
-			contextPurchaseService.setContextoByGrupo(parseInt($scope.grupoSelected));
+            console.log("Cambiar de contexto", $scope.grupoSelected);
+			contextPurchaseService.setContextByAgrupation({id: contextAgrupationsService.getAgrupation($scope.grupoSelected)});
 			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.grupoSelected);
 		}
 

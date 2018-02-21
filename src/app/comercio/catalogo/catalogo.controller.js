@@ -12,7 +12,7 @@
 	function CatalogoController($scope, $log, CTE_REST, $timeout, StateCommons, productorService,
 		productoService, ToastCommons, gccService, us, $mdSidenav, $state, usuario_dao, navigation_state, contextPurchaseService) {
 		
-		$log.debug("CatalogoController ..... grupoSelected", contextPurchaseService.getGroupSelected());
+		$log.debug("CatalogoController ..... grupoSelected");
 
 		navigation_state.goCatalogTab();
 		var vm = this;

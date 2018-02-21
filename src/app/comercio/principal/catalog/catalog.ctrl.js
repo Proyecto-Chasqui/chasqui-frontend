@@ -10,7 +10,7 @@
                 
         $scope.catalog = catalogs_dao.getCatalog($stateParams.idCatalog);
         
-        contextPurchaseService.refresh();
+        contextPurchaseService.setContextByCatalog(catalogs_dao.getCatalog($stateParams.idCatalog));
         
         $scope.url = function(path){
             return CTE_REST.url_base + path;
