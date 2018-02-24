@@ -1,9 +1,9 @@
 (function() {
   'use strict';
 
-  angular.module('chasqui').factory('restProxy', CharquiRest);
+  angular.module('chasqui').factory('restProxy', ChasquiRest);
 
-  function CharquiRest($http, $rootScope, $log, $state, StateCommons, ToastCommons, usuario_dao) {
+  function ChasquiRest($http, $rootScope, $log, $state, StateCommons, ToastCommons, usuario_dao) {
 
     /*
      * LocalStorage conserva el token del usuario. Para acceder él:
