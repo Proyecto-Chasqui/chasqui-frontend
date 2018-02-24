@@ -25,6 +25,7 @@
                 $log.debug("Cancelo Agregar")
             }
 
+            //dialogCommons.prompt('Agregar al changuito', '¿Cuántos ' + variety.nombreProducto + ' necesitas?','Cantidad', 'Agregar', 'Cancelar', doOk, doNoOk);
             dialogCommons.modifyVarietyCount({
                                                 title: "¿Cuántos " + varietyName + " necesitas?",
                                                 okButton: "Agregar al carrito",
