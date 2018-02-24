@@ -3,39 +3,46 @@
 
 	angular
 		.module('chasqui')
-		.controller('CatalogMenuController', CatalogMenuController);
+		.controller('MenuController', MenuController);
 
-	
-	function CatalogMenuController($scope, $log, $state, StateCommons, CTE_REST, $interval, ToastCommons,
+	/** @ngInject */
+	function MenuController($scope, $log, $state, StateCommons, CTE_REST, $interval, ToastCommons,
 		perfilService, contextoCompraService,us, usuario_dao, navigation_state, globalConfigurations) {
-        
-		
-		$scope.urlBase = CTE_REST.url_base;
-		$scope.vendedor = StateCommons.vendedor();
+		$log.debug("MenuController ..... ");
+		$log.debug(usuario_dao.getUsuario());
 
-		$scope.options = {
+		var vm = this;
+		vm.urlBase = CTE_REST.url_base;
+		vm.vendedor = StateCommons.vendedor();
+
+        vm.firstMenuItem = globalConfigurations[CTE_REST.idVendedor].menus[0];
+        vm.tailMenuItems = globalConfigurations[CTE_REST.idVendedor].menus.slice(1, globalConfigurations[CTE_REST.idVendedor].menus.length);
+          
+        
+		vm.options = {
 			'rotation': 'circ-in',
 			'duration': 1000
 		};
 
 		function initHeader() {
-			$scope.categorias = [];
-			$scope.usuario = usuario_dao.getUsuario();
+			vm.categorias = [];
+			vm.usuario = usuario_dao.getUsuario();
+			vm.isLogued = usuario_dao.isLogged();
 
 			initRefreshNotification();
 			resetNotificacion();
 		}
 
 		function resetNotificacion() {
-			$scope.callNotificaciones = false;
-			$scope.icon = 'notifications_none';
-			$scope.fill = 'white';
+			vm.callNotificaciones = false;
+			vm.icon = 'notifications_none';
+			vm.fill = 'white';
 		}
 
 		function addNotificacion() {
-			$scope.callNotificaciones = true;
-			$scope.icon = 'notifications';
-			$scope.fill = 'red';
+			vm.callNotificaciones = true;
+			vm.icon = 'notifications';
+			vm.fill = 'red';
 			ToastCommons.mensaje(us.translate('LLEGO_NOTIFICACION'))
 		}
 
@@ -44,14 +51,16 @@
 		});
 
 		$scope.$on('logout', function(event, msg) {
-			$scope.logOut();
+			vm.logOut();
 		});
 
-       
+        vm.classFor = function(page) {
+			return (navigation_state.getSelectedTab() == page)?"md-accent":"";
+		}
 
 		var llamadoPeriodico;
 
-		$scope.logOut = function() {
+		vm.logOut = function() {
 			$log.debug("Log Out ..... ");
 
 			usuario_dao.logOut();
@@ -65,10 +74,10 @@
 		}
 
 
-		$scope.verNotificaciones = function() {
+		vm.verNotificaciones = function() {
 			$log.debug("Ver notificaciones");
-			$scope.icon = 'notifications_none';
-			$scope.fill = 'white';
+			vm.icon = 'notifications_none';
+			vm.fill = 'white';
 			$state.go('perfil', {
 				index: 1
 			});
@@ -93,15 +102,15 @@
 			function doOk(response) {
 				$log.debug('callObtenerNotificaciones', response);
 
-				$scope.notificacionesSinLeer = 0;
+				vm.notificacionesSinLeer = 0;
 				// TODO : filtro en el front , deberia ser por BE
 				angular.forEach(response.data, function(value, key) {
 					console.log(value.estado)
 					if (value.estado == "NOTIFICACION_NO_LEIDA")
-						$scope.notificacionesSinLeer = $scope.notificacionesSinLeer + 1;
+						vm.notificacionesSinLeer = vm.notificacionesSinLeer + 1;
 				});
 
-				if ($scope.notificacionesSinLeer > 0) {
+				if (vm.notificacionesSinLeer > 0) {
 					$log.debug('hay nuevas notificaciones !');
 					addNotificacion();
 					//ToastCommons.mensaje("Hay notificaciones "+ response.data.length +" nuevas !");
