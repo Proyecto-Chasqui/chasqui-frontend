@@ -9,31 +9,31 @@
                     menus: [
                         {   // Wellcome
                             id: 'WELCOME',
-                            route: 'landingPage',
+                            route: 'principal',
                             label: 'MENU_BIENVENIDO',
                             needLogin: false
                         },
                         {   // How to buy
                             id: 'HOW_TO_BUY',
-                            route: 'howToBuy',
+                            route: 'como-comprar',
                             label: 'MENU_COMO_COMPRAR',
                             needLogin: false
                         },
                         {   // Catalogue
                             id: 'CATALOG',
-                            route: 'products',
+                            route: 'catalogo',
                             label: 'MENU_CATALOGO',
                             needLogin: false
                         },
                         {   // Orders
                             id: 'MY_ORDERS',
-                            route: 'userOrders',
+                            route: 'lista-pedidos',
                             label: 'MENU_PEDIDO',
                             needLogin: true
                         },
                         {   // Groups
                             id: 'MY_GROUPS',
-                            route: 'userGroups',
+                            route: 'lista-grupos',
                             label: 'MENU_GRUPO',
                             needLogin: true
                         },
