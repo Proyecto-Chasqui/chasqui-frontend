@@ -101,15 +101,16 @@
 	z-index: 900;
 }
 
-div.ch-content {
+.ch-content {
 	width: 80%;
 	margin: 0px auto;
-	padding-top: 11%;
+	margin-top: 125px;
 }
 
-div.ch-content-full {
+.ch-content-full {
 	margin: 0px auto;
-	padding-top: 11%;
+	margin-top: 125px;
+    padding-bottom: 100%;
 }
 
 md-toast.md-center {
