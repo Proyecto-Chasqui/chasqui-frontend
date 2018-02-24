@@ -7,14 +7,14 @@
 		var vm = this;
 		var idVend = StateCommons.vendedor().id;
 
-		vm.gruposByusuario = function() {
-			$log.debug(" service gruposByusuario ");
-			return promiseService.doGetPrivate(CTE_REST.gruposByusuario(StateCommons.vendedor().id), {});
+		vm.groupsByUser = function() {
+			$log.debug(" service groupsByUser ");
+			return promiseService.doGetPrivate(CTE_REST.groupsByUser(StateCommons.vendedor().id), {});
 		}
 
 		vm.nuevoGrupo = function(params) {
-			$log.debug(" service gruposByusuario ");
-			//return promiseService.doPost(CTE_REST.gruposByusuario(id),contacts);
+			$log.debug(" service groupsByUser ");
+			//return promiseService.doPost(CTE_REST.groupsByUser(id),contacts);
 			params.idVendedor = idVend;
 			return promiseService.doPost(CTE_REST.nuevoGrupo, params);
 		}

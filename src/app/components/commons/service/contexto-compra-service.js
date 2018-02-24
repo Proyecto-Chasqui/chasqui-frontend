@@ -115,7 +115,7 @@
                         response.data.forEach(groups_dao.newGroup);
                         defered.resolve(groups_dao);
                     }
-                    gccService.gruposByusuario().then(doOK);    
+                    gccService.groupsByUser().then(doOK);    
                 });
            
 		}
