@@ -26,7 +26,7 @@
 			$log.debug("---ver mas ---", item);
 
 			$state.go('emprendedores', {
-				id: item.idVendedor // Este id es del productor
+				id: item.idVendedor
 			});
 		}
 
