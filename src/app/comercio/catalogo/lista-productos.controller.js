@@ -268,6 +268,7 @@
 				pagina: pagina,
 				cantItems: items,
 				precio: 'Down'
+				// ,idVendedor =CTE_REST.vendedor //TODO: que se dinamico
 			}
 
 			productoService.getProductosByMultiplesFiltros(params).then(doOk);
