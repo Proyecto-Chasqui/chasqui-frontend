@@ -8,12 +8,12 @@
 	/** @ngInject */
 	function ProductorController($log, $stateParams, $scope, CTE_REST, navigation_state, productorService, ToastCommons, us) {
 		
-        $log.debug('EmprenController ..... ', $stateParams.idCatalog);
+        $log.debug('EmprenController ..... ', $stateParams.id);
 		//navigation_state.goMakersTab();
         
 
 		$scope.urlBase = CTE_REST.url_base;
-		var idProductor = $stateParams.idCatalog;
+		var idProductor = $stateParams.id;
         
         $scope.productores = [];
         $scope.productor = {};

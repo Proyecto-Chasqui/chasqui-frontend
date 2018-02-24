@@ -5,7 +5,7 @@
 		ListaGruposController);
 
 	/** @ngInject . Tabs de grupos con el panel de info y botones de acciones */
-	function ListaGruposController($log, $scope, $state, $stateParams,
+	function ListaGruposController($log, $scope, $state,
 		StateCommons, dialogCommons, ToastCommons, perfilService, gccService, CTE_REST, 
 		contextoCompraService, us, usuario_dao, navigation_state) {
 
@@ -119,7 +119,7 @@
 
 			var params = {};
 			params.idGrupo = grupo.idGrupo;
-			params.idVendedor = $stateParams.idCatalog;
+			params.idVendedor = StateCommons.vendedor().id;
 
 			gccService.crearPedidoGrupal(params).then(doOk);
 		}

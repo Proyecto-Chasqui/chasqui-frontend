@@ -11,7 +11,7 @@
         $scope.selectedIndex = 0;
         
         
-        var idInvitacion = $stateParams.idCatalog;
+        var idInvitacion = $stateParams.id;
         
         $scope.mailInvitacion = "";
         

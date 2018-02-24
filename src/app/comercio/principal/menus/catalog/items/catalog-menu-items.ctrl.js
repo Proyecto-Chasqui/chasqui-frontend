@@ -8,7 +8,7 @@
     
 	function CatalogMenuItemsController($scope, $stateParams, itemsBuilder, navigation_state, usuario_dao, catalogs_dao) {
        
-        $scope.catalog = catalogs_dao.getCatalog($stateParams.idCatalog);
+        $scope.catalog = catalogs_dao.getCatalog($stateParams.id);
         
         $scope.isLogued = usuario_dao.isLogged();
         

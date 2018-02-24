@@ -10,7 +10,7 @@
 	function ListaProductosController($scope, $rootScope, $log, CTE_REST,
 		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
 		gccService, $mdDialog, productorService, contextoCompraService, 
-        usuario_dao, ModifyVarietyCount, $stateParams) {
+        usuario_dao, ModifyVarietyCount) {
 
 		$log.debug('ListaProductosController',
 			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -178,7 +178,7 @@
 				}
 
 				var json = {};
-				json.idVendedor = $stateParams.idCatalog;
+				json.idVendedor = StateCommons.vendedor().id;
 
 				//si falla es poque ya tiene un pedido abierto TODO mejorar
 				productoService.crearPedidoIndividual(json, doNoOK).then(actualizarPedidoIndividual)
@@ -211,7 +211,7 @@
 
 			var params = {}
 			params.idGrupo = contextoCompraService.getGroupSelected().idGrupo;
-			params.idVendedor = $stateParams.idCatalog;
+			params.idVendedor = StateCommons.vendedor().id;
 
 			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
 		}
@@ -234,7 +234,7 @@
 
 			var params = {
 				query : params.query,
-				idVendedor : $stateParams.idCatalog,
+				idVendedor : StateCommons.vendedor().id,
 				idMedalla : params.sello,
 				idProductor: params.productor,
 				idMedallaProductor: params.selloProductor,
@@ -264,7 +264,7 @@
 			}
 
 			var params = {
-				idVendedor: $stateParams.idCatalog,
+				idVendedor: StateCommons.vendedor().id,
 				pagina: pagina,
 				cantItems: items,
 				precio: 'Down'
