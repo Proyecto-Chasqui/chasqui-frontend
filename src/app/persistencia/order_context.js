@@ -6,11 +6,9 @@ angular.module('chasqui').factory('order_context',
     function init(){
         console.log("Init order_context");
         ls_connection.init({
-            catalogId: -1,
-            orderId: -1,
-            agrupationId: -1,
-            agrupationType: "",
-            productSelectedId: -1
+            productSelectedId: -1,
+            groupSelectedId: -1,
+            orderSelectedId: -1
         });
     }
                         
