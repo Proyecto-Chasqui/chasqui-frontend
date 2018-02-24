@@ -15,7 +15,7 @@
         })
     
         .state('catalog', {
-            url: '/:idCatalog',
+            url: '/catalogo/:id',
             templateUrl: 'app/comercio/principal/catalog/catalog.tmpl.html',
             controller: 'CatalogController',
             abstract: true
