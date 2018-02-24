@@ -6,14 +6,13 @@
 		.controller('HomeController', HomeController);
 
     
-	function HomeController($scope, sellerService, CTE_REST, catalogs_dao) {
+	function HomeController($scope, sellerService, CTE_REST) {
         
-        $scope.catalogs = catalogs_dao.getCatalogs();
+        $scope.catalogs = [];
         
-        /*sellerService.getSellers().then(function(response){
+        sellerService.getSellers().then(function(response){
             $scope.catalogs = response.data;
         });
-        */
         
         $scope.url = function(path){
             return CTE_REST.url_base + path;

@@ -21,8 +21,7 @@
 		function initHeader() {
 			$scope.categorias = [];
 			$scope.usuario = usuario_dao.getUsuario();
-            $scope.isLogued = usuario_dao.isLogged();
-            
+
 			initRefreshNotification();
 			resetNotificacion();
 		}
