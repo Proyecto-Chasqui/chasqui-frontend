@@ -7,7 +7,7 @@
 	/**
 	 * @ngInject Lista de productos.
 	 */
-	function ListaProductosController($scope, $rootScope, $log, CTE_REST,
+	function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
 		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
 		gccService, $mdDialog, productorService, contextoCompraService, 
         usuario_dao, ModifyVarietyCount) {
@@ -15,13 +15,13 @@
 		$log.debug('ListaProductosController',
 			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
 
-		var CANT_ITEMS = CTE_REST.PRODUCTOS_X_PAG; // TODO : pasar a constante
+		var CANT_ITEMS = REST_ROUTES.PRODUCTOS_X_PAG; // TODO : pasar a constante
 
 		var vm = this;
 
 		vm.otherCtrl = $scope.$parent.$parent.catalogoCtrl.isFiltro1;
 
-		vm.urlBase = CTE_REST.url_base;
+		vm.urlBase = URLS.be_base;
 		vm.productos = [];
 		vm.ultimoFiltro = {};
 		vm.medallaSelect = undefined;
@@ -171,7 +171,7 @@
                 }
 				// crear pedido y dialog
 				function doNoOK(response) {
-					if (us.contieneCadena(response.data.error, CTE_REST.ERROR_YA_TIENE_PEDIDO)) {
+					if (us.contieneCadena(response.data.error, REST_ROUTES.ERROR_YA_TIENE_PEDIDO)) {
 						ToastCommons.mensaje(us.translate('AGREAR_EN_PEDIDO_EXISTENTE'));
 						ModifyVarietyCount.modifyDialog(variety);
 					}

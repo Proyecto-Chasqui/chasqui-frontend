@@ -6,17 +6,17 @@
 		.controller('MenuController', MenuController);
 
 	/** @ngInject */
-	function MenuController($scope, $log, $state, StateCommons, CTE_REST, $interval, ToastCommons,
+	function MenuController($scope, $log, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
 		perfilService, contextoCompraService,us, usuario_dao, navigation_state, globalConfigurations) {
 		$log.debug("MenuController ..... ");
 		$log.debug(usuario_dao.getUsuario());
 
 		var vm = this;
-		vm.urlBase = CTE_REST.url_base;
+		vm.urlBase = URLS.be_base;
 		vm.vendedor = StateCommons.vendedor();
 
-        vm.firstMenuItem = globalConfigurations[CTE_REST.idVendedor].menus[0];
-        vm.tailMenuItems = globalConfigurations[CTE_REST.idVendedor].menus.slice(1, globalConfigurations[CTE_REST.idVendedor].menus.length);
+        vm.firstMenuItem = globalConfigurations[REST_ROUTES.idVendedor].menus[0];
+        vm.tailMenuItems = globalConfigurations[REST_ROUTES.idVendedor].menus.slice(1, globalConfigurations[REST_ROUTES.idVendedor].menus.length);
           
         
 		vm.options = {
@@ -91,7 +91,7 @@
 				llamadoPeriodico = $interval(function() {
 					$log.debug("call notificaciones nuevas?");
 					callNotificacionesNoLeidas();
-				}, CTE_REST.INTERVALO_NOTIFICACION_MIN);
+				}, REST_ROUTES.INTERVALO_NOTIFICACION_MIN);
 
 				StateCommons.ls.notificacionActiva = true; // TODO cambiar al generar DAOs (mensaje del 11/10)
 			}

@@ -13,7 +13,7 @@
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
 	function contextoCompraService($log, us, StateCommons, $localStorage, 
-		productoService, gccService, $q, $timeout, $rootScope,moment,CTE_REST, 
+		productoService, gccService, $q, $timeout, $rootScope,moment,REST_ROUTES, 
         usuario_dao, orders_dao, groups_dao, order_context) {
 		var vm = this;
 		
@@ -341,7 +341,7 @@
 		}
 
 		function vencioTiempoChache(){
-			return parseInt(moment().diff(vm.ls.lastUpdate))/1000 > CTE_REST.TIEMPO_MAX_CACHE;
+			return parseInt(moment().diff(vm.ls.lastUpdate))/1000 > REST_ROUTES.TIEMPO_MAX_CACHE;
 		}
 
 		

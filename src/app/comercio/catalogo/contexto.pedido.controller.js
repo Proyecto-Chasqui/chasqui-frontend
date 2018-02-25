@@ -8,7 +8,7 @@
   /**
    *  FAB Button de contexto de compra.
    */
-  function ContextoPedidoController($rootScope, $log, CTE_REST, $scope, gccService, us, 
+  function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, 
                                      productoService, $timeout, contextoCompraService, 
                                      usuario_dao, ModifyVarietyCount) {
 
@@ -16,7 +16,7 @@
 
 
         /////////////////////////////////////////////////o
-        $scope.urlBase = CTE_REST.url_base;
+        $scope.urlBase = URLS.be_base;
         $scope.isLogued = usuario_dao.isLogged();
 
         function load() {
