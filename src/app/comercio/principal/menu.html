@@ -10,14 +10,16 @@
                 
                 <md-button class="{{menuCtrl.classFor(menuCtrl.firstMenuItem.id)}}" 
                            ui-sref="{{menuCtrl.firstMenuItem.route}}" 
-                           ng-if="!menuCtrl.firstMenuItem.needLogin || menuCtrl.isLogued">
+                           ng-if="!menuCtrl.firstMenuItem.needLogin || menuCtrl.isLogued"
+                           ng-click="toTop()">
 						<b> {{menuCtrl.firstMenuItem.label | translate}}</b> 
                 </md-button>
                 
                 <div ng-repeat="item in menuCtrl.tailMenuItems" ng-if="!item.needLogin || menuCtrl.isLogued">
 					<span>|</span>
                     <md-button class="{{menuCtrl.classFor(item.id)}}" 
-                               ui-sref="{{item.route}}" >
+                               ui-sref="{{item.route}}" 
+                               ng-click="toTop()">
                             <b> {{item.label | translate}}</b> 
                     </md-button>
                 </div>

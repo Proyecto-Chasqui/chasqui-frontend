@@ -123,6 +123,10 @@
 			perfilService.notificacionesLeidas(1).then(doOk);
 			//perfilService.notificacionesNoLeidas().then(doOk);	
 		}
+        
+        $scope.toTop = function(){
+            window.scrollTo(0,0);
+        }
 
 
 		initHeader();
