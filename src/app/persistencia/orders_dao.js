@@ -53,6 +53,7 @@ function orders_dao(catalogs_data){
         }, []);
     }
     
+    
     function getOrdersByType(catalogId, ordersType){
         return catalogs_data.getCatalog(catalogId)[ordersType];
     }
