@@ -29,7 +29,7 @@
         function init(){
             orders_dao.reset();
             //order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
-            addNewOrder(pedidoIndividualVirtual);
+            //addNewOrder(pedidoIndividualVirtual);
         }
             
         function reset(){
@@ -40,8 +40,8 @@
             return agrupationTypeVAL;
         }
             
-        function getOrder(orderId){
-            return orders_dao.getOrder(orderId);
+        function getOrder(catalogId, orderId, orderType){
+            return orders_dao.getOrder(catalogId, orderId, orderType);
         }
         
         
@@ -50,32 +50,33 @@
          *  PREC:
          *  RET:
          */ 
-        function getOrders() {
+        function getOrders(catalogId) {
             return getContext(
                 vm.ls.lastUpdate, 
                 "pedidos", 
                 function(){
                     var defered = $q.defer();
                     var promise = defered.promise;
-                    addOrdersFromGroupsWithoutOrders(orders_dao.getOrders()).then(function(orders){
-                            orders.forEach(addNewOrder);
+                    addOrdersFromGroupsWithoutOrders(orders_dao.getOrders(catalogId)).then(function(orders){
+                            orders_dao.loadOrders(catalogId, orders);
                             defered.resolve(orders_dao);
                         });
                     return promise;                
                 },   
-                orders_dao.getOrders().length === 1, 
+                
+                orders_dao.getOrders(catalogId).length === 1, 
+                
                 function(defered){
-
                     function doOk(response) {	
                         vm.ls.lastUpdate=moment();	
                         init();
                         addOrdersFromGroupsWithoutOrders(response.data).then(function(orders){
-                            orders.forEach(addNewOrder);
+                            orders_dao.loadOrders(catalogId, orders);
                             defered.resolve(orders_dao);
                         });
                     }
 
-                    gccService.pedidosByUser().then(doOk);                  
+                    gccService.pedidosByUser(catalogId).then(doOk);                  
                 });
 		}
              
@@ -103,6 +104,8 @@
          *  PREC:
          *  RET:
          */ 
+        
+        // DEPRECADO
         function addNewOrder(newOrder){
             if(orders_dao.getOrders().filter(function(o){return o.id == newOrder.id}).length === 0){
                 if(newOrder.idGrupo == null){ // Esto significa que es el pedido individual cargado desde el BE

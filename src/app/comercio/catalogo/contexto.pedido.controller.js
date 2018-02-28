@@ -10,7 +10,7 @@
    */
   function ContextoPedidoController($rootScope, $log, CTE_REST, $scope, gccService, us, 
                                      productoService, $timeout, contextPurchaseService, 
-                                     usuario_dao, ModifyVarietyCount, contextOrdersService) {
+                                     usuario_dao, ModifyVarietyCount, contextOrdersService, order_context) {
 
         $log.debug("ContextoPedidoController .....");
 
@@ -23,7 +23,7 @@
         // TODO: creo que no corresponde esta recarga. Revisar
         function load() {
             console.log("Load");
-            contextOrdersService.getOrders().then(
+            contextOrdersService.getOrders(order_context.getCatalogId()).then(
                 function(orders) {
                     $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
                     //console.log("Pedido: ", $scope.pedidoSelected.id);

@@ -42,7 +42,7 @@
         contextPurchaseService.refresh();
         // TODO: guardar el id del grupo creado
         
-        $state.go("lista-grupos");
+        $state.go("catalog.userGroups");
           
       }
 

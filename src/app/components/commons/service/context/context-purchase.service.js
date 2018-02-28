@@ -10,7 +10,7 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($log, $localStorage, orders_dao, groups_dao, order_context, 
+	function contextPurchaseService($log, $localStorage, groups_dao, order_context, 
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal) {
         
@@ -108,7 +108,9 @@
          *  Retorna: Pedido seleccionado
          */
         function getSelectedOrder(){
-            return contextOrdersService.getOrder(getOrderContext());
+            return contextOrdersService.getOrder(order_context.getCatalogId(), 
+                                                 order_context.getOrderId, 
+                                                 order_context.getAgrupationType());
         }
         
         /*
@@ -151,7 +153,7 @@
 		function refreshPedidos() {
 			$log.debug("refreshPedidos");
             contextOrdersService.init();
-			return contextOrdersService.getOrders();
+			return contextOrdersService.getOrders(order_context.getCatalogId());
 		}
 
 		function refreshGrupos() {
@@ -166,7 +168,9 @@
 		}
 
 		function isPedidoInividualSelected() {
-			return contextOrdersService.getOrder(order_context.getOrderId()).type === agrupationTypeVAL.TYPE_PERSONAL;
+			return contextOrdersService.getOrder(order_context.getCatalogId(), 
+                                                 order_context.getOrderId, 
+                                                 order_context.getAgrupationType()).type === agrupationTypeVAL.TYPE_PERSONAL;
 		}
 
         
@@ -210,7 +214,7 @@
             contextAgrupationsService.init();
             order_context.setAgrupationId(idGrupoPedidoIndividual); 
             
-            contextOrdersService.init();
+            //contextOrdersService.init();  // DESCOMENTAR
             order_context.setOrderId(idPedidoIndividualGrupoPersonal);
         }
         

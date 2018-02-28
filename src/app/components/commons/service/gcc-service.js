@@ -6,9 +6,9 @@
 	function gccService($log, CTE_REST, StateCommons, promiseService, ToastCommons, $stateParams) {
 		var vm = this;
 
-		vm.pedidosByUser = function(doNoOK) {
+		vm.pedidosByUser = function(idCatalog, doNoOK) {
 			$log.debug(" service pedidosByUser ");
-			return promiseService.doGetPrivate(CTE_REST.pedidosByUser($stateParams.idCatalog), {}, doNoOK);
+			return promiseService.doGetPrivate(CTE_REST.pedidosByUser(idCatalog), {}, doNoOK);
 		}
         
 		vm.groupsByUser = function() {
