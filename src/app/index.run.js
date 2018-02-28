@@ -16,7 +16,7 @@
 			if (toState.auth && (!usuario_dao.isLogged())) {
 				$log.debug("ir a logu !!!", toState.name);
 				event.preventDefault();
-				$state.go('login', { toPage: toState.name })
+				$state.go('catalog.login', { toPage: toState.name })
 			}
 
 		});

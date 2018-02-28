@@ -42,12 +42,12 @@
 
 				if (us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
 					if (us.isUndefinedOrNull($stateParams.toPage) || $stateParams.toPage == '') {
-						$state.go("principal");
+						$state.go("catalog.landingPage");
 					} else {
 						$state.go($stateParams.toPage);
 					}
 				} else {
-					$state.go("catalogo");
+					$state.go("catalog.products");
 				}
 			}
 

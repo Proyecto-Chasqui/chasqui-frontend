@@ -107,7 +107,7 @@
 				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
 				$log.log('not logued" ', variety);
 				contextPurchaseService.ls.varianteSelected = variety;
-				$state.go('login');
+				$state.go('catalog.login');
 			}
 		}
 

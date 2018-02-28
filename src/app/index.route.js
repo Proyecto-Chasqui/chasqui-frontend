@@ -67,6 +67,12 @@
                 params: { index: null },
                 auth: true
             })
+            .state('catalog.login', {
+                url: '/login',
+                templateUrl: 'app/comercio/administracion/formularios/login.html',
+                controller: 'LogInController',
+                controllerAs: 'loginCtrl'
+            })
       
 
         .state('productor', {

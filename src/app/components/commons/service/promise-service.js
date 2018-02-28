@@ -95,7 +95,7 @@
 			if (response.status == 401) {
 				ToastCommons.mensaje("Por favor vuelva a loguarse");
 				$rootScope.$broadcast('logout', "");
-				$state.go('login');
+				$state.go('catalog.login');
 			} else {
 				//    $log.error("error al llamar a un servicio data", response.data);
 				//    $log.error("error al llamar a un servicio data.error", response.data.error);

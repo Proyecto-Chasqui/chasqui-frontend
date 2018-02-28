@@ -1,6 +1,7 @@
 node_modules/
 bower_components/
 src/app/index.constants.js
+src/app/index.constants.multi.js
 dist/
 coverage/
 .sass-cache/

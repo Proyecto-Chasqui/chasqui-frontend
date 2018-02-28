@@ -20,7 +20,7 @@
 
       if (response.status == 401) {
         ToastCommons.mensaje("Por favor vuelva a loguarse");
-        $state.go('login');
+        $state.go('catalog.login');
       } else {
 
         if (response.data.error == undefined) {

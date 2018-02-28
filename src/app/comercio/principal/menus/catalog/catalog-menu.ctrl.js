@@ -62,7 +62,7 @@
 
 			initHeader();
 
-			$state.go('principal')
+			$state.go('catalog.landingPage');
 		}
 
 
