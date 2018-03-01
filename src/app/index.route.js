@@ -6,6 +6,7 @@
     .config(routerConfig);
 
   
+    
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('home', {
