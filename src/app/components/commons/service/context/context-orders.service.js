@@ -54,6 +54,8 @@
             return getContext(
                 vm.ls.lastUpdate, 
                 "pedidos", 
+                
+                // Return from cache
                 function(){
                     var defered = $q.defer();
                     var promise = defered.promise;
@@ -64,13 +66,15 @@
                     return promise;                
                 },   
                 
-                orders_dao.getOrders(catalogId).length === 1, 
+                orders_dao.getOrders(catalogId).length === 0, 
                 
+                // Return from server
                 function(defered){
                     function doOk(response) {	
                         vm.ls.lastUpdate=moment();	
                         init();
-                        addOrdersFromGroupsWithoutOrders(response.data).then(function(orders){
+                        addOrdersFromGroupsWithoutOrders(formatOrders(response.data)).then(function(orders){
+                            console.log("Cargando dsd el server:", catalogId, orders);
                             orders_dao.loadOrders(catalogId, orders);
                             defered.resolve(orders_dao);
                         });
@@ -124,9 +128,17 @@
             }
         }
         
-        /* Prop:   creates orders for every group without a created order (order-group is a relation bidirectional)
+        function formatOrders(ordersFromServer){
+            return ordersFromServer.map(function(order){
+                    order.type = agrupationTypeVAL.TYPE_GROUP; 
+                    return order;
+                }
+            );
+        }
+        
+        /* Prop:   creates orders for every group without a created order (order-group is a bidirectional relation)
          * Params: orders :: [Order], a list with all user's open orders.
-         * Return: [Order], a list with an order for every user's group plus the individual order
+         * Return: [Order], a list with an order for every user's agrupation
          */
         function addOrdersFromGroupsWithoutOrders(orders){
 			var defered = $q.defer();

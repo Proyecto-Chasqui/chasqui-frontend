@@ -153,7 +153,7 @@
 		function refreshPedidos() {
 			$log.debug("refreshPedidos");
             contextOrdersService.init();
-			return contextOrdersService.getOrders(order_context.getCatalogId());
+			return contextOrdersService.getOrders(order_context.getCatalogId().toString());
 		}
 
 		function refreshGrupos() {

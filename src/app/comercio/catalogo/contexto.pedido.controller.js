@@ -23,7 +23,7 @@
         // TODO: creo que no corresponde esta recarga. Revisar
         function load() {
             console.log("Load");
-            contextOrdersService.getOrders(order_context.getCatalogId()).then(
+            contextOrdersService.getOrders(order_context.getCatalogId().toString()).then(
                 function(orders) {
                     $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
                     //console.log("Pedido: ", $scope.pedidoSelected.id);
