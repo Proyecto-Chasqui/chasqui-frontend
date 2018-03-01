@@ -48,9 +48,10 @@ function orders_dao(catalogs_data){
     function orders(catalogId){
         var orders = catalogs_data.getCatalog(catalogId).orders;
         
-        return Object.keys(orders).reduce(function(r,ot){
-            return r.concat(orders[ot]); 
-        }, []);
+        return Object.keys(orders).reduce(
+            function(r,ot){ return r.concat(orders[ot]) }, 
+            []
+        );
     }
     
     function getOrdersByType(catalogId, ordersType){
@@ -95,7 +96,8 @@ function orders_dao(catalogs_data){
     
     /////////////////////////////////////////   Init    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
          
-    function init(){
+    function init(){ 
+        // TODO define behavior
     }
                         
     init();
