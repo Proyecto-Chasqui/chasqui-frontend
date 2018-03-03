@@ -14,7 +14,8 @@
         var contextAgrupationsServiceInt = {
             reset: reset,
             getAgrupation: getAgrupation,
-            getAgrupations: getAgrupations
+            getAgrupations: getAgrupations,
+            getAgrupationsByType: getAgrupationsByType
         }
         
         
@@ -50,8 +51,11 @@
                     }
                     gccService.groupsByUser().then(doOK);    
                 });
-           
 		}
+        
+        function getAgrupationsByType(catalogId, type){
+            return agrupations_dao.getAgrupationsByType(catalogId, type);
+        }
         
         
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

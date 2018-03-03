@@ -10,6 +10,7 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
                             loadAgrupations: loadAgrupations, 
                             getAgrupation: getAgrupation,
                             getAgrupations: getAgrupations, 
+                            getAgrupationsByType: getAgrupationsByType,
                             modifyGroup: modifyGroup,
                             deleteAgrupation: deleteAgrupation
                         }
@@ -28,21 +29,23 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
         agrupations.forEach(newAgrupationCurrified(catalogId));
     }
     
-    function getAgrupations(){
-        var catalogId = "2";
-        var agrupations = catalogs_data.getCatalog(catalogId).agrupations;
+    function getAgrupations(catalogId){
+        var catalogAgrupations = agrupations(catalogId);
         
-        return Object.keys(agrupations).reduce(
-            function(r,ot){ return r.concat(agrupations[ot]) }, 
+        return Object.keys(catalogAgrupations).reduce(
+            function(r,ot){ return r.concat(catalogAgrupations[ot]) }, 
             []
         );
     }
     
     
     function getAgrupation(catalogId, agrupationId, agrupationType){
-        return catalogs_data.getCatalog(catalogId).agrupations[agrupationType].filter(function(g){return g.idGrupo == agrupationId})[0];
+        return agrupations(catalogId)[agrupationType].filter(function(g){return g.idGrupo == agrupationId})[0];
     }
     
+    function getAgrupationsByType(catalogId, agrupationsType){
+        return agrupations(catalogId)[agrupationsType];
+    }
     
     function deleteAgrupation(catalogId, agrupationId, agrupationType){
         catalogs_data.modifyCatalogData(catalogId, function(catalog){
@@ -62,6 +65,13 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
     
     /////////////////////////////////////////  Private  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
     
+    function catalog(catalogId){
+        return catalogs_data.getCatalog(catalogId);
+    }
+    
+    function agrupations(catalogId){
+        return catalog(catalogId).agrupations;
+    }
     
     function newAgrupationCurrified(catalogId){
         return function (agrupation){

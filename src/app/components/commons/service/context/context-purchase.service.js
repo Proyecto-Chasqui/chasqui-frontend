@@ -18,28 +18,36 @@
         
         var contextPurchaseServiceInt = { 
             //Nueva interfaz
+            
+            // Set context
             setContextByCatalog: setContextByCatalog,       // :: catalog -> null
             setContextByOrder: setContextByOrder,           // :: order -> null
             setContextByAgrupation: setContextByAgrupation,  // :: agrupation -> null
             
+            // Get purchase context
             getCatalogContext: getCatalogContext,
             getOrderContext: getOrderContext,
             getAgrupationContextId: getAgrupationContextId,
-            getAgrupationContextType: getAgrupationContextType, 
-            
+            getAgrupationContextType: getAgrupationContextType,             
             getSelectedOrder: getSelectedOrder,
             getSelectedAgrupation: getSelectedAgrupation,
             
+            // Get lists
+            getOrders: getOrders,
+            getAgrupations: getAgrupations,
+            
+            // Inicializacion
             resetContext: resetContext,
             
             // Vieja interfaz
             clean: clean,
             refresh: refresh,
+            
             refreshPedidos: refreshPedidos,
             refreshGrupos: refreshGrupos,
             
-            tienePedidoInividual: tienePedidoInividual, // TODO: cambiar a nombre más descriptivo
-            
+            // Deberian estar en otro lugar (funciones sobre agrupaciones/pedidos)
+            tienePedidoInividual: tienePedidoInividual, // TODO: cambiar a nombre más descriptivo            
             isGrupoIndividualSelected: isGrupoIndividualSelected, // TODO: cambiar a nombre más descriptivo
             isPedidoInividualSelected: isPedidoInividualSelected, // TODO: cambiar a nombre más descriptivo
             isAdmin: isAdmin,
@@ -50,6 +58,8 @@
         ///////////////////////////////////////// Public \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 
         /////////////////// Nueva interfaz
+        
+        // Set context
         
         /* Prop: setea el contexto de compra segun el catalogo para el usuario logeado.
                  Inicializa los datos del catalogo
@@ -91,6 +101,9 @@
             order_context.setAgrupationType(agrupation.type);            
         }
         
+        
+        // Get purchase context
+        
         function getCatalogContext(){
             return order_context.getCatalogId();   
         }
@@ -122,8 +135,23 @@
          *  Retorna: Agrupacion seleccionado
          */
         function getSelectedAgrupation(){
-            return contextAgrupationsService.getAgrupation(getAgrupationContext());
+            return contextAgrupationsService.getAgrupation(order_context.getCatalogId(), 
+                                                           order_context.getAgrupationId(), 
+                                                           order_context.getAgrupationType());
         }
+        
+        
+        // Get lists
+        
+        function getOrders(){
+            return contextOrdersService.getOrders(order_context.getCatalogId().toString());
+        }
+        
+        
+        function getAgrupations(){
+            return contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString());
+        }
+        
         
         function resetContext(){
             order_context.reset();
