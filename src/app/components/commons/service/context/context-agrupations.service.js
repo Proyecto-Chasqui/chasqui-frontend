@@ -4,7 +4,7 @@
 
 	angular.module('chasqui').service('contextAgrupationsService', contextAgrupationsService);
     
-	function contextAgrupationsService($localStorage, $q, getContext, groups_dao, moment, gccService, 
+	function contextAgrupationsService($localStorage, $q, getContext, agrupations_dao, moment, gccService, 
                                         createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, 
                                         idPedidoIndividualGrupoPersonal, agrupationTypeVAL){
      
@@ -12,52 +12,41 @@
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
         var contextAgrupationsServiceInt = {
-            init: init,
             reset: reset,
-            getAgrupationsTypes: getAgrupationsTypes,
             getAgrupation: getAgrupation,
             getAgrupations: getAgrupations
         }
         
         
         ///////////////////////////////////////// Public \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        
-        function init(){
-            groups_dao.reset();
-            groups_dao.newGroup(grupoIndividualVirtual);            
+                    
+        function reset(catalogId){
+            agrupations_dao.reset(catalogId);
         }
             
-        function reset(){
-            groups_dao.reset();
-        }
-            
-        function getAgrupationsTypes(){
-            
-        }
-            
-        function getAgrupation(searchedAgrupation){
-            console.log(searchedAgrupation);
-            return groups_dao.getGroup(searchedAgrupation.id);
-            //return agrupationDispatcher(searchedAgrupation.type, function(personalAgrupation){return personalAgrupation})
+        function getAgrupation(catalogId, agrupationId, agrupationType){
+            return agrupations_dao.getAgrupation(catalogId, agrupationId, agrupationType);
         }
         
-        function getAgrupations() {
+        function getAgrupations(catalogId) {
             return getContext(
                 vm.ls.lastUpdate,
                 "grupos", 
+                
                 function(){
                     var defered = $q.defer();
                     var promise = defered.promise;
-                    defered.resolve(groups_dao);
+                    defered.resolve(agrupations_dao);
                     return promise;                
                 },                
-                groups_dao.getGroups().length === 1, 
+                
+                agrupations_dao.getAgrupations(catalogId).length === 0, 
+                
                 function(defered){
                     function doOK(response) {					
                         vm.ls.lastUpdate=moment();	
-                        init();
-                        response.data.map(function(g){g.type = agrupationTypeVAL.TYPE_GROUP; return g;}).forEach(groups_dao.newGroup);
-                        defered.resolve(groups_dao);
+                        agrupations_dao.loadAgrupations(catalogId, formatAgrupations(response.data));
+                        defered.resolve(agrupations_dao);
                     }
                     gccService.groupsByUser().then(doOK);    
                 });
@@ -67,18 +56,9 @@
         
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
-        
-        function agrupationDispatcher(type, agrupationId, personal_function, group_function){ 
-            // Agregar nuevos tipos            
-            if(type === agrupationTypeVAL.TYPE_PERSONAL){
-                return personal_function(agrupationId);
-            }
-            
-            if(type === agrupationTypeVAL.TYPE_GROUP){
-                return group_function(agrupationId);
-            }
+        function formatAgrupations(agrupationsFromServer){
+            return agrupationsFromServer.map(function(g){g.type = agrupationTypeVAL.TYPE_GROUP; return g;});
         }
-        
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         

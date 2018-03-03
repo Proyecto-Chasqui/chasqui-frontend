@@ -10,7 +10,7 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($log, $localStorage, groups_dao, order_context, catalogs_data,
+	function contextPurchaseService($log, $localStorage, order_context, catalogs_data,
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal) {
         
@@ -24,7 +24,8 @@
             
             getCatalogContext: getCatalogContext,
             getOrderContext: getOrderContext,
-            getAgrupationContext: getAgrupationContext,
+            getAgrupationContextId: getAgrupationContextId,
+            getAgrupationContextType: getAgrupationContextType, 
             
             getSelectedOrder: getSelectedOrder,
             getSelectedAgrupation: getSelectedAgrupation,
@@ -98,11 +99,12 @@
             return order_context.getOrderId();
         }
         
-        function getAgrupationContext(){
-            return {
-                id: order_context.getAgrupationId(),
-                type: order_context.getAgrupationType()
-            };
+        function getAgrupationContextId(){
+            return order_context.getAgrupationId();
+        }
+    
+        function getAgrupationContextType(){
+            return order_context.getAgrupationType();
         }
         
         /*
@@ -160,7 +162,7 @@
 		function refreshGrupos() {
 			$log.debug("refreshGrupos");
             contextAgrupationsService.init();
-			return contextAgrupationsService.getAgrupations();
+			return contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString());
 		}
 
 
@@ -181,7 +183,7 @@
          */
 		function isAdmin(pedidoParam) {
 			var result = false;
-			angular.forEach(contextAgrupationsService.getAgrupations(), function(grupo, key) {
+			angular.forEach(contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString()), function(grupo, key) {
 				if (grupo.esAdministrador) {
 					angular.forEach(grupo.miembros, function(miembro, key) {
 						if (miembro.pedido && miembro.pedido.id === pedidoParam.id) {
@@ -200,7 +202,7 @@
         function initCatalogData(catalogId){
             catalogs_data.addCatalog(catalogId);
             contextOrdersService.reset(catalogId);
-            contextAgrupationsService.init();
+            contextAgrupationsService.reset(catalogId);
         }
 
 		function getAgrupationByOrder(order) {

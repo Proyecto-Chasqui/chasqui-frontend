@@ -7,7 +7,7 @@
 	/**
 	 * @ngInject Lista de productos.
 	 */
-	function ListaProductosController($scope, $rootScope, $log, CTE_REST,
+	function ListaProductosController($scope, $rootScope, $log, CTE_REST, order_context,
 		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
 		gccService, $mdDialog, productorService, contextPurchaseService, 
         usuario_dao, ModifyVarietyCount, $stateParams, contextAgrupationsService) {
@@ -192,7 +192,7 @@
 				$log.debug("callCrearPedidoGrupal", response);
 
 				contextPurchaseService.refresh();
-                contextAgrupationsService.getAgrupations().then(
+                contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString()).then(
 					function(grupos) {
 						contextPurchaseService.setContextByAgrupation(vm.grupoSelected);
 						ModifyVarietyCount.modifyDialog(variety);
@@ -210,7 +210,7 @@
 			}
 
 			var params = {}
-			params.idGrupo = contextPurchaseService.getAgrupationContext().id;
+			params.idGrupo = contextPurchaseService.getAgrupationContextId();
 			params.idVendedor = $stateParams.idCatalog;
 
 			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);

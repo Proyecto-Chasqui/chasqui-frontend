@@ -47,7 +47,7 @@
                 function(){
                     var defered = $q.defer();
                     var promise = defered.promise;
-                    addOrdersFromGroupsWithoutOrders(orders_dao.getOrders(catalogId)).then(function(orders){
+                    addOrdersFromGroupsWithoutOrders(catalogId, orders_dao.getOrders(catalogId)).then(function(orders){
                             orders_dao.loadOrders(catalogId, orders);
                             defered.resolve(orders_dao);
                         });
@@ -61,7 +61,7 @@
                     function doOk(response) {	
                         vm.ls.lastUpdate=moment();	
                         reset(catalogId);
-                        addOrdersFromGroupsWithoutOrders(formatOrders(response.data)).then(function(orders){
+                        addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
                             console.log("Cargando dsd el server:", catalogId, orders);
                             orders_dao.loadOrders(catalogId, orders);
                             defered.resolve(orders_dao);
@@ -98,13 +98,13 @@
          */ 
         
         // DEPRECADO
-        function addNewOrder(newOrder){
+        function addNewOrder(catalogId, newOrder){
             if(orders_dao.getOrders().filter(function(o){return o.id == newOrder.id}).length === 0){
                 if(newOrder.idGrupo == null){ // Esto significa que es el pedido individual cargado desde el BE
                     newOrder.idGrupo = idGrupoPedidoIndividual;
                     newOrder.aliasGrupo = "Personal";
                     orders_dao.removeOrder(idPedidoIndividualGrupoPersonal);
-                    contextAgrupationsService.getAgrupations().then(function(grupos){
+                    contextAgrupationsService.getAgrupations(catalogId).then(function(grupos){
                         grupos.modifyGroup(idGrupoPedidoIndividual, function(group){
                             group.idPedidoIndividual = newOrder.id;
                             return group;
@@ -128,14 +128,13 @@
          * Params: orders :: [Order], a list with all user's open orders.
          * Return: [Order], a list with an order for every user's agrupation
          */
-        function addOrdersFromGroupsWithoutOrders(orders){
+        function addOrdersFromGroupsWithoutOrders(catalogId, orders){
 			var defered = $q.defer();
 			var promise = defered.promise;
-            contextAgrupationsService.getAgrupations().then(
+            contextAgrupationsService.getAgrupations(catalogId).then(
                 function(grupos){
-                    var groupsWithoutOrders = grupos.getGroups().filter(function(g){
-                        return !(orders.map(function(o){return o.idGrupo}).includes(g.idGrupo) ||  // Filtra los grupos que no tienen pedidos creados
-                                 g.alias === "Personal");
+                    var groupsWithoutOrders = grupos.getAgrupations(catalogId).filter(function(g){
+                        return !orders.map(function(o){return o.idGrupo}).includes(g.idGrupo);  // Filtra los grupos que no tienen pedidos creados
                     });                    
                     createOrdersForGroupsWithoutOrders(groupsWithoutOrders, orders).then(defered.resolve);
                 });                   

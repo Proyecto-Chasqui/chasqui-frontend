@@ -46,7 +46,6 @@ function orders_dao(catalogs_data, fn_snoc){
     }
                         
     function orders(catalogId){
-        console.log(catalogs_data, catalogId);
         var orders = catalogs_data.getCatalog(catalogId).orders;
         
         return Object.keys(orders).reduce(
