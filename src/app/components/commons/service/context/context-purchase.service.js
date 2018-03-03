@@ -97,7 +97,7 @@
          */
         function setContextByAgrupation(agrupation){
             order_context.setOrderId(getOrderByAgrupation(agrupation));
-            order_context.setAgrupationId(agrupation.id);
+            order_context.setAgrupationId(agrupation.idGrupo);
             order_context.setAgrupationType(agrupation.type);            
         }
         

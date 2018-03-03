@@ -23,22 +23,16 @@
         // TODO: creo que no corresponde esta recarga. Revisar
         function load() {
             console.log("Load");
-            contextPurchaseService.getOrders().then(
-                function(orders) {
-                    $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
-                    //console.log("Pedido: ", $scope.pedidoSelected.id);
-            });
+            $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
         }
 
 
         $rootScope.$on('contexto.compra.cambia.grupo', function(event, grupo) {
-            $log.debug("on contexto.compra.cambia.grupo");			
             load();
         });
 
         //actualiza la lista de productos
         $rootScope.$on('lista-producto-agrego-producto', function(event) {
-            $log.debug("on lista-producto-agrego-producto");
             load();
         });
 

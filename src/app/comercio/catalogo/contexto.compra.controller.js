@@ -13,16 +13,14 @@
 
 		$log.debug("ContextoCompraController ..... ");
 
-        $scope.isLogued = usuario_dao.isLogged();
         $scope.grupos = [];
-        $scope.grupoSelected = {};
+        $scope.grupoSelected = 0;
         
         function init(){
-            contextPurchaseService.getAgrupations().then(
-                function(agrupationsInt) {
+            $scope.grupoSelected = contextPurchaseService.getAgrupationContextId();
+            contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
                     $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
                                                                         agrupationTypeVAL.TYPE_GROUP);
-                    $scope.grupoSelected = contextPurchaseService.getSelectedAgrupation();     
                 });
         }
         
@@ -30,9 +28,7 @@
         
 
 		$scope.cambiarContexto = function() {
-            console.log("Cambiar de contexto", $scope.grupoSelected);
-            // TODO Mejorar esto
-			contextPurchaseService.setContextByAgrupation($scope.grupoSelected);
+            contextPurchaseService.setContextByAgrupation($scope.grupos.filter(function(g){return g.idGrupo === parseInt($scope.grupoSelected)})[0]);
 			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.grupoSelected.id);
 		}
 

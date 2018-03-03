@@ -18,7 +18,6 @@ function catalogs_data(ls_connection, agrupationTypeVAL){
     /////////////////////////////////////////  Public   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     
     function reset(){
-        console.log("RESET");
         init();
     }             
     
@@ -49,7 +48,6 @@ function catalogs_data(ls_connection, agrupationTypeVAL){
     
     function modifyCatalogData(catalogId, modification){
         ls_connection.modifyField("catalogs_data", function(catalogs_data){
-            console.log("Catalog data", catalogs_data);
             catalogs_data[catalogId] = modification(catalogs_data[catalogId]);
             return catalogs_data;
         });
