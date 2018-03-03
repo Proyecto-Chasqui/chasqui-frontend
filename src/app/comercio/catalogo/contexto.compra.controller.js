@@ -8,7 +8,7 @@
 	/**
 	 * Lista lateral de productos del pedido seleccionado
 	 */
-	function ContextoCompraController($rootScope, $log, $scope, contextPurchaseService, 
+	function ContextoCompraController($rootScope, $log, $scope, contextPurchaseService, agrupationTypeVAL,
                                        usuario_dao, contextAgrupationsService, order_context) {
 
 		$log.debug("ContextoCompraController ..... ");
@@ -18,11 +18,11 @@
         $scope.grupoSelected = {};
         
         function init(){
-            contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString()).then(
-                function(groups) {
-                    $scope.grupos = groups.getGroups();
-                    $scope.grupoSelected = contextPurchaseService.getAgrupationContextId();     
-                    console.log("Grupos: ", $scope.grupos, "Selected id: ", contextPurchaseService.getAgrupationContextId());
+            contextPurchaseService.getAgrupations().then(
+                function(agrupationsInt) {
+                    $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
+                                                                        agrupationTypeVAL.TYPE_GROUP);
+                    $scope.grupoSelected = contextPurchaseService.getSelectedAgrupation();     
                 });
         }
         
@@ -31,8 +31,9 @@
 
 		$scope.cambiarContexto = function() {
             console.log("Cambiar de contexto", $scope.grupoSelected);
-			contextPurchaseService.setContextByAgrupation({id: contextAgrupationsService.getAgrupation($scope.grupoSelected)});
-			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.grupoSelected);
+            // TODO Mejorar esto
+			contextPurchaseService.setContextByAgrupation($scope.grupoSelected);
+			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.grupoSelected.id);
 		}
 
 

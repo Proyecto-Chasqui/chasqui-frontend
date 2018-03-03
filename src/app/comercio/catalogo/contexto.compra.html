@@ -6,7 +6,7 @@
 				<md-input-container class="md-block" flex-gt-sm>
                     <label>{{'CAMBIAR_CHANGO' | translate}}</label>
 					<md-select ng-change="cambiarContexto()" ng-model="grupoSelected">
-						<md-option ng-repeat="grupo in grupos" value="{{grupo.idGrupo}}"> {{grupo.alias}} </md-option>
+						<md-option ng-repeat="grupo in grupos" value="{{grupo}}"> {{grupo.alias}} </md-option>
 					</md-select>
 				</md-input-container>
 			</div>
