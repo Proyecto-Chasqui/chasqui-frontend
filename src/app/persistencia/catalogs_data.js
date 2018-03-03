@@ -8,6 +8,8 @@ function catalogs_data(ls_connection, agrupationTypeVAL){
     var catalogs_data_int = {
         init: init,
         reset: reset,
+        resetOrders: resetOrders,
+        resetAgrupations: resetAgrupations,
         addCatalog: addCatalog, 
         getCatalog: getCatalog, 
         modifyCatalogData: modifyCatalogData
@@ -18,10 +20,23 @@ function catalogs_data(ls_connection, agrupationTypeVAL){
     function reset(){
         console.log("RESET");
         init();
-    }              
+    }             
+    
+    function resetOrders(catalogId){
+        ls_connection.modifyField("catalogs_data", function(catalogs_data){
+            catalogs_data[catalogId].orders = startingOrders;
+            return catalogs_data;
+        });
+    }
+    
+    function resetAgrupations(catalogId){
+        ls_connection.modifyField("catalogs_data", function(catalogs_data){
+            catalogs_data[catalogId].agrupations = startingAgrupations;
+            return catalogs_data;
+        });
+    }
           
     function addCatalog(catalogId){
-        console.log("add catalog");
         ls_connection.modifyField("catalogs_data", function(catalogs_data){
             catalogs_data[catalogId] = startingCatalogData();
             return catalogs_data;

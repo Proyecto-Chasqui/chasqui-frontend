@@ -5,7 +5,6 @@
 
     function fn_set(){
 
-        console.log("coneection");
         return function(connection){
             return function(key){
                 return function(value){

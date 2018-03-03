@@ -12,8 +12,6 @@
         
         contextPurchaseService.setContextByCatalog(catalogs_dao.getCatalog($stateParams.idCatalog));
         
-        catalogs_data.addCatalog($scope.catalog.id.toString());
-        
         
         $scope.url = function(path){
             return CTE_REST.url_base + path;

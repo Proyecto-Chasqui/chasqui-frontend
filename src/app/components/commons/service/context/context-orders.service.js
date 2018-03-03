@@ -11,7 +11,6 @@
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
          
         var contextOrdersServiceInt = {
-            init: init,
             reset: reset,
             getOrdersTypes: getOrdersTypes,
             getOrder: getOrder,
@@ -20,20 +19,9 @@
         
         
         ///////////////////////////////////////// Public \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        
-        /*  
-         *  PROP:
-         *  PREC:
-         *  RET:
-         */ 
-        function init(){
-            orders_dao.reset();
-            //order_context.setOrderSelected(idPedidoIndividualGrupoPersonal);
-            //addNewOrder(pedidoIndividualVirtual);
-        }
-            
-        function reset(){
-            orders_dao.reset();
+                    
+        function reset(catalogId){
+            orders_dao.reset(catalogId);
         }
             
         function getOrdersTypes(){
@@ -72,7 +60,7 @@
                 function(defered){
                     function doOk(response) {	
                         vm.ls.lastUpdate=moment();	
-                        init();
+                        reset(catalogId);
                         addOrdersFromGroupsWithoutOrders(formatOrders(response.data)).then(function(orders){
                             console.log("Cargando dsd el server:", catalogId, orders);
                             orders_dao.loadOrders(catalogId, orders);

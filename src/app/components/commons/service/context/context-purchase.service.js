@@ -10,7 +10,7 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($log, $localStorage, groups_dao, order_context, 
+	function contextPurchaseService($log, $localStorage, groups_dao, order_context, catalogs_data,
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal) {
         
@@ -50,7 +50,8 @@
                 
         /////////////////// Nueva interfaz
         
-        /* Prop: setea el contexto de compra segun el catalogo para el usuario logeado
+        /* Prop: setea el contexto de compra segun el catalogo para el usuario logeado.
+                 Inicializa los datos del catalogo
          * Modifica:    order_context.agrupationId
          *              order_context.agrupationType
          *              order_context.orderId
@@ -64,6 +65,7 @@
             order_context.setAgrupationId(idGrupoPedidoIndividual); 
             order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
             order_context.setOrderId(idPedidoIndividualGrupoPersonal);
+            initCatalogData(order_context.getCatalogId().toString());
         }
         
         /* Prop: setea el contexto de compra segun el pedido para el usuario logeado
@@ -138,8 +140,7 @@
         /* Prop: cleans orders and groups cache. 
          */
         function clean(){
-            contextOrdersService.reset();
-            contextAgrupationsService.reset();
+            order_context.reset();
         }
         
         
@@ -152,7 +153,7 @@
 
 		function refreshPedidos() {
 			$log.debug("refreshPedidos");
-            contextOrdersService.init();
+            contextOrdersService.init(order_context.getCatalogId().toString());
 			return contextOrdersService.getOrders(order_context.getCatalogId().toString());
 		}
 
@@ -196,6 +197,11 @@
         
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
        
+        function initCatalogData(catalogId){
+            catalogs_data.addCatalog(catalogId);
+            contextOrdersService.reset(catalogId);
+            contextAgrupationsService.init();
+        }
 
 		function getAgrupationByOrder(order) {
 			return order.idGrupo;
@@ -211,11 +217,12 @@
 		contextPurchaseServiceInt.ls.varianteSelected = undefined;
         
         function init(){
-            contextAgrupationsService.init();
+            // Definir estado inicial
+            /*
             order_context.setAgrupationId(idGrupoPedidoIndividual); 
             
-            //contextOrdersService.init();  // DESCOMENTAR
             order_context.setOrderId(idPedidoIndividualGrupoPersonal);
+            */
         }
         
         init();

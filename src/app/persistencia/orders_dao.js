@@ -1,6 +1,6 @@
 angular.module('chasqui').factory('orders_dao', orders_dao);
 
-function orders_dao(catalogs_data){
+function orders_dao(catalogs_data, fn_snoc){
     
     ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
    
@@ -25,7 +25,7 @@ function orders_dao(catalogs_data){
     function newOrderCurrified(catalogId){
         return function (order){
             modifyOrdersInCatalog(catalogId, order.type, function(orders){
-                return snoc(orders, order);
+                return fn_snoc(orders, order);
             })
         }
     }
@@ -40,12 +40,13 @@ function orders_dao(catalogs_data){
         orders.forEach(newOrderCurrified(catalogId));
     }
                         
-    function reset(){
+    function reset(catalogId){
         console.log("RESET");
-        init();
+        init(catalogId);
     }
                         
     function orders(catalogId){
+        console.log(catalogs_data, catalogId);
         var orders = catalogs_data.getCatalog(catalogId).orders;
         
         return Object.keys(orders).reduce(
@@ -89,18 +90,11 @@ function orders_dao(catalogs_data){
         });
     }   
     
-    function snoc(list, elem){
-        list.push(elem);
-        return list;
-    }
-    
     /////////////////////////////////////////   Init    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
          
-    function init(){ 
-        // TODO define behavior
+    function init(catalogId){ 
+        catalogs_data.resetOrders(catalogId);
     }
-                        
-    init();
                    
     //////////////////////////                        
                         
