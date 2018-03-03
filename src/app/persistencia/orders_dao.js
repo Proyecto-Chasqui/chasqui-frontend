@@ -41,7 +41,6 @@ function orders_dao(catalogs_data, fn_snoc){
     }
                         
     function reset(catalogId){
-        console.log("RESET");
         init(catalogId);
     }
                         
@@ -92,6 +91,7 @@ function orders_dao(catalogs_data, fn_snoc){
     /////////////////////////////////////////   Init    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
          
     function init(catalogId){ 
+        console.log("Init orders_dao");
         catalogs_data.resetOrders(catalogId);
     }
                    

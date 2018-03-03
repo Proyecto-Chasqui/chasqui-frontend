@@ -16,7 +16,6 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
     /////////////////////////////////////////  Public   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                             
     function reset(catalogId){
-        console.log("RESET");
         init(catalogId);
     }              
     
@@ -83,6 +82,7 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
     /////////////////////////////////////////   Init    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
     
     function init(catalogId){
+        console.log("Init agrupations_dao");
         catalogs_data.resetAgrupations(catalogId);
     }
     

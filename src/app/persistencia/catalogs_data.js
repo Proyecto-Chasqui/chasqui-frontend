@@ -85,7 +85,7 @@ function catalogs_data(ls_connection, agrupationTypeVAL){
         ls_connection.init({
             catalogs_data: {}
         });
-        console.log("Starting catalogs_data");
+        console.log("Init catalogs_data");
     }
                         
     init();
