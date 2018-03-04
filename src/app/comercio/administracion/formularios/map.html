@@ -1,6 +1,7 @@
 
 
-    <div ng-controller="MapGeocoderController" style="visibility: hidden"  >  	
+    <div ng-controller="MapWebController" style="visibility: hidden"  >
+
     	<div class="md-dialog-container" id="myMap" >
       		<md-dialog layout-padding>
       			<md-toolbar class="md-primary" style="min-height:30px" layout="row" layout-align="center center" ng-show="mostrarBotonesEnMapa()">Por favor, confirme si la ubicacion es correcta</md-toolbar>
@@ -37,7 +38,7 @@
       						<md-icon md-font-set="material-icons"> check_circle </md-icon>
        						Aceptar
       					</md-button>      				
-      					<md-button  ng-click="direccionIncorrecta()" class="md-raised md-primary">
+      					<md-button  ng-click="volverAFormulario()" class="md-raised md-primary">
       					<md-icon md-font-set="material-icons"> highlight_off</md-icon>
        						Cancelar
       					</md-button>
@@ -95,6 +96,33 @@
   					</section>
   				</div>
   				
-      		</md-dialog>      		
+      		</md-dialog>
+
+       </div>
+                       <!-- Definicion de alertas -->
+        <div class="md-dialog-container" id="alertOnMap" >
+          <md-dialog layout-padding>
+            <md-toolbar class="md-primary" style="min-height:30px" layout="row" layout-align="center center">Por favor, confirme</md-toolbar>
+            <md-dialog-content>
+                ¿ Desea marcar manualmente su dirección en el mapa o desea volver al formulario de registro ?
+            </md-dialog-content>
+              
+          <md-dialog-actions layout="row" layout-align="space-between stretch">
+          <div layout="row">
+            <md-button  ng-click="habilitarMarcaManual()" class="md-raised md-primary">
+              <md-icon md-font-set="material-icons"> check_circle </md-icon>
+                  Marcar manualmente
+                </md-button>              
+                <md-button ng-click="volverAFormulario()" class="md-raised md-primary ">
+                  <md-icon md-font-set="material-icons"> highlight_off</md-icon>
+                  Volver al formulario
+                </md-button>
+          </div>            
+          </md-dialog-actions>
+          
+          </md-dialog>          
+       </div>
+          
+          </md-dialog>          
        </div>
      </div>
