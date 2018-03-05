@@ -1,34 +1,32 @@
-<div class="ch-content-full">
-    <div>
-        <div layout=row>
-            <div flex="20">
-                <div layout=column>
-                    <div>
-                        <section ng-include="'app/comercio/catalogo/filtros.html'">
-                        </section>
-                    </div>
-                    <div  ng-if="catalogoCtrl.isLogued" >
-                        <section ng-include="'app/comercio/catalogo/contexto.compra.html'"></section>
-
-                        <section ng-include="'app/comercio/catalogo/contexto.pedido.simple.html'" ng-cloak></section>
-                    </div>
-                </div>
-            </div>
-
-            <div flex="80">
-                <div layout=row layout-align="center center">
-                    <md-input-container>
-                        <input ng-model="catalogoCtrl.queryText" type="text" placeholder="{{'BUSCAR' | translate}}">
-                    </md-input-container>
-                    <md-button ng-click="catalogoCtrl.filtrar()">
-                        <md-icon md-svg-src="app/components/image/ic_search_black_24px.svg">
-                        </md-icon>
-                    </md-button>
-                </div>
+<div>
+    <div layout=row>
+        <div flex="20">
+            <div layout=column>
                 <div>
-                    <section ng-include="'app/comercio/catalogo/lista-productos.html'" ng-init="count = catalogoCtrl.count" ng-cloak></section>
+                    <section ng-include="'app/comercio/catalogo/filtros.html'">
+                    </section>
                 </div>
             </div>
+        </div>
+
+        <div flex="60">
+            <div layout=row layout-align="center center">
+                <md-input-container>
+                    <input ng-model="catalogoCtrl.queryText" type="text" placeholder="{{'BUSCAR' | translate}}">
+                </md-input-container>
+                <md-button ng-click="catalogoCtrl.filtrar()">
+                    <md-icon md-svg-src="app/components/image/ic_search_black_24px.svg">
+                    </md-icon>
+                </md-button>
+            </div>
+            <div>
+                <section ng-include="'app/comercio/catalogo/lista-productos.html'" ng-init="count = catalogoCtrl.count" ng-cloak></section>
+            </div>
+        </div>
+        <div flex="20" ng-if="catalogoCtrl.isLogued" >
+            <section ng-include="'app/comercio/catalogo/contexto.compra.html'"></section>
+
+            <section ng-include="'app/comercio/catalogo/contexto.pedido.simple.html'" ng-cloak></section>
         </div>
     </div>
 </div>
