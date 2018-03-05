@@ -19,8 +19,8 @@
             return CTE_REST.url_base + path;
         }
         
-        $scope.goToCatalog = function(catalogId){
-            $state.go('catalog.landingPage', {idCatalog: catalogId});
+        $scope.goToCatalog = function(catalogShortName){
+            $state.go('catalog.landingPage', {catalogShortName: catalogShortName});
         }
 	}
 })();

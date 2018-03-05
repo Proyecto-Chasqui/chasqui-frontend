@@ -6,12 +6,12 @@
 
 	/** Contempla los datos personales y 
 	 *  el domicilio en dos pasos pero en la misma pantalla*/
-	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, ToastCommons, us, $timeout) {
+	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, ToastCommons, us, $timeout, catalogs_dao) {
         
         $scope.selectedIndex = 0;
         
         
-        var idInvitacion = $stateParams.idCatalog;
+        var idInvitacion = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
         
         $scope.mailInvitacion = "";
         

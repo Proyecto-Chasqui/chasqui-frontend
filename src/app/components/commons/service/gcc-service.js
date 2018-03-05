@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('gccService', gccService);
 
-	function gccService($log, CTE_REST, StateCommons, promiseService, ToastCommons, $stateParams) {
+	function gccService($log, CTE_REST, StateCommons, promiseService, ToastCommons, $stateParams, catalogs_dao) {
 		var vm = this;
 
 		vm.pedidosByUser = function(idCatalog, doNoOK) {
@@ -13,12 +13,12 @@
         
 		vm.groupsByUser = function() {
 			$log.debug(" service groupsByUser ");
-			return promiseService.doGetPrivate(CTE_REST.groupsByUser($stateParams.idCatalog), {});
+			return promiseService.doGetPrivate(CTE_REST.groupsByUser(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id), {});
 		}
 
 		vm.nuevoGrupo = function(params) {
 			$log.debug(" service groupsByUser ");
-			params.idVendedor = $stateParams.idCatalog;
+			params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
 			return promiseService.doPost(CTE_REST.nuevoGrupo, params);
 		}
 

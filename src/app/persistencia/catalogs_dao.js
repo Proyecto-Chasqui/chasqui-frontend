@@ -97,6 +97,10 @@ angular.module('chasqui').factory('catalogs_dao',
     function getCatalog(catalogId){
         return getCatalogs().filter(function(c){return c.id == catalogId})[0];
     }
+                        
+    function getCatalogByShortName(catalogShortName){
+        return getCatalogs().filter(function(c){return c.nombreCorto == catalogShortName})[0];
+    }
       
     function reset(){
         init();
@@ -109,6 +113,7 @@ angular.module('chasqui').factory('catalogs_dao',
         loadCatalogs: loadCatalogs, 
         getCatalogs: getCatalogs,
         getCatalog: getCatalog,
+        getCatalogByShortName: getCatalogByShortName,
         reset: reset
     }
     

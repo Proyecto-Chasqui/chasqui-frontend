@@ -8,10 +8,9 @@
     
 	function CatalogController($scope, sellerService, CTE_REST, $stateParams, catalogs_dao, catalogs_data, contextPurchaseService) {
                 
-        $scope.catalog = catalogs_dao.getCatalog($stateParams.idCatalog);
+        contextPurchaseService.setContextByCatalog(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName));
         
-        contextPurchaseService.setContextByCatalog(catalogs_dao.getCatalog($stateParams.idCatalog));
-        
+        $scope.catalog = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName);
         
         $scope.url = function(path){
             return CTE_REST.url_base + path;

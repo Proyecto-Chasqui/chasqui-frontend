@@ -7,7 +7,7 @@
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
             productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, CTE_REST, 
-            navigation_state, $rootScope, $stateParams, order_context) {
+            navigation_state, $rootScope, $stateParams, order_context, catalogs_dao) {
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
@@ -62,7 +62,7 @@
 				callPedidoIndividual();
 			}
 			var json = {};
-			json.idVendedor = $stateParams.idCatalog;
+			json.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
 
 			productoService.crearPedidoIndividual(json).then(doOk)
 		}
@@ -70,7 +70,7 @@
 
 		function load() {
 			contextPurchaseService.getOrders().then(function(orders) {
-				$scope.orders = orders.getOrders().filter(function(o){return o.estado === "ABIERTO"});
+				$scope.orders = orders.getOrders(contextPurchaseService.getCatalogContext()).filter(function(o){return o.estado === "ABIERTO"});
 				setTabSeleccionado(contextPurchaseService.getOrderContext());
 			});
 		}
@@ -89,7 +89,7 @@
         $scope.fitrarPorEstadoConfirmado = function(){
             console.log("HOOOOOOOOOOOOOOOOOOOOOOOOOla");
             var params = {};
-            params.idVendedor = $stateParams.idCatalog;
+            params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
             params.estados = ["CONFIRMADO"];
             return promiseService.doPost(CTE_REST.filtrarPedidosConEstado, params).then(
                 function doOk(response) {

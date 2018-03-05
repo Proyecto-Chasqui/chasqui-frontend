@@ -5,10 +5,11 @@
         <md-grid-list md-cols="3"  md-row-height="260px">
             <md-grid-tile md-colspan="1" md-rowspan="1" ng-repeat="catalog in catalogs">
                 <md-card>
-                    <a ng-click="goToCatalog(catalog.id)"> 					
+                    <a ng-click="goToCatalog(catalog.nombreCorto)"> 					
                         <md-card-title> 
                             <md-card-title-text>
                                 <span class="md-headline">{{catalog.nombre}}</span>
+                                <span class="md-subhead">{{catalog.nombreCorto}}</span>
                                 <span class="md-subhead">{{catalog.id}}</span>
                             </md-card-title-text>
                         </md-card-title>
