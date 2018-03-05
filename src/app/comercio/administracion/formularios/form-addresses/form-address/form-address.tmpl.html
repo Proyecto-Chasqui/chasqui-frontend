@@ -102,40 +102,40 @@
              </form>
         </md-content>
 
-        <md-card-actions ng-controller="MapGeocoderController" layout="row" layout-align="end center"> 
+        <md-card-actions ng-controller="MapWebController" layout="row" layout-align="end center"> 
             <md-button ng-click="onDelete(address)"> <md-icon> delete_forever </md-icon> 
                 <md-tooltip md-direction="left"> Eliminar domicilio </md-tooltip> </md-button> 
 
-            <md-button ng-click="onMarkAsPrimary(address)"> <md-icon> beenhere	 </md-icon> 
+            <md-button ng-click="onMarkAsPrimary(address)"> <md-icon> beenhere   </md-icon> 
                 <md-tooltip md-direction="left"> Marcar como domicilo principal </md-tooltip> </md-button> 
 
             <!--  
             <md-button ng-click="guardar()">Confirmar</md-button>
             -->
 
-                <md-button ng-disabled=formIsValidForSearch() class="md-raised md-primary" ng-click="buscar($event)" ng-class="{'chq-destacado': isDisabled === false}">
+                <md-button ng-show= !formIsValidForSave() ng-disabled=formIsValidForSearch() class="md-raised md-primary" ng-click="buscar($event)" ng-class="{'chq-destacado': isDisabled === false}">
                     <md-icon md-font-set="material-icons"> gps_fixed </md-icon>
                    <md-tooltip md-direction="top"> Ubica su posicion geografica basada en la direccion ingresada </md-tooltip>
-                    {{buscar_direccion}}
+                    Siguiente
                 </md-button>
 
-                <md-button ng-disabled=isSearching() class="md-raised md-primary" ng-click="localizar()" ng-class="{'chq-destacado': isDisabled === false}">
+                <md-button ng-show=false class="md-raised md-primary" ng-click="localizar()" ng-class="{'chq-destacado': isDisabled === false}">
                    <md-icon md-font-set="material-icons"> room </md-icon>
                    <md-tooltip md-direction="top"> Permite marcar su posicion geografica manualmente en el mapa</md-tooltip>         
                     {{auto_localizar}}
                 </md-button>
 
-                <md-button ng-disabled=formIsValidForSave() class="md-raised md-primary" ng-click="onSave(address)" ng-class="{'chq-destacado': isDisabled === true}">
+                <md-button ng-show= formIsValidForSave() class="md-raised md-primary" ng-click="onSave(address)" ng-class="{'chq-destacado': isDisabled === true}">
                     <md-icon md-font-set="material-icons"> save </md-icon>
                     Guardar
                 </md-button> 
-                <md-button ng-disabled=isSearching() class="md-primary md-raised" ng-click="mostrarMapaGeneral($event)" ng-class="{'chq-destacado': isDisabled === false}"  >
+                <md-button ng-show=false class="md-primary md-raised" ng-click="mostrarMapaGeneral($event)" ng-class="{'chq-destacado': isDisabled === false}"  >
 
                     <md-icon md-font-set="material-icons"> explore </md-icon>
                     <md-tooltip md-direction="top"> Muestra el mapa con las direcciones </md-tooltip>
                     Mapa
                 </md-button>
 
-        </md-card-actions>				
+        </md-card-actions>      	
     </md-card>
 </div>
