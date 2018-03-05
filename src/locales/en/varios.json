@@ -1,12 +1,13 @@
 {
-	"LLEGO_NOTIFICACION" : "Tenés una nueva notificación",
-	"SIN_LEER" : "Notificaciones sin leer",
-	"INGRESA" : "Ingresa",
-	"MENU_BIENVENIDO" : "Bienvenido",
-    "MENU_COMO_COMPRAR" : "Cómo comprar",
-	"MENU_CATALOGO" : "Catálogo",
-	"MENU_PEDIDO" : "Mis pedidos",
-	"MENU_GRUPO" : "Mis Grupos",
-	"MENU_PERFIL" : "Perfil",
-	"CERRAR_GRUPAL" : "Cerrar pedido grupal"
+	"LLEGO_NOTIFICACION" : "You have a new notification",
+	"SIN_LEER" : "Unread notifications",
+	"INGRESA" : "Log in",
+	"MENU_BIENVENIDO" : "Wellcome",
+    "MENU_COMO_COMPRAR" : "How to buy",
+	"MENU_CATALOGO" : "Products",
+	"MENU_PEDIDO" : "My orders",
+	"MENU_GRUPO" : "My groups",
+    "MENU_NODES" : "My nodes",
+	"MENU_PERFIL" : "Profile",
+	"CERRAR_GRUPAL" : "Close group order"
 }
