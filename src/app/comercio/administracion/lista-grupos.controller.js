@@ -7,7 +7,7 @@
 	/** @ngInject . Tabs de grupos con el panel de info y botones de acciones */
 	function ListaGruposController($log, $scope, $state, $stateParams, order_context, 
 		StateCommons, dialogCommons, ToastCommons, perfilService, gccService, CTE_REST, 
-		contextPurchaseService, us, usuario_dao, navigation_state) {
+		contextPurchaseService, us, usuario_dao, navigation_state, agrupationTypeVAL) {
 
 		$log.debug("controler ListaGruposController");
 		navigation_state.goMyGroupsTab();
@@ -146,9 +146,9 @@
 		function callLoadGrupos() {
 			$log.debug("--- find grupos--------");
 
-			contextPurchaseService.getAgrupations().then(function(groups){
-				$log.debug("--- find grupos respuesta", groups);
-				vm.groups = groups.getGroups().filter(function(g){return g.alias != "Personal"});
+			contextPurchaseService.getAgrupations().then(function(agrupationsInt){
+				vm.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
+				$log.debug("--- find grupos respuesta", vm.groups);
 				setTabSeleccionado(contextPurchaseService.getSelectedAgrupation());
             });
 		}
