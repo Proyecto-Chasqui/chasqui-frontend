@@ -8,6 +8,7 @@ angular.module('chasqui').factory('catalogs_dao',
             catalogs: [
                 {
                     id: 2,
+                    nombreCorto: "PdS",
                     nombre: "Puente del Sur",
                     imagen: "/imagenes/subirImagen.png",
                     estrategia: {
@@ -28,6 +29,7 @@ angular.module('chasqui').factory('catalogs_dao',
                     }
                 },{
                     id: 3,
+                    nombreCorto: "MT",
                     nombre: "Mercado Territorial",
                     imagen: "/imagenes/subirImagen.png",
                     estrategia: {
@@ -48,6 +50,7 @@ angular.module('chasqui').factory('catalogs_dao',
                     }
                 },{
                     id: 4,
+                    nombreCorto: "CyH",
                     nombre: "Caracoles y Hormigas",
                     imagen: "/imagenes/subirImagen.png",
                     estrategia: {
