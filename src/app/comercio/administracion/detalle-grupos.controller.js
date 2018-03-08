@@ -9,7 +9,7 @@
 	 *           grupo
 	 */
 	function DetalleGruposController($log, $scope, $timeout,
-		ToastCommons, dialogCommons, gccService, StateCommons, us, CTE_REST, usuario_dao) {
+		ToastCommons, dialogCommons, gccService, StateCommons, us, URLS, REST_ROUTES, usuario_dao) {
 		$log.debug("controler DetalleGruposController init grupo ",
 			$scope.grupo)
 		var vm = this;
@@ -21,7 +21,7 @@
 		//	loadContacts();
 		vm.filterSelected = true;
 		vm.querySearch = querySearch;
-		vm.urlBase = CTE_REST.url_base;
+		vm.urlBase = URLS.be_base;
         
 
 		/**

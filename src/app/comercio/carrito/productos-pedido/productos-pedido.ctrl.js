@@ -5,11 +5,11 @@
 		ProductosPedidoController);
 
 	/** @ngInject */
-	function ProductosPedidoController($log, $state, $scope, CTE_REST, ToastCommons, dialogCommons, productoService, 
-                                        contextoCompraService,us) {
+	function ProductosPedidoController($log, $state, $scope, URLS, REST_ROUTES, ToastCommons, dialogCommons, productoService, 
+                                        contextoCompraService, us, ModifyVarietyCount) {
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
-		$scope.urlBase = CTE_REST.url_base;
+		$scope.urlBase = URLS.be_base;
 	
 		$scope.eliminar = function(item) {
 			$scope.productoEliminar = item;
@@ -44,6 +44,10 @@
 
 			productoService.quitarProductoIndividual(params).then(doOk)
 		}
+        
+        $scope.modifyVarietyCount = function(variety){
+          ModifyVarietyCount.modifyDialog(variety);
+      }
 
 		
 	}

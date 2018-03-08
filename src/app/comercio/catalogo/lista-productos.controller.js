@@ -7,21 +7,21 @@
 	/**
 	 * @ngInject Lista de productos.
 	 */
-	function ListaProductosController($scope, $rootScope, $log, CTE_REST,
+	function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
 		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
 		gccService, $mdDialog, productorService, contextoCompraService, 
-        usuario_dao) {
+        usuario_dao, ModifyVarietyCount) {
 
 		$log.debug('ListaProductosController',
 			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
 
-		var CANT_ITEMS = CTE_REST.PRODUCTOS_X_PAG; // TODO : pasar a constante
+		var CANT_ITEMS = REST_ROUTES.PRODUCTOS_X_PAG; // TODO : pasar a constante
 
 		var vm = this;
 
 		vm.otherCtrl = $scope.$parent.$parent.catalogoCtrl.isFiltro1;
 
-		vm.urlBase = CTE_REST.url_base;
+		vm.urlBase = URLS.be_base;
 		vm.productos = [];
 		vm.ultimoFiltro = {};
 		vm.medallaSelect = undefined;
@@ -65,13 +65,13 @@
 
 		vm.verProducto = function(productoParam) {
 			$mdDialog.show({
-					controller: 'ProductoDialogController as ctrl',
+					controller: 'ProductoDialogController',
 					templateUrl: 'app/comercio/catalogo/producto.dialog.html',
 					//     parent: angular.element(document.body),
 					//      targetEvent: ev,
 					clickOutsideToClose: true,
 					fullscreen: false, // Only for -xs, -sm breakpoints.
-					locals: { parm: productoParam }
+					locals: { productSelected: productoParam }
 				})
 				.then(function(answer) {
 					//  vm.mensaje = 'You said the information was "' + answer + '".';
@@ -96,17 +96,17 @@
 		}
 		//////////////////////////////
 
-		vm.agregar = function(variante) {
+		vm.agregar = function(variety) {
 			vm.grupoSelected = contextoCompraService.getGroupSelected();
 			vm.pedidoSelected = contextoCompraService.getOrderSelected();
 
             console.log(vm.grupoSelected, vm.pedidoSelected);
 			if (usuario_dao.isLogged()) {
-				agregarProducto(variante);
+				agregarProducto(variety);
 			} else {
 				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
-				$log.log('not logued" ', variante);
-				contextoCompraService.ls.varianteSelected = variante;
+				$log.log('not logued" ', variety);
+				contextoCompraService.ls.varianteSelected = variety;
 				$state.go('login');
 			}
 		}
@@ -145,18 +145,18 @@
 			findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, arg);
 		}
 
-		function agregarProducto(variante) {
+		function agregarProducto(variety) {
 			if (contextoCompraService.isGrupoIndividualSelected()) {
-                console.log("Agregar producto al pedido individual:", variante);
-				agregarProductoIndividual(variante); // es individual
+                console.log("Agregar producto al pedido individual:", variety);
+				agregarProductoIndividual(variety); // es individual
 			} else {
-				agregarProductoDialog(variante);
+				ModifyVarietyCount.modifyDialog(variety);
 			}
 		}
+		function agregarProductoIndividual(variety) {
 		/** Si no tiene un pedido individual lo crea */
-		function agregarProductoIndividual(variante) {
 			if (contextoCompraService.tienePedidoInividual()) {
-				agregarProductoDialog(variante);
+				ModifyVarietyCount.modifyDialog(variety);
 			} else {
                 
                 function actualizarPedidoIndividual() {
@@ -164,16 +164,16 @@
                         $log.debug("setPedidoYagregarProducto", response);
                         contextoCompraService.setContextoByPedido(response.data);
                         //contextoCompraService.refresh();
-                        agregarProductoDialog(variante);
+                        ModifyVarietyCount.modifyDialog(variety);
                     }
 
                     productoService.verPedidoIndividual().then(doOkPedido);
                 }
 				// crear pedido y dialog
 				function doNoOK(response) {
-					if (us.contieneCadena(response.data.error, CTE_REST.ERROR_YA_TIENE_PEDIDO)) {
+					if (us.contieneCadena(response.data.error, REST_ROUTES.ERROR_YA_TIENE_PEDIDO)) {
 						ToastCommons.mensaje(us.translate('AGREAR_EN_PEDIDO_EXISTENTE'));
-						agregarProductoDialog(variante);
+						ModifyVarietyCount.modifyDialog(variety);
 					}
 				}
 
@@ -182,12 +182,11 @@
 
 				//si falla es poque ya tiene un pedido abierto TODO mejorar
 				productoService.crearPedidoIndividual(json, doNoOK).then(actualizarPedidoIndividual)
-
 			}
 
 		}
 
-		function callCrearPedidoGrupal(variante) { 
+		function callCrearPedidoGrupal(variety) { 
             // TODO mover a contexto compra service
 			function doOK(response) {
 				$log.debug("callCrearPedidoGrupal", response);
@@ -196,7 +195,7 @@
                 contextoCompraService.getGrupos().then(
 					function(grupos) {
 						contextoCompraService.setContextoByGrupo(parseInt(vm.grupoSelected.idGrupo));
-						agregarProductoDialog(variante)
+						ModifyVarietyCount.modifyDialog(variety);
 					}
 				)
 			}
@@ -205,7 +204,7 @@
 				$log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
 		 		contextoCompraService.refreshPedidos().then(
 					function(pedido) {
-						agregarProductoDialog(variante)
+						ModifyVarietyCount.modifyDialog(variety);
 					}
 				)
 			}
@@ -217,55 +216,9 @@
 			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
 		}
 
-		function agregarProductoDialog(variante) {
-			$log.debug("agregarProductoDialog ", variante)
-
-			function doOk(result) {
-				$log.debug("Agregar al carro cantidad ", result);
-
-				if (!isNaN(result) && result > 0) {
-					$log.debug("Entrada valida", result);
-					callAgregarAlCarro(variante, result);
-				} else {
-					$log.debug("Entrada invalida", result);
-				}
-
-			}
-
-			function doNoOk() {
-				$log.debug("Cancelo Agregar")
-			}
-			
-			dialogCommons.prompt('Agregar al changuito', '¿Cuántos ' + variante.nombreProducto + ' necesitas?',
-				'Cantidad', 'Agregar', 'Cancelar', doOk, doNoOk);
-		}
-
-
 
 		// /////////// REST
 
-		var callAgregarAlCarro = function(variante, cantidad) {
-			$log.debug('callAgregarAlCarro para pedido: ',
-				contextoCompraService.getOrderSelected());
-
-			var doOk = function(response) {
-				$log.log('Agregar producto Response ', response);
-                
-                contextoCompraService.refreshPedidos();
-				ToastCommons.mensaje(us.translate('PRODUCTO_AGREGADO'));
-				$rootScope.$emit('lista-producto-agrego-producto');
-
-			}
-
-			var params = {};
-			params.idPedido = contextoCompraService.getOrderSelected().id;
-			params.idVariante = variante.idVariante;
-			params.cantidad = cantidad;
-
-			$log.debug(params)
-
-			productoService.agregarPedidoIndividual(params).then(doOk);
-		}
 		
 		var findProductosPorMultiplesFiltros = function(pagina, items, params){
 			console.log('find productos multiples filtros');
@@ -315,7 +268,6 @@
 				pagina: pagina,
 				cantItems: items,
 				precio: 'Down'
-				// ,idVendedor =CTE_REST.vendedor //TODO: que se dinamico
 			}
 
 			productoService.getProductosByMultiplesFiltros(params).then(doOk);

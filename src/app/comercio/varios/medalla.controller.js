@@ -6,12 +6,12 @@
 		.controller('MedallaController', MedallaController);
 
 	/** @ngInject */
-	function MedallaController($log, $stateParams, CTE_REST, $state, StateCommons, productoService) {
+	function MedallaController($log, $stateParams, URLS, REST_ROUTES, $state, StateCommons, productoService) {
 		$log.debug('MedallaController ..... ', $stateParams.idMedalla);
 		StateCommons.ls.itemMenuSelect = 'medalla'; // TODO cambiar al generar DAOs (mensaje del 11/10)
 		var vm = this
 
-		vm.urlBase = CTE_REST.url_base;
+		vm.urlBase = URLS.be_base;
 		vm.idMedalla = $stateParams.idMedalla; // usar en caso de tener mas
 		// datos que mostrar . Vista
 		// indivudual

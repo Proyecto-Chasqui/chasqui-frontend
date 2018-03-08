@@ -6,8 +6,8 @@
 
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
-            productoService,ToastCommons, gccService, contextoCompraService,us, promiseService, CTE_REST, 
-            navigation_state) {
+            productoService,ToastCommons, gccService, contextoCompraService,us, promiseService, REST_ROUTES, 
+            navigation_state, $rootScope) {
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
@@ -89,9 +89,9 @@
         $scope.fitrarPorEstadoConfirmado = function(){
             console.log("HOOOOOOOOOOOOOOOOOOOOOOOOOla");
             var params = {};
-            params.idVendedor = CTE_REST.idVendedor;
+            params.idVendedor = REST_ROUTES.idVendedor;
             params.estados = ["CONFIRMADO"];
-            return promiseService.doPost(CTE_REST.filtrarPedidosConEstado, params).then(
+            return promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(
                 function doOk(response) {
                     console.log("Entre en el Dook", response);
                     $scope.pedidosPorCategoria = response.data.reverse()[0];
@@ -101,6 +101,10 @@
         } 
         $scope.fitrarPorEstadoConfirmado();
 
+        $rootScope.$on('lista-producto-agrego-producto', function(event) {
+            $log.debug("on lista-producto-agrego-producto");
+            load();
+        });
 
 
 		load();

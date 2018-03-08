@@ -6,7 +6,7 @@
 
 	/** @ngInject . Tabs de grupos con el panel de info y botones de acciones */
 	function ListaGruposController($log, $scope, $state,
-		StateCommons, dialogCommons, ToastCommons, perfilService, gccService, CTE_REST, 
+		StateCommons, dialogCommons, ToastCommons, perfilService, gccService, URLS, REST_ROUTES, 
 		contextoCompraService, us, usuario_dao, navigation_state) {
 
 		$log.debug("controler ListaGruposController");
@@ -17,7 +17,7 @@
 		vm.groups = [];
 		vm.selected = null;
 		vm.selectedIndexGrupo = 0;
-		vm.urlBase = CTE_REST.url_base;
+		vm.urlBase = URLS.be_base;
 
 		/** Control de cambio de tabs */
  		$scope.$watch('listaGruposCtrl.selectedIndexGrupo', function(current, old) {
