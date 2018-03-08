@@ -259,6 +259,7 @@
         
 		vm.refresh = function() {
             var prevGroupSelected = vm.getGroupSelected();
+            console.log("prevGroupSelected", prevGroupSelected); // No borrar
 			vm.refreshGrupos();
 			vm.refreshPedidos();
             vm.setContextoByGrupo(prevGroupSelected.idGrupo);

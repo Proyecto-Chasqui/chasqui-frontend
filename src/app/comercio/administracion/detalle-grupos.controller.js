@@ -8,40 +8,20 @@
 	 * @ngInject Contenido del tab de grupo. Recibe por parametro el id del
 	 *           grupo
 	 */
-	function DetalleGruposController($log, $scope, $timeout,
-		ToastCommons, dialogCommons, gccService, StateCommons, us, URLS, REST_ROUTES, usuario_dao) {
-		$log.debug("controler DetalleGruposController init grupo ",
-			$scope.grupo)
+	function DetalleGruposController($log, $scope, $timeout, ToastCommons, 
+                                      dialogCommons, gccService, StateCommons, us, 
+                                      URLS, REST_ROUTES, usuario_dao) {
+        
 		var vm = this;
 
 		vm.grupo = $scope.grupo;
 		vm.isAdmin = $scope.grupo.esAdministrador;
 
 		vm.allContacts;
-		//	loadContacts();
-		vm.filterSelected = true;
-		vm.querySearch = querySearch;
+        vm.membersOptionsShowed = false;
 		vm.urlBase = URLS.be_base;
         
 
-		/**
-		 * Search for contacts; use a random delay to simulate a remote call
-		 */
-		function querySearch(criteria) {
-			return vm.allContacts.filter(createFilterFor(criteria));
-		}
-
-		/**
-		 * Create filter function for a query string
-		 */
-		function createFilterFor(query) {
-			var lowercaseQuery = angular.lowercase(query);
-			return function filterFn(contact) {
-				$log.debug(contact._lowername);
-				$log.debug(lowercaseQuery);
-				return (contact._lowername.indexOf(lowercaseQuery) != -1);
-			}
-		}
 
 		vm.quitarMiembro = function(miembro) {
 			var nombre = miembro.nickname == null ? miembro.email : miembro.nickname;
@@ -70,18 +50,6 @@
 
 		// //////////
 		// //////REST
-
-		/** Guardar Lista de integrantes del grupo */
-		vm.guardar = function() {
-			$log.debug("guarda cambios grupo");
-
-			function doOk(response) {
-				$log.debug("respuesta guardar grupos ", response);
-			}
-
-			gccService.integrantesGrupo(vm.idGrupo, vm.grupo.miembros).then(doOk)
-
-		}
 
 		vm.callQuitarMiembro = function(miembro) {
 			function doOk() {
@@ -135,7 +103,7 @@
 		}
 
 		vm.isLoggedMember = function(miembro) {
-			return (miembro.email == usuario_dao.getUsuario().email); // TODO cambiar al generar DAOs (mensaje del 11/10) (mensaje del 11/10)
+			return (miembro.email == usuario_dao.getUsuario().email); 
 		}
 
 
@@ -151,5 +119,46 @@
 		vm.showRemoveGroupsMember = function(member) {
 			return (vm.isAdmin && !vm.isLoggedMember(member)) || (!vm.isAdmin && vm.isLoggedMember(member));
 		}
+        
+        vm.showCederAdministracionGrupo = function(member){
+            return vm.isAdmin && !vm.isLoggedMember(member);
+        }
+        
+        
+        vm.cederAdministracionGrupo = function(member){
+			var nombre = member.nickname == null ? member.email : member.nickname;
+			// Esto es un resabio de la forma de cargar members que pronto va a ser modificado. 
+			var pregunta,confirmacion,fallo;
+            
+            pregunta = us.translate('SWAP_ADMINISTRATION_WITH') + nombre + "? ";
+            fallo = 'No se pudo quitar a ' + nombre + ' del grupo de compra';
+
+			dialogCommons.confirm(us.translate('SWAP_GROUP_ADMINISTRATION_TITLE'),
+				us.translate('ESTAS_SEGURO_DE') + pregunta + us.translate('REVERSIBLE_OPTION'),
+				us.translate('SI_QUIERO'), 
+                us.translate('NO'),
+				function() {
+					console.log("Nuevo administrador: ", member);
+				},
+				function() {
+					$log.debug(fallo);
+				});
+        }
+        
+        vm.canShowMemberOptions = function(){
+            return vm.isAdmin && !vm.membersOptionsShowed;
+        }
+        
+        vm.showMembersOptions = function(){
+            vm.membersOptionsShowed = true;
+        }
+        
+        vm.canHideMemberOptions = function(){
+            return vm.isAdmin && vm.membersOptionsShowed;
+        }
+        
+        vm.hideMemberOptions = function(){
+            vm.membersOptionsShowed = false;
+        }
 	}
 })();
