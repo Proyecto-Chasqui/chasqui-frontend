@@ -152,6 +152,8 @@
             getMailInvitacionAlGCC: URLS.be_rest + "client/sso/obtenerMailInvitado",
 
             quitarMiembro: URLS.be_rest + "user/gcc/quitarMiembro",
+            
+            cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
 
             confirmarPedidoColectivo: URLS.be_rest + "user/gcc/confirmar",
 

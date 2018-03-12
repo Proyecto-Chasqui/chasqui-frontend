@@ -62,36 +62,9 @@
 			params.emailCliente = miembro.email;
 
 			gccService.quitarMiembro(params).then(doOk)
-
 		}
 
-		/**
-		 * Trae la lista de los integrantes del grupo y de los contactos
-		 * podibles
-		 */
-		// TODO : cambiar la lista de contactos por un boton que pida en ingreso
-		// al grupo por mail.
-		// 
-		// ----------- DESCOMENTADOS Y DESMOCKEADOS EN index.constants.js por FAVIO 13-6
-/*
-		function loadContacts() {
-
-			function doOk(response) {
-				// vm.productos=response.data;
-				vm.allContacts = response.data;
-
-				angular.forEach(vm.allContacts, function(integrante) {
-					integrante._lowername = integrante.nombre.toLowerCase();
-					if (integrante.isEnGrupo) {
-						vm.grupo.miembros.push(integrante);
-					}
-				})
-			}
-
-			gccService.integrantesGrupo(vm.idGrupo, {}).then(doOk)
-
-		}
-*/
+		
 		vm.selfPara = function(miembro) {
 			if (us.isUndefinedOrNull(miembro.nickname)) return "";
 			return miembro.nickname + tagSelf(miembro.email == vm.grupo.emailAdministrador, us.translate('ADMIN')) +
@@ -139,14 +112,31 @@
                 us.translate('NO'),
 				function() {
 					console.log("Nuevo administrador: ", member);
+                    callCederAdministracionGrupo(member);
 				},
 				function() {
 					$log.debug(fallo);
 				});
         }
         
+        function callCederAdministracionGrupo(miembro){            
+			function doOk() {
+				ToastCommons.mensaje("El nuevo administrador es " + miembro.nickname);
+				vm.isAdmin = false;
+                vm.grupo.emailAdministrador = miembro.email;
+                vm.hideMemberOptions();
+			}
+			var params = {
+                idGrupo: vm.grupo.idGrupo,
+                emailCliente: miembro.email
+            };
+
+			gccService.cederAdministracion(params).then(doOk)   
+        }
+        
+        
         vm.canShowMemberOptions = function(){
-            return vm.isAdmin && !vm.membersOptionsShowed;
+            return !vm.membersOptionsShowed;
         }
         
         vm.showMembersOptions = function(){
@@ -154,7 +144,7 @@
         }
         
         vm.canHideMemberOptions = function(){
-            return vm.isAdmin && vm.membersOptionsShowed;
+            return vm.membersOptionsShowed;
         }
         
         vm.hideMemberOptions = function(){

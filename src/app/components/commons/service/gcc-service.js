@@ -53,6 +53,10 @@
 			$log.debug(" service quitarMiembro ");
 			return promiseService.doPost(REST_ROUTES.quitarMiembro, params);
 		}
+        
+        vm.cederAdministracion = function(params){
+            return promiseService.doPost(REST_ROUTES.cederAdministracion, params);
+        }
 
 		/*vm.confirmarPedidoColectivo = function(idGrupo) {
 			var params = {};

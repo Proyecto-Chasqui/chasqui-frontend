@@ -5,6 +5,7 @@
 	"INV_ACEP_MSG": "Invitación aceptada",
 	"INV_ESP_MSG": "Invitación en espera",
 	"QUITAR_GRUPO_MSG": "Sacar del grupo ",
+    "SALIR_GRUPO_MSG": "Salir del grupo",
     "TT_SWAP_ADMIN": "Ceder administración del grupo",
 	"ESTADO_PEDIDO": "Estado del pedido:",
 	"MIEMBROS_GRUPO": "Miembros del grupo",

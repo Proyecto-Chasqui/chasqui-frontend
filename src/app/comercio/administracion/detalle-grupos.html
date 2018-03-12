@@ -22,21 +22,22 @@
             <md-list-item class="md-2-line contact-item selected" ng-repeat="member in detalleGrupoCtrl.miembrosVisiblesParaUsuarioLogeado()">
                 <img ng-src="{{detalleGrupoCtrl.urlBase}}{{member.avatar}}" class="md-avatar" alt="{{member.nickname}}" />
                 <div class="md-list-item-text compact">
-                    <h4>{{::detalleGrupoCtrl.selfPara(member)}}</h4>
+                    <h4>{{detalleGrupoCtrl.selfPara(member)}}</h4>
                     <p>{{member.email}}</p>
                 </div>
                 <div layout="row" layout-align="end">
                     <div layout="row" layout-align="end" ng-show="detalleGrupoCtrl.membersOptionsShowed">
-                        <md-button ng-if="detalleGrupoCtrl.showCederAdministracionGrupo(member)" ng-click="detalleGrupoCtrl.cederAdministracionGrupo(member)">
+                        <md-button ng-show="detalleGrupoCtrl.showCederAdministracionGrupo(member)" ng-click="detalleGrupoCtrl.cederAdministracionGrupo(member)">
                             <ng-md-icon icon="transfer_within_a_station" style="fill: orange"></ng-md-icon>
                             <md-tooltip md-direction="bottom">
                                 <label translate="TT_SWAP_ADMIN"></label>
                             </md-tooltip>
                         </md-button>
-                        <md-button ng-if="detalleGrupoCtrl.showRemoveGroupsMember(member)" ng-click="detalleGrupoCtrl.quitarMiembro(member)">
+                        <md-button ng-show="detalleGrupoCtrl.showRemoveGroupsMember(member)" ng-click="detalleGrupoCtrl.quitarMiembro(member)">
                             <ng-md-icon icon="remove_circle_outline" style="fill: red"></ng-md-icon>
                             <md-tooltip md-direction="bottom">
-                                <label translate="QUITAR_GRUPO_MSG"></label>
+                                <label ng-if="detalleGrupoCtrl.isLoggedMember(member)" translate="SALIR_GRUPO_MSG"></label>
+                                <label ng-if="!detalleGrupoCtrl.isLoggedMember(member)" translate="QUITAR_GRUPO_MSG"></label>
                             </md-tooltip>
                         </md-button>
                     </div>
