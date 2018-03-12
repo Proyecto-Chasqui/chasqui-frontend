@@ -12,7 +12,7 @@
 		 */
 	function contextPurchaseService($log, $localStorage, order_context, catalogs_data,
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
-                                     idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal) {
+                                     idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, catalogs_dao) {
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
@@ -28,7 +28,8 @@
             getCatalogContext: getCatalogContext,
             getOrderContext: getOrderContext,
             getAgrupationContextId: getAgrupationContextId,
-            getAgrupationContextType: getAgrupationContextType,             
+            getAgrupationContextType: getAgrupationContextType,         
+            getSelectedCatalog: getSelectedCatalog,
             getSelectedOrder: getSelectedOrder,
             getSelectedAgrupation: getSelectedAgrupation,
             
@@ -118,6 +119,10 @@
     
         function getAgrupationContextType(){
             return order_context.getAgrupationType();
+        }
+        
+        function getSelectedCatalog(){
+            return catalogs_dao.getCatalog(order_context.getCatalogId());
         }
         
         /*
