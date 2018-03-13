@@ -99,7 +99,7 @@ angular.module('chasqui').factory('catalogs_dao',
     }
                         
     function getCatalogByShortName(catalogShortName){
-        return getCatalogs().filter(function(c){return c.nombreCorto == catalogShortName})[0];
+        return getCatalogs().filter(function(c){return c.nombreCorto.toLowerCase() == catalogShortName.toLowerCase()})[0];
     }
       
     function reset(){
