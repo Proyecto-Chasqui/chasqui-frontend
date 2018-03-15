@@ -70,7 +70,7 @@
 			$log.debug("Ver notificaciones");
 			$scope.icon = 'notifications_none';
 			$scope.fill = 'white';
-			$state.go('perfil', {
+			$state.go('catalog.profile', {
 				index: 1
 			});
 		}

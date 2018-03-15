@@ -182,8 +182,8 @@
 
 		$scope.irAPerfil = function(){
 			$mdDialog.hide();
-			$state.go('perfil');
-		};
+			$state.go('catalog.profile');
+        };
 		
 	}
 
