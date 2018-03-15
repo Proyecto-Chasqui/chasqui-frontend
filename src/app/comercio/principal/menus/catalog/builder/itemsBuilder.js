@@ -50,8 +50,15 @@
                             needLogin: true
                         };
         
+        var deliveryPoints = { 
+                            id: 'DELIVERY_POINTS',
+                            route: 'deliveryPoints',
+                            label: 'MENU_DELIVERY_POINTS',
+                            needLogin: false
+                        };
+        
         var userProfile = {  
-                            id: 'PERFIL',
+                            id: 'PROFILE',
                             route: 'profile',
                             label: 'MENU_PERFIL',
                             needLogin: true
@@ -68,6 +75,7 @@
             
             if(strategy.gcc) itemsMenu.push(userGroups);
             if(strategy.nodos) itemsMenu.push(userNodes);
+            if(strategy.puntoDeEntrega) itemsMenu.push(deliveryPoints);
             
             itemsMenu.push(userProfile);
             

@@ -64,7 +64,13 @@
                 templateUrl: 'app/comercio/administracion/formularios/form-grupo.html',
                 controller: 'FormGrupoController',
                 controllerAs: 'formGrupoCtrl',
+                auth: true,
                 params: { "grupo": null }
+            })           
+            .state('catalog.deliveryPoints', {
+                url: '/puntosDeEntrega',
+                templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',
+                controller: 'DeliveryPointsCtrl'
             })    
             .state('catalog.profile', {
                 url: '/perfil',
