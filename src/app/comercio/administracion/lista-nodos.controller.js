@@ -3,9 +3,9 @@
     
     angular.module('chasqui').controller('ListaNodosCtrl', ListaNodosCtrl);
     
-	function ListaNodosCtrl() {
+	function ListaNodosCtrl(navigation_state) {
         
-        
+        navigation_state.goMyNodesTab();
         
     }
     
