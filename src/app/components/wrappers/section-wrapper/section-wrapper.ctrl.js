@@ -1,9 +1,9 @@
 (function() {
 	'use strict';
     
-    angular.module('chasqui').controller('StateWrapperCtrl', StateWrapperCtrl);
+    angular.module('chasqui').controller('SectionWrapperCtrl', SectionWrapperCtrl);
     
-	function StateWrapperCtrl($scope, contextPurchaseService, catalogSupportStrategies) {
+	function SectionWrapperCtrl($scope, contextPurchaseService, catalogSupportStrategies) {
         
         $scope.showElement = catalogSupportStrategies(contextPurchaseService.getSelectedCatalog(), $scope.supportedStrategies);
         

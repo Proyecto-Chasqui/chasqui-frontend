@@ -1,9 +1,9 @@
 (function() {
 	'use strict';
     
-    angular.module('chasqui').directive('stateWrapper', stateWrapper);
+    angular.module('chasqui').directive('sectionWrapper', sectionWrapper);
     
-	function stateWrapper() {
+	function sectionWrapper() {
     
         return {
             restrict: 'E',
@@ -19,8 +19,8 @@
                                             Any other may result in error
                                           */
             },
-            controller: 'StateWrapperCtrl',
-            templateUrl: 'app/components/wrappers/element-wrapper/element-wrapper.tmpl.html'
+            controller: 'SectionWrapperCtrl',
+            templateUrl: 'app/components/wrappers/section-wrapper/section-wrapper.tmpl.html'
           };
     }
     
