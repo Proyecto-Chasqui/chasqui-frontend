@@ -101,14 +101,19 @@
 	z-index: 900;
 }
 
+.chq-container {
+    max-height: 100vh !important;
+}
 
 .ch-content {
+    min-height: 65vh !important;
 	width: 80%;
 	margin: 0px auto;
 	margin-top: 125px;
 }
 
 .ch-content-full {
+    min-height: 65vh !important;
 	margin: 0px auto;
 	margin-top: 125px;
     padding-bottom: 100%;
