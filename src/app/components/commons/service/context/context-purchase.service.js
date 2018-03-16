@@ -168,7 +168,7 @@
        
       
 		function tienePedidoInividual() {
-            return getOrderSelected().estado === "ABIERTO";
+            return contextOrdersService.getOrdersByType(order_context.getCatalogId().toString(), agrupationTypeVAL.TYPE_PERSONAL).length === 1;
 		}
 
         
@@ -200,7 +200,7 @@
 
 
 		function isGrupoIndividualSelected() {
-			return contextAgrupationsService.getAgrupation(order_context.getAgrupationId()).type === agrupationTypeVAL.TYPE_PERSONAL;
+			return order_context.getAgrupationType() === agrupationTypeVAL.TYPE_PERSONAL;
 		}
 
 		function isPedidoInividualSelected() {

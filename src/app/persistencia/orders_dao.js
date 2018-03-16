@@ -55,7 +55,7 @@ function orders_dao(catalogs_data, fn_snoc){
     }
     
     function getOrdersByType(catalogId, ordersType){
-        return catalogs_data.getCatalog(catalogId)[ordersType];
+        return catalogs_data.getCatalog(catalogId).orders[ordersType];
     }
     
     function getOrder(catalogId, orderId, orderType){

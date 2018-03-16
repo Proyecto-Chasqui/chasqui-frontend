@@ -100,7 +100,7 @@
 			vm.grupoSelected = contextPurchaseService.getSelectedAgrupation();
 			vm.pedidoSelected = contextPurchaseService.getSelectedOrder();
 
-            console.log(vm.grupoSelected, vm.pedidoSelected);
+            console.log("GrupoSelected:", vm.grupoSelected, "pedidoSelected:", vm.pedidoSelected);
 			if (usuario_dao.isLogged()) {
 				agregarProducto(variety);
 			} else {

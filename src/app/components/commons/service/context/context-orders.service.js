@@ -15,6 +15,7 @@
             getOrdersTypes: getOrdersTypes,
             getOrder: getOrder,
             getOrders: getOrders,
+            getOrdersByType: getOrdersByType
         }
         
         
@@ -72,6 +73,9 @@
                 });
 		}
              
+        function getOrdersByType(catalogId, ordersType){
+            return orders_dao.getOrdersByType(catalogId, ordersType);
+        }
         
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
         
