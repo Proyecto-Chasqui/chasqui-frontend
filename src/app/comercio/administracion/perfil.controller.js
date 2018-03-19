@@ -4,9 +4,10 @@
 	angular.module('chasqui').controller('PerfilController', PerfilController);
 
 	/** @ngInject . Pantalla de perfil de usuario */
-	function PerfilController($log, $scope,
+	function PerfilController($log, $scope, $rootScope,
 		$mdDialog, ToastCommons, $stateParams, perfilService,
 		gccService,us,contextoCompraService, usuario_dao, navigation_state) {
+        
 		$log.debug("Init PerfilController ....");
 
 		navigation_state.goPerfilTab();
@@ -261,17 +262,18 @@
             perfilService.actualizarDireccion(address).then(doOk);
         }
 
-        $scope.delete = function(address) {
-            $log.debug("eliminar direccion");
+        $scope.delete = function(callback) {
+            return function(address){
+                $log.debug("eliminar direccion");
 
-            function doOk(response) {
-                $log.debug("respuesta eliminar direccion ", response);
+                function doOk(response) {
+                    $log.debug("respuesta eliminar direccion ", response);
+                    ToastCommons.mensaje(us.translate('ELIMINO_DIRECCION'));
+                    callback(address);
+                }
 
-                ToastCommons.mensaje(us.translate('ELIMINO_DIRECCION'));
-                //loadDirecciones();
+                perfilService.eliminarDireccion(address.idDireccion).then(doOk);
             }
-
-            perfilService.eliminarDireccion(address.idDireccion).then(doOk);
         }
 
         var callNuevaDireccion = function(address) {
@@ -280,7 +282,7 @@
             function doOk(response) {
                 $log.debug("respuesta guardar domicilio ", response);
                 ToastCommons.mensaje(us.translate('AGREGO_DIRECCION'));
-                //loadDirecciones();
+                $rootScope.$broadcast('newAddress', response.data);
             }
 
             address.predeterminada = true; // TODO : si es el primero deberia ser TRUE sino no
@@ -294,7 +296,7 @@
             function doOk(response) {
                 $log.debug("respuesta update domicilio ", response);
                 ToastCommons.mensaje(us.translate('ACTUALIZO_DIRECCION'));
-                //loadDirecciones();
+                $rootScope.$broadcast('newAddress', response.data);
             }
             
             address.predeterminada = false;
