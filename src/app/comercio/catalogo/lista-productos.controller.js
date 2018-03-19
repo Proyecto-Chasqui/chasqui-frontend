@@ -98,7 +98,6 @@
 
 		vm.agregar = function(variety) {
 
-            console.log("GrupoSelected:", vm.grupoSelected, "pedidoSelected:", vm.pedidoSelected);
 			if (usuario_dao.isLogged()) {
 				agregarProducto(variety);
 			} else {

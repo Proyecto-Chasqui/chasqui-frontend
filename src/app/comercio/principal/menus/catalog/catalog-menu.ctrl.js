@@ -43,12 +43,7 @@
 		$scope.$on('resetHeader', function(event, msg) {
 			initHeader();
 		});
-
-		$scope.$on('logout', function(event, msg) {
-			$scope.logOut();
-		});
-
-       
+   
 
 		var llamadoPeriodico;
 
@@ -61,7 +56,7 @@
 			$interval.cancel(llamadoPeriodico);
 
 			initHeader();
-
+            $scope.$broadcast('logout');
 			$state.go('catalog.landingPage');
 		}
 
