@@ -98,9 +98,9 @@
                         <img ng-src="{{listaProductosCtrl.urlBase}}{{listaProductosCtrl.emprendedorSelect.pathImagen}}" width="200" height="200">
                     </div>
                     <div ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta" />
-                        
+                        <md-button ui-sref="productor({id: listaProductosCtrl.emprendedorSelect.idProductor})" >Más</md-button>
                     </div>
-                    <md-button ui-sref="productor({id: listaProductosCtrl.emprendedorSelect.idProductor})">     Más</md-button>
+                
                 </md-dialog>
             </div>
         </div>
