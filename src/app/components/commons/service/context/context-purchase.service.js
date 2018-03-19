@@ -175,7 +175,9 @@
         /* Prop: cleans orders and groups cache. 
          */
         function clean(){
+            var prev_context = order_context.getCatalogId();
             order_context.reset();
+            order_context.setCatalogId(prev_context);
         }
         
         
