@@ -15,6 +15,8 @@
 
         $scope.grupos = [];
         $scope.grupoSelected = 0;
+        $scope.cambiarContexto = cambiarContexto;
+        $scope.showSelector = showSelector;
         
         function init(){
             $scope.grupoSelected = contextPurchaseService.getAgrupationContextId();
@@ -26,13 +28,17 @@
         
         init();
         
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		$scope.cambiarContexto = function() {
+		function cambiarContexto() {
             contextPurchaseService.setContextByAgrupation($scope.grupos.filter(function(g){return g.idGrupo === parseInt($scope.grupoSelected)})[0]);
 			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.grupoSelected.id);
 		}
 
-
+        function showSelector(){
+            return $scope.grupos.length > 0;
+        }
+        
 
 	}
 })();
