@@ -282,7 +282,7 @@
             function doOk(response) {
                 $log.debug("respuesta guardar domicilio ", response);
                 ToastCommons.mensaje(us.translate('AGREGO_DIRECCION'));
-                $rootScope.$broadcast('newAddress', response.data);
+                $rootScope.$broadcast('addNewAddress', response.data);
             }
 
             address.predeterminada = true; // TODO : si es el primero deberia ser TRUE sino no

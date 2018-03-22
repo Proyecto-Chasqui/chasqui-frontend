@@ -36,10 +36,11 @@
 			$scope.selectedIndexDireccion = $scope.addresses.length;
 		}
         
-        $rootScope.$on('newAddress', function(banana){
-            console.log("Direcciones anteriores:", $scope.addresses, banana );
-            $scope.addresses[$scope.addresses.length - 1] = banana;
+        $rootScope.$on('addNewAddress', function(event, newAddress){
+            console.log("new address!", newAddress);
+            $scope.addresses[$scope.addresses.length - 1] = newAddress;
             console.log("Direcciones posteriores:", $scope.addresses);
+            $scope.selectedIndexDireccion = $scope.addresses.length - 1; //TODO to be continued...
         });
         
         
