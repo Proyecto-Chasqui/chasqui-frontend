@@ -97,9 +97,9 @@
          *              order_context.orderId
          */
         function setContextByAgrupation(agrupation){
-            order_context.setOrderId(getOrderByAgrupation(agrupation));
-            order_context.setAgrupationId(agrupation.idGrupo);
+            order_context.setAgrupationId(agrupation.id);
             order_context.setAgrupationType(agrupation.type);            
+            order_context.setOrderId(getOrderByAgrupation(getSelectedAgrupation()));
         }
         
         
@@ -245,7 +245,7 @@
 		}
 
 		function getOrderByAgrupation(agrupation) {
-            return agrupation.idPedidoIndividual;
+            return agrupation.idPedidoIndividual; // TODO: dinamizar segun la BDD
 		}
 
         

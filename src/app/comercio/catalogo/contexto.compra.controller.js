@@ -14,12 +14,17 @@
 		$log.debug("ContextoCompraController ..... ");
 
         $scope.grupos = [];
-        $scope.grupoSelected = 0;
+        $scope.agrupationSelected = {};
         $scope.cambiarContexto = cambiarContexto;
         $scope.showSelector = showSelector;
+        $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
+        $scope.setPersonalAsAgrupationSelected = setPersonalAsAgrupationSelected;
         
         function init(){
-            $scope.grupoSelected = contextPurchaseService.getAgrupationContextId();
+            $scope.agrupationSelected = {
+                id: contextPurchaseService.getAgrupationContextId(),
+                type: agrupationTypeVAL.TYPE_GROUP
+            }
             contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
                     $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
                                                                         agrupationTypeVAL.TYPE_GROUP);
@@ -31,14 +36,23 @@
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		function cambiarContexto() {
-            contextPurchaseService.setContextByAgrupation($scope.grupos.filter(function(g){return g.idGrupo === parseInt($scope.grupoSelected)})[0]);
-			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.grupoSelected.id);
+            console.log("Cambio de contexto:", $scope.agrupationSelected);
+            contextPurchaseService.setContextByAgrupation($scope.agrupationSelected);
+			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.agrupationSelected);
 		}
 
         function showSelector(){
             return $scope.grupos.length > 0;
         }
         
+        function setGroupAsAgrupationSelected(){
+            $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
+        }
+        
+        function setPersonalAsAgrupationSelected(){
+            $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_PERSONAL;
+        }
 
+        
 	}
 })();
