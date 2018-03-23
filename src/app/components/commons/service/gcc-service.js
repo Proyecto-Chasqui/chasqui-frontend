@@ -5,7 +5,6 @@
 
 	function gccService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons, $stateParams, catalogs_dao) {
 		var vm = this;
-		var idVend = StateCommons.vendedor().id;
 
 		vm.pedidosByUser = function(idCatalog, doNoOK) {
 			$log.debug(" service pedidosByUser ");
@@ -50,7 +49,7 @@
 
 		vm.pedidosByUser = function(doNoOK) {
 			$log.debug(" service pedidosByUser ");
-			return promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(StateCommons.vendedor().id), {}, doNoOK);
+			return promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id), {}, doNoOK);
 		}
         
 		vm.quitarMiembro = function(params) {

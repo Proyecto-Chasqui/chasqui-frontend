@@ -11,7 +11,6 @@
         
 		
 		$scope.urlBase = URLS.be_base;
-		$scope.vendedor = StateCommons.vendedor();
 
 		$scope.options = {
 			'rotation': 'circ-in',
