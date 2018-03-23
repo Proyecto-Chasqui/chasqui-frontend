@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').factory('createOrdersForGroupsWithoutOrders', createOrdersForGroupsWithoutOrders);
     
-	function createOrdersForGroupsWithoutOrders($q, $stateParams, gccService, $log, catalogs_dao){
+	function createOrdersForGroupsWithoutOrders($q, $stateParams, gccService, $log, contextPurchaseService){
          
         
         /* Prop: Creates an order for param group
@@ -24,7 +24,7 @@
             
 			var params = {}
 			params.idGrupo = group.idGrupo;
-			params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
+			params.idVendedor = contextPurchaseService.getCatalogContext();
 			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
             
             return promise;

@@ -7,7 +7,7 @@
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
             productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, REST_ROUTES, 
-            navigation_state, $rootScope, $stateParams, order_context, catalogs_dao) {
+            navigation_state, $rootScope, $stateParams, order_context) {
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
@@ -62,7 +62,7 @@
 				callPedidoIndividual();
 			}
 			var json = {};
-			json.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
+			json.idVendedor = contextPurchaseService.getCatalogContext();
 
 			productoService.crearPedidoIndividual(json).then(doOk)
 		}
@@ -89,7 +89,7 @@
         $scope.fitrarPorEstadoConfirmado = function(){
             console.log("HOOOOOOOOOOOOOOOOOOOOOOOOOla");
             var params = {};
-            params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
+            params.idVendedor = contextPurchaseService.getCatalogContext();
             params.estados = ["CONFIRMADO"];
             return promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(
                 function doOk(response) {

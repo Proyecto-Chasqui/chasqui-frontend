@@ -119,7 +119,7 @@
 
 			var params = {};
 			params.idGrupo = grupo.idGrupo;
-			params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;    
+			params.idVendedor = contextPurchaseService.getCatalogContext();
 
 			gccService.crearPedidoGrupal(params).then(doOk);
 		}

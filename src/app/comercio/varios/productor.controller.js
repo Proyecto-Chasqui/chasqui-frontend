@@ -7,14 +7,14 @@
 
 	/** @ngInject */
 	function ProductorController($log, $stateParams, $scope, URLS, REST_ROUTES, navigation_state, 
-                                  productorService, ToastCommons, us, catalogs_dao) {
+                                  productorService, ToastCommons, us, contextPurchaseService) {
 		
         $log.debug('EmprenController ..... ');
 		//navigation_state.goMakersTab();
         
 
 		$scope.urlBase = URLS.be_base;
-        var idProductor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
+        var idProductor = contextPurchaseService.getCatalogContext();
         
         $scope.productores = [];
         $scope.productor = {};
