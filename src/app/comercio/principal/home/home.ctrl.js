@@ -6,7 +6,7 @@
 		.controller('HomeController', HomeController);
 
     
-	function HomeController($scope, sellerService, CTE_REST, catalogs_dao, $state) {
+	function HomeController($scope, sellerService, URLS, catalogs_dao, $state) {
         
         $scope.catalogs = catalogs_dao.getCatalogs();
         
@@ -16,7 +16,7 @@
         */
         
         $scope.url = function(path){
-            return CTE_REST.url_base + path;
+            return URLS.be_base + path;
         }
         
         $scope.goToCatalog = function(catalogShortName){

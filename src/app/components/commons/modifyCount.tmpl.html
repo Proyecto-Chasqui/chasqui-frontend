@@ -1,4 +1,4 @@
-<md-dialog aria-label="Mango (Fruit)">
+<md-dialog>
   <form ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -13,15 +13,14 @@
     <md-dialog-content>
         <div class="content" >
             <div style="text-align: center;">
-                <i class="material-icons" ng-click="countPlus(-2)">exposure_neg_2</i>
-                <i class="material-icons" ng-click="countPlus(-1)">exposure_neg_1</i>
+                <a href="" ng-show="count() > 1"><i class="material-icons" ng-click="countPlus(-2)">exposure_neg_2</i></a>
+                <a href="" ng-show="count() > 0"><i class="material-icons" ng-click="countPlus(-1)">exposure_neg_1</i></a>
                 	
                 <md-input-container style="font-size: 18;">
                     <input ng-model="count" ng-model-options="{ getterSetter: true }">
                 </md-input-container>
-                
-                <i class="material-icons" ng-click="countPlus(1)">exposure_plus_1</i>
-                <i class="material-icons" ng-click="countPlus(2)">exposure_plus_2</i>
+                <a href=""><i class="material-icons" ng-click="countPlus(1)">exposure_plus_1</i></a>
+                <a href=""><i class="material-icons" ng-click="countPlus(2)">exposure_plus_2</i></a>
             </div>
         </div>
     </md-dialog-content>

@@ -6,7 +6,7 @@
             <md-card class="alt-catalogo">
                 <div class="hover01">
                     <div>
-                        <figure><img ng-src="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" ng-click="listaProductosCtrl.verProducto(producto)" style="width:100%;">
+                        <figure><a href=""><img ng-src="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" ng-click="listaProductosCtrl.verProducto(producto)" style="width:100%;"></a>
                         </figure>
                     </div>
                 </div>
@@ -45,13 +45,13 @@
                 <md-card-actions>
                     <div layout="row" layout-align="start center">
                         <div ng-repeat="medalla in producto.medallasProducto">
-                            <img ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" ng-src="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}" width="40" height="40">
+                            <a href=""><img ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" ng-src="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}" width="40" height="40"></a>
                             <md-tooltip md-direction="up">
                                 {{medalla.nombre}}
                             </md-tooltip>
                         </div>
                         <div ng-repeat="medalla in producto.medallasProductor">
-                            <img ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" ng-src="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}" width="40" height="40">
+                            <a href=""><img ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" ng-src="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}" width="40" height="40"></a>
                             <md-tooltip md-direction="up">
                                 {{medalla.nombre}}
                             </md-tooltip>
@@ -74,7 +74,7 @@
                     <h2 class="md-headline">{{listaProductosCtrl.medallaSelect.nombre}}</h2>
                     <span flex></span>
                     <div ng-click="listaProductosCtrl.cerrarDialogoMedalla(1)">
-                        <i style="font-size: 36px;" class="material-icons">close</i>
+                        <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
                     </div>
                 </div>
                 <div layout="column" layout-align="center center">
@@ -91,16 +91,16 @@
                         <span class="md-headline">{{listaProductosCtrl.emprendedorSelect.nombreProductor}}</span>
                         <span flex></span>
                         <div ng-click="listaProductosCtrl.cerrarDialogoMedalla(1)">
-                            <i style="font-size: 36px;" class="material-icons">close</i>
+                            <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
                         </div>
                     </div>
                     <div layout="column" layout-align="center center">
                         <img ng-src="{{listaProductosCtrl.urlBase}}{{listaProductosCtrl.emprendedorSelect.pathImagen}}" width="200" height="200">
                     </div>
                     <div ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta" />
-                        
+                        <md-button ui-sref="productor({id: listaProductosCtrl.emprendedorSelect.idProductor})" >Más</md-button>
                     </div>
-                    <md-button ui-sref="productor({id: listaProductosCtrl.emprendedorSelect.idProductor})">     Más</md-button>
+                
                 </md-dialog>
             </div>
         </div>

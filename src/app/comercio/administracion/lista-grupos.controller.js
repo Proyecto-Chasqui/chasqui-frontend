@@ -4,10 +4,10 @@
 	angular.module('chasqui').controller('ListaGruposController',
 		ListaGruposController);
 
-	/** @ngInject . Tabs de grupos con el panel de info y botones de acciones */
-	function ListaGruposController($log, $scope, $state, $stateParams, order_context, 
-		StateCommons, dialogCommons, ToastCommons, perfilService, gccService, CTE_REST, 
-		contextPurchaseService, us, usuario_dao, navigation_state, agrupationTypeVAL) {
+	
+	function ListaGruposController($log, $scope, $state,
+		dialogCommons, ToastCommons, gccService, URLS, agrupationTypeVAL,
+        us, usuario_dao, navigation_state, contextPurchaseService) {
 
 		$log.debug("controler ListaGruposController");
 		navigation_state.goMyGroupsTab();
@@ -17,7 +17,7 @@
 		vm.groups = [];
 		vm.selected = null;
 		vm.selectedIndexGrupo = 0;
-		vm.urlBase = CTE_REST.url_base;
+		vm.urlBase = URLS.be_base;
 
 		/** Control de cambio de tabs */
  		$scope.$watch('listaGruposCtrl.selectedIndexGrupo', function(current, old) {

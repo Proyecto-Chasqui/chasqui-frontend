@@ -7,7 +7,7 @@
 	/**
 	 * Formulario para crear un grupo
 	 */
-	function FormUsuarioController($log, $state, ToastCommons, StateCommons, $scope, $timeout, perfilService, us, usuario_dao, CTE_REST) {
+	function FormUsuarioController($log, $state, ToastCommons, StateCommons, $scope, $timeout, perfilService, us, usuario_dao, REST_ROUTES, URLS) {
         
         
         var fields = ["nombre", "apellido", "nickName", 
@@ -353,7 +353,7 @@
         function getAvatarFromUserToken(user){
             return {
                     id: "avatarSelected",
-                    src: CTE_REST.url_base + user.avatar,
+                    src: URLS.be_base + user.avatar,
                     extension: extensionDe(user.avatar)
                 }
         }

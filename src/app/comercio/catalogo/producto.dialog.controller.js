@@ -8,12 +8,12 @@
 
 	/** @ngInject 
 	 * Es solo un lugar para hacer pruebas*/
-	function ProductoDialogController($scope, $log, StateCommons, productoService, CTE_REST, productSelected, $mdDialog) {
+	function ProductoDialogController($scope, $log, StateCommons, productoService, URLS, REST_ROUTES, productSelected, $mdDialog) {
 		//	$log.debug('ProductoDialogController ..... ') 
 		console.log("productSelected")
 		console.log(productSelected)
 
-		$scope.urlBase = CTE_REST.url_base;
+		$scope.urlBase = URLS.be_base;
 		$scope.producto = productSelected;
 		$scope.imagenes = [];
 		$scope.imageSelect = productSelected.imagenPrincipal;

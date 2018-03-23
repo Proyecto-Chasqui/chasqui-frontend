@@ -5,12 +5,12 @@
 		ListaProductosDestacadosController);
 
 	/** @ngInject */
-	function ListaProductosDestacadosController($log, $scope,
-		CTE_REST, productoService, $state, $mdDialog, $rootScope, us, dialogCommons, gccService) {
+	function ListaProductosDestacadosController($log, $scope, URLS,
+		REST_ROUTES, productoService, $state, $mdDialog, $rootScope, us, dialogCommons, gccService) {
 		$log.log('ListaProductosDestacadosController ..... ');
 
 		var vm = this;
-		vm.urlbase = CTE_REST.url_base;
+		vm.urlbase = URLS.be_base;
 		vm.productos = [];
 		vm.medallaSelect = undefined;
 

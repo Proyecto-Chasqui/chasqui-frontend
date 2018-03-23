@@ -3,10 +3,10 @@
 
 	angular.module('chasqui').factory('getContext', getContext);
     
-	function getContext($log, $q, CTE_REST){
+	function getContext($log, $q, REST_ROUTES){
          
         function cacheTimeExpired(lastUpdate){
-			return parseInt(moment().diff(lastUpdate))/1000 > CTE_REST.TIEMPO_MAX_CACHE;
+			return parseInt(moment().diff(lastUpdate))/1000 > REST_ROUTES.TIEMPO_MAX_CACHE;
 		}
         
         // Interfaz 

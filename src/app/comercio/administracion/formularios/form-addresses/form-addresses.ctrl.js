@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').controller('FormAddressesController', FormAddressesController);
 
-	function FormAddressesController($scope, $log, perfilService) {
+	function FormAddressesController($rootScope, $scope, $log, perfilService) {
 		
         $scope.selectedIndexDireccion = 0;
         $scope.addresses = [];
@@ -36,6 +36,13 @@
 			$scope.selectedIndexDireccion = $scope.addresses.length;
 		}
         
+        $rootScope.$on('addNewAddress', function(event, newAddress){
+            console.log("new address!", newAddress);
+            $scope.addresses[$scope.addresses.length - 1] = newAddress;
+            console.log("Direcciones posteriores:", $scope.addresses);
+            $scope.selectedIndexDireccion = $scope.addresses.length - 1; //TODO to be continued...
+        });
+        
         
         init();
         
@@ -56,6 +63,18 @@
         $scope.labelAction = function(){
             $scope.labelButtonAction($scope.addresses);
         }
+        
+        $scope.functionOnDelete = $scope.onDelete(function(address){
+            
+            console.log("Direcciones anteriores:", $scope.addresses);
+            
+            $scope.addresses = $scope.addresses.filter(function(ad){
+                return ad.idDireccion != address.idDireccion;
+            });
+            
+            console.log("Direcciones posteriores:", $scope.addresses);
+        });
+        
 	}
 
 })();

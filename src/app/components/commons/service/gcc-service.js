@@ -3,71 +3,81 @@
 
 	angular.module('chasqui').service('gccService', gccService);
 
-	function gccService($log, CTE_REST, StateCommons, promiseService, ToastCommons, $stateParams, catalogs_dao) {
+	function gccService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons, $stateParams, catalogs_dao) {
 		var vm = this;
+		var idVend = StateCommons.vendedor().id;
 
 		vm.pedidosByUser = function(idCatalog, doNoOK) {
 			$log.debug(" service pedidosByUser ");
-			return promiseService.doGetPrivate(CTE_REST.pedidosByUser(idCatalog), {}, doNoOK);
+			return promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(idCatalog), {}, doNoOK);
 		}
         
 		vm.groupsByUser = function() {
 			$log.debug(" service groupsByUser ");
-			return promiseService.doGetPrivate(CTE_REST.groupsByUser(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id), {});
+			return promiseService.doGetPrivate(REST_ROUTES.groupsByUser(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id), {});
 		}
 
 		vm.nuevoGrupo = function(params) {
 			$log.debug(" service groupsByUser ");
 			params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
-			return promiseService.doPost(CTE_REST.nuevoGrupo, params);
+			return promiseService.doPost(REST_ROUTES.nuevoGrupo, params);
 		}
 
 		vm.editarGrupo = function(idGrupo, params) {
 			$log.debug(" service editarGrupo ", params);
-			return promiseService.doPut(CTE_REST.editarGrupo(idGrupo), params);
+			return promiseService.doPut(REST_ROUTES.editarGrupo(idGrupo), params);
 		}
 
 		vm.invitarUsuarioAGrupo = function(params) {
 			$log.debug(" service invitarUsuarioAGrupo ");
-			return promiseService.doPost(CTE_REST.invitarUsuarioAGrupo, params);
+			return promiseService.doPost(REST_ROUTES.invitarUsuarioAGrupo, params);
 		}
 
 		vm.aceptarInvitacionAGrupo = function(params) {
 			$log.debug(" service aceptarInvitacionAGrupo ");
-			return promiseService.doPost(CTE_REST.aceptarInvitacionAGrupo, params);
+			return promiseService.doPost(REST_ROUTES.aceptarInvitacionAGrupo, params);
 		}
 
 		vm.rechazarInvitacionAGrupo = function(params) {
 			$log.debug(" service aceptarInvitacionAGrupo ");
-			return promiseService.doPost(CTE_REST.rechazarInvitacionAGrupo, params);
+			return promiseService.doPost(REST_ROUTES.rechazarInvitacionAGrupo, params);
 		}
 
 		vm.crearPedidoGrupal = function(params, doNoOK) {
 			$log.debug(" service crearPedidoGrupal ");
-			return promiseService.doPost(CTE_REST.crearPedidoGrupal, params, doNoOK);
+			return promiseService.doPost(REST_ROUTES.crearPedidoGrupal, params, doNoOK);
 		}
 
+		vm.pedidosByUser = function(doNoOK) {
+			$log.debug(" service pedidosByUser ");
+			return promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(StateCommons.vendedor().id), {}, doNoOK);
+		}
+        
 		vm.quitarMiembro = function(params) {
 			$log.debug(" service quitarMiembro ");
-			return promiseService.doPost(CTE_REST.quitarMiembro, params);
+			return promiseService.doPost(REST_ROUTES.quitarMiembro, params);
 		}
+        
+        vm.cederAdministracion = function(params){
+            return promiseService.doPost(REST_ROUTES.cederAdministracion, params);
+        }
 
 		/*vm.confirmarPedidoColectivo = function(idGrupo) {
 			var params = {};
 			params.idGrupo = idGrupo;
-			return promiseService.doPost(CTE_REST.confirmarPedidoColectivo, params);
+			return promiseService.doPost(REST_ROUTES.confirmarPedidoColectivo, params);
 		}*/
 
 		// Modificado por Favio 28-9 
 		vm.confirmarPedidoColectivo = function(params) {
 			console.log(".... Confirmar pedido colectivo...");
-			return promiseService.doPost(CTE_REST.confirmarPedidoColectivo, params);
+			return promiseService.doPost(REST_ROUTES.confirmarPedidoColectivo, params);
 		}
 
 		vm.confirmarPedidoIndividualGcc = function(idPedido) {
 			var params = {};
 			params.idPedido = idPedido;
-			return promiseService.doPost(CTE_REST.confirmarPedidoIndividualGcc, params);
+			return promiseService.doPost(REST_ROUTES.confirmarPedidoIndividualGcc, params);
 		}
 		///////////////////////////////
 		/////////// MOCKS 
@@ -76,18 +86,34 @@
 
 		vm.salirGrupo = function(id, idSelect) {
 			$log.debug(" service salirGrupo ");
-			return promiseService.doGet(CTE_REST.salirGrupo(id, idSelect), {});
+			return promiseService.doGet(REST_ROUTES.salirGrupo(id, idSelect), {});
 		}
 
 		vm.integrantesGrupo = function(id, contacts) {
 			$log.debug(" service integrantesGrupo ");
-			return promiseService.doGet(CTE_REST.integrantesGrupo(id), contacts);
+			return promiseService.doGet(REST_ROUTES.integrantesGrupo(id), contacts);
 		}
 
 		vm.direccionGrupo = function(id, direccion) {
 			$log.debug(" service direccionGrupo ");
-			return promiseService.doPost(CTE_REST.direccionGrupo(id), direccion);
+			return promiseService.doPost(REST_ROUTES.direccionGrupo(id), direccion);
 		}
 
+		//-------- DESCOMENTADOS Y DESMOCKEADOS EN index.constants.js por FAVIO 13-6
+		/////////////////////////////////////////
+
+		/*
+		  
+
+        	productosDestacadosByVendedor : function(idVendedor){
+        		return URL_REST_BASE +"client/producto/destacados/"+idVendedor;
+        	},
+        	
+
+            
+
+            
+            
+	 */
 	} // function
 })(); // anonimo

@@ -9,7 +9,7 @@
 	 * Pagina donde se muestran los productos. Contiene los filtros y el
 	 * contexto de compra , pero NO la lista de productos la cual se incluye
 	 */
-	function CatalogoController($scope, $log, CTE_REST, $timeout, StateCommons, productorService,
+	function CatalogoController($scope, $log, URLS, REST_ROUTES, $timeout, StateCommons, productorService,
 		productoService, ToastCommons, gccService, us, $mdSidenav, $state, usuario_dao, navigation_state, contextPurchaseService) {
 		
 		$log.debug("CatalogoController ..... grupoSelected");
@@ -46,7 +46,7 @@
 		vm.medallaProductorSelect;
 		vm.sinFiltroSelect;
 
-		vm.urlBase = CTE_REST.url_base;
+		vm.urlBase = URLS.be_base;
 
 		vm.filtrar = function() {
 			filtrarMultiple();

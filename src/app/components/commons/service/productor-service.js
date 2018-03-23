@@ -3,7 +3,8 @@
 
 	angular.module('chasqui').service('productorService', productorService);
 
-	function productorService(restProxy, $q, $log, CTE_REST, StateCommons, promiseService, $stateParams, catalogs_dao) {
+	function productorService(restProxy, $q, $log, REST_ROUTES, StateCommons, promiseService, $stateParams, catalogs_dao) {
+
 		var vm = this;
 
 		vm.getProductores = function() {
@@ -12,7 +13,8 @@
 			var defered = $q.defer();
 			var promise = defered.promise;
 
-			restProxy.get(CTE_REST.productores(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id), {},
+
+			restProxy.get(REST_ROUTES.productores(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id), {},
 				function doOk(response) { defered.resolve(response); },
 				function doNoOk(response) { defered.reject(response); }
 			);
@@ -22,7 +24,7 @@
 
 		vm.getMedallas = function() {
 			$log.debug(" service getMedallas productores ");
-			return promiseService.doGet(CTE_REST.medallasProductor, {});
+			return promiseService.doGet(REST_ROUTES.medallasProductor, {});
 		}
 
 	} // function

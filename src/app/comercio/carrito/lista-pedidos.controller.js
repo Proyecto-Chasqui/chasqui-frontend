@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
-            productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, CTE_REST, 
+            productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, REST_ROUTES, 
             navigation_state, $rootScope, $stateParams, order_context, catalogs_dao) {
         
 		$log.debug('ListaPedidosController ..... ');
@@ -91,7 +91,7 @@
             var params = {};
             params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
             params.estados = ["CONFIRMADO"];
-            return promiseService.doPost(CTE_REST.filtrarPedidosConEstado, params).then(
+            return promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(
                 function doOk(response) {
                     console.log("Entre en el Dook", response);
                     $scope.pedidosPorCategoria = response.data.reverse()[0];

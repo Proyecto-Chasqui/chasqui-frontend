@@ -6,11 +6,11 @@
 		.controller('CatalogMenuController', CatalogMenuController);
 
 	
-	function CatalogMenuController($scope, $log, $state, StateCommons, CTE_REST, $interval, ToastCommons,
+	function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
 		perfilService, contextPurchaseService,us, usuario_dao, navigation_state) {
         
 		
-		$scope.urlBase = CTE_REST.url_base;
+		$scope.urlBase = URLS.be_base;
 		$scope.vendedor = StateCommons.vendedor();
 
 		$scope.options = {
@@ -78,7 +78,7 @@
 				llamadoPeriodico = $interval(function() {
 					$log.debug("call notificaciones nuevas?");
 					callNotificacionesNoLeidas();
-				}, CTE_REST.INTERVALO_NOTIFICACION_MIN);
+				}, REST_ROUTES.INTERVALO_NOTIFICACION_MIN);
 
 				StateCommons.ls.notificacionActiva = true; // TODO cambiar al generar DAOs (mensaje del 11/10)
 			}

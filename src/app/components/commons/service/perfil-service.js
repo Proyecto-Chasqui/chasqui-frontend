@@ -3,54 +3,54 @@
 
 	angular.module('chasqui').service('perfilService', perfilService);
 
-	function perfilService($log, CTE_REST, StateCommons, promiseService, ToastCommons) {
+	function perfilService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons) {
 		var vm = this;
 
 		vm.verDirecciones = function() {
 			$log.debug(" service verDirecciones ");
-			return promiseService.doGetPrivate(CTE_REST.verDirecciones, {});
+			return promiseService.doGetPrivate(REST_ROUTES.verDirecciones, {});
 		}
 
 		vm.actualizarDireccion = function(direccion) {
 			$log.debug(" service actualizarDireccion ");
-			return promiseService.doPut(CTE_REST.actualizarDireccion, direccion);
+			return promiseService.doPut(REST_ROUTES.actualizarDireccion, direccion);
 		}
 
 		vm.eliminarDireccion = function(id) {
 			$log.debug(" service eliminarDireccion ");
-			return promiseService.doDelete(CTE_REST.eliminarDireccion(id), {});
+			return promiseService.doDelete(REST_ROUTES.eliminarDireccion(id), {});
 		}
 
 		vm.nuevaDireccion = function(domicilio) {
 			$log.debug(" service nuevaDireccion ");
-			return promiseService.doPost(CTE_REST.nuevaDireccion, domicilio);
+			return promiseService.doPost(REST_ROUTES.nuevaDireccion, domicilio);
 		}
 
 		vm.notificacionesNoLeidas = function() {
 			$log.debug(" service notificacionesNoLeidas ");
-			return promiseService.doGetPrivate(CTE_REST.notificacionesNoLeidas, {});
+			return promiseService.doGetPrivate(REST_ROUTES.notificacionesNoLeidas, {});
 		}
 
 		vm.notificacionesLeidas = function(cantidad) {
 			$log.debug(" service notificacionesLeidas ");
-			return promiseService.doGetPrivate(CTE_REST.notificacionesLeidas(cantidad), {});
+			return promiseService.doGetPrivate(REST_ROUTES.notificacionesLeidas(cantidad), {});
 		}
 
 		vm.notificacionesLeidas = function(id) {
 			$log.debug(" service notificacionesLeidas ");
-			return promiseService.doGetPrivate(CTE_REST.notificacionesLeidas(id), {});
+			return promiseService.doGetPrivate(REST_ROUTES.notificacionesLeidas(id), {});
 		}
 
 		vm.marcarComoLeido = function(id) {
 			$log.debug(" service marcarComoLeido ");
-			return promiseService.doPost(CTE_REST.notificacionesLeidas(id), {});
+			return promiseService.doPost(REST_ROUTES.notificacionesLeidas(id), {});
 		}
 
 		vm.cambiarPass = function(pass) {
 			$log.debug(" service cambiarPass ");
 			var params = {};
 			params.password = pass;
-			return promiseService.doPut(CTE_REST.editPassword, params);
+			return promiseService.doPut(REST_ROUTES.editPassword, params);
 		}
 
 		vm.login = function(user) {
@@ -61,7 +61,7 @@
 					.mensaje("Fallo la autenticación, verifique los datos");
 			}
 
-			return promiseService.doPostPublic(CTE_REST.login, user, doNoOk);
+			return promiseService.doPostPublic(REST_ROUTES.login, user, doNoOk);
 		}
 
 		vm.resetPass = function(email) {
@@ -72,23 +72,23 @@
 				ToastCommons.mensaje("Error , el mail es correcto ?");
 			}
 
-			return promiseService.doGet(CTE_REST.resetPass(email), {}, doNoOk);
+			return promiseService.doGet(REST_ROUTES.resetPass(email), {}, doNoOk);
 		}
 
 		vm.verUsuario = function() {
 			$log.debug(" service verUsuario ");
 
-			return promiseService.doGetPrivate(CTE_REST.verUsuario, {});
+			return promiseService.doGetPrivate(REST_ROUTES.verUsuario, {});
 		}
 
 		vm.editUsuario = function(user) {
 			$log.debug(" service editUsuario ");
-			return promiseService.doPut(CTE_REST.editUsuario, user);
+			return promiseService.doPut(REST_ROUTES.editUsuario, user);
 		}
         
         vm.editAvatar = function(avatar){
             $log.debug(" service editAvatar ");
-			return promiseService.doPost(CTE_REST.editAvatar, avatar);
+			return promiseService.doPost(REST_ROUTES.editAvatar, avatar);
 		}
 
 		vm.singUp = function(user) {
@@ -106,7 +106,7 @@
 
 			}
 
-			return promiseService.doPostPublic(CTE_REST.singUp, user, doNoOk);
+			return promiseService.doPostPublic(REST_ROUTES.singUp, user, doNoOk);
 		}
         
         vm.singUpInvitacionGCC = function(user){
@@ -124,7 +124,7 @@
 
 			}
 
-			return promiseService.doPostPublic(CTE_REST.singUpInvitacionGCC, user, doNoOk);
+			return promiseService.doPostPublic(REST_ROUTES.singUpInvitacionGCC, user, doNoOk);
 		}
         
         vm.getMailInvitacion = function(idInvitacion){
@@ -135,7 +135,7 @@
 				ToastCommons.mensaje("El mail no tiene asociada una invitación");
 			}
 
-			return promiseService.doPostPublic(CTE_REST.getMailInvitacionAlGCC, {
+			return promiseService.doPostPublic(REST_ROUTES.getMailInvitacionAlGCC, {
                 idInvitacion: idInvitacion
             }, doNoOk);
 		}

@@ -5,11 +5,13 @@
 		DetallePedidoPersonalController);
 
 	/** @ngInject */
-	function DetallePedidoPersonalController($log, $state, $scope, CTE_REST, ToastCommons, $mdDialog, dialogCommons, productoService, perfilService, gccService,
-		contextPurchaseService,us) {
+	function DetallePedidoPersonalController($log, $state, $scope, URLS, REST_ROUTES, 
+                                              ToastCommons, $mdDialog, dialogCommons, 
+                                              productoService, perfilService, gccService,
+		                                      contextPurchaseService, us) {
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
-		$scope.urlBase = CTE_REST.url_base;
+		$scope.urlBase = URLS.be_base;
 		$scope.direcciones ;
 		$scope.direccionSelected;
 		$scope.productoEliminar;
