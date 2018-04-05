@@ -97,9 +97,17 @@
          *              order_context.orderId
          */
         function setContextByAgrupation(agrupation){
-            order_context.setAgrupationId(agrupation.id);
-            order_context.setAgrupationType(agrupation.type);            
-            order_context.setOrderId(getOrderByAgrupation(getSelectedAgrupation()));
+            agrupationDispatcher(agrupation, 
+              function(personal){
+                order_context.setAgrupationId(personal.id);
+                order_context.setAgrupationType(personal.type);                  
+            },function(group){
+                order_context.setAgrupationId(group.id);
+                order_context.setAgrupationType(group.type);            
+                order_context.setOrderId(getOrderByAgrupation(getSelectedAgrupation()));
+            },function(node){
+                // TODO define behavior
+            })
         }
         
         
@@ -248,6 +256,11 @@
             return agrupation.idPedidoIndividual; // TODO: dinamizar segun la BDD
 		}
 
+        function agrupationDispatcher(agrupation, personalFunc, groupFunc, nodeFunc){
+            return (agrupation.type === agrupationTypeVAL.TYPE_PERSONAL)? personalFunc(agrupation) :
+                   (agrupation.type === agrupationTypeVAL.TYPE_GROUP)? groupFunc(agrupation) :
+                   (agrupation.type === agrupationTypeVAL.TYPE_NODE)? nodeFunc(agrupation) : 0;
+        }
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
         
