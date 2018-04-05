@@ -8,9 +8,9 @@
 	 * @ngInject Lista de productos.
 	 */
 	function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
-		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
-		gccService, $mdDialog, productorService, contextPurchaseService, 
-        usuario_dao, ModifyVarietyCount, $stateParams, catalogs_dao) {
+		$state, ToastCommons, productoService, us,
+		$mdDialog, productorService, contextPurchaseService, 
+        usuario_dao, $stateParams, catalogs_dao, AddProductService) {
 
 		$log.debug('ListaProductosController',
 			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -99,7 +99,7 @@
 		vm.agregar = function(variety) {
 
 			if (usuario_dao.isLogged()) {
-				agregarProducto(variety);
+				AddProductService(variety);
 			} else {
 				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
 				$log.log('not logued" ', variety);
@@ -141,79 +141,9 @@
 		function actualizar(arg) {
 			findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, arg);
 		}
+        
 
-		function agregarProducto(variety) {
-			if (contextPurchaseService.isGrupoIndividualSelected()) {
-                console.log("Agregar producto al pedido individual:", variety);
-				agregarProductoIndividual(variety); // es individual
-			} else {
-				ModifyVarietyCount.modifyDialog(variety);
-			}
-		}
-		function agregarProductoIndividual(variety) {
-		/** Si no tiene un pedido individual lo crea */
-			if (contextPurchaseService.tienePedidoInividual()) {
-				ModifyVarietyCount.modifyDialog(variety);
-			} else {
-                
-                function actualizarPedidoIndividual() {
-                    function doOkPedido(response) {
-                        $log.debug("setPedidoYagregarProducto", response);
-                        contextPurchaseService.setContextByOrder(response.data);
-                        //contextPurchaseService.refresh();
-                        ModifyVarietyCount.modifyDialog(variety);
-                    }
-
-                    productoService.verPedidoIndividual().then(doOkPedido);
-                }
-				// crear pedido y dialog
-				function doNoOK(response) {
-					if (us.contieneCadena(response.data.error, REST_ROUTES.ERROR_YA_TIENE_PEDIDO)) {
-						ToastCommons.mensaje(us.translate('AGREAR_EN_PEDIDO_EXISTENTE'));
-						ModifyVarietyCount.modifyDialog(variety);
-					}
-				}
-
-				var json = {};
-				json.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
-
-				//si falla es poque ya tiene un pedido abierto TODO mejorar
-				productoService.crearPedidoIndividual(json, doNoOK).then(actualizarPedidoIndividual)
-			}
-
-		}
-
-		function callCrearPedidoGrupal(variety) { 
-            // TODO mover a contexto compra service
-			function doOK(response) {
-				$log.debug("callCrearPedidoGrupal", response);
-
-				contextPurchaseService.refresh();
-                contextPurchaseService.getAgrupations().then(
-					function(grupos) {
-						contextPurchaseService.setContextByAgrupation(vm.grupoSelected);
-						ModifyVarietyCount.modifyDialog(variety);
-					}
-				)
-			}
-
-			function doNoOK(response) {
-				$log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
-		 		contextPurchaseService.refreshPedidos().then(
-					function(pedido) {
-						ModifyVarietyCount.modifyDialog(variety);
-					}
-				)
-			}
-
-			var params = {}
-			params.idGrupo = contextPurchaseService.getAgrupationContextId();
-			params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
-
-			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
-		}
-
-
+		
 		// /////////// REST
 
 		
@@ -231,7 +161,7 @@
 
 			var params = {
 				query : params.query,
-				idVendedor : catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id,
+				idVendedor : contextPurchaseService.getCatalogContext(),
 				idMedalla : params.sello,
 				idProductor: params.productor,
 				idMedallaProductor: params.selloProductor,
@@ -261,7 +191,7 @@
 			}
 
 			var params = {
-				idVendedor: catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id,
+				idVendedor: contextPurchaseService.getCatalogContext(),
 				pagina: pagina,
 				cantItems: items,
 				precio: 'Down'
