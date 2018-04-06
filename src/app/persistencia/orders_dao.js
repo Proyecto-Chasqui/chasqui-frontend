@@ -7,6 +7,7 @@ function orders_dao(catalogs_data, fn_snoc){
     var orders_dao_int = {
             reset: reset,
             newOrder: newOrder,
+            modifyOrder: modifyOrder, 
             loadOrders: loadOrders, 
             getOrders: orders,
             getOrdersByType: getOrdersByType, 
@@ -29,9 +30,14 @@ function orders_dao(catalogs_data, fn_snoc){
             })
         }
     }
+    
+    function modifyOrder(catalogId, order, modification){
+        removeOrder(catalogId, order.id, order.type);
+        newOrder(catalogId, modification(order));
+    }
                         
     function removeOrder(catalogId, orderId, orderType){
-        modifyOrdersInCatalog(catalogId, ordersType, function(orders){
+        modifyOrdersInCatalog(catalogId, orderType, function(orders){
             return orders.filter(function(o){return o.id != orderId})
         })
     }  
@@ -45,7 +51,6 @@ function orders_dao(catalogs_data, fn_snoc){
     }
                         
     function orders(catalogId){
-        console.log("catalogs_data", catalogs_data);
         var orders = catalogs_data.getCatalog(catalogId).orders;
         
         return Object.keys(orders).reduce(
