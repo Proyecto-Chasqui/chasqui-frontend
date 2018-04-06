@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function ProductosPedidoController($log, $state, $scope, URLS, REST_ROUTES, ToastCommons, dialogCommons, productoService, 
-                                        contextPurchaseService, us, ModifyVarietyCount) {
+                                        contextPurchaseService, us, modifyVarietyCount) {
     
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
@@ -47,7 +47,7 @@
 		}
         
         $scope.modifyVarietyCount = function(variety){
-          ModifyVarietyCount.modifyDialog(variety);
+          modifyVarietyCount.modifyDialog(variety);
       }
 
 		

@@ -10,7 +10,7 @@
    */
   function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, 
                                      productoService, $timeout, contextPurchaseService, 
-                                     usuario_dao, ModifyVarietyCount) {
+                                     usuario_dao, modifyVarietyCount) {
 
         $log.debug("ContextoPedidoController .....");
 
@@ -40,7 +40,7 @@
 
 
         $scope.modifyVarietyCount = function(variety){
-              ModifyVarietyCount.modifyDialog(variety);
+              modifyVarietyCount.modifyDialog(variety);
         }
 
     }
