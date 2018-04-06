@@ -10,7 +10,7 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($log, $localStorage, order_context, catalogs_data,
+	function contextPurchaseService($log, $localStorage, order_context, catalogs_data, agrupationTypeDispatcher,
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, catalogs_dao) {
         
@@ -97,17 +97,19 @@
          *              order_context.orderId
          */
         function setContextByAgrupation(agrupation){
-            agrupationDispatcher(agrupation, 
-              function(personal){
-                order_context.setAgrupationId(personal.id);
-                order_context.setAgrupationType(personal.type);                  
-            },function(group){
-                order_context.setAgrupationId(group.id);
-                order_context.setAgrupationType(group.type);            
-                order_context.setOrderId(getOrderByAgrupation(getSelectedAgrupation()));
-            },function(node){
-                // TODO define behavior
-            })
+            agrupationTypeDispatcher.byElem(agrupation, 
+                function(personal){
+                    order_context.setAgrupationId(personal.id);
+                    order_context.setAgrupationType(personal.type);                  
+                },
+                function(group){
+                    order_context.setAgrupationId(group.id);
+                    order_context.setAgrupationType(group.type);            
+                    order_context.setOrderId(getOrderByAgrupation(getSelectedAgrupation()));
+                },
+                function(node){
+                    // TODO define behavior
+                })
         }
         
         
@@ -139,7 +141,7 @@
          */
         function getSelectedOrder(){
             return contextOrdersService.getOrder(order_context.getCatalogId(), 
-                                                 order_context.getOrderId, 
+                                                 order_context.getOrderId(), 
                                                  order_context.getAgrupationType());
         }
         
@@ -255,12 +257,6 @@
 		function getOrderByAgrupation(agrupation) {
             return agrupation.idPedidoIndividual; // TODO: dinamizar segun la BDD
 		}
-
-        function agrupationDispatcher(agrupation, personalFunc, groupFunc, nodeFunc){
-            return (agrupation.type === agrupationTypeVAL.TYPE_PERSONAL)? personalFunc(agrupation) :
-                   (agrupation.type === agrupationTypeVAL.TYPE_GROUP)? groupFunc(agrupation) :
-                   (agrupation.type === agrupationTypeVAL.TYPE_NODE)? nodeFunc(agrupation) : 0;
-        }
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
         
