@@ -120,24 +120,6 @@
 		vm.confirmarPedidoIndividual = function(params) {
 			return promiseService.doPost(REST_ROUTES.confirmarPedidoIndividual, params);
 		}
-		/////////////////////////////////////
-		//////////// M O C K S 
-		/*	
-		vm.productosPedidoByUser = function (params) {
-			$log.debug(" service agregarPedidoIndividual ");
-
-	        var defered = $q.defer();
-	        var promise = defered.promise;
-	        
-	        restProxy.get(REST_ROUTES.productosPedidoByUser(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id), {},      
-
-	        		function doOk(response) {defered.resolve(response);},
-					function doNoOk(response) {defered.reject(response);}
-	        );
-		 	 
-	        return promise;
-	    }*/
-
 
 	} // function
 })(); // anonimo
