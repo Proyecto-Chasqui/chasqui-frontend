@@ -55,9 +55,6 @@
         
         function modifyVarietyCount(variety, count, sign, modifierFunction, modifierOkText){
             function doOk(response) {
-				ToastCommons.mensaje(us.translate(modifierOkText));
-				$rootScope.$emit('lista-producto-agrego-producto');
-                
                 function orderModification(order){
                     if(order.productosResponse.filter(function(p){return p.idVariante == variety.idVariante}).length > 0){
                         var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf(variety.idVariante);
@@ -72,6 +69,9 @@
                 contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
                                                  contextPurchaseService.getSelectedOrder(),
                                                  orderModification);
+                
+				ToastCommons.mensaje(us.translate(modifierOkText));
+				$rootScope.$emit('lista-producto-agrego-producto');
 			}
             
 			var params = {

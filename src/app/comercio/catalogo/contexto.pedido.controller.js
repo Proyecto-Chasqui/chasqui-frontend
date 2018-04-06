@@ -19,8 +19,6 @@
         $scope.urlBase = URLS.be_base;
         $scope.isLogued = usuario_dao.isLogged();
 
-      
-        // TODO: creo que no corresponde esta recarga. Revisar
         function load() {
             console.log("Load");
             $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
