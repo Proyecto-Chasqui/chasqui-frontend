@@ -1,7 +1,5 @@
 <md-card ng-controller="ContextoPedidoController">
-    <div ng-show="pedidoSelected != undefined 
-                && pedidoSelected.productosResponse.length > 0
-                && pedidoSelected.estado === 'ABIERTO' ">
+    <div ng-show="showOrderResume">
         <md-list class="md-dense" flex>
             <md-subheader class="md-no-sticky">
                 {{'PROD_EN_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}}
@@ -29,9 +27,7 @@
             <md-divider></md-divider>
         </md-list>
     </div>
-    <md-subheader ng-show="pedidoSelected == undefined 
-                        || pedidoSelected.productosResponse.length == 0
-                        || pedidoSelected.estado === 'CANCELADO' ">
+    <md-subheader ng-show="!showOrderResume">
         <p> {{'SIN_PROD_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}} </p>
     </md-subheader>
 </md-card>
