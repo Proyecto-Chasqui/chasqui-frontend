@@ -1,6 +1,6 @@
 angular.module('chasqui').factory('orders_dao', orders_dao);
 
-function orders_dao(catalogs_data, fn_snoc){
+function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
     
     ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
    
@@ -64,7 +64,16 @@ function orders_dao(catalogs_data, fn_snoc){
     }
     
     function getOrder(catalogId, orderId, orderType){
-        return catalogs_data.getCatalog(catalogId).orders[orderType].filter(function(o){return o.id == orderId})[0];
+        return agrupationTypeDispatcher.byType(orderType, 
+            function(){
+                return catalogs_data.getCatalog(catalogId).orders[orderType][0];
+            },
+            function(){
+                return catalogs_data.getCatalog(catalogId).orders[orderType].filter(function(o){return o.id == orderId})[0];
+            },
+            function(){
+            
+            })();
     }
                         
     function changeToStateCancel(catalogId, orderId, orderType){
