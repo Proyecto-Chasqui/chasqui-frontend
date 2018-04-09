@@ -56,14 +56,7 @@
         function modifyVarietyCount(variety, count, sign, modifierFunction, modifierOkText){
             function doOk(response) {
                 function orderModification(order){
-                    if(order.productosResponse.filter(function(p){return p.idVariante == variety.idVariante}).length > 0){
-                        var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf(variety.idVariante);
-                        order.productosResponse[index].cantidad += (sign * count);
-                    }else{
-                        order.productosResponse.push(formatLikeServerVariety(variety, count));
-                    }
-                    
-                    return order;
+                    return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
                 }
                 
                 contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
@@ -88,6 +81,29 @@
             var varietyInOrder = contextPurchaseService.getSelectedOrder().productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
             return (varietyInOrder.length === 1)? varietyInOrder[0].cantidad : 0;
         }
+        
+        
+        function modifyTotalPurchase(order, modification){
+            order.montoActual += modification;
+            return order;
+        }
+        
+        
+        function modifyVarietyCountOnOrder(order, variety, countModification){   
+            if(order.productosResponse.filter(function(p){return p.idVariante == variety.idVariante}).length > 0){
+                var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf(variety.idVariante);
+                if(order.productosResponse[index].cantidad + countModification == 0){
+                    order.productosResponse.splice(index, 1);
+                }else{
+                    order.productosResponse[index].cantidad += countModification;
+                }
+            }else{
+                order.productosResponse.push(formatLikeServerVariety(variety, countModification));
+            }
+            
+            return order;
+        }
+        
         
         function formatLikeServerVariety(variety, count){
             return {
