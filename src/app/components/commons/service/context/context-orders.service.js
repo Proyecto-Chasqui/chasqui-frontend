@@ -142,8 +142,25 @@
          *  RET:    Null
          *  Last modification: 6/4/18
          */ 
-        function ensureGroupsOrders(){
-            
+        function ensureGroupsOrders(catalogId){
+            return ensureContext(
+                vm.ls.lastUpdate, 
+                "group orders",
+                orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_GROUP).length === 0, 
+                function(defered){
+                    function doOk(response) {	
+                        console.log("orders", response.data);
+                        vm.ls.lastUpdate = moment();	
+                        reset(catalogId);
+                        addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
+                            console.log("Cargando dsd el server:", catalogId, orders);
+                            orders_dao.loadOrders(catalogId, orders);
+                            defered.resolve();
+                        });
+                    }
+
+                    gccService.pedidosByUser(catalogId).then(doOk);
+                });
         }
         
         

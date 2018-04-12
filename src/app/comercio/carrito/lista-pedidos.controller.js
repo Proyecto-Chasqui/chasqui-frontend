@@ -11,8 +11,6 @@
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
-		var vm = this;
-		$scope.habilita = false;
 
 		$scope.orders = [];
 		$scope.selected = null, $scope.previous = null;
@@ -26,8 +24,6 @@
 
 			$scope.previous = $scope.selected;
 			$scope.selected = $scope.orders[current];
-
-			$log.debug('cambio tab ..... ', $scope.selected);
 
 			if (old + 1 && (old != current))
 				if (!angular.isUndefined($scope.previous)) {

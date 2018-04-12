@@ -26,7 +26,7 @@
         ////////////////////////// Implementation
 
         function load() {
-            console.log("Loading");
+            console.log("Loading", contextPurchaseService.getAgrupationContextType());
             contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType())
                 .then(function(){
                     $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
