@@ -136,7 +136,7 @@
          */
         function getSelectedOrder(){
             return contextOrdersService.getOrder(order_context.getCatalogId(), 
-                                                 order_context.getOrderId, 
+                                                 order_context.getOrderId(), 
                                                  order_context.getAgrupationType());
         }
         

@@ -20,16 +20,13 @@
         
         function getCatalogs(){
             return setPromise(function(defered){
+                catalogs_dao.reset();
                 var preCacheCatalogs = catalogs_dao.getCatalogs();
 
-                if(preCacheCatalogs.length > 0){
-                    defered.resolve(preCacheCatalogs);
-                }else{
-                    sellerService.getSellers().then(function(response){
-                        catalogs_dao.loadCatalogs(response.data);
-                        defered.resolve(response.data);
-                    });
-                }
+                sellerService.getSellers().then(function(response){
+                    catalogs_dao.loadCatalogs(response.data);
+                    defered.resolve(response.data);
+                });
             });
         }
 
@@ -64,8 +61,7 @@
         
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        
-        
+                
         return contextCatalogsServiceInt;
     }
      
