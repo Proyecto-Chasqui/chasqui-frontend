@@ -10,7 +10,7 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($q, $log, $localStorage, order_context, catalogs_data,
+	function contextPurchaseService($q, $log, $localStorage, order_context, catalogs_data, agrupationTypeDispatcher,
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, contextCatalogsService) {
         
