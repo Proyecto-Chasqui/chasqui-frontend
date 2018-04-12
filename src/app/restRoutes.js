@@ -4,7 +4,7 @@
 
     angular.module('chasqui').factory('REST_ROUTES', REST_ROUTES);
     
-    function REST_ROUTES(URLS, IdVendedor) {
+    function REST_ROUTES(URLS) {
 
         return {
             PRODUCTOS_X_PAG: 12,
@@ -14,8 +14,6 @@
             TIEMPO_MAX_CACHE : 5 * 60,                  // en segundos
 
             defaultLogo: "imagenes/logo_ch_login.png",
-
-            idVendedor: IdVendedor, //TODO : hasta que sea dinamico
 
             sellers: URLS.be_rest + "client/vendedor/all",
 
