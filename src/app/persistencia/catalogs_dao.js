@@ -2,10 +2,18 @@ angular.module('chasqui').factory('catalogs_dao',
                             ['ls_connection',
                     function(ls_connection){
     
+    var catalogs_daoInt = {
+        newCatalog: newCatalog,
+        loadCatalogs: loadCatalogs, 
+        getCatalogs: getCatalogs,
+        getCatalog: getCatalog,
+        getCatalogByShortName: getCatalogByShortName,
+        reset: reset
+    };
                                                 
     function init(){
         ls_connection.init({
-            catalogs: [
+            catalogs: [/*
                 {
                     id: 2,
                     nombreCorto: "PdS",
@@ -70,7 +78,7 @@ angular.module('chasqui').factory('catalogs_dao',
                         }
                     }
                 }
-            ]
+            */]
         });
     }
                         
@@ -108,13 +116,6 @@ angular.module('chasqui').factory('catalogs_dao',
                         
     //////////////////////////                        
                         
-    return {
-        newCatalog: newCatalog,
-        loadCatalogs: loadCatalogs, 
-        getCatalogs: getCatalogs,
-        getCatalog: getCatalog,
-        getCatalogByShortName: getCatalogByShortName,
-        reset: reset
-    }
+    return catalogs_daoInt;
     
 }]);
