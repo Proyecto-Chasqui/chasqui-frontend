@@ -37,7 +37,7 @@
         function getCatalog(catalogId){
             return setPromise(function(defered){
                 getCatalogs().then(function(catalogs){
-                    defered.resolve(filter(function(c){return c.id == catalogId})[0]);
+                    defered.resolve(catalogs.filter(function(c){return c.id == catalogId})[0]);
                 });
             });
         }

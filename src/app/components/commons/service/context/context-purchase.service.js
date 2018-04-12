@@ -10,9 +10,9 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($log, $localStorage, order_context, catalogs_data,
+	function contextPurchaseService($q, $log, $localStorage, order_context, catalogs_data,
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
-                                     idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, catalogs_dao) {
+                                     idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, contextCatalogsService) {
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
@@ -122,7 +122,12 @@
         }
         
         function getSelectedCatalog(){
-            return catalogs_dao.getCatalog(order_context.getCatalogId());
+			var defered = $q.defer();
+			var promise = defered.promise;
+            
+            contextCatalogsService.getCatalog(order_context.getCatalogId()).then(defered.resolve)
+            
+            return promise;
         }
         
         /*

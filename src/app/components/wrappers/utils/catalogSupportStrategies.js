@@ -12,7 +12,7 @@
         return function(catalog, strategiesString){
             var strategies = parseStrategies(strategiesString);
             return strategies.reduce(function(r,s){
-                return r || catalog.estrategia.few[s];
+                return r || catalog.few[s];
             }, false);
         }
     }
