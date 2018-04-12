@@ -6,13 +6,20 @@
 		.controller('CatalogController', CatalogController);
 
     
-	function CatalogController($scope, sellerService, URLS, $stateParams, catalogs_dao, catalogs_data, contextPurchaseService) {
-                
-        contextPurchaseService.setContextByCatalog(catalogs_dao.getCatalogByShortName($stateParams.catalogShortName));
+	function CatalogController($scope, contextCatalogsService, URLS, $stateParams, contextPurchaseService) {
+           
+        $scope.url = url;
         
-        $scope.catalog = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName);
+        function init(){
+            contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                contextPurchaseService.setContextByCatalog(catalog);
+                $scope.catalog = catalog;
+            })
+        }
         
-        $scope.url = function(path){
+        init();
+        
+        function url(path){
             return be_base.be_base + path;
         }
 	}
