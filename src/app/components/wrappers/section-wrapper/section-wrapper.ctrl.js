@@ -5,8 +5,15 @@
     
 	function SectionWrapperCtrl($scope, contextPurchaseService, catalogSupportStrategies) {
         
-        $scope.showElement = catalogSupportStrategies(contextPurchaseService.getSelectedCatalog(), $scope.supportedStrategies);
+        $scope.showElement = false;
         
+        function init(){
+            contextPurchaseService.getSelectedCatalog().then(function(catalog){
+                $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies);
+            });
+        }
+        
+        init();        
     }
     
 })();

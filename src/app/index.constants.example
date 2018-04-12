@@ -33,13 +33,5 @@
             }
 
         }())
-    
-        .constant('IdVendedor', function(){
-            
-            var idVendedorConfig = 0; // COMPLETAR
-        
-            return idVendedorConfig;
-        
-        }());
 
 })();

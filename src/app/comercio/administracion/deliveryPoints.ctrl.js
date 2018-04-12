@@ -9,9 +9,15 @@
         $scope.deliveryPoints = [];
         $scope.formatAddress = formatAddress;
         
-        deliveryPointsService.deliveryPoints(contextPurchaseService.getSelectedCatalog().nombre).then(function(response){
-            $scope.deliveryPoints = response.data;
-        });    
+        ///////////////////////////////
+        
+        function init(){
+            contextPurchaseService.getSelectedCatalog().then(function(catalog){
+                deliveryPointsService.deliveryPoints(catalog.nombre).then(function(response){
+                    $scope.deliveryPoints = response.data;
+                });    
+            })
+        }
         
         ///////////////////////////////
         
@@ -19,6 +25,7 @@
             return address.calle + " " + address.altura;
         }
         
+        init();
     }
     
 })();

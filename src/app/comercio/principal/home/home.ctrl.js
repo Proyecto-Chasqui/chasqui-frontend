@@ -6,21 +6,27 @@
 		.controller('HomeController', HomeController);
 
     
-	function HomeController($scope, sellerService, URLS, catalogs_dao, $state) {
+	function HomeController($scope, URLS, contextCatalogsService, $state) {
         
-        $scope.catalogs = catalogs_dao.getCatalogs();
+        $scope.catalogs = [];
+        $scope.url = url;
+        $scope.goToCatalog = goToCatalog;
         
-        /*sellerService.getSellers().then(function(response){
-            $scope.catalogs = response.data;
-        });
-        */
         
-        $scope.url = function(path){
+        function url(path){
             return URLS.be_base + path;
         }
         
-        $scope.goToCatalog = function(catalogShortName){
+        function goToCatalog(catalogShortName){
             $state.go('catalog.landingPage', {catalogShortName: catalogShortName});
         }
+        
+        function init(){
+            contextCatalogsService.getCatalogs().then(function(catalogs){
+                $scope.catalogs = catalogs;
+            })
+        }
+        
+        init();
 	}
 })();

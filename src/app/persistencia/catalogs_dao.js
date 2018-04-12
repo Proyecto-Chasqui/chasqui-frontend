@@ -2,10 +2,17 @@ angular.module('chasqui').factory('catalogs_dao',
                             ['ls_connection',
                     function(ls_connection){
     
+    var catalogs_daoInt = {
+        newCatalog: newCatalog,
+        loadCatalogs: loadCatalogs, 
+        getCatalogs: getCatalogs,
+        getCatalogByShortName: getCatalogByShortName,
+        reset: reset
+    };
                                                 
     function init(){
         ls_connection.init({
-            catalogs: [
+            catalogs: [/*
                 {
                     id: 2,
                     nombreCorto: "PdS",
@@ -70,7 +77,7 @@ angular.module('chasqui').factory('catalogs_dao',
                         }
                     }
                 }
-            ]
+            */]
         });
     }
                         
@@ -93,28 +100,18 @@ angular.module('chasqui').factory('catalogs_dao',
     function getCatalogs(){
         return ls_connection.get("catalogs");
     }
-    
-    function getCatalog(catalogId){
-        return getCatalogs().filter(function(c){return c.id == catalogId})[0];
-    }
                         
     function getCatalogByShortName(catalogShortName){
         return getCatalogs().filter(function(c){return c.nombreCorto.toLowerCase() == catalogShortName.toLowerCase()})[0];
     }
-      
+    
+                        
     function reset(){
         init();
     }
                         
     //////////////////////////                        
                         
-    return {
-        newCatalog: newCatalog,
-        loadCatalogs: loadCatalogs, 
-        getCatalogs: getCatalogs,
-        getCatalog: getCatalog,
-        getCatalogByShortName: getCatalogByShortName,
-        reset: reset
-    }
+    return catalogs_daoInt;
     
 }]);

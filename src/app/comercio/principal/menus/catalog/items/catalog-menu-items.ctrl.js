@@ -6,7 +6,7 @@
 		.controller('CatalogMenuItemsController', CatalogMenuItemsController);
 
     
-	function CatalogMenuItemsController($scope, $stateParams, itemsBuilder, navigation_state, usuario_dao, catalogs_dao) {
+	function CatalogMenuItemsController($scope, $stateParams, itemsBuilder, navigation_state, usuario_dao, contextCatalogsService) {
        
         
         $scope.catalog;
@@ -16,9 +16,11 @@
         $scope.toTop = toTop;
         
         function init(){
-            $scope.catalog = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName);
             $scope.isLogued = usuario_dao.isLogged();
-            $scope.menuItems = itemsBuilder($scope.catalog.estrategia.few);
+            contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                $scope.catalog = catalog;
+                $scope.menuItems = itemsBuilder($scope.catalog.few);
+            })
         }
         
         

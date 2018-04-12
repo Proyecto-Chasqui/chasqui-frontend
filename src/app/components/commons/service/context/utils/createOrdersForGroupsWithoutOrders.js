@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').factory('createOrdersForGroupsWithoutOrders', createOrdersForGroupsWithoutOrders);
     
-	function createOrdersForGroupsWithoutOrders($q, $stateParams, gccService, $log, catalogs_dao){
+	function createOrdersForGroupsWithoutOrders($q, $stateParams, gccService, $log, contextCatalogsService){
          
         
         /* Prop: Creates an order for param group
@@ -13,19 +13,23 @@
 			var defered = $q.defer();
 			var promise = defered.promise;
             
-            function doOK(response) {
-				$log.debug("callCrearPedidoGrupal", response);
-                defered.resolve(response.data);
-			}
-                        
-            function doNoOK(response) {
-				$log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
-			}
-            
-			var params = {}
-			params.idGrupo = group.idGrupo;
-			params.idVendedor = catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id;
-			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
+            contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                function doOK(response) {
+                    $log.debug("callCrearPedidoGrupal", response);
+                    defered.resolve(response.data);
+                }
+
+                function doNoOK(response) {
+                    $log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
+                }
+
+                var params = {
+                    idGrupo: group.idGrupo,
+                    idVendedor: catalog.id
+                }
+                
+                gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
+            })
             
             return promise;
         }
