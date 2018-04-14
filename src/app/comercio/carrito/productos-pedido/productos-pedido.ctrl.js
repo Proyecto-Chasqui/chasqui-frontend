@@ -6,7 +6,8 @@
 
 	/** @ngInject */
 	function ProductosPedidoController($log, $state, $scope, URLS, REST_ROUTES, ToastCommons, dialogCommons, productoService, 
-                                        contextoCompraService, us, ModifyVarietyCount) {
+                                        contextPurchaseService, us, ModifyVarietyCount) {
+    
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
 		$scope.urlBase = URLS.be_base;
@@ -30,7 +31,7 @@
 				$log.debug("--- eliminar pedido response ", response.data);
 				ToastCommons.mensaje(us.translate('QUITO_PRODUCTO'));
                 
-				contextoCompraService.refreshPedidos().then(
+				contextPurchaseService.refreshPedidos().then(
 			        function(pedidos) {
 			          $state.reload();			          
 			        });

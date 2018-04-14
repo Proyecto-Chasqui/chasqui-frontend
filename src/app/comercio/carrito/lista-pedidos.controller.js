@@ -6,8 +6,8 @@
 
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
-            productoService,ToastCommons, gccService, contextoCompraService,us, promiseService, REST_ROUTES, 
-            navigation_state, $rootScope) {
+            productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, REST_ROUTES, 
+            navigation_state, $rootScope, $stateParams, order_context) {
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
@@ -47,7 +47,7 @@
 
 
 		function setTabSeleccionado(tabSelected) {
-			$scope.selectedIndex = $scope.orders.map(function(t){return t.id}).indexOf(tabSelected)
+			$scope.selectedIndex = $scope.orders.map(function(o){return o.id}).indexOf(tabSelected)
             $scope.selectedIndex = ($scope.selectedIndex === -1)?0:$scope.selectedIndex;
             console.log("Tab selected:", tabSelected, "Index: ", $scope.selectedIndex);
 			$scope.selected = $scope.orders[$scope.selectedIndex];
@@ -62,16 +62,16 @@
 				callPedidoIndividual();
 			}
 			var json = {};
-			json.idVendedor = StateCommons.vendedor().id;
+			json.idVendedor = contextPurchaseService.getCatalogContext();
 
 			productoService.crearPedidoIndividual(json).then(doOk)
 		}
 	
 
 		function load() {
-			contextoCompraService.getPedidos().then(function(orders) {
-				$scope.orders = orders.getOrders().filter(function(o){return o.estado === "ABIERTO"});
-				setTabSeleccionado(contextoCompraService.getOrderContext().getOrderSelected());
+			contextPurchaseService.getOrders().then(function(orders) {
+				$scope.orders = orders.getOrders(contextPurchaseService.getCatalogContext()).filter(function(o){return o.estado === "ABIERTO"});
+				setTabSeleccionado(contextPurchaseService.getOrderContext());
 			});
 		}
         
@@ -89,7 +89,7 @@
         $scope.fitrarPorEstadoConfirmado = function(){
             console.log("HOOOOOOOOOOOOOOOOOOOOOOOOOla");
             var params = {};
-            params.idVendedor = REST_ROUTES.idVendedor;
+            params.idVendedor = contextPurchaseService.getCatalogContext();
             params.estados = ["CONFIRMADO"];
             return promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(
                 function doOk(response) {

@@ -75,7 +75,7 @@
       function doOk(response) {
         $log.debug("--- confirmar pedido response ", response.data);
         ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
-        contextoCompraService.refreshPedidos().then(
+        contextPurchaseService.refreshPedidos().then(
           function(pedidos) {
             $state.reload();
           });

@@ -101,21 +101,27 @@
 	z-index: 900;
 }
 
+.chq-container {
+    max-height: 100vh !important;
+}
+
 .ch-content-block {
     margin-top: 100px;
 }
 
 .ch-content {
-	margin-top: 125px;
+    min-height: 65vh !important;
+	margin-top: 88px;
 	width: 80%;
-	margin: 0px auto;
     padding-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .ch-content-full {
-	margin-top: 125px;
+	margin-top: 88px;
+    min-height: 65vh !important;
     width: 100%;
-	margin: 0px;
     padding-bottom: 0px;
 }
 

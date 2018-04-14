@@ -1,142 +1,184 @@
-(function() {
+(function(){
 	'use strict';
 
 	angular.module('chasqui').service('productoService', productoService);
 
-	function productoService(restProxy, $q, $log, REST_ROUTES, StateCommons, promiseService, ToastCommons) {
-		var vm = this;
+	function productoService(restProxy, $q, $log, REST_ROUTES, StateCommons, promiseService, ToastCommons, $stateParams, contextCatalogsService) {
+		
+        var productoServiceInt = {
+            getCategorias: getCategorias,
+            getMedallas: getMedallas,
+            getMedallasProductor: getMedallasProductor,
+            getProductosDestacados: getProductosDestacados,
+            getProductosByMultiplesFiltros: getProductosByMultiplesFiltros,
+            getProductosSinFiltro: getProductosSinFiltro,
+            getProductosByCategoria: getProductosByCategoria,
+            getProductosByProductor: getProductosByProductor,
+            getProductosByMedalla: getProductosByMedalla,
+            getProductosByMedallaProductor: getProductosByMedallaProductor,
+            getProductosByQuery: getProductosByQuery,
+            crearPedidoIndividual: crearPedidoIndividual,
+            verPedidoIndividual: verPedidoIndividual,
+            agregarPedidoIndividual: agregarPedidoIndividual,
+            quitarProductoIndividual: quitarProductoIndividual,
+            cancelarPedidoIndividual: cancelarPedidoIndividual,
+            confirmarPedidoIndividual: confirmarPedidoIndividual,
+            verDirecciones: verDirecciones,
+            imagenProducto: imagenProducto
+        };
 
-		vm.getCategorias = function() {
-			$log.debug(" service getCategorias ");
-			return promiseService.doGet(REST_ROUTES.categorias(StateCommons.vendedor().id), {});
-		}
+        
+        ///////////////////////////////////////// Public \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        
+        function getCategorias(){
+            return setPromise(function(defered){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    $log.debug(" service getCategorias ");
+                    defered.resolve(promiseService.doGet(REST_ROUTES.categorias(catalog.id), {}));
+                })
+            });
+        }
 
-		vm.getMedallas = function() {
-			$log.debug(" service getMedallas ");
-			return promiseService.doGet(REST_ROUTES.medallasProducto, {});
-		}
+        function getMedallas(){
+            $log.debug(" service getMedallas ");
+            return promiseService.doGet(REST_ROUTES.medallasProducto, {});
+        }
 
-		vm.getMedallasProductor = function() {
-			$log.debug(" service getMedallasProdcutor ");
-			return promiseService.doGet(REST_ROUTES.medallasProductor, {});
-		}
+        function getMedallasProductor(){
+            $log.debug(" service getMedallasProdcutor ");
+            return promiseService.doGet(REST_ROUTES.medallasProductor, {});
+        }
 
-		vm.getProductosDestacados = function() {
-			$log.debug(" service getProductosDestacados ");
-			return promiseService.doGet(REST_ROUTES.productosDestacadosByVendedor(StateCommons.vendedor().id), {});
-		}
-		//crear funcion de REST
-		vm.getProductosByMultiplesFiltros = function(params){
-			$log.debug(" service getProductosByMultiplesFiltros ");
-			return promiseService.doPostPublic(REST_ROUTES.productosByMultiplesFiltros(StateCommons.vendedor().id), params);
-		}
+        function getProductosDestacados(){
+            return setPromise(function(defered){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    $log.debug(" service getProductosDestacados ");
+                    defered.resolve(promiseService.doGet(REST_ROUTES.productosDestacadosByVendedor(catalog.id), {}));
+                });
+            });
+        }
+        //crear funcion de REST
+        function getProductosByMultiplesFiltros(params){
+            return setPromise(function(defered){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    $log.debug(" service getProductosByMultiplesFiltros ");
+                    defered.resolve(promiseService.doPostPublic(REST_ROUTES.productosByMultiplesFiltros(catalog.id), params));
+                });
+            });
+        }
 
-		vm.getProductosSinFiltro = function(params) {
-			$log.debug(" service getProductosSinFiltro ");
-			return promiseService.doPostPublic(REST_ROUTES.productosSinFiltro(StateCommons.vendedor().id), params);
-		}
+        function getProductosSinFiltro(params) {
+            return setPromise(function(defered){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    $log.debug(" service getProductosSinFiltro ");
+                    defered.resolve(promiseService.doPostPublic(REST_ROUTES.productosSinFiltro(catalog.id), params));
+                });
+            });
+        }
 
-		vm.getProductosByCategoria = function(params) {
-			$log.debug(" service getProductosByCategoria ");
-			return promiseService.doPostPublic(REST_ROUTES.productosByCategoria, params);
-		}
+        function getProductosByCategoria(params) {
+            $log.debug(" service getProductosByCategoria ");
+            return promiseService.doPostPublic(REST_ROUTES.productosByCategoria, params);
+        }
 
-		vm.getProductosByProductor = function(params) {
-			$log.debug(" service getProductosByProductor ");
-			return promiseService.doPostPublic(REST_ROUTES.productosByProductor, params);
-		}
+        function getProductosByProductor(params) {
+            $log.debug(" service getProductosByProductor ");
+            return promiseService.doPostPublic(REST_ROUTES.productosByProductor, params);
+        }
 
-		vm.getProductosByMedalla = function(params) {
-			$log.debug(" service getProductosByMedalla ");
-			return promiseService.doPostPublic(REST_ROUTES.productosByMedalla, params);
-		}
+        function getProductosByMedalla(params) {
+            $log.debug(" service getProductosByMedalla ");
+            return promiseService.doPostPublic(REST_ROUTES.productosByMedalla, params);
+        }
 
-		vm.getProductosByMedallaProductor = function(params) {
-			$log.debug(" service getProductosByMedallaProductor ");
-			return promiseService.doPostPublic(REST_ROUTES.productosByMedallaProductor, params);
-		}
+        function getProductosByMedallaProductor(params) {
+            $log.debug(" service getProductosByMedallaProductor ");
+            return promiseService.doPostPublic(REST_ROUTES.productosByMedallaProductor, params);
+        }
 
-		vm.getProductosByQuery = function(params) {
-			$log.debug(" service getProductosByQuery ");
-			return promiseService.doPostPublic(REST_ROUTES.productosByQuery, params);
-		}
+        function getProductosByQuery(params) {
+            $log.debug(" service getProductosByQuery ");
+            return promiseService.doPostPublic(REST_ROUTES.productosByQuery, params);
+        }
 
-		vm.agregarPedidoIndividual = function(params) {
-			$log.debug(" service agregarPedidoIndividual ");
+        function agregarPedidoIndividual(params) {
+            $log.debug(" service agregarPedidoIndividual ");
 
-			function doNoOk(response) {
-				if (response.status == 404) {
-					ToastCommons.mensaje(response.data.error);
-				} else {
-					ToastCommons.mensaje("algo fallo !");
-				}
-			}
+            function doNoOk(response) {
+                if (response.status == 404) {
+                    ToastCommons.mensaje(response.data.error);
+                } else {
+                    ToastCommons.mensaje("algo fallo !");
+                }
+            }
 
-			return promiseService.doPut(REST_ROUTES.agregarPedidoIndividual, params, doNoOk);
-		}
+            return promiseService.doPut(REST_ROUTES.agregarPedidoIndividual, params, doNoOk);
+        }
 
-		vm.crearPedidoIndividual = function(params, doNoOK) {
-			$log.debug(" service crearPedidoIndividual ");
+        function crearPedidoIndividual(params, doNoOK) {
+            $log.debug(" service crearPedidoIndividual ");
 
-			return promiseService.doPost(REST_ROUTES.crearPedidoIndividual, params, doNoOK);
-		}
+            return promiseService.doPost(REST_ROUTES.crearPedidoIndividual, params, doNoOK);
+        }
 
-		vm.verPedidoIndividual = function(params) {
-			$log.debug(" service verPedidoIndividual ");
+        function verPedidoIndividual(params) {
+            return setPromise(function(defered){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    $log.debug(" service verPedidoIndividual ");
 
-			function doNoOk(response) {
-				$log.debug("--- callPedidoIndividual ", response.data);
+                    function doNoOk(response) {
+                        $log.debug("--- callPedidoIndividual ", response.data);
 
-				if (response.status == 404) {
-					ToastCommons.mensaje("Noy  hay pedidos !");
-				} else {
-					ToastCommons.mensaje("algo fallo !");
-				}
-			}
+                        if (response.status == 404) {
+                            ToastCommons.mensaje("Noy  hay pedidos !");
+                        } else {
+                            ToastCommons.mensaje("algo fallo !");
+                        }
+                    }
 
-			return promiseService.doGetPrivate(REST_ROUTES.verPedidoIndividual(StateCommons.vendedor().id), {}, doNoOk);
-		}
+                    defered.resolve(promiseService.doGetPrivate(REST_ROUTES.verPedidoIndividual(catalog.id), {}, doNoOk));
+                });
+            });
+        }
 
-		vm.quitarProductoIndividual = function(params) {
-			$log.debug(" service quitarProductoIndividual ");
-			return promiseService.doPut(REST_ROUTES.quitarProductoIndividual, params);
-		}
+        function quitarProductoIndividual(params) {
+            $log.debug(" service quitarProductoIndividual ");
+            return promiseService.doPut(REST_ROUTES.quitarProductoIndividual, params);
+        }
 
-		vm.cancelarPedidoIndividual = function(id) {
-			$log.debug(" service cancelarPedidoIndividual ");
-			return promiseService.doDelete(REST_ROUTES.cancelarPedidoIndividual(id), {});
-		}
+        function cancelarPedidoIndividual(id) {
+            $log.debug(" service cancelarPedidoIndividual ");
+            return promiseService.doDelete(REST_ROUTES.cancelarPedidoIndividual(id), {});
+        }
 
-		vm.verDirecciones = function(params) {
-			$log.debug(" service verDirecciones ");
-			return promiseService.doGetPrivate(REST_ROUTES.verDirecciones, {});
-		}
+        function verDirecciones(params) {
+            $log.debug(" service verDirecciones ");
+            return promiseService.doGetPrivate(REST_ROUTES.verDirecciones, {});
+        }
 
-		vm.imagenProducto = function(id) {
-			$log.debug(" service verDirecciones ");
-			return promiseService.doGet(REST_ROUTES.imagenProducto(id), {});
-		}
+        function imagenProducto(id) {
+            $log.debug(" service verDirecciones ");
+            return promiseService.doGet(REST_ROUTES.imagenProducto(id), {});
+        }
 
-		vm.confirmarPedidoIndividual = function(params) {
-			return promiseService.doPost(REST_ROUTES.confirmarPedidoIndividual, params);
-		}
-		/////////////////////////////////////
-		//////////// M O C K S 
-		/*	
-		vm.productosPedidoByUser = function (params) {
-			$log.debug(" service agregarPedidoIndividual ");
+        function confirmarPedidoIndividual(params) {
+            return promiseService.doPost(REST_ROUTES.confirmarPedidoIndividual, params);
+        }
+        
+        
+        ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+        
+        function setPromise(deferedFunction){
+            var defered = $q.defer();
+            var promise = defered.promise;
+            
+            deferedFunction(defered);
+            
+            return promise;  
+        }
+        
+        
+        return productoServiceInt;
 
-	        var defered = $q.defer();
-	        var promise = defered.promise;
-	        
-	        restProxy.get(REST_ROUTES.productosPedidoByUser(StateCommons.vendedor().id), {},      
-	        		function doOk(response) {defered.resolve(response);},
-					function doNoOk(response) {defered.reject(response);}
-	        );
-		 	 
-	        return promise;
-	    }*/
-
-
-	} // function
-})(); // anonimo
+	}
+})();

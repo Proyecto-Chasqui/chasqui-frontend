@@ -1,0 +1,17 @@
+<div class="ch-content-full">
+    <section-wrapper supported-strategies="puntoDeEntrega">
+        <md-content layout="column" layout-align="center center">
+            <md-card ng-repeat="deliveryPoint in deliveryPoints" class="chq-delivery-point">
+                <md-card-title>
+                    <md-card-title-text>
+                        <label class="md-headline"> {{deliveryPoint.nombre}}</label>
+                        <label class="md-subhead"> {{formatAddress(deliveryPoint.direccion)}}</label>
+                    </md-card-title-text>                    
+                </md-card-title>
+                <md-card-content>
+                    <label > {{deliveryPoint.mensaje}}</label>
+                </md-card-content>                
+            </md-card>
+        </md-content>
+    </section-wrapper>
+</div>

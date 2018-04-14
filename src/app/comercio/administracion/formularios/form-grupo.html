@@ -1,36 +1,39 @@
 <div layout="row" layout-align="center" class="ch-content">
-  <md-card>
-    <md-card-title>
-      <md-card-title-text>
-        <span class="md-title" ng-show="{{ ! formGrupoCtrl.isEdit}}" translate> NUEVO_GRUPO </span>
-        <span class="md-title" ng-show="{{formGrupoCtrl.isEdit}}" translate>MOD_GRUPO</span>
-      </md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-      <md-content layout-padding>
-        <div>
-          <!--
-                <div layout-gt-xs="row">
-                  <md-input-container class="md-block" flex-gt-xs>
-                    <label>{{formGrupoCtrl.user.nickname}}</label>
-                    <input ng-model="usuario" disabled>
-                  </md-input-container>
-                </div>-->
-          <div layout-gt-sm="column">
-            <md-input-container class="md-block" flex-gt-sm>
-              <label translate>ALIAS</label>
-              <input ng-model="formGrupoCtrl.grupo.alias">
-            </md-input-container>
-            <md-input-container class="md-block" flex-gt-sm>
-              <label translate>DESC</label>
-              <input ng-model="formGrupoCtrl.grupo.descripcion">
-            </md-input-container>
-          </div>
-        </div>
-      </md-content>
-    </md-card-content>
-    <md-card-actions layout="row" layout-align="end center">
-      <md-button ng-click="formGrupoCtrl.guardar()" translate="GUARDAR"> </md-button>
-    </md-card-actions>
-  </md-card>
+    <section-wrapper supported-strategies="gcc">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title" ng-show="{{ ! formGrupoCtrl.isEdit}}" translate> NUEVO_GRUPO </span>
+                    <span class="md-title" ng-show="{{formGrupoCtrl.isEdit}}" translate>MOD_GRUPO</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-content layout-padding>
+                    <div>
+                        <!--
+                        <div layout-gt-xs="row">
+                            <md-input-container class="md-block" flex-gt-xs>
+                            <label>{{formGrupoCtrl.user.nickname}}</label>
+                        <input ng-model="usuario" disabled>
+                            </md-input-container>
+                        </div>
+                        -->
+                        <div layout-gt-sm="column">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label translate>ALIAS</label>
+                                <input ng-model="formGrupoCtrl.grupo.alias">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label translate>DESC</label>
+                                <input ng-model="formGrupoCtrl.grupo.descripcion">
+                            </md-input-container>
+                        </div>
+                    </div>
+                </md-content>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="formGrupoCtrl.guardar()" translate="GUARDAR"> </md-button>
+            </md-card-actions>
+        </md-card>
+    </section-wrapper>
 </div>

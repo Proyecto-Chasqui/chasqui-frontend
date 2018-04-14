@@ -4,10 +4,10 @@
 	angular.module('chasqui').controller('ListaGruposController',
 		ListaGruposController);
 
-	/** @ngInject . Tabs de grupos con el panel de info y botones de acciones */
+	
 	function ListaGruposController($log, $scope, $state,
-		StateCommons, dialogCommons, ToastCommons, perfilService, gccService, URLS, REST_ROUTES, 
-		contextoCompraService, us, usuario_dao, navigation_state) {
+		dialogCommons, ToastCommons, gccService, URLS, agrupationTypeVAL,
+        us, usuario_dao, navigation_state, contextPurchaseService) {
 
 		$log.debug("controler ListaGruposController");
 		navigation_state.goMyGroupsTab();
@@ -26,7 +26,7 @@
 			
 			if (! us.isUndefinedOrNull(vm.selected)){
                 console.log("Select group:", vm.selected, vm.groups);
-				contextoCompraService.setContextoByGrupo(vm.selected.idGrupo);
+				contextPurchaseService.setContextByAgrupation(vm.selected);
 			}
 		});
 
@@ -59,7 +59,7 @@
 			});
 		*/
 		vm.edit = function(grupo) {
-			$state.go("form-grupo", { "grupo": grupo });
+			$state.go("catalog.form-grupo", { "grupo": grupo });
 		}
 
 		/** habilita el panel para agregar integrantes. */
@@ -98,7 +98,7 @@
 
 		/** Redirecciona al formulario crear grupo */
 		vm.crearGrupo = function(ev) {
-			$state.go('form-grupo');			
+			$state.go('catalog.form-grupo');			
 		};
 
 
@@ -119,7 +119,7 @@
 
 			var params = {};
 			params.idGrupo = grupo.idGrupo;
-			params.idVendedor = StateCommons.vendedor().id;
+			params.idVendedor = contextPurchaseService.getCatalogContext();
 
 			gccService.crearPedidoGrupal(params).then(doOk);
 		}
@@ -146,10 +146,10 @@
 		function callLoadGrupos() {
 			$log.debug("--- find grupos--------");
 
-			contextoCompraService.getGrupos().then(function(groups){
-				$log.debug("--- find grupos respuesta", groups);
-				vm.groups = groups.getGroups().filter(function(g){return g.alias != "Personal"});
-				setTabSeleccionado(contextoCompraService.getGroupSelected());
+			contextPurchaseService.getAgrupations().then(function(agrupationsInt){
+				vm.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
+				$log.debug("--- find grupos respuesta", vm.groups);
+				setTabSeleccionado(contextPurchaseService.getSelectedAgrupation());
             });
 		}
 

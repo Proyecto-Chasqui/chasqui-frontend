@@ -14,35 +14,21 @@ angular.module('chasqui').factory('navigation_state',
           
     //////////////////////////////////////////////
     
-    var WELCOME        =        "WELCOME";
-    var HOW_TO_BUY     =     "HOW_TO_BUY";
-    var CATALOG        =        "CATALOG";
-    var MY_ORDERS      =      "MY_ORDERS";
-    var MY_GROUPS      =      "MY_GROUPS";
-    var PERFIL         =         "PERFIL";
-    var UNSELECTED_TAB = "UNSELECTED_TAB";
+    var WELCOME         =         "WELCOME";
+    var HOW_TO_BUY      =      "HOW_TO_BUY";
+    var CATALOG         =         "CATALOG";
+    var MY_ORDERS       =       "MY_ORDERS";
+    var MY_GROUPS       =       "MY_GROUPS";
+    var MY_NODES        =        "MY_NODES";
+    var DELIVERY_POINTS = "DELIVERY_POINTS";
+    var PROFILE          =         "PROFILE";
+    var UNSELECTED_TAB  =  "UNSELECTED_TAB";
                         
-                        
-    function goWelcomeTab(){
-        goTab(WELCOME);
-    }    
-    function goHowToBuyTab(){
-        goTab(HOW_TO_BUY);
-    }    
-    function goCatalogTab(){
-        goTab(CATALOG);
-    }    
-    function goMyOrdersTab(){
-        goTab(MY_ORDERS);
-    }    
-    function goMyGroupsTab(){
-        goTab(MY_GROUPS);
-    } 
-    function goPerfilTab(){
-        goTab(PERFIL);
-    }
-    function unselectTabs(){
-        goTab(UNSELECTED_TAB);
+                     
+    function goToTab(tab){
+        return function(){
+            goTab(tab);
+        }
     }
                         
     function goTab(tab){
@@ -56,13 +42,16 @@ angular.module('chasqui').factory('navigation_state',
     //////////////////////////                        
                         
     return {
-        goWelcomeTab: goWelcomeTab,
-        goHowToBuyTab: goHowToBuyTab,
-        goCatalogTab: goCatalogTab,
-        goMyOrdersTab: goMyOrdersTab,
-        goMyGroupsTab: goMyGroupsTab,
-        goPerfilTab: goPerfilTab,
-        unselectTabs: unselectTabs,
+        goWelcomeTab: goToTab(WELCOME),
+        goHowToBuyTab: goToTab(HOW_TO_BUY),
+        goCatalogTab: goToTab(CATALOG),
+        goMyOrdersTab: goToTab(MY_ORDERS),
+        goMyGroupsTab: goToTab(MY_GROUPS),
+        goMyNodesTab: goToTab(MY_NODES),
+        goDeliveryPointsTab: goToTab(DELIVERY_POINTS),
+        goPerfilTab: goToTab(PROFILE),
+        
+        unselectTabs: goToTab(UNSELECTED_TAB),
         getSelectedTab: getSelectedTab
     }
     

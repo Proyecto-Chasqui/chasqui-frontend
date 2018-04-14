@@ -6,12 +6,12 @@
 
 	/** Contempla los datos personales y 
 	 *  el domicilio en dos pasos pero en la misma pantalla*/
-	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, ToastCommons, us, $timeout) {
+	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, 
+                                              ToastCommons, us, $timeout, contextPurchaseService) {
         
         $scope.selectedIndex = 0;
         
-        
-        var idInvitacion = $stateParams.id;
+        var idInvitacion = contextPurchaseService.getCatalogContext();
         
         $scope.mailInvitacion = "";
         
@@ -68,7 +68,7 @@
                     Algo se deberia hacer con la informacion que esta trayendo el servidor
                 */
                 //usuario_dao.logIn(response.data); 
-                $state.go('login');
+                $state.go('catalog.login');
             }
             
             perfilService.singUpInvitacionGCC(prepareProfile(profile)).then(doOk);

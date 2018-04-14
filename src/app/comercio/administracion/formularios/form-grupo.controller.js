@@ -7,7 +7,7 @@
   /**
    * @ngInject Formulario para crear un grupo
    */
-  function FormGrupoController($log, $scope, $state, gccService, StateCommons, us, contextoCompraService, usuario_dao) {
+  function FormGrupoController($log, $scope, $state, gccService, StateCommons, us, contextPurchaseService, usuario_dao) {
     $log.debug("controler FormGrupoController", $state.params);
     var vm = this;
 
@@ -39,10 +39,10 @@
       function doOk(response) {
         $log.debug("respuesta guardar grupo ", response);
        
-        contextoCompraService.refresh();
+        contextPurchaseService.refresh();
         // TODO: guardar el id del grupo creado
         
-        $state.go("lista-grupos");
+        $state.go("catalog.userGroups");
           
       }
 
@@ -53,7 +53,7 @@
       $log.debug("editar grupo", vm.grupo);
 
       function doOk(response) {       
-        contextoCompraService.refresh();
+        contextPurchaseService.refresh();
         $state.go("lista-grupos");
       }
       //alias, idDomicilio, telefono, calle, numero, codigoPostal, localidad, provincia , token 

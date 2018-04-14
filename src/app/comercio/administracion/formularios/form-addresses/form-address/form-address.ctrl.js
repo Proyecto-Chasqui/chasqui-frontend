@@ -56,7 +56,7 @@
   		$log.debug("respuesta guardar domicilio ", response);
 
   		// TODO: en realidad la navegacion depende de donde vino
-  		$state.go("lista-grupos");
+  		$state.go("catalog.userGroups");
   	}
 
   	perfilService.direccionGrupo(1, $scope.address).then(doOk);

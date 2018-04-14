@@ -9,7 +9,7 @@
    *  FAB Button de contexto de compra.
    */
   function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, 
-                                     productoService, $timeout, contextoCompraService, 
+                                     productoService, $timeout, contextPurchaseService, 
                                      usuario_dao, ModifyVarietyCount) {
 
         $log.debug("ContextoPedidoController .....");
@@ -19,24 +19,20 @@
         $scope.urlBase = URLS.be_base;
         $scope.isLogued = usuario_dao.isLogged();
 
+      
+        // TODO: creo que no corresponde esta recarga. Revisar
         function load() {
             console.log("Load");
-            contextoCompraService.getPedidos().then(
-                function(orders) {
-                    $scope.pedidoSelected = contextoCompraService.getOrderSelected();
-                    //console.log("Pedido: ", $scope.pedidoSelected.id);
-            });
+            $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
         }
 
 
         $rootScope.$on('contexto.compra.cambia.grupo', function(event, grupo) {
-            $log.debug("on contexto.compra.cambia.grupo");			
             load();
         });
 
         //actualiza la lista de productos
         $rootScope.$on('lista-producto-agrego-producto', function(event) {
-            $log.debug("on lista-producto-agrego-producto");
             load();
         });
 

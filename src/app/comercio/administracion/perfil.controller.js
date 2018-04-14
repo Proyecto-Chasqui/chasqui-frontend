@@ -3,11 +3,11 @@
 
 	angular.module('chasqui').controller('PerfilController', PerfilController);
 
-	/** @ngInject . Pantalla de perfil de usuario */
+    
 	function PerfilController($log, $scope, $rootScope,
 		$mdDialog, ToastCommons, $stateParams, perfilService,
-		gccService,us,contextoCompraService, usuario_dao, navigation_state) {
-        
+		gccService,us,contextPurchaseService, usuario_dao, navigation_state) {
+            
 		$log.debug("Init PerfilController ....");
 
 		navigation_state.goPerfilTab();
@@ -78,7 +78,7 @@
 			function doOk(response) {
 				ToastCommons.mensaje(us.translate('ACEPTADO'));
 				notificacion.estado = 'Leido';
-				contextoCompraService.refreshGrupos()
+				contextPurchaseService.refreshGrupos()
 			}
 			var params = {};
 			params.idInvitacion = notificacion.id;

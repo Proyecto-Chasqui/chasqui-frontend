@@ -8,9 +8,9 @@
 	 * @ngInject Lista de productos.
 	 */
 	function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
-		$state, StateCommons, ToastCommons, dialogCommons, productoService, us,
-		gccService, $mdDialog, productorService, contextoCompraService, 
-        usuario_dao, ModifyVarietyCount) {
+		$state, ToastCommons, productoService, us,
+		$mdDialog, productorService, contextPurchaseService, 
+        usuario_dao, $stateParams, catalogs_dao, AddProductService) {
 
 		$log.debug('ListaProductosController',
 			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -97,17 +97,14 @@
 		//////////////////////////////
 
 		vm.agregar = function(variety) {
-			vm.grupoSelected = contextoCompraService.getGroupSelected();
-			vm.pedidoSelected = contextoCompraService.getOrderSelected();
 
-            console.log(vm.grupoSelected, vm.pedidoSelected);
 			if (usuario_dao.isLogged()) {
-				agregarProducto(variety);
+				AddProductService(variety);
 			} else {
 				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
 				$log.log('not logued" ', variety);
-				contextoCompraService.ls.varianteSelected = variety;
-				$state.go('login');
+				contextPurchaseService.ls.varianteSelected = variety;
+				$state.go('catalog.login');
 			}
 		}
 
@@ -144,79 +141,9 @@
 		function actualizar(arg) {
 			findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, arg);
 		}
+        
 
-		function agregarProducto(variety) {
-			if (contextoCompraService.isGrupoIndividualSelected()) {
-                console.log("Agregar producto al pedido individual:", variety);
-				agregarProductoIndividual(variety); // es individual
-			} else {
-				ModifyVarietyCount.modifyDialog(variety);
-			}
-		}
-		function agregarProductoIndividual(variety) {
-		/** Si no tiene un pedido individual lo crea */
-			if (contextoCompraService.tienePedidoInividual()) {
-				ModifyVarietyCount.modifyDialog(variety);
-			} else {
-                
-                function actualizarPedidoIndividual() {
-                    function doOkPedido(response) {
-                        $log.debug("setPedidoYagregarProducto", response);
-                        contextoCompraService.setContextoByPedido(response.data);
-                        //contextoCompraService.refresh();
-                        ModifyVarietyCount.modifyDialog(variety);
-                    }
-
-                    productoService.verPedidoIndividual().then(doOkPedido);
-                }
-				// crear pedido y dialog
-				function doNoOK(response) {
-					if (us.contieneCadena(response.data.error, REST_ROUTES.ERROR_YA_TIENE_PEDIDO)) {
-						ToastCommons.mensaje(us.translate('AGREAR_EN_PEDIDO_EXISTENTE'));
-						ModifyVarietyCount.modifyDialog(variety);
-					}
-				}
-
-				var json = {};
-				json.idVendedor = StateCommons.vendedor().id;
-
-				//si falla es poque ya tiene un pedido abierto TODO mejorar
-				productoService.crearPedidoIndividual(json, doNoOK).then(actualizarPedidoIndividual)
-			}
-
-		}
-
-		function callCrearPedidoGrupal(variety) { 
-            // TODO mover a contexto compra service
-			function doOK(response) {
-				$log.debug("callCrearPedidoGrupal", response);
-
-				contextoCompraService.refresh();
-                contextoCompraService.getGrupos().then(
-					function(grupos) {
-						contextoCompraService.setContextoByGrupo(parseInt(vm.grupoSelected.idGrupo));
-						ModifyVarietyCount.modifyDialog(variety);
-					}
-				)
-			}
-
-			function doNoOK(response) {
-				$log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
-		 		contextoCompraService.refreshPedidos().then(
-					function(pedido) {
-						ModifyVarietyCount.modifyDialog(variety);
-					}
-				)
-			}
-
-			var params = {}
-			params.idGrupo = contextoCompraService.getGroupSelected().idGrupo;
-			params.idVendedor = StateCommons.vendedor().id;
-
-			gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
-		}
-
-
+		
 		// /////////// REST
 
 		
@@ -234,7 +161,7 @@
 
 			var params = {
 				query : params.query,
-				idVendedor : StateCommons.vendedor().id,
+				idVendedor : contextPurchaseService.getCatalogContext(),
 				idMedalla : params.sello,
 				idProductor: params.productor,
 				idMedallaProductor: params.selloProductor,
@@ -264,7 +191,7 @@
 			}
 
 			var params = {
-				idVendedor: StateCommons.vendedor().id,
+				idVendedor: contextPurchaseService.getCatalogContext(),
 				pagina: pagina,
 				cantItems: items,
 				precio: 'Down'
@@ -284,10 +211,10 @@
 		}
 
 		// findProductos();
-		if (!us.isUndefinedOrNull(contextoCompraService.ls.varianteSelected)) {
-			$log.debug("tiene una variante seleccionda", contextoCompraService.ls.varianteSelected)
-			vm.agregar(contextoCompraService.ls.varianteSelected)
-			contextoCompraService.ls.varianteSelected = undefined;
+		if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
+			$log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
+			vm.agregar(contextPurchaseService.ls.varianteSelected)
+			contextPurchaseService.ls.varianteSelected = undefined;
 		}
 
 		//vm.productos = findProductos(1,10,{});

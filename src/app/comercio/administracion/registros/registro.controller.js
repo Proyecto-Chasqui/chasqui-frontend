@@ -67,7 +67,7 @@
                     Algo se deberia hacer con la informacion que esta trayendo el servidor
                 */
                 //usuario_dao.logIn(response.data); 
-                $state.go('login');
+                $state.go('catalog.login');
             }
             //setUserAvatar();
             perfilService.singUp(filterVerifications(perfil)).then(doOk);

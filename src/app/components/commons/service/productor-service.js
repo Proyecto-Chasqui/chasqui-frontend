@@ -3,7 +3,8 @@
 
 	angular.module('chasqui').service('productorService', productorService);
 
-	function productorService(restProxy, $q, $log, REST_ROUTES, StateCommons, promiseService) {
+	function productorService(restProxy, $q, $log, REST_ROUTES, StateCommons, promiseService, $stateParams, contextCatalogsService) {
+
 		var vm = this;
 
 		vm.getProductores = function() {
@@ -11,12 +12,14 @@
 
 			var defered = $q.defer();
 			var promise = defered.promise;
-
-			restProxy.get(REST_ROUTES.productores(StateCommons.vendedor().id), {},
-				function doOk(response) { defered.resolve(response); },
-				function doNoOk(response) { defered.reject(response); }
-			);
-
+            
+            contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                restProxy.get(REST_ROUTES.productores(catalog.id), {},
+                    function doOk(response) { defered.resolve(response); },
+                    function doNoOk(response) { defered.reject(response); }
+                );
+            })
+            
 			return promise;
 		}
 

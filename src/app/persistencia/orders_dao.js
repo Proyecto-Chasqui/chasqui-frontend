@@ -1,85 +1,103 @@
-angular.module('chasqui').factory('orders_dao', 
-                            ['ls_connection',
-                    function(ls_connection){
+angular.module('chasqui').factory('orders_dao', orders_dao);
+
+function orders_dao(catalogs_data, fn_snoc){
     
-                        
-    var STATE_OPEN = "ABIERTO";                                
-    var STATE_CANCEL = "CANCELADO";            
-                        
-                        
-    function init(){
-        ls_connection.init({
-            orders: []
-        });
-        console.log("Starting orders_dao:", orders());
-    }
-                        
-    init();
-                        
-                        
-    function newOrder(order){
-        ls_connection.modifyField("orders", function(orders){
-            orders.push(order);
-            return orders;
-        });
-    }
-                        
-    function removeOrder(id){
-        ls_connection.modifyField("orders", function(orders){
-            return orders.reduce(function(r,o){
-                return (o.id === id)? r : cons(r, o);
-            }, []);
-        });
-    }                
-                        
-    function cons(list, elem){
-        list.push(elem);
-        return list;
-    }
-                        
-    function loadOrders(orders){
-        orders.forEach(newOrder);
-    }
-                        
-    function reset(){
-        console.log("RESET");
-        init();
-    }
-                        
-    function orders(){
-        return ls_connection.get("orders");
+    ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+   
+    var orders_dao_int = {
+            reset: reset,
+            newOrder: newOrder,
+            loadOrders: loadOrders, 
+            getOrders: orders,
+            getOrdersByType: getOrdersByType, 
+            getOrder: getOrder,
+            removeOrder: removeOrder,
+            changeToStateCancel: changeToStateCancel,
+            changeToStateOpen: changeToStateOpen
+        }
+    
+    /////////////////////////////////////////  Public   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+    
+    function newOrder(catalogId, order){
+        newOrderCurrified(catalogId)(order);
     }
     
-    function getOrder(orderId){
-        return orders().filter(function(o){return o.id == orderId})[0];
+    function newOrderCurrified(catalogId){
+        return function (order){
+            modifyOrdersInCatalog(catalogId, order.type, function(orders){
+                return fn_snoc(orders, order);
+            })
+        }
     }
                         
-    function changeToStateCancel(orderId){
-        changeToState(orderId, STATE_CANCEL);
+    function removeOrder(catalogId, orderId, orderType){
+        modifyOrdersInCatalog(catalogId, ordersType, function(orders){
+            return orders.filter(function(o){return o.id != orderId})
+        })
+    }  
+                        
+    function loadOrders(catalogId, orders){
+        orders.forEach(newOrderCurrified(catalogId));
+    }
+                        
+    function reset(catalogId){
+        init(catalogId);
+    }
+                        
+    function orders(catalogId){
+        console.log("catalogs_data", catalogs_data);
+        var orders = catalogs_data.getCatalog(catalogId).orders;
+        
+        return Object.keys(orders).reduce(
+            function(r,ot){ return r.concat(orders[ot]) }, 
+            []
+        );
+    }
+    
+    function getOrdersByType(catalogId, ordersType){
+        return catalogs_data.getCatalog(catalogId).orders[ordersType];
+    }
+    
+    function getOrder(catalogId, orderId, orderType){
+        return catalogs_data.getCatalog(catalogId).orders[orderType].filter(function(o){return o.id == orderId})[0];
+    }
+                        
+    function changeToStateCancel(catalogId, orderId, orderType){
+        changeToState(catalogId, orderId, orderType, STATE_CANCEL);
     } 
       
-    function changeToStateOpen(orderId){
-        changeToState(orderId, STATE_OPEN);
-    }   
-                        
-    function changeToState(orderId, state){
-        ls_connection.modifyField("orders", function(orders){
+    function changeToStateOpen(catalogId, orderId, orderType){
+        changeToState(catalogId, orderId, orderType, STATE_OPEN);
+    } 
+    
+    /////////////////////////////////////////  Private  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
+    
+    var STATE_OPEN = "ABIERTO";                                
+    var STATE_CANCEL = "CANCELADO";  
+    
+    function modifyOrdersInCatalog(catalogId, ordersType, modification){
+        catalogs_data.modifyCatalogData(catalogId, function(catalog){
+            catalog.orders[ordersType] = modification(catalog.orders[ordersType])
+            return catalog;
+        })
+    }
+    
+    function changeToState(catalogId, orderId, orderType, state){
+        modifyOrdersInCatalog(catalogId, ordersType, function(orders){
             orders.filter(function(o){return o.id == orderId})[0].estado = state;
             return orders;
         });
+    }   
+    
+    /////////////////////////////////////////   Init    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
+         
+    function init(catalogId){ 
+        console.log("Init orders_dao");
+        catalogs_data.resetOrders(catalogId);
     }
-                        
+                   
     //////////////////////////                        
                         
-    return {
-        newOrder: newOrder,
-        removeOrder: removeOrder,
-        loadOrders: loadOrders, 
-        getOrders: orders,
-        getOrder: getOrder,
-        changeToStateCancel: changeToStateCancel,
-        changeToStateOpen: changeToStateOpen,
-        reset: reset
-    }
+    return orders_dao_int
     
-}]);
+};

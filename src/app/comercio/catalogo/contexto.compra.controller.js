@@ -8,33 +8,51 @@
 	/**
 	 * Lista lateral de productos del pedido seleccionado
 	 */
-	function ContextoCompraController($rootScope, $log, $scope, contextoCompraService, 
-                                       usuario_dao) {
+	function ContextoCompraController($rootScope, $log, $scope, contextPurchaseService, agrupationTypeVAL,
+                                       usuario_dao, contextAgrupationsService, order_context) {
 
 		$log.debug("ContextoCompraController ..... ");
 
-        $scope.isLogued = usuario_dao.isLogged();
         $scope.grupos = [];
-        $scope.grupoSelected = {};
+        $scope.agrupationSelected = {};
+        $scope.cambiarContexto = cambiarContexto;
+        $scope.showSelector = showSelector;
+        $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
+        $scope.setPersonalAsAgrupationSelected = setPersonalAsAgrupationSelected;
         
         function init(){
-            contextoCompraService.getGrupos().then(
-                function(groups) {
-                    $scope.grupos = groups.getGroups();
-                    $scope.grupoSelected = contextoCompraService.getGroupSelected().idGrupo;     
-                    console.log("Grupos: ", $scope.grupos, "Selected id: ", contextoCompraService.getGroupSelected().idGrupo);
+            $scope.agrupationSelected = {
+                id: contextPurchaseService.getAgrupationContextId(),
+                type: agrupationTypeVAL.TYPE_GROUP
+            }
+            contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
+                    $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
+                                                                        agrupationTypeVAL.TYPE_GROUP);
                 });
         }
         
         init();
         
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		$scope.cambiarContexto = function() {
-			contextoCompraService.setContextoByGrupo(parseInt($scope.grupoSelected));
-			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.grupoSelected);
+		function cambiarContexto() {
+            console.log("Cambio de contexto:", $scope.agrupationSelected);
+            contextPurchaseService.setContextByAgrupation($scope.agrupationSelected);
+			$rootScope.$emit('contexto.compra.cambia.grupo', $scope.agrupationSelected);
 		}
 
+        function showSelector(){
+            return $scope.grupos.length > 0;
+        }
+        
+        function setGroupAsAgrupationSelected(){
+            $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
+        }
+        
+        function setPersonalAsAgrupationSelected(){
+            $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_PERSONAL;
+        }
 
-
+        
 	}
 })();
