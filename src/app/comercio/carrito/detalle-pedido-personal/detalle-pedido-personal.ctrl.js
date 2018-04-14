@@ -5,20 +5,29 @@
 		DetallePedidoPersonalController);
 
 	/** @ngInject */
-	function DetallePedidoPersonalController($log, $state, $scope, URLS, REST_ROUTES, ToastCommons, $mdDialog, dialogCommons, productoService, perfilService, gccService,
+	function DetallePedidoPersonalController($log, $state, $scope, URLS, REST_ROUTES, ToastCommons, $mdDialog, dialogCommons, productoService, perfilService, gccService,vendedorService,
 		contextoCompraService,us) {
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
 		$scope.urlBase = URLS.be_base;
+		$scope.idVendedor = perfilService.idVendedor;
 		$scope.direcciones ;
 		$scope.direccionSelected;
+		$scope.puntosDeEntrega;
+		$scope.puntoEntregaSelected;
+		$scope.tipoentrega = ["A domicilio","Paso a retirar"];
 		$scope.productoEliminar;
+		$scope.mostrarSeleccionDomicilio = false;
+		$scope.mostrarSeleccionPuntoEntrega = false;
+		$scope.mostrarSeleccionMultiple = false;
+		$scope.configuracionVenedor;
 		$scope.isAdmin = contextoCompraService.isAdmin($scope.pedido);
 		$scope.comentario = "";
 	
 
 		
 		$scope.confirmar = function() {
+			
 			popUpElegirDireccion();
 			$scope.callDirecciones();
 		};
@@ -29,7 +38,6 @@
 			function doOk(response) {
 				$log.debug('call direcciones response ', response);
 				$scope.direcciones = response.data;
-
 				if ($scope.direcciones.length == 0){
 					popUpConfirmarAccion('dialog-sin-direccion.html');				
 				}else{
@@ -37,7 +45,45 @@
 				}
 			}
 
+			function filldata(response) {
+				$log.debug('call direcciones response para puntosDeEntrega ', response);
+				$scope.puntosDeEntrega = response.data.puntosDeRetiro;
+			}
+      		showMultipleSelection();
+			vendedorService.verPuntosDeEntrega().then(filldata);
 			perfilService.verDirecciones().then(doOk);
+		}
+
+		function showMultipleSelection(){
+
+			function configurarSelectores(response){
+				$scope.configuracionVenedor = response.data.few;
+				$scope.mostrarSeleccionMultiple = $scope.configuracionVenedor.seleccionDeDireccionDelUsuario && $scope.configuracionVenedor.puntoDeEntrega;
+				if(! $scope.mostrarSeleccionMultiple){
+					$scope.mostrarSeleccionDomicilio = $scope.configuracionVenedor.seleccionDeDireccionDelUsuario;
+					$scope.mostrarSeleccionPuntoEntrega = $scope.configuracionVenedor.puntoDeEntrega;
+				}else{
+					$scope.mostrarSeleccionPuntoEntrega = false;
+					$scope.mostrarSeleccionDomicilio =  false;
+				}
+			}
+			vendedorService.obtenerConfiguracionVendedor().then(configurarSelectores); 
+		}
+
+		$scope.selectChanged = function(){
+			if($scope.entregaSelected === $scope.tipoentrega[0]){
+				$scope.mostrarSeleccionDomicilio = true;
+			}else{
+				$scope.mostrarSeleccionDomicilio = false;
+
+			}
+			if($scope.entregaSelected === $scope.tipoentrega[1]){
+				$scope.mostrarSeleccionPuntoEntrega = true;
+			}else{
+				$scope.mostrarSeleccionPuntoEntrega = false;
+			}
+			$scope.direccionSelected = null;
+			$scope.puntoEntregaSelected = null;
 		}
 
 		function popUpElegirDireccion() {
@@ -91,12 +137,26 @@
 			}
 
 			var params = {};
-			params.idPedido = $scope.pedido.id;
-			params.idDireccion = $scope.direccionSelected.idDireccion;
+			completarParamsSegunMetodoDeEntrega(params);
+			params.idPedido = $scope.pedido.id;			
 			params.comentario = $scope.comentario;
 		
 			productoService.confirmarPedidoIndividual(params).then(doOk)
 		
+		}
+
+		function completarParamsSegunMetodoDeEntrega(param){
+			if($scope.direccionSelected === null){
+				param.idDireccion = null;
+			}else{
+				param.idDireccion = $scope.direccionSelected.idDireccion;
+			}
+
+			if($scope.puntoEntregaSelected === null){
+				param.idPuntoDeRetiro = null; 
+			}else{
+				param.idPuntoDeRetiro = $scope.puntoEntregaSelected.id;
+			}
 		}
 
 		function doEliminar() {
@@ -161,7 +221,19 @@
 
 		$scope.ignorarAccion = function(){
 			$log.debug('close');
+
 			$mdDialog.hide();
+		}
+
+		function limpiarValores(){
+			$scope.direcciones = null;
+			$scope.direccionSelected = null;
+			$scope.puntosDeEntrega = null;
+			$scope.puntoEntregaSelected = null;
+			$scope.mostrarSeleccionDomicilio = false;
+			$scope.mostrarSeleccionPuntoEntrega = false;
+			$scope.mostrarSeleccionMultiple = false;
+			$scope.configuracionVenedor = null;
 		}
 
 		$scope.confirmarClick = function(){

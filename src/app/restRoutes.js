@@ -87,6 +87,10 @@
 
             verDirecciones: URLS.be_rest + "user/adm/dir",
 
+            verPuntosDeEntrega: function(nombreVendedor){
+                return URLS.be_rest + 'client/vendedor/puntosDeRetiro/' + nombreVendedor;
+            },
+
             nuevaDireccion: URLS.be_rest + "user/adm/dir",
 
             actualizarDireccion: URLS.be_rest + "user/adm/dir/",
