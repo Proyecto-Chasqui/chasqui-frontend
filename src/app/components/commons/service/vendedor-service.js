@@ -8,7 +8,7 @@
 		//este valor esta disponible para multicatalogo
 		//debe obtenerse de alguna manera dinamica
 		//ya que con el mismo se obtienen los contextos de los vendedores.
-		var nombreVendedor = "demo"; 
+		var nombreVendedor = "puenteDelSur"; 
 
 		vm.verPuntosDeEntrega = function(){
 			$log.debug(" service verPuntosDeEntrega ");
