@@ -12,6 +12,7 @@
         
         var contextAgrupationsServiceInt = {
             reset: reset,
+            modifyAgrupation: modifyAgrupation,
             getAgrupation: getAgrupation,
             getAgrupations: getAgrupations,
             getAgrupationsByType: getAgrupationsByType
@@ -24,6 +25,12 @@
             agrupations_dao.reset(catalogId);
         }
             
+        function modifyAgrupation(catalogId, agrupationId, agrupationType, modification){
+            console.log("prev", getAgrupation(catalogId, agrupationId, agrupationType));
+            agrupations_dao.modifyGroup(catalogId, agrupationId, agrupationType, modification);
+            console.log("post", getAgrupation(catalogId, agrupationId, agrupationType));
+        }
+        
         function getAgrupation(catalogId, agrupationId, agrupationType){
             return agrupations_dao.getAgrupation(catalogId, agrupationId, agrupationType);
         }

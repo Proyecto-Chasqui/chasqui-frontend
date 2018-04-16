@@ -3,7 +3,8 @@
 
 	angular.module('chasqui').factory('createOrdersForGroupsWithoutOrders', createOrdersForGroupsWithoutOrders);
     
-	function createOrdersForGroupsWithoutOrders($q, $stateParams, gccService, $log, contextCatalogsService){
+	function createOrdersForGroupsWithoutOrders($q, $stateParams, gccService, $log, contextCatalogsService, 
+                                                 agrupationTypeVAL, contextAgrupationsService){
          
         
         /* Prop: Creates an order for param group
@@ -16,7 +17,15 @@
             contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
                 function doOK(response) {
                     $log.debug("callCrearPedidoGrupal", response);
-                    defered.resolve(response.data);
+                    var newOrder = response.data;
+                    newOrder.idGrupo = group.idGrupo;
+                    newOrder.aliasGrupo = group.alias;
+                    newOrder.type = agrupationTypeVAL.TYPE_GROUP;
+                    contextAgrupationsService.modifyAgrupation(catalog.id, group.idGrupo, agrupationTypeVAL.TYPE_GROUP, function(group){
+                        group.idPedidoIndividual = newOrder.id;
+                        return group; 
+                    });
+                    defered.resolve(newOrder);
                 }
 
                 function doNoOK(response) {

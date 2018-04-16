@@ -27,6 +27,10 @@
         function reset(catalogId){
             orders_dao.reset(catalogId);
         }
+        
+        function resetType(catalogId, orderType){
+            orders_dao.resetType(catalogId, orderType);
+        }
             
         function addOrder(catalogId, order){
             orders_dao.newOrder(catalogId, order);
@@ -151,7 +155,7 @@
                     function doOk(response) {	
                         console.log("orders", response.data);
                         vm.ls.lastUpdate = moment();	
-                        reset(catalogId);
+                        resetType(catalogId, agrupationTypeVAL.TYPE_GROUP);
                         addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
                             console.log("Cargando dsd el server:", catalogId, orders);
                             orders_dao.loadOrders(catalogId, orders);
@@ -197,11 +201,25 @@
 			var promise = defered.promise;
             contextAgrupationsService.getAgrupations(catalogId).then(
                 function(grupos){
-                    var groupsWithoutOrders = grupos.getAgrupations(catalogId).filter(function(g){
-                        return !orders.map(function(o){return o.idGrupo}).includes(g.idGrupo);  // Filtra los grupos que no tienen pedidos creados
-                    });                    
-                    createOrdersForGroupsWithoutOrders(groupsWithoutOrders, orders).then(defered.resolve);
-                });                   
+                    var separatedGroupsAndOrders = grupos.getAgrupations(catalogId).reduce(
+                        function(r,g){
+                            if(g.type != agrupationTypeVAL.TYPE_PERSONAL){
+                                if(!orders.map(function(o){return o.idGrupo}).includes(g.idGrupo)){
+                                    r[0].push(g);
+                                }else{
+                                    r[1].push(orders.filter(function(o){return o.idGrupo == g.idGrupo})[0]);
+                                }
+                            }
+                            return r;
+                        }
+                        , [[],[]]);
+                    var groupsWithoutOrders = separatedGroupsAndOrders[0];
+                    var ordersPreviouslyCreated = separatedGroupsAndOrders[1];
+                    
+                    console.log(groupsWithoutOrders);
+                                
+                    createOrdersForGroupsWithoutOrders(groupsWithoutOrders, ordersPreviouslyCreated).then(defered.resolve);
+                });                
             return promise;
         }
         
