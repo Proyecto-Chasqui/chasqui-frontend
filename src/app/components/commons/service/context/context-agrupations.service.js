@@ -5,8 +5,7 @@
 	angular.module('chasqui').service('contextAgrupationsService', contextAgrupationsService);
     
 	function contextAgrupationsService($localStorage, $q, getContext, agrupations_dao, moment, gccService, 
-                                        createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, 
-                                        idPedidoIndividualGrupoPersonal, agrupationTypeVAL){
+                                        idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, agrupationTypeVAL){
      
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
