@@ -43,6 +43,7 @@
         function getCatalogByShortName(catalogShortName){
             return setPromise(function(defered){
                 getCatalogs().then(function(catalogs){
+
                     defered.resolve(catalogs.filter(function(c){return c.nombreCorto.toLowerCase() == catalogShortName.toLowerCase()})[0]);
                 });
             });
