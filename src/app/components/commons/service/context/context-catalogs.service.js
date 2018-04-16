@@ -21,7 +21,6 @@
         function getCatalogs(){
             return setPromise(function(defered){
                 catalogs_dao.reset();
-                var preCacheCatalogs = catalogs_dao.getCatalogs();
 
                 sellerService.getSellers().then(function(response){
                     catalogs_dao.loadCatalogs(response.data);
