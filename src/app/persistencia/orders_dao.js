@@ -6,6 +6,7 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
    
     var orders_dao_int = {
             reset: reset,
+            resetType: resetType,
             newOrder: newOrder,
             modifyOrder: modifyOrder, 
             loadOrders: loadOrders, 
@@ -48,6 +49,12 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
                         
     function reset(catalogId){
         init(catalogId);
+    }
+    
+    function resetType(catalogId, orderType){
+        modifyOrdersInCatalog(catalogId, orderType, function(orders){
+            return [];
+        })
     }
                         
     function orders(catalogId){
