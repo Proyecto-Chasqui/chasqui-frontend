@@ -5,6 +5,7 @@ angular.module('chasqui').factory('catalogs_dao',
     var catalogs_daoInt = {
         newCatalog: newCatalog,
         loadCatalogs: loadCatalogs, 
+        getCatalogs: getCatalogs,
         reset: reset
     };
                                                 
@@ -93,6 +94,10 @@ angular.module('chasqui').factory('catalogs_dao',
     function loadCatalogs(catalogs){
         catalogs.forEach(newCatalog);
     }    
+                        
+    function getCatalogs(){
+        return ls_connection.get("catalogs");
+    }
                         
     function reset(){
         init();
