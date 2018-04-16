@@ -145,9 +145,10 @@
          *  Retorna: Pedido seleccionado
          */
         function getSelectedOrder(){
+            console.log(getSelectedAgrupation());
             return contextOrdersService.getOrder(order_context.getCatalogId(), 
-                                                 order_context.getOrderId(), 
-                                                 order_context.getAgrupationType());
+                                                 getSelectedAgrupation().idPedidoIndividual, 
+                                                 getSelectedAgrupation().type);
         }
         
         /*
