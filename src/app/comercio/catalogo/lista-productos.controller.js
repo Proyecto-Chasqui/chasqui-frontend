@@ -10,7 +10,7 @@
 	function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
 		$state, ToastCommons, productoService, us,
 		$mdDialog, productorService, contextPurchaseService, 
-        usuario_dao, $stateParams, catalogs_dao, AddProductService) {
+        usuario_dao, $stateParams, catalogs_dao, addProductService) {
 
 		$log.debug('ListaProductosController',
 			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -99,7 +99,7 @@
 		vm.agregar = function(variety) {
 
 			if (usuario_dao.isLogged()) {
-				AddProductService(variety);
+				addProductService(variety);
 			} else {
 				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
 				$log.log('not logued" ', variety);

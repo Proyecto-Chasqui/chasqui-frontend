@@ -5,17 +5,20 @@
     
 	function contextOrdersService(getContext, $q, orders_dao, $localStorage, gccService, moment, contextAgrupationsService,
                                   createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal,
-                                  agrupationTypeVAL, order_context){
+                                  agrupationTypeVAL, order_context, agrupationTypeDispatcher, productoService, ensureContext){
         
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
          
         var contextOrdersServiceInt = {
-            reset: reset,
+            reset: reset,                       // catalogId -> Null
+            addOrder: addOrder,                 // catalogId -> Order -> Null
+            ensureOrders: ensureOrders,         // catalogId -> OrdersType -> Promise
             getOrdersTypes: getOrdersTypes,
             getOrder: getOrder,
             getOrders: getOrders,
-            getOrdersByType: getOrdersByType
+            getOrdersByType: getOrdersByType,
+            modifyOrder: modifyOrder            // catalogId -> Order -> Modification -> Null
         }
         
         
@@ -25,6 +28,19 @@
             orders_dao.reset(catalogId);
         }
             
+        function addOrder(catalogId, order){
+            orders_dao.newOrder(catalogId, order);
+        }
+        
+        
+        function ensureOrders(catalogId, type){
+            return agrupationTypeDispatcher.byType(type, 
+                                                   ensurePersonalOrder,
+                                                   ensureGroupsOrders,
+                                                   ensureNodesOrders
+                                                  )(catalogId);
+        }
+        
         function getOrdersTypes(){
             return agrupationTypeVAL;
         }
@@ -60,6 +76,7 @@
                 // Return from server
                 function(defered){
                     function doOk(response) {	
+                        console.log("orders", response.data);
                         vm.ls.lastUpdate=moment();	
                         reset(catalogId);
                         addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
@@ -69,7 +86,7 @@
                         });
                     }
 
-                    gccService.pedidosByUser(catalogId).then(doOk);                  
+                    gccService.pedidosByUser(catalogId).then(doOk);
                 });
 		}
              
@@ -77,21 +94,84 @@
             return orders_dao.getOrdersByType(catalogId, ordersType);
         }
         
+        
+        function modifyOrder(catalogId, order, modification){
+            orders_dao.modifyOrder(catalogId, order, modification);
+        }
+        
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
         
         /*  
-         *  PROP:
-         *  PREC:
-         *  RET:
-         */        
-        function ordersDispatcher(order, personal_function, group_function){ // Agregar nuevos tipos            
-            if(order.type === agrupationTypeVAL.TYPE_PERSONAL){
-                return personal_function(order);
-            }
+         *  PROP:   Ensure personal order is cached
+         *  PREC:   None
+         *  RET:    Null
+         *  Last modification: 6/4/18
+         */ 
+        function ensurePersonalOrder(catalogId){
+            return ensureContext(
+                vm.ls.lastUpdate, 
+                "personal order",
+                orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL).length === 0, 
+                function(defered){
+                    function doOkPedido(response) {
+                        var personalOrder = response.data;
+                        personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
+                        personalOrder.idGrupo = idGrupoPedidoIndividual;
+                        personalOrder.aliasGrupo = "Personal";
+                        addOrder(catalogId, personalOrder);
+                        defered.resolve();
+                    }
+
+                    function doOkCrear(response) {
+                        productoService.verPedidoIndividual().then(doOkPedido);
+                    }
+
+                    var params = {
+                        idVendedor: catalogId
+                    }
+
+                    //si falla es poque ya tiene un pedido abierto TODO mejorar
+                    productoService.crearPedidoIndividual(params, doOkCrear).then(doOkCrear)
+                });
+        }
+        
+        
+        /*  
+         *  PROP:   Ensure groups orders are cached
+         *  PREC:   None
+         *  RET:    Null
+         *  Last modification: 6/4/18
+         */ 
+        function ensureGroupsOrders(catalogId){
+            return ensureContext(
+                vm.ls.lastUpdate, 
+                "group orders",
+                orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_GROUP).length === 0, 
+                function(defered){
+                    function doOk(response) {	
+                        console.log("orders", response.data);
+                        vm.ls.lastUpdate = moment();	
+                        reset(catalogId);
+                        addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
+                            console.log("Cargando dsd el server:", catalogId, orders);
+                            orders_dao.loadOrders(catalogId, orders);
+                            defered.resolve();
+                        });
+                    }
+
+                    gccService.pedidosByUser(catalogId).then(doOk);
+                });
+        }
+        
+        
+        /*  
+         *  PROP:   Ensure nodes orders are cached
+         *  PREC:   None
+         *  RET:    Null
+         *  Last modification: 6/4/18
+         */ 
+        function ensureNodesOrders(){
             
-            if(order.type === agrupationTypeVAL.TYPE_GROUP){
-                return group_function(order);
-            }
         }
         
         
@@ -99,27 +179,7 @@
          *  PROP:
          *  PREC:
          *  RET:
-         */ 
-        
-        // DEPRECADO
-        function addNewOrder(catalogId, newOrder){
-            if(orders_dao.getOrders().filter(function(o){return o.id == newOrder.id}).length === 0){
-                if(newOrder.idGrupo == null){ // Esto significa que es el pedido individual cargado desde el BE
-                    newOrder.idGrupo = idGrupoPedidoIndividual;
-                    newOrder.aliasGrupo = "Personal";
-                    orders_dao.removeOrder(idPedidoIndividualGrupoPersonal);
-                    contextAgrupationsService.getAgrupations(catalogId).then(function(grupos){
-                        grupos.modifyGroup(idGrupoPedidoIndividual, function(group){
-                            group.idPedidoIndividual = newOrder.id;
-                            return group;
-                        })
-                    })
-                    order_context.setOrderSelected(newOrder.id);
-                }
-                orders_dao.newOrder(newOrder);
-            }
-        }
-        
+        */ 
         function formatOrders(ordersFromServer){
             return ordersFromServer.map(function(order){
                     order.type = agrupationTypeVAL.TYPE_GROUP; 
@@ -151,16 +211,6 @@
         var vm = this;
 		
 		vm.ls = $localStorage;
-        
-                
-        var pedidoIndividualVirtual = {
-            type: agrupationTypeVAL.TYPE_PERSONAL,
-            aliasGrupo: "Personal",
-            estado: "CANCELADO",
-            id: idPedidoIndividualGrupoPersonal,
-            idGrupo: idGrupoPedidoIndividual,
-            productosResponse: []
-        }
         
 		vm.ls.lastUpdate = moment();
         

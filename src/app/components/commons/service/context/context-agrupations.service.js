@@ -46,7 +46,9 @@
                 function(defered){
                     function doOK(response) {					
                         vm.ls.lastUpdate=moment();	
-                        agrupations_dao.loadAgrupations(catalogId, formatAgrupations(response.data));
+                        var agrupations = formatAgrupations(response.data);
+                        agrupations.push(grupoIndividualVirtual);
+                        agrupations_dao.loadAgrupations(catalogId, agrupations);
                         defered.resolve(agrupations_dao);
                     }
                     gccService.groupsByUser().then(doOK);    

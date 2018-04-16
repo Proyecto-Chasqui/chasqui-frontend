@@ -5,25 +5,33 @@
     .module('chasqui')
     .controller('ContextoPedidoController', ContextoPedidoController);
 
-  /**
-   *  FAB Button de contexto de compra.
-   */
-  function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, 
-                                     productoService, $timeout, contextPurchaseService, 
-                                     usuario_dao, ModifyVarietyCount) {
+   /*
+    *  FAB Button de contexto de compra.
+    */
+    function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, 
+                                     productoService, $timeout, contextPurchaseService,
+                                     usuario_dao, modifyVarietyCount, contextOrdersService) {
 
         $log.debug("ContextoPedidoController .....");
 
 
-        /////////////////////////////////////////////////o
+        /////////////////////////////////////////////////
+        
         $scope.urlBase = URLS.be_base;
         $scope.isLogued = usuario_dao.isLogged();
+        $scope.pedidoSelected = {};
+        $scope.showOrderResume = false;
+        $scope.modifyVarietyCount = modifyVarietyCount.modifyDialog;
+        
+        ////////////////////////// Implementation
 
-      
-        // TODO: creo que no corresponde esta recarga. Revisar
         function load() {
-            console.log("Load");
-            $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
+            console.log("Loading", contextPurchaseService.getAgrupationContextType());
+            contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType())
+                .then(function(){
+                    $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
+                    $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 && $scope.pedidoSelected.estado === 'ABIERTO';
+            });
         }
 
 
@@ -37,11 +45,6 @@
         });
 
         load();
-
-
-        $scope.modifyVarietyCount = function(variety){
-              ModifyVarietyCount.modifyDialog(variety);
-        }
 
     }
     

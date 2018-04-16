@@ -3,7 +3,8 @@
 
 	angular.module('chasqui').service('productoService', productoService);
 
-	function productoService(restProxy, $q, $log, REST_ROUTES, StateCommons, promiseService, ToastCommons, $stateParams, contextCatalogsService) {
+	function productoService(restProxy, $q, $log, REST_ROUTES, StateCommons, promiseService, 
+                              ToastCommons, $stateParams, contextCatalogsService) {
 		
         var productoServiceInt = {
             getCategorias: getCategorias,

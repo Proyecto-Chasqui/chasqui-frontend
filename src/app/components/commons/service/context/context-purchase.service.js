@@ -10,7 +10,7 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($q, $log, $localStorage, order_context, catalogs_data,
+	function contextPurchaseService($q, $log, $localStorage, order_context, catalogs_data, agrupationTypeDispatcher,
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, contextCatalogsService) {
         
@@ -97,9 +97,19 @@
          *              order_context.orderId
          */
         function setContextByAgrupation(agrupation){
-            order_context.setAgrupationId(agrupation.id);
-            order_context.setAgrupationType(agrupation.type);            
-            order_context.setOrderId(getOrderByAgrupation(getSelectedAgrupation()));
+            agrupationTypeDispatcher.byElem(agrupation, 
+                function(personal){
+                    order_context.setAgrupationId(personal.id);
+                    order_context.setAgrupationType(personal.type);                  
+                },
+                function(group){
+                    order_context.setAgrupationId(group.id);
+                    order_context.setAgrupationType(group.type);            
+                    order_context.setOrderId(getOrderByAgrupation(getSelectedAgrupation()));
+                },
+                function(node){
+                    // TODO define behavior
+                })
         }
         
         
@@ -252,7 +262,6 @@
 		function getOrderByAgrupation(agrupation) {
             return agrupation.idPedidoIndividual; // TODO: dinamizar segun la BDD
 		}
-
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
         
