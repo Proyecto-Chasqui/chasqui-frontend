@@ -20,13 +20,15 @@
         
         function getCatalogs(){
             return setPromise(function(defered){
-                catalogs_dao.reset();
-                var preCacheCatalogs = catalogs_dao.getCatalogs();
-
-                sellerService.getSellers().then(function(response){
-                    catalogs_dao.loadCatalogs(response.data);
-                    defered.resolve(response.data);
-                });
+                //catalogs_dao.reset();
+                if(catalogs_dao.getCatalogs().length > 0){
+                    defered.resolve(catalogs_dao.getCatalogs());
+                }else{   
+                    sellerService.getSellers().then(function(response){
+                        catalogs_dao.loadCatalogs(response.data);
+                        defered.resolve(response.data);
+                    });
+                }
             });
         }
 

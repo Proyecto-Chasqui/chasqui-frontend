@@ -171,8 +171,7 @@
         var header = {};
         header = {
           'Content-Type': 'application/json',
-          'Authorization': createHeader(),
-          'idVendedor': catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id
+          'Authorization': createHeader()
         };
 
         post(url, header, params, doOk, noOk);

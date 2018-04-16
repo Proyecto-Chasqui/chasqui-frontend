@@ -9,7 +9,7 @@
     *  FAB Button de contexto de compra.
     */
     function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, 
-                                     productoService, $timeout, contextPurchaseService,
+                                     productoService, $timeout, contextPurchaseService, contextCatalogsService, 
                                      usuario_dao, modifyVarietyCount, contextOrdersService) {
 
         $log.debug("ContextoPedidoController .....");
@@ -27,10 +27,13 @@
 
         function load() {
             console.log("Loading", contextPurchaseService.getAgrupationContextType());
-            contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType())
-                .then(function(){
-                    $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
-                    $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 && $scope.pedidoSelected.estado === 'ABIERTO';
+            contextCatalogsService.getCatalogs().then(function(catalogs){
+                contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType())
+                    .then(function(){
+                        $scope.pedidoSelected = contextPurchaseService.getSelectedOrder();
+                        $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 && $scope.pedidoSelected.estado === 'ABIERTO';
+                        console.log($scope.pedidoSelected, $scope.showOrderResume);
+                });
             });
         }
 

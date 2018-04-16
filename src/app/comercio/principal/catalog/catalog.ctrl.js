@@ -11,11 +11,14 @@
         $scope.url = url;
         
         function init(){
-            contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
-                contextPurchaseService.setContextByCatalog(catalog);
-                $scope.catalog = catalog;
+            contextCatalogsService.getCatalogs().then(function(catalogs){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    contextPurchaseService.setContextByCatalog(catalog);
+                    $scope.catalog = catalog;
+                })
             })
         }
+                                                      
         
         init();
         
