@@ -23,7 +23,7 @@
 		$scope.mostrarSeleccionPuntoEntrega = false;
 		$scope.mostrarSeleccionMultiple = false;
 		$scope.configuracionVenedor;
-		$scope.isAdmin = contextoCompraService.isAdmin($scope.pedido);
+		$scope.isAdmin = contextPurchaseService.isAdmin($scope.pedido);
 		$scope.comentario = "";
 	
 
@@ -39,6 +39,7 @@
 
 			function doOk(response) {
 				$log.debug('call direcciones response ', response);
+				console.log('call direcciones response ');
 				$scope.direcciones = response.data;
 				if ($scope.direcciones.length == 0){
 					popUpConfirmarAccion('dialog-sin-direccion.html');				
@@ -49,6 +50,7 @@
 
 			function filldata(response) {
 				$log.debug('call direcciones response para puntosDeEntrega ', response);
+				console.log('call direcciones response para puntosDeEntrega ');
 				$scope.puntosDeEntrega = response.data.puntosDeRetiro;
 			}
       		showMultipleSelection();

@@ -13,7 +13,7 @@
         
         function init(){
             contextPurchaseService.getSelectedCatalog().then(function(catalog){
-                deliveryPointsService.deliveryPoints(catalog.nombre).then(function(response){
+                deliveryPointsService.deliveryPoints(catalog.nombreCorto).then(function(response){
                     $scope.deliveryPoints = response.data.puntosDeRetiro;
                 });    
             })

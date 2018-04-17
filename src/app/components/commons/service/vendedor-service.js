@@ -5,10 +5,13 @@
 
 	function vendedorService($log, REST_ROUTES, StateCommons, promiseService, contextPurchaseService) {
 		var vm = this;
-		//este valor esta disponible para multicatalogo
-		//debe obtenerse de alguna manera dinamica
-		//ya que con el mismo se obtienen los contextos de los vendedores.
-		var nombreVendedor = contextPurchaseService.getCatalogContext(); 
+		var nombreVendedor;
+
+		function filldata(response){
+			nombreVendedor = response.nombreCorto;
+		}
+		
+		contextPurchaseService.getSelectedCatalog().then(filldata);
 
 		vm.verPuntosDeEntrega = function(){
 			return promiseService.doGetPrivate(REST_ROUTES.verPuntosDeEntrega(nombreVendedor), {});
