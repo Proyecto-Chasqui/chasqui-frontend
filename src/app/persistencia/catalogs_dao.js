@@ -1,6 +1,6 @@
 angular.module('chasqui').factory('catalogs_dao', 
-                            ['ls_connection',
-                    function(ls_connection){
+                            ['ss_connection',
+                    function(ss_connection){
     
     var catalogs_daoInt = {
         newCatalog: newCatalog,
@@ -10,7 +10,7 @@ angular.module('chasqui').factory('catalogs_dao',
     };
                                                 
     function init(){
-        ls_connection.init({
+        ss_connection.init({
             catalogs: [/*
                 {
                     id: 2,
@@ -84,7 +84,7 @@ angular.module('chasqui').factory('catalogs_dao',
                         
                         
     function newCatalog(catalog){
-        ls_connection.modifyField("catalogs", function(catalogs){
+        ss_connection.modifyField("catalogs", function(catalogs){
             catalogs.push(catalog);
             return catalogs;
         });
@@ -96,7 +96,7 @@ angular.module('chasqui').factory('catalogs_dao',
     }    
                         
     function getCatalogs(){
-        return ls_connection.get("catalogs");
+        return ss_connection.get("catalogs");
     }
                         
     function reset(){

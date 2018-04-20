@@ -20,14 +20,14 @@
         
         function getCatalogs(){
             return setPromise(function(defered){
-                //catalogs_dao.reset();
-                if(catalogs_dao.getCatalogs().length > 0){
-                    defered.resolve(catalogs_dao.getCatalogs());
-                }else{   
+                var preCacheCatalogs = catalogs_dao.getCatalogs();
+                if(preCacheCatalogs.length > 0){
+                    defered.resolve(preCacheCatalogs);
+                }else{
                     sellerService.getSellers().then(function(response){
                         catalogs_dao.loadCatalogs(response.data);
                         defered.resolve(response.data);
-                    });
+                    }); 
                 }
             });
         }
