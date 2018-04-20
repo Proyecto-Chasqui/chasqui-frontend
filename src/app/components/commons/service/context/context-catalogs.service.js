@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('contextCatalogsService', contextCatalogsService);
     
-	function contextCatalogsService(catalogs_dao, $q, sellerService){
+	function contextCatalogsService(catalogs_dao, sellerService, setPromise){
         
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -48,17 +48,6 @@
                     defered.resolve(catalogs.filter(function(c){return c.nombreCorto.toLowerCase() == catalogShortName.toLowerCase()})[0]);
                 });
             });
-        }
-        
-        ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        
-        function setPromise(deferedFunction){
-            var defered = $q.defer();
-            var promise = defered.promise;
-            
-            deferedFunction(defered);
-            
-            return promise;  
         }
         
         
