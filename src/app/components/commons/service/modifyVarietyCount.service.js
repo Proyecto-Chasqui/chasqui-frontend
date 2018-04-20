@@ -60,6 +60,7 @@
                 
                 function doOk(response) {
                     function orderModification(order){
+                        order.estado = "ABIERTO";
                         return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
                     }
 
@@ -101,19 +102,7 @@
         
         function modifyVarietyCountOnOrder(order, variety, countModification){   
             
-                                                                     
-            if(order.productosResponse.filter(function(p){return p.idVariante == variety.idVariante}).length > 0){
-                var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf(variety.idVariante);
-                if(order.productosResponse[index].cantidad + countModification == 0){
-                    order.productosResponse.splice(index, 1);
-                }else{
-                    order.productosResponse[index].cantidad += countModification;
-                }
-            }else{
-                order.productosResponse.push(formatLikeServerVariety(variety, countModification));
-            }
-            
-            return agrupationTypeDispatcher.byElem(order, 
+            return agrupationTypeDispatcher.byElem(modifyVarietyCountOnThisOrder(order, variety, countModification),
                 function(personalOrder){
                     return personalOrder;
                 },
@@ -125,11 +114,27 @@
                         group.estado = "ABIERTO";
                         return group;
                     });
+                
                     return groupOrder;
                 },
                 function(nodeOrder){
                 
                 });
+        }
+        
+        function modifyVarietyCountOnThisOrder(order, variety, countModification){   
+            if(order.productosResponse.filter(function(p){return p.idVariante == variety.idVariante}).length > 0){
+                var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf(variety.idVariante);
+                if(order.productosResponse[index].cantidad + countModification == 0){
+                    order.productosResponse.splice(index, 1);
+                }else{
+                    order.productosResponse[index].cantidad += countModification;
+                }
+            }else{
+                order.productosResponse.push(formatLikeServerVariety(variety, countModification));
+            }
+            
+            return order;
         }
         
         
