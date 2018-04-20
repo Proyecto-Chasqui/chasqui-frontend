@@ -14,8 +14,9 @@
         
         ///////////////////////////////////////////////////////////////////////////////
         
-        function addProduct(variety) {
-            agrupationTypeDispatcher.byElem(contextPurchaseService.getSelectedAgrupation(), 
+        function addProduct(variety){
+            contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
+                agrupationTypeDispatcher.byElem(selectedAgrupation, 
                 function(personal){
                     console.log("Agregar producto al pedido individual:", variety);
                     addProductPersonalOrderService(variety);
@@ -25,7 +26,8 @@
                 },
                 function(node){
                     // TODO define behavior
-                });
+                });   
+            })
 		}
 	}
 })();

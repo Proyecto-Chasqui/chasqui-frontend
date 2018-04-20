@@ -11,7 +11,7 @@
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
 	function contextPurchaseService($q, $log, $localStorage, order_context, catalogs_data, agrupationTypeDispatcher,
-                                     contextOrdersService, contextAgrupationsService, agrupationTypeVAL,
+                                     contextOrdersService, contextAgrupationsService, agrupationTypeVAL, setPromise,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, contextCatalogsService) {
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -105,7 +105,7 @@
                 function(group){
                     order_context.setAgrupationId(group.id);
                     order_context.setAgrupationType(group.type);            
-                    order_context.setOrderId(getOrderByAgrupation(getSelectedAgrupation()));
+                    order_context.setOrderId(getOrderByAgrupation(group));
                 },
                 function(node){
                     // TODO define behavior
@@ -145,20 +145,32 @@
          *  Retorna: Pedido seleccionado
          */
         function getSelectedOrder(){
-            console.log(getSelectedAgrupation());
-            return contextOrdersService.getOrder(order_context.getCatalogId(), 
-                                                 getSelectedAgrupation().idPedidoIndividual, 
-                                                 getSelectedAgrupation().type);
+            return setPromise(function(defered){
+                getSelectedAgrupation().then(function(selectedAgrupation){
+                    console.log(selectedAgrupation);
+                    defered.resolve(contextOrdersService.getOrder(order_context.getCatalogId(), 
+                                                                  selectedAgrupation.idPedidoIndividual, 
+                                                                  selectedAgrupation.type));
+                });
+            });
         }
         
         /*
-         *  Prec: Caché inicializada
          *  Retorna: Agrupacion seleccionado
          */
         function getSelectedAgrupation(){
-            return contextAgrupationsService.getAgrupation(order_context.getCatalogId(), 
-                                                           order_context.getAgrupationId(), 
-                                                           order_context.getAgrupationType());
+            console.log(order_context.getCatalogId(), 
+                       order_context.getAgrupationId(), 
+                       order_context.getAgrupationType());
+            
+            return setPromise(function(defered){
+                contextAgrupationsService.getAgrupation(order_context.getCatalogId(), 
+                                                        order_context.getAgrupationId(), 
+                                                        order_context.getAgrupationType()).then(
+                    function(selectedAgrupation){
+                        defered.resolve(selectedAgrupation);
+                    })
+            });
         }
         
         

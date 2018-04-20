@@ -147,9 +147,11 @@
 			$log.debug("--- find grupos--------");
 
 			contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-				vm.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
-				$log.debug("--- find grupos respuesta", vm.groups);
-				setTabSeleccionado(contextPurchaseService.getSelectedAgrupation());
+                contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
+                    vm.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
+                    $log.debug("--- find grupos respuesta", vm.groups);
+                    setTabSeleccionado(selectedAgrupation);
+                })
             });
 		}
 
