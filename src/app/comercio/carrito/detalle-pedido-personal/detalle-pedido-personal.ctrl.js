@@ -150,13 +150,15 @@
 		}
 
 		function completarParamsSegunMetodoDeEntrega(param){
-			if($scope.direccionSelected === null){
+			console.log($scope.direccionSelected);
+			console.log("SCOPE");	
+			if($scope.direccionSelected === null || $scope.direccionSelected === undefined){
 				param.idDireccion = null;
 			}else{
 				param.idDireccion = $scope.direccionSelected.idDireccion;
 			}
 
-			if($scope.puntoEntregaSelected === null){
+			if($scope.puntoEntregaSelected === null || $scope.puntoEntregaSelected === undefined){
 				param.idPuntoDeRetiro = null; 
 			}else{
 				param.idPuntoDeRetiro = $scope.puntoEntregaSelected.id;

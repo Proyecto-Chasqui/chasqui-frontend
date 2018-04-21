@@ -3,8 +3,9 @@
 
 	angular.module('chasqui').service('modifyVarietyCount', modifyVarietyCount);
 
-	function modifyVarietyCount($log, dialogCommons, contextPurchaseService, ToastCommons, $rootScope, 
-                                 productoService, us, $state, contextOrdersService){
+	function modifyVarietyCount($log, dialogCommons, contextPurchaseService, ToastCommons, $rootScope, agrupationTypeVAL,
+                                productoService, us, $state, contextOrdersService, setPromise, agrupationTypeDispatcher,
+                                contextAgrupationsService){
 
         return {
             modifyDialog: modifyDialog
@@ -15,31 +16,32 @@
         function modifyDialog(variety){
             var varietyName = (variety.nombreProducto === undefined)? variety.nombre : variety.nombreProducto;
             
-            var initialCount = initialCountForVariety(variety);
-       
-            function doOk(result) {
-                if (result > initialCount) {
-                    callAddToCart(variety, result - initialCount);
+            initialCountForVariety(variety).then(function(initialCount){
+                
+                function doOk(result) {
+                    if (result > initialCount) {
+                        callAddToCart(variety, result - initialCount);
+                    }
+                    if (result < initialCount) {
+                        callRemoveFromCart(variety, initialCount - result);
+                    }
                 }
-                if (result < initialCount) {
-                    callRemoveFromCart(variety, initialCount - result);
+
+                function doNoOk() {
+                    $log.debug("Cancelo Agreglar")
                 }
-            }
 
-            function doNoOk() {
-                $log.debug("Cancelo Agreglar")
-            }
-
-            dialogCommons.modifyVarietyCount({
-                                                title: "¿Cuántos " + varietyName + " necesitas?",
-                                                okButton: "Agregar al carrito",
-                                                cancelButton: "Cancelar"
-                                            },
-                                             initialCount,
-                                             {
-                                                doOk: doOk,
-                                                doNoOk: doNoOk
-                                            });
+                dialogCommons.modifyVarietyCount({
+                                                    title: "¿Cuántos " + varietyName + " necesitas?",
+                                                    okButton: "Agregar al carrito",
+                                                    cancelButton: "Cancelar"
+                                                },
+                                                 initialCount,
+                                                 {
+                                                    doOk: doOk,
+                                                    doNoOk: doNoOk
+                                                });
+            })
        }
         
         /* Private */
@@ -54,32 +56,41 @@
         
         
         function modifyVarietyCount(variety, count, sign, modifierFunction, modifierOkText){
-            function doOk(response) {
-                function orderModification(order){
-                    return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
-                }
+            contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
                 
-                contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
-                                                 contextPurchaseService.getSelectedOrder(),
-                                                 orderModification);
-                
-				ToastCommons.mensaje(us.translate(modifierOkText));
-				$rootScope.$emit('lista-producto-agrego-producto');
-			}
-            
-			var params = {
-                idPedido: contextPurchaseService.getOrderContext(),
-                idVariante: variety.idVariante,
-                cantidad: count
-            };
+                function doOk(response) {
+                    function orderModification(order){
+                        order.estado = "ABIERTO";
+                        return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
+                    }
 
-			modifierFunction(params).then(doOk)            
+                    contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
+                                                     selectedOrder,
+                                                     orderModification);
+
+                    ToastCommons.mensaje(us.translate(modifierOkText));
+                    $rootScope.$emit('lista-producto-agrego-producto');
+                }
+
+                var params = {
+                    idPedido: selectedOrder.id,
+                    idVariante: variety.idVariante,
+                    cantidad: count
+                };
+
+                modifierFunction(params).then(doOk);
+        
+            })
         }
         
         
         function initialCountForVariety(variety){
-            var varietyInOrder = contextPurchaseService.getSelectedOrder().productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
-            return (varietyInOrder.length === 1)? varietyInOrder[0].cantidad : 0;
+            return setPromise(function(defered){
+                contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+                    var varietyInOrder = selectedOrder.productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
+                    defered.resolve((varietyInOrder.length === 1)? varietyInOrder[0].cantidad : 0);
+                })
+            })
         }
         
         
@@ -90,6 +101,28 @@
         
         
         function modifyVarietyCountOnOrder(order, variety, countModification){   
+            
+            return agrupationTypeDispatcher.byElem(modifyVarietyCountOnThisOrder(order, variety, countModification),
+                function(personalOrder){
+                    return personalOrder;
+                },
+                function(groupOrder){
+                    contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(), 
+                                                               groupOrder.idGrupo, 
+                                                               agrupationTypeVAL.TYPE_GROUP, 
+                                                               function(group){
+                        group.estado = "ABIERTO";
+                        return group;
+                    });
+                
+                    return groupOrder;
+                },
+                function(nodeOrder){
+                
+                });
+        }
+        
+        function modifyVarietyCountOnThisOrder(order, variety, countModification){   
             if(order.productosResponse.filter(function(p){return p.idVariante == variety.idVariante}).length > 0){
                 var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf(variety.idVariante);
                 if(order.productosResponse[index].cantidad + countModification == 0){

@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('contextCatalogsService', contextCatalogsService);
     
-	function contextCatalogsService(catalogs_dao, $q, sellerService){
+	function contextCatalogsService(catalogs_dao, sellerService, setPromise){
         
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -20,14 +20,14 @@
         
         function getCatalogs(){
             return setPromise(function(defered){
-                //catalogs_dao.reset();
-                if(catalogs_dao.getCatalogs().length > 0){
-                    defered.resolve(catalogs_dao.getCatalogs());
-                }else{   
+                var preCacheCatalogs = catalogs_dao.getCatalogs();
+                if(preCacheCatalogs.length > 0){
+                    defered.resolve(preCacheCatalogs);
+                }else{
                     sellerService.getSellers().then(function(response){
                         catalogs_dao.loadCatalogs(response.data);
                         defered.resolve(response.data);
-                    });
+                    }); 
                 }
             });
         }
@@ -49,17 +49,6 @@
                     defered.resolve(catalogs.filter(function(c){return c.nombreCorto.toLowerCase() == catalogShortName.toLowerCase()})[0]);
                 });
             });
-        }
-        
-        ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        
-        function setPromise(deferedFunction){
-            var defered = $q.defer();
-            var promise = defered.promise;
-            
-            deferedFunction(defered);
-            
-            return promise;  
         }
         
         

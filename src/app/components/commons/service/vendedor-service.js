@@ -7,18 +7,21 @@
 		var vm = this;
 		var nombreVendedor;
 
-		function filldata(response){
-			nombreVendedor = response.nombreCorto;
-		}
-		
-		contextPurchaseService.getSelectedCatalog().then(filldata);
-
 		vm.verPuntosDeEntrega = function(){
-			return promiseService.doGetPrivate(REST_ROUTES.verPuntosDeEntrega(nombreVendedor), {});
+			function filldata(response){
+				nombreVendedor = response.nombreCorto;
+				return promiseService.doGetPrivate(REST_ROUTES.verPuntosDeEntrega(nombreVendedor), {});
+			}	
+			return contextPurchaseService.getSelectedCatalog().then(filldata);			
 		}
 
 		vm.obtenerConfiguracionVendedor = function(){
-			return promiseService.doGetPrivate(REST_ROUTES.seller(nombreVendedor), {});
+
+			function filldata(response){
+				nombreVendedor = response.nombreCorto;
+				return promiseService.doGetPrivate(REST_ROUTES.seller(nombreVendedor), {});
+			}	
+			return contextPurchaseService.getSelectedCatalog().then(filldata);		
 		}
 
 	}

@@ -3,7 +3,8 @@
 
 	angular.module('chasqui').service('gccService', gccService);
 
-	function gccService($q, $log, REST_ROUTES, StateCommons, promiseService, ToastCommons, $stateParams, contextCatalogsService){
+	function gccService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons, 
+                         $stateParams, contextCatalogsService, setPromise){
 		
         var gccServiceInt = {
             pedidosByUser: pedidosByUser,
@@ -120,16 +121,7 @@
 
         
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-        
-        function setPromise(deferedFunction){
-            var defered = $q.defer();
-            var promise = defered.promise;
-            
-            deferedFunction(defered);
-            
-            return promise;  
-        }
-        
+                
         return gccServiceInt;
 	}
 })();
