@@ -9,7 +9,13 @@
 				<md-input-container class="md-block" flex-gt-sm>
 					<label>{{'CATEGORIA' | translate}}</label>
 					<md-select  ng-model="catalogoCtrl.categoriaSelect">
-						<md-option ng-repeat="categoria in catalogoCtrl.categorias" value="{{categoria.idCategoria}}"> {{categoria.nombre}} </md-option>
+						<md-select-header>
+						<md-input-container>
+						<input autocomplete="off" ng-keydown="$event.stopPropagation()" ng-model="terminoBusquedaC" type="search"
+							placeholder="Buscar categoria..."/>
+						</md-input-container>
+						<md-select-header/>
+						<md-option ng-repeat="categoria in catalogoCtrl.categorias | filter:terminoBusquedaC" value="{{categoria.idCategoria}}"> {{categoria.nombre}} </md-option>
 					</md-select>
 				</md-input-container>
 			</div>
@@ -17,7 +23,11 @@
 				<md-input-container class="md-block" flex-gt-sm>
 					<label>{{'PRODUCTOR' | translate}}</label>
 					<md-select ng-model="catalogoCtrl.productorSelect">
-						<md-option ng-repeat="productor in catalogoCtrl.productores" value="{{productor.idProductor}}"> {{productor.nombreProductor}} </md-option>
+						<md-input-container>
+						<input autocomplete="off" ng-keydown="$event.stopPropagation()" ng-model="terminoBusquedaP" type="search"
+							placeholder="Buscar productor..."/>
+						</md-input-container>
+						<md-option ng-repeat="productor in catalogoCtrl.productores | filter: terminoBusquedaP" value="{{productor.idProductor}}"> {{productor.nombreProductor}} </md-option>
 					</md-select>
 				</md-input-container>
 			</div>
