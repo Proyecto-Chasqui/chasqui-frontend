@@ -2,7 +2,7 @@
     <span ng-show="listaProductosCtrl.productos.length == 0">
         {{'SIN_PRODUCTOS' | translate}}</span>
     <div layout="column" layout-gt-sm="row" layout-wrap>
-        <div flex="25" flex-gt-sm="25" ng-repeat="producto in listaProductosCtrl.productos" style="padding-bottom: 8px">
+        <div flex="30" flex-gt-sm="33" ng-repeat="producto in listaProductosCtrl.productos" style="padding-bottom: 8px">
             <md-card class="alt-catalogo">
                 <div class="hover01">
                     <div>
@@ -24,8 +24,8 @@
                                 </div >-->
                                 <!--
                                 <div class="md-subhead">
-                                    <div ng-bind-html ="producto.descripcion" />     
-                                </div>                                                      
+                                    <div ng-bind-html ="producto.descripcion" />
+                                </div>
                                 -->
                             </div>
                             <div layout="row" layout-align="space-between center">
@@ -35,7 +35,7 @@
                                 <md-button class="btn-compra" ng-click="listaProductosCtrl.agregar(producto)">
                                     <p> {{'AGREGAR_BTN' | translate}} </p>
                                     <md-tooltip md-direction="left">
-                                        {{'AGREGAR_BTN_TT' | translate}}  
+                                        {{'AGREGAR_BTN_TT' | translate}}
                                     </md-tooltip>
                                 </md-button>
                             </div>
@@ -61,7 +61,7 @@
             </md-card>
         </div>
     </div>
-    
+
     <!-- ********************* paginacion *******************-->
     <section layout="column" class="chq-paginador" layout-align="end center" ng-show="listaProductosCtrl.productos.length > 0">
         <cl-paging flex cl-pages="listaProductosCtrl.paging.total" cl-steps="6" cl-page-changed="listaProductosCtrl.paging.onPageChanged()" cl-align="start start" cl-current-page="listaProductosCtrl.paging.current"></cl-paging>
@@ -100,7 +100,7 @@
                     <div ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta" />
                         <md-button ui-sref="productor({id: listaProductosCtrl.emprendedorSelect.idProductor})" >Más</md-button>
                     </div>
-                
+
                 </md-dialog>
             </div>
         </div>
