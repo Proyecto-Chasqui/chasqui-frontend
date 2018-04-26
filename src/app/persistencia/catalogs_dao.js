@@ -85,8 +85,10 @@ angular.module('chasqui').factory('catalogs_dao',
                         
     function newCatalog(catalog){
         ss_connection.modifyField("catalogs", function(catalogs){
-            catalogs.push(catalog);
-            return catalogs;
+            if(catalogs.map(function(c){return c.id}).includes(catalog.id)){
+                catalogs.push(catalog);
+            }
+            return catalogs;            
         });
     }
                       
