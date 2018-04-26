@@ -7,13 +7,14 @@
 	/** @ngInject */
 	function ListaPedidosController($log, $state, $scope, StateCommons, 
             productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, REST_ROUTES, 
-            navigation_state, $rootScope, $stateParams, order_context) {
+            navigation_state, $rootScope, $stateParams, order_context, contextCatalogsService) {
         
 		$log.debug('ListaPedidosController ..... ');
 		navigation_state.goMyOrdersTab();
 
 		$scope.orders = [];
-		$scope.selected = null, $scope.previous = null;
+		$scope.selected = null;
+        $scope.previous = null;
 		$scope.selectedIndex = 1;
 		$scope.pedidosPorCategoria = null;
 
@@ -35,40 +36,23 @@
 				}
 		});
 
-
-		$scope.crearPedidoIndividual = function() {
-			$log.debug("--- Crear pedido individual----");
-			callCrearPedidoIndividual();
+		function load() {
+            contextCatalogsService.getCatalogs().then(function(catalogs){
+                contextPurchaseService.getOrders().then(function(orders){
+                    contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+                        $scope.orders = orders.filter(function(o){return o.estado === "ABIERTO"});
+                        setTabSeleccionado(selectedOrder);
+                    })
+                })
+            })
+            //$scope.fitrarPorEstadoConfirmado();
 		}
-
-
-		function setTabSeleccionado(tabSelected) {
+        
+        function setTabSeleccionado(tabSelected) {
 			$scope.selectedIndex = $scope.orders.map(function(o){return o.id}).indexOf(tabSelected)
             $scope.selectedIndex = ($scope.selectedIndex === -1)?0:$scope.selectedIndex;
             console.log("Tab selected:", tabSelected, "Index: ", $scope.selectedIndex);
 			$scope.selected = $scope.orders[$scope.selectedIndex];
-		}
-	
-        
-		function callCrearPedidoIndividual() {
-			function doOk(response) {
-				$log.debug("--- crear pedido individual response ", response.data);
-
-				ToastCommons.mensaje(us.translate('PEDIDO_CREADO'));
-				callPedidoIndividual();
-			}
-			var json = {};
-			json.idVendedor = contextPurchaseService.getCatalogContext();
-
-			productoService.crearPedidoIndividual(json).then(doOk)
-		}
-	
-
-		function load() {
-			contextPurchaseService.getOrders().then(function(orders) {
-				$scope.orders = orders.getOrders(contextPurchaseService.getCatalogContext()).filter(function(o){return o.estado === "ABIERTO"});
-				setTabSeleccionado(contextPurchaseService.getOrderContext());
-			});
 		}
         
         $scope.isPersonal = function(order){
@@ -80,14 +64,14 @@
             return !$scope.isPersonal(order);
         }
 
-		// Agregado por favio 12-9-17
+		// Last modification: 12-9-17
 
         $scope.fitrarPorEstadoConfirmado = function(){
-            console.log("HOOOOOOOOOOOOOOOOOOOOOOOOOla");
             var params = {};
             params.idVendedor = contextPurchaseService.getCatalogContext();
             params.estados = ["CONFIRMADO"];
-            return promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(
+            
+            promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(
                 function doOk(response) {
                     console.log("Entre en el Dook", response);
                     $scope.pedidosPorCategoria = response.data.reverse()[0];
@@ -95,7 +79,7 @@
                 }
             );
         } 
-        $scope.fitrarPorEstadoConfirmado();
+        
 
         $rootScope.$on('lista-producto-agrego-producto', function(event) {
             $log.debug("on lista-producto-agrego-producto");
