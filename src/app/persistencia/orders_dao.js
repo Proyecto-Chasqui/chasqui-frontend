@@ -27,7 +27,11 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
     function newOrderCurrified(catalogId){
         return function (order){
             modifyOrdersInCatalog(catalogId, order.type, function(orders){
-                return fn_snoc(orders, order);
+                if(orders.map(function(o){return o.id}).includes(order.id)){
+                    return orders;
+                }else{
+                    return fn_snoc(orders, order);
+                }
             })
         }
     }
