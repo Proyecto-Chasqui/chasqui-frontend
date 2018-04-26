@@ -3,13 +3,15 @@
     
     angular.module('chasqui').controller('SectionWrapperCtrl', SectionWrapperCtrl);
     
-	function SectionWrapperCtrl($scope, contextPurchaseService, catalogSupportStrategies) {
+	function SectionWrapperCtrl($scope, contextPurchaseService, catalogSupportStrategies, contextCatalogsService) {
         
         $scope.showElement = false;
         
         function init(){
-            contextPurchaseService.getSelectedCatalog().then(function(catalog){
-                $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies);
+            contextCatalogsService.getCatalogs().then(function(catalogs){
+                contextPurchaseService.getSelectedCatalog().then(function(catalog){
+                    $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies);
+                });
             });
         }
         
