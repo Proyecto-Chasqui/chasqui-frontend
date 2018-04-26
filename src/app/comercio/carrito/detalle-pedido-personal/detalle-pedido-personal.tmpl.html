@@ -3,8 +3,14 @@
 		<md-dialog aria-label="options dialog" class="popUp-domicilio">
 			<md-dialog-content layout-padding >
 				<h2 class="md-title " translate>ELIGE_DOMICILIO</h2>
-				<md-select placeholder="Domicilio" ng-model="direccionSelected"  style="min-width: 30vw;">
+				<md-select ng-show="mostrarSeleccionMultiple" placeholder="Seleccione un modo de entrega" ng-model="entregaSelected" ng-change="selectChanged()"  style="min-width: 30vw;">
+					<md-option ng-value="entrega" ng-repeat="entrega in tipoentrega">{{entrega}}</md-option>
+				</md-select>
+				<md-select ng-show="mostrarSeleccionDomicilio" placeholder="Domicilio de envio" ng-model="direccionSelected"  style="min-width: 30vw;">
 					<md-option ng-value="dire" ng-repeat="dire in direcciones">{{dire.alias}}</md-option>
+				</md-select>
+				<md-select ng-show="mostrarSeleccionPuntoEntrega" placeholder="Seleccione una opción" ng-model="puntoEntregaSelected"  style="min-width: 30vw;">
+					<md-option ng-value="punto" ng-repeat="punto in puntosDeEntrega">{{punto.nombre}}</md-option>
 				</md-select>
 				<textarea type="" name="" placeholder="Ingrese alguna particularidad del domicilio. Por ejemplo: 'No funciona el timbre'" style="width: 100%; margin: 0 auto;" ng-model="comentario"></textarea> 
 				</textarea>

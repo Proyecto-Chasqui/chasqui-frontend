@@ -12,9 +12,9 @@
         <div flex="60">
             <div layout=row layout-align="center center">
                 <md-input-container>
-                    <input ng-model="catalogoCtrl.queryText" type="text" placeholder="{{'BUSCAR' | translate}}">
+                    <input ng-keyup="$event.keyCode == 13 && catalogoCtrl.filtrar()"  ng-model="catalogoCtrl.queryText"  type="text" placeholder="{{'BUSCAR' | translate}}">
                 </md-input-container>
-                <md-button ng-click="catalogoCtrl.filtrar()">
+                <md-button ng-click="catalogoCtrl.filtrar()" >
                     <md-icon md-svg-src="app/components/image/ic_search_black_24px.svg">
                     </md-icon>
                 </md-button>

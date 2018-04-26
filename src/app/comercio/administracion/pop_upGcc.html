@@ -1,15 +1,26 @@
 <script type="text/ng-template" id="dialog-direccion.html">
+
         <md-dialog aria-label="options dialog" class="popUp-domicilio">
             <md-dialog-content layout-padding >
                 <h2 class="md-title " translate>ELIGE_DOMICILIO</h2>
-                <md-select placeholder="Domicilio" ng-model="pedidoGrupoCtrl.direccionSelected"  style="min-width: 30vw;">
+                <md-select ng-show="pedidoGrupoCtrl.mostrarSeleccionMultiple" placeholder="Seleccione un modo de entrega" ng-model="pedidoGrupoCtrl.entregaSelected" ng-change="pedidoGrupoCtrl.selectChanged()"  style="min-width: 30vw;">
+                    <md-option ng-value="entrega" ng-repeat="entrega in pedidoGrupoCtrl.tipoentrega">{{entrega}}</md-option>
+                </md-select>
+                <md-select ng-show="pedidoGrupoCtrl.mostrarSeleccionDomicilio" placeholder="Domicilio de envio" ng-model="pedidoGrupoCtrl.direccionSelected"  style="min-width: 30vw;">
                     <md-option ng-value="dire" ng-repeat="dire in pedidoGrupoCtrl.direcciones">{{dire.alias}}</md-option>
+                </md-select>
+                <md-select ng-show="pedidoGrupoCtrl.mostrarSeleccionPuntoEntrega" placeholder="Seleccione una opción" ng-model="pedidoGrupoCtrl.puntoEntregaSelected"  style="min-width: 30vw;">
+                    <md-option ng-value="punto" ng-repeat="punto in pedidoGrupoCtrl.puntosDeEntrega">{{punto.nombre}}</md-option>
                 </md-select>
                 <textarea type="" name="" placeholder="Ingrese alguna particularidad del domicilio. Por ejemplo: 'No funciona el timbre'" style="width: 100%; margin: 0 auto;" ng-model="pedidoGrupoCtrl.comentario"></textarea> 
                 </textarea>
+            
             </md-dialog-content>
             <md-dialog-actions>
                 <span flex></span>
+                <md-button class="confirma-domicilio" ng-click="pedidoGrupoCtrl.ignorarAccion()">
+                    <label translate="CANCELAR"></label>
+                </md-button>
                 <md-button class="confirma-domicilio" ng-click="pedidoGrupoCtrl.confirmarDomicilio()">
                     <label translate="CONFIRMAR"></label>
                 </md-button>

@@ -1,20 +1,20 @@
-<md-content ng-cloak>
+<md-content ng-cloak >
     <home-menu class="menu"></home-menu>
-    
+
     <div class="ch-content-full">
         <md-grid-list md-cols="3"  md-row-height="260px">
-            <md-grid-tile md-colspan="1" md-rowspan="1" ng-repeat="catalog in catalogs">
-                <md-card>
-                    <a ng-click="goToCatalog(catalog.nombreCorto)"> 					
-                        <md-card-title> 
+            <md-grid-tile md-colspan="1" md-rowspan="1" ng-repeat="catalog in catalogs" layout-align="space-around center">
+                <md-card class="tarjeta-multicatalogo">
+                    <a ng-click="goToCatalog(catalog.nombreCorto)" class="selector-catalogo">
+                        <md-card-title class="red">
                             <md-card-title-text>
-                                <span class="md-headline">{{catalog.nombre}}</span>
-                                <span class="md-subhead">{{catalog.nombreCorto}}</span>
-                                <span class="md-subhead">{{catalog.id}}</span>
+                                <span class="md-headline catalogo-nombre">{{catalog.nombre}}</span>
+                                <span class="md-subhead catalogo-nombre-corto">{{catalog.nombreCorto}}</span>
+                                <span class="md-subhead catalogo-id">{{catalog.id}}</span>
                             </md-card-title-text>
                         </md-card-title>
                         <md-card-actions layout="row" layout-align="center">
-                            <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 50px;"> 
+                            <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 50px;">
                         </md-card-actions>
                     </a>
                 </md-card>
@@ -22,3 +22,35 @@
         </md-grid-list>
     </div>
 </md-content>
+<style>
+  .selector-catalogo{
+    background: #F1F1F1;
+    transition: all 2s ease-out;
+  }
+
+  .selector-catalogo:hover{
+    background: #21B7EE;
+    cursor: pointer;
+    transition: all 2s ease-out;
+  }
+
+  .tarjeta-multicatalogo{
+    width: 30vw;
+    padding: .4rem;
+  }
+
+  .catalogo-nombre{
+    color: #9A8479;
+    font-weight: bold;
+  }
+
+  .catalogo-nombre-corto{
+    color: #9A8479;
+    font-weight: 500;
+  }
+
+  .catalogo-id{
+    color: #9A8479;
+    font-size: .6rem !important;
+  }
+</style>

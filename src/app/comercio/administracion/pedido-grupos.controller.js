@@ -9,13 +9,20 @@
    *           grupo
    */
   function PedidoGruposController($scope, StateCommons, $log, perfilService, $mdDialog, 
-    gccService, us,ToastCommons,contextPurchaseService,$state, usuario_dao) {
+    gccService, us,ToastCommons,contextoCompraService,$state, usuario_dao, vendedorService) {
     $log.debug('PedidoGruposController', $scope.grupo);
 
     var vm = this;
     vm.grupo = $scope.grupo;
     vm.direcciones = [];
     vm.direccionSelected;
+    vm.puntosDeEntrega;
+    vm.puntoEntregaSelected;
+    vm.tipoentrega = ["A domicilio","Paso a retirar"];
+    vm.mostrarSeleccionDomicilio = false;
+    vm.mostrarSeleccionPuntoEntrega = false;
+    vm.mostrarSeleccionMultiple = false;
+    vm.configuracionVenedor;
     vm.puedeCerrarPedidoGCC = !hayAlgunPedidoAbierto();
     vm.comentario = "";
 
@@ -77,7 +84,7 @@
             // Modificado por favio....
       var params = {};
       params.idGrupo = vm.grupo.idGrupo;
-      params.idDireccion = vm.direccionSelected.idDireccion;
+      completarParamsSegunMetodoDeEntrega(params);
       //params.comentario = vm.comentario;
 
       gccService.confirmarPedidoColectivo(params).then(doOk);
@@ -99,7 +106,79 @@
         }
       }
 
+
+      function filldata(response) {
+        $log.debug('call direcciones response para puntosDeEntrega ', response);
+        vm.puntosDeEntrega = response.data.puntosDeRetiro;
+      }
+
+      showMultipleSelection();
+      vendedorService.verPuntosDeEntrega().then(filldata);
       perfilService.verDirecciones().then(doOk);
+    }
+
+    function showMultipleSelection(){
+
+      function configurarSelectores(response){
+        vm.configuracionVenedor = response.data.few;
+        vm.mostrarSeleccionMultiple = vm.configuracionVenedor.seleccionDeDireccionDelUsuario && vm.configuracionVenedor.puntoDeEntrega;
+        if(! vm.mostrarSeleccionMultiple){
+          vm.mostrarSeleccionDomicilio = vm.configuracionVenedor.seleccionDeDireccionDelUsuario;
+          vm.mostrarSeleccionPuntoEntrega = vm.configuracionVenedor.puntoDeEntrega;
+        }else{
+          vm.mostrarSeleccionPuntoEntrega = false;
+          vm.mostrarSeleccionDomicilio =  false;
+        }
+      }
+      vendedorService.obtenerConfiguracionVendedor().then(configurarSelectores); 
+    }
+
+    vm.selectChanged = function(){
+      if(vm.entregaSelected === vm.tipoentrega[0]){
+        vm.mostrarSeleccionDomicilio = true;
+      }else{
+        vm.mostrarSeleccionDomicilio = false;
+
+      }
+      if(vm.entregaSelected === vm.tipoentrega[1]){
+        vm.mostrarSeleccionPuntoEntrega = true;
+      }else{
+        vm.mostrarSeleccionPuntoEntrega = false;
+      }
+      vm.direccionSelected = null;
+      vm.puntoEntregaSelected = null;
+    }
+
+    function completarParamsSegunMetodoDeEntrega(param){
+      if(vm.direccionSelected === null){
+        param.idDireccion = null;
+      }else{
+        param.idDireccion = vm.direccionSelected.idDireccion;
+      }
+
+      if(vm.puntoEntregaSelected === null){
+        param.idPuntoDeRetiro = null; 
+      }else{
+        param.idPuntoDeRetiro = vm.puntoEntregaSelected.id;
+      }
+      console.log(param);
+    }
+
+    vm.ignorarAccion = function(){
+      $log.debug('close');
+      limpiarValores();
+      $mdDialog.hide();
+    }
+
+    function limpiarValores(){
+      $scope.direcciones = null;
+      $scope.direccionSelected = null;
+      $scope.puntosDeEntrega = null;
+      $scope.puntoEntregaSelected = null;
+      $scope.mostrarSeleccionDomicilio = false;
+      $scope.mostrarSeleccionPuntoEntrega = false;
+      $scope.mostrarSeleccionMultiple = false;
+      $scope.configuracionVenedor = null;
     }
 
     function popUpElegirDireccion(ev) {

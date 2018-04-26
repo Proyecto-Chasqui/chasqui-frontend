@@ -1,72 +1,73 @@
-<div class="ch-content principal" layout="row" layout-align="space-between start">
-    <aside flex="30" style="padding-left: 2rem; padding-bottom: 4rem; padding-top: 3rem;">
-        <div class="destacados" ng-include="'app/comercio/catalogo/lista-productos-destacados.html'"></div>
-    </aside>
-    <section flex="50" layout="column" layout-align="space-between center">
-        <header>
-            <h1>Conocé Puente del Sur</h1>
-        </header>
-        <article>
-            <p>Puente del Sur es una organización popular surgida en el año 2003. Un grupo de compañeros que tomó como tarea acercar los productos de organizaciones y distintos pequeños productores a personas y grupos que hacen una opción de consumo. Es un colectivo de trabajo que tiene como objetivos, a la vez, crear puestos de trabajo dignos en la tarea de distribución y hacer viables las iniciativas de producción de otras organizaciones, cooperativas y pequeños productores.</p>
-        </article>
-        <article ng-include="'app/comercio/principal/principal-info.html'">
-        </article>
-    </section>
+<div class="principal" style="padding-top: 11%;" layout="row" layout-align="space-between start">
+  <aside flex="30" style="padding-left: 2rem; padding-bottom: 4rem; padding-top: 3rem;">
+    <div class="destacados" ng-include="'app/comercio/catalogo/lista-productos-destacados.html'"></div>
+  </aside>
+  <section flex="50" layout="column" layout-align="space-between center">
+    <header>
+      <h1>Conocé Chasqui</h1>
+    </header>
+    <article>
+      <p>Chasqui es una herramienta multiplataforma de licencia libre que permite a diferentes organizaciones de
+  la Economía Social y Solidaria (productores, comercializadoras y cooperativas de servicios,etc...) vender
+  de forma electrónica sus productos y servicios desde su catálogo en la plataforma. Para los consumidores
+  es una forma simple de acceder a una oferta variada y reconocer los diferenciales de la Economía Social,
+  sus valores y su calidad.</p>
+          <p>
+  Chasqui consta de una aplicación móvil y una aplicación web, que permiten realizar pedidos en las
+  diversas modalidades que hemos identificado que proveen identidad, pero también sostenibilidad a la
+  economía social: compras individuales y colectivas, nodos de consumo, almacenes y ferias.
+  La herramienta busca visibilizar y poner en valor las caracterı́sticas del comercio
+  justo y la Economía Social y Solidaria, promoviendo el consumo responsable a través de una interfaz
+  atractiva e intuitiva. Además, Chasqui se desarrolla bajo licencia libre, lo que permite su difusión y
+  adaptación a nuevos contextos, nacionales e internacionales.</p>
+          <p>
+  Está previsto que pueda conectarse con complementos y programas que le permitan incorporar nuevas
+  funcionalidades como: gestión de compras y ventas, control de stock, administración contable y
+  financiera, sistemas de pago electrónico y monedas sociales, etc.</p>
+    </article>
 
-    <aside class="social-media" flex="20" layout="column" layout-align="space-between center">
-    <a href="https://www.facebook.com/puente.delsur/" target="blank">
-        <svg class="princ-icon" viewBox="0 0 24 24">
-        <path stroke="white" stroke-width="0.3" fill="#468385" d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" />
-    </svg></a>
-    <a href="https://plus.google.com/u/0/109840027029118501054" target="blank">
-        <svg class="princ-icon" viewBox="0 0 24 24">
-        <path stroke="white" stroke-width="0.3" fill="#468385" d="M23,11H21V9H19V11H17V13H19V15H21V13H23M8,11V13.4H12C11.8,14.4 10.8,16.4 8,16.4C5.6,16.4 3.7,14.4 3.7,12C3.7,9.6 5.6,7.6 8,7.6C9.4,7.6 10.3,8.2 10.8,8.7L12.7,6.9C11.5,5.7 9.9,5 8,5C4.1,5 1,8.1 1,12C1,15.9 4.1,19 8,19C12,19 14.7,16.2 14.7,12.2C14.7,11.7 14.7,11.4 14.6,11H8Z" />
-    </svg>
-    </a>
+    <article ng-include="'app/comercio/principal/principal-info.html'">
+    </article>
+    <footer>
+    </footer>
+  </section>
 
-    <a href="https://twitter.com/PuentedelSur" target="blank"><!-- twitter -->
-        <svg class="princ-icon" viewBox="0 0 24 24">
-        <path stroke="white" stroke-width="0.3" fill="#468385" d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z" />
-    </svg>
-    </a>
-    <a href="http://puentedelsurcoop.com.ar/" target="blank"> <!-- web -->
-            <svg class="princ-icon" viewBox="0 0 24 24">
-        <path stroke="white" stroke-width="0.3" fill="#468385" d="M17.9,17.39C17.64,16.59 16.89,16 16,16H15V13A1,1 0 0,0 14,12H8V10H10A1,1 0 0,0 11,9V7H13A2,2 0 0,0 15,5V4.59C17.93,5.77 20,8.64 20,12C20,14.08 19.2,15.97 17.9,17.39M11,19.93C7.05,19.44 4,16.08 4,12C4,11.38 4.08,10.78 4.21,10.21L9,15V16A2,2 0 0,0 11,18M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-        </a>
-    </aside>
-</div>
-    
-<style type="text/css">
-	.principal{
-		text-align: justify;
-	}
+  <aside class="social-media" flex="20" layout="column" layout-align="space-between center">
 
-	.principal h1{
-		font-size: 2rem;
-		text-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-		color: rgb(0,0,15);
-		font-weight: bold;
-	}
 
-	.social-media{
-		margin-top: 5rem;
-		padding-top: 1.5rem;
-	}
-	.princ-icon{
-		display: block;
-		background: #462342;
-		border-radius: 2px;
-		width: 4rem;
-		height: 4rem;
-		padding: .3rem;
-		margin: .8rem;
-		transition: all .7s;
-	}
-	.princ-icon:hover{
-		background-color: #2F3539;
-		border-radius: 50%;
-		box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6),
-					-1px -1px 3px rgba(0, 0, 0, 0.6);
-		transition: all .7s;
-	}
-</style>
+  </aside>
+  </div>
+  <style type="text/css">
+    .principal{
+      text-align: justify;
+    }
+
+    .principal h1{
+      font-size: 2rem;
+      text-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+      color: rgb(0,0,15);
+      font-weight: bold;
+    }
+
+    .social-media{
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+    }
+    .princ-icon{
+      display: block;
+      background: #462342;
+      border-radius: 2px;
+      width: 4rem;
+      height: 4rem;
+      padding: .3rem;
+      margin: .8rem;
+      transition: all .7s;
+    }
+    .princ-icon:hover{
+      background-color: #2F3539;
+      border-radius: 50%;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6),
+            -1px -1px 3px rgba(0, 0, 0, 0.6);
+      transition: all .7s;
+    }
+  </style>
