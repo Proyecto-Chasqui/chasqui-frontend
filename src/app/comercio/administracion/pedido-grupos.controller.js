@@ -9,7 +9,7 @@
    *           grupo
    */
   function PedidoGruposController($scope, StateCommons, $log, perfilService, $mdDialog, 
-    gccService, us,ToastCommons,contextoCompraService,$state, usuario_dao, vendedorService) {
+    gccService, us,ToastCommons,contextPurchaseService,$state, usuario_dao, vendedorService) {
     $log.debug('PedidoGruposController', $scope.grupo);
 
     var vm = this;
@@ -150,13 +150,13 @@
     }
 
     function completarParamsSegunMetodoDeEntrega(param){
-      if(vm.direccionSelected === null){
+      if(vm.direccionSelected === null || vm.direccionSelected === undefined){
         param.idDireccion = null;
       }else{
         param.idDireccion = vm.direccionSelected.idDireccion;
       }
 
-      if(vm.puntoEntregaSelected === null){
+      if(vm.puntoEntregaSelected === null || vm.puntoEntregaSelected === undefined){
         param.idPuntoDeRetiro = null; 
       }else{
         param.idPuntoDeRetiro = vm.puntoEntregaSelected.id;
