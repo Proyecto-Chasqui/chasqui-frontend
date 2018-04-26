@@ -152,7 +152,7 @@
          *  RET:    Null
          *  Last modification: 6/4/18
          */ 
-        function ensureNodesOrders(){
+        function ensureNodesOrders(catalogId){
             
         }
         
