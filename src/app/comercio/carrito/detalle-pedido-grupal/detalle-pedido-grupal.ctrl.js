@@ -111,10 +111,10 @@
 			productoService.quitarProductoIndividual(params).then(doOk)
 		}
 
-		$scope.comprar = function() {
+		$scope.comprar = function(){
 			contextPurchaseService.setContextByOrder($scope.pedido);
-			$state.go('catalogo')
-		}
+			$state.go('catalog.products');
+        }
 
 		$scope.eliminar = function(item) {
 			$scope.productoEliminar = item;
