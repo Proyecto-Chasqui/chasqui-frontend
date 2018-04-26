@@ -96,7 +96,7 @@
             return ensureContext(
                 vm.ls.lastUpdate, 
                 "personal agrupation",
-                agrupations_dao.getAgrupationsByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL).length === 0, 
+                agrupations_dao.getAgrupationsByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL), 
                 function(defered){
                     vm.ls.lastUpdate = moment();	
                     agrupations_dao.newAgrupation(catalogId, grupoIndividualVirtual);
@@ -114,7 +114,7 @@
             return ensureContext(
                 vm.ls.lastUpdate, 
                 "groups agrupations",
-                agrupations_dao.getAgrupationsByType(catalogId, agrupationTypeVAL.TYPE_GROUP).length === 0, 
+                agrupations_dao.getAgrupationsByType(catalogId, agrupationTypeVAL.TYPE_GROUP), 
                 function(defered){
                     function doOK(response) {					
                         vm.ls.lastUpdate = moment();	

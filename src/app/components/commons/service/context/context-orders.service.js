@@ -3,9 +3,10 @@
 
 	angular.module('chasqui').service('contextOrdersService', contextOrdersService);
     
-	function contextOrdersService(getContext, $q, orders_dao, $localStorage, gccService, moment, contextAgrupationsService,
+	function contextOrdersService(getContext, orders_dao, $localStorage, gccService, moment, contextAgrupationsService,
                                   createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal,
-                                  agrupationTypeVAL, order_context, agrupationTypeDispatcher, productoService, ensureContext){
+                                  agrupationTypeVAL, order_context, agrupationTypeDispatcher, productoService, ensureContext,
+                                  setPromise){
         
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -60,38 +61,15 @@
          *  RET:
          */ 
         function getOrders(catalogId) {
-            return getContext(
-                vm.ls.lastUpdate, 
-                "pedidos", 
-                
-                // Return from cache
-                function(){
-                    var defered = $q.defer();
-                    var promise = defered.promise;
-                    addOrdersFromGroupsWithoutOrders(catalogId, orders_dao.getOrders(catalogId)).then(function(orders){
-                            orders_dao.loadOrders(catalogId, orders);
-                            defered.resolve(orders_dao);
-                        });
-                    return promise;                
-                },   
-                
-                orders_dao.getOrders(catalogId).length === 0, 
-                
-                // Return from server
-                function(defered){
-                    function doOk(response) {	
-                        console.log("orders", response.data);
-                        vm.ls.lastUpdate=moment();	
-                        reset(catalogId);
-                        addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
-                            console.log("Cargando dsd el server:", catalogId, orders);
-                            orders_dao.loadOrders(catalogId, orders);
-                            defered.resolve(orders_dao);
-                        });
-                    }
-
-                    gccService.pedidosByUser(catalogId).then(doOk);
-                });
+            return setPromise(function(defered){
+                ensureOrders(catalogId, agrupationTypeVAL.TYPE_PERSONAL).then(function(personalOrder){
+                    ensureOrders(catalogId, agrupationTypeVAL.TYPE_GROUP).then(function(groupOrders){
+                        console.log(personalOrder, groupOrders);
+                        
+                        defered.resolve(personalOrder.concat(groupOrders));
+                    })
+                })
+            })
 		}
              
         function getOrdersByType(catalogId, ordersType){
@@ -115,7 +93,7 @@
             return ensureContext(
                 vm.ls.lastUpdate, 
                 "personal order",
-                orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL).length === 0, 
+                orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL), 
                 function(defered){
                     function doOkPedido(response) {
                         var personalOrder = response.data;
@@ -123,7 +101,7 @@
                         personalOrder.idGrupo = idGrupoPedidoIndividual;
                         personalOrder.aliasGrupo = "Personal";
                         addOrder(catalogId, personalOrder);
-                        defered.resolve();
+                        defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
                     }
 
                     function doOkCrear(response) {
@@ -150,7 +128,7 @@
             return ensureContext(
                 vm.ls.lastUpdate, 
                 "group orders",
-                orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_GROUP).length === 0, 
+                orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_GROUP), 
                 function(defered){
                     function doOk(response) {	
                         console.log("orders", response.data);
@@ -159,7 +137,7 @@
                         addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
                             console.log("Cargando dsd el server:", catalogId, orders);
                             orders_dao.loadOrders(catalogId, orders);
-                            defered.resolve();
+                            defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_GROUP));
                         });
                     }
 
@@ -197,30 +175,29 @@
          * Return: [Order], a list with an order for every user's agrupation
          */
         function addOrdersFromGroupsWithoutOrders(catalogId, orders){
-			var defered = $q.defer();
-			var promise = defered.promise;
-            contextAgrupationsService.getAgrupations(catalogId).then(
-                function(grupos){
-                    var separatedGroupsAndOrders = grupos.getAgrupations(catalogId).reduce(
-                        function(r,g){
-                            if(g.type != agrupationTypeVAL.TYPE_PERSONAL){
-                                if(!orders.map(function(o){return o.idGrupo}).includes(g.idGrupo)){
-                                    r[0].push(g);
-                                }else{
-                                    r[1].push(orders.filter(function(o){return o.idGrupo == g.idGrupo})[0]);
+            return setPromise(function(defered){
+                contextAgrupationsService.getAgrupations(catalogId).then(
+                    function(grupos){
+                        var separatedGroupsAndOrders = grupos.getAgrupations(catalogId).reduce(
+                            function(r,g){
+                                if(g.type != agrupationTypeVAL.TYPE_PERSONAL){
+                                    if(!orders.map(function(o){return o.idGrupo}).includes(g.idGrupo)){
+                                        r[0].push(g);
+                                    }else{
+                                        r[1].push(orders.filter(function(o){return o.idGrupo == g.idGrupo})[0]);
+                                    }
                                 }
+                                return r;
                             }
-                            return r;
-                        }
-                        , [[],[]]);
-                    var groupsWithoutOrders = separatedGroupsAndOrders[0];
-                    var ordersPreviouslyCreated = separatedGroupsAndOrders[1];
-                    
-                    console.log(groupsWithoutOrders);
-                                
-                    createOrdersForGroupsWithoutOrders(groupsWithoutOrders, ordersPreviouslyCreated).then(defered.resolve);
-                });                
-            return promise;
+                            , [[],[]]);
+                        var groupsWithoutOrders = separatedGroupsAndOrders[0];
+                        var ordersPreviouslyCreated = separatedGroupsAndOrders[1];
+
+                        console.log(groupsWithoutOrders);
+
+                        createOrdersForGroupsWithoutOrders(groupsWithoutOrders, ordersPreviouslyCreated).then(defered.resolve);
+                })
+            })
         }
         
         

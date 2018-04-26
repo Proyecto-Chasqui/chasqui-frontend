@@ -9,15 +9,15 @@
          
         ///////////////////// Public
         
-        function ensureContextImpl(lastUpdate, contextName, cacheIsEmpty, returnFromServer){
+        function ensureContextImpl(lastUpdate, contextName, cacheContext, returnFromServer){
 			var defered = $q.defer();
 			var promise = defered.promise;
             
-			if (cacheTimeExpired(lastUpdate) || cacheIsEmpty) {
+			if (cacheTimeExpired(lastUpdate) || cacheContext.length === 0) {
                 $log.debug("NO tiene " + contextName + " en cache");
                 returnFromServer(defered);
 			}else{
-                defered.resolve();
+                defered.resolve(cacheContext);
             }
             
 			return promise;
