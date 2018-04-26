@@ -60,7 +60,11 @@
                 
                 function doOk(response) {
                     function orderModification(order){
-                        order.estado = "ABIERTO";
+                        if(order.estado != "ABIERTO"){
+                            order.estado = "ABIERTO";
+                            order.montoActual = 0;
+                            order.productosResponse = [];
+                        }
                         return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
                     }
 
@@ -87,8 +91,8 @@
         function initialCountForVariety(variety){
             return setPromise(function(defered){
                 contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
-                    var varietyInOrder = selectedOrder.productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
-                    defered.resolve((varietyInOrder.length === 1)? varietyInOrder[0].cantidad : 0);
+                    var existVarietyInOrder = selectedOrder.productosResponse.filter(function(p){return p.idVariante === variety.idVariante}).length === 1;
+                    defered.resolve((existVarietyInOrder && selectedOrder.estado == "ABIERTO")? varietyInOrder[0].cantidad : 0);
                 })
             })
         }
