@@ -1,7 +1,7 @@
 angular.module('chasqui').factory('catalogs_data', catalogs_data);
 
     
-function catalogs_data(ls_connection, agrupationTypeVAL){
+function catalogs_data(ss_connection, agrupationTypeVAL){
     
     ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     
@@ -22,32 +22,32 @@ function catalogs_data(ls_connection, agrupationTypeVAL){
     }             
     
     function resetOrders(catalogId){
-        ls_connection.modifyField("catalogs_data", function(catalogs_data){
+        ss_connection.modifyField("catalogs_data", function(catalogs_data){
             catalogs_data[catalogId].orders = startingOrders;
             return catalogs_data;
         });
     }
     
     function resetAgrupations(catalogId){
-        ls_connection.modifyField("catalogs_data", function(catalogs_data){
+        ss_connection.modifyField("catalogs_data", function(catalogs_data){
             catalogs_data[catalogId].agrupations = startingAgrupations;
             return catalogs_data;
         });
     }
           
     function addCatalog(catalogId){
-        ls_connection.modifyField("catalogs_data", function(catalogs_data){
+        ss_connection.modifyField("catalogs_data", function(catalogs_data){
             catalogs_data[catalogId] = startingCatalogData();
             return catalogs_data;
         });
     }
     
     function getCatalog(catalogId){
-        return ls_connection.get("catalogs_data")[catalogId];
+        return ss_connection.get("catalogs_data")[catalogId];
     }
     
     function modifyCatalogData(catalogId, modification){
-        ls_connection.modifyField("catalogs_data", function(catalogs_data){
+        ss_connection.modifyField("catalogs_data", function(catalogs_data){
             catalogs_data[catalogId] = modification(catalogs_data[catalogId]);
             return catalogs_data;
         });
@@ -80,7 +80,7 @@ function catalogs_data(ls_connection, agrupationTypeVAL){
     
     
     function init(){
-        ls_connection.init({
+        ss_connection.init({
             catalogs_data: {}
         });
         console.log("Init catalogs_data");
