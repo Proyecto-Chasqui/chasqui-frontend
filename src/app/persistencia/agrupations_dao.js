@@ -76,7 +76,11 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
     function newAgrupationCurrified(catalogId){
         return function (agrupation){
             modifyAgrupationsInCatalog(catalogId, agrupation.type, function(agrupations){
-                return fn_snoc(agrupations, agrupation);
+                if(agrupations.map(function(a){return a.idGrupo}).includes(agrupation.idGrupo)){
+                    return agrupations;
+                }else{
+                    return fn_snoc(agrupations, agrupation);
+                }
             })
         }
     }
