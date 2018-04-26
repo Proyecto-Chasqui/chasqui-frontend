@@ -64,8 +64,6 @@
             return setPromise(function(defered){
                 ensureOrders(catalogId, agrupationTypeVAL.TYPE_PERSONAL).then(function(personalOrder){
                     ensureOrders(catalogId, agrupationTypeVAL.TYPE_GROUP).then(function(groupOrders){
-                        console.log(personalOrder, groupOrders);
-                        
                         defered.resolve(personalOrder.concat(groupOrders));
                     })
                 })

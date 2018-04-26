@@ -37,11 +37,13 @@
 		});
 
 		function load() {
-            contextCatalogsService.getCatalogs().then(function(catalogs){
-                contextPurchaseService.getOrders().then(function(orders){
-                    contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
-                        $scope.orders = orders.filter(function(o){return o.estado === "ABIERTO"});
-                        setTabSeleccionado(selectedOrder.id);
+            contextCatalogObserver.observe(function(){
+                contextCatalogsService.getCatalogs().then(function(catalogs){
+                    contextPurchaseService.getOrders().then(function(orders){
+                        contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+                            $scope.orders = orders.filter(function(o){return o.estado === "ABIERTO" && o.montoActual != 0});
+                            setTabSeleccionado(selectedOrder.id);
+                        })
                     })
                 })
             })
