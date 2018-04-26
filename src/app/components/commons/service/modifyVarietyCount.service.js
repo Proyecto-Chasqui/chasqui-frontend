@@ -91,8 +91,9 @@
         function initialCountForVariety(variety){
             return setPromise(function(defered){
                 contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
-                    var existVarietyInOrder = selectedOrder.productosResponse.filter(function(p){return p.idVariante === variety.idVariante}).length === 1;
-                    defered.resolve((existVarietyInOrder && selectedOrder.estado == "ABIERTO")? varietyInOrder[0].cantidad : 0);
+                    var varietyInOrder = selectedOrder.productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
+                    var existsVarietyInOrder = varietyInOrder.length === 1;
+                    defered.resolve((existsVarietyInOrder && selectedOrder.estado == "ABIERTO")? varietyInOrder[0].cantidad : 0);
                 })
             })
         }
