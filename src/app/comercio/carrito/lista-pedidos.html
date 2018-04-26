@@ -3,11 +3,11 @@
         <md-content flex layout-padding ng-show="orders.length==0 && pedidosPorCategoria === null" style="min-height: 100px">
             <p>
                 <label translate="SIN_PEDIDO_MSG_1"/>
-                <a class="md-accent" href="/#/catalogo">
+                <a class="md-accent" ui-sref="catalog.products">
                     <label translate="SIN_PEDIDO_MSG_2"/>
                 </a>
                 <label translate="SIN_PEDIDO_MSG_3"/>
-                    <a class="md-accent" href="/#/lista-grupos">
+                    <a class="md-accent" ui-sref="catalog.groups">
                         <label translate="SIN_PEDIDO_MSG_4"/>
                     </a>
             </p>
