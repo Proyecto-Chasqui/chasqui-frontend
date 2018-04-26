@@ -5,7 +5,7 @@
 
 	function modifyVarietyCount($log, dialogCommons, contextPurchaseService, ToastCommons, $rootScope, agrupationTypeVAL,
                                 productoService, us, $state, contextOrdersService, setPromise, agrupationTypeDispatcher,
-                                contextAgrupationsService){
+                                contextAgrupationsService, contextCatalogObserver){
 
         return {
             modifyDialog: modifyDialog
@@ -59,21 +59,23 @@
             contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
                 
                 function doOk(response) {
-                    function orderModification(order){
-                        if(order.estado != "ABIERTO"){
-                            order.estado = "ABIERTO";
-                            order.montoActual = 0;
-                            order.productosResponse = [];
+                    contextCatalogObserver.observe(function(){
+                        function orderModification(order){
+                            if(order.estado != "ABIERTO"){
+                                order.estado = "ABIERTO";
+                                order.montoActual = 0;
+                                order.productosResponse = [];
+                            }
+                            return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
                         }
-                        return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
-                    }
 
-                    contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
-                                                     selectedOrder,
-                                                     orderModification);
+                        contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
+                                                         selectedOrder,
+                                                         orderModification);
 
-                    ToastCommons.mensaje(us.translate(modifierOkText));
-                    $rootScope.$emit('lista-producto-agrego-producto');
+                        ToastCommons.mensaje(us.translate(modifierOkText));
+                        $rootScope.$emit('lista-producto-agrego-producto');
+                    })
                 }
 
                 var params = {
@@ -112,13 +114,15 @@
                     return personalOrder;
                 },
                 function(groupOrder){
-                    contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(), 
-                                                               groupOrder.idGrupo, 
-                                                               agrupationTypeVAL.TYPE_GROUP, 
-                                                               function(group){
-                        group.estado = "ABIERTO";
-                        return group;
-                    });
+                    contextCatalogObserver.observe(function(){
+                        contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(), 
+                                                                   groupOrder.idGrupo, 
+                                                                   agrupationTypeVAL.TYPE_GROUP, 
+                                                                   function(group){
+                            group.estado = "ABIERTO";
+                            return group;
+                        });
+                    })
                 
                     return groupOrder;
                 },

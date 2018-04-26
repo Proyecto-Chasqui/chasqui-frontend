@@ -5,7 +5,7 @@
 		ListaPedidosController);
 
 	/** @ngInject */
-	function ListaPedidosController($log, $state, $scope, StateCommons, 
+	function ListaPedidosController($log, $state, $scope, StateCommons, contextCatalogObserver,
             productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, REST_ROUTES, 
             navigation_state, $rootScope, $stateParams, order_context, contextCatalogsService) {
         
@@ -67,17 +67,19 @@
 		// Last modification: 12-9-17
 
         $scope.fitrarPorEstadoConfirmado = function(){
-            var params = {};
-            params.idVendedor = contextPurchaseService.getCatalogContext();
-            params.estados = ["CONFIRMADO"];
-            
-            promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(
-                function doOk(response) {
-                    console.log("Entre en el Dook", response);
-                    $scope.pedidosPorCategoria = response.data.reverse()[0];
-                    console.log($scope.pedidosPorCategoria);    
-                }
-            );
+            contextCatalogObserver.observe(function(){
+                var params = {};
+                params.idVendedor = contextPurchaseService.getCatalogContext();
+                params.estados = ["CONFIRMADO"];
+
+                promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(
+                    function doOk(response) {
+                        console.log("Entre en el Dook", response);
+                        $scope.pedidosPorCategoria = response.data.reverse()[0];
+                        console.log($scope.pedidosPorCategoria);    
+                    }
+                );
+            })
         } 
         
 

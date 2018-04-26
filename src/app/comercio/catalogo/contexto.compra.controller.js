@@ -9,7 +9,7 @@
 	 * Lista lateral de productos del pedido seleccionado
 	 */
 	function ContextoCompraController($rootScope, $log, $scope, contextPurchaseService, agrupationTypeVAL,
-                                       usuario_dao, contextAgrupationsService, order_context) {
+                                       usuario_dao, contextAgrupationsService, order_context, contextCatalogObserver) {
 
 		$log.debug("ContextoCompraController ..... ");
 
@@ -21,14 +21,16 @@
         $scope.setPersonalAsAgrupationSelected = setPersonalAsAgrupationSelected;
         
         function init(){
-            $scope.agrupationSelected = {
-                id: contextPurchaseService.getAgrupationContextId(),
-                type: agrupationTypeVAL.TYPE_GROUP
-            }
-            contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
-                    $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
-                                                                        agrupationTypeVAL.TYPE_GROUP);
-                });
+            contextCatalogObserver.observe(function(){
+                $scope.agrupationSelected = {
+                    id: contextPurchaseService.getAgrupationContextId(),
+                    type: agrupationTypeVAL.TYPE_GROUP
+                }
+                contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
+                        $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
+                                                                            agrupationTypeVAL.TYPE_GROUP);
+                    });
+            })
         }
         
         init();

@@ -10,7 +10,7 @@
 		- La cache se puede limpiar manualmente cuando se llama un servicio que se 
 		sabe impacta en datos, por ejemplo borrar miembro.
 		 */
-	function contextPurchaseService($q, $log, $localStorage, order_context, catalogs_data, agrupationTypeDispatcher,
+	function contextPurchaseService($q, $log, $localStorage, order_context, catalogs_data, agrupationTypeDispatcher, contextCatalogObserver,
                                      contextOrdersService, contextAgrupationsService, agrupationTypeVAL, setPromise,
                                      idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, contextCatalogsService) {
         
@@ -78,6 +78,7 @@
             order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
             order_context.setOrderId(idPedidoIndividualGrupoPersonal);
             initCatalogData(order_context.getCatalogId().toString());
+            contextCatalogObserver.run();
         }
         
         /* Prop: setea el contexto de compra segun el pedido para el usuario logeado

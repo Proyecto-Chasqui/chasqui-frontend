@@ -6,18 +6,23 @@
 
 	/** Contempla los datos personales y 
 	 *  el domicilio en dos pasos pero en la misma pantalla*/
-	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, 
+	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, contextCatalogObserver,
                                               ToastCommons, us, $timeout, contextPurchaseService) {
         
         $scope.selectedIndex = 0;
         
-        var idInvitacion = contextPurchaseService.getCatalogContext();
+        var idInvitacion = 0;
         
         $scope.mailInvitacion = "";
         
-        perfilService.getMailInvitacion(idInvitacion).then(function(data){
-            $scope.mailInvitacion = "";
-        })
+        function init(){
+            contextCatalogObserver.observe(function(){
+                var idInvitacion = contextPurchaseService.getCatalogContext();
+                perfilService.getMailInvitacion(idInvitacion).then(function(data){
+                    $scope.mailInvitacion = "";
+                })
+            })
+        }
         
         /////////////////////////////////// Configuración form usuario  ///////////////////////////////////
         
@@ -60,30 +65,32 @@
         
         // usuario nuevo
 		function callGuardar(profile) {
-			$log.debug("guardar usuario", profile);
-            function doOk(response) {
-                mostrarMensajesDeBienvenida();                    
-                $log.debug("Nuevo usuario creado", response.data);                    
-                /*
-                    Algo se deberia hacer con la informacion que esta trayendo el servidor
-                */
-                //usuario_dao.logIn(response.data); 
-                $state.go('catalog.login');
-            }
-            
-            perfilService.singUpInvitacionGCC(prepareProfile(profile)).then(doOk);
+            contextCatalogObserver.observe(function(){
+                $log.debug("guardar usuario", profile);
+                function doOk(response) {
+                    mostrarMensajesDeBienvenida();                    
+                    $log.debug("Nuevo usuario creado", response.data);                    
+                    /*
+                        Algo se deberia hacer con la informacion que esta trayendo el servidor
+                    */
+                    //usuario_dao.logIn(response.data); 
+                    $state.go('catalog.login');
+                }
+
+                perfilService.singUpInvitacionGCC(prepareProfile(profile)).then(doOk);
+            })
 		}
         
         
         function prepareProfile(profile){
             return addFields(
                         filterFields(profile, ["passVerification", "emailVerification", "email"]), 
-                        {invitacion: idInvitacion}
+                        {invitacion: contextPurchaseService.getCatalogContext()}
                     );
         }
         
           ////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-         ///////      Buenas funciones [Juan, 14/11/17]     \\\\\\\
+         ///////      Algunas funciones [Juan, 14/11/17]    \\\\\\\
         ////////////////////////////    \\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
         function filterFields(obj, fields){
@@ -118,6 +125,8 @@
 				ToastCommons.mensaje(us.translate('CORREO_MSG'));
 			}, 15000);
 		}
+        
+        init();
 	}
 
 })();

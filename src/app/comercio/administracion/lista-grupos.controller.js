@@ -5,7 +5,7 @@
 		ListaGruposController);
 
 	
-	function ListaGruposController($log, $scope, $state,
+	function ListaGruposController($log, $scope, $state, contextCatalogObserver,
 		dialogCommons, ToastCommons, gccService, URLS, agrupationTypeVAL,
         us, usuario_dao, navigation_state, contextPurchaseService) {
 
@@ -112,16 +112,18 @@
 		// ///// REST
 
 		function callCrearPedidoGrupal(grupo) {
-			function doOk(response) {
-				$log.debug('Crear pedido en el grupo');
-				ToastCommons.mensaje(us.translate('NUEVO_PEDIDO'));
-			}
+            contextCatalogObserver.observe(function(){
+                function doOk(response) {
+                    $log.debug('Crear pedido en el grupo');
+                    ToastCommons.mensaje(us.translate('NUEVO_PEDIDO'));
+                }
 
-			var params = {};
-			params.idGrupo = grupo.idGrupo;
-			params.idVendedor = contextPurchaseService.getCatalogContext();
+                var params = {};
+                params.idGrupo = grupo.idGrupo;
+                params.idVendedor = contextPurchaseService.getCatalogContext();
 
-			gccService.crearPedidoGrupal(params).then(doOk);
+                gccService.crearPedidoGrupal(params).then(doOk);
+            })
 		}
 
 		function callInvitarUsuario(emailClienteInvitado, grupo) {
@@ -145,14 +147,15 @@
 
 		function callLoadGrupos() {
 			$log.debug("--- find grupos--------");
-
-			contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-                contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
-                    vm.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
-                    $log.debug("--- find grupos respuesta", vm.groups);
-                    setTabSeleccionado(selectedAgrupation);
-                })
-            });
+            contextCatalogObserver.observe(function(){
+                contextPurchaseService.getAgrupations().then(function(agrupationsInt){
+                    contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
+                        vm.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
+                        $log.debug("--- find grupos respuesta", vm.groups);
+                        setTabSeleccionado(selectedAgrupation);
+                    })
+                });
+            })
 		}
 
 		function callQuitarMiembro(miembro) {

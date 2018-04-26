@@ -8,7 +8,7 @@
    /*
     *  FAB Button de contexto de compra.
     */
-    function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, 
+    function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, contextCatalogObserver,
                                      productoService, $timeout, contextPurchaseService, contextCatalogsService, 
                                      usuario_dao, modifyVarietyCount, contextOrdersService) {
 
@@ -26,16 +26,18 @@
         ////////////////////////// Implementation
 
         function load() {
-            console.log("Loading", contextPurchaseService.getAgrupationContextType());
-            contextCatalogsService.getCatalogs().then(function(catalogs){
-                contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType()).then(function(){
-                    contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
-                        $scope.pedidoSelected = selectedOrder;
-                        $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 && $scope.pedidoSelected.estado === 'ABIERTO';
-                        console.log($scope.pedidoSelected, $scope.showOrderResume);
-                    })
+            contextCatalogObserver.observe(function(){
+                console.log("Loading", contextPurchaseService.getAgrupationContextType());
+                contextCatalogsService.getCatalogs().then(function(catalogs){
+                    contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType()).then(function(){
+                        contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+                            $scope.pedidoSelected = selectedOrder;
+                            $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 && $scope.pedidoSelected.estado === 'ABIERTO';
+                            console.log($scope.pedidoSelected, $scope.showOrderResume);
+                        })
+                    });
                 });
-            });
+            })
         }
 
 
