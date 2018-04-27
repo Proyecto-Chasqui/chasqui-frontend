@@ -26,7 +26,7 @@
                 }else{
                     sellerService.getSellers().then(function(response){
                         catalogs_dao.loadCatalogs(response.data);
-                        defered.resolve(response.data);
+                        defered.resolve(catalogs_dao.getCatalogs());
                     }); 
                 }
             });
