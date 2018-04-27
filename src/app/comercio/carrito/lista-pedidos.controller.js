@@ -89,6 +89,16 @@
             $log.debug("on lista-producto-agrego-producto");
             load();
         });
+        
+        $rootScope.$on('order-confirmed', function(event) {
+            $log.debug("on order-confirmed");
+            load();
+        });
+        
+        $rootScope.$on('order-cancelled', function(event) {
+            $log.debug("on order-cancelled");
+            load();
+        });
 
 
 		load();

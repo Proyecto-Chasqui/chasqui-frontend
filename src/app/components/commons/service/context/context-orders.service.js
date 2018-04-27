@@ -19,7 +19,9 @@
             getOrder: getOrder,
             getOrders: getOrders,
             getOrdersByType: getOrdersByType,
-            modifyOrder: modifyOrder            // catalogId -> Order -> Modification -> Null
+            modifyOrder: modifyOrder,            // catalogId -> Order -> Modification -> Null
+            setStateConfirmed: setStateConfirmed,// catalogId -> Order -> Null
+            setStateCancel: setStateCancel       // catalogId -> Order -> Null
         }
         
         
@@ -77,6 +79,20 @@
         
         function modifyOrder(catalogId, order, modification){
             orders_dao.modifyOrder(catalogId, order, modification);
+        }
+        
+        function setStateConfirmed(catalogId, order){
+            orders_dao.modifyOrder(catalogId, order, function(orderSelected){
+                orderSelected.estado = "CONFIRMADO";
+                return orderSelected;
+            });
+        }        
+        
+        function setStateCancel(catalogId, order){
+            orders_dao.modifyOrder(catalogId, order, function(orderSelected){
+                orderSelected.estado = "CANCELADO";
+                return orderSelected;
+            });
         }
         
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
