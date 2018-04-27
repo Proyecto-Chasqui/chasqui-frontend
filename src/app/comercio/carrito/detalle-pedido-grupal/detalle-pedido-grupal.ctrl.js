@@ -12,7 +12,6 @@
 
         $scope.confirmOrder = confirmOrder;
         $scope.cancelOrder = cancelOrder;
-        $scope.continueBuying = continueBuying;
 
         /////////////////////////////////////
         
@@ -36,10 +35,6 @@
 
 			productoService.cancelarPedidoIndividual($scope.pedido.id).then(doOk);
 		}
-
-        function continueBuying(){
-			$state.go('catalog.products');
-        }
 	}
 
 })();
