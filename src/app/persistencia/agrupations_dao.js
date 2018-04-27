@@ -74,12 +74,13 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
     }
     
     function newAgrupationCurrified(catalogId){
-        return function (agrupation){
-            modifyAgrupationsInCatalog(catalogId, agrupation.type, function(agrupations){
-                if(agrupations.map(function(a){return a.idGrupo}).includes(agrupation.idGrupo)){
+        return function (newAgrupation){
+            modifyAgrupationsInCatalog(catalogId, newAgrupation.type, function(agrupations){
+                if(agrupations.map(function(a){return a.idGrupo}).includes(newAgrupation.idGrupo)){
+                    agrupations[agrupations.map(function(a){return a.idGrupo}).indexOf(newAgrupation.idGrupo)] = newAgrupation;
                     return agrupations;
                 }else{
-                    return fn_snoc(agrupations, agrupation);
+                    return fn_snoc(agrupations, newAgrupation);
                 }
             })
         }
