@@ -5,6 +5,8 @@
 	"CAMBIAR_CHANGO": "Cambiar de changuito",
 	"TOTAL": "Total",
 	"PROD_EN_PEDIDO": "Productos en el pedido ",
+    "PEDIDO_CONFIRMADO_MSG_1": "Tu pedido individual dentro del grupo",
+    "PEDIDO_CONFIRMADO_MSG_2": "está confirmado. No se pueden agregar más productos hasta que el administrador del grupo confirme el pedido grupal.",
 	"SIN_PROD_PEDIDO": "No hay productos en el pedido",
 	"BUSCAR_POR": "Buscar por",
 	"CATEGORIA": "Categoría",

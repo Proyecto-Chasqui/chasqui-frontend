@@ -32,8 +32,7 @@
                     contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType()).then(function(){
                         contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
                             $scope.pedidoSelected = selectedOrder;
-                            $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 && $scope.pedidoSelected.estado === 'ABIERTO';
-                            console.log($scope.pedidoSelected, $scope.showOrderResume);
+                            $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 && $scope.pedidoSelected.estado != 'VENCIDO';
                         })
                     });
                 });
