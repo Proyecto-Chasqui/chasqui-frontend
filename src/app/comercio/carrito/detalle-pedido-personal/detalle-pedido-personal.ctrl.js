@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function DetallePedidoPersonalController($log, $state, $scope, URLS, REST_ROUTES, $rootScope,
-                                              ToastCommons, $mdDialog, dialogCommons, 
+                                              ToastCommons, $mdDialog, dialogCommons, contextOrdersService,
                                               productoService, perfilService, gccService,
 		                                      vendedorService, contextPurchaseService, us) {
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
@@ -93,12 +93,10 @@
 			function doOk(response) {
 				$log.debug("--- cancelar pedido response ", response.data);
 				ToastCommons.mensaje(us.translate('CANCELADO'));
-				contextPurchaseService.refreshPedidos().then(
-					function() {
-						$state.reload();
-					});
+				contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), $scope.pedido);
 				$log.debug('close');
 				$mdDialog.hide();
+                $rootScope.$emit('order-cancelled');
 			}
 
 			productoService.cancelarPedidoIndividual($scope.pedido.id).then(doOk);
