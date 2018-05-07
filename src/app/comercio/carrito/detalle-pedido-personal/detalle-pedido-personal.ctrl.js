@@ -5,7 +5,7 @@
 		DetallePedidoPersonalController);
 
 	/** @ngInject */
-	function DetallePedidoPersonalController($log, $state, $scope, URLS, REST_ROUTES, 
+	function DetallePedidoPersonalController($log, $state, $scope, URLS, REST_ROUTES, $rootScope,
                                               ToastCommons, $mdDialog, dialogCommons, 
                                               productoService, perfilService, gccService,
 		                                      vendedorService, contextPurchaseService, us) {
@@ -13,197 +13,76 @@
 
 		$scope.urlBase = URLS.be_base;
 		$scope.idVendedor = perfilService.idVendedor;
-		$scope.direcciones ;
-		$scope.direccionSelected;
-		$scope.puntosDeEntrega;
-		$scope.puntoEntregaSelected;
-		$scope.tipoentrega = ["A domicilio","Paso a retirar"];
 		$scope.productoEliminar;
-		$scope.mostrarSeleccionDomicilio = false;
-		$scope.mostrarSeleccionPuntoEntrega = false;
-		$scope.mostrarSeleccionMultiple = false;
-		$scope.configuracionVenedor;
-		$scope.isAdmin = contextPurchaseService.isAdmin($scope.pedido);
 		$scope.comentario = "";
-	
-
-		
-		$scope.confirmar = function() {
-			
-			popUpElegirDireccion();
-			$scope.callDirecciones();
+        
+		$scope.confirmarClick = confirmar;
+        
+        
+        
+        
+        ///////////////////////////////////////
+        
+		function confirmar() {	
+            var actions = {
+                doOk: confirmarDomicilio,
+                doNotOk: ignorarAccion
+            };
+            
+            dialogCommons.selectDeliveryAddress(actions);
 		};
-
-		function callDirecciones() {
-			$log.debug('call direcciones ');
+        
+        function confirmarDomicilio(direccionSelected, puntoEntregaSelected) {
+			$log.debug('callConfirmar', $scope.pedido);
 
 			function doOk(response) {
-				$log.debug('call direcciones response ', response);
-				console.log('call direcciones response ');
-				$scope.direcciones = response.data;
-				if ($scope.direcciones.length == 0){
-					popUpConfirmarAccion('dialog-sin-direccion.html');				
-				}else{
-					popUpElegirDireccion();
-				}
+				$log.debug("--- confirmar pedido response ", response.data);
+				ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
+				$rootScope.$emit('order-confirmed');
 			}
 
-			function filldata(response) {
-				$log.debug('call direcciones response para puntosDeEntrega ', response);
-				console.log('call direcciones response para puntosDeEntrega ');
-				$scope.puntosDeEntrega = response.data.puntosDeRetiro;
-			}
-      		showMultipleSelection();
-			vendedorService.verPuntosDeEntrega().then(filldata);
-			perfilService.verDirecciones().then(doOk);
+			var params = {};
+			params.idPedido = $scope.pedido.id;			
+			params.comentario = $scope.comentario;
+            
+			completarParamsSegunMetodoDeEntrega(direccionSelected, puntoEntregaSelected, params);
+		
+			productoService.confirmarPedidoIndividual(params).then(doOk);
 		}
-
-		function showMultipleSelection(){
-
-			function configurarSelectores(response){
-				$scope.configuracionVenedor = response.data.few;
-				$scope.mostrarSeleccionMultiple = $scope.configuracionVenedor.seleccionDeDireccionDelUsuario && $scope.configuracionVenedor.puntoDeEntrega;
-				if(! $scope.mostrarSeleccionMultiple){
-					$scope.mostrarSeleccionDomicilio = $scope.configuracionVenedor.seleccionDeDireccionDelUsuario;
-					$scope.mostrarSeleccionPuntoEntrega = $scope.configuracionVenedor.puntoDeEntrega;
-				}else{
-					$scope.mostrarSeleccionPuntoEntrega = false;
-					$scope.mostrarSeleccionDomicilio =  false;
-				}
-			}
-			vendedorService.obtenerConfiguracionVendedor().then(configurarSelectores); 
+        
+        function ignorarAccion(){
+			$log.debug('close');
 		}
+        
 
-		$scope.selectChanged = function(){
-			if($scope.entregaSelected === $scope.tipoentrega[0]){
-				$scope.mostrarSeleccionDomicilio = true;
+		function completarParamsSegunMetodoDeEntrega(direccionSelected, puntoEntregaSelected, param){
+			console.log(direccionSelected);
+			if(direccionSelected === null || direccionSelected === undefined){
+				param.idDireccion = null;
 			}else{
-				$scope.mostrarSeleccionDomicilio = false;
-
+				param.idDireccion = direccionSelected.idDireccion;
 			}
-			if($scope.entregaSelected === $scope.tipoentrega[1]){
-				$scope.mostrarSeleccionPuntoEntrega = true;
+
+			if(puntoEntregaSelected === null || puntoEntregaSelected === undefined){
+				param.idPuntoDeRetiro = null; 
 			}else{
-				$scope.mostrarSeleccionPuntoEntrega = false;
+				param.idPuntoDeRetiro = puntoEntregaSelected.id;
 			}
-			$scope.direccionSelected = null;
-			$scope.puntoEntregaSelected = null;
 		}
 
-		function popUpElegirDireccion() {
-			$log.debug('confirmarDomicilioOpenDialog');
-			$mdDialog.show({
-				templateUrl: 'dialog-direccion.html',
-				scope: $scope,
-				preserveScope: true
-				//targetEvent: ev
-			});
-		}
 
+        /////////////////////////////////////////////
+        
 		function popUpConfirmarAccion(templateUrl) {
+            //dialogCommons.confirm(titulo, texto, textOk, textCancel, doOk, doNoOk) 
 			$log.debug(templateUrl);
 			$mdDialog.show({
 				templateUrl: templateUrl,
 				scope: $scope,
 				preserveScope: true
-				//targetEvent: ev
 			});
 		}
-
-		/// confirmacion individual de GCC
-		function confirmarPedidoIndividualGcc() {
-			function doOk(response) {
-				ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
-				contextPurchaseService.refreshPedidos().then(
-					function() {						
-						$state.reload();
-					});				
-			}
-
-			if ($scope.pedido.idGrupo == null) {
-				ToastCommons.mensaje("funcionalidad para GCC !");
-			} else {
-				gccService.confirmarPedidoIndividualGcc($scope.pedido.id).then(doOk)
-			}
-		}
-
-		function callConfirmar() {
-			$log.debug('callConfirmar   ',$scope.pedido);
-
-			function doOk(response) {
-				$log.debug("--- confirmar pedido response ", response.data);
-				ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
-				contextPurchaseService.refreshPedidos().then(
-			        function(pedidos) {
-			          $state.reload();			          
-			        });
-				location.reload();// TODO: Revisar $localStorage
-			}
-
-			var params = {};
-			completarParamsSegunMetodoDeEntrega(params);
-			params.idPedido = $scope.pedido.id;			
-			params.comentario = $scope.comentario;
-		
-			productoService.confirmarPedidoIndividual(params).then(doOk)
-		
-		}
-
-		function completarParamsSegunMetodoDeEntrega(param){
-			console.log($scope.direccionSelected);
-			console.log("SCOPE");	
-			if($scope.direccionSelected === null || $scope.direccionSelected === undefined){
-				param.idDireccion = null;
-			}else{
-				param.idDireccion = $scope.direccionSelected.idDireccion;
-			}
-
-			if($scope.puntoEntregaSelected === null || $scope.puntoEntregaSelected === undefined){
-				param.idPuntoDeRetiro = null; 
-			}else{
-				param.idPuntoDeRetiro = $scope.puntoEntregaSelected.id;
-			}
-		}
-
-		function doEliminar() {
-			$log.debug('DetallePedidoController , eliminar ', $scope.productoEliminar);
-
-			function doOk(response) {
-				$log.debug("--- eliminar pedido response ", response.data);
-				ToastCommons.mensaje(us.translate('QUITO_PRODUCTO'));
-			//	contextPurchaseService.refreshPedido();
-				contextPurchaseService.refreshPedidos().then(
-			        function(pedidos) {
-			          $state.reload();			          
-			        });
-				//$state.reload();
-			}
-
-			var params = {};
-			params.idPedido = $scope.pedido.id;
-			params.idVariante = $scope.productoEliminar.idVariante;
-			params.cantidad = $scope.productoEliminar.cantidad;
-
-			productoService.quitarProductoIndividual(params).then(doOk)
-		}
-
-		$scope.comprar = function() {
-			contextPurchaseService.setContextByOrder($scope.pedido);
-			$state.go('catalog.products');
-        }
-
-		$scope.eliminar = function(item) {
-			$scope.productoEliminar = item;
-
-			dialogCommons.confirm(us.translate('QUITAR_PRODUCTO_TIT'),
-				us.translate('QUITAR_PRODUCTO_MSG'),
-				us.translate('SI'),
-				us.translate('NO'),
-				doEliminar,
-				function() {}
-			);
-		}
-
+        
 		$scope.cancelar= function(){
 			popUpConfirmarAccion('dialog-cancelar-pedido.html');
 		}
@@ -224,40 +103,7 @@
 
 			productoService.cancelarPedidoIndividual($scope.pedido.id).then(doOk);
 		}
-
-		$scope.ignorarAccion = function(){
-			$log.debug('close');
-
-			$mdDialog.hide();
-		}
-
-		function limpiarValores(){
-			$scope.direcciones = null;
-			$scope.direccionSelected = null;
-			$scope.puntosDeEntrega = null;
-			$scope.puntoEntregaSelected = null;
-			$scope.mostrarSeleccionDomicilio = false;
-			$scope.mostrarSeleccionPuntoEntrega = false;
-			$scope.mostrarSeleccionMultiple = false;
-			$scope.configuracionVenedor = null;
-		}
-
-		$scope.confirmarClick = function(){
-            contextPurchaseService.setContextByOrder($scope.pedido);
-			if (contextPurchaseService.isPedidoInividualSelected()){
-                console.log("Individual");
-				callDirecciones();
-			}else{
-				confirmarPedidoIndividualGcc();
-			}
-		}
-
-		$scope.confirmarDomicilio = function() {
-			$log.debug('close');
-			$mdDialog.hide();
-			callConfirmar();
-		};
-
+		
 		$scope.irAPerfil = function(){
 			$mdDialog.hide();
 			$state.go('catalog.profile');

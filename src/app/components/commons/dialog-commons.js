@@ -44,6 +44,19 @@
             
             $mdDialog.show(modify);
         }
-
+        
+        vm.selectDeliveryAddress = function(actions){
+            var modify = {
+                parent: angular.element(document.body),
+                templateUrl: "app/comercio/carrito/select-delivery-address/select-delivery-address.tmpl.html",
+                controller: "SelectDeliveryAddressController",
+                locals: {
+                    actions: actions
+                }
+            };
+            
+            $mdDialog.show(modify);
+        }
+            
 	} 
 })(); 
