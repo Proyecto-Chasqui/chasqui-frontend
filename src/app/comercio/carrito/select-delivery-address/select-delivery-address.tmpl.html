@@ -2,22 +2,24 @@
     <md-dialog-content layout-padding >
 
         <h2 class="md-title " translate>ELIGE_DOMICILIO</h2>
-        <md-select ng-show="mostrarSeleccionMultiple" placeholder="Seleccione un modo de entrega" ng-model="entregaSelected" ng-change="selectChanged()"  style="min-width: 30vw;">
-            <md-option ng-value="entrega" ng-repeat="entrega in tipoentrega">{{entrega}}</md-option>
+        <md-select ng-show="mostrarSeleccionMultiple" placeholder="Seleccione un modo de entrega" ng-model="entregaSelected" style="min-width: 30vw;">
+            <md-option ng-value="delivery" ng-repeat="delivery in deliveryTypes" ng-click="setDeliveryType(delivery)">{{delivery.label}}</md-option>
         </md-select>
 
         <element-wrapper supported-strategies="seleccionDeDireccionDelUsuario">
-            <md-input-container>
-                <md-select placeholder="Domicilio de envio" ng-model="selectedAddress" style="min-width: 30vw;" ng-change="showSelection()">
-                    <md-option ng-value="address" ng-repeat="address in addresses">{{address.alias}}</md-option>
+            <md-input-container ng-show="deliveryTypes[0].show">
+                <md-select placeholder="Domicilio de envio" ng-model="selectedAddress" style="min-width: 30vw;">
+                    <md-option ng-repeat="address in addresses" ng-click="setSelectedAddress(address)" ng-value="address">{{address.alias}}</md-option>
                 </md-select>
             </md-input-container>
         </element-wrapper>
 
         <element-wrapper supported-strategies="puntoDeEntrega">
-            <md-select placeholder="Seleccione una opción" ng-model="puntoEntregaSelected"  style="min-width: 30vw;">
-                <md-option ng-value="punto" ng-repeat="punto in deliveryPoints">{{punto.nombre}}</md-option>
-            </md-select>
+            <md-input-container ng-show="deliveryTypes[1].show">
+                <md-select placeholder="Seleccione un punto de entrega" ng-model="selectedDeliveryPoint"  style="min-width: 30vw;">
+                    <md-option ng-repeat="deliveryPoint in deliveryPoints" ng-click="setSelectedDeliveryPoint(deliveryPoint)" ng-value="punto">{{deliveryPoint.nombre}}</md-option>
+                </md-select>
+            </md-input-container>
         </element-wrapper>
 
         <textarea type="" name="" placeholder="Ingrese alguna particularidad del domicilio. Por ejemplo: 'No funciona el timbre'" style="width: 100%; margin: 0 auto;" ng-model="comentario"></textarea> 

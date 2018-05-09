@@ -36,8 +36,8 @@
 			$log.debug('callConfirmar', $scope.pedido);
 
 			function doOk(response) {
-				$log.debug("--- confirmar pedido response ", response.data);
 				ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
+                contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), $scope.pedido);
 				$rootScope.$emit('order-confirmed');
 			}
 

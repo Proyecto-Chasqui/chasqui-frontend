@@ -7,18 +7,27 @@
 	function SelectDeliveryAddressController($scope, contextPurchaseService, $log, vendedorService, perfilService,
                                              actions, $mdDialog) {
         
+        $scope.catalog = null;
+        
         $scope.addresses = [];
-        $scope.catalog;
         $scope.deliveryPoints = [];
-		$scope.selectedAddress;
-		$scope.puntoEntregaSelected;
-        $scope.tipoentrega = ["A domicilio","Paso a retirar"];
+		$scope.selectedAddress = null;
+		$scope.selectedDeliveryPoint = null;
+        $scope.setSelectedAddress = setSelectedAddress;
+        $scope.setSelectedDeliveryPoint = setSelectedDeliveryPoint;
+        
+        $scope.deliveryTypes = [
+            {
+                label: "A domicilio",
+                show: false
+            },{
+                label: "Paso a retirar",
+                show: false
+            }
+        ];
+        $scope.setDeliveryType = setDeliveryType;
         $scope.comentario = "";
-        
-        $scope.showSelection = function(){
-            console.log($scope.selectedAddress, $scope.puntoEntregaSelected);
-        }
-        
+                
         /////////////////////////////////////
         
         function init(){
@@ -29,6 +38,18 @@
         }
         
         /////////////////////////////////////
+        
+        function setSelectedAddress(newAddress){
+            $scope.selectedAddress = newAddress;
+        }
+        
+        function setSelectedDeliveryPoint(newDeliveryPoint){
+            $scope.selectedDeliveryPoint = newDeliveryPoint;
+        }
+        
+        function setDeliveryType(deliverySelected){
+            $scope.deliveryTypes = $scope.deliveryTypes.map(function(d){d.show = d.label == deliverySelected.label; return d});
+        }
         
         function callDirecciones() {
 			$log.debug('call direcciones ');
@@ -51,25 +72,9 @@
             $scope.mostrarSeleccionMultiple = $scope.catalog.few.seleccionDeDireccionDelUsuario && $scope.catalog.few.puntoDeEntrega;
 		}
         
-        $scope.selectChanged = function(){
-			if($scope.entregaSelected === $scope.tipoentrega[0]){
-				$scope.mostrarSeleccionDomicilio = true;
-			}else{
-				$scope.mostrarSeleccionDomicilio = false;
-
-			}
-			if($scope.entregaSelected === $scope.tipoentrega[1]){
-				$scope.mostrarSeleccionPuntoEntrega = true;
-			}else{
-				$scope.mostrarSeleccionPuntoEntrega = false;
-			}
-			//$scope.selectedAddress = null;
-			//$scope.puntoEntregaSelected = null;
-		}
         
         $scope.okAction = function(){
-            console.log($scope.selectedAddress, $scope.puntoEntregaSelected);
-            //actions.doOk($scope.selectedAddress, $scope.puntoEntregaSelected);
+            actions.doOk($scope.selectedAddress, $scope.selectedDeliveryPoint);
             $mdDialog.hide();
         }
         
