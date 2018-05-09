@@ -74,7 +74,8 @@
         
         
         $scope.okAction = function(){
-            actions.doOk($scope.selectedAddress, $scope.selectedDeliveryPoint);
+            actions.doOk($scope.deliveryTypes[0].show? $scope.selectedAddress : null, 
+                         $scope.deliveryTypes[1].show? $scope.selectedDeliveryPoint : null);
             $mdDialog.hide();
         }
         

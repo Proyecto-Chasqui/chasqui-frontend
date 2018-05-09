@@ -17,7 +17,7 @@
         <element-wrapper supported-strategies="puntoDeEntrega">
             <md-input-container ng-show="deliveryTypes[1].show">
                 <md-select placeholder="Seleccione un punto de entrega" ng-model="selectedDeliveryPoint"  style="min-width: 30vw;">
-                    <md-option ng-repeat="deliveryPoint in deliveryPoints" ng-click="setSelectedDeliveryPoint(deliveryPoint)" ng-value="punto">{{deliveryPoint.nombre}}</md-option>
+                    <md-option ng-repeat="deliveryPoint in deliveryPoints" ng-click="setSelectedDeliveryPoint(deliveryPoint)" ng-value="deliveryPoint">{{deliveryPoint.nombre}}</md-option>
                 </md-select>
             </md-input-container>
         </element-wrapper>
