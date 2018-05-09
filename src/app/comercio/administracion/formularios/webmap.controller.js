@@ -19,7 +19,7 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
     var posicionMapaPredeterminado = [-34.7739, -58.5520];
 
     var blueIcon = L.icon({
-      iconUrl: 'assets/images/map-marker-40-alter.png',
+      iconUrl: './assets/images/map-marker-40-alter.png',
 
       iconSize: [51, 51],
       iconAnchor: [25, 50],
@@ -27,7 +27,7 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
     });
 
     var yellowIcon = L.icon({
-      iconUrl: 'assets/images/map-marker-40-manual.png',
+      iconUrl: './assets/images/map-marker-40-manual.png',
 
       iconSize: [51, 51],
       iconAnchor: [25, 50],
@@ -35,7 +35,7 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
     });
 
     var greenIcon = L.icon({
-      iconUrl: 'assets/images/map-marker-40-predet.png',
+      iconUrl: './assets/images/map-marker-40-predet.png',
 
       iconSize: [51, 51],
       iconAnchor: [25, 50],
@@ -363,6 +363,13 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
           MapUI.desactivarArrastreEnMarcador(marker);
         }
       }
+
+      //workaround L.Icon.Default.imagePath
+      function setdefaultimage(){
+       L.Icon.Default.imagePath = '../bower_components/leaflet/dist/images/'
+      }
+
+      setdefaultimage();
       
 
   }
