@@ -13,7 +13,7 @@
         <md-button class="md-raised btn-chq-ingresa" ui-sref="catalog.login"  ng-show="! isLogued">  {{'INGRESA' | translate}}   </md-button>
 
         <div style="position: relative; height: 80px; width: 120px; margin-top: 40px;" ng-show="isLogued" class="avatar">
-            <md-grid-list md-cols="3" md-row-height="1:1" style="position: relative; background-color:#462342;">
+            <md-grid-list md-cols="3" md-row-height="1:1" style="position: relative;">
                 <md-grid-tile layout="row" md-colspan="2" md-rowspan="2">
                     <img id="avatar" ng-src="{{urlBase}}{{usuario.avatar}}"  style="border-radius: 10%;
                     box-shadow:0px 1px 3px 0px rgba(0, 0, 0, 0.5), 0px 1px 1px 0px rgba(0, 0, 0, 0.3), 0px 2px 1px -1px rgba(0, 0, 0, 0.4); border: 3px solid #fff;">
@@ -26,7 +26,6 @@
                                             margin: 0px;
                                             right: 0px;
                                             padding: 0px;
-                                            background-color: #462342 !important;
                                             border-radius: 0;">
                         <md-icon style="color:white; margin-right: 0.5rem !important;"> exit_to_app </md-icon>
                     </md-button>
@@ -39,7 +38,6 @@
                                             margin: 0px;
                                             right: 0px;
                                             padding: 0px;
-                                            background-color: #462342 !important;
                                             border-radius: 0;">
                         <ng-md-icon options="{{options}}" id="icon" icon="{{icon}}" style="fill: {{fill}}; margin-right: 0.5rem !important;" />
                         <md-tooltip style="color:#fff" md-direction="left">
@@ -55,7 +53,6 @@
 <style>
     .avatar figure{
         border-radius: 0 !important;
-        background-color: #462342 !important;
         margin-left: 0.5rem;
         padding-right: 0.2rem;
         min-width: 80px !important;
