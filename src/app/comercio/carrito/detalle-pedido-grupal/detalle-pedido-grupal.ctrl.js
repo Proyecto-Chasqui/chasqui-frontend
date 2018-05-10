@@ -16,8 +16,17 @@
         /////////////////////////////////////
         
         
-		/// confirmacion individual de GCC
-		function confirmOrder(){
+		/// Confirm GCC's personal order
+        function confirmOrder() {	
+            var actions = {
+                doOk: doConfirmOrder,
+                doNotOk: ignoreAction
+            };
+            
+            dialogCommons.selectDeliveryAddress(actions);
+		};
+        
+		function doConfirmOrder(){
 			function doOk(response){
 				ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
                 contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), $scope.pedido);
@@ -26,7 +35,17 @@
             gccService.confirmarPedidoIndividualGcc($scope.pedido.id).then(doOk);
 		}
 
-        function cancelOrder(event){
+        /// Cancel GCC order
+        function cancelOrder(){
+            dialogCommons.confirm("¿Cancelar pedido?", 
+                                  "¿Está seguro que quiere cancelarlo?", 
+                                  "Si", 
+                                  "No", 
+                                  doCancelOrder, 
+                                  ignoreAction);
+		}
+        
+        function doCancelOrder(){
 			function doOk(response){
 				ToastCommons.mensaje(us.translate('CANCELADO'));
                 contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), $scope.pedido);
@@ -35,6 +54,10 @@
 
 			productoService.cancelarPedidoIndividual($scope.pedido.id).then(doOk);
 		}
+        
+        function ignoreAction(){
+            $mdDialog.hide();
+        }
 	}
 
 })();

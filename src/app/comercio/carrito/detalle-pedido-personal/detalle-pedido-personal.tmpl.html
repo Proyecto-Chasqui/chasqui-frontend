@@ -1,41 +1,5 @@
 <div ng-cloak>
 
-	<script type="text/ng-template" id="dialog-cancelar-pedido.html">
-		<md-dialog aria-label="options dialog" class="popUp-domicilio">
-			<md-dialog-content layout-padding >
-				<h2 class="md-title " translate>Confirmar</h2>			
-				<div translate=CONFIRMAR_CANCELAR_PEDIDO></div>
-			</md-dialog-content>
-			<md-dialog-actions>
-				<span flex></span>
-				<md-button class="confirma-domicilio" ng-click="ignorarAccion()">
-					<label translate="CANCELAR"></label>
-				</md-button>
-				<md-button class="confirma-domicilio" ng-click="cancelarPedido()">
-					<label translate="CONFIRMAR"></label>
-				</md-button>
-			</md-dialog-actions>
-		</md-dialog>
-	</script>
-
-	<script type="text/ng-template" id="dialog-sin-direccion.html">
-		<md-dialog aria-label="options dialog" class="popUp-domicilio">
-			<md-dialog-content layout-padding >
-				<h2 class="md-title " translate=ADVERTENCIA></h2>			
-				<div translate=PEDIR_DOMICILIO></div>
-			</md-dialog-content>
-			<md-dialog-actions>
-				<span flex></span>
-				<md-button class="confirma-domicilio" ng-click="ignorarAccion()">
-					<label translate="CANCELAR"></label>
-				</md-button>
-				<md-button class="confirma-domicilio" ng-click="irAPerfil()">
-					<label translate="IR_PERFIL"></label>
-				</md-button>
-			</md-dialog-actions>
-		</md-dialog>
-	</script>
-
 	<div layout="row" layout-align="space-between start">
 		<div>
 			<md-card>
@@ -60,10 +24,10 @@
 				</md-card-content>
                 
 				<md-card-actions layout="row" layout-align="end center">
-					<md-button ng-click="cancelar()" style="color:red">
+					<md-button ng-click="cancelOrder()" style="color:red">
 						<label translate="CANCELAR"></label>
 					</md-button>
-					<md-button ng-click="confirmarClick()" 
+					<md-button ng-click="confirmOrder()" 
 					class="md-primary">
 						<label translate="CONFIRMAR"></label>
 					</md-button>					

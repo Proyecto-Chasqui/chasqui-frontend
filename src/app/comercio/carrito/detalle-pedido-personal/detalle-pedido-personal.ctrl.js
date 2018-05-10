@@ -10,29 +10,23 @@
                                               productoService, perfilService, gccService,
 		                                      vendedorService, contextPurchaseService, us) {
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
-
-		$scope.urlBase = URLS.be_base;
-		$scope.idVendedor = perfilService.idVendedor;
-		$scope.productoEliminar;
-		$scope.comentario = "";
-        
-		$scope.confirmarClick = confirmar;
-        
-        
+      
+		$scope.confirmOrder = confirmOrder;
+        $scope.cancelOrder = cancelOrder;
         
         
         ///////////////////////////////////////
         
-		function confirmar() {	
+		function confirmOrder() {	
             var actions = {
-                doOk: confirmarDomicilio,
-                doNotOk: ignorarAccion
+                doOk: doConfirmOrder,
+                doNotOk: ignoreAction
             };
             
             dialogCommons.selectDeliveryAddress(actions);
 		};
         
-        function confirmarDomicilio(direccionSelected, puntoEntregaSelected) {
+        function doConfirmOrder(direccionSelected, puntoEntregaSelected) {
 			$log.debug('callConfirmar', $scope.pedido);
 
 			function doOk(response) {
@@ -48,10 +42,6 @@
 			completarParamsSegunMetodoDeEntrega(direccionSelected, puntoEntregaSelected, params);
 		
 			productoService.confirmarPedidoIndividual(params).then(doOk);
-		}
-        
-        function ignorarAccion(){
-			$log.debug('close');
 		}
         
 
@@ -73,21 +63,18 @@
 
         /////////////////////////////////////////////
         
-		function popUpConfirmarAccion(templateUrl) {
-            //dialogCommons.confirm(titulo, texto, textOk, textCancel, doOk, doNoOk) 
-			$log.debug(templateUrl);
-			$mdDialog.show({
-				templateUrl: templateUrl,
-				scope: $scope,
-				preserveScope: true
-			});
+        
+        function cancelOrder(){
+            dialogCommons.confirm("¿Cancelar pedido?", 
+                                  "¿Está seguro que quiere cancelarlo?", 
+                                  "Si", 
+                                  "No", 
+                                  doCancelOrder, 
+                                  ignoreAction);
 		}
         
-		$scope.cancelar= function(){
-			popUpConfirmarAccion('dialog-cancelar-pedido.html');
-		}
 
-		$scope.cancelarPedido = function(event) {
+		function doCancelOrder(){
 			$log.debug('DetallePedidoController , cancelar', $scope.pedido);
 
 			function doOk(response) {
@@ -102,10 +89,9 @@
 			productoService.cancelarPedidoIndividual($scope.pedido.id).then(doOk);
 		}
 		
-		$scope.irAPerfil = function(){
-			$mdDialog.hide();
-			$state.go('catalog.profile');
-        };
+        function ignoreAction(){
+            $mdDialog.hide();
+        }
 		
 	}
 
