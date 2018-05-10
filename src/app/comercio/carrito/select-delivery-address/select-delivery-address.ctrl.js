@@ -5,7 +5,7 @@
 
 	/** @ngInject */
 	function SelectDeliveryAddressController($scope, contextPurchaseService, $log, vendedorService, perfilService,
-                                             actions, $mdDialog) {
+                                             actions, $mdDialog, $state) {
         
         $scope.catalog = null;
         
@@ -84,6 +84,14 @@
             actions.doNotOk();
             $mdDialog.hide();
         }
+        
+        
+        // falta incorporar el boton en el template (10/5/18)
+		$scope.irAPerfil = function(){
+			$mdDialog.hide();
+			$state.go('catalog.profile');
+        };
+        
         
         init();
 	}
