@@ -18,12 +18,12 @@
         
 		/// Confirm GCC's personal order
         function confirmOrder() {	
-            var actions = {
-                doOk: doConfirmOrder,
-                doNotOk: ignoreAction
-            };
-            
-            dialogCommons.selectDeliveryAddress(actions);
+            dialogCommons.confirm("¿Confirmar el pedido?", 
+                                  "Una vez confirmado su pedido individual, tiene que esperar que el administrador del grupo lo confirme para que sea preparado y entregado.", 
+                                  "Confirmar", 
+                                  "No", 
+                                  doConfirmOrder, 
+                                  ignoreAction);
 		};
         
 		function doConfirmOrder(){
