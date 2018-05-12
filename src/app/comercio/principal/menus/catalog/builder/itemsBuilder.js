@@ -74,7 +74,7 @@
                             ];
             
             if(strategy.gcc) itemsMenu.push(userGroups);
-            if(strategy.nodos) itemsMenu.push(userNodes);
+            /*if(strategy.nodos)*/ itemsMenu.push(userNodes);
             if(strategy.puntoDeEntrega) itemsMenu.push(deliveryPoints);
             
             itemsMenu.push(userProfile);

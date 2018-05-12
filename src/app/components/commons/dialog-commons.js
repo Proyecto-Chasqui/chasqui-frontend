@@ -4,7 +4,7 @@
 	angular.module('chasqui').service('dialogCommons', dialogCommons);
 
 	function dialogCommons($mdDialog) {
-
+        
         var vm = this;
 		/** Dialogo con un input text y confirmacion */
 		vm.prompt = function(titulo, texto, placeholder, textOk, textCancel,
@@ -56,6 +56,17 @@
             };
             
             $mdDialog.show(modify);
+        }
+        
+        vm.newNode = function(actions){
+            var modify = {
+                parent: angular.element(document.body),
+                templateUrl: "app/comercio/administracion/new-node/new-node-form.tmpl.html",
+                controller: "NewNodeFormController",
+                locals: {
+                    actions: actions
+                }
+            }
         }
             
 	} 

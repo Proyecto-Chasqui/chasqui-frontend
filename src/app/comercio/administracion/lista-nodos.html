@@ -1,5 +1,47 @@
 <div class="ch-content">
-    <section-wrapper supported-strategies="nodos">
+    <!-- <section-wrapper supported-strategies="nodos">
         Mis nodos - En construcción
-    </section-wrapper>
+    </section-wrapper> -->
+    
+    <div layout="row" layout-align="space-between center">
+        <div>
+           <span class="md-headline" translate>MIS_NODOS</span>
+        </div>
+        <div layout-align="end center" layout="row">
+            <div>
+                <md-button ng-click="listaGruposCtrl.crearGrupo()" class="btn-agregar"> <label translate="UNIRSE_NODO"></label>    
+                        <md-icon style="color:white"> group </md-icon>
+                        <md-tooltip md-direction="left">
+                            <label translate="UNIRSE_NODO_MSG"></label>                    
+                        </md-tooltip>
+                    </md-button>
+            </div>
+            <div>
+                    <md-button ng-click="listaGruposCtrl.crearGrupo($event)" class="btn-agregar"> <label translate="CREAR_NODO"></label>    
+                    <md-icon style="color:white"> group </md-icon>
+                    <md-tooltip md-direction="left">
+                        <label translate="CREAR_NODO_MSG"></label>                    
+                    </md-tooltip>
+                    </md-button>
+            </div>
+        </div>
+    </div>
+    
+    <!--Este div genera los diferentes tabs de nodos-->
+    <div>
+        <md-tabs md-selected="listaGruposCtrl.selectedIndexGrupo" md-dynamic-height md-border-bottom>
+            <md-tab ng-repeat="group in listaGruposCtrl.groups" ng-disabled="group.disabled" label="{{group.alias}}">
+                <md-content class="md-padding">
+                    <div layout=row>
+                        <div flex="50" layout=column>
+                            <div ng-include="'app/comercio/administracion/lista-grupos-detalle.html'"></div>
+                            <div ng-include="'app/comercio/administracion/detalle-grupos.html'" ng-init="grupo = group"></div>
+                        </div>
+                        <div flex="50" ng-include="'app/comercio/administracion/pedido-grupos.html'" ng-init="grupo = group"></div>
+                    </div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </div>
+
 </div>
