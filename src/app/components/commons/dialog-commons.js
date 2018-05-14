@@ -58,15 +58,19 @@
             $mdDialog.show(modify);
         }
         
-        vm.newNode = function(actions){
-            var modify = {
+        vm.newNode = function(){
+            var newNodeForm = {
                 parent: angular.element(document.body),
                 templateUrl: "app/comercio/administracion/new-node/new-node-form.tmpl.html",
                 controller: "NewNodeFormController",
                 locals: {
-                    actions: actions
-                }
+                  //  actions: actions
+                },
+                clickOutsideToClose: true
             }
+            
+            
+            $mdDialog.show(newNodeForm);
         }
             
 	} 

@@ -1,30 +1,75 @@
-<md-dialog aria-label="options dialog" class="popUp-domicilio">
-    <md-dialog-content layout-padding >
+<md-dialog aria-label="options dialog" class="popUp-domicilio" style="max-height: 500px; width: 1000px;">
+    <md-dialog-content layout-padding>
 
-        <h2 class="md-title " translate>ELIGE_DOMICILIO</h2>
+        <h2 class="md-title " translate>DATOS_NODO</h2>
         <md-select ng-show="mostrarSeleccionMultiple" placeholder="Seleccione un modo de entrega" ng-model="entregaSelected" style="min-width: 30vw;">
             <md-option ng-value="delivery" ng-repeat="delivery in deliveryTypes" ng-click="setDeliveryType(delivery)">{{delivery.label}}</md-option>
         </md-select>
 
-        <element-wrapper supported-strategies="seleccionDeDireccionDelUsuario">
-            <md-input-container ng-show="deliveryTypes[0].show">
-                <md-select placeholder="Domicilio de envio" ng-model="selectedAddress" style="min-width: 30vw;">
-                    <md-option ng-repeat="address in addresses" ng-click="setSelectedAddress(address)" ng-value="address">{{address.alias}}</md-option>
-                </md-select>
-            </md-input-container>
-        </element-wrapper>
+        <!---------------------------------------------->
 
-        <element-wrapper supported-strategies="puntoDeEntrega">
-            <md-input-container ng-show="deliveryTypes[1].show">
-                <md-select placeholder="Seleccione un punto de entrega" ng-model="selectedDeliveryPoint"  style="min-width: 30vw;">
-                    <md-option ng-repeat="deliveryPoint in deliveryPoints" ng-click="setSelectedDeliveryPoint(deliveryPoint)" ng-value="deliveryPoint">{{deliveryPoint.nombre}}</md-option>
-                </md-select>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>ALIAS_NODO</label>
+                <input ng-model="direccion.alias">
             </md-input-container>
-        </element-wrapper>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>BARRIO</label>
+                <input ng-model="direccion.barrio">
+            </md-input-container>
+        </div>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>ALIAS_DOMICILIO</label>
+                <input ng-model="direccion.aliasDomicilio">
+            </md-input-container>
+        </div>
 
-        <textarea type="" name="" placeholder="Ingrese alguna particularidad del domicilio. Por ejemplo: 'No funciona el timbre'" style="width: 100%; margin: 0 auto;" ng-model="comentario"></textarea> 
+        <div layout-gt-sm="row">
+            <!-----Calle nro piso------------------------------>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>Calle</label>
+                <input ng-model="direccion.calle">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>Numero</label>
+                <input ng-model="direccion.numeroCalle">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>Piso</label>
+                <input ng-model="direccion.piso">
+            </md-input-container>
+        </div>
+
+        <label class="md-block ng-scope" translate="ENTRE_CALLES_DIRECCION"></label>
+
+        <div layout-gt-sm="row">
+            <!-------Calle1 Calle2------>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>Calle 1</label>
+                <input ng-model="direccion.calle1">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>Calle 2</label>
+                <input ng-model="direccion.calle2">
+            </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+            <!---Ciudad CodigoPostal-->
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>Ciudad</label>
+                <input ng-model="direccion.ciudad">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label translate>CodigoPostal</label>
+                <input ng-model="direccion.codigoPostal">
+            </md-input-container>
+        </div>
+
+        <!---------------------------------------------->
+        <textarea type="" name="" placeholder="Ingrese alguna particularidad del domicilio. Por ejemplo: 'No funciona el timbre'" style="width: 100%; margin: 0 auto; resize: none;" ng-model="comentario">
         </textarea>
-
     </md-dialog-content>
     <md-dialog-actions>
         <span flex></span>

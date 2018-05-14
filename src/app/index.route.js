@@ -57,7 +57,7 @@
                 templateUrl: 'app/comercio/administracion/lista-nodos.html',
                 controller: 'ListaNodosCtrl',
                 auth: true
-            })            
+            })
             .state('catalog.form-grupo', {
                 url: '/form-grupo',
                 templateUrl: 'app/comercio/administracion/formularios/form-grupo.html',

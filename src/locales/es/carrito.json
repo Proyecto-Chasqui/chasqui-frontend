@@ -4,6 +4,7 @@
 	"QUITAR_PRODUCTO_MSG": "¿Está seguro de querer sacar el producto del changuito?",
 	"PEDIDO_CONFIRMADO_MSG": "Pedido confirmado",
 	"ELIGE_DOMICILIO": "Elige un domicilio",
+    "DATOS_NODO": "Ingresa los datos del nodo",
 	"IR_CATALOGO": "Ir a catálogo",
 	"SEGUIR_AGREGANDO": "Podés seguir agregando productos al changuito",
 	"PRODUCTOS_CARRO_TIT": "Productos en el changuito",

@@ -9,15 +9,15 @@
         </div>
         <div layout-align="end center" layout="row">
             <div>
-                <md-button ng-click="listaGruposCtrl.crearGrupo()" class="btn-agregar"> <label translate="UNIRSE_NODO"></label>    
-                        <md-icon style="color:white"> group </md-icon>
+                <md-button ng-click="ListaNodosCtrl.unirseNodo()" class="btn-agregar"> <label translate="UNIRSE_NODO"></label>    
+                        <md-icon style="color:white"> group_add </md-icon>
                         <md-tooltip md-direction="left">
                             <label translate="UNIRSE_NODO_MSG"></label>                    
                         </md-tooltip>
                     </md-button>
             </div>
             <div>
-                    <md-button ng-click="listaGruposCtrl.crearGrupo($event)" class="btn-agregar"> <label translate="CREAR_NODO"></label>    
+                    <md-button ng-click="crearNodo()" class="btn-agregar"> <label translate="CREAR_NODO"></label>    
                     <md-icon style="color:white"> group </md-icon>
                     <md-tooltip md-direction="left">
                         <label translate="CREAR_NODO_MSG"></label>                    
@@ -26,7 +26,6 @@
             </div>
         </div>
     </div>
-    
     <!--Este div genera los diferentes tabs de nodos-->
     <div>
         <md-tabs md-selected="listaGruposCtrl.selectedIndexGrupo" md-dynamic-height md-border-bottom>
