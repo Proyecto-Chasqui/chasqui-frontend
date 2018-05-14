@@ -104,7 +104,7 @@
                     order_context.setAgrupationType(personal.type);                  
                 },
                 function(group){
-                    order_context.setAgrupationId(group.id);
+                    order_context.setAgrupationId(group.idGrupo);
                     order_context.setAgrupationType(group.type);            
                     order_context.setOrderId(getOrderByAgrupation(group));
                 },

@@ -8,8 +8,9 @@
    * @ngInject Contenido del tab de grupo. Recibe por parametro el id del
    *           grupo
    */
-  function PedidoGruposController($scope, StateCommons, $log, perfilService, $mdDialog, 
+  function PedidoGruposController($scope, StateCommons, $log, perfilService, $mdDialog, URLS,
     gccService, us,ToastCommons,contextPurchaseService,$state, usuario_dao, vendedorService) {
+      
     $log.debug('PedidoGruposController', $scope.grupo);
 
     var vm = this;
@@ -25,6 +26,8 @@
     vm.configuracionVenedor;
     vm.puedeCerrarPedidoGCC = !hayAlgunPedidoAbierto();
     vm.comentario = "";
+    vm.urlBase = URLS.be_base;
+
 
     vm.cerrarToolTipMsg = function() {
       if (vm.puedeCerrarPedidoGCC) {

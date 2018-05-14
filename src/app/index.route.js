@@ -49,7 +49,6 @@
                 url: '/misGrupos',
                 templateUrl: 'app/comercio/administracion/lista-grupos.html',
                 controller: 'ListaGruposController',
-                controllerAs: 'listaGruposCtrl',
                 auth: true
             })  
             .state('catalog.userNodes', {
@@ -103,13 +102,6 @@
         templateUrl: 'app/comercio/varios/medalla.html',
         controller: 'MedallaController',
         controllerAs: 'medallaCtrl'
-      })
-      .state('lista-grupos', {
-        url: '/lista-grupos',
-        templateUrl: 'app/comercio/administracion/lista-grupos.html',
-        controller: 'ListaGruposController',
-        controllerAs: 'listaGruposCtrl',
-        auth: true
       })
       .state('detalle-grupos', {
         url: '/detalle-grupos',

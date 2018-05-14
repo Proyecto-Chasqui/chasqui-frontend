@@ -2,10 +2,12 @@
 <div class="ch-content">
     <section-wrapper supported-strategies="gcc">
         <div layout="row" layout-align="space-between center">
-            <div><span class="md-headline"
-                translate>MIS_GRUPOS</span></div>
             <div>
-                <md-button ng-click="listaGruposCtrl.crearGrupo($event)" class="btn-agregar"> <label translate="CREAR_GRUPO"></label>    
+                <span class="md-headline" translate>MIS_GRUPOS</span>
+            </div>
+            <div>
+                <md-button ng-click="crearGrupo($event)" class="btn-agregar"> 
+                    <label translate="CREAR_GRUPO"></label>    
                     <md-icon style="color:white"> group </md-icon>
                     <md-tooltip md-direction="left">
                         <label translate="CREAR_GRUPO_MSG"></label>                    
@@ -14,7 +16,7 @@
             </div>
         </div>
         <div layout="column" ng-cloak>
-            <md-card ng-show="listaGruposCtrl.groups.length==0">
+            <md-card ng-show="groups.length==0">
                 <md-content flex layout-padding>
                     <p translate>
                         SIN_GRUPO
@@ -22,12 +24,12 @@
                 </md-content>
             </md-card>
             <div>
-                <md-tabs md-selected="listaGruposCtrl.selectedIndexGrupo" md-dynamic-height md-border-bottom>
-                    <md-tab ng-repeat="group in listaGruposCtrl.groups" ng-disabled="group.disabled" label="{{group.alias}}">
+                <md-tabs md-selected="selectedIndexGrupo" md-dynamic-height md-border-bottom>
+                    <md-tab ng-repeat="group in groups" ng-disabled="group.disabled" label="{{group.alias}}" md-on-select="setContextByAgrupation(group)">
                         <md-content class="md-padding">
                             <div layout=row>
                                 <div flex="50" layout=column>
-                                    <div ng-include="'app/comercio/administracion/lista-grupos-detalle.html'"></div>
+                                    <group-detail group="group"></group-detail>
                                     <div ng-include="'app/comercio/administracion/detalle-grupos.html'" ng-init="grupo = group"></div>
                                 </div>
                                 <div flex="50" ng-include="'app/comercio/administracion/pedido-grupos.html'" ng-init="grupo = group"></div>
