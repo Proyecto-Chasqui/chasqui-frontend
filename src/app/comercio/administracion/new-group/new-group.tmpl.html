@@ -1,0 +1,27 @@
+<md-dialog>
+    <md-toolbar layout="row" layout-align="space-between center">
+        <div class="md-toolbar-tools">
+            <span class="md-title" translate>{{isEdit? "MOD_GRUPO" : "NUEVO_GRUPO"}}</span>
+        </div>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Cerrar">close</md-icon>
+        </md-button>
+    </md-toolbar>
+    <md-dialog-content>
+        <div>
+            <div layout-gt-sm="column">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>ALIAS</label>
+                    <input ng-model="group.alias">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label translate>DESC</label>
+                    <input ng-model="group.descripcion">
+                </md-input-container>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" layout-align="end center">
+        <md-button ng-click="save()" translate> {{isEdit? "GUARDAR" : "CREAR"}}</md-button>
+    </md-dialog-actions>
+</md-dialog>

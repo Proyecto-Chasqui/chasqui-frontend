@@ -12,8 +12,6 @@
 		$log.debug("controler ListaGruposController");
 		navigation_state.goMyGroupsTab();
         
-		var vm = this;
-        
 		$scope.urlBase = URLS.be_base;
         $scope.groups = [];
         $scope.selectedGroup = null;
@@ -32,7 +30,9 @@
         ///////////////////////////////////////
         
         function newGroup(){
-			$state.go('catalog.form-grupo');	
+			dialogCommons.newGroup(function(newGroup){
+                
+            });
         }
 
         
@@ -58,36 +58,9 @@
         
         
         //////////////////////////////////////////
-        
-        // Creo que lo que sigue no depende de este controlador
-		/*
-		$scope.$on('quito-miembro-grupo',
-			function(event) {
-				callLoadGrupos();
-			});
-		*/
-        
-
-		// ///////////
-		// ///// REST
-
-		function callCrearPedidoGrupal(grupo) {
-            contextCatalogObserver.observe(function(){
-                function doOk(response) {
-                    $log.debug('Crear pedido en el grupo');
-                    ToastCommons.mensaje(us.translate('NUEVO_PEDIDO'));
-                }
-
-                var params = {};
-                params.idGrupo = grupo.idGrupo;
-                params.idVendedor = contextPurchaseService.getCatalogContext();
-
-                gccService.crearPedidoGrupal(params).then(doOk);
-            })
-		}
-
-
-		
+		$scope.$on('group-information-actualized', function(event) {
+            init();
+        });
         
 	}
 

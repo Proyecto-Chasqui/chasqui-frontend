@@ -5,7 +5,7 @@
 
     function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
 		dialogCommons, ToastCommons, gccService, URLS, agrupationTypeVAL,
-        us, usuario_dao, navigation_state, contextPurchaseService) {
+        us, usuario_dao, navigation_state, contextPurchaseService, contextAgrupationsService) {
 
 		$scope.invitarUsuario = invitarUsuario;
         $scope.editGroup = editGroup;
@@ -33,8 +33,15 @@
 				us.translate('INVITAR'), us.translate('CANCELAR'), doOk, doNoOk);
 		}
         
-        function editGroup(grupo) {
-			$state.go("catalog.form-grupo", { "grupo": grupo });
+        function editGroup(group) {
+            dialogCommons.editGroup(group, function(editedGroup){
+                contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(), group.idGrupo, agrupationTypeVAL.TYPE_GROUP, function(toModifyGroup){
+                    toModifyGroup.alias = editedGroup.alias;
+                    toModifyGroup.descripcion = editedGroup.descripcion;
+                    $scope.$emit("group-information-actualized");
+                    return toModifyGroup;
+                })
+            });
 		}
         
         
