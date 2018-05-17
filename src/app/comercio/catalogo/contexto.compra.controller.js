@@ -23,7 +23,7 @@
         function init(){
             contextCatalogObserver.observe(function(){
                 $scope.agrupationSelected = {
-                    id: contextPurchaseService.getAgrupationContextId(),
+                    idGrupo: contextPurchaseService.getAgrupationContextId(),
                     type: agrupationTypeVAL.TYPE_GROUP
                 }
                 contextPurchaseService.getAgrupations().then(function(agrupationsInt) {

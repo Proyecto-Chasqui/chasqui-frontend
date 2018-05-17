@@ -100,7 +100,7 @@
         function setContextByAgrupation(agrupation){
             agrupationTypeDispatcher.byElem(agrupation, 
                 function(personal){
-                    order_context.setAgrupationId(personal.id);
+                    order_context.setAgrupationId(personal.idGrupo);
                     order_context.setAgrupationType(personal.type);                  
                 },
                 function(group){
@@ -274,7 +274,7 @@
 		}
 
 		function getOrderByAgrupation(agrupation) {
-            return agrupation.idPedidoIndividual; // TODO: dinamizar segun la BDD
+            return contextAgrupationsService.getAgrupation(getCatalogContext(), agrupation.idGrupo, agrupation.type).idPedidoIndividual;
 		}
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
