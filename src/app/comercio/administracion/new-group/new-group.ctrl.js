@@ -24,28 +24,27 @@
         
         
         function save() {
-            console.log($scope.group);
             if ($scope.isEdit) {
-                callEditarGrupo();
+                callSaveChangesInGroup();
             } else {
-                callGuardarGrupo();
+                callNewGroup();
             }
         }
 
-        function callGuardarGrupo() {
-          $log.debug("guardar grupo", $scope.group);
+        function callNewGroup() {
+            $log.debug("guardar grupo", $scope.group);
 
-          function doOk(response) {
-            $log.debug("respuesta guardar grupo ", response);
+            function doOk(response) {
+                $log.debug("respuesta guardar grupo ", response);
+                callback($scope.group);
+                $mdDialog.hide();
 
-            $mdDialog.hide();
+            }
 
-          }
-
-          gccService.nuevoGrupo($scope.group).then(doOk)
+            gccService.nuevoGrupo($scope.group).then(doOk)
         }
 
-        var callEditarGrupo = function() {
+        var callSaveChangesInGroup = function() {
             $log.debug("editar grupo", $scope.group);
 
             function doOk(response) {       

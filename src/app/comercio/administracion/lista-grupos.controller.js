@@ -7,7 +7,7 @@
 	
 	function ListaGruposController($log, $scope, $state, contextCatalogObserver,
 		dialogCommons, ToastCommons, gccService, URLS, agrupationTypeVAL,
-        us, usuario_dao, navigation_state, contextPurchaseService) {
+        us, usuario_dao, navigation_state, contextPurchaseService, contextAgrupationsService) {
 
 		$log.debug("controler ListaGruposController");
 		navigation_state.goMyGroupsTab();
@@ -31,7 +31,8 @@
         
         function newGroup(){
 			dialogCommons.newGroup(function(newGroup){
-                
+                contextAgrupationsService.reset(contextPurchaseService.getCatalogContext());
+                init();
             });
         }
 
