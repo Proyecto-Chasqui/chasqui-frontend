@@ -56,15 +56,7 @@
                 templateUrl: 'app/comercio/administracion/lista-nodos.html',
                 controller: 'ListaNodosCtrl',
                 auth: true
-            })            
-            .state('catalog.form-grupo', {
-                url: '/form-grupo',
-                templateUrl: 'app/comercio/administracion/formularios/form-grupo.html',
-                controller: 'FormGrupoController',
-                controllerAs: 'formGrupoCtrl',
-                auth: true,
-                params: { "grupo": null }
-            })           
+            })          
             .state('catalog.deliveryPoints', {
                 url: '/puntosDeEntrega',
                 templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',
@@ -91,22 +83,11 @@
         templateUrl: 'app/comercio/varios/productor.html',
         controller: 'ProductorController'
       })
-      .state('como-comprar', {
-        url: '/comoComprar',
-        templateUrl: 'app/comercio/varios/como_comprar.html',
-        controller: 'ComoComprarController',
-        controllerAs: 'comoComprarCtrl'
-      })
       .state('medalla', {
         url: '/medalla/:idMedalla',
         templateUrl: 'app/comercio/varios/medalla.html',
         controller: 'MedallaController',
         controllerAs: 'medallaCtrl'
-      })
-      .state('detalle-grupos', {
-        url: '/detalle-grupos',
-        templateUrl: 'app/comercio/administracion/detalle-grupos.html',
-        controller: 'DetalleGruposController'        
       })
       .state('form-domicilio', {
         url: '/form-domicilio',
@@ -114,13 +95,6 @@
         controller: 'FormDireccionController',
         controllerAs: 'direccionCtrl',
         params: { test: null }
-      })
-      .state('form-grupo', {
-        url: '/form-grupo',
-        templateUrl: 'app/comercio/administracion/formularios/form-grupo.html',
-        controller: 'FormGrupoController',
-        controllerAs: 'formGrupoCtrl',
-        params: { "grupo": null }
       })
       .state('login', {
         url: '/login/:toPage',
@@ -145,44 +119,17 @@
         controllerAs: 'usuarioCtrl',
         params: { domicilio: null }
       })
-      .state('lista-pedidos', {
-        url: '/lista-pedidos',
-        templateUrl: 'app/comercio/carrito/lista-pedidos.html',
-        controller: 'ListaPedidosController',
-        controllerAs: 'listaPedidoCtrl',
-        auth: true
-      })
       .state('detalle-pedido', {
         url: '/detalle-pedido',
         templateUrl: 'app/comercio/carrito/detalle-pedido.html',
         controller: 'DetallePedidoController',
         controllerAs : 'detallePedidoCtrl'
       })
-      .state('catalogo', {
-        url: '/catalogo',
-        templateUrl: 'app/comercio/catalogo/catalogo.html',
-        controller: 'CatalogoController',
-        controllerAs: 'catalogoCtrl'
-      })
-      .state('perfil', {
-        url: '/perfil',
-        templateUrl: 'app/comercio/administracion/perfil.html',
-        controller: 'PerfilController',
-        controllerAs: 'perfilCtrl',
-        params: { index: null },
-        auth: true
-      })
       .state('footer', {
         url: '/footer',
         templateUrl: 'app/comercio/varios/footer.html',
         controller: 'FooterController',
         controllerAs: 'footerCtrl'
-      })
-      .state('dialog', {
-        url: '/dialog',
-        templateUrl: 'app/comercio/demo/dialog1.tmpl.html',
-        controller: 'DemoDialogController',
-        controllerAs: 'demoDialogCtrl'
       })
       .state('error', {
         url: '/error/:key',
