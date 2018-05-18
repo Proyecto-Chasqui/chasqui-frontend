@@ -18,6 +18,42 @@
 			$mdDialog.show(confirm).then(doOk, doNoOk);
 
 		}
+        
+        vm.newGroup = function(callback){
+            var newGroup = {
+                parent: angular.element(document.body),
+                templateUrl: "app/comercio/administracion/new-group/new-group.tmpl.html",
+                controller: "NewGroupCtrl",
+                clickOutsideToClose: true,
+                locals: {
+                    isEdit: false,
+                    group: {}, 
+                    callback: callback
+                }
+            };
+            
+            $mdDialog.show(newGroup);
+        }
+        
+        vm.editGroup = function(group, callback){
+            var editGroup = {
+                parent: angular.element(document.body),
+                templateUrl: "app/comercio/administracion/new-group/new-group.tmpl.html",
+                controller: "NewGroupCtrl",
+                clickOutsideToClose: true,
+                locals: {
+                    isEdit: true,
+                    group: {
+                        idGrupo: group.idGrupo,
+                        alias: group.alias,
+                        descripcion: group.descripcion
+                    }, 
+                    callback: callback
+                }
+            };
+            
+            $mdDialog.show(editGroup);
+        }
 
 		/** Dialogo confirmacion */
 		vm.confirm = function(titulo, texto, textOk, textCancel, doOk, doNoOk) {

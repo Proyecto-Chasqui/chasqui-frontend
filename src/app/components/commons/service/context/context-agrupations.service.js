@@ -27,9 +27,7 @@
         }
             
         function modifyAgrupation(catalogId, agrupationId, agrupationType, modification){
-            console.log("prev", getAgrupation(catalogId, agrupationId, agrupationType));
             agrupations_dao.modifyGroup(catalogId, agrupationId, agrupationType, modification);
-            console.log("post", getAgrupation(catalogId, agrupationId, agrupationType));
         }
         
         function getAgrupation(catalogId, agrupationId, agrupationType){

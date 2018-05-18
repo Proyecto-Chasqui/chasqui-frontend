@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function DetallePedidoGrupalController($log, $state, $scope, ToastCommons, productoService, gccService, us, $rootScope,
-                                           contextPurchaseService, contextOrdersService) {
+                                           contextPurchaseService, contextOrdersService, dialogCommons) {
         
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 

@@ -100,11 +100,11 @@
         function setContextByAgrupation(agrupation){
             agrupationTypeDispatcher.byElem(agrupation, 
                 function(personal){
-                    order_context.setAgrupationId(personal.id);
+                    order_context.setAgrupationId(personal.idGrupo);
                     order_context.setAgrupationType(personal.type);                  
                 },
                 function(group){
-                    order_context.setAgrupationId(group.id);
+                    order_context.setAgrupationId(group.idGrupo);
                     order_context.setAgrupationType(group.type);            
                     order_context.setOrderId(getOrderByAgrupation(group));
                 },
@@ -274,7 +274,7 @@
 		}
 
 		function getOrderByAgrupation(agrupation) {
-            return agrupation.idPedidoIndividual; // TODO: dinamizar segun la BDD
+            return contextAgrupationsService.getAgrupation(getCatalogContext(), agrupation.idGrupo, agrupation.type).idPedidoIndividual;
 		}
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     

@@ -58,9 +58,12 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
     
     
     function modifyGroup(catalogId, agrupationId, agrupationType, modification){
-        var agrupation = getAgrupation(catalogId, agrupationId, agrupationType);
-        deleteAgrupation(catalogId, agrupationId, agrupationType);
-        newAgrupation(catalogId, modification(agrupation));
+        modifyAgrupationsInCatalog(catalogId, agrupationType, function(agrupations){
+            var searchedAgrupationIndex = agrupations.map(function(a){return a.idGrupo;}).indexOf(agrupationId);
+            agrupations[searchedAgrupationIndex] = modification(agrupations[searchedAgrupationIndex]);
+            return agrupations;
+        })
+        
     }
     
     /////////////////////////////////////////  Private  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     

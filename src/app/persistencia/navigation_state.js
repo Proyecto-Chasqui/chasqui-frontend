@@ -1,6 +1,6 @@
 angular.module('chasqui').factory('navigation_state', 
-                            ['ls_connection',
-                    function(ls_connection){
+                            ['ls_connection', '$mdDialog',
+                    function(ls_connection, $mdDialog){
     
                         
     function init(){
@@ -27,6 +27,7 @@ angular.module('chasqui').factory('navigation_state',
                      
     function goToTab(tab){
         return function(){
+            $mdDialog.hide();
             goTab(tab);
         }
     }

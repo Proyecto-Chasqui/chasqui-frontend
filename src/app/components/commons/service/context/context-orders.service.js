@@ -207,7 +207,7 @@
                         var groupsWithoutOrders = separatedGroupsAndOrders[0];
                         var ordersPreviouslyCreated = separatedGroupsAndOrders[1];
 
-                        console.log(groupsWithoutOrders);
+                        console.log("groupsWithoutOrders", groupsWithoutOrders);
 
                         createOrdersForGroupsWithoutOrders(groupsWithoutOrders, ordersPreviouslyCreated).then(defered.resolve);
                 })

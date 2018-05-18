@@ -53,7 +53,7 @@
                 contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
                     $log.debug(" service groupsByUser ");
                     params.idVendedor = catalog.id;
-                    return promiseService.doPost(REST_ROUTES.nuevoGrupo, params);
+                    defered.resolve(promiseService.doPost(REST_ROUTES.nuevoGrupo, params));
                 });
             })
 		}

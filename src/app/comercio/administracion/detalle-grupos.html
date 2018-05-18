@@ -2,13 +2,13 @@
 	<md-card ng-if="detalleGrupoCtrl.grupo.miembros && detalleGrupoCtrl.grupo.miembros.length > 0">
 		<md-subheader layout="row" layout-align="space-between center">
             <label translate>MIEMBROS_GRUPO</label>
-            <md-button ng-show="detalleGrupoCtrl.canShowMemberOptions()" ng-click="detalleGrupoCtrl.showMembersOptions()">
+            <md-button aria-label="ShowMembersOptions" ng-show="detalleGrupoCtrl.canShowMemberOptions()" ng-click="detalleGrupoCtrl.showMembersOptions()">
                 <ng-md-icon icon="settings" style="fill: grey"></ng-md-icon>
                 <md-tooltip md-direction="bottom">
                     <label translate="TT_SHOW_ADMIN_OPTIONS"></label>
                 </md-tooltip>
             </md-button>
-            <md-button ng-show="detalleGrupoCtrl.canHideMemberOptions()"ng-click="detalleGrupoCtrl.hideMemberOptions()">
+            <md-button aria-label="HideMembersOptions" ng-show="detalleGrupoCtrl.canHideMemberOptions()"ng-click="detalleGrupoCtrl.hideMemberOptions()">
                 <ng-md-icon icon="settings" style="fill: black"></ng-md-icon>
                 <md-tooltip md-direction="bottom">
                     <label translate="TT_HIDE_ADMIN_OPTIONS"></label>
@@ -27,13 +27,13 @@
                 </div>
                 <div layout="row" layout-align="end">
                     <div layout="row" layout-align="end" ng-show="detalleGrupoCtrl.membersOptionsShowed">
-                        <md-button ng-show="detalleGrupoCtrl.showCederAdministracionGrupo(member)" ng-click="detalleGrupoCtrl.cederAdministracionGrupo(member)">
+                        <md-button aria-label="showCederAdministracionGrupo" ng-show="detalleGrupoCtrl.showCederAdministracionGrupo(member)" ng-click="detalleGrupoCtrl.cederAdministracionGrupo(member)">
                             <ng-md-icon icon="transfer_within_a_station" style="fill: orange"></ng-md-icon>
                             <md-tooltip md-direction="bottom">
                                 <label translate="TT_SWAP_ADMIN"></label>
                             </md-tooltip>
                         </md-button>
-                        <md-button ng-show="detalleGrupoCtrl.showRemoveGroupsMember(member)" ng-click="detalleGrupoCtrl.quitarMiembro(member)">
+                        <md-button aria-label="showRemoveGroupsMember" ng-show="detalleGrupoCtrl.showRemoveGroupsMember(member)" ng-click="detalleGrupoCtrl.quitarMiembro(member)">
                             <ng-md-icon icon="remove_circle_outline" style="fill: red"></ng-md-icon>
                             <md-tooltip md-direction="bottom">
                                 <label ng-if="detalleGrupoCtrl.isLoggedMember(member)" translate="SALIR_GRUPO_MSG"></label>
