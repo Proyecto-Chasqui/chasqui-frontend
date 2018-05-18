@@ -92,13 +92,6 @@
         templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
         controller: 'RegistroInvitacionGCCController'
       })
-      .state('form-usuario', {
-        url: '/form-usuario',
-        templateUrl: 'app/comercio/administracion/formularios/form-usuario.html',
-        controller: 'FormUsuarioController',
-        controllerAs: 'usuarioCtrl',
-        params: { domicilio: null }
-      })
       .state('error', {
         url: '/error/:key',
         controller: 'ErrorController as error',
