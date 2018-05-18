@@ -109,14 +109,6 @@
 			}
 		}
 
-		vm.verMedalla = function(medalla) {
-			$log.debug("ver medalla", medalla);
-
-			$state.go('medalla', {
-				'idMedalla': medalla
-			});
-		}
-
 		vm.mostrarDecimales = function(parteDecimal) {
 			var res = Number(parteDecimal).toFixed(0).toString();
 			if (res.length == 1) res += "0";

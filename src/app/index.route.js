@@ -87,14 +87,6 @@
                 controller: 'RegistroController'
             })
       
-
-      
-      .state('medalla', {
-        url: '/medalla/:idMedalla',
-        templateUrl: 'app/comercio/varios/medalla.html',
-        controller: 'MedallaController',
-        controllerAs: 'medallaCtrl'
-      })
       .state('singUpGCCMailInvitation', {
         url: '/registro/gcc/:id',
         templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
