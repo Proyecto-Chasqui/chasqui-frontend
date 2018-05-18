@@ -50,7 +50,6 @@
             // Deberian estar en otro lugar (funciones sobre agrupaciones/pedidos)
             tienePedidoInividual: tienePedidoInividual, // TODO: cambiar a nombre más descriptivo            
             isGrupoIndividualSelected: isGrupoIndividualSelected, // TODO: cambiar a nombre más descriptivo
-            isPedidoInividualSelected: isPedidoInividualSelected, // TODO: cambiar a nombre más descriptivo
             isAdmin: isAdmin,
             ls: $localStorage
         }

@@ -15,10 +15,10 @@
         ///////////////////////////////////////////////////////////////////////////////
         
         function addProduct(variety){
+            console.log("Agregar producto al pedido individual:", variety);
             contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
                 agrupationTypeDispatcher.byElem(selectedAgrupation, 
                 function(personal){
-                    console.log("Agregar producto al pedido individual:", variety);
                     addProductPersonalOrderService(variety);
                 },
                 function(group){
