@@ -114,12 +114,6 @@
         controllerAs: 'usuarioCtrl',
         params: { domicilio: null }
       })
-      .state('detalle-pedido', {
-        url: '/detalle-pedido',
-        templateUrl: 'app/comercio/carrito/detalle-pedido.html',
-        controller: 'DetallePedidoController',
-        controllerAs : 'detallePedidoCtrl'
-      })
       .state('footer', {
         url: '/footer',
         templateUrl: 'app/comercio/varios/footer.html',
