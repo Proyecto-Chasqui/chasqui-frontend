@@ -81,6 +81,11 @@
                 controller: 'LogInController',
                 controllerAs: 'loginCtrl'
             })
+            .state('catalog.singUp', {
+                url: '/registro',
+                templateUrl: 'app/comercio/administracion/registros/registro.html',
+                controller: 'RegistroController'
+            })
       
 
       
@@ -96,11 +101,6 @@
         controller: 'FormDireccionController',
         controllerAs: 'direccionCtrl',
         params: { test: null }
-      })
-      .state('singUp', {
-        url: '/registro',
-        templateUrl: 'app/comercio/administracion/registros/registro.html',
-        controller: 'RegistroController'
       })
       .state('singUpGCCMailInvitation', {
         url: '/registro/gcc/:id',
