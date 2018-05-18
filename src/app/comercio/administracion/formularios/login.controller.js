@@ -5,9 +5,7 @@
 
 	/** @ngInject */
 	function LogInController($log, $state, StateCommons,
-		ToastCommons, $rootScope, dialogCommons, perfilService, us, $stateParams, contextPurchaseService, usuario_dao) {
-
-		$log.debug('controler log in ..... debe volver a ', $stateParams.toPage);
+		ToastCommons, $rootScope, dialogCommons, perfilService, us, contextPurchaseService, usuario_dao) {
 
 		var vm = this
 		vm.user = {};
@@ -41,11 +39,7 @@
 				contextPurchaseService.ls.varianteSelected=tmp;
 
 				if (us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
-					if (us.isUndefinedOrNull($stateParams.toPage) || $stateParams.toPage == '') {
-						$state.go("catalog.landingPage");
-					} else {
-						$state.go($stateParams.toPage);
-					}
+				    $state.go("catalog.landingPage");
 				} else {
 					$state.go("catalog.products");
 				}

@@ -219,12 +219,6 @@
 				.then(function(data) { vm.emprendedores = data.data; })
 		}
 
-		// findProductos();
-		if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
-			$log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
-			vm.agregar(contextPurchaseService.ls.varianteSelected)
-			contextPurchaseService.ls.varianteSelected = undefined;
-		}
 
 		//vm.productos = findProductos(1,10,{});
 		callEmprendedores();
