@@ -38,6 +38,11 @@
                 controller: 'CatalogoController',
                 controllerAs: 'catalogoCtrl'
             })
+            .state('catalog.productor', {
+                url: '/productores/:idProductor',
+                templateUrl: 'app/comercio/varios/productor.html',
+                controller: 'ProductorController'
+            })
             .state('catalog.userOrders', {
                 url: '/misPedidos',
                 templateUrl: 'app/comercio/carrito/lista-pedidos.html',
@@ -78,11 +83,7 @@
             })
       
 
-      .state('productor', {
-        url: '/productores/:id',
-        templateUrl: 'app/comercio/varios/productor.html',
-        controller: 'ProductorController'
-      })
+      
       .state('medalla', {
         url: '/medalla/:idMedalla',
         templateUrl: 'app/comercio/varios/medalla.html',
@@ -95,12 +96,6 @@
         controller: 'FormDireccionController',
         controllerAs: 'direccionCtrl',
         params: { test: null }
-      })
-      .state('login', {
-        url: '/login/:toPage',
-        templateUrl: 'app/comercio/administracion/formularios/login.html',
-        controller: 'LogInController',
-        controllerAs: 'loginCtrl'
       })
       .state('singUp', {
         url: '/registro',
