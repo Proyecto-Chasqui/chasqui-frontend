@@ -95,13 +95,6 @@
         controller: 'MedallaController',
         controllerAs: 'medallaCtrl'
       })
-      .state('form-domicilio', {
-        url: '/form-domicilio',
-        templateUrl: 'app/comercio/administracion/formularios/form-direccion.html',
-        controller: 'FormDireccionController',
-        controllerAs: 'direccionCtrl',
-        params: { test: null }
-      })
       .state('singUpGCCMailInvitation', {
         url: '/registro/gcc/:id',
         templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
