@@ -86,19 +86,17 @@
                 templateUrl: 'app/comercio/administracion/registros/registro.html',
                 controller: 'RegistroController'
             })
-      
-      .state('singUpGCCMailInvitation', {
-        url: '/registro/gcc/:id',
-        templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
-        controller: 'RegistroInvitacionGCCController'
-      })
+            .state('catalog.singUpGCCMailInvitation', {
+                url: '/registro/gcc/:id',
+                templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
+                controller: 'RegistroInvitacionGCCController'
+            })
+    
       .state('error', {
         url: '/error/:key',
         controller: 'ErrorController as error',
         templateUrl: 'app/error/error.html'
       })
-    
-        
     ;
 
     $urlRouterProvider.otherwise('/');
