@@ -17,7 +17,6 @@
         $scope.selectedGroup = null;
         $scope.selectedIndexGrupo = 0;
         $scope.newGroup = newGroup;
-        $scope.setContextByAgrupation = contextPurchaseService.setContextByAgrupation;
         
         /////////////////// INIT ////////////////////
         
@@ -30,10 +29,13 @@
         ///////////////////////////////////////
         
         function newGroup(){
-			dialogCommons.newGroup(function(newGroup){
+            
+            function doOk(newGroup){
                 contextAgrupationsService.reset(contextPurchaseService.getCatalogContext());
                 init();
-            });
+            }
+            
+			dialogCommons.newGroup(doOk);
         }
 
         
@@ -54,7 +56,6 @@
 			$scope.selectedIndexGrupo = $scope.groups.indexOf(selectedAgrupation);
             $scope.selectedIndexGrupo = $scope.selectedIndexGrupo == -1? 0 : $scope.selectedIndexGrupo;
 			$scope.selectedGroup = $scope.groups[$scope.selectedIndexGrupo];
-            contextPurchaseService.setContextByAgrupation($scope.selectedGroup);
 		}
         
         
