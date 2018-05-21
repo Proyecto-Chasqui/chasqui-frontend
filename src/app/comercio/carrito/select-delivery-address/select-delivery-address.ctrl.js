@@ -15,6 +15,8 @@
 		$scope.selectedDeliveryPoint = null;
         $scope.setSelectedAddress = setSelectedAddress;
         $scope.setSelectedDeliveryPoint = setSelectedDeliveryPoint;
+        $scope.irAPerfil = irAPerfil;
+        $scope.showSelectAddressError = false;
         
         $scope.deliveryTypes = [
             {
@@ -41,14 +43,22 @@
         
         function setSelectedAddress(newAddress){
             $scope.selectedAddress = newAddress;
+            $scope.showSelectAddressError = false;
+            $scope.inputAddress.selectedAddress.$valid = true;
         }
         
         function setSelectedDeliveryPoint(newDeliveryPoint){
             $scope.selectedDeliveryPoint = newDeliveryPoint;
+            $scope.showSelectAddressError = false;
+            $scope.inputAddress.selectedAddress.$valid = true;
         }
         
         function setDeliveryType(deliverySelected){
             $scope.deliveryTypes = $scope.deliveryTypes.map(function(d){d.show = d.label == deliverySelected.label; return d});
+            $scope.selectedAddress = null;
+            $scope.selectedDeliveryPoint = null;
+            $scope.showSelectAddressError = false;
+            $scope.inputAddress.selectedAddress.$valid = false;
         }
         
         function callDirecciones() {
@@ -70,13 +80,22 @@
         
         function showMultipleSelection(){
             $scope.mostrarSeleccionMultiple = $scope.catalog.few.seleccionDeDireccionDelUsuario && $scope.catalog.few.puntoDeEntrega;
+            if(!$scope.mostrarSeleccionMultiple){
+                $scope.deliveryTypes[0].show = $scope.catalog.few.seleccionDeDireccionDelUsuario;
+                $scope.deliveryTypes[1].show = $scope.catalog.few.puntoDeEntrega;
+            }
 		}
         
         
         $scope.okAction = function(){
-            actions.doOk($scope.deliveryTypes[0].show? $scope.selectedAddress : null, 
-                         $scope.deliveryTypes[1].show? $scope.selectedDeliveryPoint : null);
-            $mdDialog.hide();
+            console.log($scope.inputAddress.selectedAddress.$valid);
+            if($scope.inputAddress.selectedAddress.$valid){
+                actions.doOk($scope.deliveryTypes[0].show? $scope.selectedAddress : null, 
+                             $scope.deliveryTypes[1].show? $scope.selectedDeliveryPoint : null);
+                $mdDialog.hide();                
+            }else{
+                $scope.showSelectAddressError = true;   
+            }
         }
         
         
@@ -86,8 +105,8 @@
         }
         
         
-        // falta incorporar el boton en el template (10/5/18)
-		$scope.irAPerfil = function(){
+        
+		function irAPerfil(){
 			$mdDialog.hide();
 			$state.go('catalog.profile');
         };

@@ -1,38 +1,74 @@
 <md-dialog aria-label="options dialog" class="popUp-domicilio">
     <md-dialog-content layout-padding >
-
         <h2 class="md-title " translate>ELIGE_DOMICILIO</h2>
         <md-select ng-show="mostrarSeleccionMultiple" placeholder="Seleccione un modo de entrega" ng-model="entregaSelected" style="min-width: 30vw;">
             <md-option ng-value="delivery" ng-repeat="delivery in deliveryTypes" ng-click="setDeliveryType(delivery)">{{delivery.label}}</md-option>
         </md-select>
 
-        <element-wrapper supported-strategies="seleccionDeDireccionDelUsuario">
-            <md-input-container ng-show="deliveryTypes[0].show">
-                <md-select placeholder="Domicilio de envio" ng-model="selectedAddress" style="min-width: 30vw;">
-                    <md-option ng-repeat="address in addresses" ng-click="setSelectedAddress(address)" ng-value="address">{{address.alias}}</md-option>
-                </md-select>
-            </md-input-container>
-        </element-wrapper>
+        <form name="inputAddress">
+            <element-wrapper supported-strategies="seleccionDeDireccionDelUsuario">
+                <div ng-show="deliveryTypes[0].show">
+                    <div ng-show="addresses.length == 0">	
+                        <div translate=PEDIR_DOMICILIO></div>
+                    </div>
+                    <div ng-show="addresses.length > 0" layout="column" style="min-width: 50vw;">
+                        <md-input-container>
+                            <label>Domicilio de envio</label>
+                            <md-select name="selectedAddress" ng-model="selectedAddress" required>
+                                <md-option ng-repeat="address in addresses" ng-click="setSelectedAddress(address)" ng-value="address">{{address.alias}}</md-option>
+                            </md-select>
+                            <div class="errors" ng-messages="inputAddress.selectedAddress.$error">
+                                <div ng-message="required">Se debe seleccionar una dirección</div>
+                            </div>
+                        </md-input-container>
+                        <div ng-show="showSelectAddressError">
+                            <label class="ch-errors" >Se debe seleccionar una dirección</label>
+                        </div>
+                        <md-input-container>
+                            <textarea type="" name="" placeholder="¿Tiene alguna particularidad del domicilio?" style="width: 100%; margin: 0 auto;" ng-model="comentario"></textarea>
+                        </md-input-container>
+                    </div>
+                </div>
+            </element-wrapper>
 
-        <element-wrapper supported-strategies="puntoDeEntrega">
-            <md-input-container ng-show="deliveryTypes[1].show">
-                <md-select placeholder="Seleccione un punto de entrega" ng-model="selectedDeliveryPoint"  style="min-width: 30vw;">
-                    <md-option ng-repeat="deliveryPoint in deliveryPoints" ng-click="setSelectedDeliveryPoint(deliveryPoint)" ng-value="deliveryPoint">{{deliveryPoint.nombre}}</md-option>
-                </md-select>
-            </md-input-container>
-        </element-wrapper>
-
-        <textarea type="" name="" placeholder="Ingrese alguna particularidad del domicilio. Por ejemplo: 'No funciona el timbre'" style="width: 100%; margin: 0 auto;" ng-model="comentario"></textarea> 
-        </textarea>
-
+            <element-wrapper supported-strategies="puntoDeEntrega">
+                <div ng-show="deliveryTypes[1].show">
+                    <div ng-show="deliveryPoints.length == 0">
+                        No hay puntos de entrega disponibles
+                    </div>
+                    <div ng-show="deliveryPoints.length > 0">
+                        <md-input-container>
+                            <label>Seleccione un punto de entrega</label>
+                            <md-select name="selectedDeliveryPoint" ng-model="selectedDeliveryPoint" required>
+                                <md-option ng-repeat="deliveryPoint in deliveryPoints" ng-click="setSelectedDeliveryPoint(deliveryPoint)" ng-value="deliveryPoint">{{deliveryPoint.nombre}}</md-option>
+                            </md-select>
+                            <div class="errors" ng-messages="inputAddress.selectedDeliveryPoint.$error">
+                                <div ng-message="required">Se debe seleccionar un punto de entrega</div>
+                            </div>
+                        </md-input-container>
+                        <div ng-show="showSelectAddressError">
+                            <label class="ch-errors" >Se debe seleccionar un punto de entrega</label>
+                        </div>
+                    </div>
+                </div>
+            </element-wrapper>
+        </form>
     </md-dialog-content>
+    
     <md-dialog-actions>
         <span flex></span>
-        <md-button class="confirma-domicilio" ng-click="cancelAction()">
+        <md-button class="cancela-domicilio" ng-click="cancelAction()">
             <label translate="CANCELAR"></label>
         </md-button>
-        <md-button class="confirma-domicilio" ng-click="okAction()">
-            <label translate="CONFIRMAR"></label>
-        </md-button>
+        <div ng-show="(deliveryTypes[0].show && addresses.length > 0) || deliveryTypes[1].show">
+            <md-button class="confirma-domicilio" ng-click="okAction()">
+                <label translate="CONFIRMAR"></label>
+            </md-button>
+        </div>
+        <div ng-show="deliveryTypes[0].show && addresses.length == 0">
+            <md-button class="confirma-domicilio" ng-click="irAPerfil()">
+                <label translate="IR_PERFIL"></label>
+            </md-button>
+        </div>
     </md-dialog-actions>
 </md-dialog>
