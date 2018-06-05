@@ -163,6 +163,11 @@
             
             puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
 
+            /*
+            Servicios para ABM Nodos
+            */
+            altaDeNodo: URLS.be_rest + "client/nodo/alta",
+            nodosAbiertos: function(idVendedor){ return URLS.be_rest + "/client/nodo/all/" + idVendedor;} ,
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 
 
