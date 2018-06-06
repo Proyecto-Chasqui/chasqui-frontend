@@ -4,19 +4,18 @@
 	angular.module('chasqui').controller('SelectDeliveryAddressController', SelectDeliveryAddressController);
 
 	/** @ngInject */
-	function SelectDeliveryAddressController($scope, contextPurchaseService, $log, vendedorService, perfilService,
-                                             actions, $mdDialog, $state) {
+	function SelectDeliveryAddressController($scope, contextPurchaseService, $log, vendedorService, sellerService, 
+                                              perfilService, $mdDialog, $state) {
         
-        $scope.catalog = null;
         
         $scope.addresses = [];
         $scope.deliveryPoints = [];
-		$scope.selectedAddress = null;
-		$scope.selectedDeliveryPoint = null;
-        $scope.setSelectedAddress = setSelectedAddress;
-        $scope.setSelectedDeliveryPoint = setSelectedDeliveryPoint;
-        $scope.irAPerfil = irAPerfil;
-        $scope.showSelectAddressError = false;
+        $scope.address = {
+            type: "",
+            selected: null,
+            zone: null,
+            particularities: ""
+        }
         
         $scope.deliveryTypes = [
             {
@@ -28,40 +27,67 @@
             }
         ];
         $scope.setDeliveryType = setDeliveryType;
-        $scope.comentario = "";
+        $scope.setSelectedAddress = setSelectedAddress;
+        $scope.setSelectedZone = setSelectedZone;
+        $scope.setAddressParticularities = setAddressParticularities;
+        $scope.setSelectedDeliveryPoint = setSelectedDeliveryPoint;
                 
+        $scope.validated = false;
+        $scope.modeDefined = false;
+        $scope.addressDefined = false;
+        $scope.zoneDefined = false;
+        $scope.deliveryPointDefined = false;
+        
         /////////////////////////////////////
         
         function init(){
             contextPurchaseService.getSelectedCatalog().then(function(selectedCatalog){
-                $scope.catalog = selectedCatalog;
-                callDirecciones();
+                callDirecciones(selectedCatalog);
+                loadZones(selectedCatalog.id);
             })
         }
         
         /////////////////////////////////////
         
+        function setDeliveryType(deliverySelected){
+            $scope.deliveryTypes = $scope.deliveryTypes.map(function(d){d.show = d.label == deliverySelected.label; return d});
+            $scope.showGoProfile = $scope.deliveryTypes[0] == deliverySelected && $scope.addresses.length == 0;
+            $scope.validated = false;
+        }
+        
         function setSelectedAddress(newAddress){
             $scope.selectedAddress = newAddress;
-            $scope.showSelectAddressError = false;
-            $scope.inputAddress.selectedAddress.$valid = true;
+        }
+        
+        function setSelectedZone(newZone){
+            $scope.selectedZone = newZone;
+        }
+        
+        function setAddressParticularities(newComments){
+            console.log(newComments);
+            $scope.addressParticularities = newComments;
         }
         
         function setSelectedDeliveryPoint(newDeliveryPoint){
             $scope.selectedDeliveryPoint = newDeliveryPoint;
-            $scope.showSelectAddressError = false;
-            $scope.inputAddress.selectedAddress.$valid = true;
         }
         
-        function setDeliveryType(deliverySelected){
-            $scope.deliveryTypes = $scope.deliveryTypes.map(function(d){d.show = d.label == deliverySelected.label; return d});
-            $scope.selectedAddress = null;
-            $scope.selectedDeliveryPoint = null;
-            $scope.showSelectAddressError = false;
-            $scope.inputAddress.selectedAddress.$valid = false;
+        
+        
+        function loadZones(catalogId){
+            
+            function formatDate(date){
+                return date.slice(0,2) + "/" + date.slice(3,5) + "/" + date.slice(6,10);
+            }
+            
+            function doOk(response){
+                $scope.zones = response.data.map(function(z){z.fechaCierrePedidos = formatDate(z.fechaCierrePedidos); return z;});
+            }
+                
+            sellerService.getSellerZones(catalogId).then(doOk);
         }
         
-        function callDirecciones() {
+        function callDirecciones(catalog) {
 			$log.debug('call direcciones ');
 
 			function fillUserAddresses(response) {
@@ -70,47 +96,48 @@
 			}
 
 			function fillDeliveryPoints(response) {
+                $log.debug('call delivery points ', response.data);
 				$scope.deliveryPoints = response.data.puntosDeRetiro;
 			}
-      		showMultipleSelection();
+      		showMultipleSelection(catalog);
 			vendedorService.verPuntosDeEntrega().then(fillDeliveryPoints);
 			perfilService.verDirecciones().then(fillUserAddresses);
 		}
         
         
-        function showMultipleSelection(){
-            $scope.mostrarSeleccionMultiple = $scope.catalog.few.seleccionDeDireccionDelUsuario && $scope.catalog.few.puntoDeEntrega;
+        function showMultipleSelection(catalog){
+            $scope.mostrarSeleccionMultiple = catalog.few.seleccionDeDireccionDelUsuario && catalog.few.puntoDeEntrega;
             if(!$scope.mostrarSeleccionMultiple){
-                $scope.deliveryTypes[0].show = $scope.catalog.few.seleccionDeDireccionDelUsuario;
-                $scope.deliveryTypes[1].show = $scope.catalog.few.puntoDeEntrega;
+                $scope.deliveryTypes[0].show = catalog.few.seleccionDeDireccionDelUsuario;
+                $scope.deliveryTypes[1].show = catalog.few.puntoDeEntrega;
             }
 		}
         
         
-        $scope.okAction = function(){
-            console.log($scope.inputAddress.selectedAddress.$valid);
-            if($scope.inputAddress.selectedAddress.$valid){
-                actions.doOk($scope.deliveryTypes[0].show? $scope.selectedAddress : null, 
-                             $scope.deliveryTypes[1].show? $scope.selectedDeliveryPoint : null);
-                $mdDialog.hide();                
+        function validInformation(){
+            return $scope.address.selected != null &&
+                   (($scope.deliveryTypes[0].show && $scope.address.zone != null) || 
+                    $scope.deliveryTypes[1].show);
+        }
+        
+        function riseErrors(){
+            $scope.validated = true;
+            $scope.modeDefined = $scope.deliveryTypes.reduce(function(r,t){return r || t.show}, false);
+            $scope.addressDefined = $scope.deliveryTypes[0].show && $scope.address.selected != null;
+            $scope.zoneDefined = $scope.deliveryTypes[0].show && $scope.address.zone != null;
+            $scope.deliveryPointDefined = $scope.deliveryTypes[1].show && $scope.address.selected != null;
+        }
+        
+        $scope.$on("check-direccion", function(){
+            if(validInformation()){
+                $scope.validated = false;
+                $scope.address.type = $scope.deliveryTypes[0].show? "address" : "deliveryPoint";
+                $scope.okAction($scope.address);              
             }else{
-                $scope.showSelectAddressError = true;   
+                riseErrors();
             }
-        }
-        
-        
-        $scope.cancelAction = function(){
-            actions.doNotOk();
-            $mdDialog.hide();
-        }
-        
-        
-        
-		function irAPerfil(){
-			$mdDialog.hide();
-			$state.go('catalog.profile');
-        };
-        
+        })
+                
         
         init();
 	}
