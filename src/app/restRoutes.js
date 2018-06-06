@@ -18,6 +18,10 @@
             sellers: URLS.be_rest + "client/vendedor/all",
 
             seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
+            
+            sellerQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
+            
+            sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
 
             catalogo: URLS.be_rest + "client/catalogo", //Para que se deduzca de la URL
 

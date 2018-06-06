@@ -1,0 +1,50 @@
+<div layout="row" layout-align="space-between center">
+    <div flex="50">
+        <div>
+            <span>Productos del pedido: </span>
+        </div>
+        <md-list class="fixedRows">
+            <md-list-item ng-repeat="product in order.productosResponse">
+                <md-divider></md-divider>
+                <div layout="column" layout-align="space-between start">
+                    <span><strong>{{product.nombre}}</strong></span>
+                    <span>{{product.cantidad}} x ${{product.precio}} = <strong>${{product.precio * product.cantidad}}</strong></span>
+                </div>
+                <md-divider ng-if="$last"></md-divider>
+            </md-list-item>
+        </md-list>
+        
+        <div>
+            <span>Total: <strong>${{order.montoActual}}</strong></span>
+        </div>
+    </div>
+    <div flex="50" layout="row" layout-align="space-between">
+        <div flex="10">
+        </div>
+        <div flex="80">
+            <div ng-show="selectedAddress.type == 'address'" layout="column" layout-align="space-between">
+                <div>
+                    <span>
+                        Tu pedido te va a ser entregado el dia <strong>{{selectedAddress.zone.fechaCierrePedidos}}</strong> 
+                        en <strong>{{selectedAddress.selected.calle}} {{selectedAddress.selected.altura}}, {{selectedAddress.selected.localidad}}</strong>.
+                    </span>
+                </div>
+                <div>
+                    <span style="font-style: italic;">
+                        {{selectedAddress.zone.descripcion}}
+                    </span>
+                </div>
+            </div>
+
+            <div ng-show="selectedAddress.type == 'deliveryPoint'" layout="column" layout-align="space-between start">
+                <span>
+                    Vas a poder pasar a retirar tu pedido por <strong>{{selectedAddress.selected.nombre}}</strong>, ubicadx en 
+                    <strong>{{selectedAddress.selected.direccion.calle}} {{selectedAddress.selected.direccion.altura}}, {{selectedAddress.selected.direccion.localidad}}</strong>.
+                </span>
+                <span style="font-style: italic;">{{selectedAddress.selected.mensaje}}</span>
+            </div>
+        </div>
+        <div flex="10">
+        </div>
+    </div>
+</div>
