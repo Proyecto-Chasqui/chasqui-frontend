@@ -1,7 +1,8 @@
 $colorUno: #662E91;
 $colorDos: #21B7EE;
-$colorConfirmar: #43a047;
+$colorTres: #fb8c00;
 $colorCancela: #d50000;
+$colorConfirmar: #43a047;
 // https://www.materialpalette.com/colors
 .body {
 	/*background: linear-gradient(#F7F7F7,#D7D7D7) !important;
@@ -178,6 +179,63 @@ md-tabs md-ink-bar {
     .md-button.cancela-domicilio{
 		color: #fff;
 		background-color: $colorCancela !important;
+		&:hover{
+			background-color: $colorUno !important;
+			color: $colorDos;
+			box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+		}
+	}
+}
+
+.ch-error{
+    color: $colorCancela !important;
+}
+
+.confirm-order{
+	color: $colorUno;
+	.md-title{
+		background-color: $colorDos !important;
+	}
+    .md-button.cancel-order{
+		color: #fff;
+		background-color: $colorCancela !important;
+		&:hover{
+			background-color: $colorUno !important;
+			color: $colorDos;
+			box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+		}
+	}
+    .md-button.back{
+		color: #fff;
+		background-color: $colorUno !important;
+		&:hover{
+			background-color: $colorUno !important;
+			color: $colorDos;
+			box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+		}
+	}
+    .md-button.next{
+		color: #fff;
+		background-color: $colorDos !important;
+		&:hover{
+			background-color: $colorDos !important;
+			color: $colorUno;
+			box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+		}
+	}
+	.md-button.confirm-order{
+		color: #fff;
+		background-color: $colorConfirmar !important;
+		&:hover{
+			background-color: #fff !important;
+			color: $colorConfirmar;
+			box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+		}
+	}
+    
+    .md-button.go-profile{
+		color: #fff;
+		background-color: $colorTres !important;
 		&:hover{
 			background-color: $colorUno !important;
 			color: $colorDos;

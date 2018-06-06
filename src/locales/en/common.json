@@ -17,6 +17,8 @@
     "CANCELAR" : "Cancelar",
     "CANCELADO" : "Cancelado",
     "CONFIRMAR" : "Confirmar",
+    "ANTERIOR": "Anterior",
+    "SIGUIENTE": "Siguiente",
     "ENTIENDO" : "Entiendo",
     "CERRAR" : "Cerrar"
 }

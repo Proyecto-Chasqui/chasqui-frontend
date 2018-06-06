@@ -81,17 +81,19 @@
             $mdDialog.show(modify);
         }
         
-        vm.selectDeliveryAddress = function(actions){
-            var modify = {
+        vm.selectDeliveryAddress = function(actions, order){
+            var confirmOrder = {
                 parent: angular.element(document.body),
-                templateUrl: "app/comercio/carrito/select-delivery-address/select-delivery-address.tmpl.html",
-                controller: "SelectDeliveryAddressController",
+                templateUrl: "app/comercio/carrito/confirm-order/confirm-order.tmpl.html",
+                controller: "ConfirmOrderCtrl",
+                clickOutsideToClose: true,
                 locals: {
-                    actions: actions
+                    actions: actions, 
+                    order: order
                 }
-            };
+            }
             
-            $mdDialog.show(modify);
+            $mdDialog.show(confirmOrder);
         }
             
 	} 
