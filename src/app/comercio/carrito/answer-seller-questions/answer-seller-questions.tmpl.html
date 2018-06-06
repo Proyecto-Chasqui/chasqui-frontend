@@ -1,0 +1,15 @@
+<form name="inputAddress">
+    <div ng-repeat="question in questions" ng-show="question.habilitada">
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span>{{question.nombre}}: <strong>*</strong></span>
+                <span class="ch-error" ng-show="validated && !question.answered">Se debe responder esta pregunta</span>
+            </div>
+            <md-input-container flex="50">
+                <md-select placeholder="{{question.nombre}}" name="{{question.nombre}}" ng-model="question.answer" required>
+                    <md-option ng-repeat="answer in question.opciones" ng-value="answer">{{answer}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+</form>

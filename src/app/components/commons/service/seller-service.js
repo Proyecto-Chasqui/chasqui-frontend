@@ -13,6 +13,14 @@
 		vm.getSeller = function(sellerId) {
 			return promiseService.doGet(REST_ROUTES.seller(sellerId), {});
 		}
+        
+        vm.getSellerQuestions = function(sellerId){
+            return promiseService.doGet(REST_ROUTES.sellerQuestions(sellerId), {});
+        }
+        
+        vm.getSellerZones = function(sellerId){
+            return promiseService.doGet(REST_ROUTES.sellerZones(sellerId), {});
+        }
 
 	}
 })();
