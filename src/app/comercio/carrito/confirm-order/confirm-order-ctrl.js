@@ -67,6 +67,7 @@
                 },
                 function(){
                     actions.doOk($scope.selectedAddress, $scope.answers);
+                    $mdDialog.hide();
                 }
             ][$scope.currentNavItem]();
         }

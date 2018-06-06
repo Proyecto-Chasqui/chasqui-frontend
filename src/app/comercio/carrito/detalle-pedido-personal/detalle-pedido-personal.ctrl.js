@@ -23,10 +23,10 @@
                 doNotOk: ignoreAction
             };
             
-            dialogCommons.selectDeliveryAddress(actions);
+            dialogCommons.selectDeliveryAddress(actions, $scope.pedido);
 		};
         
-        function doConfirmOrder(direccionSelected, puntoEntregaSelected) {
+        function doConfirmOrder(selectedAddress, answers) {
 			$log.debug('callConfirmar', $scope.pedido);
 
 			function doOk(response) {
@@ -35,29 +35,37 @@
 				$rootScope.$emit('order-confirmed');
 			}
 
-			var params = {};
-			params.idPedido = $scope.pedido.id;			
-			params.comentario = $scope.comentario;
+			var params = {
+                idPedido: $scope.pedido.id,
+                idDireccion: "",
+                idPuntoDeRetiro: "",
+                idZona: "",
+                comentario: "",
+                opcionesSeleccionadas: answers.map(function(a){
+                    return {
+                        nombre: a.nombre,
+                        opcionSeleccionada: a.answer
+                    }
+                })
+            }
             
-			completarParamsSegunMetodoDeEntrega(direccionSelected, puntoEntregaSelected, params);
-		
-			productoService.confirmarPedidoIndividual(params).then(doOk);
+			productoService.confirmarPedidoIndividual(completeConfirmPersonalOrderParams(params, selectedAddress)).then(doOk);
 		}
         
 
-		function completarParamsSegunMetodoDeEntrega(direccionSelected, puntoEntregaSelected, param){
-			console.log(direccionSelected);
-			if(direccionSelected === null || direccionSelected === undefined){
-				param.idDireccion = null;
-			}else{
-				param.idDireccion = direccionSelected.idDireccion;
-			}
-
-			if(puntoEntregaSelected === null || puntoEntregaSelected === undefined){
-				param.idPuntoDeRetiro = null; 
-			}else{
-				param.idPuntoDeRetiro = puntoEntregaSelected.id;
-			}
+		function completeConfirmPersonalOrderParams(params, selectedAddress){
+            return {
+                address: function(){
+                    params.idDireccion = selectedAddress.selected.idDireccion;
+                    //params.idZona = selectedAddress.zone.id;
+                    params.comentario = selectedAddress.particularities;
+                    return params;
+                },
+                deliveryPoint: function(){
+                    params.idPuntoDeRetiro = selectedAddress.selected.id;
+                    return params;
+                }
+            }[selectedAddress.type]();
 		}
 
 
