@@ -11,7 +11,7 @@
                 okAction: '='
             },
             controller: 'AnswerSellerQuestionsController',
-            templateUrl: 'app/comercio/carrito/answer-seller-questions/answer-seller-questions.tmpl.html'
+            templateUrl: 'app/comercio/carrito/confirm-order/answer-seller-questions/answer-seller-questions.tmpl.html'
           };
     }
     

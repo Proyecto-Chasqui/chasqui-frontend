@@ -4,22 +4,24 @@
         <md-content layout="column" layout-align="space-between" class="md-padding">
             <div layout="column" layout-align="space-between">
                 <md-progress-linear md-mode="determinate" value="{{currentNavItem*33 + 34}}"></md-progress-linear>
-                <span ng-show="sections.selectAddress || sections.questions" style="font-style: italic; margin-top: 20px;">Las preguntas marcadas con <strong>*</strong> son obligatorias</span>
-                <div>
-                    <div ng-show="sections.selectAddress">
-                        <select-delivery-address 
-                            show-go-profile="showGoProfileButton"
-                            ok-action="selectDeliveryAddressOkAction">
-                        </select-delivery-address>
-                    </div>
-                    <div ng-show="sections.questions">
-                        <answer-seller-questions
-                            ok-action="answerSellerQuestionsOkAction"></answer-seller-questions>
-                    </div>
-                    <div ng-show="sections.orderSumary">
-                        <order-summary 
-                            order="order"
-                            selected-address="selectedAddress"></order-summary>
+                <div style="margin-top: 20px;">
+                    <span ng-show="sections.selectAddress || sections.questions" style="font-style: italic;">Las preguntas marcadas con <strong>*</strong> son obligatorias</span>
+                    <div>
+                        <div ng-show="sections.selectAddress">
+                            <select-delivery-address 
+                                show-go-profile="showGoProfileButton"
+                                ok-action="selectDeliveryAddressOkAction">
+                            </select-delivery-address>
+                        </div>
+                        <div ng-show="sections.questions">
+                            <answer-seller-questions
+                                ok-action="answerSellerQuestionsOkAction"></answer-seller-questions>
+                        </div>
+                        <div ng-show="sections.orderSumary">
+                            <order-summary 
+                                order="order"
+                                selected-address="selectedAddress"></order-summary>
+                        </div>
                     </div>
                 </div>
             </div>

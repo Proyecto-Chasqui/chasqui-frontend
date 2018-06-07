@@ -12,7 +12,7 @@
                 selectedAddress: "="
             },
             controller: 'OrderSummaryController',
-            templateUrl: 'app/comercio/carrito/order-summary/order-summary.tmpl.html'
+            templateUrl: 'app/comercio/carrito/confirm-order/order-summary/order-summary.tmpl.html'
           };
     }
     
