@@ -19,7 +19,9 @@
 
             seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
             
-            sellerQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
+            sellerIndividualQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
+            
+            sellerColectiveQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoColectivo/" + sellerId},
             
             sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
 

@@ -14,8 +14,12 @@
 			return promiseService.doGet(REST_ROUTES.seller(sellerId), {});
 		}
         
-        vm.getSellerQuestions = function(sellerId){
-            return promiseService.doGet(REST_ROUTES.sellerQuestions(sellerId), {});
+        vm.getSellerIndividualQuestions = function(sellerId){
+            return promiseService.doGet(REST_ROUTES.sellerIndividualQuestions(sellerId), {});
+        }
+        
+        vm.getSellerColectiveQuestions = function(sellerId){
+            return promiseService.doGet(REST_ROUTES.sellerColectiveQuestions(sellerId), {});
         }
         
         vm.getSellerZones = function(sellerId){

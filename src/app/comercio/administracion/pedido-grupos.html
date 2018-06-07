@@ -1,8 +1,7 @@
 <div ng-controller="PedidoGruposController as pedidoGrupoCtrl" ng-cloak>
-    <div ng-include="'app/comercio/administracion/pop_upGcc.html'"></div>
     <div> 
         <md-button class="btn-confirmar" 
-            ng-click="pedidoGrupoCtrl.cerrarPedidoGccClick()"
+            ng-click="pedidoGrupoCtrl.confirmGCCOrder()"
             ng-show="pedidoGrupoCtrl.grupo.esAdministrador"
             ng-disabled="!pedidoGrupoCtrl.puedeCerrarPedidoGCC">
             <label translate>CONFIRMAR_PEDIDO</label>

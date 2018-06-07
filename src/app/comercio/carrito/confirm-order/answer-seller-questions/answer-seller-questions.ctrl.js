@@ -11,11 +11,19 @@
         /////////////////////////////////////
         
         function init(){
+            
             function doOk(response){
                 $scope.questions = response.data;
             }
-                
-            sellerService.getSellerQuestions($stateParams.catalogShortName).then(doOk);
+            
+            var getQuestions = {
+                PERSONAL: function(){
+                    sellerService.getSellerIndividualQuestions($stateParams.catalogShortName).then(doOk);                    
+                },
+                GROUP: function(){
+                    sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
+                }
+            }[$scope.order.type]();
         }
         
         init();

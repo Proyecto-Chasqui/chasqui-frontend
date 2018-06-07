@@ -8,6 +8,7 @@
         return {
             restrict: 'E',
             scope: {
+                order: "=",
                 okAction: '='
             },
             controller: 'AnswerSellerQuestionsController',
