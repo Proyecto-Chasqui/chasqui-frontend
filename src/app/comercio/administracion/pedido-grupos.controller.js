@@ -63,11 +63,13 @@
                 doOk: doConfirmOrder,
                 doNotOk: ignoreAction
             };
+            
+            var activeMembers = vm.grupo.miembros.filter(function(m){return m.pedido != null});
 
             var adHocOrder = {
-                montoActual: vm.grupo.miembros.reduce(function(r,m){return r + m.pedido.montoActual}, 0),
-                nombresDeMiembros: vm.grupo.miembros.map(function(m){return m.nickname}),
-                montoActualPorMiembro: vm.grupo.miembros.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual; return r}, {}),
+                montoActual: activeMembers.reduce(function(r,m){return r + m.pedido.montoActual}, 0),
+                nombresDeMiembros: activeMembers.map(function(m){return m.nickname}),
+                montoActualPorMiembro: activeMembers.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual; return r}, {}),
                 type: agrupationTypeVAL.TYPE_GROUP
             }
             
