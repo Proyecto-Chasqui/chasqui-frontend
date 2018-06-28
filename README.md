@@ -1,72 +1,47 @@
-# Chasqui Front Wed Web
+![](http://proyectochasqui.org/images/logo_chasqui_400.png)
 
-Capa de front end para la aplicación Chasqui.
+1. [¿Qué es Chasqui?](#qué-es-chasqui)
+2. [Información técnica](#información-técnica)
+3. [Notas de las diferentes versiones](#notas-de-las-diferentes-versiones)
+4. [Autoría](#autoría)
+5. [Licencia](#licencia)
+6. [Copyright](#copyright)
 
-Ver:
-  - Chasqui Back End
-  - Chasqui Back Offie
+## ¿Qué es Chasqui?
 
+Este proyecto (*Plataforma Chasqui Multicatálogo*) es el resultado de un proceso participativo dirigido por la [Cooperativa Código Libre](http://codigolibrecoop.com/)
 
-### Version
-1.0.0
-### Tech
+El desarrollo de software se basó en la versión alpha de la herramienta Chasqui disponible en:
+- [Backend](https://github.com/dgonzalia/chasqui-backend)
+- [Frontend mobile](https://github.com/dgonzalia/chasqui-mobile)
+- [Frontend web](https://github.com/leonardopa/tip)
 
-* [AngularJS] - HTML enhanced for web apps!
-* [Twitter Bootstrap] - great UI boilerplate for modern web apps
-* [node.js] - evented I/O for the backend
-* [Express] - fast node.js network app framework [@tjholowaychuk]
-* [Gulp] - the streaming build system
-* [jQuery] - duh
+**Chasqui** es una herramienta de licencia libre que está especialmente diseñada para promover y gestionar la comercialización electrónica de productos de la **Economía Social y Solidaria**.
 
-### Installation
+Consta de una _aplicación móvil_ y una _aplicación web_, que permiten realizar pedidos en las diversas modalidades que proveen identidad, pero también sostenibilidad a la comercialización de la economía social: _compras individuales_, _colectivas_ y por _nodos de consumo_.
 
-Chasqui requiere [Node.js](https://nodejs.org/) .
+La herramienta busca visibilizar y poner en valor las características del comercio justo y la Economía Social y Solidaria, promoviendo el consumo responsable y teniendo en cuenta la accesibilidad. Además, se asegurará que la herramienta tenga una **licencia libre**, que permita la potencial extensión de este desarrollo o su adaptación a nuevos contextos, nacionales o internacionales.
 
-Se necesita installar Gulp
+Para más información ir al [sitio del proyecto](http://proyectochasqui.org/)
 
-```sh
-$ npm i -g gulp
-```
+## Información técnica
+Para detalles de la instalación y arquitectura ir a [CONFIGURATIONS](../master/CONFIGURATIONS.md)
 
-```sh
-$ git clone [git-repo-url] chasqui
-$ cd chasqui
-$ npm install
-$ bower install
-```
-Antes de usarlo, hay que copiar el archivo index.constants.js a "src/app/" y luego configurar los par�metros necesarios para su funcionamiento explicados ah� dentro.
+## Notas de las diferentes versiones
+Ver detalles en [RELEASE_NOTES](../master/RELEASE_NOTES.md)
 
-Para usar en entorno de desarrollo se recomienda correrlo con gulp
-```sh
-$ glup serve
-```
+## Autoría
+Las diferentes personas que participaron del proyecto se encuentran mencionadas en [AUTHORS](../master/AUTHORS.md)
 
-Para installar en otros entornos 
-```sh
-$ glup build
-```
-El cual genera el código fuente en la carpeta /dist
+## Licencia
+*Chasqui* es software libre: usted puede redistribuirlo y/o modificarlo bajo los términos de la **Licencia Pública General GNU** publicada por la **Free Software Foundation**, bien sea de la versión 3 de la Licencia, o (a su elección) cualquier versión posterior.
 
-Para el caso de Tomcat copiar el la carpeta /webapps .
-Por ehemplo ....\apache-tomcat-8.0.29\webapps\chasqui  .
-Luego http://localhost:8081/chasqui/# .
+*Chasqui* es distribuido con la esperanza de que sea útil, pero SIN NINGUNA GARANTÍA; incluso sin la garantía implícita de
+COMERCIABILIDAD o IDONEIDAD PARA UN PROPÓSITO PARTICULAR. *Ver la Licencia Pública General de GNU para más detalles.*
 
-Para el caso de GlassFish copiar el contenido de la carpeta en [GlassFish]\\domains\\domain1\\docroot\\chaqui
+Usted debe haber recibido una copia de la Licencia Pública General de GNU junto con *Chasqui*. Si no, vea <https://www.gnu.org/licenses/>.
 
-### Entorno
+Se pueden ver los detalles de esa licencia en [COPYING](../master/COPYING)
 
-Este front end consume servicios REST de la aplicaci�n de Back End. Se debe verificar que la url de los servicios sea correcta.
-
-Para installar en otros entornos 
-```sh
-$ index.constants.js
---> URL_REST_BASE
-```
-
-### Todos
-
- - en desarrollo
- 
-License
-----
-
+## Copyright
+Ver detalles de la marca _Chasqui_ en [COPYRIGHT](../master/COPYRIGHT)
