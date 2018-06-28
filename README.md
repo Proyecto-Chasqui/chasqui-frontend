@@ -5,7 +5,6 @@
 3. [Notas de las diferentes versiones](#notas-de-las-diferentes-versiones)
 4. [Autoría](#autoría)
 5. [Licencia](#licencia)
-6. [Copyright](#copyright)
 
 ## ¿Qué es Chasqui?
 
@@ -42,6 +41,3 @@ COMERCIABILIDAD o IDONEIDAD PARA UN PROPÓSITO PARTICULAR. *Ver la Licencia Púb
 Usted debe haber recibido una copia de la Licencia Pública General de GNU junto con *Chasqui*. Si no, vea <https://www.gnu.org/licenses/>.
 
 Se pueden ver los detalles de esa licencia en [COPYING](../master/COPYING)
-
-## Copyright
-Ver detalles de la marca _Chasqui_ en [COPYRIGHT](../master/COPYRIGHT)
