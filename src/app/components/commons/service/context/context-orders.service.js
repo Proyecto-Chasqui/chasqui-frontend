@@ -19,6 +19,8 @@
             getOrder: getOrder,
             getOrders: getOrders,
             getOrdersByType: getOrdersByType,
+            openPersonalOrder: openAndGetPersonalOrder,
+            setVirtualPersonalOrder: setVirtualPersonalOrder,
             modifyOrder: modifyOrder,            // catalogId -> Order -> Modification -> Null
             setStateConfirmed: setStateConfirmed,// catalogId -> Order -> Null
             setStateCancel: setStateCancel       // catalogId -> Order -> Null
@@ -76,6 +78,33 @@
             return orders_dao.getOrdersByType(catalogId, ordersType);
         }
         
+        function openAndGetPersonalOrder(catalogId){
+            return setPromise(function(defered){
+                function doOkPedido(response) {
+                    var personalOrder = response.data;
+                    personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
+                    personalOrder.idGrupo = idGrupoPedidoIndividual;
+                    personalOrder.aliasGrupo = "Personal";
+                    replacePersonalOrder(catalogId, personalOrder);
+                    defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
+                }
+
+                function doOkCrear(response) {
+                    productoService.verPedidoIndividual().then(doOkPedido);
+                }
+
+                var params = {
+                    idVendedor: catalogId
+                }
+
+                //si falla es poque ya tiene un pedido abierto TODO mejorar
+                productoService.crearPedidoIndividual(params, doOkCrear).then(doOkCrear);
+            });
+        }
+        
+        function setVirtualPersonalOrder(catalogId){
+            replacePersonalOrder(catalogId, pedidoIndividualVirtual);
+        }
         
         function modifyOrder(catalogId, order, modification){
             orders_dao.modifyOrder(catalogId, order, modification);
@@ -109,25 +138,15 @@
                 "personal order",
                 orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL), 
                 function(defered){
-                    function doOkPedido(response) {
-                        var personalOrder = response.data;
-                        personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
-                        personalOrder.idGrupo = idGrupoPedidoIndividual;
-                        personalOrder.aliasGrupo = "Personal";
-                        addOrder(catalogId, personalOrder);
-                        defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
-                    }
-
-                    function doOkCrear(response) {
-                        productoService.verPedidoIndividual().then(doOkPedido);
-                    }
-
-                    var params = {
-                        idVendedor: catalogId
-                    }
-
-                    //si falla es poque ya tiene un pedido abierto TODO mejorar
-                    productoService.crearPedidoIndividual(params, doOkCrear).then(doOkCrear)
+                    isPersonalOrderOpen(catalogId).then(function(isOpen){
+                        if(isOpen){
+                            openAndGetPersonalOrder(catalogId);
+                        }else{
+                            addOrder(catalogId, pedidoIndividualVirtual);
+                            defered.resolve(pedidoIndividualVirtual);
+                        }
+                    })
+                    
                 });
         }
         
@@ -170,6 +189,8 @@
             
         }
         
+        
+        ///////// Auxiliares
         
         /*  
          *  PROP:
@@ -214,6 +235,37 @@
             })
         }
         
+        function isPersonalOrderOpen(catalogId){
+            return setPromise(function(defered){
+                function doOk(response) {	
+                    defered.resolve(any(response.data, function(o){return o.idGrupo == null}));
+                }
+
+                gccService.pedidosByUser(catalogId).then(doOk);
+            });
+        }
+        
+        
+        function any(list, property){
+            return list.reduce(function(r,e){return r || property(e)}, false);
+        }
+            
+        function replacePersonalOrder(catalogId, newPersonalOrder){
+            orders_dao.resetType(catalogId, agrupationTypeVAL.TYPE_PERSONAL);
+            addOrder(catalogId, newPersonalOrder);
+        }
+        
+        // Pedido individual virtual
+        var idPedidoIndividualGrupoPersonal = 0;    // Ningún pedido tiene id = 0
+        
+        var pedidoIndividualVirtual = {
+            aliasGrupo: "Personal",
+            estado: "CANCELADO",
+            id: idPedidoIndividualGrupoPersonal,
+            idGrupo: idGrupoPedidoIndividual,
+            type: agrupationTypeVAL.TYPE_PERSONAL,
+            productosResponse: []
+        }
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
@@ -222,6 +274,7 @@
 		vm.ls = $localStorage;
         
 		vm.ls.lastUpdate = moment();
+                            
         
         return contextOrdersServiceInt;
     }

@@ -18,7 +18,7 @@
         
         function agregarProductoIndividual(variety) { 
             contextCatalogObserver.observe(function(){
-                contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_PERSONAL)
+                contextOrdersService.openPersonalOrder(contextPurchaseService.getCatalogContext())
                     .then(function(){
                         var personalOrder = contextOrdersService.getOrdersByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_PERSONAL)[0];
                         contextPurchaseService.setContextByOrder(personalOrder);

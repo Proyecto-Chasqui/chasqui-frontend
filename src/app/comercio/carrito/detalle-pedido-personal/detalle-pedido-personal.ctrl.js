@@ -32,6 +32,7 @@
 			function doOk(response) {
 				ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
                 contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), $scope.pedido);
+                contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
 				$rootScope.$emit('order-confirmed');
 			}
 
@@ -89,6 +90,7 @@
 				$log.debug("--- cancelar pedido response ", response.data);
 				ToastCommons.mensaje(us.translate('CANCELADO'));
 				contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), $scope.pedido);
+                contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
 				$log.debug('close');
 				$mdDialog.hide();
                 $rootScope.$emit('order-cancelled');
