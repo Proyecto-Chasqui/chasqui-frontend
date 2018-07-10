@@ -2,20 +2,22 @@
     <home-menu class="menu"></home-menu>
 
     <div class="ch-content-full">
-        <md-grid-list md-cols="3"  md-row-height="260px">
-            <md-grid-tile md-colspan="1" md-rowspan="1" ng-repeat="catalog in catalogs" layout-align="space-around center">
+        <md-grid-list md-cols="3"  md-row-height="120px">
+            <md-grid-tile md-colspan="1" md-rowspan="3" ng-repeat="catalog in catalogs" layout-align="space-around center">
                 <md-card class="tarjeta-multicatalogo">
                     <a ng-click="goToCatalog(catalog.nombreCorto)" class="selector-catalogo">
+					    <md-card-actions layout="row" layout-align="center">
+                            <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 0px;">
+                        </md-card-actions>
                         <md-card-title class="red">
                             <md-card-title-text>
                                 <span class="md-headline catalogo-nombre">{{catalog.nombre}}</span>
+								<span> | </span>
                                 <span class="md-subhead catalogo-nombre-corto">{{catalog.nombreCorto}}</span>
                                 <span class="md-subhead catalogo-id">{{catalog.id}}</span>
                             </md-card-title-text>
                         </md-card-title>
-                        <md-card-actions layout="row" layout-align="center">
-                            <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 50px;">
-                        </md-card-actions>
+
                     </a>
                 </md-card>
             </md-grid-tile>
@@ -23,6 +25,21 @@
     </div>
 </md-content>
 <style>
+
+ .ch-content-full {
+    margin-top: 175px;
+ }
+ 
+ md-card md-card-title md-card-title-text {
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    display: -webkit-box;
+    /* display: flex; */
+}
+
   .selector-catalogo{
     background: #F1F1F1;
     transition: all 2s ease-out;
