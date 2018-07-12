@@ -6,7 +6,7 @@
 
 	/** @ngInject */
 	function ProductosPedidoController($log, $state, $scope, URLS, REST_ROUTES, ToastCommons, dialogCommons, productoService, 
-                                        contextPurchaseService, us, modifyVarietyCount) {
+                                        contextPurchaseService, us, modifyVarietyCount, contextOrdersService) {
     
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
@@ -31,11 +31,13 @@
 				$log.debug("--- eliminar pedido response ", response.data);
 				ToastCommons.mensaje(us.translate('QUITO_PRODUCTO'));
                 
-				contextPurchaseService.refreshPedidos().then(
-			        function(pedidos) {
-			          $state.reload();			          
-			        });
-				//$state.reload();
+                contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(), $scope.pedido, function(order){
+                    var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf($scope.productoEliminar.idVariante);                    
+                    order.productosResponse.splice(index, 1);
+                    order.montoActual -= $scope.productoEliminar.cantidad * $scope.productoEliminar.precio
+                    return order;
+                });
+				
 			}
 
 			var params = {};
