@@ -18,9 +18,10 @@
         var vm = this;
         vm.grupo = $scope.grupo;
         vm.configuracionVenedor;
-        vm.puedeCerrarPedidoGCC = !hayAlgunPedidoAbierto();
+        vm.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
         vm.urlBase = URLS.be_base;
         vm.cerrarToolTipMsg = cerrarToolTipMsg;
+        vm.cerradoToolTipMsg = cerradoToolTipMsg;
         vm.selfPara = selfPara;
         vm.vocativoPara = vocativoPara;
         vm.miembrosActivosDelGrupo = miembrosActivosDelGrupo;
@@ -29,13 +30,17 @@
         /////////////////////////////////////////////////
         
         function cerrarToolTipMsg(){
-            if (vm.puedeCerrarPedidoGCC) {
+            if (vm.puedeCerrarPedidoGCC()) {
                 return "Podes cerrar el pedido grupal "
             } else {
                 return "Para cerrar el pedido deben estar todos los pedidos confirmardos"
             }
         }
-
+        
+        function cerradoToolTipMsg(){
+            return "El pedido grupal esta cerrado";
+        }
+        
         function selfPara(miembro){
             return miembro.nickname + ((miembro.email == usuario_dao.getUsuario().email) ? " (Vos)" : ""); 
         }
@@ -49,9 +54,12 @@
             return vm.grupo.miembros.filter(function(m) { return m.invitacion == 'NOTIFICACION_ACEPTADA' });
         }
 
+        function puedeCerrarPedidoGCC(){
+            return !hayAlgunPedidoAbierto();
+        }
 
         function hayAlgunPedidoAbierto() {
-            return vm.grupo.miembros.reduce(function(r,m){return r || m.pedido != null && m.pedido.estado == 'ABIERTO'}, false);
+            return vm.grupo.miembros.reduce(function(r,m){return r || (m.pedido != null && m.pedido.estado == 'ABIERTO')}, false);
         }
 
         
