@@ -25,9 +25,14 @@ $colorConfirmar: #43a047;
     z-index: 79;
     width: 100%;
 
-.material-icons{
+    .material-icons{
 		background-color: $colorUno !important;
 	}
+}
+
+// Barra de titulo de las ventanas modales
+.ch-dialog.md-toolbar-tools{
+    background-color: $colorDos;
 }
 
 .titulo-pagina {
