@@ -9,7 +9,7 @@
                 <strong> $ {{pedidoSelected.montoActual}}</strong>
             </md-subheader>
             <md-list-item class="md-3-line" ng-repeat="variety in pedidoSelected.productosResponse">
-                <md-button ng-click="modifyVarietyCount(variety)" ng-disabled="pedidoSelected.estado == 'CONFIRMADO'">
+                <md-button ng-click="modifyVarietyCount(variety, pedidoSelected)" ng-disabled="pedidoSelected.estado == 'CONFIRMADO'">
                     <div layout="row" layout-align="space-between center">
                         <img ng-src="{{urlBase}}{{variety.imagen}}" class="md-avatar" alt="{{variety.nombre}}" />
                         <div class="md-list-item-text" layout="column">
