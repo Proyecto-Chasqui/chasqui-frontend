@@ -22,7 +22,7 @@
                     .then(function(){
                         var personalOrder = contextOrdersService.getOrdersByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_PERSONAL)[0];
                         contextPurchaseService.setContextByOrder(personalOrder);
-                        modifyVarietyCount.modifyDialog(variety);
+                        modifyVarietyCount.modifyDialog(variety, personalOrder);
                     })
             })
 		}
