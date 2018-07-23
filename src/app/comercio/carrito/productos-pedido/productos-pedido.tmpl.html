@@ -1,6 +1,6 @@
 <md-card ng-repeat="variety in pedido.productosResponse" style="width: 100%">
     <div layout="row" layout-align="space-between center">
-        <md-button ng-click="modifyVarietyCount(variety)">
+        <md-button ng-click="modifyVarietyCount(variety, pedido)">
             <div layout="row" layout-align="space-between center">
                 <div>
                     <img ng-src="{{urlBase}}{{variety.imagen}}" style="height: 100px;">

@@ -11,6 +11,7 @@
 		$log.debug('DetallePedidoController ..... ', $scope.pedido);
 
 		$scope.urlBase = URLS.be_base;
+    $scope.modifyVarietyCount = modifyVarietyCount.modifyDialog;
 	
 		$scope.eliminar = function(item) {
 			$scope.productoEliminar = item;
@@ -48,10 +49,6 @@
 			productoService.quitarProductoIndividual(params).then(doOk)
 		}
         
-        $scope.modifyVarietyCount = function(variety){
-          modifyVarietyCount.modifyDialog(variety);
-      }
-
 		
 	}
 
