@@ -17,16 +17,18 @@
         function addProduct(variety){
             console.log("Agregar producto al pedido individual:", variety);
             contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
-                agrupationTypeDispatcher.byElem(selectedAgrupation, 
-                function(personal){
-                    addProductPersonalOrderService(variety);
-                },
-                function(group){
-                    modifyVarietyCount.modifyDialog(variety);
-                },
-                function(node){
-                    // TODO define behavior
-                });   
+                contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+                    agrupationTypeDispatcher.byElem(selectedAgrupation, 
+                    function(personal){
+                        addProductPersonalOrderService(variety);
+                    },
+                    function(group){
+                        modifyVarietyCount.modifyDialog(variety, selectedOrder);
+                    },
+                    function(node){
+                        // TODO define behavior
+                    });   
+                })
             })
 		}
 	}
