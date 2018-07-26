@@ -28,7 +28,9 @@
 		vm.pedidoSelected = undefined;
 		vm.grupoSelected = undefined;
 		vm.emprendedores = [];
-		vm.emprendedorSelect = {};
+    vm.emprendedorSelect = {};
+    vm.activeIndex = 1; // Seteado desde paginador
+    vm.lastPage = undefined;
 
 		//////// dialogo medalla
 		vm.showPrerenderedDialog = function(medalla) {
@@ -81,20 +83,46 @@
 
 		}
 		////////////// PAGINACION
-		vm.currentPage = 0;
-		vm.paging = {
-			total: 0,
-			current: 1,
-			onPageChanged: loadPages,
-		};
+		// vm.currentPage = 0;
+		// vm.paging = {
+		// 	total: 0,
+		// 	current: 1,
+		// 	onPageChanged: loadPages,
+		// };
+
+		// function loadPages() {
+		// 	console.log('Current page is : ' + vm.paging.current);
+		// 	// TODO : Load current page Data here
+		// 	vm.currentPage = vm.paging.current;
+
+		// 	findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro)
+    // }
+
+    vm.setLastPage = function(){
+      $scope.$broadcast('setLastPage', vm.lastPage)
+      $log.warn("BroadcastLastPage ", vm.lastPage)}
+
+      $scope.$watch(vm.lastPage, vm.setLastPage());
+
+    $scope.$on('paginatorChange', function(event, data){
+      $log.warn("paginatorChange", vm.setLastPage);
+      vm.activeIndex = data;
+      vm.paging = {
+        current: vm.activeIndex
+      };
+      loadPages();
+  });
+
 
 		function loadPages() {
-			console.log('Current page is : ' + vm.paging.current);
+      console.log('Current page is : ' + vm.paging.current);
+      console.log("Mi indice es:  " + vm.activeIndex);
+
 			// TODO : Load current page Data here
-			vm.currentPage = vm.paging.current;
-            
-			findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro)
-		}
+			//vm.currentPage = vm.paging.current;
+      findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro);
+
+    }
 		//////////////////////////////
 
 		vm.agregar = function(variety) {
@@ -128,79 +156,143 @@
 			vm.ultimoFiltro = arg;
 			vm.paging.total = 0;
 			vm.paging.current = 1;
-			actualizar(arg);
+      actualizar(arg);
+      vm.activeIndex = 1;
+      loadPages();
 		});
 
 		function actualizar(arg) {
 			findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, arg);
 		}
-        
 
-		
+
+
 		// /////////// REST
 
-		
-		var findProductosPorMultiplesFiltros = function(pagina, items, params){
-            contextCatalogsService.getCatalogs().then(function(catalogs){
-                contextCatalogObserver.observe(function(){
-                    
-                    console.log('find productos multiples filtros');
-                    function doOk(response) {
-                        $log.log('findProductos Response ', response);
 
-                        vm.productos = response.data.productos;
+		// var findProductosPorMultiplesFiltros = function(pagina, items, params){
+    //         contextCatalogsService.getCatalogs().then(function(catalogs){
+    //             contextCatalogObserver.observe(function(){
 
-                        vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-                        vm.paging.current = response.data.pagina;
-                    }
+    //                 console.log('find productos multiples filtros');
+    //                 function doOk(response) {
+    //                     $log.log('findProductos Response ', response);
+
+    //                     vm.productos = response.data.productos;
+
+    //                     vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
+    //                     vm.paging.current = response.data.pagina;
+    //                 }
 
 
-                    var serviceParams = {
-                        query : params.query,
-                        idVendedor : contextPurchaseService.getCatalogContext(),
-                        idMedalla : params.sello,
-                        idProductor: params.productor,
-                        idMedallaProductor: params.selloProductor,
-                        idCategoria: params.categoria, 
-                        pagina: pagina,
-                        cantItems: items,
-                        precio: 'Down'
-                    }
+    //                 var serviceParams = {
+    //                     query : params.query,
+    //                     idVendedor : contextPurchaseService.getCatalogContext(),
+    //                     idMedalla : params.sello,
+    //                     idProductor: params.productor,
+    //                     idMedallaProductor: params.selloProductor,
+    //                     idCategoria: params.categoria,
+    //                     pagina: pagina,
+    //                     cantItems: items,
+    //                     precio: 'Down'
+    //                 }
 
-                    $log.log("parametros", serviceParams);
+    //                 $log.log("parametros", serviceParams);
 
-                    productoService.getProductosByMultiplesFiltros(serviceParams).then(doOk);
-                    
-                })
-            })
+    //                 productoService.getProductosByMultiplesFiltros(serviceParams).then(doOk);
+
+    //             })
+    //         })
+    // }
+
+    var findProductosPorMultiplesFiltros = function(pagina, items, params){
+			console.log('find productos multiples filtros');
+			function doOk(response) {
+				$log.log('findProductos Response ', response);
+
+				vm.productos = response.data.productos;
+        $log.warn('productos', vm.productos);
+				vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
+				vm.paging.current = response.data.pagina;
+				vm.paging.disponibles = Math.ceil(response.data.total / CANT_ITEMS);
+				vm.pageNum = (6 <= vm.paging.disponibles)? 6 : vm.paging.disponibles;
+				vm.lastPage = response.data.totalDePaginas;
+				vm.setLastPage();
+				$log.warn("SOY LA PRUEBA DE PAGINACION" + vm.productos.total);
+				$log.warn("SOY LA ULTIMA PAGINA: " + vm.lastPage);
+				//console.log(vm.prueba);
+			}
+
+
+			var params = {
+				query : params.query,
+				idVendedor : contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
+				idMedalla : params.sello,
+				idProductor: params.productor,
+				idMedallaProductor: params.selloProductor,
+				idCategoria: params.categoria,
+				pagina: pagina,
+				cantItems: items,
+				precio: 'Down'
+			}
+      console.log("parametros",params);
+			$log.log("parametros",params);
+
+			productoService.getProductosByMultiplesFiltros(params).then(doOk);
+
 		}
         //Posiblemente deprecado por findProductosPorMultiplesFiltros
-		var findProductos = function(pagina, items, filtro) {
-            contextCatalogsService.getCatalogs().then(function(catalogs){
-                contextCatalogObserver(function(){
-                    $log.log('findProductos: ' + pagina + " " + items + " " +
-                        filtro.tipo + " " + filtro.valor);
+		// var findProductos = function(pagina, items, filtro) {
+    //         contextCatalogsService.getCatalogs().then(function(catalogs){
+    //             contextCatalogObserver(function(){
+    //                 $log.log('findProductos: ' + pagina + " " + items + " " +
+    //                     filtro.tipo + " " + filtro.valor);
 
-                    function doOk(response) {
-                        $log.log('findProductos Response ', response);
+    //                 function doOk(response) {
+    //                     $log.log('findProductos Response ', response);
 
-                        vm.productos = response.data.productos;
+    //                     vm.productos = response.data.productos;
 
-                        vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-                        vm.paging.current = response.data.pagina;
-                    }
+    //                     vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
+    //                     vm.paging.current = response.data.pagina;
+    //                 }
 
-                    var params = {
-                        idVendedor: contextPurchaseService.getCatalogContext(),
-                        pagina: pagina,
-                        cantItems: items,
-                        precio: 'Down'
-                    }
+    //                 var params = {
+    //                     idVendedor: contextPurchaseService.getCatalogContext(),
+    //                     pagina: pagina,
+    //                     cantItems: items,
+    //                     precio: 'Down'
+    //                 }
 
-                    productoService.getProductosByMultiplesFiltros(params).then(doOk);
-                })
-            })
+    //                 productoService.getProductosByMultiplesFiltros(params).then(doOk);
+    //             })
+    //         })
+    // }
+
+    var findProductos = function(pagina, items, filtro) {
+			$log.log('findProductos: ' + pagina + " " + items + " " +
+				filtro.tipo + " " + filtro.valor);
+
+			function doOk(response) {
+				$log.log('findProductos Response ', response);
+
+				vm.productos = response.data.productos;
+
+				vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
+				vm.paging.current = response.data.pagina;
+			}
+
+			var params = {
+				idVendedor: contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
+				pagina: pagina,
+				cantItems: items,
+				precio: 'Down'
+			}
+
+			productoService.getProductosByMultiplesFiltros(params).then(doOk);
+
 		}
+
 
 
 
@@ -209,11 +301,19 @@
 
 			productorService.getProductores()
 				.then(function(data) { vm.emprendedores = data.data; })
+    }
+
+    // findProductos();
+		if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
+			$log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
+			vm.agregar(contextPurchaseService.ls.varianteSelected)
+			contextPurchaseService.ls.varianteSelected = undefined;
 		}
 
 
 		//vm.productos = findProductos(1,10,{});
-		callEmprendedores();
+    callEmprendedores();
+    //loadPages();
 	}
 
 })();
