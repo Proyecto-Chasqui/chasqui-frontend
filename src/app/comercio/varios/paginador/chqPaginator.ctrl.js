@@ -84,6 +84,8 @@
 //   $scope.activate(0);
 // }));
 
+  function changeFilter(){$rootScope.$on('filterEvent', init());}
+
 
 /*
 * Receive an index and increase it by one, set the value of the current page and send it up.
@@ -95,6 +97,7 @@
 		}
 
     init();
-	}
+    changeFilter();
+  }
 
 })();

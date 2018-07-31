@@ -103,7 +103,6 @@
       $log.warn("BroadcastLastPage ", vm.lastPage)}
 
       $scope.$watch(vm.lastPage, vm.setLastPage());
-
     $scope.$on('paginatorChange', function(event, data){
       $log.warn("paginatorChange", vm.setLastPage);
       vm.activeIndex = data;
@@ -112,6 +111,8 @@
       };
       loadPages();
   });
+
+  //$scope.$on(vm.lastPage, vm.setLastPage());
 
 
 		function loadPages() {
@@ -123,6 +124,7 @@
       findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro);
 
     }
+    $scope.$watch();
 		//////////////////////////////
 
 		vm.agregar = function(variety) {
@@ -158,6 +160,8 @@
 			vm.paging.current = 1;
       actualizar(arg);
       vm.activeIndex = 1;
+      $scope.$broadcast('setLastPage', vm.lastPage) // favio 27-7-18
+
       loadPages();
 		});
 
