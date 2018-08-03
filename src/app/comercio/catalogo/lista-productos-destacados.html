@@ -2,9 +2,9 @@
 
     <h3 style="text-align:center;"> Productos destacados </h3>
     <div layout="column" layout-gt-sm="row" layout-wrap>
-        <div ng-repeat="producto in ctrl.productos" flex="45" flex-gt-sm="45" >
+        <div ng-repeat="producto in ctrl.productos" flex="45" flex-gt-sm="45" ng-click="ctrl.ir('catalog.products')">
             <div  layout="column" layout-align="space-between" class="ch-destacado" >
-                <div class="img-destacado" ng-click="ctrl.ir('catalogo')">
+                <div class="img-destacado">
                     <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%">
                 </div>
 
@@ -12,12 +12,12 @@
                     <h4>{{producto.nombreProducto}}</h4>
                 </div>	
                 <div class="chq-sello-producto" layout="row" layout-align="start start" style="width: 100%; min-height: 20px;"> 
-					<picture ng-repeat="medalla in producto.medallasProducto">
-						<img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados" ng-click="ctrl.showPrerenderedDialog(medalla)">
-                            <md-tooltip md-direction="up">
-                                {{medalla.nombre}}
-                            </md-tooltip>
-					</picture>
+                    <picture ng-repeat="medalla in producto.medallasProducto">
+                    <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados" ng-click="ctrl.showPrerenderedDialog(medalla)">
+                        <md-tooltip md-direction="up">
+                            {{medalla.nombre}}
+                        </md-tooltip>
+                    </picture>
                 </div>
                 <div class="precio-variedad" layout="row" layout-align="end end">
                     <h3 class="precio">${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</h3>
