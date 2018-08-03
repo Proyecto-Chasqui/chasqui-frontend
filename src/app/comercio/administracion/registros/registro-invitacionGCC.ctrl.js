@@ -17,7 +17,7 @@
         
         function init(){
             contextCatalogObserver.observe(function(){
-                var idInvitacion = contextPurchaseService.getCatalogContext();
+                var idInvitacion = $stateParams.idInvitacion;
                 perfilService.getMailInvitacion(idInvitacion).then(function(data){
                     $scope.mailInvitacion = "";
                 })
@@ -85,7 +85,7 @@
         function prepareProfile(profile){
             return addFields(
                         filterFields(profile, ["passVerification", "emailVerification", "email"]), 
-                        {invitacion: contextPurchaseService.getCatalogContext()}
+                        {invitacion: $stateParams.idInvitacion}
                     );
         }
         

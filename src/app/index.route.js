@@ -87,7 +87,7 @@
                 controller: 'RegistroController'
             })
             .state('catalog.singUpGCCMailInvitation', {
-                url: '/registro/gcc/:id',
+                url: '/registro/gcc/:idInvitacion',
                 templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
                 controller: 'RegistroInvitacionGCCController'
             })
