@@ -66,12 +66,14 @@
 		}
         
         /* Dialogo para la modificación de la cantidad de productos de una variedad en el changuito */
-        vm.modifyVarietyCount = function(texts, initCount, actions){
+        vm.modifyVarietyCount = function(variety, order, texts, initCount, actions){
             var modify = {
                 parent: angular.element(document.body),
                 templateUrl: "app/components/commons/modifyCount.tmpl.html",
                 controller: "ModifyCountCtrl",
                 locals: {
+                    variety: variety, 
+                    order: order,
                     texts: texts,
                     initCount: initCount,
                     actions: actions

@@ -5,11 +5,35 @@
 		.module('chasqui')
 		.controller('ModifyCountCtrl', ModifyCountCtrl);
     
-	function ModifyCountCtrl($scope, $mdDialog, texts, initCount, actions) {
+	function ModifyCountCtrl($scope, $mdDialog, URLS, variety, order, texts, initCount, actions) {
+        $scope.urlBase = URLS.be_base;
+      
         $scope.title = texts.title;
         $scope.okButton = texts.okButton;
         $scope.cancelButton = texts.cancelButton;
         $scope._count = initCount;
+        
+        $scope.order = order;
+        $scope.variety = variety;
+      
+        console.log(variety);
+      
+        $scope.showDecimals = showDecimals;
+        $scope.getTotal = getTotal;
+        
+        /// Private
+      
+        function showDecimals(parteDecimal) {
+            var res = Number(parteDecimal).toFixed(0).toString();
+            if (res.length == 1) res += "0";
+            return res;
+        }
+      
+        function getTotal(variety){
+            var parteDecimal = variety.precioParteDecimal != null? parseInt(variety.precioParteDecimal)/100 : 0;
+            console.log(parteDecimal);
+            return $scope._count * (parseInt(variety.precio) + parteDecimal);
+        }
         
         $scope.countPlus = function(howMuch){
             if($scope._count + howMuch >= 0)

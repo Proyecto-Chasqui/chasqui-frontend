@@ -13,7 +13,7 @@
         
         ///////////////////////////////////////////////////////////////////////
         
-        function modifyDialog(variety){
+        function modifyDialog(variety, order){
             var varietyName = (variety.nombreProducto === undefined)? variety.nombre : variety.nombreProducto;
             
             initialCountForVariety(variety).then(function(initialCount){
@@ -31,8 +31,10 @@
                     $log.debug("Cancelo Agreglar")
                 }
 
-                dialogCommons.modifyVarietyCount({
-                                                    title: "¿Cuántos " + varietyName + " necesitas?",
+                dialogCommons.modifyVarietyCount(variety,
+                                                 order,
+                                                {
+                                                    title: "¿Cuántos " + varietyName + " queres?",
                                                     okButton: "Agregar al carrito",
                                                     cancelButton: "Cancelar"
                                                 },
