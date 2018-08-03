@@ -1,0 +1,72 @@
+<section class="paginator">
+    <ul class="paginator-content" ng-cloak >
+        <li class="item-content"  ng-click="moveFirst()" ng-class="{inactive: realPage <= 1}" > << </li>
+        <li class="item-content"  ng-click="movePrevious()" ng-class="{inactive: realPage <= 1}" > < </li>
+        <li class="item-content" ng-repeat="item in iterables track by $index"  ng-class="{active: $index == activeIndex - 1}" ng-cloak>{{item}}</li>
+        <li class="item-content"  ng-click="moveNext()" ng-class="{inactive: realPage >= lastPage}" > > </li>
+        <li class="item-content" ng-click="moveLast()" ng-class="{inactive: realPage >= lastPage}" > >> </li>
+
+    </ul>
+</section>
+
+<!-- Estilos -->
+<style>
+.paginator{
+    margin: 2rem 0;
+}
+
+.paginator-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    color: #ffffff;
+    padding-left: 20.39rem;
+}
+
+
+.paginator-content .item-content{
+    display: flex;
+    height: 3rem;
+    width: 3rem;
+    align-items: center;
+    justify-content: center;
+    background: #412467;
+    transition: all .7s ease;
+    border-left: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+    box-shadow:  0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+.paginator-content .item-content:hover{
+    border:1.2px solid #00adef;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all .7s ease;
+}
+
+.paginator-content .item-content:first-child{
+    border-radius: 50% 0 0 50%;
+    border-left: none;
+    font-weight: bold;
+}
+
+
+.paginator-content .item-content:last-child{
+    border-radius: 0 50% 50% 0;
+    border-right: none;
+    font-weight: bold;
+}
+
+.paginator-content .active{
+    background-color: #40888a;
+}
+
+.paginator-content .inactive{
+    background: #9a8479;
+}
+
+</style>

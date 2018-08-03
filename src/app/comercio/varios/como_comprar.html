@@ -1,10 +1,10 @@
 <div class="ch-content">
-    
+
     <md-grid-list md-cols="4" md-row-height="1:1">
         <md-grid-tile layout="row" md-colspan="1" md-rowspan="1" ng-repeat="(i,instruccion) in instruccionesCards">
             <md-card style="width:200px; height:280px;">
                 <div style="position: relative; ">
-                    
+
                     <img src="{{'assets/images/help/purchaseHelp_' + i + '.jpg'}}">
                     <div style="padding-left:3px;
                                 padding-right:3px;">
@@ -16,17 +16,27 @@
             </md-card>
         </md-grid-tile>
     </md-grid-list>
-        
+
     <div style="margin-top: 50px">
-        <md-card ng-repeat="instruccion in instrucciones">
-            <md-card-title>
+        <div ng-repeat="instruccion in instrucciones">
+            <chq-colapsable titulo="{{instruccion.titulo}}" color="#412467" ancho="60%">
+                <ol>
+                    <div ng-repeat="paso in instruccion.pasos">
+                        <li>{{paso.principal}}</li>
+                        <ol type="a">
+                            <li ng-repeat="subpaso in paso.subPasos"> {{subpaso}}</li>
+                        </ol>
+                    </div>
+                </ol>
+            </chq-colapsable>
+            <!--<md-card-title>
                 <md-card-title-text>
-                    <button class="btn" data-toggle="collapse" href="{{idFrom(instruccion)}}" style="text-align: left"> 
-                        {{instruccion.titulo}} 
+                    <button class="btn" data-toggle="collapse" href="{{idFrom(instruccion)}}" style="text-align: left">
+                        {{instruccion.titulo}}
                     </button>
                 </md-card-title-text>
-            </md-card-title>
-            <md-card-content id="{{idFor(instruccion)}}" class="collapse">
+            </md-card-title> -->
+            <!-- <md-card-content id="{{idFor(instruccion)}}" class="collapse">
                 <ol>
                     <div ng-repeat="paso in instruccion.pasos">
                         <li>{{paso.principal}}</li>
@@ -35,7 +45,28 @@
                         </ol>
                     </div>
                 </ol><br>
-            </md-card-content>
-        </md-card>
+            </md-card-content> -->
+          </div>
     </div>
+ </div>
+
 </div>
+
+
+
+<style>
+  .tarjeta{
+    width: 25%;
+    margin: 2rem;
+    padding: 0.5rem;
+    box-shadow: 0px 0px 2px #000;
+  }
+  .tarjeta .precio-comprar{
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+</style>
