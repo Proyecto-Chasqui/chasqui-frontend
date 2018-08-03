@@ -109,7 +109,7 @@
 			return promiseService.doPostPublic(REST_ROUTES.singUp, user, doNoOk);
 		}
         
-        vm.singUpInvitacionGCC = function(user){
+    vm.singUpInvitacionGCC = function(user){
 			$log.debug(" service singUpInvitacionGCC ");
 
 			function doNoOk(response) {
@@ -127,7 +127,7 @@
 			return promiseService.doPostPublic(REST_ROUTES.singUpInvitacionGCC, user, doNoOk);
 		}
         
-        vm.getMailInvitacion = function(idInvitacion){
+    vm.getMailInvitacion = function(idInvitacion){
 			$log.debug(" service obtenerMailInvitacion ");
                         
 			function doNoOk(response) {
