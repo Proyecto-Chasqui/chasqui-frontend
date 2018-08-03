@@ -3,15 +3,21 @@
         <md-button class="btn-confirmar" 
             ng-click="pedidoGrupoCtrl.confirmGCCOrder()"
             ng-show="pedidoGrupoCtrl.grupo.esAdministrador"
-            ng-disabled="pedidoGrupoCtrl.puedeCerrarPedidoGCC()">
-            <label translate>CONFIRMAR_PEDIDO</label>
-            <md-icon ng-show="pedidoGrupoCtrl.puedeCerrarPedidoGCC()"
-                style="color:white"> done </md-icon>            
+            ng-disabled="!pedidoGrupoCtrl.puedeCerrarPedidoGCC()">
+            <label translate>
+                CONFIRMAR_PEDIDO
+            </label>
+            <md-icon ng-show="pedidoGrupoCtrl.puedeCerrarPedidoGCC()" style="color:white">
+                done
+            </md-icon>            
         </md-button>
-        <md-tooltip md-direction="left" ng-show="!pedidoGrupoCtrl.puedeCerrarPedidoGCC()">
+        <md-tooltip md-direction="left" ng-show="pedidoGrupoCtrl.puedeCerrarPedidoGCC()">
             {{pedidoGrupoCtrl.cerrarToolTipMsg()}}
         </md-tooltip>
         <md-tooltip md-direction="left" ng-show="pedidoGrupoCtrl.puedeCerrarPedidoGCC()">
+            {{pedidoGrupoCtrl.cerrarToolTipMsg()}}
+        </md-tooltip>
+        <md-tooltip md-direction="left" ng-show="!pedidoGrupoCtrl.puedeCerrarPedidoGCC()">
             {{pedidoGrupoCtrl.cerradoToolTipMsg()}}
         </md-tooltip>
     </div>

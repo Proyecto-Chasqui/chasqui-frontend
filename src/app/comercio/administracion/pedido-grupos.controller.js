@@ -30,15 +30,11 @@
         /////////////////////////////////////////////////
         
         function cerrarToolTipMsg(){
-            if (vm.puedeCerrarPedidoGCC()) {
-                return "Podes cerrar el pedido grupal "
-            } else {
-                return "Para cerrar el pedido deben estar todos los pedidos confirmardos"
-            }
+            return "Podes cerrar el pedido grupal!";
         }
         
         function cerradoToolTipMsg(){
-            return "El pedido grupal esta cerrado";
+            return "El pedido grupal esta cerrado. Confirma tu pedido para abrirlo!";
         }
         
         function selfPara(miembro){
@@ -55,16 +51,24 @@
         }
 
         function puedeCerrarPedidoGCC(){
-            return !hayAlgunPedidoAbierto();
+            return !hayAlgunPedidoAbierto() && hayAlgunPedidoConfirmado();
         }
 
         function hayAlgunPedidoAbierto() {
-            return vm.grupo.miembros.reduce(function(r,m){return r || (m.pedido != null && m.pedido.estado == 'ABIERTO')}, false);
+            return algunPedidoTieneEstado(vm.grupo.miembros, 'ABIERTO');
         }
-
         
-        /////////////////////////////////////////////////
+        function hayAlgunPedidoConfirmado(){
+            return algunPedidoTieneEstado(vm.grupo.miembros, 'CONFIRMADO');
+        }
+            
+        function algunPedidoTieneEstado(miembros, estado){
+            return any(miembros, function(m){return m.pedido != null && m.pedido.estado == estado})
+        }
         
+        function any(list, property){
+            return list.reduce(function(r,e){return r || property(e)}, false);
+        }
         
         function confirmGCCOrder() {	
             var actions = {
@@ -87,13 +91,13 @@
         function doConfirmOrder(selectedAddress, answers) {
             $log.debug('callConfirmar', $scope.pedido);
 
-			function doOk(response) {
+           function doOk(response) {
                 $log.debug("--- confirmar pedido response ", response.data);
                 ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
                 location.reload();
-			}
+			     }
 
-			var params = {
+			     var params = {
                 idGrupo: vm.grupo.idGrupo,
                 idDireccion: "",
                 idPuntoDeRetiro: "",
@@ -123,7 +127,7 @@
                     return params;
                 }
             }[selectedAddress.type]();
-		}
+        }
 
 
         function ignoreAction(){
