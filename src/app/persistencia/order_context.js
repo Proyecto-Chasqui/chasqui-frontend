@@ -9,7 +9,6 @@
                             catalogId: -1,
                             agrupationId: -1,
                             agrupationType: "",
-                            orderId: -1,
                             productId: -1
                         }
 

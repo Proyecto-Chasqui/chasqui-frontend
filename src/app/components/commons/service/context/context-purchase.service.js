@@ -75,7 +75,6 @@
             // Por el momento se setea por defecto el pedido individual
             order_context.setAgrupationId(idGrupoPedidoIndividual); 
             order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
-            order_context.setOrderId(idPedidoIndividualGrupoPersonal);
             initCatalogData(order_context.getCatalogId().toString());
             contextCatalogObserver.run();
         }
@@ -86,7 +85,6 @@
          *              order_context.orderId
          */
         function setContextByOrder(order){
-            order_context.setOrderId(order.id);
             order_context.setAgrupationId(getAgrupationByOrder(order));
             order_context.setAgrupationType(order.type);
         }
@@ -105,7 +103,6 @@
                 function(group){
                     order_context.setAgrupationId(group.idGrupo);
                     order_context.setAgrupationType(group.type);            
-                    order_context.setOrderId(getOrderByAgrupation(group));
                 },
                 function(node){
                     // TODO define behavior
@@ -206,6 +203,7 @@
             var prev_context = order_context.getCatalogId();
             order_context.reset();
             order_context.setCatalogId(prev_context);
+            catalogs_data.reset();
         }
         
         
@@ -262,18 +260,18 @@
         
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
        
-        function initCatalogData(catalogId){
-            catalogs_data.addCatalog(catalogId);
-            contextOrdersService.reset(catalogId);
-            contextAgrupationsService.reset(catalogId);
-        }
+    function initCatalogData(catalogId){
+        catalogs_data.addCatalog(catalogId);
+        contextOrdersService.reset(catalogId);
+        contextAgrupationsService.reset(catalogId);
+    }
 
 		function getAgrupationByOrder(order) {
-			return order.idGrupo;
+			 return order.idGrupo;
 		}
 
 		function getOrderByAgrupation(agrupation) {
-            return contextAgrupationsService.getAgrupation(getCatalogContext(), agrupation.idGrupo, agrupation.type).idPedidoIndividual;
+       return contextAgrupationsService.getAgrupation(getCatalogContext(), agrupation.idGrupo, agrupation.type).idPedidoIndividual;
 		}
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
@@ -284,8 +282,6 @@
             // Definir estado inicial
             /*
             order_context.setAgrupationId(idGrupoPedidoIndividual); 
-            
-            order_context.setOrderId(idPedidoIndividualGrupoPersonal);
             */
         }
         
