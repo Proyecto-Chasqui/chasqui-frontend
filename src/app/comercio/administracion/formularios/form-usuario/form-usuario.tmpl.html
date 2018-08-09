@@ -5,7 +5,9 @@
             <md-content layout-padding>
                 <div layout-gt-sm="row" ng-repeat="fieldRow in fieldRows">
                     <md-input-container ng-repeat="field in fieldRow" class="md-block" flex-gt-sm ng-if="!hideField(field.name)">
-                        <label translate>{{field.translate}}</label>
+                        <label>
+                            {{field.translate | translate}} {{field.disclaimer? "(" : ""}}{{field.disclaimer | translate}}{{field.disclaimer? ")" : ""}}
+                        </label>
                         <input id="{{field.id}}"
                                type="{{field.type}}"
                                name="{{field.model}}"
