@@ -18,7 +18,10 @@ function catalogs_data(ss_connection, agrupationTypeVAL){
     /////////////////////////////////////////  Public   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     
     function reset(){
-        init();
+        Object.keys(ss_connection.get("catalogs_data")).forEach(function(catalogId){
+            resetOrders(catalogId);
+            resetAgrupations(catalogId);
+        })
     }             
     
     function resetOrders(catalogId){
