@@ -1,117 +1,112 @@
 (function() {
-	'use strict';
+  'use strict';
 
-	angular
-		.module('chasqui')
-		.controller('CatalogMenuController', CatalogMenuController);
+  angular
+    .module('chasqui')
+    .controller('CatalogMenuController', CatalogMenuController);
 
-	
-	function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
-		perfilService, contextPurchaseService,us, usuario_dao, navigation_state) {
+  
+function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
+                                 perfilService, contextPurchaseService,us, usuario_dao, navigation_state) {
         
-		
-		$scope.urlBase = URLS.be_base;
+    
+    $scope.urlBase = URLS.be_base;
 
-		$scope.options = {
-			'rotation': 'circ-in',
-			'duration': 1000
-		};
+    
+    ////////////////////////// INIT //////////////////////////
 
-		function initHeader() {
-			$scope.categorias = [];
-			$scope.usuario = usuario_dao.getUsuario();
-            $scope.isLogued = usuario_dao.isLogged();
+
+    function init() {
+        $scope.usuario = usuario_dao.getUsuario();
+        $scope.isLogued = usuario_dao.isLogged();
+        initRefreshNotification();
+        resetNotificacion();
+    }
+
+    
+    ////////////////////////// Notifications //////////////////////////
+    
+    var llamadoPeriodico;
+    
+    function initRefreshNotification() {
+        if (usuario_dao.isLogged() && !StateCommons.ls.notificacionActiva) {
+                
+            llamadoPeriodico = $interval(function() {
+                callNotificacionesNoLeidas();
+            }, REST_ROUTES.INTERVALO_NOTIFICACION_MIN);
             
-			initRefreshNotification();
-			resetNotificacion();
-		}
+            callNotificacionesNoLeidas();
+            StateCommons.ls.notificacionActiva = true;
+        }
+    }
+    
+    function callNotificacionesNoLeidas() {
 
-		function resetNotificacion() {
-			$scope.callNotificaciones = false;
-			$scope.icon = 'notifications_none';
-			$scope.fill = 'white';
-		}
+        function doOk(response) {
+            
+            var notificacionesSinLeer = response.data.length
 
-		function addNotificacion() {
-			$scope.callNotificaciones = true;
-			$scope.icon = 'notifications';
-			$scope.fill = 'red';
-			ToastCommons.mensaje(us.translate('LLEGO_NOTIFICACION'))
-		}
+            if (notificacionesSinLeer > 0) {
+                $log.debug('hay nuevas notificaciones !');
+                addNotificacion();
+            } else {
+                resetNotificacion();
+            }
+        }
+        
+        perfilService.notificacionesNoLeidas().then(doOk);  
+    }
+    
+    
+    $scope.options = {
+        'rotation': 'circ-in',
+        'duration': 1000
+    };
+    
+    function resetNotificacion() {
+        $scope.callNotificaciones = false;
+        $scope.icon = 'notifications_none';
+        $scope.fill = 'white';
+    }
 
-		$scope.$on('resetHeader', function(event, msg) {
-			initHeader();
-		});
-   
+    function addNotificacion() {
+        $scope.callNotificaciones = true;
+        $scope.icon = 'notifications';
+        $scope.fill = 'red';
+        ToastCommons.mensaje(us.translate('LLEGO_NOTIFICACION'))
+    }
+    
+    $scope.verNotificaciones = function() {
+        $log.debug("Ver notificaciones");
+        $scope.icon = 'notifications_none';
+        $scope.fill = 'white';
+        $state.go('catalog.profile', {
+        index: 1
+        });
+    }
+    
+    
+    ////////////////////////// Other //////////////////////////
+    
+    $scope.logOut = function() {
+        $log.debug("Log Out ..... ");
 
-		var llamadoPeriodico;
+        usuario_dao.logOut();
+        contextPurchaseService.clean();
 
-		$scope.logOut = function() {
-			$log.debug("Log Out ..... ");
+        $interval.cancel(llamadoPeriodico);
 
-			usuario_dao.logOut();
-			contextPurchaseService.clean();
+        init();
+        $scope.$broadcast('logout');
+        $state.go('catalog.landingPage');
+    }
+    
+    
+    
+    $scope.$on('resetHeader', function(event, msg) {
+        init();
+    });
 
-			$interval.cancel(llamadoPeriodico);
+    init();
 
-			initHeader();
-            $scope.$broadcast('logout');
-			$state.go('catalog.landingPage');
-		}
-
-
-		$scope.verNotificaciones = function() {
-			$log.debug("Ver notificaciones");
-			$scope.icon = 'notifications_none';
-			$scope.fill = 'white';
-			$state.go('catalog.profile', {
-				index: 1
-			});
-		}
-
-
-		function initRefreshNotification() {
-			if (usuario_dao.isLogged() && !StateCommons.ls.notificacionActiva) { // TODO cambiar al generar DAOs (mensaje del 11/10)
-				$log.debug("interval notifications");
-
-				llamadoPeriodico = $interval(function() {
-					$log.debug("call notificaciones nuevas?");
-					callNotificacionesNoLeidas();
-				}, REST_ROUTES.INTERVALO_NOTIFICACION_MIN);
-
-				StateCommons.ls.notificacionActiva = true; // TODO cambiar al generar DAOs (mensaje del 11/10)
-			}
-		}
-
-		function callNotificacionesNoLeidas() {
-
-			function doOk(response) {
-				$log.debug('callObtenerNotificaciones', response);
-
-				$scope.notificacionesSinLeer = 0;
-				// TODO : filtro en el front , deberia ser por BE
-				angular.forEach(response.data, function(value, key) {
-					console.log(value.estado)
-					if (value.estado == "NOTIFICACION_NO_LEIDA")
-						$scope.notificacionesSinLeer = $scope.notificacionesSinLeer + 1;
-				});
-
-				if ($scope.notificacionesSinLeer > 0) {
-					$log.debug('hay nuevas notificaciones !');
-					addNotificacion();
-					//ToastCommons.mensaje("Hay notificaciones "+ response.data.length +" nuevas !");
-				} else {
-					resetNotificacion();
-				}
-
-			}
-			//TODO : DEBERIAN SER solo las NO LEIDAS
-			perfilService.notificacionesLeidas(1).then(doOk);
-			//perfilService.notificacionesNoLeidas().then(doOk);	
-		}
-
-
-		initHeader();
-
-	}
-})();
+}})();

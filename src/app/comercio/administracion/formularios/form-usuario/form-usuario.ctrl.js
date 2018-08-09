@@ -139,6 +139,7 @@
                                             translate: "PASS",
                                             model: "password",
                                             required: function(){return true},
+                                            disclaimer: "MINIMUM_PASS_LENGHT",
                                             type: "password",
                                             errors: [
                                                 {

@@ -13,8 +13,6 @@
     function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL,
                                      contextPurchaseService,$state, usuario_dao, dialogCommons, $mdDialog) {
 
-        $log.debug('PedidoGruposController', $scope.grupo);
-
         var vm = this;
         vm.grupo = $scope.grupo;
         vm.configuracionVenedor;
@@ -26,6 +24,8 @@
         vm.vocativoPara = vocativoPara;
         vm.miembrosActivosDelGrupo = miembrosActivosDelGrupo;
         vm.confirmGCCOrder = confirmGCCOrder;
+        vm.totalForMember = totalForMember;
+        
         
         /////////////////////////////////////////////////
         
@@ -132,6 +132,10 @@
 
         function ignoreAction(){
             $mdDialog.hide();
+        }
+        
+        function totalForMember(member){
+            return Math.floor(member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0));
         }
     }
 })();

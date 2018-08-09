@@ -20,5 +20,6 @@
     "ANTERIOR": "Anterior",
     "SIGUIENTE": "Siguiente",
     "ENTIENDO" : "Entiendo",
-    "CERRAR" : "Cerrar"
+    "CERRAR" : "Cerrar",
+    "TOTAL_ORDERS": "Total pedidos"
 }
