@@ -22,28 +22,32 @@
         </md-tooltip>
     </div>
  
-    <md-card ng-show="pedidoGrupoCtrl.grupo.miembros">
-        <md-card-content>
+    <md-card ng-show="pedidoGrupoCtrl.grupo.miembros" style="height: 400px;">
+        <md-card-content style="height: 400px;">
             <md-tabs md-selected="selectedIndex" md-border-bottom md-autoselect>
                 <md-tab ng-repeat="miembro in pedidoGrupoCtrl.miembrosActivosDelGrupo()" label="{{::pedidoGrupoCtrl.selfPara(miembro)}}">                  
-                        <p>Productos {{pedidoGrupoCtrl.vocativoPara(miembro)}}</p>                        
-                        <p ng-show="miembro.pedido == null || miembro.pedido.productosResponse.lenght == 0 ">
-                            <label translate="MIEMBRO_SIN_PROD"></label>
-                        </p>
-                        
-                        <p  ng-show="miembro.pedido != null || miembro.pedido.productosResponse.lenght > 0 "> 
-                            Estado : {{miembro.pedido.estado}}</p>
+                    <p>Productos {{pedidoGrupoCtrl.vocativoPara(miembro)}}</p>                        
+                    <p ng-show="miembro.pedido == null || miembro.pedido.productosResponse.lenght == 0 ">
+                        <label translate="MIEMBRO_SIN_PROD"></label>
+                    </p>
+
+                    <p  ng-show="miembro.pedido != null || miembro.pedido.productosResponse.lenght > 0 "> 
+                        Estado: {{miembro.pedido.estado}}
+                    </p>
+                    
+                    <p  ng-show="miembro.pedido != null || (miembro.pedido.productosResponse.lenght > 0  && miembro.pedido.estado == 'CONFIRMADO')"> 
+                        Total: ${{pedidoGrupoCtrl.totalForMember(miembro)}}
+                    </p>
                         
                     <md-list class="md-dense" flex>
                         <md-list-item class="md-3-line" ng-repeat="item in miembro.pedido.productosResponse">
                             <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
                             <div class="md-list-item-text" layout="column">
-                                <h4>{{ item.nombre }}</h4>
+                                <h5>{{ item.nombre }}</h5>
                                 <p>{{item.cantidad}} X $ {{ item.precio }} = ${{item.cantidad * item.precio }} </p>
                             </div>
                         </md-list-item>
                     </md-list>
-                    <br>
                 </md-tab>
             </md-tabs>
         </md-card-content>

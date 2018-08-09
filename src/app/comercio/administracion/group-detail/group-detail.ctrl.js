@@ -15,7 +15,6 @@ function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
     //////////////////////////// INIT ///////////////////////////////////////
     
     function init(){
-        console.log($scope.group);
         $scope.totalOrders = Math.floor($scope.group.miembros.reduce(function(r,m){
             if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
                 return r + m.pedido.montoActual;
