@@ -1,10 +1,18 @@
 <section class="paginator">
     <ul class="paginator-content" ng-cloak >
-        <li class="item-content"  ng-click="moveFirst()" ng-class="{inactive: realPage <= 1}" > << </li>
-        <li class="item-content"  ng-click="movePrevious()" ng-class="{inactive: realPage <= 1}" > < </li>
+        <li class="item-content"  ng-click="moveFirst()" ng-class="{inactive: realPage <= 1}" > <i class="material-icons">
+          fast_rewind
+          </i> </li>
+        <li class="item-content"  ng-click="movePrevious()" ng-class="{inactive: realPage <= 1}" > <i class="material-icons reverse">
+          play_arrow
+          </i> </li>
         <li class="item-content" ng-repeat="item in iterables track by $index"  ng-class="{active: $index == activeIndex - 1}" ng-cloak>{{item}}</li>
-        <li class="item-content"  ng-click="moveNext()" ng-class="{inactive: realPage >= lastPage}" > > </li>
-        <li class="item-content" ng-click="moveLast()" ng-class="{inactive: realPage >= lastPage}" > >> </li>
+        <li class="item-content"  ng-click="moveNext()" ng-class="{inactive: realPage >= lastPage}" > <i class="material-icons">
+          play_arrow
+          </i> </li>
+        <li class="item-content" ng-click="moveLast()" ng-class="{inactive: realPage >= lastPage}" > <i class="material-icons">
+          fast_forward
+          </i> </li>
 
     </ul>
 </section>
@@ -42,10 +50,10 @@
 }
 
 .paginator-content .item-content:hover{
-    border:1.2px solid #00adef;
-    color: #ffffff;
+    color: #00adef;
     cursor: pointer;
-    transition: all .7s ease;
+    opacity: 0.78;
+    transition: all .3s ease;
 }
 
 .paginator-content .item-content:first-child{
@@ -67,6 +75,12 @@
 
 .paginator-content .inactive{
     background: #9a8479;
+    opacity: 0.30;
 }
+
+.reverse{
+  transform: rotate(180deg);
+}
+
 
 </style>
