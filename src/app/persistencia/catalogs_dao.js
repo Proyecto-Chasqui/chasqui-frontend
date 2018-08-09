@@ -98,7 +98,7 @@ angular.module('chasqui').factory('catalogs_dao',
     }    
                         
     function getCatalogs(){
-        return ss_connection.get("catalogs");
+        return ss_connection.get("catalogs")? ss_connection.get("catalogs") : [];
     }
                         
     function reset(){
