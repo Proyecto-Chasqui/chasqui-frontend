@@ -1,15 +1,15 @@
 (function(){
-	'use strict';
-	/*
-	* A simple paginator.
-	* Favio Juan.
-	* 7-20-2018
-	*/
-	angular.module('chasqui').controller('ChqPaginatorCtrl', ChqPaginatorCtrl);
+  'use strict';
+  /*
+  * A simple paginator.
+  * Favio Juan.
+  * 7-20-2018
+  */
+  angular.module('chasqui').controller('ChqPaginatorCtrl', ChqPaginatorCtrl);
 
-	function ChqPaginatorCtrl($scope, $rootScope, $log){
+  function ChqPaginatorCtrl($scope, $rootScope, $log){
 
-	$scope.activeIndex = 1;
+    $scope.activeIndex = 1;
     $scope.iterables = [1];
     $scope.addIndex = 1;
     $scope.realPage = $scope.activeIndex;
@@ -26,52 +26,55 @@
       $scope.$on('setLastPage', function(event, data){
         $scope.lastPage = data;
         $log.warn("Ultima pagina", data);
-    })
+      })
     }
 
+    function moveTo(newPage){
+      $scope.iterables[0] = newPage;
+      $scope.realPage = $scope.iterables[0];
+      window.scrollTo(0,0);
+    }
+    
+    
 /*
 * Moves to the next page
 */
-	$scope.moveNext = function (){
-		if($scope.realPage < $scope.lastPage){
-			$scope.iterables[0] += 1;
-			$scope.realPage = $scope.iterables[0];
-		}
-		$scope.$emit('paginatorChange', $scope.realPage);
-	}
+  $scope.moveNext = function (){
+    if($scope.realPage < $scope.lastPage){
+      moveTo($scope.iterables[0] + 1);
+    }
+    $scope.$emit('paginatorChange', $scope.realPage);
+  }
 
-	/*
-	* Moves to the previous page
-	*/
-	$scope.movePrevious = function (){
-		if($scope.realPage > 1){
-			$scope.iterables[0] -= 1;
-			$scope.realPage = $scope.iterables[0];
-		}
-		$scope.$emit('paginatorChange', $scope.realPage);
-	}
+  /*
+  * Moves to the previous page
+  */
+  $scope.movePrevious = function (){
+    if($scope.realPage > 1){
+      moveTo($scope.iterables[0] - 1);
+    }
+    $scope.$emit('paginatorChange', $scope.realPage);
+  }
 
 
-	/*
-	* Moves to the first page
-	*/
-  	$scope.moveFirst = function(){
-			if($scope.realPage > 1){
-				$scope.iterables[0] = 1;
-				$scope.realPage = $scope.iterables[0];
-			}
-			$scope.$emit('paginatorChange', $scope.realPage);
-		}
+  /*
+  * Moves to the first page
+  */
+    $scope.moveFirst = function(){
+      if($scope.realPage > 1){
+        moveTo(1);
+      }
+      $scope.$emit('paginatorChange', $scope.realPage);
+    }
 
 /*
 * Moves to the last page
 */
-		$scope.moveLast = function(){
-			if($scope.realPage < $scope.lastPage){
-				$scope.iterables[0] = $scope.lastPage;
-				$scope.realPage = $scope.iterables[0];
-			}
-			$scope.$emit('paginatorChange', $scope.realPage);
+    $scope.moveLast = function(){
+      if($scope.realPage < $scope.lastPage){
+        moveTo($scope.lastPage);
+      }
+      $scope.$emit('paginatorChange', $scope.realPage);
     }
 
 ////////////////////// viene de filtro
@@ -84,17 +87,19 @@
 //   $scope.activate(0);
 // }));
 
-  function changeFilter(){$rootScope.$on('filterEvent', init());}
+  function changeFilter(){
+    $rootScope.$on('filterEvent', init());
+  }
 
 
 /*
 * Receive an index and increase it by one, set the value of the current page and send it up.
 * @params: aIndex (number)
 */
-	  $scope.activate = function(aIndex){
+    $scope.activate = function(aIndex){
       $scope.activeIndex = aIndex + 1;
       $scope.$emit('paginatorChange', $scope.realPage);
-		}
+    }
 
     init();
     changeFilter();
