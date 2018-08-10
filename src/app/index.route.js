@@ -91,6 +91,12 @@
                 templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
                 controller: 'RegistroInvitacionGCCController'
             })
+            .state('catalog.urlError', { // This is similar as landing page
+                url: '/:urlError',
+                templateUrl: 'app/comercio/principal/principal.html',
+                controller: 'PrincipalController',
+                controllerAs: 'principalCtrl'
+            })
     
       .state('error', {
         url: '/error/:key',
