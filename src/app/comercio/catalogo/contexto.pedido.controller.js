@@ -10,7 +10,7 @@
     */
     function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, contextCatalogObserver,
                                      productoService, $timeout, contextPurchaseService, contextCatalogsService, 
-                                     usuario_dao, modifyVarietyCount, contextOrdersService) {
+                                     usuario_dao, modifyVarietyCount, contextOrdersService, confirmOrder) {
 
         $log.debug("ContextoPedidoController .....");
 
@@ -22,9 +22,10 @@
         $scope.pedidoSelected = {};
         $scope.showOrderResume = false;
         $scope.modifyVarietyCount = modifyVarietyCount.modifyDialog;
-        
-        ////////////////////////// Implementation
-
+        $scope.confirmOrder = confirmOrder;
+              
+      
+        //////////////// Init 
         function load() {
             contextCatalogObserver.observe(function(){
                 console.log("Loading", contextPurchaseService.getAgrupationContextType());
@@ -46,6 +47,10 @@
 
         //actualiza la lista de productos
         $rootScope.$on('lista-producto-agrego-producto', function(event) {
+            load();
+        });
+      
+        $rootScope.$on('order-confirmed', function(event) {
             load();
         });
 
