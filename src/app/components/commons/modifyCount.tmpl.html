@@ -3,36 +3,61 @@
         <modal-window-title-bar title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>  
 
     <md-dialog-content>
-        <div class="content" layout="row" layout-align="space-between center">
+        <div class="content" layout="row" layout-align="space-between">
             <div flex="50">
                 <img ng-src="{{urlBase}}{{variety.imagenPrincipal != null? variety.imagenPrincipal : variety.imagen}}" style="width:100%">
             </div>
-            <div flex="50" layout="column" layout-align="space-around">
-                <div>
-                    <div style="font-style: italic" ng-bind-html="variety.descripcion">
-                    </div>
+            <div flex="50" layout="column" layout-align="space-between">
+                <div flex="50" layout="column" layout-align="space-around">
+                  <div>
+                      <div style="font-style: italic" ng-bind-html="variety.descripcion">
+                      </div>
+                  </div>
+                  <div>
+                      El precio por unidad es <span style="font-weight: bold">${{variety.precio}} <sup ng-show="variety.precioParteDecimal">{{showDecimals(variety.precioParteDecimal)}}</sup></span>
+                  </div>
                 </div>
-                <div>
-                    El precio por unidad es <span style="font-weight: bold">${{variety.precio}} <sup ng-show="variety.precioParteDecimal">{{showDecimals(variety.precioParteDecimal)}}</sup></span>
-                </div>
-                <div layout="row" layout-align="space-between center" flex="100">
-                    <div flex="70" style="font-weight: bold">
-                        Cantidad en el pedido: 
+                <div flex="50" layout="column" layout-align="space-around">
+                    <div layout="row" layout-align="space-between center" flex="100">
+                        <div flex="70" style="font-weight: bold">
+                            ¿Cuántos querés?
+                        </div>
+                        <div layout="row" layout-align="space-between center" flex="30">
+                            <a href="" ng-disabled="count() <= 0"><i class="material-icons" ng-click="countPlus(-1)">remove</i></a>
+                            <md-input-container style="font-size: 18; margin: 0px;">
+                                <input style="width: 35px" ng-model="count" ng-model-options="{ getterSetter: true }">
+                            </md-input-container>
+                            <a href=""><i class="material-icons" ng-click="countPlus(1)">add</i></a>
+                        </div>
                     </div>
-                    <div layout="row" layout-align="space-between center" flex="30">
-                        <a href="" ng-disabled="count() <= 0"><i class="material-icons" ng-click="countPlus(-1)">remove</i></a>
-                        <md-input-container style="font-size: 18;">
-                            <input style="width: 35px" ng-model="count" ng-model-options="{ getterSetter: true }">
-                        </md-input-container>
-                        <a href=""><i class="material-icons" ng-click="countPlus(1)">add</i></a>
+                    <div layout="row" layout-align="space-between center" flex="100">
+                        <div flex="70" style="font-weight: bold">
+                            <div ng-show="count() == 0">
+                              No llevar el producto te sale:
+                            </div>
+                            <div ng-show="count() == 1">
+                              La unidad te saldría:
+                            </div>
+                            <div ng-show="count() > 1">
+                              Las {{count()}} unidades te saldrían:
+                            </div>
+                        </div>
+                        <div flex="30" layout="row" layout-align="center">
+                            <div ng-show="count() == 0">
+                              Gratis
+                            </div>
+                            <div ng-show="count() > 0">
+                              $ {{getTotal(variety)}}
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div layout="row" layout-align="space-between center" flex="100">
-                    <div flex="70" style="font-weight: bold">
-                        Total: 
-                    </div>
-                    <div flex="30">
-                        $ {{getTotal(variety)}}
+                    <div layout="row" layout-align="space-between center" flex="100">
+                        <div flex="70" style="font-weight: bold">
+                            El total de tu pedido sería:
+                        </div>
+                        <div flex="30" layout="row" layout-align="center">
+                            $ {{getTotalOrder(variety)}}
+                        </div>
                     </div>
                 </div>
             </div>

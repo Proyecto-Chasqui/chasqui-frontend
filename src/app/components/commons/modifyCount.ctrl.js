@@ -20,7 +20,8 @@
       
         $scope.showDecimals = showDecimals;
         $scope.getTotal = getTotal;
-        
+        $scope.getTotalOrder = getTotalOrder;
+    
         /// Private
       
         function showDecimals(parteDecimal) {
@@ -31,8 +32,13 @@
       
         function getTotal(variety){
             var parteDecimal = variety.precioParteDecimal != null? parseInt(variety.precioParteDecimal)/100 : 0;
-            console.log(parteDecimal);
             return $scope._count * (parseInt(variety.precio) + parteDecimal);
+        }
+    
+        function getTotalOrder(variety){
+            return getTotal(variety) + order.productosResponse
+                                                .filter(function(p){return p.idVariante != variety.idVariante})
+                                                .reduce(function(r,p){return r + p.precio*p.cantidad}, 0);
         }
         
         $scope.countPlus = function(howMuch){
