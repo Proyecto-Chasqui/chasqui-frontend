@@ -10,22 +10,26 @@
     /*
      * @ngInject
      */
-    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL,
+    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL, $interval,
                                      contextPurchaseService,$state, usuario_dao, dialogCommons, $mdDialog) {
 
-        var vm = this;
-        vm.grupo = $scope.grupo;
-        vm.configuracionVenedor;
-        vm.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
-        vm.urlBase = URLS.be_base;
-        vm.cerrarToolTipMsg = cerrarToolTipMsg;
-        vm.cerradoToolTipMsg = cerradoToolTipMsg;
-        vm.selfPara = selfPara;
-        vm.vocativoPara = vocativoPara;
-        vm.miembrosActivosDelGrupo = miembrosActivosDelGrupo;
-        vm.confirmGCCOrder = confirmGCCOrder;
-        vm.totalForMember = totalForMember;
-        
+        $scope.configuracionVenedor;
+        $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
+        $scope.urlBase = URLS.be_base;
+        $scope.cerrarToolTipMsg = cerrarToolTipMsg;
+        $scope.cerradoToolTipMsg = cerradoToolTipMsg;
+        $scope.selfPara = selfPara;
+        $scope.vocativoPara = vocativoPara;
+        $scope.miembrosActivosDelGrupo = $scope.grupo.miembros.filter(function(m) { return m.invitacion == 'NOTIFICACION_ACEPTADA' });
+        $scope.confirmGCCOrder = confirmGCCOrder;
+        $scope.totalForMember = totalForMember;
+        $scope.montoTotalGrupo = montoTotalGrupo;
+        $scope.montoMinimo = $scope.grupo.miembros[0].pedido.montoMinimo;
+        $scope.porcentajeMontoMinimo = 0;
+        $scope.estadoPedido = function(){
+          return $scope.porcentajeMontoMinimo < 100? "noPuedeConfirmar" : "puedeConfirmar";
+        }
+      
         
         /////////////////////////////////////////////////
         
@@ -45,21 +49,16 @@
             return (miembro.email == usuario_dao.getUsuario().email) ? "tuyos" : "de " + miembro.nickname;
         }
 
-        function miembrosActivosDelGrupo(){
-            $log.debug("PASO POR MIEMBROS ACTIVOS");
-            return vm.grupo.miembros.filter(function(m) { return m.invitacion == 'NOTIFICACION_ACEPTADA' });
-        }
-
         function puedeCerrarPedidoGCC(){
-            return !hayAlgunPedidoAbierto() && hayAlgunPedidoConfirmado();
+            return !hayAlgunPedidoAbierto() && hayAlgunPedidoConfirmado() && montoTotalGrupo() >= $scope.montoMinimo;
         }
 
         function hayAlgunPedidoAbierto() {
-            return algunPedidoTieneEstado(vm.grupo.miembros, 'ABIERTO');
+            return algunPedidoTieneEstado($scope.grupo.miembros, 'ABIERTO');
         }
         
         function hayAlgunPedidoConfirmado(){
-            return algunPedidoTieneEstado(vm.grupo.miembros, 'CONFIRMADO');
+            return algunPedidoTieneEstado($scope.grupo.miembros, 'CONFIRMADO');
         }
             
         function algunPedidoTieneEstado(miembros, estado){
@@ -76,7 +75,7 @@
                 doNotOk: ignoreAction
             };
             
-            var activeMembers = vm.grupo.miembros.filter(function(m){return m.pedido != null});
+            var activeMembers = $scope.grupo.miembros.filter(function(m){return m.pedido != null});
 
             var adHocOrder = {
                 montoActual: activeMembers.reduce(function(r,m){return r + m.pedido.montoActual}, 0),
@@ -98,7 +97,7 @@
 			     }
 
 			     var params = {
-                idGrupo: vm.grupo.idGrupo,
+                idGrupo: $scope.grupo.idGrupo,
                 idDireccion: "",
                 idPuntoDeRetiro: "",
                 idZona: "",
@@ -137,5 +136,34 @@
         function totalForMember(member){
             return Math.floor(member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0));
         }
+      
+        function montoTotalGrupo(){
+            return Math.floor($scope.group.miembros.reduce(function(r,m){
+                if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
+                    return r + m.pedido.montoActual;
+                }else{
+                    return r;
+                }
+            }, 0));
+        }
+      
+        // animación de la barra del monto total
+      
+        var porcentajeMontoMinimo = Math.min((montoTotalGrupo() / $scope.montoMinimo)*100, 100);
+            
+        var interval = $interval(function() {
+          var increment = 2;
+          
+          if($scope.porcentajeMontoMinimo < porcentajeMontoMinimo && $scope.porcentajeMontoMinimo < 100){
+            if(($scope.porcentajeMontoMinimo / porcentajeMontoMinimo) * 100 < 75){
+              $scope.porcentajeMontoMinimo += increment*6;
+            }else{
+              $scope.porcentajeMontoMinimo += increment;
+            }
+            
+          }else{
+            $interval.cancel(interval);
+          }
+        }, 200);
     }
 })();

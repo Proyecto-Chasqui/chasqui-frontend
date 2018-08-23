@@ -264,4 +264,14 @@ md-tabs md-ink-bar {
 		box-shadow: 0px 2px 3px rgba(0, 0, 0, .9)!important;
 		text-shadow: 0px 2px 3px rgba(0, 0, 0, .9) !important;
 	}
+  
+}
+
+
+.puedeConfirmar .md-bar {
+  background-color: rgb(67, 160, 71) !important;
+}
+
+.noPuedeConfirmar .md-bar {
+  background-color: rgb(58, 105, 57) !important;
 }
