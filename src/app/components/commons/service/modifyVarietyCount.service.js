@@ -38,7 +38,7 @@
                                                     okButton: "Agregar al carrito",
                                                     cancelButton: "Cancelar"
                                                 },
-                                                 initialCount,
+                                                 initialCount == 0? 1 : initialCount,
                                                  {
                                                     doOk: doOk,
                                                     doNoOk: doNoOk
