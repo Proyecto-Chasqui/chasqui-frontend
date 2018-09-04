@@ -130,18 +130,25 @@
 		vm.agregar = function(variety) {
 
 			if (usuario_dao.isLogged()) {
-        contextPurchaseService.getSelectedOrder().then(function(order){
-          contextPurchaseService.getOrders().then(function(orders){
-            if(orders.length > 1
-               && order.productosResponse.length == 0
-               && contextPurchaseService.isGrupoIndividualSelected() ){
-              dialogCommons.selectPurchaseContext(variety);
-            }else{
-              addProductService(variety);
-            }
-          })
-        })
-        
+        if(variety.stock > 0){
+          contextPurchaseService.getSelectedOrder().then(function(order){
+            contextPurchaseService.getOrders().then(function(orders){
+              if(orders.length > 1
+                 && order.productosResponse.length == 0
+                 && contextPurchaseService.isGrupoIndividualSelected() ){
+                dialogCommons.selectPurchaseContext(variety);
+              }else{
+                addProductService(variety);
+              }
+            })
+          })        
+        }else{
+          dialogCommons.acceptIssue("Producto sin stock", 
+                                    "Lastimosamente no queda más stock, te recomendamos buscar productos similares", 
+                                    "Ok", 
+                                    function(){}, 
+                                    function(){});
+        }
 			} else {
 				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
 				$log.log('not logued" ', variety);
