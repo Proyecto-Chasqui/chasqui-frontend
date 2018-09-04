@@ -173,6 +173,9 @@
         
         // Get lists
         
+        /*
+          RET: Promise(list(order))
+        */
         function getOrders(){
             return contextOrdersService.getOrders(order_context.getCatalogId().toString());
         }
