@@ -10,7 +10,7 @@
 	function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
 		$state, ToastCommons, productoService, us, contextCatalogsService,
 		$mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
-        usuario_dao, $stateParams, addProductService) {
+        usuario_dao, $stateParams, addProductService, dialogCommons) {
 
 		$log.debug('ListaProductosController',
 			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -130,7 +130,18 @@
 		vm.agregar = function(variety) {
 
 			if (usuario_dao.isLogged()) {
-				addProductService(variety);
+        contextPurchaseService.getSelectedOrder().then(function(order){
+          contextPurchaseService.getOrders().then(function(orders){
+            if(orders.length > 1
+               && order.productosResponse.length == 0
+               && contextPurchaseService.isGrupoIndividualSelected() ){
+              dialogCommons.selectPurchaseContext(variety);
+            }else{
+              addProductService(variety);
+            }
+          })
+        })
+        
 			} else {
 				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
 				$log.log('not logued" ', variety);
