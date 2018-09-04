@@ -33,6 +33,14 @@
       $mdDialog.show(confirm).then(doOk, doNoOk);
     }
         
+    vm.acceptIssue = function(titulo, texto, textOk, doOk, doNoOk) {
+      var accept = $mdDialog.confirm()
+                      .title(titulo)
+                      .textContent(texto)
+                      .ok(textOk);
+
+      $mdDialog.show(accept).then(doOk, doNoOk);
+    }
     
     vm.newGroup = function(callback){
       var newGroup = {
