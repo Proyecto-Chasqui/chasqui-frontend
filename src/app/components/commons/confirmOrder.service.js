@@ -80,7 +80,7 @@
                               "Una vez confirmado su pedido individual, tiene que esperar que el administrador del grupo lo confirme para que sea preparado y entregado.", 
                               "Confirmar", 
                               "No", 
-                              doConfirmGCCOrder, 
+                              doConfirmGCCOrder(order), 
                               ignoreAction);
 		};
       
