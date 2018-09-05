@@ -9,9 +9,11 @@
         $scope.urlBase = URLS.be_base;
       
         $scope.title = texts.title;
-        $scope.okButton = texts.okButton;
+        $scope.okButton = getOkButtonText;
         $scope.cancelButton = texts.cancelButton;
-        $scope._count = initCount;
+        $scope._count = initCount == 0? 1 : initCount;
+        $scope.showOkButton = showOkButton;
+    
         
         $scope.order = order;
         $scope.variety = variety;
@@ -53,6 +55,22 @@
                                     0:                      // si (a) & !(b) setea el 0 (esto es asi para que siempre haya un numero)
                                 $scope._count;              // si !(a) & !(b) no modifica nada
             return $scope._count;
+        }
+        
+        function getOkButtonText(){
+          if(initCount == 0 && $scope._count > 0){
+             return texts.okButtonAgregar;
+          }
+          if(initCount > 0 && $scope._count == 0){
+            return texts.okButtonRemover;
+          }
+          if(initCount != $scope._count){
+            return texts.okButtonModificar;
+          }
+        }
+    
+        function showOkButton(){
+          return initCount != $scope._count;
         }
         
         $scope.okAction = function(count){

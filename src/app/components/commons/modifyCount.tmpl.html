@@ -65,8 +65,8 @@
     </md-dialog-content>
 
     <md-dialog-actions>
-        <md-button ng-click="okAction(count())" class="md-raised md-primary">
-            {{okButton}}
+        <md-button ng-click="okAction(count())" class="md-raised md-primary" ng-show="showOkButton()">
+            {{okButton()}}
         </md-button>
         <md-button ng-click="cancelAction()" class="md-primary">
             {{cancelButton}}
