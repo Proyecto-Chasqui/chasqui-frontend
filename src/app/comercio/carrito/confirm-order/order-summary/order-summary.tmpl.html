@@ -5,7 +5,7 @@
             <span ng-show="order.type == 'GROUP'">Pago por miembro del grupo: </span>
         </div>
         <md-list class="fixedRows">
-            <md-list-item ng-repeat="product in order.productosResponse" ng-show="order.type == 'PERSONAL'">
+            <md-list-item ng-show="order.type == 'PERSONAL'" ng-repeat="product in order.productosResponse">
                 <md-divider></md-divider>
                 <div layout="column" layout-align="space-between start">
                     <span><strong>{{product.nombre}}</strong></span>
@@ -14,7 +14,7 @@
                 <md-divider ng-if="$last"></md-divider>
             </md-list-item>
             
-            <md-list-item ng-repeat="nombre in order.nombresDeMiembros" ng-show="order.type == 'GROUP'" layout="column" layout-align="space-around">
+            <md-list-item ng-show="order.type == 'GROUP'" ng-repeat="nombre in order.nombresDeMiembros" layout="column" layout-align="space-around">
                 <md-divider></md-divider>
                 <div layout="row" layout-align="space-between center">
                     <div><strong>{{nombre}}</strong></div>
@@ -36,7 +36,7 @@
             <div ng-show="selectedAddress.type == 'address'" layout="column" layout-align="space-between">
                 <div>
                     <span>
-                        Tu pedido te va a ser entregado el dia <strong>{{selectedAddress.zone.fechaCierrePedidos}}</strong> 
+                        El pedido te va a ser entregado el dia <strong>{{selectedAddress.zone.fechaCierrePedidos}}</strong> 
                         en <strong>{{selectedAddress.selected.calle}} {{selectedAddress.selected.altura}}, {{selectedAddress.selected.localidad}}</strong>.
                     </span>
                 </div>
@@ -49,7 +49,7 @@
 
             <div ng-show="selectedAddress.type == 'deliveryPoint'" layout="column" layout-align="space-between start">
                 <span>
-                    Vas a poder pasar a retirar tu pedido por <strong>{{selectedAddress.selected.nombre}}</strong>, ubicadx en 
+                    Vas a poder pasar a retirar el pedido por <strong>{{selectedAddress.selected.nombre}}</strong>, que se encuentra en 
                     <strong>{{selectedAddress.selected.direccion.calle}} {{selectedAddress.selected.direccion.altura}}, {{selectedAddress.selected.direccion.localidad}}</strong>.
                 </span>
                 <span style="font-style: italic;">{{selectedAddress.selected.mensaje}}</span>

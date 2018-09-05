@@ -75,7 +75,7 @@
                 doNotOk: ignoreAction
             };
             
-            var activeMembers = $scope.grupo.miembros.filter(function(m){return m.pedido != null});
+            var activeMembers = $scope.grupo.miembros.filter(function(m){return m.pedido != null && m.pedido.estado == "CONFIRMADO"});
 
             var adHocOrder = {
                 montoActual: activeMembers.reduce(function(r,m){return r + m.pedido.montoActual}, 0),
