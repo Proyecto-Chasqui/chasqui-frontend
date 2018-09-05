@@ -24,11 +24,9 @@
         $scope.confirmGCCOrder = confirmGCCOrder;
         $scope.totalForMember = totalForMember;
         $scope.montoTotalGrupo = montoTotalGrupo;
-        $scope.montoMinimo = $scope.grupo.miembros[0].pedido.montoMinimo;
+        $scope.montoMinimo = $scope.grupo.miembros[0].pedido? $scope.grupo.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
         $scope.porcentajeMontoMinimo = 0;
-        $scope.estadoPedido = function(){
-          return $scope.porcentajeMontoMinimo < 100? "noPuedeConfirmar" : "puedeConfirmar";
-        }
+        $scope.estadoPedido = "colorCero";
       
         
         /////////////////////////////////////////////////
@@ -152,13 +150,29 @@
         var porcentajeMontoMinimo = Math.min((montoTotalGrupo() / $scope.montoMinimo)*100, 100);
             
         var interval = $interval(function() {
-          var increment = 2;
+          var increment = 1;
           
           if($scope.porcentajeMontoMinimo < porcentajeMontoMinimo && $scope.porcentajeMontoMinimo < 100){
             if(($scope.porcentajeMontoMinimo / porcentajeMontoMinimo) * 100 < 75){
               $scope.porcentajeMontoMinimo += increment*6;
             }else{
-              $scope.porcentajeMontoMinimo += increment;
+              $scope.porcentajeMontoMinimo += increment*2;
+            }
+            
+            if($scope.porcentajeMontoMinimo < 17){
+              $scope.estadoPedido = "colorCero";
+            }else if($scope.porcentajeMontoMinimo < 33){
+              $scope.estadoPedido = "colorUno";
+            }else if($scope.porcentajeMontoMinimo < 50){
+              $scope.estadoPedido = "colorDos";
+            }else if($scope.porcentajeMontoMinimo < 67){
+              $scope.estadoPedido = "colorTres";
+            }else if($scope.porcentajeMontoMinimo < 83){
+              $scope.estadoPedido = "colorCuatro";
+            }else if($scope.porcentajeMontoMinimo < 100){
+              $scope.estadoPedido = "colorCinco";
+            }else if($scope.porcentajeMontoMinimo == 100){
+              $scope.estadoPedido = "puedeConfirmar";
             }
             
           }else{

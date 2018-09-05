@@ -1,10 +1,15 @@
 <div ng-controller="PedidoGruposController as pedidoGrupoCtrl" ng-cloak layout="column" lyout-align="space-between center">
     <div layout="column" layout-align="space-between">
       <div style="margin: 8px;">
-        <div layout="row" layout-align="end center">
-          ${{montoTotalGrupo()}}/{{montoMinimo}}
+        <div layout="row" layout-align="space-between center">
+          <div>
+            Total compra / monto mínimo
+          </div>
+          <div>
+            ${{montoTotalGrupo()}}/{{montoMinimo}}
+          </div>
         </div>
-        <md-progress-linear ng-class="estadoPedido()" md-mode="determinate" value="{{porcentajeMontoMinimo}}"></md-progress-linear>
+        <md-progress-linear ng-class="estadoPedido" md-mode="determinate" value="{{porcentajeMontoMinimo}}"></md-progress-linear>
       </div>
       <md-button class="btn-confirmar" 
           ng-click="confirmGCCOrder()"

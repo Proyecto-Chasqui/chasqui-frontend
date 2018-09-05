@@ -272,6 +272,26 @@ md-tabs md-ink-bar {
   background-color: rgb(67, 160, 71) !important;
 }
 
-.noPuedeConfirmar .md-bar {
-  background-color: rgb(58, 105, 57) !important;
+.colorCero .md-bar {
+  background-color: #990099 !important;
+}
+
+.colorUno .md-bar {
+  background-color: #ff0000 !important;
+}
+
+.colorDos .md-bar {
+  background-color: #ff3300 !important;
+}
+
+.colorTres .md-bar {
+  background-color: #ffff00 !important;
+}
+
+.colorCuatro .md-bar {
+  background-color: #0099ff !important;
+}
+
+.colorCinco .md-bar {
+  background-color: #0000ff !important;
 }
