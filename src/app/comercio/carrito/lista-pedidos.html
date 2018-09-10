@@ -1,4 +1,60 @@
 <div class="ch-content">
+  <md-card layout="column" layout-align="space-between" layout-fill>
+    <div layout="row" layout-align="space-around center" layout-fill>
+      <div>
+        Ver pedidos con estado: 
+      </div>
+      <div>
+        <md-input-container>
+          <md-select ng-model="selectedState">
+            <md-option ng-repeat="state in states" ng-value="state" ng-click="getOrdersWithState(state)"> {{state}} </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
+    <div>
+      <div ng-show="pedidosConfirmados.length == 0" layout="row" layout-align="center center" style="font-style: italic; margin-bottom: 15px;">
+        No hay pedidos con el estado seleccionado
+      </div>
+      <md-list layout-fill ng-show="pedidosConfirmados.length > 0">
+        <md-list-item style="background-color: #33ccff; font-weight: bold;">
+          <div layout="row" layout-align="space-between center" layout-fill>
+            <div flex="33" layout="row" layout-align="center">
+              Tipo de pedido
+            </div>
+            <div flex="33" layout="row" layout-align="center">
+              Fecha de confirmación
+            </div>
+            <div flex="33" layout="row" layout-align="center">
+              Monto total
+            </div>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-1-line" ng-repeat="(i, pedidoConfirmado) in pedidosConfirmados" ng-class="classForItem(i)">
+          <md-button ng-click="viewOrderDetail(pedidoConfirmado)" layout-fill>
+            <div layout="row" layout-align="space-between center" layout-fill>
+              <div flex="33">
+                {{getAliasGrupo(pedidoConfirmado)}}
+              </div>
+              <div flex="33">
+                {{pedidoConfirmado.fechaVencimiento}}
+              </div>
+              <div flex="33">
+                ${{pedidoConfirmado.montoActual}}
+              </div>
+            </div>
+            <md-tooltip md-direction="bottom">
+                Ver detalle
+            </md-tooltip>
+          </md-button>
+        </md-list-item>
+      </md-list>
+    </div>
+  </md-card>
+  
+  
+  
+  <!--
     <md-card>
         <md-content flex layout-padding ng-show="orders.length==0 && pedidosPorCategoria === null" style="min-height: 100px">
             <p>
@@ -27,4 +83,5 @@
             </md-content>
         </md-tab>
     </md-tabs>
+  -->
 </div>
