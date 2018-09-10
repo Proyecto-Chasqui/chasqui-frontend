@@ -130,5 +130,19 @@
       $mdDialog.show(selectPurchaseContext);
     }
             
+    vm.viewOrderDetail = function(order){
+      var viewOrderDetail = {
+        parent: angular.element(document.body),
+        templateUrl: "app/comercio/carrito/detalle-pedido/detalle-pedido.tmpl.html",
+        controller: "DetallePedidoDialogController",
+        clickOutsideToClose: false,
+        locals: {
+          order: order
+        },
+      }
+
+      $mdDialog.show(viewOrderDetail);      
+    }
+    
   } 
 })(); 
