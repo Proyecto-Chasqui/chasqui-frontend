@@ -16,7 +16,7 @@
     $scope.selected = null;
     $scope.previous = null;
     $scope.selectedIndex = 1;
-    $scope.pedidosConfirmados = [];
+    $scope.pedidosFiltrados = [];
     $scope.getAliasGrupo = getAliasGrupo;
     $scope.viewOrderDetail = viewOrderDetail;
     $scope.states = ["CONFIRMADO", "PREPARADO", "ENTREGADO"];
@@ -88,9 +88,9 @@
             };
 
             function doOk(response) {
-                $scope.pedidosConfirmados = response.data;
-                $scope.pedidosConfirmados.reverse();
-                console.log($scope.pedidosConfirmados);    
+                $scope.pedidosFiltrados = response.data;
+                $scope.pedidosFiltrados.reverse();
+                console.log($scope.pedidosFiltrados);    
             }
 
             promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(doOk);

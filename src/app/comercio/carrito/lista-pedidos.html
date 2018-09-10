@@ -13,10 +13,10 @@
       </div>
     </div>
     <div>
-      <div ng-show="pedidosConfirmados.length == 0" layout="row" layout-align="center center" style="font-style: italic; margin-bottom: 15px;">
+      <div ng-show="pedidosFiltrados.length == 0" layout="row" layout-align="center center" style="font-style: italic; margin-bottom: 15px;">
         No hay pedidos con el estado seleccionado
       </div>
-      <md-list layout-fill ng-show="pedidosConfirmados.length > 0">
+      <md-list layout-fill ng-show="pedidosFiltrados.length > 0">
         <md-list-item style="background-color: #33ccff; font-weight: bold;">
           <div layout="row" layout-align="space-between center" layout-fill>
             <div flex="33" layout="row" layout-align="center">
@@ -30,17 +30,17 @@
             </div>
           </div>
         </md-list-item>
-        <md-list-item class="md-1-line" ng-repeat="(i, pedidoConfirmado) in pedidosConfirmados" ng-class="classForItem(i)">
-          <md-button ng-click="viewOrderDetail(pedidoConfirmado)" layout-fill>
+        <md-list-item class="md-1-line" ng-repeat="(i, pedido) in pedidosFiltrados" ng-class="classForItem(i)">
+          <md-button ng-click="viewOrderDetail(pedido)" layout-fill>
             <div layout="row" layout-align="space-between center" layout-fill>
               <div flex="33">
-                {{getAliasGrupo(pedidoConfirmado)}}
+                {{getAliasGrupo(pedido)}}
               </div>
               <div flex="33">
-                {{pedidoConfirmado.fechaVencimiento}}
+                {{pedido.fechaVencimiento}}
               </div>
               <div flex="33">
-                ${{pedidoConfirmado.montoActual}}
+                ${{pedido.montoActual}}
               </div>
             </div>
             <md-tooltip md-direction="bottom">
