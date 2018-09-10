@@ -6,7 +6,8 @@ angular.module('chasqui').directive('productosPedido', [
         restrict: 'E',
         controller: 'ProductosPedidoController',
         scope: {
-            pedido: '=pedido'
+            pedido: '=pedido',
+            modify: '=modify'
         },
         templateUrl: 'app/comercio/carrito/productos-pedido/productos-pedido.tmpl.html'
       };
