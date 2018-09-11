@@ -19,11 +19,16 @@
             })
         }
                                                       
-        
-        init();
-        
         function url(path){
             return be_base.be_base + path;
         }
+        
+        $scope.$on('resetCatalogInfo', function(event, msg) {
+            console.log("resetCatalogInfo");
+            init();
+        });    
+    
+    
+        init();
 	}
 })();

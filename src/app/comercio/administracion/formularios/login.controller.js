@@ -4,7 +4,7 @@
 	angular.module('chasqui').controller('LogInController', LogInController);
 
 	/** @ngInject */
-	function LogInController($log, $state, StateCommons,
+	function LogInController($log, $state, StateCommons, contextCatalogObserver,
 		ToastCommons, $rootScope, dialogCommons, perfilService, us, contextPurchaseService, usuario_dao) {
 
 		var vm = this
@@ -32,12 +32,13 @@
 
 				usuario_dao.logIn(response.data);
 
-				ToastCommons.mensaje("Bienvenido !");
+				ToastCommons.mensaje("Bienvenido!");
 
 				var tmp = contextPurchaseService.ls.varianteSelected;
 				$rootScope.$broadcast('resetHeader', "");
 				contextPurchaseService.ls.varianteSelected=tmp;
-
+        contextCatalogObserver.restart();
+        $rootScope.$broadcast('resetCatalogInfo', "");
 				if (us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
 				    $state.go("catalog.landingPage");
 				} else {

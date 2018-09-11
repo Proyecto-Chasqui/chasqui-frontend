@@ -7,7 +7,8 @@
        
         var contextCatalogObserverImpl = {
             observe: observe,
-            run: run
+            run: run,
+            restart: restart
         }
         
         ///////////////
@@ -16,7 +17,7 @@
         var runObservers = false;
         var observers = [];       
 		
-		function observe(observerFunction){
+		    function observe(observerFunction){
             if(runObservers){
                 observerFunction();
             }else{
@@ -29,6 +30,10 @@
                 observerFunction();
             });
             runObservers = true
+        }
+    
+        function restart(){
+            runObservers = false;
         }
         
         return contextCatalogObserverImpl;
