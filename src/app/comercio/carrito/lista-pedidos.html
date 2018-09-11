@@ -26,15 +26,15 @@
         <md-list-item style="background-color: #33ccff; font-weight: bold;">
           <div layout="row" layout-align="space-between center" layout-fill>
             <div flex="25" style="text-align: center">
-              Pedido del grupo
+              Grupo del pedido
             </div>
             <div flex="25" style="text-align: center">
               Fecha de confirmación
             </div>
-            <div flex="25" style="text-align: center">
+            <div flex="20" style="text-align: center">
               Monto total
             </div>
-            <div flex="25" style="text-align: center">
+            <div flex="30" style="text-align: center">
               Direccción de entrega
             </div>
           </div>
@@ -51,10 +51,10 @@
               <div flex="25" style="text-align: center">
                 {{pedido.fechaVencimiento}}
               </div>
-              <div flex="25" style="text-align: center">
+              <div flex="20" style="text-align: center">
                 ${{pedido.montoActual}}
               </div>
-              <div flex="25" style="text-align: center">
+              <div flex="30" style="text-align: center">
                 {{direccionDeEntrega(pedido)}}
               </div>
             </div>

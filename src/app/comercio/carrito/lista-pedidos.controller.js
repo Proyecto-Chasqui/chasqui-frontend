@@ -137,7 +137,7 @@
       if(pedido.puntoDeRetiro != null){
         return formatDireccion(pedido.puntoDeRetiro.direccion) +" ("+pedido.puntoDeRetiro.nombre + ")";
       }
-      return "placeholder 1234, Bernal (UNQ)";
+      return "";
     }
     
     
