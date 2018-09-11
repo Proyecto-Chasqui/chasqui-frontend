@@ -19,13 +19,11 @@
     $scope.pedidosFiltrados = [];
     $scope.getAliasGrupo = getAliasGrupo;
     $scope.viewOrderDetail = viewOrderDetail;
-    $scope.states = ["CONFIRMADO", "PREPARADO", "ENTREGADO"];
+    $scope.states = ["Confirmado", "Preparado", "Enviado"];
     $scope.selectedState = "";
     $scope.getOrdersWithState = getOrdersWithState;
-    $scope.classForItem = function(i){
-      return i%2 == 0? "par" : "impar";
-    }
-    
+    $scope.classForItem = classForItem;
+    $scope.descripcionDelEstado = descripcionDelEstado;
 
     
     ////////////////////////// Init //////////////////////////
@@ -84,7 +82,7 @@
 
             var params = {
                 idVendedor: contextPurchaseService.getCatalogContext(),
-                estados: [state]
+                estados: [mapToBEStates(state)]
             };
 
             function doOk(response) {
@@ -106,6 +104,32 @@
       dialogCommons.viewOrderDetail(order);
     }
     
+    function classForItem(i){
+      return i%2 == 0? "par" : "impar";
+    }
+    
+    
+    function descripcionDelEstado(estado){
+      switch(estado){
+        case "Confirmado":
+          return "Los pedidos confirmados son los últimos pedidos que le hiciste a la comercializadora."
+        case "Preparado":
+          return "Los pedidos preparados son los que la comercializadora ya tiene listos para entregar."
+        case "Enviado":
+          return "Los pedidos enviados son los que estan en camino o ya fueron entegados en la dirección."
+      }
+    }
+    
+    function mapToBEStates(state){
+      var capState = state.toUpperCase();
+      if(capState == "ENVIADO"){
+        return "ENTREGADO";
+      }else{
+        return capState;
+      }
+    }
+    
+    ///////////////////////////////////
     
     $rootScope.$on('lista-producto-agrego-producto', function(event) {
         $log.debug("on lista-producto-agrego-producto");

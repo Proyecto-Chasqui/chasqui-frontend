@@ -1,56 +1,65 @@
-<div class="ch-content">
-  <md-card layout="column" layout-align="space-between" layout-fill>
-    <div layout="row" layout-align="space-around center" layout-fill>
-      <div>
-        Ver pedidos con estado: 
+<div class="ch-content-full">
+  <div layout="row" layout-align="space-between start">
+    <md-card flex="20">
+      <div layout="column" layout-align="start" style="margin: 25px;">
+        <div>
+          Filtrar pedidos por:
+        </div>
+        <div layout="row" layout-align="space-between center">
+          <label>Estado</label>
+          <md-input-container>          
+            <md-select ng-model="selectedState">
+              <md-option ng-repeat="state in states" ng-value="state" ng-click="getOrdersWithState(state)"> {{state}} </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div>
+          {{descripcionDelEstado(selectedState)}}
+        </div>
       </div>
-      <div>
-        <md-input-container>
-          <md-select ng-model="selectedState">
-            <md-option ng-repeat="state in states" ng-value="state" ng-click="getOrdersWithState(state)"> {{state}} </md-option>
-          </md-select>
-        </md-input-container>
-      </div>
-    </div>
-    <div>
-      <div ng-show="pedidosFiltrados.length == 0" layout="row" layout-align="center center" style="font-style: italic; margin-bottom: 15px;">
+    </md-card>
+    <md-card flex="80">
+      <div ng-show="pedidosFiltrados.length == 0" layout="row" layout-align="center center" style="font-style: italic;">
         No hay pedidos con el estado seleccionado
       </div>
-      <md-list layout-fill ng-show="pedidosFiltrados.length > 0">
+      <md-list layout-fill ng-show="pedidosFiltrados.length > 0" style="padding: 0px;">
         <md-list-item style="background-color: #33ccff; font-weight: bold;">
           <div layout="row" layout-align="space-between center" layout-fill>
-            <div flex="33" layout="row" layout-align="center">
+            <div flex="33" style="text-align: center">
               Tipo de pedido
             </div>
-            <div flex="33" layout="row" layout-align="center">
+            <div flex="33" style="text-align: center">
               Fecha de confirmación
             </div>
-            <div flex="33" layout="row" layout-align="center">
+            <div flex="33" style="text-align: center">
               Monto total
             </div>
           </div>
         </md-list-item>
-        <md-list-item class="md-1-line" ng-repeat="(i, pedido) in pedidosFiltrados" ng-class="classForItem(i)">
-          <md-button ng-click="viewOrderDetail(pedido)" layout-fill>
+        <md-list-item 
+            class="md-1-line" 
+            ng-repeat="(i, pedido) in pedidosFiltrados" 
+            ng-class="classForItem(i)">
+          <div ng-click="viewOrderDetail(pedido)" layout-fill>
             <div layout="row" layout-align="space-between center" layout-fill>
-              <div flex="33">
+              <div flex="33" style="text-align: center">
                 {{getAliasGrupo(pedido)}}
               </div>
-              <div flex="33">
+              <div flex="33" style="text-align: center">
                 {{pedido.fechaVencimiento}}
               </div>
-              <div flex="33">
+              <div flex="33" style="text-align: center">
                 ${{pedido.montoActual}}
               </div>
             </div>
             <md-tooltip md-direction="bottom">
                 Ver detalle
             </md-tooltip>
-          </md-button>
+          </div>
         </md-list-item>
       </md-list>
-    </div>
-  </md-card>
+    </md-card>
+  </div>
   
   
   

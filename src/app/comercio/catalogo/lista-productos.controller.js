@@ -144,7 +144,7 @@
           })        
         }else{
           dialogCommons.acceptIssue("Producto sin stock", 
-                                    "Lastimosamente no queda más stock, te recomendamos buscar productos similares", 
+                                    "Lamentablemente no queda más stock, te recomendamos buscar productos similares", 
                                     "Ok", 
                                     function(){}, 
                                     function(){});
