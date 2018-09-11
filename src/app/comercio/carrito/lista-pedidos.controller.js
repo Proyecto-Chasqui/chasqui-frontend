@@ -24,6 +24,7 @@
     $scope.getOrdersWithState = getOrdersWithState;
     $scope.classForItem = classForItem;
     $scope.descripcionDelEstado = descripcionDelEstado;
+    $scope.direccionDeEntrega = direccionDeEntrega;
 
     
     ////////////////////////// Init //////////////////////////
@@ -127,6 +128,21 @@
       }else{
         return capState;
       }
+    }
+    
+    function direccionDeEntrega(pedido){
+      if(pedido.direccion != null){
+        return formatDireccion(pedido.direccion) +" ("+pedido.direccion.alias + ")";
+      }
+      if(pedido.puntoDeRetiro != null){
+        return formatDireccion(pedido.puntoDeRetiro.direccion) +" ("+pedido.puntoDeRetiro.nombre + ")";
+      }
+      return "placeholder 1234, Bernal (UNQ)";
+    }
+    
+    
+    function formatDireccion(direccion){
+      return direccion.calle +" "+ direccion.altura +", "+ direccion.localidad;
     }
     
     ///////////////////////////////////

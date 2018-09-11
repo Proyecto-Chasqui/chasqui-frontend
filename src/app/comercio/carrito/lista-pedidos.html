@@ -25,14 +25,17 @@
       <md-list layout-fill ng-show="pedidosFiltrados.length > 0" style="padding: 0px;">
         <md-list-item style="background-color: #33ccff; font-weight: bold;">
           <div layout="row" layout-align="space-between center" layout-fill>
-            <div flex="33" style="text-align: center">
-              Tipo de pedido
+            <div flex="25" style="text-align: center">
+              Pedido del grupo
             </div>
-            <div flex="33" style="text-align: center">
+            <div flex="25" style="text-align: center">
               Fecha de confirmación
             </div>
-            <div flex="33" style="text-align: center">
+            <div flex="25" style="text-align: center">
               Monto total
+            </div>
+            <div flex="25" style="text-align: center">
+              Direccción de entrega
             </div>
           </div>
         </md-list-item>
@@ -42,14 +45,17 @@
             ng-class="classForItem(i)">
           <div ng-click="viewOrderDetail(pedido)" layout-fill>
             <div layout="row" layout-align="space-between center" layout-fill>
-              <div flex="33" style="text-align: center">
+              <div flex="25" style="text-align: center">
                 {{getAliasGrupo(pedido)}}
               </div>
-              <div flex="33" style="text-align: center">
+              <div flex="25" style="text-align: center">
                 {{pedido.fechaVencimiento}}
               </div>
-              <div flex="33" style="text-align: center">
+              <div flex="25" style="text-align: center">
                 ${{pedido.montoActual}}
+              </div>
+              <div flex="25" style="text-align: center">
+                {{direccionDeEntrega(pedido)}}
               </div>
             </div>
             <md-tooltip md-direction="bottom">
