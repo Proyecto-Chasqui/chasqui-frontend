@@ -195,8 +195,8 @@
         // Configuracion del tamaño del avatar. Estos parametros tienen que ir en sintonia con el tamaño de
         // los avatars por defecto
         
-        var avatar_height = 80;
-        var avatar_width = 80;
+        var avatar_height = 40;
+        var avatar_width = 40;
         
         
         // [0..3]   : avatars predeterminados
@@ -219,7 +219,7 @@
         }
         
         function getAvatarSrc(avatar_id){       
-            return './assets/images/avatar_' + avatar_id + '.jpg';
+            return './assets/images/avatar_' + avatar_id + '.svg';
         }
         
         $scope.selectAvatar = function(avatar){
