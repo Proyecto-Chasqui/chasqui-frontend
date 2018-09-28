@@ -1,7 +1,15 @@
 <div ng-controller="ListaProductosController as listaProductosCtrl">
     <span ng-show="listaProductosCtrl.productos.length == 0">
         {{'SIN_PRODUCTOS' | translate}}</span>
-    <div layout="column" layout-gt-sm="row" layout-wrap>
+        <chq-catalog-box>
+                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
+                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
+                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
+                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
+                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
+                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
+        </chq-catalog-box>
+    <!-- <div layout="column" layout-gt-sm="row" layout-wrap>
         <div flex="30" flex-gt-sm="33" ng-repeat="producto in listaProductosCtrl.productos" style="padding-bottom: 8px">
             <md-card class="alt-catalogo">
                 <div class="hover01">
@@ -27,7 +35,7 @@
                                     <div ng-bind-html ="producto.descripcion" />
                                 </div>
                                 -->
-                            </div>
+                            <!--</div>
                             <div layout="row" layout-align="space-between center">
                                 <div>
                                     <h1>$ {{producto.precioParteEntera}} <sup>{{listaProductosCtrl.mostrarDecimales(producto.precioParteDecimal)}}</sup></h1>
@@ -63,7 +71,7 @@
         <!-- Agregado por favio -->
         <chq-paginator></chq-paginator>
         <!-- Fin de Favio -->
-    </div>
+    </div> 
 
     <!-- ********************* paginacion *******************-->
     <!-- Favio:
@@ -135,5 +143,15 @@ figure {
     background: #fff;
     overflow: hidden;
 }
+
+/* TODO: Eliminar imagen de prueba */
+/* Agregada por favio solo para maquetar imagen previa y verificar comportamiento */
+.card{
+        width: 100%;
+    }
+
+    img{
+        width: 100%;
+    }
 
 </style>
