@@ -1,16 +1,16 @@
 <section class="paginator">
-    <ul class="paginator-content" ng-cloak >
-        <li class="item-content"  ng-click="moveFirst()" ng-class="{inactive: realPage <= 1}" > <i class="material-icons">
+    <ul class="paginator-content" data-ng-cloak >
+        <li class="item-content"  data-ng-click="moveFirst()" data-ng-class="{inactive: realPage <= 1}" > <i class="material-icons">
           fast_rewind
           </i> </li>
-        <li class="item-content"  ng-click="movePrevious()" ng-class="{inactive: realPage <= 1}" > <i class="material-icons reverse">
+        <li class="item-content"  data-ng-click="movePrevious()" data-ng-class="{inactive: realPage <= 1}" > <i class="material-icons reverse">
           play_arrow
           </i> </li>
-        <li class="item-content" ng-repeat="item in iterables track by $index"  ng-class="{active: $index == activeIndex - 1}" ng-cloak>{{item}}</li>
+        <li class="item-content" data-ng-repeat="item in iterables track by $index"  data-ng-class="{active: $index == activeIndex - 1}" data-ng-cloak>{{item}}</li>
         <li class="item-content"  ng-click="moveNext()" ng-class="{inactive: realPage >= lastPage}" > <i class="material-icons">
           play_arrow
           </i> </li>
-        <li class="item-content" ng-click="moveLast()" ng-class="{inactive: realPage >= lastPage}" > <i class="material-icons">
+        <li class="item-content" data-ng-click="moveLast()" data-ng-class="{inactive: realPage >= lastPage}" > <i class="material-icons">
           fast_forward
           </i> </li>
 
@@ -19,8 +19,10 @@
 
 <!-- Estilos -->
 <style>
+
+/* mobile-portrait (max-width: 767px) */
 .paginator{
-    margin: 2rem 0;
+    margin: 1rem 0;
 }
 
 .paginator-content{
@@ -35,10 +37,9 @@
     /*padding-left: 20.39rem;*/
 }
 
-
 .paginator-content .item-content{
     display: flex;
-    height: 3rem;
+    height: 2rem;
     width: 3rem;
     align-items: center;
     justify-content: center;
@@ -46,7 +47,9 @@
     transition: all .7s ease;
     border-left: 1px solid #ffffff;
     border-right: 1px solid #ffffff;
-    box-shadow:  0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+    box-shadow:  0px 1px 3px 0px rgba(0, 0, 0, 0.2), 
+                 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 
+                 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 }
 
 .paginator-content .item-content:hover{
@@ -79,8 +82,17 @@
 }
 
 .reverse{
-  transform: rotate(180deg);
+    transform: rotate(180deg);
 }
+/* mobile-landscape & tablet-portrait (min-width: 768px) */
+@media(min-width: 768px){
+    .paginator{
+    margin: 2rem 0;
+    }
 
-
+    .paginator-content .item-content{
+        height: 3rem;
+        width: 3rem;
+    }
+}
 </style>
