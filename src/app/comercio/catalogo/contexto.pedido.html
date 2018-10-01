@@ -10,7 +10,10 @@
             </md-subheader>
             <md-button ng-click="confirmOrder(pedidoSelected)" class="md-primary" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
               <label translate="CONFIRMAR"></label>
-            </md-button>			
+            </md-button>
+            <md-button ng-click="cancelOrder(pedidoSelected)" class="md-secondary" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+              <label translate="CANCELAR"></label>
+            </md-button>
             <md-list-item class="md-3-line" ng-repeat="variety in pedidoSelected.productosResponse">
                 <md-button ng-click="modifyVarietyCount(variety, pedidoSelected)" ng-disabled="pedidoSelected.estado == 'CONFIRMADO'">
                     <div layout="row" layout-align="space-between center">
