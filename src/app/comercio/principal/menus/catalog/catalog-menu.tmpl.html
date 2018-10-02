@@ -1,8 +1,49 @@
 <md-toolbar class="md-medium-tall bg-white" ng-cloak>
-    <div class="md-toolbar-tools">
-        <a ui-sref="home">
-            <img ng-src="app/components/image/logo_cha.png" style="padding-top: 50px;">
+  <div id="menu-chasqui" layout="column" layout-align="start">
+    <div class="nav-sticker-a" layout="row" layout-align="space-between center">
+      <div class="nav-logo">
+        <a ui-sref="catalog.landingPage">
+          <img ng-src="assets/images/chasqui_logo.png">
         </a>
+      </div>
+      <div layout="row" layout-align="space-between center">
+        <catalog-menu-items class="menu-element" general="true"></catalog-menu-items>
+        <div ng-show="isLogued" id="menu_list_usuario" layout="row" layout-align="space-between center">
+          <div class="menu-element" style="cursor: pointer;">
+            <img ng-click="toTop()" ui-sref="catalog.profile" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">
+          </div>
+          <h2 class="menu-element" ng-click="toTop()" ui-sref="catalog.profile" style="cursor: pointer;">{{usuario.nickname}}</h2>
+
+          <md-button class="menu-icon menu-element" ng-click="verNotificaciones()">
+              <ng-md-icon options="{{options}}" id="icon" icon="{{icon}}" style="fill: {{fill}};"/>
+              <md-tooltip style="color:#fff" md-direction="left">
+                 {{'SIN_LEER' | translate}} {{notificacionesSinLeer}} 
+              </md-tooltip>
+          </md-button>
+          <md-button class="md-secondary menu-icon menu-element" ng-click="logOut()">
+              <md-icon style="color:white;"> exit_to_app </md-icon>
+          </md-button>
+        </div>
+        <md-button class="md-raised btn-chq-ingresa" ui-sref="catalog.login" ng-show="!isLogued"> {{'INGRESA' | translate}} </md-button>
+      </div>
+      
+      
+                   
+                   
+    </div>      
+    <div class="nav-sticker-b" layout="row" layout-align="space-between center">
+      <div>
+        <!-- buscador -->
+      </div>
+      <div>
+        <catalog-menu-items general="false"></catalog-menu-items>
+      </div>
+    </div>
+  </div>
+  
+  
+   <!-- <div class="md-toolbar-tools">
+       
         <span flex></span>
 
         <catalog-menu-items></catalog-menu-items>
@@ -46,7 +87,7 @@
                 </md-grid-tile>
             </md-grid-list>
         </div>
-    </div>
+    </div> -->
 </md-toolbar>
 
 
@@ -57,4 +98,14 @@
         padding-right: 0.2rem;
         min-width: 80px !important;
     }
+  
+  .menu-element {
+    margin: 15px !important;
+  }
+  
+  .menu-icon {
+    height: 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+  }
 </style>

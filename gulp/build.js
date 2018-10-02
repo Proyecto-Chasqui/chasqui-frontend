@@ -90,8 +90,14 @@ gulp.task('other', function () {
     .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
 });
 
+gulp.task('setchasquicss', function () {
+    return gulp.src(path.join(conf.paths.src, '/app/css/*'))
+    .pipe(gulp.dest(path.join(conf.paths.dist, '/app/css')));
+});
+
+
 gulp.task('clean', function () {
   return $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')]);
 });
 
-gulp.task('build', ['html', 'fonts', 'other']);
+gulp.task('build', ['setchasquicss','html', 'fonts', 'other']);

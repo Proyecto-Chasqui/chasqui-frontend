@@ -1,8 +1,5 @@
 <div layout="row" layout-align="center" ng-cloak>
-    <div ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued" layout="row" layout-align="center">
-        <div ng-if="i != 0">
-            <span>|</span>
-        </div>
+    <div ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued" layout="row" layout-align="end center">
         <md-button class="{{classFor(item.id)}}" 
                    ui-sref="{{'catalog.' + item.route}}" 
                    ng-click="toTop()">
