@@ -1,15 +1,20 @@
 <div ng-controller="ListaProductosController as listaProductosCtrl">
-    <span ng-show="listaProductosCtrl.productos.length == 0">
+    <span ng-show="listaProductosCtrl.productos.length === 0">
         {{'SIN_PRODUCTOS' | translate}}</span>
         <chq-catalog-box>
-                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
-                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
-                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
-                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
-                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
-                <div class="card"><img ng-src='http://npg.si.edu/exhibit/feature/images/schoeller_full.jpg' alt=""></div>
+                <chq-product-card ng-repeat="producto in listaProductosCtrl.productos">
+                        <chq-principal-product-image title="Click para ver mas imágenes" image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}"
+                            ng-click="listaProductosCtrl.verProducto(producto)" ></chq-principal-product-image>
+                            <chq-product-description description="{{producto.nombreFabricante}}"></chq-product-description>
+                            <chq-producer-name nombre="{{producto.nombreFabricante}}"
+                            ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)"> </chq-producer-name>
+                            <chq-price-product intPart="10" decimalPart="55"> </chq-price-product>
+                </chq-product-card>
         </chq-catalog-box>
-    <!-- <div layout="column" layout-gt-sm="row" layout-wrap>
+        <chq-paginator></chq-paginator>
+                <!-- <div class="card" ng-repeat="producto in listaProductosCtrl.productos"><img ng-src="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" alt=""></div>
+        </chq-catalog-box>
+    <!-- <div layout="column" layout-gt-sm="row" layout-wrap> -->
         <div flex="30" flex-gt-sm="33" ng-repeat="producto in listaProductosCtrl.productos" style="padding-bottom: 8px">
             <md-card class="alt-catalogo">
                 <div class="hover01">
@@ -23,19 +28,19 @@
                         <div layout="column">
                             <div layout="column" style="min-height: 96px;" layout-align="space-between">
                                 <div class="md-subhead">
-                                    <span>{{listaProductosCtrl.identificadorProducto(producto)}}</span>
+                                    <span><chq-product-description description="{{producto.nombreFabricante}}" /></span>
                                 </div>
                                 <md-button ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">{{producto.nombreFabricante}}</md-button>
-                                <!--
+
                                 <div class="md-subhead">
                                     <a href="http://localhost:3000/#/emprendedores/{{producto.idFabricante}}"> {{producto.nombreFabricante}}</a>
-                                </div >-->
-                                <!--
+                                </div >
+
                                 <div class="md-subhead">
                                     <div ng-bind-html ="producto.descripcion" />
                                 </div>
-                                -->
-                            <!--</div>
+
+                            </div>
                             <div layout="row" layout-align="space-between center">
                                 <div>
                                     <h1>$ {{producto.precioParteEntera}} <sup>{{listaProductosCtrl.mostrarDecimales(producto.precioParteDecimal)}}</sup></h1>
@@ -69,9 +74,9 @@
             </md-card>
         </div>
         <!-- Agregado por favio -->
-        <chq-paginator></chq-paginator>
+        <!-- <chq-paginator></chq-paginator> -->
         <!-- Fin de Favio -->
-    </div> 
+    </div>
 
     <!-- ********************* paginacion *******************-->
     <!-- Favio:
@@ -146,12 +151,6 @@ figure {
 
 /* TODO: Eliminar imagen de prueba */
 /* Agregada por favio solo para maquetar imagen previa y verificar comportamiento */
-.card{
-        width: 100%;
-    }
 
-    img{
-        width: 100%;
-    }
 
 </style>

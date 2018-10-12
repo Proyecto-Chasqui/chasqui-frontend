@@ -1,0 +1,24 @@
+<div class="chq-img-product-container">
+    <img ng-src="{{ image }}" class="main-image-product">
+</div>
+
+<style>
+    .chq-img-product-container{
+        --width-container: 100%;
+        width: var(--width-container);
+        height:  auto;
+        overflow: hidden;
+        padding: 0.5rem;
+        cursor: pointer;
+    }
+
+    .chq-img-product-container > .main-image-product{
+        width: var(--width-container);
+        transition: all 0.5s ease;
+    }
+    .chq-img-product-container > .main-image-product:hover{
+        transform: scale(1.2);
+        filter: saturate(180%);
+        transition: all 0.5s ease;
+    }
+</style>
