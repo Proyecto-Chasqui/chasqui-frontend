@@ -8,13 +8,14 @@
                             <chq-product-description description="{{producto.nombreFabricante}}"></chq-product-description>
                             <chq-producer-name nombre="{{producto.nombreFabricante}}"
                             ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)"> </chq-producer-name>
-                            <chq-price-product intPart="10" decimalPart="55"> </chq-price-product>
+                            <!-- <chq-price-product intPart="10" decimalPart="55"> </chq-price-product> -->
                 </chq-product-card>
         </chq-catalog-box>
         <chq-paginator></chq-paginator>
                 <!-- <div class="card" ng-repeat="producto in listaProductosCtrl.productos"><img ng-src="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" alt=""></div>
         </chq-catalog-box>
     <!-- <div layout="column" layout-gt-sm="row" layout-wrap> -->
+    <!--
         <div flex="30" flex-gt-sm="33" ng-repeat="producto in listaProductosCtrl.productos" style="padding-bottom: 8px">
             <md-card class="alt-catalogo">
                 <div class="hover01">
