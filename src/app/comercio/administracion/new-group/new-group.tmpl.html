@@ -1,27 +1,32 @@
 <md-dialog>
-    <md-toolbar layout="row" layout-align="space-between center">
-        <div class="md-toolbar-tools">
-            <span class="md-title" translate>{{isEdit? "MOD_GRUPO" : "NUEVO_GRUPO"}}</span>
-        </div>
-        <md-button class="md-icon-button" ng-click="cancel()">
-          <md-icon aria-label="Cerrar">close</md-icon>
-        </md-button>
-    </md-toolbar>
+    <modal-window-title-bar title='{{isEdit? "MOD_GRUPO" : "NUEVO_GRUPO" | translate}}' cancel-action="cancel"></modal-window-title-bar>
+  
     <md-dialog-content>
-        <div>
-            <div layout-gt-sm="column">
-                <md-input-container class="md-block" flex-gt-sm>
+        <div layout="column" style="min-width: 50vw; margin: 20px;">
+            <div layout="row" layout-align="space-between center">
+                <div flex="50" layout="column">
+                    <span><label translate>ALIAS</label><strong>*</strong></span>
+                    <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un nombre</span>
+                    <span style="font-style: italic;">Es el nombre identificador del grupo</span>
+                </div>
+                <md-input-container flex="50">
                     <label translate>ALIAS</label>
-                    <input ng-model="group.alias">
+                    <input ng-model="group.alias"/>
                 </md-input-container>
-                <md-input-container class="md-block" flex-gt-sm>
+            </div>
+            <div layout="row" layout-align="space-between center">
+                <div flex="50" layout="column">
+                    <span><label translate>DESC</label></span>
+                    <span style="font-style: italic;">Es la descripción del grupo</span>
+                </div>
+                <md-input-container flex="50">
                     <label translate>DESC</label>
-                    <input ng-model="group.descripcion">
+                    <input ng-model="group.descripcion"/>
                 </md-input-container>
             </div>
         </div>
     </md-dialog-content>
     <md-dialog-actions layout="row" layout-align="end center">
-        <md-button ng-click="save()" translate> {{isEdit? "GUARDAR" : "CREAR"}}</md-button>
+        <md-button class="next" ng-click="save()" translate> {{isEdit? "GUARDAR" : "CREAR"}}</md-button>
     </md-dialog-actions>
 </md-dialog>
