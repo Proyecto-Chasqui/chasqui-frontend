@@ -11,6 +11,7 @@ function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_RO
         
     
     $scope.urlBase = URLS.be_base;
+    $scope.toTop = toTop;
 
     
     ////////////////////////// INIT //////////////////////////
@@ -85,6 +86,10 @@ function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_RO
         });
     }
     
+    
+    function toTop(){
+        window.scrollTo(0,0);
+    }
     
     ////////////////////////// Other //////////////////////////
     

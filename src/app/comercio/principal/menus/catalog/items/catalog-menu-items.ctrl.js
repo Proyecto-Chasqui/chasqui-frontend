@@ -19,7 +19,10 @@
         $scope.isLogued = usuario_dao.isLogged();
         contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
             $scope.catalog = catalog;
-            $scope.menuItems = itemsBuilder($scope.catalog.few);
+            console.log("general items: ", $scope.general);
+            $scope.menuItems = $scope.general? 
+                                    itemsBuilder.general($scope.catalog.few):
+                                    itemsBuilder.catalog($scope.catalog.few);          
         })
     }
 
