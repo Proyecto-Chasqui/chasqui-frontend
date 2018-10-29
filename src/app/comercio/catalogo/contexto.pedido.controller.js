@@ -9,8 +9,8 @@
     *  FAB Button de contexto de compra.
     */
     function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, contextCatalogObserver,
-                                     productoService, $timeout, contextPurchaseService, contextCatalogsService, 
-                                     usuario_dao, modifyVarietyCount, contextOrdersService, confirmOrder) {
+                                     productoService, $timeout, contextPurchaseService, contextCatalogsService, ToastCommons,
+                                     usuario_dao, modifyVarietyCount, contextOrdersService, confirmOrder, dialogCommons) {
 
         $log.debug("ContextoPedidoController .....");
 
@@ -23,7 +23,43 @@
         $scope.showOrderResume = false;
         $scope.modifyVarietyCount = modifyVarietyCount.modifyDialog;
         $scope.confirmOrder = confirmOrder;
+        $scope.cancelOrder = cancelOrder;
               
+      
+        /////////////////////////////////////////////////
+      
+        function cancelOrder(order){
+            dialogCommons.confirm("¿Cancelar pedido?", 
+                                  "¿Está seguro que quiere cancelarlo?", 
+                                  "Si", 
+                                  "No", 
+                                  doCancelOrder(order), 
+                                  ignoreAction);
+        }
+
+
+        function doCancelOrder(order){
+            return function(){
+                $log.debug('DetallePedidoController , cancelar', order);
+
+                function doOk(response) {
+                    $log.debug("--- cancelar pedido response ", response.data);
+                    ToastCommons.mensaje(us.translate('CANCELADO'));
+                    contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), order);
+                    if(order.type == "PERSONAL"){
+                        contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
+                    }
+                    load();
+                }
+
+                productoService.cancelarPedidoIndividual(order.id).then(doOk);
+            }
+        }
+
+        function ignoreAction(){
+            $mdDialog.hide();
+        }
+      
       
         //////////////// Init 
         function load() {
@@ -51,6 +87,10 @@
         });
       
         $rootScope.$on('order-confirmed', function(event) {
+            load();
+        });
+      
+        $rootScope.$on('order-cancelled', function(event) {
             load();
         });
 
