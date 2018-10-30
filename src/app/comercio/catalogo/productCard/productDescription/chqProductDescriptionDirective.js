@@ -4,7 +4,7 @@ angular.module('chasqui').directive('chqProductDescription',
       restrict: 'E',
       controller: 'ChqProductDescriptionCtrl',
       scope:{
-          description: '@'
+          description: '='
       },
       templateUrl: 'app/comercio/catalogo/productCard/productDescription/chqProductDescription.html'
     }

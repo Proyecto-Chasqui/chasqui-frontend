@@ -2,13 +2,12 @@
     <span ng-show="listaProductosCtrl.productos.length === 0">
         {{'SIN_PRODUCTOS' | translate}}</span>
         <chq-catalog-box>
-                <chq-product-card ng-repeat="producto in listaProductosCtrl.productos">
-                        <chq-principal-product-image title="Click para ver mas imágenes" image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}"
-                            ng-click="listaProductosCtrl.verProducto(producto)" ></chq-principal-product-image>
-                            <chq-product-description description="{{producto.nombreFabricante}}"></chq-product-description>
-                            <chq-producer-name nombre="{{producto.nombreFabricante}}"
-                            ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)"> </chq-producer-name>
-                            <!-- <chq-price-product intPart="10" decimalPart="55"> </chq-price-product> -->
+                <chq-product-card ng-repeat="producto in listaProductosCtrl.productos" data="producto">
+                        <chq-principal-product-image image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" texto="Explore mas imagenes"></chq-principal-product-image>
+                        <chq-product-description description="producto.nombreProducto"></chq-product-description>
+                        <chq-producer-name nombre="producto.nombreFabricante"></chq-producer-name>
+                        <chq-price-product intPart="producto.precioParteEntera">
+
                 </chq-product-card>
         </chq-catalog-box>
         <chq-paginator></chq-paginator>

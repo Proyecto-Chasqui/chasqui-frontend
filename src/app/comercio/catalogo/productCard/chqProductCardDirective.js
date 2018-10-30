@@ -5,6 +5,7 @@ angular.module('chasqui').directive('chqProductCard',
       controller: 'ChqProductCardCtrl',
       transclude: true,
       scope:{
+      	data: '='
       },
       templateUrl: 'app/comercio/catalogo/productCard/product-card.html'
     }

@@ -7,7 +7,7 @@
 	angular.module('chasqui').controller('ChqPriceProductCtrl', ChqPriceProductCtrl);
 
 	function ChqPriceProductCtrl($scope){
-        $scope.price = $scope.intPart.concat(','+ $scope.decimalPart);
+		$scope.intPart = $scope.intPart;
 	}
 }
 )();
