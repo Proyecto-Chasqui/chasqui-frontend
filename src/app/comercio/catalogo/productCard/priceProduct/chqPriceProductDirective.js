@@ -4,7 +4,7 @@ angular.module('chasqui').directive('chqPriceProduct',
       restrict: 'E',
       controller: 'ChqPriceProductCtrl',
       scope:{
-          intPart: '='
+          entero: '='
       },
       templateUrl: 'app/comercio/catalogo/productCard/priceProduct/chqPriceProduct.html'
     }
