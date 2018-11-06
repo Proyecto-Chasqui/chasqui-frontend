@@ -23,6 +23,7 @@
             integrantesGrupo: integrantesGrupo,
             direccionGrupo: direccionGrupo,
             pedidosColectivosConEstado: pedidosColectivosConEstado,
+            cerrarGrupo: cerrarGrupo,
         };
 
 		function pedidosByUser(idCatalog, doNoOK){
@@ -122,6 +123,11 @@
     function pedidosColectivosConEstado(idGrupo, estados){
 			$log.debug(" service direccionGrupo ");
 			return promiseService.doPost(REST_ROUTES.pedidosColectivosConEstado, {idGrupo: idGrupo, estados: estados});        
+    }
+      
+    function cerrarGrupo(idVendedor, idGrupo){
+			$log.debug(" service direccionGrupo ");
+			return promiseService.doPost(REST_ROUTES.cerrarGrupo, {idGrupo: idGrupo, idVendedor: idVendedor});           
     }
         
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
