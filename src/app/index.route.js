@@ -52,7 +52,7 @@
             })
             .state('catalog.userGroups', {
                 url: '/misGrupos',
-                templateUrl: 'app/comercio/administracion/lista-grupos.html',
+                templateUrl: 'app/comercio/administracion/gcc-tab/lista-grupos.html',
                 controller: 'ListaGruposController',
                 auth: true
             })  

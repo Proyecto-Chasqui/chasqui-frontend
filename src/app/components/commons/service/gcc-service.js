@@ -22,7 +22,7 @@
             salirGrupo: salirGrupo,
             integrantesGrupo: integrantesGrupo,
             direccionGrupo: direccionGrupo,
-            
+            pedidosColectivosConEstado: pedidosColectivosConEstado,
         };
 
 		function pedidosByUser(idCatalog, doNoOK){
@@ -119,6 +119,10 @@
 			return promiseService.doPost(REST_ROUTES.direccionGrupo(id), direccion);
 		}
 
+    function pedidosColectivosConEstado(idGrupo, estados){
+			$log.debug(" service direccionGrupo ");
+			return promiseService.doPost(REST_ROUTES.pedidosColectivosConEstado, {idGrupo: idGrupo, estados: estados});        
+    }
         
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 
