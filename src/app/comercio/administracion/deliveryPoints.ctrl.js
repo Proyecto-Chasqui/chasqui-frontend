@@ -22,9 +22,11 @@
         ///////////////////////////////
         
         function formatAddress(address){
-            return address.calle + " " + address.altura;
+            return address.calle +" "+ address.altura +", "+ address.localidad;
         }
         
+      
+      
         init();
     }
     
