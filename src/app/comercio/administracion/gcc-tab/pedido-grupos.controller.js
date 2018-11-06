@@ -132,7 +132,7 @@
         }
         
         function totalForMember(member){
-            return Math.floor(member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0));
+            return member.pedido != null? Math.floor(member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0)): 0;
         }
       
         function montoTotalGrupo(){
