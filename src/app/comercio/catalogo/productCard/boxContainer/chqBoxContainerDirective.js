@@ -5,8 +5,8 @@ angular.module('chasqui').directive('chqBoxContainer',
       controller: 'ChqBoxContainerCtrl',
       transclude: true,
       scope:{
-      	direccion: '=',
-        alto: '='
+      	direccion: '@?',
+        alto: '@?'
       },
       templateUrl: 'app/comercio/catalogo/productCard/boxContainer/chqBoxContainer.html'
     }

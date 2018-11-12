@@ -7,8 +7,8 @@
 	angular.module('chasqui').controller('ChqBoxContainerCtrl', ChqBoxContainerCtrl);
 
 	function ChqBoxContainerCtrl($scope){
-		$scope.direction = angular.isDefined($scope.direction) ? $scope.direction: 'row';
-		$scope.height = angular.isDefined($scope.height) ? $scope.height: 'auto';
+		$scope.direccion = angular.isDefined($scope.direccion) ? $scope.direccion: 'row';
+		$scope.alto = angular.isDefined($scope.alto) ? $scope.alto: 'auto';
 	}
 }
 )();

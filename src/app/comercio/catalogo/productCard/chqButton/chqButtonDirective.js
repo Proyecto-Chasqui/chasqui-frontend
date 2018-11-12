@@ -5,8 +5,8 @@ angular.module('chasqui').directive('chqButton',
       controller: 'ChqButtonCtrl',
       transclude: true,
       scope:{
-      	color: '=',
-        text: '='
+      	color: '@?',
+        text: '@?'
       },
       templateUrl: 'app/comercio/catalogo/productCard/chqButton/chqButton.html'
     }
