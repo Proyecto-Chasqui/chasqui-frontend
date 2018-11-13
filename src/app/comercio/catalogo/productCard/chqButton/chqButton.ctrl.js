@@ -7,8 +7,9 @@
 	angular.module('chasqui').controller('ChqButtonCtrl', ChqButtonCtrl);
 
 	function ChqButtonCtrl($scope){
-		$scope.color = angular.isDefined($scope.color) ? $scope.color: 'green';
+		$scope.color = angular.isDefined($scope.color) ? $scope.color: '#43a047';
 		$scope.text = angular.isDefined($scope.text) ? $scope.text: '';
+		$scope.textColor = angular.isDefined($scope.textColor) ? $scope.textColor: '#fff';
 	}
 }
 )();

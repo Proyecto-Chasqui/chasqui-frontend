@@ -7,8 +7,8 @@
 	angular.module('chasqui').controller('ChqSellosCtrl', ChqSellosCtrl);
 
 	function ChqSellosCtrl($scope, $log){
-		//$scope.lista = $scope.lista;
-		//$scope.nombre = $scope.lista[0].nombre;
+		$scope.stamps = $scope.stamps;
+		log.warn("solomos los sellos: ", $scope.stamps);
 
 	}
 }

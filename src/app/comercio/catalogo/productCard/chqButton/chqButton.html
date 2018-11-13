@@ -1,12 +1,27 @@
-<div class="chq-button" ng-click="{{function}}">
+<div class="chq-button">
 	<span class="chq-text-button">
 		<p>{{text}}</p>
 	</span>
 </div>
 <style type="text/css">
 	.chq-button{
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		padding: 0.3rem;
-		background-color: {{color}};
-    width: 100%;
+		min-width: 4rem;
+		cursor: pointer;
+		--buttonColor: {{ color }};
+		background-color: var(--buttonColor);
+		transition: all .5s ease;
+	}
+
+	.chq-button:hover{
+		opacity: .75;
+		filter: alpha(opacity=75);
+		transition: all .5s ease;
+	}
+	.chq-text-button{
+		color: {{ textColor }};
 	}
 </style>

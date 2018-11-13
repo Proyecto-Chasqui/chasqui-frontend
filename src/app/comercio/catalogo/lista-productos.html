@@ -3,14 +3,18 @@
         {{'SIN_PRODUCTOS' | translate}}</span>
         <chq-catalog-box>
                 <chq-product-card ng-repeat="producto in listaProductosCtrl.productos" data="producto">
-                        <chq-principal-product-image image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" texto="Explore mas imagenes"></chq-principal-product-image>
+                        <chq-principal-product-image image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" texto="Explore mas imagenes" 
+                        ng-click="listaProductosCtrl.verProducto(producto)">
+                        </chq-principal-product-image>
                         <chq-product-description description="producto.nombreProducto"></chq-product-description>
-                        <chq-producer-name nombre="producto.nombreFabricante"></chq-producer-name>
-                        <chq-box-container direccion="column" >
+                        <chq-producer-name nombre="producto.nombreFabricante"
+                        ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
+                        </chq-producer-name>
+                        <chq-box-container __>
                             <chq-price-product entero="producto.precio" ></chq-price-product>
-                            <chq-button text="comprar"></chq-button>
+                            <chq-button text="comprar" ng-click="listaProductosCtrl.agregar(producto)"></chq-button>
                         </chq-box-container>
-                        
+                        <chq-stamp stamps="producto.medallasProductor"></chq-stamp>
                 </chq-product-card>
         </chq-catalog-box>
         <chq-paginator></chq-paginator>
@@ -81,12 +85,7 @@
         <!-- Fin de Favio -->
     </div>
 
-    <!-- ********************* paginacion *******************-->
-    <!-- Favio:
-    <section layout="column" class="chq-paginador" layout-align="end center" ng-show="listaProductosCtrl.productos.length > 0">
-        <cl-paging flex cl-pages="listaProductosCtrl.paging.total" cl-steps="6" cl-page-changed="listaProductosCtrl.paging.onPageChanged()" cl-align="start start" cl-current-page="listaProductosCtrl.paging.current"></cl-paging>
-    </section>
-    -->
+
     <!-- ********************* dialogo de medalla *******************-->
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="myDialog">
