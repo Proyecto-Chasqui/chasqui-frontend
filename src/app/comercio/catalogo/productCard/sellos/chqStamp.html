@@ -1,0 +1,21 @@
+<div class="chq-stamp-container">
+	<img ng-src="{{ image }}" title="{{ texto }}" class="chq-image-stamp">
+</div>
+<style type="text/css">
+	.chq-stamp-container{
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		cursor: pointer;
+		transition: all .7s ease;
+	}
+
+	.chq-stamp-container:hover{
+		transform: rotate(50deg);
+		transition: all .7s ease;
+	}
+
+	.chq-stamp-container > img{
+		width: 100%;
+	}
+</style>

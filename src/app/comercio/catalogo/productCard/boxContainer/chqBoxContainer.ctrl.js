@@ -9,6 +9,7 @@
 	function ChqBoxContainerCtrl($scope){
 		$scope.direccion = angular.isDefined($scope.direccion) ? $scope.direccion: 'row';
 		$scope.alto = angular.isDefined($scope.alto) ? $scope.alto: 'auto';
+		$scope.space = angular.isDefined($scope.space) ? $scope.space: 'space-between';
 	}
 }
 )();
