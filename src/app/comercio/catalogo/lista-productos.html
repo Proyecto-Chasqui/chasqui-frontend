@@ -21,6 +21,11 @@
                             ng-click="listaProductosCtrl.verProducto(producto)"
                             texto="medalla.nombre"
                             space="flex-start"
+                            ng-repeat="medalla in producto.medallasProductor"></chq-stamp>
+                            <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+                            ng-click="listaProductosCtrl.verProducto(producto)"
+                            texto="medalla.nombre"
+                            space="flex-start"
                             ng-repeat="medalla in producto.medallasProducto"></chq-stamp>
                         </chq-box-container>
                 </chq-product-card>
