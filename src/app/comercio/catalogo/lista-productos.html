@@ -11,23 +11,22 @@
                         <chq-producer-name nombre="producto.nombreFabricante"
                         ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
                         </chq-producer-name>
-                        <chq-box-container __>
+                        <chq-box-container space="space-between"_>
                             <chq-price-product entero="producto.precio" ></chq-price-product>
                             <chq-button text="{{'AGREGAR_BTN' | translate}}
                             " ng-click="listaProductosCtrl.agregar(producto)"></chq-button>
                         </chq-box-container>
-                        <chq-box-container  alto="3rem"> 
+                        <chq-stamps-container  alto="3rem" 
+                            space="flex-start"> 
                             <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
                             ng-click="listaProductosCtrl.verProducto(producto)"
                             texto="medalla.nombre"
-                            space="flex-start"
                             ng-repeat="medalla in producto.medallasProductor"></chq-stamp>
                             <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
                             ng-click="listaProductosCtrl.verProducto(producto)"
                             texto="medalla.nombre"
-                            space="flex-start"
                             ng-repeat="medalla in producto.medallasProducto"></chq-stamp>
-                        </chq-box-container>
+                        </chq-stamps-container>
                 </chq-product-card>
         </chq-catalog-box>
         <chq-paginator></chq-paginator>
