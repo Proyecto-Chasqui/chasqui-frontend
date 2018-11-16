@@ -1,27 +1,42 @@
-<div class="chq-button">
-	<span class="chq-text-button">
+<div class="chq-add-button" title="{{ title }}">
+	<span class="chq-text-add-button">
 		<p>{{text}}</p>
 	</span>
 </div>
 <style type="text/css">
-	.chq-button{
+	.chq-add-button{
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		padding: 0.3rem 0.1rem;
-		min-width: 4rem;
+		width: 4rem;
 		cursor: pointer;
 		--buttonColor: {{ color }};
 		background-color: var(--buttonColor);
 		transition: all .5s ease;
 	}
 
-	.chq-button:hover{
+	.chq-add-button:hover{
 		opacity: .75;
 		filter: alpha(opacity=75);
 		transition: all .5s ease;
 	}
-	.chq-text-button{
+	.chq-text-add-button{
 		color: {{ textColor }};
 	}
+
+@media(min-width: 768px){
+	.chq-add-button{
+		width: 4.3rem;
+	}
+}
+
+@media(min-width: 1024px){
+
+}
+
+@media(min-width: 1200px){
+
+}
+
 </style>

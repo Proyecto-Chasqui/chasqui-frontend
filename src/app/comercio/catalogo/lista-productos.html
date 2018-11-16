@@ -4,7 +4,7 @@
         <chq-catalog-box>
                 <chq-product-card ng-repeat="producto in listaProductosCtrl.productos" data="producto">
                         <chq-principal-product-image image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" 
-                        texto="Explore mas imagenes" 
+                        texto="Explore mas imágenes" 
                         ng-click="listaProductosCtrl.verProducto(producto)">
                         </chq-principal-product-image>
                         <chq-product-description description="producto.nombreProducto"></chq-product-description>
@@ -13,15 +13,16 @@
                         </chq-producer-name>
                         <chq-box-container space="space-between"_>
                             <chq-price-product entero="producto.precio" ></chq-price-product>
-                            <chq-button text="{{'AGREGAR_BTN' | translate}}
-                            " ng-click="listaProductosCtrl.agregar(producto)"></chq-button>
+                            <chq-add-button text="{{'AGREGAR_BTN' | translate}}
+                            " ng-click="listaProductosCtrl.agregar(producto)" title="Agregar al pedido"></chq-add-button>
                         </chq-box-container>
                         <chq-stamps-container  alto="3rem" 
                             space="flex-start"> 
                             <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
                             ng-click="listaProductosCtrl.verProducto(producto)"
                             texto="medalla.nombre"
-                            ng-repeat="medalla in producto.medallasProductor"></chq-stamp>
+                            ng-repeat="medalla in producto.medallasProductor">
+                            </chq-stamp>
                             <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
                             ng-click="listaProductosCtrl.verProducto(producto)"
                             texto="medalla.nombre"
@@ -115,6 +116,7 @@
                 </div>
             </md-dialog>
         </div>
+    </div>
         <!-- ********************* dialogo de productor *******************-->
         <div style="visibility: hidden">
             <div class="md-dialog-container" id="productorDialog">
@@ -139,32 +141,4 @@
         </div>
     </div>
 </div>
-<style>
-/* Zoom In #1 */
 
-.hover01 figure img {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-}
-
-.hover01 figure:hover img {
-    -webkit-transform: scale(1.3);
-    transform: scale(1.3);
-}
-
-figure {
-    /* width: 222px;
-    height: 222px;*/
-    margin: 0;
-    padding: 0;
-    background: #fff;
-    overflow: hidden;
-}
-
-/* TODO: Eliminar imagen de prueba */
-/* Agregada por favio solo para maquetar imagen previa y verificar comportamiento */
-
-
-</style>
