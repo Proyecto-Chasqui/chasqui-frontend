@@ -1,9 +1,6 @@
 (function(){
 	'use strict'
-	/*
-	* Favio Juan.
-	* 11-28-2018
-	*/
+	
 	angular.module('chasqui').controller('ChqBoxContainerCtrl', ChqBoxContainerCtrl);
 
 	function ChqBoxContainerCtrl($scope){
