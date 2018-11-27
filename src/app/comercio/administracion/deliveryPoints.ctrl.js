@@ -3,7 +3,7 @@
     
     angular.module('chasqui').controller('DeliveryPointsCtrl', DeliveryPointsCtrl);
     
-	function DeliveryPointsCtrl(navigation_state, $scope, deliveryPointsService, contextPurchaseService) {
+	function DeliveryPointsCtrl(navigation_state, $scope, contextCatalogObserver, deliveryPointsService, contextPurchaseService) {
         
         navigation_state.goDeliveryPointsTab();
         $scope.deliveryPoints = [];
@@ -12,11 +12,13 @@
         ///////////////////////////////
         
         function init(){
-            contextPurchaseService.getSelectedCatalog().then(function(catalog){
-                deliveryPointsService.deliveryPoints(catalog.nombreCorto).then(function(response){
-                    $scope.deliveryPoints = response.data.puntosDeRetiro;
-                });    
-            })
+            contextCatalogObserver.observe(function(){
+              contextPurchaseService.getSelectedCatalog().then(function(catalog){
+                  deliveryPointsService.deliveryPoints(catalog.nombreCorto).then(function(response){
+                      $scope.deliveryPoints = response.data.puntosDeRetiro;
+                  });    
+              })
+            });
         }
         
         ///////////////////////////////
