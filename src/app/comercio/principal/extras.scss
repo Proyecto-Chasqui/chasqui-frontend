@@ -319,7 +319,26 @@ md-tabs md-ink-bar {
   background-color: #e6f9ff !important;
 }
 
-
 .par {
   background-color: #ccf2ff !important;
+}
+
+.ch-estado-pedido {
+    padding: 8px;
+    border-radius: 2px;
+}
+
+.ch-estado-pedido-abierto {
+    color: #FFFFFF !important;
+    background-color: $colorDos !important;
+}
+
+.ch-estado-pedido-cancelado {
+    color: #FFFFFF !important;
+    background-color: $colorUno !important;
+}
+
+.ch-estado-pedido-confirmado {
+    color: #FFFFFF !important;
+    background-color: $colorConfirmar !important;
 }

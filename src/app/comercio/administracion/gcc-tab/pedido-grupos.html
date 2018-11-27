@@ -16,7 +16,7 @@
           ng-show="grupo.esAdministrador"
           ng-disabled="!puedeCerrarPedidoGCC()">
           <label translate>
-              CONFIRMAR_PEDIDO
+              CONFIRMAR_PEDIDO_GCC
           </label>
           <md-icon ng-show="puedeCerrarPedidoGCC()" style="color:white">
               done
@@ -34,32 +34,61 @@
     </div>
  
     <md-card ng-show="grupo.miembros">
+        <md-card-title>
+					<md-card-title-text>
+						  <span class="md-headline">
+						      Pedidos de cada miembro
+              </span>
+					</md-card-title-text>            
+        </md-card-title>
+        
         <md-card-content>
             <md-tabs>
                 <md-tab
                   ng-repeat="miembro in miembrosActivosDelGrupo" 
                   label="{{::selfPara(miembro)}}"
                 >
-                    <div>
-                        <div ng-show="miembro.pedido == null || miembro.pedido.productosResponse.lenght == 0" flex="40">
-                            <label translate="MIEMBRO_SIN_PROD"></label>
+                    <md-content class="md-padding" layout="column" layout-align="space-around">
+                        <div layout="column" layout-align="space-sround center" ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
+                            <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="MIEMBRO_SIN_PROD"></label>
+                                <continue-buying></continue-buying>
+                            </div>
+                            <div ng-hide="isLoggedUser(miembro)">
+                            </div>
                         </div>
 
-                        <div ng-show="miembro.pedido != null || miembro.pedido.productosResponse.lenght > 0 "
+                        <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0 
+                                      && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO')"
                           style="margin: 10px;"
                           layout="row" layout-align="space-between center">                             
                             <div>Estado:</div>
-                            <div>{{miembro.pedido.estado}}</div>
+                            <div class ="ch-estado-pedido" ng-class="classForState(miembro.pedido.estado)">
+                                {{miembro.pedido.estado}}
+                            </div>
                         </div>
 
                         <div layout="row" layout-align="space-between center"
-                          ng-show="miembro.pedido != null || (miembro.pedido.productosResponse.lenght > 0  && miembro.pedido.estado == 'CONFIRMADO')"
+                          ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0  
+                                   && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
                           style="margin: 10px;">
                             <div>Total:</div>
                             <div>${{totalForMember(miembro)}}</div>
                         </div>
+                        
+                        <div layout="row" layout-align="space-around center" 
+                             ng-show="miembro.pedido.productosResponse.length > 0 
+                                      && miembro.pedido.estado == 'ABIERTO'
+                                      && isLoggedUser(miembro)">
+                            <md-button style="color: white" ng-click="confirmOrder(miembro.pedido)" class="confirm-order order-button-catalog">
+                              <label translate="CONFIRMAR"></label>
+                            </md-button>
+                            <md-button style="color: white" ng-click="cancelOrder(miembro.pedido)" class="cancel-order order-button-catalog">
+                              <label translate="CANCELAR"></label>
+                            </md-button>
+                        </div>
 
-                        <md-list class="md-dense" flex>
+                        <md-list ng-show="miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'" class="md-dense" flex>
                             <md-list-item class="md-3-line" ng-repeat="item in miembro.pedido.productosResponse">
                                 <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
                                 <div class="md-list-item-text" layout="column">
@@ -68,7 +97,7 @@
                                 </div>
                             </md-list-item>
                         </md-list>
-                    </div>
+                    </md-content>
                 </md-tab>
             </md-tabs>
         </md-card-content>
