@@ -5,7 +5,7 @@
 
 	/** @ngInject */
 	function SelectDeliveryAddressController($scope, contextPurchaseService, $log, vendedorService, sellerService, 
-                                              perfilService, $mdDialog, $state) {
+                                              perfilService, $mdDialog, $state, $sce) {
         
         
         $scope.addresses = [];
@@ -37,11 +37,14 @@
         $scope.addressDefined = false;
         $scope.zoneDefined = false;
         $scope.deliveryPointDefined = false;
+        $scope.zonesMap = "";
         
         /////////////////////////////////////
         
         function init(){
             contextPurchaseService.getSelectedCatalog().then(function(selectedCatalog){
+                $scope.zonesMap = $sce.trustAsResourceUrl(selectedCatalog.urlMapa);
+                console.log($scope.zonesMap);
                 callDirecciones(selectedCatalog);
                 loadZones(selectedCatalog.id);
             })

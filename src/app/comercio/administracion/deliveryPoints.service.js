@@ -11,7 +11,7 @@
         ///////////////////////////////////////////////////////////////////////////////////////////
             
             
-        function deliveryPoints(idCatalog) {
+    function deliveryPoints(idCatalog) {
 			$log.debug(" service deliveryPoints ");
 			return promiseService.doGet(REST_ROUTES.puntosDeRetiro(idCatalog), {} );
 		}

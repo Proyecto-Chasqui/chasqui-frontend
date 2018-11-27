@@ -20,7 +20,7 @@
                     <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un domicilio</span>
                 </div>
                 <md-input-container flex="50">
-                    <label>Domicilio</label>
+                    <label>Domicilio seleccionado</label>
                     <md-select name="selectedAddress" ng-model="address.selected">
                         <md-option ng-repeat="address in addresses" ng-value="address">{{address.alias}}</md-option>
                     </md-select>
@@ -32,8 +32,22 @@
                     <span>Selecciona una zona de entrega: <strong>*</strong></span>
                     <span class="ch-error" ng-show="validated && !zoneDefined">Se debe elegir una zona para el domicilio</span>
                 </div>
-                <div flex="50">
-                    <md-radio-group name="selectedZone" ng-model="address.zone">
+                <md-input-container flex="50">
+                  <label>Zona seleccionada</label>
+                  <md-select name="selectedZone" ng-model="address.zone">
+                      <md-option ng-repeat="zone in zones" ng-value="zone" 
+                                 style="padding-bottom: 40px;
+                                      padding-top: 40px;
+                                      max-width= 900px;">
+                        <div layout="column" layout-align="end start">
+                            <span><strong>{{zone.nombre}}</strong></span>
+                            <span>Cierre de pedidos: <strong>{{zone.fechaCierrePedidos}}</strong></span>
+                            <span style="font-style: italic;">{{zone.descripcion}}</span>
+                        </div>
+                      </md-option>
+                  </md-select>
+                </md-input-container>
+                    <!--md-radio-group name="selectedZone" ng-model="address.zone">
                         <md-radio-button ng-repeat="zone in zones" ng-value="zone">
                             <div layout="column" layout-align="end start">
                                 <span><strong>{{zone.nombre}}</strong></span>
@@ -41,7 +55,15 @@
                                 <span style="font-style: italic;">{{zone.descripcion}}</span>
                             </div>
                         </md-radio-button>
-                    </md-radio-group>
+                    </md-radio-group-->
+            </div>
+
+            <div layout="row" layout-align="space-between start">
+                <div flex="50" layout="column">
+                    <span> Mapa de zonas de entrega: </span>
+                </div>
+                <div flex="50">
+                    <iframe ng-src="{{zonesMap}}" width="520" height="480"></iframe>
                 </div>
             </div>
             <div layout="row" layout-align="space-between start">
