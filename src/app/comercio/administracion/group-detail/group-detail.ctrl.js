@@ -11,6 +11,7 @@ function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
     $scope.invitarUsuario = invitarUsuario;
     $scope.editGroup = editGroup;
     $scope.exitGroup = exitGroup;
+    $scope.deleteGroup = deleteGroup;
     
     //////////////////////////// INIT ///////////////////////////////////////
     
@@ -80,6 +81,21 @@ function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
         )
     }
 
+    function deleteGroup(group){
+        dialogCommons.confirm(
+            us.translate('ELIMINAR_GRUPO'), 
+            us.translate("SEGURO_ELIMINAR_GCC") + group.alias + "?" + "\n" +
+            "Solo se puede eliminar el grupo si ningún miembro tiene su pedido confirmado o abierto", 
+            us.translate('SI_ELIMINAR'), 
+            us.translate('CANCELAR'),
+            function(result) {
+                callDeleteGroup(group);
+            },
+            function() {
+                $log.debug("se quedo");
+            }
+        )
+    }
 
     /////// REST ////////
 
@@ -120,6 +136,17 @@ function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
         }
 
         gccService.quitarMiembro(params).then(doOk);
+    }
+    
+    function callDeleteGroup(group){
+        $log.debug("group", group)
+
+        function doOk(response) {
+            location.reload();
+        }
+
+        gccService.cerrarGrupo(contextPurchaseService.getCatalogContext(), group.idGrupo).then(doOk);
+        
     }
 
 }})();

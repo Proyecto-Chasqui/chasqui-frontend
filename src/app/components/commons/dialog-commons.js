@@ -34,7 +34,7 @@
     }
         
     vm.acceptIssue = function(titulo, texto, textOk, doOk, doNoOk) {
-      var accept = $mdDialog.confirm()
+      var accept = $mdDialog.alert()
                       .title(titulo)
                       .textContent(texto)
                       .ok(textOk);

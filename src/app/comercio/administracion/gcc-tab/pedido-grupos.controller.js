@@ -10,8 +10,8 @@
     /*
      * @ngInject
      */
-    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL, $interval,
-                                     contextPurchaseService,$state, usuario_dao, dialogCommons, $mdDialog) {
+    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL, $interval, contextOrdersService,
+                                     contextPurchaseService,$state, usuario_dao, dialogCommons, $mdDialog, confirmOrder, productoService) {
 
         $scope.configuracionVenedor;
         $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
@@ -27,6 +27,10 @@
         $scope.montoMinimo = $scope.grupo.miembros[0].pedido? $scope.grupo.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
         $scope.porcentajeMontoMinimo = 0;
         $scope.estadoPedido = "colorCero";
+        $scope.confirmOrder = confirmOrderImpl;
+        $scope.cancelOrder = cancelOrder;
+        $scope.isLoggedUser = isLoggedUser;
+        $scope.classForState = classForState;
       
         
         /////////////////////////////////////////////////
@@ -36,11 +40,15 @@
         }
         
         function cerradoToolTipMsg(){
-            return "El pedido grupal esta cerrado. Confirma tu pedido para abrirlo!";
+            return "El pedido grupal esta cerrado. Confirma tu pedido individual para abrirlo!";
         }
         
         function selfPara(miembro){
             return miembro.nickname + ((miembro.email == usuario_dao.getUsuario().email) ? " (Vos)" : ""); 
+        }
+        
+        function isLoggedUser(member){
+            return member.email == usuario_dao.getUsuario().email;
         }
 
         function vocativoPara(miembro){
@@ -67,6 +75,9 @@
             return list.reduce(function(r,e){return r || property(e)}, false);
         }
         
+        
+        // Confirm group's order
+        
         function confirmGCCOrder() {	
             var actions = {
                 doOk: doConfirmOrder,
@@ -84,7 +95,8 @@
             
             dialogCommons.selectDeliveryAddress(actions, adHocOrder);
         };
-
+        
+        
         function doConfirmOrder(selectedAddress, answers) {
             $log.debug('callConfirmar', $scope.pedido);
 
@@ -125,6 +137,43 @@
                 }
             }[selectedAddress.type]();
         }
+        
+        // Confirm & cancel personal order in GCC
+        
+        function confirmOrderImpl(order){
+            order.type = "GROUP";
+            confirmOrder(order)
+        }
+        
+        function cancelOrder(order){
+            dialogCommons.confirm("¿Cancelar pedido?", 
+                                  "¿Está seguro que quiere cancelarlo?", 
+                                  "Si", 
+                                  "No", 
+                                  doCancelOrder(order), 
+                                  ignoreAction);
+        }
+
+
+        function doCancelOrder(order){
+            return function(){
+                $log.debug('DetallePedidoController , cancelar', order);
+
+                function doOk(response) {
+                    $log.debug("--- cancelar pedido response ", response.data);
+                    ToastCommons.mensaje(us.translate('CANCELADO'));
+                    /*contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), order);
+                    if(order.type == "PERSONAL"){
+                        contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
+                    }*/
+                    location.reload();
+                }
+
+                productoService.cancelarPedidoIndividual(order.id).then(doOk);
+            }
+        }
+        
+        
 
 
         function ignoreAction(){
@@ -132,7 +181,7 @@
         }
         
         function totalForMember(member){
-            return Math.floor(member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0));
+            return member.pedido != null? Math.floor(member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0)): 0;
         }
       
         function montoTotalGrupo(){
@@ -179,5 +228,15 @@
             $interval.cancel(interval);
           }
         }, 200);
+        
+        function classForState(state){
+            var res = {
+                ABIERTO: "ch-estado-pedido-abierto",
+                CANCELADO: "ch-estado-pedido-cancelado",
+                CONFIRMADO: "ch-estado-pedido-confirmado"
+            };
+            
+            return res[state];
+        }
     }
 })();

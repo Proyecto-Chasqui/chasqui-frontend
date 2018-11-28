@@ -30,10 +30,13 @@
                             <div layout=row>
                                 <div flex="50" layout=column>
                                     <group-detail group="group"></group-detail>
-                                    <div ng-include="'app/comercio/administracion/detalle-grupos.html'" ng-init="grupo = group"></div>
+                                    <div ng-include="'app/comercio/administracion/gcc-tab/detalle-grupos.html'" ng-init="grupo = group"></div>
                                 </div>
-                                <div flex="50" ng-include="'app/comercio/administracion/pedido-grupos.html'" ng-init="grupo = group"></div>
+                                <div flex="50" ng-include="'app/comercio/administracion/gcc-tab/pedido-grupos.html'" ng-init="grupo = group"></div>
                             </div>
+                    
+                            <!-- Historial de pedidos del grupo-->
+                            <historial-gcc group="group"></historial-gcc>
                         </md-content>
                     </md-tab>
                 </md-tabs>

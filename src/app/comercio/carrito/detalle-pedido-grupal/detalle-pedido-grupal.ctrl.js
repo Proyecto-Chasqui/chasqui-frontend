@@ -31,6 +31,18 @@
             ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
             contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), $scope.pedido);
             $rootScope.$emit('order-confirmed');
+            contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
+              console.log("selectedAgrupation", selectedAgrupation);
+              if(selectedAgrupation.esAdministrador){
+                dialogCommons.acceptIssue(
+                  "Es administrador del grupo " + selectedAgrupation.alias, 
+                  'Como administrador del grupo, no se olvide de confirmar el pedido grupal en la sección "Mis grupos"',
+                  "Gracias por recordarmelo!", 
+                  function(){}, 
+                  function(){}
+                );
+              }
+            });
         }
         gccService.confirmarPedidoIndividualGcc($scope.pedido.id).then(doOk);
     }

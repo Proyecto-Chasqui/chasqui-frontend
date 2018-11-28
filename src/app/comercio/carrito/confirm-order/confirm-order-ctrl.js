@@ -73,9 +73,11 @@
         }
         
 		function goProfile(){
-			$mdDialog.hide();
-			$state.go('catalog.profile');
-        };
+			  $mdDialog.hide();
+        $state.go('catalog.profile', {
+            index: 1
+        });
+    };
         
         ////////////////// okActions /////////////////
         

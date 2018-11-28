@@ -113,11 +113,11 @@
     function descripcionDelEstado(estado){
       switch(estado){
         case "Confirmado":
-          return "Los pedidos confirmados son los últimos pedidos que le hiciste a la comercializadora."
+          return "Los pedidos confirmados son los últimos pedidos que le hiciste al vendedor."
         case "Preparado":
-          return "Los pedidos preparados son los que la comercializadora ya tiene listos para entregar."
+          return "Los pedidos preparados son los que el vendedor ya tiene listos para entregar."
         case "Enviado":
-          return "Los pedidos enviados son los que estan en camino o ya fueron entegados en la dirección."
+          return "Los pedidos enviados son los que estan en camino o ya fueron entregados en la dirección."
       }
     }
     

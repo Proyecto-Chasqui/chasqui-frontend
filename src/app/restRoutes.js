@@ -167,6 +167,10 @@
 
             confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
             
+            pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
+            
+            cerrarGrupo: URLS.be_rest + "user/gcc/eliminarGrupo",
+            
             puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
 
             //////////////////////////////////////////////////////////
