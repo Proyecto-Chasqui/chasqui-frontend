@@ -1,48 +1,41 @@
+
+<!-- Cambios realizados por favio -->
+
 <div ng-controller="ListaProductosController as listaProductosCtrl">
-    <span ng-show="listaProductosCtrl.productos.length == 0">
+    <span ng-show="listaProductosCtrl.productos.length === 0">
         {{'SIN_PRODUCTOS' | translate}}</span>
-    <div layout="column" layout-gt-sm="row" layout-wrap>
-        <div flex="30" flex-gt-sm="33" ng-repeat="producto in listaProductosCtrl.productos" style="padding-bottom: 8px">
-            <md-card class="alt-catalogo">
-                <div class="hover01">
-                    <div>
-                        <figure><a href=""><img ng-src="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" ng-click="listaProductosCtrl.verProducto(producto)" style="width:100%;"></a>
-                        </figure>
-                    </div>
-                </div>
-                <md-card-content>
-                    <div layout="column">
-                        <div layout="column">
-                            <div layout="column" style="min-height: 96px;" layout-align="space-between">
-                                <div class="md-subhead">
-                                    <span>{{listaProductosCtrl.identificadorProducto(producto)}}</span>
-                                </div>
-                                <md-button ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">{{producto.nombreFabricante}}</md-button>
-                                <!--
-                                <div class="md-subhead">
-                                    <a href="http://localhost:3000/#/emprendedores/{{producto.idFabricante}}"> {{producto.nombreFabricante}}</a>
-                                </div >-->
-                                <!--
-                                <div class="md-subhead">
-                                    <div ng-bind-html ="producto.descripcion" />
-                                </div>
-                                -->
-                            </div>
-                            <div layout="row" layout-align="space-between center">
-                                <div>
-                                    <h1>$ {{producto.precioParteEntera}} <sup>{{listaProductosCtrl.mostrarDecimales(producto.precioParteDecimal)}}</sup></h1>
-                                </div>
-                                <md-button class="btn-compra" ng-click="listaProductosCtrl.agregar(producto)">
-                                    <p> {{'AGREGAR_BTN' | translate}} </p>
-                                    <md-tooltip md-direction="left">
-                                        {{'AGREGAR_BTN_TT' | translate}}
-                                    </md-tooltip>
-                                </md-button>
-                            </div>
-                        </div>
-                    </div>
-                </md-card-content>
-                <md-card-actions>
+        <chq-catalog-box>
+                <chq-product-card ng-repeat="producto in listaProductosCtrl.productos" data="producto">
+                        <chq-principal-product-image image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" 
+                        texto="Explore mas imágenes" 
+                        ng-click="listaProductosCtrl.verProducto(producto)">
+                        </chq-principal-product-image>
+                        <chq-product-description description="producto.nombreProducto"></chq-product-description>
+                        <chq-producer-name nombre="producto.nombreFabricante"
+                        ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
+                        </chq-producer-name>
+                        <chq-box-container space="space-between"_>
+                            <chq-price-product entero="producto.precio" ></chq-price-product>
+                            <chq-add-button text="{{'AGREGAR_BTN' | translate}}
+                            " ng-click="listaProductosCtrl.agregar(producto)" title="Agregar al pedido"></chq-add-button>
+                        </chq-box-container>
+                        <chq-stamps-container  alto="3rem" 
+                            space="flex-start"> 
+                            <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+                            texto="medalla.nombre"
+                            ng-repeat="medalla in producto.medallasProductor">
+                            </chq-stamp>
+                            <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+                            texto="medalla.nombre"
+                            ng-repeat="medalla in producto.medallasProducto"></chq-stamp>
+                        </chq-stamps-container>
+                </chq-product-card>
+        </chq-catalog-box>
+        <chq-paginator></chq-paginator>
+ 
+    <!-- <div layout="column" layout-gt-sm="row" layout-wrap> -->
+    <!--
+       <md-card-actions>
                     <div layout="row" layout-align="start center">
                         <div ng-repeat="medalla in producto.medallasProducto">
                             <a href=""><img ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" ng-src="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}" width="40" height="40"></a>
@@ -61,16 +54,10 @@
             </md-card>
         </div>
         <!-- Agregado por favio -->
-        <chq-paginator></chq-paginator>
+        <!-- <chq-paginator></chq-paginator> -->
         <!-- Fin de Favio -->
-    </div>
 
-    <!-- ********************* paginacion *******************-->
-    <!-- Favio:
-    <section layout="column" class="chq-paginador" layout-align="end center" ng-show="listaProductosCtrl.productos.length > 0">
-        <cl-paging flex cl-pages="listaProductosCtrl.paging.total" cl-steps="6" cl-page-changed="listaProductosCtrl.paging.onPageChanged()" cl-align="start start" cl-current-page="listaProductosCtrl.paging.current"></cl-paging>
-    </section>
-    -->
+<!-- Fin de cambios realizados por Favio -->
     <!-- ********************* dialogo de medalla *******************-->
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="myDialog">
@@ -88,6 +75,7 @@
                 </div>
             </md-dialog>
         </div>
+    </div>
         <!-- ********************* dialogo de productor *******************-->
         <div style="visibility: hidden">
             <div class="md-dialog-container" id="productorDialog">
@@ -110,30 +98,6 @@
                 </md-dialog>
             </div>
         </div>
-    </div>
 </div>
-<style>
-/* Zoom In #1 */
 
-.hover01 figure img {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    -webkit-transition: .3s ease-in-out;
-    transition: .3s ease-in-out;
-}
 
-.hover01 figure:hover img {
-    -webkit-transform: scale(1.3);
-    transform: scale(1.3);
-}
-
-figure {
-    /* width: 222px;
-    height: 222px;*/
-    margin: 0;
-    padding: 0;
-    background: #fff;
-    overflow: hidden;
-}
-
-</style>
