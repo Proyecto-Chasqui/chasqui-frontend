@@ -7,7 +7,7 @@
 	angular.module('chasqui').controller('ChqPriceProductCtrl', ChqPriceProductCtrl);
 
 	function ChqPriceProductCtrl($scope){
-		$scope.entero = '$'.concat($scope.entero);
+		$scope.entero = $scope.entero;
 	}
 }
 )();

@@ -22,12 +22,10 @@
                         <chq-stamps-container  alto="3rem" 
                             space="flex-start"> 
                             <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-                            ng-click="listaProductosCtrl.verProducto(producto)"
                             texto="medalla.nombre"
                             ng-repeat="medalla in producto.medallasProductor">
                             </chq-stamp>
                             <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-                            ng-click="listaProductosCtrl.verProducto(producto)"
                             texto="medalla.nombre"
                             ng-repeat="medalla in producto.medallasProducto"></chq-stamp>
                         </chq-stamps-container>
@@ -58,7 +56,6 @@
         <!-- Agregado por favio -->
         <!-- <chq-paginator></chq-paginator> -->
         <!-- Fin de Favio -->
-    </div>
 
 <!-- Fin de cambios realizados por Favio -->
     <!-- ********************* dialogo de medalla *******************-->
@@ -101,6 +98,6 @@
                 </md-dialog>
             </div>
         </div>
-    </div>
 </div>
+
 
