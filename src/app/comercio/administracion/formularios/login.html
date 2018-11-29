@@ -22,7 +22,11 @@
 					</md-content>
 				</md-card-content>
 				<md-card-actions layout="row" layout-align="end center">
-					<md-button md-no-ink class="md-primary" ui-sref="catalog.singUp">Soy nuevo !</md-button>
+          <element-wrapper not-supported-strategies="nodos">
+            <md-button md-no-ink class="md-primary" ui-sref="catalog.singUp">
+              Soy nuevo!
+            </md-button>
+          </element-wrapper>
 					<md-button md-no-ink class="md-primary" ng-click="loginCtrl.recuperar()">Olvide mi Contraseña</md-button>
 					<md-button class="btn-confirmar" ng-click="loginCtrl.login()">Ingresar</md-button>
 				</md-card-actions>
