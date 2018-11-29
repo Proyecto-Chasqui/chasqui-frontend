@@ -9,7 +9,16 @@
             restrict: 'E',
             transclude: true,
             scope: {
-                supportedStrategies: '@' /* List. Can be any combination of:
+                supportedStrategies: '@', /* List. Can be any combination of:
+                                                    * nodos
+                                                    * gcc
+                                                    * compraIndividual
+                                                    * puntoDeEntrega
+                                                    * seleccionDeDireccionDelUsuario
+                                            
+                                            Any other may result in error
+                                          */
+                notSupportedStrategies: '@' /* List. Can be any combination of:
                                                     * nodos
                                                     * gcc
                                                     * compraIndividual
