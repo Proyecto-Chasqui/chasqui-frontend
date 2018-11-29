@@ -17,7 +17,7 @@
           
             contextCatalogsService.getCatalogs().then(function(catalogs){
                 contextPurchaseService.getSelectedCatalog().then(function(catalog){
-                    $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies) &&
+                    $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies) ||
                                          catalogNotSupportStrategies(catalog, $scope.notSupportedStrategies);
                 });
             });
