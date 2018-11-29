@@ -26,6 +26,17 @@
                     </md-select>
                 </md-input-container>
             </div>
+          
+            <div layout="row" layout-align="space-between start">
+                <div layout="column" layout-align="space-around start" flex="50">
+                    <span>Particularidades del domicilio:</span>
+                    <span style="font-style: italic;">Por ejemplo, el timbre no funciona o el perro es muy mimoso</span>
+                </div>
+                <md-input-container flex="50">
+                    <label>Particularidades</label>
+                    <textarea ng-model="address.particularities"></textarea>
+                </md-input-container>
+            </div>
 
             <div layout="row" layout-align="space-between start">
                 <div flex="50" layout="column">
@@ -65,16 +76,6 @@
                 <div flex="50">
                     <iframe ng-src="{{zonesMap}}" width="520" height="480"></iframe>
                 </div>
-            </div>
-            <div layout="row" layout-align="space-between start">
-                <div layout="column" layout-align="space-around start" flex="50">
-                    <span>Particularidades del domicilio:</span>
-                    <span style="font-style: italic;">Por ejemplo, el timbre no funciona o el perro es muy mimoso</span>
-                </div>
-                <md-input-container flex="50">
-                    <label>Particularidades</label>
-                    <textarea ng-model="address.particularities"></textarea>
-                </md-input-container>
             </div>
         </div>
     </div>
