@@ -342,3 +342,28 @@ md-tabs md-ink-bar {
     color: #FFFFFF !important;
     background-color: $colorConfirmar !important;
 }
+
+/* Paneles laterales del catalogo */
+
+.ch-catalog-items {
+  margin-left: 260px;
+  margin-right: 260px;
+}
+
+.ch-catalog-items-filter {
+  height: 60px;
+  margin: 0px;
+}
+
+.ch-catalog-controls {
+  position: fixed;
+  top: 118px;
+  z-index: 1000;
+  width: 250px;
+}
+.ch-catalog-controls-left {
+  left: 0px;
+}
+.ch-catalog-controls-right {
+  right: 0px;
+}
