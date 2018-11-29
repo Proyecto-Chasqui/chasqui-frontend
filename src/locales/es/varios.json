@@ -7,7 +7,7 @@
 	"MENU_CATALOGO" : "Catálogo",
 	"MENU_PEDIDO" : "Mis pedidos",
 	"MENU_GRUPO" : "Mis Grupos",
-    "MENU_NODES" : "Mis nodos",
+    "MENU_NODES" : "Los pedidos de mi nodo",
     "MENU_DELIVERY_POINTS": "Puntos de entrega",
 	"MENU_PERFIL" : "Perfil",
 	"CERRAR_GRUPAL" : "Cerrar pedido grupal"
