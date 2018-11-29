@@ -20,17 +20,18 @@
                               howToBuy,
                               products
                           ];
-          if(strategy.puntoDeEntrega) itemsMenu.push(deliveryPoints);
+          if(strategy.puntoDeEntrega){
+            itemsMenu.push(deliveryPoints);
+          }
 
           return itemsMenu;
       }
     
       function catalog(strategy){
 
-          var itemsMenu = [
-                              userOrders
-                          ];
+          var itemsMenu = [];
 
+          if(strategy.compraIndividual) itemsMenu.push(userOrders);
           if(strategy.gcc) itemsMenu.push(userGroups);
           if(strategy.nodos) itemsMenu.push(userNodes);
 
@@ -74,7 +75,7 @@
 
       var userNodes = { 
                           id: 'MY_NODES',
-                          route: 'userNodes',
+                          route: 'userOrders', //route: 'userNodes',
                           label: 'MENU_NODES',
                           needLogin: true
                       };
