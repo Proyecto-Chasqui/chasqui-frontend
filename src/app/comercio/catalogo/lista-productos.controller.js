@@ -1,101 +1,101 @@
 (function() {
-	'use strict';
+  'use strict';
 
-	angular.module('chasqui').controller('ListaProductosController',
-		ListaProductosController);
+  angular.module('chasqui').controller('ListaProductosController',
+    ListaProductosController);
 
-	/**
-	 * @ngInject Lista de productos.
-	 */
-	function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
-		$state, ToastCommons, productoService, us, contextCatalogsService,
-		$mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
+  /**
+   * @ngInject Lista de productos.
+   */
+  function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
+    $state, ToastCommons, productoService, us, contextCatalogsService,
+    $mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
         usuario_dao, $stateParams, addProductService, dialogCommons) {
 
-		$log.debug('ListaProductosController',
-			$scope.$parent.$parent.catalogoCtrl.isFiltro1);
+    $log.debug('ListaProductosController',
+      $scope.$parent.$parent.catalogoCtrl.isFiltro1);
 
-		var CANT_ITEMS = REST_ROUTES.PRODUCTOS_X_PAG; // TODO : pasar a constante
+    var CANT_ITEMS = REST_ROUTES.PRODUCTOS_X_PAG; // TODO : pasar a constante
 
-		var vm = this;
+    var vm = this;
 
-		vm.otherCtrl = $scope.$parent.$parent.catalogoCtrl.isFiltro1;
+    vm.otherCtrl = $scope.$parent.$parent.catalogoCtrl.isFiltro1;
 
-		vm.urlBase = URLS.be_base;
-		vm.productos = [];
-		vm.ultimoFiltro = {};
-		vm.medallaSelect = undefined;
-		vm.pedidoSelected = undefined;
-		vm.grupoSelected = undefined;
-		vm.emprendedores = [];
+    vm.urlBase = URLS.be_base;
+    vm.productos = [];
+    vm.ultimoFiltro = {};
+    vm.medallaSelect = undefined;
+    vm.pedidoSelected = undefined;
+    vm.grupoSelected = undefined;
+    vm.emprendedores = [];
     vm.emprendedorSelect = {};
     vm.activeIndex = 1; // Seteado desde paginador
     vm.lastPage = undefined;
 
-		//////// dialogo medalla
-		vm.showPrerenderedDialog = function(medalla) {
-			vm.medallaSelect = medalla;
-			$mdDialog.show({
-				contentElement: '#myDialog',
-				parent: angular.element(document.body),
-				//targetEvent: ev,
-				clickOutsideToClose: true
-			});
-		};
+    //////// dialogo medalla
+    vm.showPrerenderedDialog = function(medalla) {
+      vm.medallaSelect = medalla;
+      $mdDialog.show({
+        contentElement: '#myDialog',
+        parent: angular.element(document.body),
+        //targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    };
 
-		vm.showPrerenderedDialogProductor = function(id) {
+    vm.showPrerenderedDialogProductor = function(id) {
 
-			angular.forEach(vm.emprendedores, function(empr, key) {
-				if (empr.idProductor === id)
-					vm.emprendedorSelect = empr;
-			});
+      angular.forEach(vm.emprendedores, function(empr, key) {
+        if (empr.idProductor === id)
+          vm.emprendedorSelect = empr;
+      });
 
-			$mdDialog.show({
-				contentElement: '#productorDialog',
-				parent: angular.element(document.body),
-				//targetEvent: ev,
-				clickOutsideToClose: true
-			});
+      $mdDialog.show({
+        contentElement: '#productorDialog',
+        parent: angular.element(document.body),
+        //targetEvent: ev,
+        clickOutsideToClose: true
+      });
 
-		}
+    }
 
-		vm.cerrarDialogoMedalla = function() {
-			$mdDialog.hide();
-		}
+    vm.cerrarDialogoMedalla = function() {
+      $mdDialog.hide();
+    }
 
-		////////////// dialogo producto
+    ////////////// dialogo producto
 
-		vm.verProducto = function(productoParam) {
-			$mdDialog.show({
-					controller: 'ProductoDialogController',
-					templateUrl: 'app/comercio/catalogo/producto.dialog.html',
-					//     parent: angular.element(document.body),
-					//      targetEvent: ev,
-					clickOutsideToClose: true,
-					fullscreen: false, // Only for -xs, -sm breakpoints.
-					locals: { productSelected: productoParam }
-				})
-				.then(function(answer) {
-					//  vm.mensaje = 'You said the information was "' + answer + '".';
-				}, function() {
-					//  vm.mensaje = 'You cancelled the dialog.';
-				});
+    vm.verProducto = function(productoParam) {
+      $mdDialog.show({
+          controller: 'ProductoDialogController',
+          templateUrl: 'app/comercio/catalogo/producto.dialog.html',
+          //     parent: angular.element(document.body),
+          //      targetEvent: ev,
+          clickOutsideToClose: true,
+          fullscreen: false, // Only for -xs, -sm breakpoints.
+          locals: { productSelected: productoParam }
+        })
+        .then(function(answer) {
+          //  vm.mensaje = 'You said the information was "' + answer + '".';
+        }, function() {
+          //  vm.mensaje = 'You cancelled the dialog.';
+        });
 
-		}
-		////////////// PAGINACION
-		// vm.currentPage = 0;
-		// vm.paging = {
-		// 	total: 0,
-		// 	current: 1,
-		// 	onPageChanged: loadPages,
-		// };
+    }
+    ////////////// PAGINACION
+    // vm.currentPage = 0;
+    // vm.paging = {
+    //   total: 0,
+    //   current: 1,
+    //   onPageChanged: loadPages,
+    // };
 
-		// function loadPages() {
-		// 	console.log('Current page is : ' + vm.paging.current);
-		// 	// TODO : Load current page Data here
-		// 	vm.currentPage = vm.paging.current;
+    // function loadPages() {
+    //   console.log('Current page is : ' + vm.paging.current);
+    //   // TODO : Load current page Data here
+    //   vm.currentPage = vm.paging.current;
 
-		// 	findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro)
+    //   findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro)
     // }
 
     vm.setLastPage = function(){
@@ -115,21 +115,21 @@
   //$scope.$on(vm.lastPage, vm.setLastPage());
 
 
-		function loadPages() {
+    function loadPages() {
       console.log('Current page is : ' + vm.paging.current);
       console.log("Mi indice es:  " + vm.activeIndex);
 
-			// TODO : Load current page Data here
-			//vm.currentPage = vm.paging.current;
+      // TODO : Load current page Data here
+      //vm.currentPage = vm.paging.current;
       findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro);
 
     }
     $scope.$watch();
-		//////////////////////////////
+    //////////////////////////////
 
-		vm.agregar = function(variety) {
+    vm.agregar = function(variety) {
 
-			if (usuario_dao.isLogged()) {
+      if (usuario_dao.isLogged()) {
         if(variety.stock > 0){
           contextPurchaseService.getSelectedOrder().then(function(order){
             contextPurchaseService.getOrders().then(function(orders){
@@ -149,50 +149,50 @@
                                     function(){}, 
                                     function(){});
         }
-			} else {
-				ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
-				$log.log('not logued" ', variety);
-				contextPurchaseService.ls.varianteSelected = variety;
-				$state.go('catalog.login');
-			}
-		}
+      } else {
+        ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
+        $log.log('not logued" ', variety);
+        contextPurchaseService.ls.varianteSelected = variety;
+        $state.go('catalog.login');
+      }
+    }
 
-		vm.mostrarDecimales = function(parteDecimal) {
-			var res = Number(parteDecimal).toFixed(0).toString();
-			if (res.length == 1) res += "0";
-			return res;
-		}
+    vm.mostrarDecimales = function(parteDecimal) {
+      var res = Number(parteDecimal).toFixed(0).toString();
+      if (res.length == 1) res += "0";
+      return res;
+    }
 
-		vm.identificadorProducto = function(producto) {
-			return producto.nombreProducto;
-		}
+    vm.identificadorProducto = function(producto) {
+      return producto.nombreProducto;
+    }
 
 
-		// ///////////////////////
-		// / Recive el evento de filtrado
+    // ///////////////////////
+    // / Recive el evento de filtrado
 
-		$scope.$on('filterEvent', function(event, arg) {
-			$log.debug("filterEvent", arg);
-			vm.ultimoFiltro = arg;
-			vm.paging.total = 0;
-			vm.paging.current = 1;
+    $scope.$on('filterEvent', function(event, arg) {
+      $log.debug("filterEvent", arg);
+      vm.ultimoFiltro = arg;
+      vm.paging.total = 0;
+      vm.paging.current = 1;
       actualizar(arg);
       vm.activeIndex = 1;
       $scope.$broadcast('setLastPage', vm.lastPage) // favio 27-7-18
 
       loadPages();
-		});
+    });
 
-		function actualizar(arg) {
-			findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, arg);
-		}
-
-
-
-		// /////////// REST
+    function actualizar(arg) {
+      findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, arg);
+    }
 
 
-		// var findProductosPorMultiplesFiltros = function(pagina, items, params){
+
+    // /////////// REST
+
+
+    // var findProductosPorMultiplesFiltros = function(pagina, items, params){
     //         contextCatalogsService.getCatalogs().then(function(catalogs){
     //             contextCatalogObserver.observe(function(){
 
@@ -228,43 +228,43 @@
     // }
 
     var findProductosPorMultiplesFiltros = function(pagina, items, params){
-			console.log('find productos multiples filtros');
-			function doOk(response) {
-				$log.log('findProductos Response ', response);
+      console.log('find productos multiples filtros');
+      function doOk(response) {
+        $log.log('findProductos Response ', response);
 
-				vm.productos = response.data.productos;
+        vm.productos = response.data.productos;
         $log.warn('productos', vm.productos);
-				vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-				vm.paging.current = response.data.pagina;
-				vm.paging.disponibles = Math.ceil(response.data.total / CANT_ITEMS);
-				vm.pageNum = (6 <= vm.paging.disponibles)? 6 : vm.paging.disponibles;
-				vm.lastPage = response.data.totalDePaginas;
-				vm.setLastPage();
-				$log.warn("SOY LA PRUEBA DE PAGINACION" + vm.productos.total);
-				$log.warn("SOY LA ULTIMA PAGINA: " + vm.lastPage);
-				//console.log(vm.prueba);
-			}
+        vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
+        vm.paging.current = response.data.pagina;
+        vm.paging.disponibles = Math.ceil(response.data.total / CANT_ITEMS);
+        vm.pageNum = (6 <= vm.paging.disponibles)? 6 : vm.paging.disponibles;
+        vm.lastPage = response.data.totalDePaginas;
+        vm.setLastPage();
+        $log.warn("SOY LA PRUEBA DE PAGINACION" + vm.productos.total);
+        $log.warn("SOY LA ULTIMA PAGINA: " + vm.lastPage);
+        //console.log(vm.prueba);
+      }
 
 
-			var params = {
-				query : params.query,
-				idVendedor : contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
-				idMedalla : params.sello,
-				idProductor: params.productor,
-				idMedallaProductor: params.selloProductor,
-				idCategoria: params.categoria,
-				pagina: pagina,
-				cantItems: items,
-				precio: 'Down'
-			}
+      var params = {
+        query : params.query,
+        idVendedor : contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
+        idMedalla : params.sello,
+        idProductor: params.productor,
+        idMedallaProductor: params.selloProductor,
+        idCategoria: params.categoria,
+        pagina: pagina,
+        cantItems: items,
+        precio: 'Down'
+      }
       console.log("parametros",params);
-			$log.log("parametros",params);
+      $log.log("parametros",params);
 
-			productoService.getProductosByMultiplesFiltros(params).then(doOk);
+      productoService.getProductosByMultiplesFiltros(params).then(doOk);
 
-		}
+    }
         //Posiblemente deprecado por findProductosPorMultiplesFiltros
-		// var findProductos = function(pagina, items, filtro) {
+    // var findProductos = function(pagina, items, filtro) {
     //         contextCatalogsService.getCatalogs().then(function(catalogs){
     //             contextCatalogObserver(function(){
     //                 $log.log('findProductos: ' + pagina + " " + items + " " +
@@ -292,50 +292,50 @@
     // }
 
     var findProductos = function(pagina, items, filtro) {
-			$log.log('findProductos: ' + pagina + " " + items + " " +
-				filtro.tipo + " " + filtro.valor);
+      $log.log('findProductos: ' + pagina + " " + items + " " +
+        filtro.tipo + " " + filtro.valor);
 
-			function doOk(response) {
-				$log.log('findProductos Response ', response);
+      function doOk(response) {
+        $log.log('findProductos Response ', response);
 
-				vm.productos = response.data.productos;
+        vm.productos = response.data.productos;
 
-				vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-				vm.paging.current = response.data.pagina;
-			}
+        vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
+        vm.paging.current = response.data.pagina;
+      }
 
-			var params = {
-				idVendedor: contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
-				pagina: pagina,
-				cantItems: items,
-				precio: 'Down'
-			}
+      var params = {
+        idVendedor: contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
+        pagina: pagina,
+        cantItems: items,
+        precio: 'Down'
+      }
 
-			productoService.getProductosByMultiplesFiltros(params).then(doOk);
+      productoService.getProductosByMultiplesFiltros(params).then(doOk);
 
-		}
-
-
+    }
 
 
-		function callEmprendedores() {
-			$log.debug("---callEmprendedor ---");
 
-			productorService.getProductores()
-				.then(function(data) { vm.emprendedores = data.data; })
+
+    function callEmprendedores() {
+      $log.debug("---callEmprendedor ---");
+
+      productorService.getProductores()
+        .then(function(data) { vm.emprendedores = data.data; })
     }
 
     // findProductos();
-		if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
-			$log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
-			vm.agregar(contextPurchaseService.ls.varianteSelected)
-			contextPurchaseService.ls.varianteSelected = undefined;
-		}
+    if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
+      $log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
+      vm.agregar(contextPurchaseService.ls.varianteSelected)
+      contextPurchaseService.ls.varianteSelected = undefined;
+    }
 
 
-		//vm.productos = findProductos(1,10,{});
+    //vm.productos = findProductos(1,10,{});
     callEmprendedores();
     //loadPages();
-	}
+  }
 
 })();

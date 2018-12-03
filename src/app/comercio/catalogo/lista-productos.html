@@ -1,103 +1,89 @@
-
-<!-- Cambios realizados por favio -->
-
 <div ng-controller="ListaProductosController as listaProductosCtrl">
-    <span ng-show="listaProductosCtrl.productos.length === 0">
-        {{'SIN_PRODUCTOS' | translate}}</span>
-        <chq-catalog-box>
-                <chq-product-card ng-repeat="producto in listaProductosCtrl.productos" data="producto">
-                        <chq-principal-product-image image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" 
-                        texto="Explore mas imágenes" 
-                        ng-click="listaProductosCtrl.verProducto(producto)">
-                        </chq-principal-product-image>
-                        <chq-product-description description="producto.nombreProducto"></chq-product-description>
-                        <chq-producer-name nombre="producto.nombreFabricante"
-                        ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
-                        </chq-producer-name>
-                        <chq-box-container space="space-between"_>
-                            <chq-price-product entero="producto.precio" ></chq-price-product>
-                            <chq-add-button text="{{'AGREGAR_BTN' | translate}}
-                            " ng-click="listaProductosCtrl.agregar(producto)" title="Agregar al pedido"></chq-add-button>
-                        </chq-box-container>
-                        <chq-stamps-container  alto="3rem" 
-                            space="flex-start"> 
-                            <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-                            texto="medalla.nombre"
-                            ng-repeat="medalla in producto.medallasProductor">
-                            </chq-stamp>
-                            <chq-stamp ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-                            texto="medalla.nombre"
-                            ng-repeat="medalla in producto.medallasProducto"></chq-stamp>
-                        </chq-stamps-container>
-                </chq-product-card>
-        </chq-catalog-box>
-        <chq-paginator></chq-paginator>
+  <span ng-show="listaProductosCtrl.productos.length === 0">
+        {{'SIN_PRODUCTOS' | translate}}
+  </span>
+  <chq-catalog-box>
+    <chq-product-card ng-repeat="producto in listaProductosCtrl.productos" data="producto">
+      
+      <chq-principal-product-image 
+        image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" 
+        texto="Explore mas imágenes" 
+        ng-click="listaProductosCtrl.verProducto(producto)">
+      </chq-principal-product-image>
+      
+      <chq-product-description description="producto.nombreProducto"></chq-product-description>
+      
+      <chq-producer-name 
+        nombre="producto.nombreFabricante"
+        ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
+      </chq-producer-name>
+      
+      <chq-box-container space="space-between"_>
+        <chq-price-product entero="producto.precio"></chq-price-product>
+        <chq-add-button 
+          text="{{'AGREGAR_BTN' | translate}}"
+          ng-click="listaProductosCtrl.agregar(producto)" 
+          title="Agregar al pedido">
+        </chq-add-button>
+      </chq-box-container>
+      
+      <chq-stamps-container  alto="3rem" space="flex-start"> 
+        <chq-stamp 
+          ng-repeat="medalla in producto.medallasProductor"
+          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" 
+          image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+          texto="medalla.nombre">
+        </chq-stamp>
+        <chq-stamp 
+          ng-repeat="medalla in producto.medallasProducto"
+          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" 
+          image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+          texto="medalla.nombre">
+        </chq-stamp>
+      </chq-stamps-container>
+    </chq-product-card>
+  </chq-catalog-box>
+  <chq-paginator></chq-paginator>
+</div>
  
-    <!-- <div layout="column" layout-gt-sm="row" layout-wrap> -->
-    <!--
-       <md-card-actions>
-                    <div layout="row" layout-align="start center">
-                        <div ng-repeat="medalla in producto.medallasProducto">
-                            <a href=""><img ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" ng-src="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}" width="40" height="40"></a>
-                            <md-tooltip md-direction="up">
-                                {{medalla.nombre}}
-                            </md-tooltip>
-                        </div>
-                        <div ng-repeat="medalla in producto.medallasProductor">
-                            <a href=""><img ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" ng-src="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}" width="40" height="40"></a>
-                            <md-tooltip md-direction="up">
-                                {{medalla.nombre}}
-                            </md-tooltip>
-                        </div>
-                    </div>
-                </md-card-actions>
-            </md-card>
-        </div>
-        <!-- Agregado por favio -->
-        <!-- <chq-paginator></chq-paginator> -->
-        <!-- Fin de Favio -->
-
-<!-- Fin de cambios realizados por Favio -->
-    <!-- ********************* dialogo de medalla *******************-->
-    <div style="visibility: hidden">
-        <div class="md-dialog-container" id="myDialog">
-            <md-dialog layout-padding style="width:40%;">
-                <div class="md-toolbar-tools chq-color-toolbar">
-                    <h2 class="md-headline">{{listaProductosCtrl.medallaSelect.nombre}}</h2>
-                    <span flex></span>
-                    <div ng-click="listaProductosCtrl.cerrarDialogoMedalla(1)">
-                        <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
-                    </div>
+<!-- ********************* dialogo de medalla *******************-->
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="myDialog">
+        <md-dialog layout-padding style="width:40%;">
+            <div class="md-toolbar-tools chq-color-toolbar">
+                <h2 class="md-headline">{{listaProductosCtrl.medallaSelect.nombre}}</h2>
+                <span flex></span>
+                <div ng-click="listaProductosCtrl.cerrarDialogoMedalla(1)">
+                    <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
                 </div>
-                <div layout="column" layout-align="center center">
-                    <img ng-src="{{listaProductosCtrl.urlBase}}{{listaProductosCtrl.medallaSelect.pathImagen}}" width="200" height="200">
-                    <div ng-bind-html="listaProductosCtrl.medallaSelect.descripcion" />
-                </div>
-            </md-dialog>
-        </div>
-    </div>
-        <!-- ********************* dialogo de productor *******************-->
-        <div style="visibility: hidden">
-            <div class="md-dialog-container" id="productorDialog">
-                <md-dialog layout-padding style="width:40%;">
-                    <div class="md-toolbar-tools chq-color-toolbar">
-                        <span class="md-headline">{{listaProductosCtrl.emprendedorSelect.nombreProductor}}</span>
-                        <span flex></span>
-                        <div ng-click="listaProductosCtrl.cerrarDialogoMedalla(1)">
-                            <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
-                        </div>
-                    </div>
-                    <div layout="column" layout-align="center center">
-                        <img ng-src="{{listaProductosCtrl.urlBase}}{{listaProductosCtrl.emprendedorSelect.pathImagen}}" width="200" height="200">
-                    </div>
-                    <div ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta"></div>
-                    <md-button ui-sref="catalog.productor({idProductor: listaProductosCtrl.emprendedorSelect.idProductor})">
-                            Más
-                    </md-button>
-
-                </md-dialog>
             </div>
-        </div>
+            <div layout="column" layout-align="center center">
+                <img ng-src="{{listaProductosCtrl.urlBase}}{{listaProductosCtrl.medallaSelect.pathImagen}}" width="200" height="200">
+                <div ng-bind-html="listaProductosCtrl.medallaSelect.descripcion" />
+            </div>
+        </md-dialog>
+    </div>
 </div>
 
+<!-- ********************* dialogo de productor *******************-->
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="productorDialog">
+        <md-dialog layout-padding style="width:40%;">
+            <div class="md-toolbar-tools chq-color-toolbar">
+                <span class="md-headline">{{listaProductosCtrl.emprendedorSelect.nombreProductor}}</span>
+                <span flex></span>
+                <div ng-click="listaProductosCtrl.cerrarDialogoMedalla(1)">
+                    <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
+                </div>
+            </div>
+            <div layout="column" layout-align="center center">
+                <img ng-src="{{listaProductosCtrl.urlBase}}{{listaProductosCtrl.emprendedorSelect.pathImagen}}" width="200" height="200">
+            </div>
+            <div ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta"></div>
+            <md-button ui-sref="catalog.productor({idProductor: listaProductosCtrl.emprendedorSelect.idProductor})">
+                    Más
+            </md-button>
 
+        </md-dialog>
+    </div>
+</div>
