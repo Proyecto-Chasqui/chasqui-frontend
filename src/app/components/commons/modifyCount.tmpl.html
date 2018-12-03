@@ -13,8 +13,11 @@
                       <div style="font-style: italic" ng-bind-html="variety.descripcion">
                       </div>
                   </div>
-                  <div>
-                      El precio por unidad es <span style="font-weight: bold">${{variety.precio}} <sup ng-show="variety.precioParteDecimal">{{showDecimals(variety.precioParteDecimal)}}</sup></span>
+                  <div layout="row" layout-align="start">
+                    <label style="margin-right: 4px;">
+                      El precio por unidad es 
+                    </label>
+                    <chq-price-product precio="variety.precio" tamanho="1"></chq-price-product>
                   </div>
                 </div>
                 <div flex="50" layout="column" layout-align="space-around">
@@ -47,7 +50,7 @@
                               Gratis
                             </div>
                             <div ng-show="count() > 0">
-                              $ {{getTotal(variety)}}
+                              <chq-price-product precio="getTotal(variety)" tamanho="1"></chq-price-product>
                             </div>
                         </div>
                     </div>
@@ -56,7 +59,7 @@
                             El total de tu pedido sería:
                         </div>
                         <div flex="30" layout="row" layout-align="center">
-                            $ {{getTotalOrder(variety)}}
+                            <chq-price-product precio="getTotalOrder(variety)" tamanho="1"></chq-price-product>
                         </div>
                     </div>
                 </div>

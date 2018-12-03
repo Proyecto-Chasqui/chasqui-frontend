@@ -20,21 +20,14 @@
       
         console.log(variety);
       
-        $scope.showDecimals = showDecimals;
         $scope.getTotal = getTotal;
         $scope.getTotalOrder = getTotalOrder;
     
         /// Private
-      
-        function showDecimals(parteDecimal) {
-            var res = Number(parteDecimal).toFixed(0).toString();
-            if (res.length == 1) res += "0";
-            return res;
-        }
-      
         function getTotal(variety){
-            var parteDecimal = variety.precioParteDecimal != null? parseInt(variety.precioParteDecimal)/100 : 0;
-            return $scope._count * (parseInt(variety.precio) + parteDecimal);
+            var decimal = Math.floor((variety.precio - Math.floor(variety.precio))*100);
+            console.log("decimal",$scope._count *decimal, decimal, $scope._count * (Math.floor(variety.precio) + (decimal/100)));
+            return $scope._count * (Math.floor(variety.precio) + (decimal/100));
         }
     
         function getTotalOrder(variety){
