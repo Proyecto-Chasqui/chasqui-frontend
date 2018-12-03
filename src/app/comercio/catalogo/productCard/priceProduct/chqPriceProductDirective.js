@@ -4,7 +4,8 @@ angular.module('chasqui').directive('chqPriceProduct',
       restrict: 'E',
       controller: 'ChqPriceProductCtrl',
       scope:{
-          entero: '='
+          precio: '=',
+          tamanho: '=',
       },
       templateUrl: 'app/comercio/catalogo/productCard/priceProduct/chqPriceProduct.html'
     }

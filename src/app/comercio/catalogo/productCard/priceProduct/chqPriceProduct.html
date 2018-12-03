@@ -1,18 +1,28 @@
-<div class="price-product-container">
-    <span class="price-product" title="Precio {{entero}}"><p>${{entero}}</p></span>
+<div>
+  <span class="price-product-container" title="{{'Precio: ' + getParteEntera(precio) + ',' + getParteDecimal(precio)}}">
+    <p class="parte-entera" >${{getParteEntera(precio)}}</p>
+    <label class="parte-decimal" ng-show="getParteDecimal(precio) != 0">{{adaptToView(getParteDecimal(precio))}}</label>
+  </span>
 </div>
+
 <style>
     .price-product-container{
-        width: 50%;
-        height: auto;
+      width: 50%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      color: rgba(0, 0, 0, 0.7);
+      cursor: default;
     }
 
-    .price-product{
-    	color: rgba(0, 0, 0, 0.7);
-        cursor: default;
-        font-weight: 500;
-        font-size: 1.6rem;
-        display: flex;
-        flex-direction: row;
+    .parte-entera{
+      font-weight: 500;
+      font-size: {{tamanho}}rem;
+    }
+
+    .parte-decimal{
+      vertical-align: super;
+      font-weight: 500;
+      font-size: {{tamanho*0.6}}rem;
     }
 </style>
