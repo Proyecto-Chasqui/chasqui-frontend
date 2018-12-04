@@ -9,7 +9,15 @@
                 <md-divider></md-divider>
                 <div layout="column" layout-align="space-between start">
                     <span><strong>{{product.nombre}}</strong></span>
-                    <span>{{product.cantidad}} x ${{product.precio}} = <strong>${{product.precio * product.cantidad}}</strong></span>
+                    <p layout="row" layout-align="start end">
+                      <label>
+                        {{product.cantidad}} x 
+                      </label>
+                      <chq-price-product precio="product.precio" tamanho="1"></chq-price-product>
+                      <label>
+                        {{" = "}}
+                      </label>
+                      <chq-price-product precio="product.cantidad * product.precio" tamanho="1.2"></chq-price-product>
                 </div>
                 <md-divider ng-if="$last"></md-divider>
             </md-list-item>
