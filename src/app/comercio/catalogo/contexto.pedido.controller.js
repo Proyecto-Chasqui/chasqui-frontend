@@ -68,6 +68,7 @@
                 contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType()).then(function(){
                     contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
                         $scope.pedidoSelected = selectedOrder;
+                        $scope.pedidoSelected.productosResponse = $scope.pedidoSelected.productosResponse.reverse();
                         $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 
                                                  && $scope.pedidoSelected.estado != 'VENCIDO' 
                                                  && $scope.pedidoSelected.estado != 'CANCELADO';
