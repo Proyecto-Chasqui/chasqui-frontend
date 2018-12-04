@@ -9,7 +9,6 @@
 
 	function ChqProductCardCtrl($scope){
 		$scope.producto = $scope.data;
-		console.log("Soy el nombre del producto", $scope.producto.medallasProducto);
 	}
 }
 )();

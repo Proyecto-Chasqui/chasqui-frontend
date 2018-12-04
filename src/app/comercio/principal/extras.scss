@@ -108,7 +108,9 @@ md-tabs md-ink-bar {
 
 
 .footer {
+  z-index: 10000;
 	background-color: #2F3539 !important;
+	background: #bdcbcd;
 	padding: 1rem 2rem;
 }
 
@@ -366,4 +368,13 @@ md-tabs md-ink-bar {
 }
 .ch-catalog-controls-right {
   right: 0px;
+}
+
+.ch-contexto-pedido-panel{
+  max-height: 400px;
+}
+
+.ch-contexto-pedido-panel-list{
+  max-height: 274px;
+  overflow: scroll;
 }

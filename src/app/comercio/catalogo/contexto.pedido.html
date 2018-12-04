@@ -1,27 +1,40 @@
-<md-card ng-controller="ContextoPedidoController">
+<md-card class="ch-contexto-pedido-panel" ng-controller="ContextoPedidoController">
     <div ng-show="showOrderResume">
-        <md-list class="md-dense" flex>
-            <md-subheader class="md-no-sticky">
-                {{'PROD_EN_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}}
-            </md-subheader>
-            <md-subheader>
-                {{'TOTAL' | translate}}
-                <strong> $ {{pedidoSelected.montoActual}}</strong>
-            </md-subheader>
-            <md-button style="color: white" ng-click="confirmOrder(pedidoSelected)" class="confirm-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
-              <label translate="CONFIRMAR"></label>
-            </md-button>
-            <md-button style="color: white" ng-click="cancelOrder(pedidoSelected)" class="cancel-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
-              <label translate="CANCELAR"></label>
-            </md-button>
+        <md-subheader class="md-no-sticky" layout="column" layout-align="space-between">
+          <label style="margin-bottom: 10px;">
+            {{'PROD_EN_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}}
+          </label>
+          <div layout="row" layout-align="space-between">
+            <label>
+              {{'TOTAL' | translate}}
+            </label>
+            <chq-price-product precio="pedidoSelected.montoActual" tamanho="1"></chq-price-product>
+          </div>
+        </md-subheader>
+        <div layout="row" layout-align="space-between">
+          <md-button style="color: white" ng-click="confirmOrder(pedidoSelected)" class="confirm-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+            <label translate="CONFIRMAR"></label>
+          </md-button>
+          <md-button style="color: white" ng-click="cancelOrder(pedidoSelected)" class="cancel-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+            <label translate="CANCELAR"></label>
+          </md-button>
+        </div>
+        <md-list class="md-dense ch-contexto-pedido-panel-list">
             <md-list-item class="md-3-line" ng-repeat="variety in pedidoSelected.productosResponse">
                 <md-button ng-click="modifyVarietyCount(variety, pedidoSelected)" ng-disabled="pedidoSelected.estado == 'CONFIRMADO'">
                     <div layout="row" layout-align="space-between center">
                         <img ng-src="{{urlBase}}{{variety.imagen}}" class="md-avatar" alt="{{variety.nombre}}" />
                         <div class="md-list-item-text" layout="column">
                             <h4>{{ variety.nombre }}</h4>
-                            <p>
-                              {{variety.cantidad}} x ${{ variety.precio}} = <strong>${{variety.cantidad * variety.precio}}</strong>
+                            <p layout="row" layout-align="start end">
+                              <label>
+                                {{variety.cantidad}} x 
+                              </label>
+                              <chq-price-product precio="variety.precio" tamanho="0.7"></chq-price-product>
+                              <label style="margin-left: 3px; margin-right: 3px;">
+                                = 
+                              </label>
+                              <chq-price-product precio="variety.cantidad * variety.precio" tamanho="0.8"></chq-price-product>
                             </p>
                         </div>
                     </div>
@@ -30,10 +43,10 @@
                     </md-tooltip>
                 </md-button>
             </md-list-item>
-            <md-subheader class="md-no-sticky" ng-show="pedidoSelected.estado == 'CONFIRMADO'">
-                {{'PEDIDO_CONFIRMADO_MSG_1' | translate}} {{pedidoSelected.aliasGrupo}} {{'PEDIDO_CONFIRMADO_MSG_2' | translate}}
-            </md-subheader>
         </md-list>
+        <md-subheader class="md-no-sticky" ng-show="pedidoSelected.estado == 'CONFIRMADO'">
+            {{'PEDIDO_CONFIRMADO_MSG_1' | translate}} {{pedidoSelected.aliasGrupo}} {{'PEDIDO_CONFIRMADO_MSG_2' | translate}}
+        </md-subheader>
     </div>
     <md-subheader ng-show="!showOrderResume">
         <p> {{'SIN_PROD_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}} </p>
