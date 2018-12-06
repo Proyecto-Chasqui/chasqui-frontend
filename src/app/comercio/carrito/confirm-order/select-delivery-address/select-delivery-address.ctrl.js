@@ -10,12 +10,7 @@
         
         $scope.addresses = [];
         $scope.deliveryPoints = [];
-        $scope.address = {
-            type: "",
-            selected: null,
-            zone: null,
-            particularities: ""
-        }
+        $scope.address = {};
         
         $scope.deliveryTypes = [
             {
@@ -47,7 +42,17 @@
                 console.log($scope.zonesMap);
                 callDirecciones(selectedCatalog);
                 loadZones(selectedCatalog.id);
+                initAdress();
             })
+        }
+    
+        function initAdress(){
+          $scope.address = {
+            type: "",
+            selected: null,
+            zone: null,
+            particularities: ""
+          }
         }
         
         /////////////////////////////////////
@@ -55,6 +60,7 @@
         function setDeliveryType(deliverySelected){
             $scope.deliveryTypes = $scope.deliveryTypes.map(function(d){d.show = d.label == deliverySelected.label; return d});
             $scope.showGoProfile = $scope.deliveryTypes[0] == deliverySelected && $scope.addresses.length == 0;
+            initAdress();
             $scope.validated = false;
         }
         
