@@ -10,7 +10,6 @@
     $scope.getPath = getPath;
     
     function getPath(partialPath){
-      console.log("partialPath", partialPath);
       return partialPath == undefined || partialPath == null || partialPath == ""? 
               "http://codigolibrecoop.com/chasqui_v01/sinfotochasqui200.jpg":
               URLS.be_base + partialPath;
