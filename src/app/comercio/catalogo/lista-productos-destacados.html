@@ -19,8 +19,9 @@
                         </md-tooltip>
                     </picture>
                 </div>
-                <div class="precio-variedad" layout="row" layout-align="end end">
-                    <h3 class="precio">${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</h3>
+                <div layout="row" layout-align="end end">
+                    <chq-price-product class="precio" precio="producto.precio" tamanho="1.6"></chq-price-product>
+                  </h3>
                 </div>
             </div>
         </div>
@@ -95,16 +96,10 @@
 		padding: .3rem .3rem;
 		height: 1.3rem;
 	}
-
-	.ch-destacado > .precio-variedad{
-		padding: 0 .3rem;
-		color: green;
-		height: 2rem;
-	}
-
-	.ch-destacado > .precio-variedad h3{
-		padding: 0 .3rem !important;
-	}
+  
+  .precio{
+    color: green;
+  }
 
 	.ch-destacado .medallas-destacados{
 		width: 20%;

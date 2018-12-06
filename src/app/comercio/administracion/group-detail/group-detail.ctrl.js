@@ -16,13 +16,13 @@ function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
     //////////////////////////// INIT ///////////////////////////////////////
     
     function init(){
-        $scope.totalOrders = Math.floor($scope.group.miembros.reduce(function(r,m){
+        $scope.totalOrders = $scope.group.miembros.reduce(function(r,m){
             if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
                 return r + m.pedido.montoActual;
             }else{
                 return r;
             }
-        }, 0));
+        }, 0);
     }
     
     init();

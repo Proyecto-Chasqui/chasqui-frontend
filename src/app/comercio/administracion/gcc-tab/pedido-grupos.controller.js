@@ -181,17 +181,17 @@
         }
         
         function totalForMember(member){
-            return member.pedido != null? Math.floor(member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0)): 0;
+            return member.pedido != null? member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0): 0;
         }
       
         function montoTotalGrupo(){
-            return Math.floor($scope.group.miembros.reduce(function(r,m){
+            return $scope.group.miembros.reduce(function(r,m){
                 if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
                     return r + m.pedido.montoActual;
                 }else{
                     return r;
                 }
-            }, 0));
+            }, 0);
         }
       
         // animación de la barra del monto total

@@ -5,8 +5,10 @@
           <div>
             Total compra / monto mínimo
           </div>
-          <div>
-            ${{montoTotalGrupo()}}/{{montoMinimo}}
+          <div layout="row" layout-align="center center">
+            <chq-price-product precio="montoTotalGrupo()" tamanho="1"></chq-price-product>
+            <label>/</label>
+            <chq-price-product precio="montoMinimo" tamanho="1"></chq-price-product>
           </div>
         </div>
         <md-progress-linear ng-class="estadoPedido" md-mode="determinate" value="{{porcentajeMontoMinimo}}"></md-progress-linear>
@@ -73,7 +75,9 @@
                                    && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
                           style="margin: 10px;">
                             <div>Total:</div>
-                            <div>${{totalForMember(miembro)}}</div>
+                            <div>
+                              <chq-price-product precio="totalForMember(miembro)" tamanho="1"></chq-price-product>
+                            </div>
                         </div>
                         
                         <div layout="row" layout-align="space-around center" 

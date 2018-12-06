@@ -51,8 +51,8 @@
               <div flex="25" style="text-align: center">
                 {{pedido.fechaVencimiento}}
               </div>
-              <div flex="20" style="text-align: center">
-                ${{pedido.montoActual}}
+              <div flex="20" layout="row" layout-align="center center">
+                <chq-price-product precio="pedido.montoActual" tamanho="1"></chq-price-product>
               </div>
               <div flex="30" style="text-align: center">
                 {{direccionDeEntrega(pedido)}}

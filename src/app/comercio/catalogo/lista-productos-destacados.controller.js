@@ -49,7 +49,7 @@
 			productoService.getProductosDestacados()
 				.then(function(response) {
 					vm.productos = response.data.productos;
-                    console.log("Productos destacados: ", vm.productos);
+          console.log("Productos destacados: ", vm.productos);
 				})
 		}
 

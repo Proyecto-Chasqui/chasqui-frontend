@@ -32,8 +32,8 @@
                   <div flex="33" style="text-align: center">
                     {{pedido.fechaModificacion}}
                   </div>
-                  <div flex="33" style="text-align: center">
-                    ${{pedido.montoTotal}}
+                  <div flex="33" layout="row" layout-align="center center">
+                    <chq-price-product precio="pedido.montoTotal" tamanho="1"></chq-price-product>
                   </div>
                   <div flex="34" style="text-align: center">
                     {{direccionDeEntrega(pedido)}}

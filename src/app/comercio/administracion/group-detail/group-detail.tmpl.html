@@ -6,27 +6,28 @@
   </md-card-title>
   <md-card-content>
     <div layout="column" >
-      <span class="md-body-2"> 
+      <span class="md-body-2" layout="row" layout-align="space-between center"> 
         <label translate>
             DESCRIPCION
-        </label>:
+        </label>
         <strong>
             {{group.descripcion}}
         </strong>
       </span>
-      <span class="md-body-2">
+      <span class="md-body-2" layout="row" lalayout="row" layout-align="space-between center"yout-align="space-between center">
           <label translate>
               CONTACTO
-          </label>:
+          </label>
           <strong>
               {{group.emailAdministrador}}
           </strong>
       </span>
-      <span class="md-body-2">
+      <span class="md-body-2" layout="row" layout-align="space-between center">
           <label translate>
               TOTAL_ORDERS
-          </label>:
-          <strong>${{totalOrders}}
+          </label>
+          <strong>
+            <chq-price-product precio="totalOrders" tamanho="1"></chq-price-product>
           </strong>
       </span>
     </div>
