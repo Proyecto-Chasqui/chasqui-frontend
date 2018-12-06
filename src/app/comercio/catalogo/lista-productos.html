@@ -58,7 +58,7 @@
                   </div>
               </div>
               <div layout="column" layout-align="center center">
-                  <img ng-src="{{listaProductosCtrl.urlBase}}{{listaProductosCtrl.medallaSelect.pathImagen}}" width="200" height="200">
+                  <ch-image src="listaProductosCtrl.medallaSelect.pathImagen" width="200" height="200">
                   <div ng-bind-html="listaProductosCtrl.medallaSelect.descripcion" />
               </div>
           </md-dialog>
@@ -77,7 +77,7 @@
                   </div>
               </div>
               <div layout="column" layout-align="center center">
-                  <img ng-src="{{listaProductosCtrl.urlBase}}{{listaProductosCtrl.emprendedorSelect.pathImagen}}" width="200" height="200">
+                <ch-image src="listaProductosCtrl.emprendedorSelect.pathImagen" width="200" height="200"></ch-image>
               </div>
               <div ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta"></div>
               <md-button ui-sref="catalog.productor({idProductor: listaProductosCtrl.emprendedorSelect.idProductor})">
