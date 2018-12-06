@@ -118,6 +118,8 @@
             $scope.mostrarSeleccionMultiple = catalog.few.seleccionDeDireccionDelUsuario && catalog.few.puntoDeEntrega;
             if(!$scope.mostrarSeleccionMultiple){
                 $scope.deliveryTypes[0].show = catalog.few.seleccionDeDireccionDelUsuario;
+                $scope.showGoProfile = $scope.deliveryTypes[0].show && $scope.addresses.length == 0;
+              
                 $scope.deliveryTypes[1].show = catalog.few.puntoDeEntrega;
             }
 		}
