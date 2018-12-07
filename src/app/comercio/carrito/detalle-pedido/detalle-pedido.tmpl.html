@@ -2,6 +2,9 @@
   <modal-window-title-bar title="Resumen de compra" cancel-action="cancelAction"></modal-window-title-bar>
   
   <md-dialog-content layout="column" layout-align="space-between center" style="margin-top: 15px; width: 100%">
-      <productos-pedido pedido="order" modify="false"></productos-pedido>
+    <md-content class="md-padding" ng-cloak>
+      <detalle-pedido-grupal ng-if="isCollective(order)" pedido="order"></detalle-pedido-grupal>
+      <detalle-pedido-personal ng-if="isPersonal(order)" pedido="order"></detalle-pedido-personal>
+    </md-content>
   </md-dialog-content>
 </md-dialog>
