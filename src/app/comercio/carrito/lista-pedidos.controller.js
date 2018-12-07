@@ -73,7 +73,6 @@
     }
 
     $scope.isCollective = function(order){
-        console.log("Order: ", order.id, !$scope.isPersonal(order));
         return !$scope.isPersonal(order);
     }
 
