@@ -2,7 +2,7 @@
   <span ng-show="listaProductosCtrl.productos.length === 0">
         {{'SIN_PRODUCTOS' | translate}}
   </span>
-  <chq-catalog-box>
+  <chq-catalog-box ng-cloak>
     <chq-product-card ng-repeat="producto in listaProductosCtrl.productos" data="producto">
       
       <chq-principal-product-image 
