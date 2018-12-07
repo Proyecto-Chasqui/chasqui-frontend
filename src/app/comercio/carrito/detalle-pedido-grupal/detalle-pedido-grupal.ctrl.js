@@ -5,71 +5,48 @@
     DetallePedidoGrupalController);
 
   /** @ngInject */
-  function DetallePedidoGrupalController($log, $state, $scope, ToastCommons, productoService, gccService, us, $rootScope,
-                                           contextPurchaseService, contextOrdersService, dialogCommons) {
-        
-    $log.debug('DetallePedidoController ..... ', $scope.pedido);
-
-    $scope.confirmOrder = confirmOrder;
-    $scope.cancelOrder = cancelOrder;
-
-    /////////////////////////////////////
-        
-        
-    /// Confirm GCC's personal order
-    function confirmOrder() {  
-        dialogCommons.confirm("¿Confirmar el pedido?", 
-                              "Una vez confirmado su pedido individual, tiene que esperar que el administrador del grupo lo confirme para que sea preparado y entregado.", 
-                              "Confirmar", 
-                              "No", 
-                              doConfirmOrder, 
-                              ignoreAction);
-    };
-        
-    function doConfirmOrder(){
-        function doOk(response){
-            ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
-            contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), $scope.pedido);
-            $rootScope.$emit('order-confirmed');
-            contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
-              console.log("selectedAgrupation", selectedAgrupation);
-              if(selectedAgrupation.esAdministrador){
-                dialogCommons.acceptIssue(
-                  "Es administrador del grupo " + selectedAgrupation.alias, 
-                  'Como administrador del grupo, no se olvide de confirmar el pedido grupal en la sección "Mis grupos"',
-                  "Gracias por recordarmelo!", 
-                  function(){}, 
-                  function(){}
-                );
-              }
-            });
-        }
-        gccService.confirmarPedidoIndividualGcc($scope.pedido.id).then(doOk);
+  function DetallePedidoGrupalController($scope) {
+    
+    $scope.showMemberOrder = showMemberOrder;
+    $scope.hideMemberOrder = hideMemberOrder;
+    $scope.showAll = showAll;
+    $scope.fullOrder;
+    $scope.memberSelected;
+    $scope.showOrder;
+    $scope.showFullOrder;
+    
+    
+    function showMemberOrder(member){
+      $scope.memberSelected = member;
+      $scope.showOrder = true;
+      $scope.showFullOrder = false;
     }
-
-    /// Cancel GCC order
-    function cancelOrder(){
-        dialogCommons.confirm("¿Cancelar pedido?", 
-                              "¿Está seguro que quiere cancelarlo?", 
-                              "Si", 
-                              "No", 
-                              doCancelOrder, 
-                              ignoreAction);
+    
+    function hideMemberOrder(member){
+      $scope.memberSelected = {};
+      $scope.showOrder = false;
+      $scope.showFullOrder = true;    
     }
-        
-    function doCancelOrder(){
-      function doOk(response){
-        ToastCommons.mensaje(us.translate('CANCELADO'));
-        contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), $scope.pedido);
-        $rootScope.$emit('order-cancelled');
-      }
-
-      productoService.cancelarPedidoIndividual($scope.pedido.id).then(doOk);
+    
+    function showAll(){
+      $scope.memberSelected = {};
+      $scope.showOrder = false;
+      $scope.showFullOrder = true;  
     }
-        
-    function ignoreAction(){
-        $mdDialog.hide();
+    
+    function init(){
+      $scope.fullOrder = {
+        productosResponse: $scope.pedido.pedidos.reduce(function(r,p){
+          return r.concat(p.productosResponse);
+        }, [])
+      };
+      $scope.memberSelected = {};
+      $scope.showOrder = false;
+      $scope.showFullOrder = true;
     }
+    
+    init();
+    
   }
 
 })();

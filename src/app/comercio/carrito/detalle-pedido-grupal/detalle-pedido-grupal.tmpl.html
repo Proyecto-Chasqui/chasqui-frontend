@@ -1,42 +1,90 @@
-<div ng-cloak>
-	<div layout="row" layout-align="space-between start">
-		<div>
-			<md-card>
-				<md-card-title>
-					<md-card-title-text>
-						<span class="md-headline">
-						{{pedido.aliasGrupo}}</span>
-						<md-divider></md-divider>
-					</md-card-title-text>
-				</md-card-title>
-				<md-card-content layout="row">
-					<div layout="column">
-						<span class="md-body-2">Creado el  : 
-						<strong>{{pedido.fechaCreacion}} </strong></span>
-						<span class="md-body-2">Monto actual : 
-						<strong> ${{pedido.montoActual}} </strong></span>
-						<span class="md-body-2">Estado : 
-						<strong>{{pedido.estado}} </strong></span>
-					</div>
-				</md-card-content>
-                
-				<md-card-actions layout="row" layout-align="end center">
-					<md-button ng-click="cancelOrder()" style="color:red">
-						<label translate="CANCELAR"></label>
-					</md-button>
-					<md-button ng-click="confirmOrder()" class="md-primary">
-						<label translate="CONFIRMAR"></label>
-					</md-button>					
-				</md-card-actions>
-			</md-card>
-            <continue-buying></continue-buying>
-		</div>
-		
-		<div>
-			<md-subheader>
-				<label translate="PRODUCTOS_CARRO_TIT"></label>
-			</md-subheader>
-			<productos-pedido pedido="pedido"></productos-pedido>
-		</div>
-	</div>
+<div class="ch-detalle-pedido-grupal-container">
+  <div class="ch-detalle-pedido-grupal-members">
+    <div 
+      class="ch-member-order-button ch-show-member-order-button" 
+      ng-click="showAll()" 
+      ng-show="!showFullOrder"
+      title="Ver todo el pedido">
+      Todo el pedido
+    </div>
+    <div layout="row" layout-align="center center" ng-show="showFullOrder">
+      <div class="ch-member-order-button ch-hide-member-order-button">
+        Todo el pedido
+      </div>
+      <div class="ch-selected-member">
+      </div>
+    </div>
+    <div ng-repeat="member in pedido.pedidos">      
+      <div 
+        class="ch-member-order-button ch-show-member-order-button" 
+        ng-click="showMemberOrder(member)" 
+        ng-show="memberSelected != member"
+        title="Ver el pedido de {{member.cliente.alias}}">
+        Pedido de {{member.cliente.alias}}
+      </div>
+      <div 
+        layout="row" layout-align="center center" 
+        ng-click="hideMemberOrder(member)" 
+        ng-show="memberSelected == member"
+        title="Ocultar pedido de {{member.cliente.alias}}">
+        <div class="ch-member-order-button ch-hide-member-order-button">
+          Pedido de {{member.cliente.alias}}
+        </div>
+        <div class="ch-selected-member">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="ch-detalle-pedido-grupal-member-products" ng-cloak>
+    <productos-pedido ng-show="showFullOrder" pedido="fullOrder"></productos-pedido>
+    <productos-pedido ng-show="showOrder" pedido="memberSelected"></productos-pedido>
+  </div>
 </div>
+
+<style>
+  .ch-detalle-pedido-grupal-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-height: 700px;
+  }
+  
+  .ch-detalle-pedido-grupal-members {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 350px;
+  }
+  
+  .ch-member-order-button {
+    height: 2rem;
+    width: 340px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    border-left: 1px solid white;
+  }
+  
+  .ch-show-member-order-button {
+    background: #58c1e8;
+    color: #deebef;
+  }
+  
+  .ch-selected-member {
+    width: 0px;
+    height: 0px;
+    border-left: 10px solid #0392c6;
+    border-top: 1rem solid transparent;
+    border-bottom: 1rem solid transparent;
+  }
+  
+  .ch-hide-member-order-button {
+    background: #0392c6;
+    color: #deebef;
+  }
+  
+  .ch-detalle-pedido-grupal-member-products {
+    width: 350px;
+  }
+</style>
