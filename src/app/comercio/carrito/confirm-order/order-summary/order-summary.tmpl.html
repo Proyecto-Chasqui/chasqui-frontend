@@ -27,7 +27,9 @@
                 <md-divider></md-divider>
                 <div layout="row" layout-align="space-between center">
                     <div><strong>{{nombre}}</strong></div>
-                    <div><strong>${{order.montoActualPorMiembro[nombre]}}</strong></div>
+                    <div>
+                      <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
+                    </strong></div>
                 </div>
                 <md-divider ng-if="$last"></md-divider>
             </md-list-item>
