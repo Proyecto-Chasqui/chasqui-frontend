@@ -4,12 +4,14 @@
   angular.module('chasqui').controller('HistorialGCCController', HistorialGCCController);
 
   
-  function HistorialGCCController($log, $scope, $state, gccService, contextCatalogObserver) {
+  function HistorialGCCController($log, $scope, $state, gccService, contextCatalogObserver, dialogCommons) {
 
     $scope.pedidosFiltrados = [];
     $scope.states = ["Confirmado", "Preparado", "Enviado"];
     $scope.classForItem = classForItem;
     $scope.direccionDeEntrega = direccionDeEntrega;
+    $scope.viewOrderDetail = dialogCommons.viewOrderDetail;
+    $scope.adaptOrder = adaptOrder;
       
     function getOrdersWithStates(states){
         contextCatalogObserver.observe(function(){
@@ -49,6 +51,11 @@
       }else{
         return capState;
       }
+    }
+    
+    function adaptOrder(order){
+      order.idGrupo = $scope.group.idGrupo;
+      return order;
     }
       
     /////////////////// INIT ////////////////////

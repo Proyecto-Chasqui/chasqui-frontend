@@ -27,7 +27,7 @@
                 class="md-1-line" 
                 ng-repeat="(i, pedido) in pedidosFiltrados" 
                 ng-class="classForItem(i)">
-              <div layout-fill>
+              <div ng-click="viewOrderDetail(adaptOrder(pedido))" layout-fill>
                 <div layout="row" layout-fill>
                   <div flex="33" style="text-align: center">
                     {{pedido.fechaModificacion}}
@@ -39,6 +39,9 @@
                     {{direccionDeEntrega(pedido)}}
                   </div>
                 </div>
+                <md-tooltip md-direction="bottom">
+                    Ver detalle
+                </md-tooltip>
               </div>
             </md-list-item>
           </md-list>
