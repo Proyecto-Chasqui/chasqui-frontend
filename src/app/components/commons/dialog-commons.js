@@ -144,5 +144,19 @@
       $mdDialog.show(viewOrderDetail);      
     }
     
+    vm.showProductInfo = function(product){
+      var productInfo = {
+        controller: 'ProductoDialogController',
+        templateUrl: 'app/comercio/catalogo/producto.dialog.html',
+        clickOutsideToClose: true,
+        fullscreen: false, 
+        locals: {
+          productSelected: product 
+        }
+      }
+      
+      $mdDialog.show(productInfo);
+    }
+    
   } 
 })(); 
