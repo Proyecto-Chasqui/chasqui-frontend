@@ -66,37 +66,4 @@
       </md-list>
     </md-card>
   </div>
-  
-  
-  
-  <!--
-    <md-card>
-        <md-content flex layout-padding ng-show="orders.length==0 && pedidosPorCategoria === null" style="min-height: 100px">
-            <p>
-                <label translate="SIN_PEDIDO_MSG_1"/>
-                <a class="md-accent" ui-sref="catalog.products">
-                    <label translate="SIN_PEDIDO_MSG_2"/>
-                </a>
-                <label translate="SIN_PEDIDO_MSG_3"/>
-                    <a class="md-accent" ui-sref="catalog.groups">
-                        <label translate="SIN_PEDIDO_MSG_4"/>
-                    </a>
-            </p>
-        </md-content>
-    </md-card>
-
-
-    <div ng-include="'app/comercio/carrito/informe-confirmado.html'" ng-show="pedidosPorCategoria != null" ></div>
-    
-    <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom>
-        <md-tab ng-repeat="order in orders" ng-disabled="tab.disabled" label="{{order.aliasGrupo}}">
-            <md-content class="md-padding" ng-if="isCollective(order)">
-                <detalle-pedido-grupal pedido="order"></detalle-pedido>
-            </md-content>
-            <md-content class="md-padding" ng-if="isPersonal(order)">
-                <detalle-pedido-personal pedido="order"></detalle-pedido>
-            </md-content>
-        </md-tab>
-    </md-tabs>
-  -->
 </div>
