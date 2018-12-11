@@ -140,7 +140,16 @@
                 function(defered){
                     isPersonalOrderOpen(catalogId).then(function(isOpen){
                         if(isOpen){
-                            openAndGetPersonalOrder(catalogId);
+                            function doOkPedido(response) {
+                                var personalOrder = response.data;
+                                personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
+                                personalOrder.idGrupo = idGrupoPedidoIndividual;
+                                personalOrder.aliasGrupo = "Personal";
+                                replacePersonalOrder(catalogId, personalOrder);
+                                defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
+                            }
+                          
+                            productoService.verPedidoIndividual().then(doOkPedido);
                         }else{
                             addOrder(catalogId, pedidoIndividualVirtual);
                             defered.resolve(pedidoIndividualVirtual);
