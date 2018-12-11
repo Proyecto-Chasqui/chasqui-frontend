@@ -20,6 +20,11 @@
                               howToBuy,
                               products
                           ];
+        
+          if(strategy.nodos){
+            itemsMenu.splice(1,1);
+          }
+          
           if(strategy.puntoDeEntrega){
             itemsMenu.push(deliveryPoints);
           }
