@@ -8,12 +8,12 @@
     $scope.order = order;
     
     $scope.isPersonal = function(order){
-        return order.idGrupo == null; 
+        return order.idGrupo == null || (order.idGrupo != null && order.pedidos == undefined); 
     }
 
     $scope.isCollective = function(order){
         console.log(order);
-        return !$scope.isPersonal(order);
+        return order.idGrupo != null && order.pedidos != undefined;
     }
     
 }})();
