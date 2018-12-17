@@ -1,45 +1,50 @@
-<md-content class="md-padding">
-	<section>
-		<md-subheader class="md-accent">
-			<md-icon> message </md-icon>
-			<label translate="NOTIFICACIONES"></label>
-		</md-subheader>
-		<div>
-			<md-card class="md-3-line" ng-repeat="item in perfilCtrl.notificaciones">
-                <md-card-title>
-                    <md-card-title-text>
-                        <h4> {{item.fechaCreacion}} -  De: {{item.usuarioOrigen}} </h4>
-                    </md-card-title-text>
-                </md-card-title>
-                
-                <md-card-content>
-                    {{item.mensaje}}
-                </md-card-content>
-                
-                <md-card-actions layout="row" layout-align="end center"> 
-                    <md-button ng-show="item.estado == 'NOTIFICACION_NO_LEIDA' && !perfilCtrl.isCompraColectiva(item)" class="md-secondary"
-                     ng-click="perfilCtrl.marcarLeido(item)">
-                        <md-icon> done </md-icon>
-                        <md-tooltip md-direction="left">
-                            <label translate="ENTIENDO"></label>
-                        </md-tooltip>
-                    </md-button>
+<div class="container-fluid ch-content md-padding" id="popupContainer" ng-cloak>
+    <div ng-cloak>
 
-                    <md-button  ng-show="perfilCtrl.isCompraColectiva(item) && item.estado == 'NOTIFICACION_NO_LEIDA'" class="md-secondary" 
-                    ng-click="perfilCtrl.aceptarInvitacion(item)">
-                        <md-icon> thumb_up </md-icon>
-                        <md-tooltip md-direction="left">
-                            Aceptar invitación a grupo </md-tooltip>
-                    </md-button>
+            <md-content class="md-padding">
+            	<section>
+            		<md-subheader class="md-accent">
+            			<md-icon> message </md-icon>
+            			<label translate="NOTIFICACIONES"></label>
+            		</md-subheader>
+            		<div>
+            			<md-card class="md-3-line" ng-repeat="item in perfilCtrl.notificaciones">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <h4> {{item.fechaCreacion}} -  De: {{item.usuarioOrigen}} </h4>
+                                </md-card-title-text>
+                            </md-card-title>
+                            
+                            <md-card-content>
+                                {{item.mensaje}}
+                            </md-card-content>
+                            
+                            <md-card-actions layout="row" layout-align="end center"> 
+                                <md-button ng-show="item.estado == 'NOTIFICACION_NO_LEIDA' && !perfilCtrl.isCompraColectiva(item)" class="md-secondary"
+                                 ng-click="perfilCtrl.marcarLeido(item)">
+                                    <md-icon> done </md-icon>
+                                    <md-tooltip md-direction="left">
+                                        <label translate="ENTIENDO"></label>
+                                    </md-tooltip>
+                                </md-button>
 
-                    <md-button  ng-show="perfilCtrl.isCompraColectiva(item) && item.estado == 'NOTIFICACION_NO_LEIDA'" class="md-secondary" 
-                    ng-click="perfilCtrl.rechazarInvitacion(item)">
-                        <md-icon> thumb_down </md-icon>
-                        <md-tooltip md-direction="left">
-                            Rechazar invitación a grupo </md-tooltip>
-                    </md-button>                
-                </md-card-actions>
-			</md-card>
-		</div>
-	</section>
-</md-content>
+                                <md-button  ng-show="perfilCtrl.isCompraColectiva(item) && item.estado == 'NOTIFICACION_NO_LEIDA'" class="md-secondary" 
+                                ng-click="perfilCtrl.aceptarInvitacion(item)">
+                                    <md-icon> thumb_up </md-icon>
+                                    <md-tooltip md-direction="left">
+                                        Aceptar invitación a grupo </md-tooltip>
+                                </md-button>
+
+                                <md-button  ng-show="perfilCtrl.isCompraColectiva(item) && item.estado == 'NOTIFICACION_NO_LEIDA'" class="md-secondary" 
+                                ng-click="perfilCtrl.rechazarInvitacion(item)">
+                                    <md-icon> thumb_down </md-icon>
+                                    <md-tooltip md-direction="left">
+                                        Rechazar invitación a grupo </md-tooltip>
+                                </md-button>                
+                            </md-card-actions>
+            			</md-card>
+            		</div>
+            	</section>
+            </md-content>
+    </div>
+</div>

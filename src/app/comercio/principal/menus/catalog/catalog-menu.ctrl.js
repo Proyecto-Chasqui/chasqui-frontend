@@ -81,9 +81,7 @@ function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_RO
         $log.debug("Ver notificaciones");
         $scope.icon = 'notifications_none';
         $scope.fill = 'white';
-        $state.go('catalog.profile', {
-            index: 2
-        });
+        $state.go('catalog.notifications');
     }
     
     

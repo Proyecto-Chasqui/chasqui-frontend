@@ -66,6 +66,12 @@
                 url: '/puntosDeEntrega',
                 templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',
                 controller: 'DeliveryPointsCtrl'
+            })
+            .state('catalog.notifications', {
+                url: '/notificaciones',
+                templateUrl: 'app/comercio/administracion/notificaciones.html',
+                controller: 'PerfilController',
+                controllerAs: 'perfilCtrl'
             })    
             .state('catalog.profile', {
                 url: '/perfil',
@@ -97,6 +103,7 @@
                 controller: 'PrincipalController',
                 controllerAs: 'principalCtrl'
             })
+
     
       .state('error', {
         url: '/error/:key',

@@ -14,7 +14,7 @@
           </div>
           <h2 class="menu-element" ng-click="toTop()" ui-sref="catalog.profile" style="cursor: pointer;">{{usuario.nickname}}</h2>
 
-          <md-button class="menu-icon menu-element" ng-click="verNotificaciones()">
+          <md-button class="menu-icon menu-element" ui-sref="catalog.notifications">
               <ng-md-icon options="{{options}}" id="icon" icon="{{icon}}" style="fill: {{fill}};"/>
               <md-tooltip style="color:#fff" md-direction="left">
                  {{'SIN_LEER' | translate}} {{notificacionesSinLeer}} 
