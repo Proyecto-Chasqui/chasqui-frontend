@@ -131,6 +131,10 @@
                 return URLS.be_rest + "user/adm/notificacion/" + pagina;
             },
 
+            totalNotificaciones: function(){
+                return URLS.be_rest + "user/adm/notificacion/total";
+            },
+
             productosDestacadosByVendedor: function(idVendedor) {
                 return URLS.be_rest + "client/producto/destacados/" + idVendedor;
             },

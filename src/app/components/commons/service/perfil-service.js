@@ -36,6 +36,10 @@
 			return promiseService.doGetPrivate(REST_ROUTES.notificacionesLeidas(cantidad), {});
 		}
 
+		vm.totalNotificaciones = function(){
+			return promiseService.doGetPrivate(REST_ROUTES.totalNotificaciones());
+		}
+
 		vm.notificacionesLeidas = function(id) {
 			$log.debug(" service notificacionesLeidas ");
 			return promiseService.doGetPrivate(REST_ROUTES.notificacionesLeidas(id), {});

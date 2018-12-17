@@ -19,7 +19,9 @@
 
 		vm.notificaciones = [];
 		vm.notificacionesNoLeidas = [];
+        vm.notificacionesEnVista = [];
 		vm.count = 1;
+        vm.pages = 1;
 
 		vm.selectedIndexPerfil = 0;
 		if ($stateParams.index != null) {
@@ -27,6 +29,20 @@
 			vm.selectedIndexPerfil = $stateParams.index;
 		}
 
+        $scope.currentPage = 0;
+
+        $scope.paging = {
+            total: vm.pages,
+            current: 1,
+            onPageChanged: loadPages,
+        };
+
+        function loadPages() {
+            console.log('Current page is : ' + $scope.paging.current);
+            vm.count = $scope.paging.current + 1;
+            callNotificaciones();
+            $scope.currentPage = $scope.paging.current;
+        }
 
 		var showPrerenderedDialog = function(ev) {
 			$mdDialog.show({
@@ -113,11 +129,25 @@
 
 			function doOk(response) {
 				$log.debug('notificacionesLeidas', response);
-				vm.notificaciones = vm.notificaciones.concat(response.data);;
+				vm.notificaciones = response.data;
 			}
 			perfilService.notificacionesLeidas(vm.count).then(doOk);
 
 		}
+
+        function totalNotificaciones(){
+            function doOk(response) {
+                $log.debug('totalNotificaciones', response.data);
+                vm.pages = Math.round(response.data / 5);
+                $scope.paging = {
+                    total: vm.pages,
+                    current: 1,
+                    onPageChanged: loadPages,
+                };
+                callNotificaciones();
+            }
+            perfilService.totalNotificaciones().then(doOk);
+        }
 
 		vm.verMas = function() {
 			vm.count++;
@@ -128,9 +158,8 @@
 		vm.isCompraColectiva=function(notificacion){			
 			return us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas');
 		}
-
+        totalNotificaciones();
 		callNotificacionesNoLeidas();
-		callNotificaciones();
         
         
         
