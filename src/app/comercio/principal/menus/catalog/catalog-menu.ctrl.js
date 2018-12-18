@@ -6,12 +6,13 @@
     .controller('CatalogMenuController', CatalogMenuController);
 
   
-function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
+function CatalogMenuController($scope, $log,$rootScope, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
                                  perfilService, contextPurchaseService,us, usuario_dao, navigation_state) {
         
     
     $scope.urlBase = URLS.be_base;
     $scope.toTop = toTop;
+    $scope.nroNoLeidas = 0;
 
     
     ////////////////////////// INIT //////////////////////////
@@ -50,6 +51,12 @@ function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_RO
             if (notificacionesSinLeer > 0) {
                 $log.debug('hay nuevas notificaciones !');
                 addNotificacion();
+                if(response.data.length>999){
+                    $scope.nroNoLeidas = 999;
+                }else{
+                    $scope.nroNoLeidas = response.data.length;
+                }
+                
             } else {
                 resetNotificacion();
             }
@@ -81,9 +88,7 @@ function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_RO
         $log.debug("Ver notificaciones");
         $scope.icon = 'notifications_none';
         $scope.fill = 'white';
-        $state.go('catalog.profile', {
-            index: 2
-        });
+        $state.go('catalog.notifications');
     }
     
     
@@ -92,6 +97,28 @@ function CatalogMenuController($scope, $log, $state, StateCommons, URLS, REST_RO
     }
     
     ////////////////////////// Other //////////////////////////
+
+   $rootScope.refrescarNotificacion = function (){
+
+        function doOk(response) {
+            
+            var notificacionesSinLeer = response.data.length
+
+            if (notificacionesSinLeer > 0) {
+                $log.debug('hay nuevas notificaciones en funcion!');
+                if(response.data.length>999){
+                    $scope.nroNoLeidas = 999;
+                }else{
+                    $scope.nroNoLeidas = response.data.length;
+                }
+                
+            } else {
+                resetNotificacion();
+            }
+        }
+        
+        perfilService.notificacionesNoLeidas().then(doOk);  
+    }
     
     $scope.logOut = function() {
         $log.debug("Log Out ..... ");
