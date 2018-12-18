@@ -13,10 +13,10 @@
 
     $scope.urlBase = URLS.be_base;
     $scope.groups = [];
-    $scope.selectedGroup = null;
-    $scope.selectedIndexGrupo = 0;
+    $scope.showOptions = [];
     $scope.newGroup = newGroup;
-    $scope.states = ["Abierto", "Confirmado", "Preparado", "Enviado"];
+    $scope.showOptionsForGroup = showOptionsForGroup;
+    $scope.countOrdersConfirmed = countOrdersConfirmed;
 
     ///////////////////////////////////////
 
@@ -29,50 +29,23 @@
 
         dialogCommons.newGroup(doOk);
     }
-
-
-    function callLoadGrupos() {
-        $log.debug("--- find grupos--------");
-        contextCatalogObserver.observe(function(){
-            contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-                contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
-                    $scope.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
-                    setTabSeleccionado(selectedAgrupation);
-                })
-            });
-        })
-    }
-
-
-    function setTabSeleccionado(selectedAgrupation) {
-        $scope.selectedIndexGrupo = $scope.groups.indexOf(selectedAgrupation);
-        $scope.selectedIndexGrupo = $scope.selectedIndexGrupo == -1? 0 : $scope.selectedIndexGrupo;
-        $scope.selectedGroup = $scope.groups[$scope.selectedIndexGrupo];
-        getOrdersWithState($scope.states.map(mapToBEStates));
-    }
-
       
-    function getOrdersWithState(state){
-        contextCatalogObserver.observe(function(){
-
-            function doOk(response) {
-                $scope.pedidosFiltrados = response.data;
-                $scope.pedidosFiltrados.reverse();
-                console.log($scope.pedidosFiltrados);    
-            }
-
-            gccService.pedidosColectivosConEstado($scope.selectedGroup.idGrupo, state).then(doOk);
-        })
-    }   
-      
-    function mapToBEStates(state){
-      var capState = state.toUpperCase();
-      if(capState == "ENVIADO"){
-        return "ENTREGADO";
-      }else{
-        return capState;
-      }
+    function showOptionsForGroup(groupIndex){
+        $scope.showOptions = $scope.showOptions.map(function(o,i){return i == groupIndex && !o});
     }
+      
+    function countOrdersConfirmed(group){
+        return countOrdersWithState(group, "CONFIRMADO");
+    }
+      
+      
+      
+    // Privado
+      
+    function countOrdersWithState(group, state){        
+        return group.miembros.filter(function(m){return m.pedido != null && m.pedido.estado == state}).length;
+    }
+      
     //////////////////////////////////////////
       
     $scope.$on('group-information-actualized', function(event) {
@@ -83,7 +56,13 @@
     /////////////////// INIT ////////////////////
 
     function init(){
-        callLoadGrupos();
+        $log.debug("--- find grupos--------");
+        contextCatalogObserver.observe(function(){
+            contextPurchaseService.getAgrupations().then(function(agrupationsInt){
+                $scope.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
+                $scope.showOptions = $scope.groups.map(function(g){return false});
+            });
+        })
     }
 
     init();

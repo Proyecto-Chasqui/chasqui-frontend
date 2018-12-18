@@ -15,7 +15,68 @@
                 </md-button>
             </div>
         </div>
-        <div layout="column" ng-cloak>
+      
+        <div layout="column" layout-align="space-between">
+            <div ng-repeat="(i, group) in groups">
+                <md-list-item class="md-3-line" ng-click="showOptionsForGroup(i)" flex>
+                    <img ng-src="{{'http://proyectochasqui.org:8080/chasqui-testing/' + group.miembros[0].avatar}}" class="md-avatar" alt="{{group.members[0].nickname}}" />
+                    <div class="ch-list-group-elem" flex>
+                        <div class="md-list-item-text" layout="column">
+                            <div layout="row" layout-align="space-between">
+                                <h3>{{group.alias}}</h3>
+                                <h4> ABIERTO </h4>
+                            </div>
+
+                            <h3>{{group.descripcion}}</h3>                            
+                            
+                            <h3>Hay {{countOrdersConfirmed(group)}} miembros que confirmaron su pedido.</h3>
+                        </div>
+                    </div>
+                    <md-tooltip md-direction="bottom">
+                        <label>Mostrar opciones</label>
+                    </md-tooltip>
+                </md-list-item>
+                
+                <div layout="column" ng-show="showOptions[i]">
+                    <div>        
+                        <div layout="row" layout-align="start center">
+                            <div class="ch-avatar-min" ng-repeat="member in group.miembros" >
+                                <ch-image src="member.avatar" title="member.nickname"></ch-image>
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="space-around center">
+                        <md-button ng-click="showOptionsOrders = !showOptionsOrders">
+                            Ver pedidos de los miembros
+                        </md-button>
+                        <md-button ng-click="showOptionsHistorial = !showOptionsHistorial">
+                            Ver historial de pedidos
+                        </md-button>
+                        <md-button ng-click="showOptionsAdmin = !showOptionsAdmin">
+                            Administrar grupo
+                        </md-button>
+                    </div>
+                    
+                    <div ng-show="showOptionsOrders" ng-include="'app/comercio/administracion/gcc-tab/pedido-grupos.html'" ng-init="grupo = group">
+                    </div>
+                    
+                    <div ng-show="showOptionsHistorial">
+                        <historial-gcc group="group"></historial-gcc>
+                    </div>
+                    
+                    <div ng-show="showOptionsAdmin">
+                        <div layout=column>
+                            <group-detail group="group"></group-detail>
+                            <div ng-include="'app/comercio/administracion/gcc-tab/detalle-grupos.html'" ng-init="grupo = group"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+      
+      
+        <div layout="column" ng-cloak ng-hide="true">
             <md-card ng-show="groups.length==0">
                 <md-content flex layout-padding>
                     <p translate>
@@ -32,7 +93,7 @@
                                     <group-detail group="group"></group-detail>
                                     <div ng-include="'app/comercio/administracion/gcc-tab/detalle-grupos.html'" ng-init="grupo = group"></div>
                                 </div>
-                                <div flex="50" ng-include="'app/comercio/administracion/gcc-tab/pedido-grupos.html'" ng-init="grupo = group"></div>
+                                <div flex="50" ></div>
                             </div>
                     
                             <!-- Historial de pedidos del grupo-->
