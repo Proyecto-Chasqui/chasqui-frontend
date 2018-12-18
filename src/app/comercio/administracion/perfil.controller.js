@@ -22,6 +22,7 @@
         vm.notificacionesEnVista = [];
 		vm.count = 1;
         vm.pages = 1;
+        $scope.color = 'purple';
 
 		vm.selectedIndexPerfil = 0;
 		if ($stateParams.index != null) {
@@ -39,7 +40,7 @@
 
         function loadPages() {
             console.log('Current page is : ' + $scope.paging.current);
-            vm.count = $scope.paging.current + 1;
+            vm.count = $scope.paging.current;
             callNotificaciones();
             $scope.currentPage = $scope.paging.current;
         }
@@ -158,6 +159,32 @@
 		vm.isCompraColectiva=function(notificacion){			
 			return us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas');
 		}
+
+        vm.getColor = function(notificacion){
+             var color = 'green';
+             if(us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas') 
+                && notificacion.estado === "NOTIFICACION_NO_LEIDA"){
+                color = 'deep-purple';
+             }
+
+             if(us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas') 
+                && notificacion.estado === "NOTIFICACION_ACEPTADA"){
+                color = 'light-green'; 
+             }
+
+             if(us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas') 
+                && notificacion.estado === "NOTIFICACION_RECHAZADA"){
+                color = 'red'; 
+             }
+
+             if(!us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas') 
+                && notificacion.estado === "NOTIFICACION_NO_LEIDA"){
+                color = 'lime';
+             }
+
+             $log.debug('PASO POR getColor', color);
+             return color;
+        }
         totalNotificaciones();
 		callNotificacionesNoLeidas();
         
