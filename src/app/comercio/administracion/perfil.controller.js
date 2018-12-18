@@ -86,6 +86,7 @@
 			function doOk(response) {
 				ToastCommons.mensaje(us.translate('LEIDO'));
 				notificacion.estado = 'Leido';
+                $rootScope.refrescarNotificacion();
 			}
 			perfilService.marcarComoLeido(notificacion.id).then(doOk);
 
@@ -181,8 +182,6 @@
                 && notificacion.estado === "NOTIFICACION_NO_LEIDA"){
                 color = 'lime';
              }
-
-             $log.debug('PASO POR getColor', color);
              return color;
         }
         totalNotificaciones();

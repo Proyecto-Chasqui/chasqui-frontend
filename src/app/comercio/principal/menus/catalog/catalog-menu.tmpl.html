@@ -13,13 +13,18 @@
             <img ng-click="toTop()" ui-sref="catalog.profile" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">
           </div>
           <h2 class="menu-element" ng-click="toTop()" ui-sref="catalog.profile" style="cursor: pointer;">{{usuario.nickname}}</h2>
-
+          
           <md-button class="menu-icon menu-element" ui-sref="catalog.notifications">
-              <ng-md-icon options="{{options}}" id="icon" icon="{{icon}}" style="fill: {{fill}};"/>
+
+              <ng-md-icon options="{{options}}" id="icon" icon="{{icon}}" style="fill: {{fill}};">
+              </ng-md-icon>
+              
               <md-tooltip style="color:#fff" md-direction="left">
                  {{'SIN_LEER' | translate}} {{notificacionesSinLeer}} 
               </md-tooltip>
           </md-button>
+          <notification-icon count="nroNoLeidas" >
+          </notification-icon>
           <md-button class="md-secondary menu-icon menu-element" ng-click="logOut()">
               <md-icon style="color:white;"> exit_to_app </md-icon>
           </md-button>
