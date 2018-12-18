@@ -6,6 +6,7 @@ angular.module('chasqui').directive('chImage',
       scope:{
         src: '=',
         alt: '=',
+        title: '=',
         width: '=',
         height: '=',
       },
