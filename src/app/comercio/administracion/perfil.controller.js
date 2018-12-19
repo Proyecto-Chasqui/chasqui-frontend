@@ -22,7 +22,6 @@
         vm.notificacionesEnVista = [];
 		vm.count = 1;
         vm.pages = 1;
-        $scope.color = 'purple';
 
 		vm.selectedIndexPerfil = 0;
 		if ($stateParams.index != null) {

@@ -75,6 +75,7 @@ function CatalogMenuController($scope, $log,$rootScope, $state, StateCommons, UR
         $scope.callNotificaciones = false;
         $scope.icon = 'notifications_none';
         $scope.fill = 'white';
+        $scope.nroNoLeidas = 0;
     }
 
     function addNotificacion() {
