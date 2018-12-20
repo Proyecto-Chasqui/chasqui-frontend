@@ -83,7 +83,6 @@
 
 		vm.marcarLeido = function(notificacion) {
 			function doOk(response) {
-				ToastCommons.mensaje(us.translate('LEIDO'));
 				notificacion.estado = 'Leido';
                 $rootScope.refrescarNotificacion();
 			}

@@ -33,6 +33,7 @@
             ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
             contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), $scope.pedido);
             contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
+            $log.debug('callConfirmar notificacion');
             $rootScope.$emit('order-confirmed');
         }
 

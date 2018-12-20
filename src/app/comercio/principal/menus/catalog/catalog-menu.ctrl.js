@@ -49,8 +49,10 @@ function CatalogMenuController($scope, $log,$rootScope, $state, StateCommons, UR
             var notificacionesSinLeer = response.data.length
 
             if (notificacionesSinLeer > 0) {
-                $log.debug('hay nuevas notificaciones !');
-                addNotificacion();
+                if(notificacionesSinLeer !== $scope.nroNoLeidas){
+                    $log.debug('hay nuevas notificaciones !');
+                    addNotificacion();    
+                }                
                 if(response.data.length>999){
                     $scope.nroNoLeidas = 999;
                 }else{
