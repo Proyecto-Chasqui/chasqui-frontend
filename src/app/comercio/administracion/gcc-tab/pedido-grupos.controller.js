@@ -10,7 +10,7 @@
     /*
      * @ngInject
      */
-    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL, $interval, contextOrdersService,
+    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, toastr,agrupationTypeVAL, $interval, contextOrdersService,
                                      contextPurchaseService,$state, usuario_dao, dialogCommons, $mdDialog, confirmOrder, productoService) {
 
         $scope.configuracionVenedor;
@@ -102,7 +102,7 @@
 
            function doOk(response) {
                 $log.debug("--- confirmar pedido response ", response.data);
-                ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
+                toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'),us.translate('AVISO_TOAST_TITLE'));
                 location.reload();
 			     }
 
@@ -161,7 +161,7 @@
 
                 function doOk(response) {
                     $log.debug("--- cancelar pedido response ", response.data);
-                    ToastCommons.mensaje(us.translate('CANCELADO'));
+                    toastr.success(us.translate('CANCELADO'),us.translate('AVISO_TOAST_TITLE'));
                     /*contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), order);
                     if(order.type == "PERSONAL"){
                         contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());

@@ -5,7 +5,7 @@
 
     
 	function PerfilController($log, $scope, $rootScope,
-		$mdDialog, ToastCommons, $stateParams, perfilService,
+		$mdDialog, ToastCommons, toastr, $stateParams, perfilService,
 		gccService,us,contextPurchaseService, usuario_dao, navigation_state) {
             
 		$log.debug("Init PerfilController ....");
@@ -60,7 +60,7 @@
 				callCambiarPass();
 				$mdDialog.cancel();
 			} else {
-				ToastCommons.mensaje(us.translate('PASS_INCORRECTO_MSG'));
+				toastr.error(us.translate('PASS_INCORRECTO_MSG'), "Error");
 			}
 		}
 
@@ -71,11 +71,11 @@
 
 		var callCambiarPass = function() {
 			function doOk(response) {
-				ToastCommons.mensaje(us.translate('PASS_ACTUALIZADA'));
+				toastr.success(us.translate('PASS_ACTUALIZADA'), us.translate('AVISO_TOAST_TITLE'));
 			}
 
 			function doNoOk(response) {
-				ToastCommons.mensaje(response.data);
+				toastr.error(response.data, "error");
 			}
 
 			perfilService.cambiarPass(vm.pass1).then(doOk);
@@ -92,7 +92,7 @@
 
 		vm.aceptarInvitacion = function(notificacion) {
 			function doOk(response) {
-				ToastCommons.mensaje(us.translate('ACEPTADO'));
+				toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
 				notificacion.estado = 'Leido';
 				contextPurchaseService.refreshGrupos()
 			}
@@ -105,7 +105,7 @@
 
 		vm.rechazarInvitacion = function(notificacion) {
 			function doOk(response) {
-				ToastCommons.mensaje(us.translate('RECHAZADO'));
+				toastr.info(us.translate('RECHAZADO'), us.translate('AVISO_TOAST_TITLE') );
 				notificacion.estado = 'Leido';
 			}
 			var params = {};
@@ -261,7 +261,7 @@
 			function doOk(response) {
                 console.log("Resultado de actualizar datos:", response);
                 usuario_dao.logIn(response.data);
-				ToastCommons.mensaje(us.translate('ACTUALIZO_PERFIL_MSG'));
+				toastr.success(us.translate('ACTUALIZO_PERFIL_MSG'), us.translate('AVISO_TOAST_TITLE'));
                 location.reload(); // para recargar el avatar. TODO revisar $localStorage
 			}
             
@@ -309,7 +309,7 @@
             function doOk(response) {
                 $log.debug("respuesta marcar como predeterminado ", response);
                 address.predeterminada = true;
-                ToastCommons.mensaje(us.translate('PREDETERMINADO'));
+                toastr.info(us.translate('PREDETERMINADO'), us.translate('AVISO_TOAST_TITLE'));
             }
             
             perfilService.actualizarDireccion(address).then(doOk);
@@ -321,7 +321,7 @@
 
                 function doOk(response) {
                     $log.debug("respuesta eliminar direccion ", response);
-                    ToastCommons.mensaje(us.translate('ELIMINO_DIRECCION'));
+                    toastr.success(us.translate('ELIMINO_DIRECCION'), us.translate('AVISO_TOAST_TITLE'));
                     callback(address);
                 }
 
@@ -334,7 +334,7 @@
 
             function doOk(response) {
                 $log.debug("respuesta guardar domicilio ", response);
-                ToastCommons.mensaje(us.translate('AGREGO_DIRECCION'));
+                toastr.success(us.translate('AGREGO_DIRECCION'), us.translate('AVISO_TOAST_TITLE'));
                 $rootScope.$broadcast('addNewAddress', response.data);
             }
 
@@ -348,7 +348,7 @@
 
             function doOk(response) {
                 $log.debug("respuesta update domicilio ", response);
-                ToastCommons.mensaje(us.translate('ACTUALIZO_DIRECCION'));
+                toastr.success(us.translate('ACTUALIZO_DIRECCION'), us.translate('AVISO_TOAST_TITLE'));
                 $rootScope.$broadcast('newAddress', response.data);
             }
             

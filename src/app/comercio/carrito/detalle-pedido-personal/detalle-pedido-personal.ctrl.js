@@ -6,7 +6,7 @@
 
   /** @ngInject */
   function DetallePedidoPersonalController($log, $state, $scope, URLS, REST_ROUTES, $rootScope,
-                                              ToastCommons, $mdDialog, dialogCommons, contextOrdersService,
+                                              ToastCommons, toastr, $mdDialog, dialogCommons, contextOrdersService,
                                               productoService, perfilService, gccService,
                                           vendedorService, contextPurchaseService, us) {
     $log.debug('DetallePedidoController ..... ', $scope.pedido);
@@ -30,7 +30,7 @@
         $log.debug('callConfirmar', $scope.pedido);
 
         function doOk(response) {
-            ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
+            toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'), us.translate('AVISO_TOAST_TITLE'));
             contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), $scope.pedido);
             contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
             $log.debug('callConfirmar notificacion');
@@ -89,7 +89,7 @@
 
       function doOk(response) {
           $log.debug("--- cancelar pedido response ", response.data);
-          ToastCommons.mensaje(us.translate('CANCELADO'));
+          toastr.info(us.translate('CANCELADO'), us.translate('AVISO_TOAST_TITLE'));
           contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), $scope.pedido);
                   contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
           $log.debug('close');

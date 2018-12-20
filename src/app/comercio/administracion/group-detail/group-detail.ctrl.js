@@ -4,7 +4,7 @@
     angular.module('chasqui').controller('GroupDetailCtrl', GroupDetailCtrl);
 
 function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
-                          dialogCommons, ToastCommons, gccService, URLS, agrupationTypeVAL,
+                          dialogCommons, ToastCommons, toastr, gccService, URLS, agrupationTypeVAL,
                           us, usuario_dao, navigation_state, contextPurchaseService, contextAgrupationsService) {
 
     $scope.totalOrders;
@@ -103,7 +103,7 @@ function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
     function callInvitarUsuario(emailClienteInvitado, grupo) {
 
         var doOk = function(response) {
-            ToastCommons.mensaje(us.translate('ENVIARA_MAIL'));
+            toastr.info(us.translate('ENVIARA_MAIL'),us.translate('AVISO_TOAST_TITLE'));
             var recienInvitado = {
                 avatar: null, 
                 nickname: null, 
@@ -127,7 +127,7 @@ function GroupDetailCtrl($log, $scope, $state, contextCatalogObserver,
         $log.debug("quitar", miembro)
 
         function doOk(response) {
-            ToastCommons.mensaje(us.translate('TE_FUISTE_GRUPO'))
+            toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'))
             callLoadGrupos();
         }
         var params = {

@@ -7,7 +7,7 @@
 
   
 function CatalogMenuController($scope, $log,$rootScope, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
-                                 perfilService, contextPurchaseService,us, usuario_dao, navigation_state) {
+                                 perfilService, contextPurchaseService,us, usuario_dao, navigation_state, toastr) {
         
     
     $scope.urlBase = URLS.be_base;
@@ -84,7 +84,7 @@ function CatalogMenuController($scope, $log,$rootScope, $state, StateCommons, UR
         $scope.callNotificaciones = true;
         $scope.icon = 'notifications';
         $scope.fill = 'red';
-        ToastCommons.mensaje(us.translate('LLEGO_NOTIFICACION'))
+        toastr.info(us.translate('LLEGO_NOTIFICACION'),"Aviso");
     }
     
     $scope.verNotificaciones = function() {
@@ -109,6 +109,10 @@ function CatalogMenuController($scope, $log,$rootScope, $state, StateCommons, UR
 
             if (notificacionesSinLeer > 0) {
                 $log.debug('hay nuevas notificaciones en funcion!');
+                if(notificacionesSinLeer > $scope.nroNoLeidas){
+                    $log.debug('hay nuevas notificaciones !');
+                    addNotificacion();    
+                } 
                 if(response.data.length>999){
                     $scope.nroNoLeidas = 999;
                 }else{

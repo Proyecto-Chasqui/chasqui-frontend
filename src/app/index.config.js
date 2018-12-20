@@ -13,8 +13,9 @@
         // Set options third-party lib
         toastrConfig.allowHtml = true;
         toastrConfig.timeOut = 3000;
-        toastrConfig.positionClass = 'toast-top-right';
-        toastrConfig.preventDuplicates = true;
+        maxOpened: 3,
+        toastrConfig.positionClass = 'toast-top-left';
+        toastrConfig.preventOpenDuplicates = true;
         toastrConfig.progressBar = true;
         cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Cargando ...</div>';
 
@@ -65,6 +66,8 @@
 
         $translateProvider.useSanitizeValueStrategy(null).useStaticFilesLoader({ files: translationEntries })
             .registerAvailableLanguageKeys(['en', 'es'], langMap).determinePreferredLanguage().fallbackLanguage(['en']);
+
+
 
     }
 

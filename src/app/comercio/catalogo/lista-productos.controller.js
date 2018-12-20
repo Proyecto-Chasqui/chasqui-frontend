@@ -8,7 +8,7 @@
    * @ngInject Lista de productos.
    */
   function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
-    $state, ToastCommons, productoService, us, contextCatalogsService,
+    $state, toastr, productoService, us, contextCatalogsService,
     $mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
         usuario_dao, $stateParams, addProductService, dialogCommons) {
 
@@ -138,7 +138,7 @@
                                     function(){});
         }
       } else {
-        ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
+        toastr.info(us.translate('INVITARMOS_INGRESAR'));
         $log.log('not logued" ', variety);
         contextPurchaseService.ls.varianteSelected = variety;
         $state.go('catalog.login');

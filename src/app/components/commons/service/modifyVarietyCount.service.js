@@ -3,7 +3,7 @@
 
   angular.module('chasqui').service('modifyVarietyCount', modifyVarietyCount);
 
-  function modifyVarietyCount($log, dialogCommons, contextPurchaseService, ToastCommons, $rootScope, agrupationTypeVAL,
+  function modifyVarietyCount($log, dialogCommons, contextPurchaseService, toastr, $rootScope, agrupationTypeVAL,
                                 productoService, us, $state, contextOrdersService, setPromise, agrupationTypeDispatcher,
                                 contextAgrupationsService, contextCatalogObserver){
 
@@ -80,7 +80,7 @@
                                                    selectedOrder,
                                                    orderModification);
 
-                  ToastCommons.mensaje(us.translate(modifierOkText));
+                  toastr.success(us.translate(modifierOkText), us.translate('AVISO_TOAST_TITLE'));
                   $rootScope.$emit('lista-producto-agrego-producto');
               })
           }

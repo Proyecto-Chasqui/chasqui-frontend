@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('promiseService', promiseService);
 
-	function promiseService($q, restProxy, us, $log, $state, ToastCommons, $rootScope) {
+	function promiseService($q, restProxy, us, $log, $state, toastr, $rootScope) {
 		var vm = this;
 
 		vm.doGet = function(url, params, noOkFuctionParam) {
@@ -93,7 +93,7 @@
 			$log.error("error al llamar a un servicio", response);
 
 			if (response.status == 401) {
-				ToastCommons.mensaje("Por favor vuelva a loguarse");
+				toastr.info(us.translate('VUELVA_A_LOGUEAR'), us.translate('AVISO_TOAST_TITLE'));
 				$rootScope.$broadcast('logout', "");
 				$state.go('catalog.login');
 			} else {
@@ -105,7 +105,7 @@
 						key: 'GENERIC_ERROR'
 					});
 				} else {
-					ToastCommons.mensaje(response.data.error);
+					ToastCommons.error(response.data.error, "Error");
 				}
 
 			}
