@@ -53,7 +53,7 @@
 		vm.callReset = function(email) {
 
 			function doOk(response) {
-				toastr.success("Revisa tu correo !","Cuenta creada");
+				toastr.success("Revisá tu correo","Cuenta creada");
 			}
 
 			perfilService.resetPass(email).then(doOk)

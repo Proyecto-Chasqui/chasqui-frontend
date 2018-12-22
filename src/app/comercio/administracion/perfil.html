@@ -6,7 +6,7 @@
             <md-tabs md-dynamic-height md-border-bottom md-selected="perfilCtrl.selectedIndexPerfil">
                 <md-tab label="Datos Personales">
                     <div class="md-padding">
-                        <form-usuario 
+                        <form-usuario
                             button-edit-label="Editar"
                             button-edit-action="editProfile"
                             button-edit-show="showEdit"
@@ -27,7 +27,7 @@
                 </md-tab>
                 <md-tab label="Direcciones de envio">
                     <div class="md-padding">
-                        <form-addresses 
+                        <form-addresses
                             load-previous-directions="true"
                             on-save="save"
                             on-delete="delete"
@@ -35,10 +35,10 @@
                         />
                     </div>
                 </md-tab>
-                <md-tab label="Acciones">
+                <md-tab label="Contraseña">
                     <div ng-include="'app/comercio/administracion/perfil.acciones.html'"></div>
             </md-tabs>
         </md-content>
-        <div ng-include="'app/comercio/administracion/formularios/map.html'"/> 
+        <div ng-include="'app/comercio/administracion/formularios/map.html'"/>
     </div>
 </div>
