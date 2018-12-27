@@ -4,48 +4,49 @@
   </span>
   <chq-catalog-box ng-cloak>
     <chq-product-card ng-repeat="producto in listaProductosCtrl.productos" data="producto">
-      
-      <chq-principal-product-image 
-        image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}" 
-        texto="Explore mas imágenes" 
+
+      <chq-principal-product-image
+        image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}"
+        texto="Explore mas imágenes"
         ng-click="listaProductosCtrl.verProducto(producto)">
       </chq-principal-product-image>
-      
+
       <chq-product-description description="producto.nombreProducto"></chq-product-description>
-      
-      <chq-producer-name 
+
+      <chq-producer-name
         nombre="producto.nombreFabricante"
         ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
       </chq-producer-name>
-      
+
       <chq-box-container space="space-between">
         <chq-price-product precio="producto.precio" tamanho="1.6"></chq-price-product>
-        <chq-add-button 
+        <chq-add-button
           text="{{'AGREGAR_BTN' | translate}}"
-          ng-click="listaProductosCtrl.agregar(producto)" 
+          ng-click="listaProductosCtrl.agregar(producto)"
           title="Agregar al pedido">
         </chq-add-button>
       </chq-box-container>
-      
-      <chq-stamps-container  alto="3rem" space="flex-start"> 
-        <chq-stamp 
+
+      <chq-stamps-container  alto="3rem" space="flex-start">
+        <chq-stamp
           ng-repeat="medalla in producto.medallasProductor"
-          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" 
+          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
           image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
           texto="medalla.nombre">
         </chq-stamp>
-        <chq-stamp 
+        <chq-stamp
           ng-repeat="medalla in producto.medallasProducto"
-          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)" 
+          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
           image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
           texto="medalla.nombre">
         </chq-stamp>
       </chq-stamps-container>
     </chq-product-card>
   </chq-catalog-box>
-  <chq-paginator></chq-paginator>
-  
-  
+  <!-- <chq-paginator></chq-paginator> -->
+  <cl-paging flex cl-pages="listaProductosCtrl.paging.total" , cl-steps="12" , cl-page-changed="listaProductosCtrl.paging.onPageChanged()" ,
+   cl-align="center center" , cl-current-page="listaProductosCtrl.paging.current"></cl-paging>
+
   <!-- ********************* dialogo de medalla *******************-->
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="myDialog">
@@ -86,5 +87,5 @@
 
           </md-dialog>
       </div>
-  </div>  
+  </div>
 </div>
