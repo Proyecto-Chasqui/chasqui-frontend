@@ -8,7 +8,7 @@
 	 * @ngInject Contenido del tab de grupo. Recibe por parametro el id del
 	 *           grupo
 	 */
-	function DetalleGruposController($log, $scope, $timeout, ToastCommons, 
+	function DetalleGruposController($log, $scope, $timeout, ToastCommons, toastr,
                                       dialogCommons, gccService, StateCommons, us, 
                                       URLS, REST_ROUTES, usuario_dao) {
         
@@ -53,7 +53,7 @@
 
 		vm.callQuitarMiembro = function(miembro) {
 			function doOk() {
-				ToastCommons.mensaje(us.translate('SE_QUITO_MIEMBRO'));
+				toastr.info(us.translate('SE_QUITO_MIEMBRO'),us.translate('AVISO_TOAST_TITLE'));
 				//$scope.$emit("quito-miembro-grupo");
 				vm.grupo.miembros.splice(vm.grupo.miembros.indexOf(miembro), 1);
 			}
@@ -121,7 +121,7 @@
         
         function callCederAdministracionGrupo(miembro){            
 			function doOk() {
-				ToastCommons.mensaje("El nuevo administrador es " + miembro.nickname);
+				toastr.success("El nuevo administrador es " + miembro.nickname , us.translate('AVISO_TOAST_TITLE'));
 				vm.isAdmin = false;
                 vm.grupo.emailAdministrador = miembro.email;
                 vm.hideMemberOptions();

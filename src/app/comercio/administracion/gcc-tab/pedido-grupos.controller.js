@@ -6,11 +6,11 @@
     /*
      * Contenido del tab de grupo. Recibe por parametro el id del grupo
      */
-    
+
     /*
      * @ngInject
      */
-    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL, $interval, contextOrdersService,
+    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, toastr,agrupationTypeVAL, $interval, contextOrdersService,
                                      contextPurchaseService,$state, usuario_dao, dialogCommons, $mdDialog, confirmOrder, productoService) {
 
         $scope.configuracionVenedor;
@@ -31,22 +31,22 @@
         $scope.cancelOrder = cancelOrder;
         $scope.isLoggedUser = isLoggedUser;
         $scope.classForState = classForState;
-      
-        
+
+
         /////////////////////////////////////////////////
-        
+
         function cerrarToolTipMsg(){
-            return "Podes cerrar el pedido grupal!";
+            return "Podés cerrar el pedido grupal.";
         }
-        
+
         function cerradoToolTipMsg(){
-            return "El pedido grupal esta cerrado. Confirma tu pedido individual para abrirlo!";
+            return "Para abrir el pedido grupal, alguien del grupo debe confirmar su compra individual.";
         }
-        
+
         function selfPara(miembro){
-            return miembro.nickname + ((miembro.email == usuario_dao.getUsuario().email) ? " (Vos)" : ""); 
+            return miembro.nickname + ((miembro.email == usuario_dao.getUsuario().email) ? " (Vos)" : "");
         }
-        
+
         function isLoggedUser(member){
             return member.email == usuario_dao.getUsuario().email;
         }
@@ -62,28 +62,28 @@
         function hayAlgunPedidoAbierto() {
             return algunPedidoTieneEstado($scope.grupo.miembros, 'ABIERTO');
         }
-        
+
         function hayAlgunPedidoConfirmado(){
             return algunPedidoTieneEstado($scope.grupo.miembros, 'CONFIRMADO');
         }
-            
+
         function algunPedidoTieneEstado(miembros, estado){
             return any(miembros, function(m){return m.pedido != null && m.pedido.estado == estado})
         }
-        
+
         function any(list, property){
             return list.reduce(function(r,e){return r || property(e)}, false);
         }
-        
-        
+
+
         // Confirm group's order
-        
-        function confirmGCCOrder() {	
+
+        function confirmGCCOrder() {
             var actions = {
                 doOk: doConfirmOrder,
                 doNotOk: ignoreAction
             };
-            
+
             var activeMembers = $scope.grupo.miembros.filter(function(m){return m.pedido != null && m.pedido.estado == "CONFIRMADO"});
 
             var adHocOrder = {
@@ -92,17 +92,17 @@
                 montoActualPorMiembro: activeMembers.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual; return r}, {}),
                 type: agrupationTypeVAL.TYPE_GROUP
             }
-            
+
             dialogCommons.selectDeliveryAddress(actions, adHocOrder);
         };
-        
-        
+
+
         function doConfirmOrder(selectedAddress, answers) {
             $log.debug('callConfirmar', $scope.pedido);
 
            function doOk(response) {
                 $log.debug("--- confirmar pedido response ", response.data);
-                ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
+                toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'),us.translate('AVISO_TOAST_TITLE'));
                 location.reload();
 			     }
 
@@ -119,10 +119,10 @@
                     }
                 })
             }
-            
+
             gccService.confirmarPedidoColectivo(completeConfirmColectiveOrderParams(params, selectedAddress)).then(doOk);
         }
-        
+
         function completeConfirmColectiveOrderParams(params, selectedAddress){
             return {
                 address: function(){
@@ -137,20 +137,20 @@
                 }
             }[selectedAddress.type]();
         }
-        
+
         // Confirm & cancel personal order in GCC
-        
+
         function confirmOrderImpl(order){
             order.type = "GROUP";
             confirmOrder(order)
         }
-        
+
         function cancelOrder(order){
-            dialogCommons.confirm("¿Cancelar pedido?", 
-                                  "¿Está seguro que quiere cancelarlo?", 
-                                  "Si", 
-                                  "No", 
-                                  doCancelOrder(order), 
+            dialogCommons.confirm("¿Cancelar pedido?",
+                                  "¿Está seguro que quiere cancelarlo?",
+                                  "Si",
+                                  "No",
+                                  doCancelOrder(order),
                                   ignoreAction);
         }
 
@@ -161,7 +161,7 @@
 
                 function doOk(response) {
                     $log.debug("--- cancelar pedido response ", response.data);
-                    ToastCommons.mensaje(us.translate('CANCELADO'));
+                    toastr.success(us.translate('CANCELADO'),us.translate('AVISO_TOAST_TITLE'));
                     /*contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), order);
                     if(order.type == "PERSONAL"){
                         contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
@@ -172,18 +172,18 @@
                 productoService.cancelarPedidoIndividual(order.id).then(doOk);
             }
         }
-        
-        
+
+
 
 
         function ignoreAction(){
             $mdDialog.hide();
         }
-        
+
         function totalForMember(member){
             return member.pedido != null? member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0): 0;
         }
-      
+
         function montoTotalGrupo(){
             return $scope.group.miembros.reduce(function(r,m){
                 if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
@@ -193,21 +193,21 @@
                 }
             }, 0);
         }
-      
+
         // animación de la barra del monto total
-      
+
         var porcentajeMontoMinimo = Math.min((montoTotalGrupo() / $scope.montoMinimo)*100, 100);
-            
+
         var interval = $interval(function() {
           var increment = 1;
-          
+
           if($scope.porcentajeMontoMinimo < porcentajeMontoMinimo && $scope.porcentajeMontoMinimo < 100){
             if(($scope.porcentajeMontoMinimo / porcentajeMontoMinimo) * 100 < 75){
               $scope.porcentajeMontoMinimo += increment*6;
             }else{
               $scope.porcentajeMontoMinimo += increment*2;
             }
-            
+
             if($scope.porcentajeMontoMinimo < 17){
               $scope.estadoPedido = "colorCero";
             }else if($scope.porcentajeMontoMinimo < 33){
@@ -223,19 +223,19 @@
             }else if($scope.porcentajeMontoMinimo == 100){
               $scope.estadoPedido = "puedeConfirmar";
             }
-            
+
           }else{
             $interval.cancel(interval);
           }
         }, 200);
-        
+
         function classForState(state){
             var res = {
                 ABIERTO: "ch-estado-pedido-abierto",
                 CANCELADO: "ch-estado-pedido-cancelado",
                 CONFIRMADO: "ch-estado-pedido-confirmado"
             };
-            
+
             return res[state];
         }
     }

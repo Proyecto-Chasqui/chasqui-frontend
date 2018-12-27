@@ -10,5 +10,6 @@
     "MENU_NODES" : "Los pedidos de mi nodo",
     "MENU_DELIVERY_POINTS": "Puntos de entrega",
 	"MENU_PERFIL" : "Perfil",
-	"CERRAR_GRUPAL" : "Cerrar pedido grupal"
+	"CERRAR_GRUPAL" : "Cerrar pedido grupal",
+	"LOADING_TEXT" : "Cargando..."
 }

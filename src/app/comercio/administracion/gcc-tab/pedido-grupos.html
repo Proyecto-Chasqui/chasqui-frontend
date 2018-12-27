@@ -13,7 +13,7 @@
         </div>
         <md-progress-linear ng-class="estadoPedido" md-mode="determinate" value="{{porcentajeMontoMinimo}}"></md-progress-linear>
       </div>
-      <md-button class="btn-confirmar" 
+      <md-button class="btn-confirmar"
           ng-click="confirmGCCOrder()"
           ng-show="grupo.esAdministrador"
           ng-disabled="!puedeCerrarPedidoGCC()">
@@ -31,23 +31,23 @@
           </md-tooltip>
           <md-tooltip md-direction="left" ng-show="!puedeCerrarPedidoGCC()">
               {{cerradoToolTipMsg()}}
-          </md-tooltip>          
+          </md-tooltip>
       </md-button>
     </div>
- 
+
     <md-card ng-show="grupo.miembros">
         <md-card-title>
 					<md-card-title-text>
 						  <span class="md-headline">
 						      Pedidos de cada miembro
               </span>
-					</md-card-title-text>            
+					</md-card-title-text>
         </md-card-title>
-        
+
         <md-card-content>
             <md-tabs>
                 <md-tab
-                  ng-repeat="miembro in miembrosActivosDelGrupo" 
+                  ng-repeat="miembro in miembrosActivosDelGrupo"
                   label="{{::selfPara(miembro)}}"
                 >
                     <md-content class="md-padding" layout="column" layout-align="space-around">
@@ -60,10 +60,10 @@
                             </div>
                         </div>
 
-                        <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0 
+                        <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0
                                       && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO')"
                           style="margin: 10px;"
-                          layout="row" layout-align="space-between center">                             
+                          layout="row" layout-align="space-between center">
                             <div>Estado:</div>
                             <div class ="ch-estado-pedido" ng-class="classForState(miembro.pedido.estado)">
                                 {{miembro.pedido.estado}}
@@ -71,7 +71,7 @@
                         </div>
 
                         <div layout="row" layout-align="space-between center"
-                          ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0  
+                          ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0
                                    && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
                           style="margin: 10px;">
                             <div>Total:</div>
@@ -79,9 +79,9 @@
                               <chq-price-product precio="totalForMember(miembro)" tamanho="1"></chq-price-product>
                             </div>
                         </div>
-                        
-                        <div layout="row" layout-align="space-around center" 
-                             ng-show="miembro.pedido.productosResponse.length > 0 
+
+                        <div layout="row" layout-align="space-around center"
+                             ng-show="miembro.pedido.productosResponse.length > 0
                                       && miembro.pedido.estado == 'ABIERTO'
                                       && isLoggedUser(miembro)">
                             <md-button style="color: white" ng-click="confirmOrder(miembro.pedido)" class="confirm-order order-button-catalog">

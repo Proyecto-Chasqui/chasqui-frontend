@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('confirmOrder', confirmOrder);
 
-	function confirmOrder(dialogCommons, gccService, contextOrdersService, $rootScope, ToastCommons, 
+	function confirmOrder(dialogCommons, gccService, contextOrdersService, $rootScope, toastr, 
                         $mdDialog, $log, productoService, us, contextPurchaseService) {
     
     function confirmOrderImpl(order){
@@ -33,9 +33,10 @@
             $log.debug('callConfirmar', order);
 
             function doOk(response) {
-                ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
+                toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'), us.translate('AVISO_TOAST_TITLE'));
                 contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), order);
                 contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
+                $rootScope.refrescarNotificacion();
                 $rootScope.$emit('order-confirmed');
             }
 
@@ -87,9 +88,10 @@
     function doConfirmGCCOrder(order){
         return function(){
             function doOk(response){
-                ToastCommons.mensaje(us.translate('PEDIDO_CONFIRMADO_MSG'));
+                toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'), us.translate('AVISO_TOAST_TITLE'));
                 contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), order);
                 $rootScope.$emit('order-confirmed');
+                $rootScope.refrescarNotificacion();
                 contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
                   console.log("selectedAgrupation", selectedAgrupation);
                   if(selectedAgrupation.esAdministrador){

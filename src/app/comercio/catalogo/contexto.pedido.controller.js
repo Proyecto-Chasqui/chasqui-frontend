@@ -9,7 +9,7 @@
     *  FAB Button de contexto de compra.
     */
     function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, contextCatalogObserver,
-                                     productoService, $timeout, contextPurchaseService, contextCatalogsService, ToastCommons,
+                                     productoService, $timeout, contextPurchaseService, contextCatalogsService, toastr,
                                      usuario_dao, modifyVarietyCount, contextOrdersService, confirmOrder, dialogCommons) {
 
         $log.debug("ContextoPedidoController .....");
@@ -44,7 +44,7 @@
 
                 function doOk(response) {
                     $log.debug("--- cancelar pedido response ", response.data);
-                    ToastCommons.mensaje(us.translate('CANCELADO'));
+                    toastr.info(us.translate('CANCELADO'), us.translate('AVISO_TOAST_TITLE'));
                     contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), order);
                     if(order.type == "PERSONAL"){
                         contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());

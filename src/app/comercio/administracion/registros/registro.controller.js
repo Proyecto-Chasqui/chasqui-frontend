@@ -6,7 +6,7 @@
 
 	/** Contempla los datos personales y 
 	 *  el domicilio en dos pasos pero en la misma pantalla*/
-	function RegistroController($log, $state, $scope, perfilService, ToastCommons, us, $timeout) {
+	function RegistroController($log, $state, $scope, perfilService, ToastCommons, toastr, us, $timeout) {
         
         $scope.selectedIndex = 0;
         
@@ -41,7 +41,7 @@
             }else{
 				$log.error("las contrasenas no coinciden: ", perfil.password, perfil.passVerification);
 				// TODO: enviar mensaje
-				ToastCommons.mensaje(us.translate('PASS_INCORRECTO_MSG'))
+				toastr.error(us.translate('PASS_INCORRECTO_MSG'), "Error");
             }
         }
         
@@ -84,17 +84,8 @@
         
 		function mostrarMensajesDeBienvenida() {
 
-			$timeout(function() {
-				ToastCommons.mensaje(us.translate('BIENVENIDO'));
-			}, 3000);
-
-			$timeout(function() {
-				ToastCommons.mensaje(us.translate('INGRESA_MSG'));
-			}, 10000);
-
-			$timeout(function() {
-				ToastCommons.mensaje(us.translate('CORREO_MSG'));
-			}, 15000);
+			toastr.info(us.translate('INGRESA_MSG'), us.translate('AVISO_TOAST_TITLE'));
+            toastr.info(us.translate('CORREO_MSG'), us.translate('AVISO_TOAST_TITLE'));
 		}
 	}
 
