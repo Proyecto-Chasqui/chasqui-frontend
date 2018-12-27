@@ -117,6 +117,10 @@
     $scope.$watch();
     //////////////////////////////
 
+    function toTop(){
+        window.scrollTo(0,0);
+    }
+
     vm.agregar = function(variety) {
 
       if (usuario_dao.isLogged()) {
@@ -230,8 +234,9 @@
         vm.pageNum = (6 <= vm.paging.disponibles)? 6 : vm.paging.disponibles;
         vm.lastPage = response.data.totalDePaginas;
         vm.setLastPage();
-        $log.warn("SOY LA PRUEBA DE PAGINACION" + vm.productos.total);
-        $log.warn("SOY LA ULTIMA PAGINA: " + vm.lastPage);
+        //$log.warn("SOY LA PRUEBA DE PAGINACION" + vm.productos.total);
+        //$log.warn("SOY LA ULTIMA PAGINA: " + vm.lastPage);
+        toTop();
         //console.log(vm.prueba);
       }
 
