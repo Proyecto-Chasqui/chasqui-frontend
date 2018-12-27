@@ -73,7 +73,7 @@
 
       var userGroups = { 
                           id: 'MY_GROUPS',
-                          route: 'userGroups',
+                          route: 'userGroups.all',
                           label: 'MENU_GRUPO',
                           needLogin: true
                       };
