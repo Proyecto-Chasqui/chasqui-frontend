@@ -140,7 +140,7 @@
         function totalNotificaciones(){
             function doOk(response) {
                 $log.debug('totalNotificaciones', response.data);
-                vm.pages = Math.round(response.data / 5);
+                vm.pages = Math.ceil(response.data / 5);
                 $scope.paging = {
                     total: vm.pages,
                     current: 1,
