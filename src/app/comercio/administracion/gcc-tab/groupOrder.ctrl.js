@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('chasqui').controller('PedidoGruposController',PedidoGruposController);
+    angular.module('chasqui').controller('GroupOrderController',GroupOrderController);
 
     /*
      * Contenido del tab de grupo. Recibe por parametro el id del grupo
@@ -10,25 +10,26 @@
     /*
      * @ngInject
      */
-    function PedidoGruposController($scope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL, $interval, contextOrdersService,
-                                     contextPurchaseService,$state, usuario_dao, dialogCommons, $mdDialog, confirmOrder, productoService) {
+    function GroupOrderController($scope, $rootScope, $log, URLS, gccService, us, ToastCommons, agrupationTypeVAL, $interval, 
+                                   contextOrdersService, contextPurchaseService,$state, usuario_dao, dialogCommons, 
+                                   $mdDialog, confirmOrder, productoService) {
 
-        $scope.configuracionVenedor;
-        $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
         $scope.urlBase = URLS.be_base;
+        
+        $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
         $scope.cerrarToolTipMsg = cerrarToolTipMsg;
         $scope.cerradoToolTipMsg = cerradoToolTipMsg;
+        
         $scope.selfPara = selfPara;
         $scope.vocativoPara = vocativoPara;
-        $scope.miembrosActivosDelGrupo = $scope.grupo.miembros.filter(function(m) { return m.invitacion == 'NOTIFICACION_ACEPTADA' });
-        $scope.confirmGCCOrder = confirmGCCOrder;
+        
+        $scope.miembrosActivosDelGrupo = [];
         $scope.totalForMember = totalForMember;
-        $scope.montoTotalGrupo = montoTotalGrupo;
-        $scope.montoMinimo = $scope.grupo.miembros[0].pedido? $scope.grupo.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
-        $scope.porcentajeMontoMinimo = 0;
-        $scope.estadoPedido = "colorCero";
+        
         $scope.confirmOrder = confirmOrderImpl;
         $scope.cancelOrder = cancelOrder;
+        $scope.confirmGCCOrder = confirmGCCOrder;
+        
         $scope.isLoggedUser = isLoggedUser;
         $scope.classForState = classForState;
       
@@ -60,11 +61,11 @@
         }
 
         function hayAlgunPedidoAbierto() {
-            return algunPedidoTieneEstado($scope.grupo.miembros, 'ABIERTO');
+            return algunPedidoTieneEstado($scope.group.miembros, 'ABIERTO');
         }
         
         function hayAlgunPedidoConfirmado(){
-            return algunPedidoTieneEstado($scope.grupo.miembros, 'CONFIRMADO');
+            return algunPedidoTieneEstado($scope.group.miembros, 'CONFIRMADO');
         }
             
         function algunPedidoTieneEstado(miembros, estado){
@@ -72,7 +73,7 @@
         }
         
         function any(list, property){
-            return list.reduce(function(r,e){return r || property(e)}, false);
+            return list != undefined && list.reduce(function(r,e){return r || property(e)}, false);
         }
         
         
@@ -84,7 +85,7 @@
                 doNotOk: ignoreAction
             };
             
-            var activeMembers = $scope.grupo.miembros.filter(function(m){return m.pedido != null && m.pedido.estado == "CONFIRMADO"});
+            var activeMembers = $scope.group.miembros.filter(function(m){return m.pedido != null && m.pedido.estado == "CONFIRMADO"});
 
             var adHocOrder = {
                 montoActual: activeMembers.reduce(function(r,m){return r + m.pedido.montoActual}, 0),
@@ -107,7 +108,7 @@
 			     }
 
 			     var params = {
-                idGrupo: $scope.grupo.idGrupo,
+                idGrupo: $scope.group.idGrupo,
                 idDireccion: "",
                 idPuntoDeRetiro: "",
                 idZona: "",
@@ -173,8 +174,6 @@
             }
         }
         
-        
-
 
         function ignoreAction(){
             $mdDialog.hide();
@@ -185,49 +184,14 @@
         }
       
         function montoTotalGrupo(){
-            return $scope.group.miembros.reduce(function(r,m){
+            return $scope.group.miembros != undefined? $scope.group.miembros.reduce(function(r,m){
                 if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
                     return r + m.pedido.montoActual;
                 }else{
                     return r;
                 }
-            }, 0);
+            }, 0) : 0;
         }
-      
-        // animación de la barra del monto total
-      
-        var porcentajeMontoMinimo = Math.min((montoTotalGrupo() / $scope.montoMinimo)*100, 100);
-            
-        var interval = $interval(function() {
-          var increment = 1;
-          
-          if($scope.porcentajeMontoMinimo < porcentajeMontoMinimo && $scope.porcentajeMontoMinimo < 100){
-            if(($scope.porcentajeMontoMinimo / porcentajeMontoMinimo) * 100 < 75){
-              $scope.porcentajeMontoMinimo += increment*6;
-            }else{
-              $scope.porcentajeMontoMinimo += increment*2;
-            }
-            
-            if($scope.porcentajeMontoMinimo < 17){
-              $scope.estadoPedido = "colorCero";
-            }else if($scope.porcentajeMontoMinimo < 33){
-              $scope.estadoPedido = "colorUno";
-            }else if($scope.porcentajeMontoMinimo < 50){
-              $scope.estadoPedido = "colorDos";
-            }else if($scope.porcentajeMontoMinimo < 67){
-              $scope.estadoPedido = "colorTres";
-            }else if($scope.porcentajeMontoMinimo < 83){
-              $scope.estadoPedido = "colorCuatro";
-            }else if($scope.porcentajeMontoMinimo < 100){
-              $scope.estadoPedido = "colorCinco";
-            }else if($scope.porcentajeMontoMinimo == 100){
-              $scope.estadoPedido = "puedeConfirmar";
-            }
-            
-          }else{
-            $interval.cancel(interval);
-          }
-        }, 200);
         
         function classForState(state){
             var res = {
@@ -238,5 +202,18 @@
             
             return res[state];
         }
+        
+        //////// Init
+        
+        function init(){
+            $scope.miembrosActivosDelGrupo = $scope.group.miembros.filter(function(m) { return m.invitacion == 'NOTIFICACION_ACEPTADA' });
+            $scope.montoMinimo = $scope.group.miembros[0].pedido? $scope.group.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
+            $scope.porcentajeMontoMinimo = 0;
+        }
+        
+        $rootScope.$on('group-is-loaded', function(event, group) {
+            console.log("group", group);
+            init();
+        });
     }
 })();

@@ -1,50 +1,41 @@
-<md-card flex="100" layout="column" layout-align="space-between">
-    <md-card-title>
-        <md-card-title-text>
-          <span class="md-headline">Historial de pedidos del grupo</span>
-        </md-card-title-text>
-    </md-card-title>
-    <div layout="row" layout-align="space-between start">
-        <md-card flex="100">
-          <div ng-show="pedidosFiltrados.length == 0" layout="row" layout-align="center center" style="font-style: italic;">
-            El grupo no tiene pedidos confirmados
+<div flex="100">
+  <div ng-show="pedidosFiltrados.length == 0" layout="row" layout-align="center center" style="font-style: italic;">
+    El grupo no tiene pedidos confirmados
+  </div>
+  <md-list layout-fill ng-show="pedidosFiltrados.length > 0" style="padding: 0px;">
+    <md-list-item style="background-color: #33ccff; font-weight: bold;">
+      <div layout="row" layout-fill>
+        <div flex="33" style="text-align: center">
+          Fecha de confirmación
+        </div>
+        <div flex="33" style="text-align: center">
+          Monto total
+        </div>
+        <div flex="34" style="text-align: center">
+          Direccción de entrega
+        </div>
+      </div>
+    </md-list-item>
+    <md-list-item 
+        class="md-1-line" 
+        ng-repeat="(i, pedido) in pedidosFiltrados" 
+        ng-class="classForItem(i)">
+      <div ng-click="viewOrderDetail(adaptOrder(pedido))" layout-fill>
+        <div layout="row" layout-fill>
+          <div flex="33" style="text-align: center">
+            {{pedido.fechaModificacion}}
           </div>
-          <md-list layout-fill ng-show="pedidosFiltrados.length > 0" style="padding: 0px;">
-            <md-list-item style="background-color: #33ccff; font-weight: bold;">
-              <div layout="row" layout-fill>
-                <div flex="33" style="text-align: center">
-                  Fecha de confirmación
-                </div>
-                <div flex="33" style="text-align: center">
-                  Monto total
-                </div>
-                <div flex="34" style="text-align: center">
-                  Direccción de entrega
-                </div>
-              </div>
-            </md-list-item>
-            <md-list-item 
-                class="md-1-line" 
-                ng-repeat="(i, pedido) in pedidosFiltrados" 
-                ng-class="classForItem(i)">
-              <div ng-click="viewOrderDetail(adaptOrder(pedido))" layout-fill>
-                <div layout="row" layout-fill>
-                  <div flex="33" style="text-align: center">
-                    {{pedido.fechaModificacion}}
-                  </div>
-                  <div flex="33" layout="row" layout-align="center center">
-                    <chq-price-product precio="pedido.montoTotal" tamanho="1"></chq-price-product>
-                  </div>
-                  <div flex="34" style="text-align: center">
-                    {{direccionDeEntrega(pedido)}}
-                  </div>
-                </div>
-                <md-tooltip md-direction="bottom">
-                    Ver detalle
-                </md-tooltip>
-              </div>
-            </md-list-item>
-          </md-list>
-        </md-card>
-    </div>
-</md-card>
+          <div flex="33" layout="row" layout-align="center center">
+            <chq-price-product precio="pedido.montoTotal" tamanho="1"></chq-price-product>
+          </div>
+          <div flex="34" style="text-align: center">
+            {{direccionDeEntrega(pedido)}}
+          </div>
+        </div>
+        <md-tooltip md-direction="bottom">
+            Ver detalle
+        </md-tooltip>
+      </div>
+    </md-list-item>
+  </md-list>
+</div>

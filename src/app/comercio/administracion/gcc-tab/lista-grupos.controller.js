@@ -12,11 +12,11 @@
     navigation_state.goMyGroupsTab();
 
     $scope.urlBase = URLS.be_base;
-    $scope.groups = [];
     $scope.showOptions = [];
     $scope.newGroup = newGroup;
     $scope.showOptionsForGroup = showOptionsForGroup;
     $scope.countOrdersConfirmed = countOrdersConfirmed;
+    $scope.getClassForItemGroup = getClassForItemGroup;
 
     ///////////////////////////////////////
 
@@ -39,6 +39,9 @@
     }
       
       
+    function getClassForItemGroup(i){
+        return $scope.showOptions[i]? "ch-item-selected" : "ch-item-no-selected";
+    }
       
     // Privado
       
@@ -59,7 +62,6 @@
         $log.debug("--- find grupos--------");
         contextCatalogObserver.observe(function(){
             contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-                $scope.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
                 $scope.showOptions = $scope.groups.map(function(g){return false});
             });
         })
