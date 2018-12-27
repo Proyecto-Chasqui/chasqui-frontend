@@ -52,10 +52,43 @@
             })
             .state('catalog.userGroups', {
                 url: '/misGrupos',
-                templateUrl: 'app/comercio/administracion/gcc-tab/lista-grupos.html',
-                controller: 'ListaGruposController',
-                auth: true
-            })  
+                templateUrl: 'app/comercio/administracion/gcc-tab/groups.tmpl.html',
+                controller: 'GroupsController',
+                auth: true,
+                abstract: true,
+            })
+    
+                .state('catalog.userGroups.all', {
+                    url: '/todos',
+                    templateUrl: 'app/comercio/administracion/gcc-tab/lista-grupos.html',
+                    controller: 'ListaGruposController',
+                    auth: true
+                })
+                .state('catalog.userGroups.group', {
+                    url: '/:groupId',
+                    templateUrl: 'app/comercio/administracion/gcc-tab/group.tmpl.html',
+                    controller: 'GroupController',
+                    //abstract: true,
+                    auth: true
+                })
+                    .state('catalog.userGroups.group.membersOrders', {
+                        url: '/pedidoActual',
+                        templateUrl: 'app/comercio/administracion/gcc-tab/groupOrder.tmpl.html',
+                        controller: 'GroupOrderController',
+                        auth: true
+                    })
+                    .state('catalog.userGroups.group.historicOrders', {
+                        url: '/historial',
+                        templateUrl: 'app/comercio/administracion/gcc-tab/groupOrders.tmpl.html',
+                        //controller: 'GroupOrdersController',
+                        auth: true
+                    })
+                    .state('catalog.userGroups.group.admin', {
+                        url: '/administracion',
+                        templateUrl: 'app/comercio/administracion/gcc-tab/groupAdmin.tmpl.html',
+                        controller: 'GroupAdminController',
+                        auth: true
+                    })
             .state('catalog.userNodes', {
                 url: '/misNodos',
                 templateUrl: 'app/comercio/administracion/lista-nodos.html',
