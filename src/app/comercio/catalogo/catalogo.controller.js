@@ -10,13 +10,13 @@
 	 * contexto de compra , pero NO la lista de productos la cual se incluye
 	 */
 	function CatalogoController($scope, $rootScope, $log, URLS, REST_ROUTES, $timeout, StateCommons, productorService,
-		productoService, ToastCommons, gccService, us, $mdSidenav, $state, usuario_dao, navigation_state, contextPurchaseService) {
+		productoService, ToastCommons, webSocketService, gccService, us, $mdSidenav, $state, usuario_dao, navigation_state, contextPurchaseService) {
 
 		$log.debug("CatalogoController ..... grupoSelected");
 
 		navigation_state.goCatalogTab();
 		var vm = this;
-
+		vm.webSocketService = webSocketService;
 		vm.toggleLeft = buildToggler('left');
 		vm.toggleRight = buildToggler('right');
 
