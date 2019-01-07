@@ -35,7 +35,7 @@
 
                 be_rest: URL_REST_BASE,
 
-                be_base_websocket: URL_BASE_WEBSOCKET,
+                be_websocket: URL_BASE_WEBSOCKET,
             }
 
         }())

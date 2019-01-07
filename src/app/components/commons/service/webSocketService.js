@@ -7,7 +7,7 @@ angular
 
     function webSocketService(toastr,$websocket,$log,contextPurchaseService,digestMessageService,URLS){
     	//parametrizar
-      var dataStream = $websocket(URLS.be_websocket.concat("/notificaciones"), null, { reconnectIfNotNormalClose: true });
+      var dataStream = $websocket(URLS.be_websocket.concat("notificaciones"), null, { reconnectIfNotNormalClose: true });
 
       dataStream.onMessage(function(message) {
         digestMessageService.webSocketMessageDispatch(JSON.parse(message.data));
