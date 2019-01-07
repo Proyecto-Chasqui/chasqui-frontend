@@ -1,22 +1,22 @@
 <div class="ch-detalle-pedido-grupal-container">
-  <div class="ch-detalle-pedido-grupal-members">
+  <div class="ch-arrow-list-container ch-group-members-orders-list">
     <div 
-      class="ch-member-order-button ch-show-member-order-button" 
+      class="ch-arrow-list-elem ch-group-members-orders-list-width ch-arrow-list-elem-select" 
       ng-click="showAll()" 
       ng-show="!showFullOrder"
       title="Ver todo el pedido">
       Todo el pedido
     </div>
     <div layout="row" layout-align="center center" ng-show="showFullOrder">
-      <div class="ch-member-order-button ch-hide-member-order-button">
+      <div class="ch-arrow-list-elem ch-group-members-orders-list-width ch-arrow-list-elem-hide">
         Todo el pedido
       </div>
-      <div class="ch-selected-member">
+      <div class="ch-arrow-list-elem-selected">
       </div>
     </div>
     <div ng-repeat="member in pedido.pedidos">      
       <div 
-        class="ch-member-order-button ch-show-member-order-button" 
+        class="ch-arrow-list-elem ch-group-members-orders-list-width ch-arrow-list-elem-select" 
         ng-click="showMemberOrder(member)" 
         ng-show="memberSelected != member"
         title="Ver el pedido de {{member.cliente.alias}}">
@@ -27,10 +27,10 @@
         ng-click="hideMemberOrder(member)" 
         ng-show="memberSelected == member"
         title="Ocultar pedido de {{member.cliente.alias}}">
-        <div class="ch-member-order-button ch-hide-member-order-button">
+        <div class="ch-arrow-list-elem ch-group-members-orders-list-width ch-arrow-list-elem-hide">
           Pedido de {{member.cliente.alias}}
         </div>
-        <div class="ch-selected-member">
+        <div class="ch-arrow-list-elem-selected">
         </div>
       </div>
     </div>
@@ -50,38 +50,12 @@
     max-height: 700px;
   }
   
-  .ch-detalle-pedido-grupal-members {
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    width: 350px;
+  .ch-group-members-orders-list {
+    width: 350px;  
   }
   
-  .ch-member-order-button {
-    height: 2rem;
+  .ch-group-members-orders-list-width {
     width: 340px;
-    padding: 8px;
-    text-align: center;
-    cursor: pointer;
-    border-left: 1px solid white;
-  }
-  
-  .ch-show-member-order-button {
-    background: #58c1e8;
-    color: #deebef;
-  }
-  
-  .ch-selected-member {
-    width: 0px;
-    height: 0px;
-    border-left: 10px solid #0392c6;
-    border-top: 1rem solid transparent;
-    border-bottom: 1rem solid transparent;
-  }
-  
-  .ch-hide-member-order-button {
-    background: #0392c6;
-    color: #deebef;
   }
   
   .ch-detalle-pedido-grupal-member-products {

@@ -1,22 +1,20 @@
 (function() {
   'use strict';
 
-  angular.module('chasqui').controller('ListaGruposController', ListaGruposController);
+  angular.module('chasqui').controller('GroupsListController', GroupsListController);
 
   
-  function ListaGruposController($log, $scope, $state, contextCatalogObserver,
+  function GroupsListController($log, $scope, $rootScope, $state, contextCatalogObserver,
                     dialogCommons, ToastCommons, gccService, URLS, agrupationTypeVAL,
                     us, usuario_dao, navigation_state, contextPurchaseService, contextAgrupationsService) {
 
-    $log.debug("controler ListaGruposController");
-    navigation_state.goMyGroupsTab();
 
     $scope.urlBase = URLS.be_base;
-    $scope.groups = [];
     $scope.showOptions = [];
     $scope.newGroup = newGroup;
     $scope.showOptionsForGroup = showOptionsForGroup;
     $scope.countOrdersConfirmed = countOrdersConfirmed;
+    $scope.getClassForItemGroup = getClassForItemGroup;
 
     ///////////////////////////////////////
 
@@ -39,6 +37,9 @@
     }
       
       
+    function getClassForItemGroup(i){
+        return $scope.showOptions[i]? "ch-item-selected" : "ch-item-no-selected";
+    }
       
     // Privado
       
@@ -48,21 +49,14 @@
       
     //////////////////////////////////////////
       
-    $scope.$on('group-information-actualized', function(event) {
-        init();
-    });
+    $rootScope.$on('group-information-actualized', init);
       
+    $rootScope.$on('groups-are-loaded', init);
       
     /////////////////// INIT ////////////////////
 
     function init(){
-        $log.debug("--- find grupos--------");
-        contextCatalogObserver.observe(function(){
-            contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-                $scope.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
-                $scope.showOptions = $scope.groups.map(function(g){return false});
-            });
-        })
+        $scope.showOptions = $scope.groups.map(function(g){return false});
     }
 
     init();

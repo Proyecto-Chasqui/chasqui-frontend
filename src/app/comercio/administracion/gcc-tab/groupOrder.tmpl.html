@@ -1,21 +1,8 @@
-<div ng-controller="PedidoGruposController as pedidoGrupoCtrl" ng-cloak layout="column" lyout-align="space-between center">
+<div ng-cloak layout="column" lyout-align="space-between center">
     <div layout="column" layout-align="space-between">
-      <div style="margin: 8px;">
-        <div layout="row" layout-align="space-between center">
-          <div>
-            Total compra / monto mínimo
-          </div>
-          <div layout="row" layout-align="center center">
-            <chq-price-product precio="montoTotalGrupo()" tamanho="1"></chq-price-product>
-            <label>/</label>
-            <chq-price-product precio="montoMinimo" tamanho="1"></chq-price-product>
-          </div>
-        </div>
-        <md-progress-linear ng-class="estadoPedido" md-mode="determinate" value="{{porcentajeMontoMinimo}}"></md-progress-linear>
-      </div>
-      <md-button class="btn-confirmar"
+      <md-button class="btn-confirmar" 
           ng-click="confirmGCCOrder()"
-          ng-show="grupo.esAdministrador"
+          ng-show="group.esAdministrador"
           ng-disabled="!puedeCerrarPedidoGCC()">
           <label translate>
               CONFIRMAR_PEDIDO_GCC
@@ -23,19 +10,19 @@
           <md-icon ng-show="puedeCerrarPedidoGCC()" style="color:white">
               done
           </md-icon>
-          <md-tooltip md-direction="left" ng-show="puedeCerrarPedidoGCC()">
+          <md-tooltip md-direction="bottom" ng-show="puedeCerrarPedidoGCC()">
               {{cerrarToolTipMsg()}}
           </md-tooltip>
-          <md-tooltip md-direction="left" ng-show="puedeCerrarPedidoGCC()">
+          <md-tooltip md-direction="bottom" ng-show="puedeCerrarPedidoGCC()">
               {{cerrarToolTipMsg()}}
           </md-tooltip>
-          <md-tooltip md-direction="left" ng-show="!puedeCerrarPedidoGCC()">
+          <md-tooltip md-direction="bottom" ng-show="!puedeCerrarPedidoGCC()">
               {{cerradoToolTipMsg()}}
           </md-tooltip>
       </md-button>
     </div>
-
-    <md-card ng-show="grupo.miembros">
+  
+    <md-card ng-show="group.miembros">
         <md-card-title>
 					<md-card-title-text>
 						  <span class="md-headline">
@@ -51,12 +38,14 @@
                   label="{{::selfPara(miembro)}}"
                 >
                     <md-content class="md-padding" layout="column" layout-align="space-around">
-                        <div layout="column" layout-align="space-sround center" ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
+                        <div layout="column" layout-align="space-sround center" 
+                             ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
                             <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
-                                <label translate="MIEMBRO_SIN_PROD"></label>
+                                <label translate="USUARIO_SIN_PROD"></label>
                                 <continue-buying></continue-buying>
                             </div>
-                            <div ng-hide="isLoggedUser(miembro)">
+                            <div ng-show="!isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="MIEMBRO_SIN_PROD"></label>
                             </div>
                         </div>
 
