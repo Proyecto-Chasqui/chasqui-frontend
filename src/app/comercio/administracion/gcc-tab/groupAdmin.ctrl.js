@@ -4,7 +4,7 @@
   angular.module('chasqui').controller('GroupAdminController', GroupAdminController);
 
   function GroupAdminController($log, $scope, $state, contextCatalogObserver, $rootScope,
-                          dialogCommons, ToastCommons, gccService, URLS, agrupationTypeVAL,
+                          dialogCommons, toastr, gccService, URLS, agrupationTypeVAL,
                           us, usuario_dao, navigation_state, contextPurchaseService, contextAgrupationsService) {
 
     $scope.invitarUsuario = invitarUsuario;
@@ -94,7 +94,7 @@
     function callInvitarUsuario(emailClienteInvitado, grupo) {
 
         var doOk = function(response) {
-            ToastCommons.mensaje(us.translate('ENVIARA_MAIL'));
+            toastr.info(us.translate('ENVIARA_MAIL'),us.translate('AVISO_TOAST_TITLE'));
             var recienInvitado = {
                 avatar: null, 
                 nickname: null, 
@@ -118,7 +118,7 @@
         $log.debug("quitar", miembro)
 
         function doOk(response) {
-            ToastCommons.mensaje(us.translate('TE_FUISTE_GRUPO'))
+            toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'))
             callLoadGrupos();
         }
         var params = {
@@ -174,7 +174,7 @@
 
     $scope.callQuitarMiembro = function(miembro) {
       function doOk() {
-        ToastCommons.mensaje(us.translate('SE_QUITO_MIEMBRO'));
+        toastr.info(us.translate('SE_QUITO_MIEMBRO'),us.translate('AVISO_TOAST_TITLE'));
         //$scope.$emit("quito-miembro-grupo");
         $scope.group.miembros.splice($scope.group.miembros.indexOf(miembro), 1);
       }
@@ -244,7 +244,7 @@
         
     function callCederAdministracionGrupo(miembro){            
       function doOk() {
-        ToastCommons.mensaje("El nuevo administrador es " + miembro.nickname);
+        toastr.success("El nuevo administrador es " + miembro.nickname , us.translate('AVISO_TOAST_TITLE'));
         $scope.isAdmin = false;
         $scope.group.emailAdministrador = miembro.email;
         $scope.hideMemberOptions();

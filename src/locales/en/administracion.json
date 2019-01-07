@@ -45,8 +45,8 @@
 	"PASS_CONFIRMAR" : "Confirmar contraseña",
 	"PASS_ACTUALIZADA" :"Contraseña actualizada",
 	"LEIDO" : "Leído",
-	"ACEPTADO" : "Aceptado",
-	"RECHAZADO" : "Rechazado",
+	"ACEPTADO" : "Invitación aceptada",
+	"RECHAZADO" : "Invitación rechazada",
 	"MI_PERFIL" : "Mi perfil",
 	"REGISTRO_USER" : "Registro de usuario",
 	"PEDIR_DOMICILIO" : "Es necesario configurar un domicilo en la sección 'Perfil'"

@@ -6,9 +6,10 @@
     "MENU_COMO_COMPRAR" : "Cómo comprar",
 	"MENU_CATALOGO" : "Catálogo",
 	"MENU_PEDIDO" : "Mis pedidos",
-	"MENU_GRUPO" : "Mis Grupos",
+	"MENU_GRUPO" : "Mis grupos",
     "MENU_NODES" : "Los pedidos de mi nodo",
     "MENU_DELIVERY_POINTS": "Puntos de entrega",
 	"MENU_PERFIL" : "Perfil",
-	"CERRAR_GRUPAL" : "Cerrar pedido grupal"
+	"CERRAR_GRUPAL" : "Cerrar pedido grupal",
+	"LOADING_TEXT" : "Cargando..."
 }

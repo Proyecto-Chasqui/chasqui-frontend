@@ -4,7 +4,7 @@
 	angular.module('chasqui').service('productoService', productoService);
 
 	function productoService(restProxy, setPromise, $log, REST_ROUTES, StateCommons, promiseService, 
-                              ToastCommons, $stateParams, contextCatalogsService) {
+                              toastr, $stateParams, contextCatalogsService) {
 		
         var productoServiceInt = {
             getCategorias: getCategorias,
@@ -107,9 +107,9 @@
 
             function doNoOk(response) {
                 if (response.status == 404) {
-                    ToastCommons.mensaje(response.data.error);
+                    toastr.error(response.data.error, "Error");
                 } else {
-                    ToastCommons.mensaje("algo fallo !");
+                    toastr.error("ocurrio un error inesperado" , "Error");
                 }
             }
 
@@ -131,9 +131,9 @@
                         $log.debug("--- callPedidoIndividual ", response.data);
 
                         if (response.status == 404) {
-                            ToastCommons.mensaje("Noy  hay pedidos !");
+                            toastr.error("Noy  hay pedidos !" , "Error");
                         } else {
-                            ToastCommons.mensaje("algo fallo !");
+                            toastr.error("ocurrio un error inesperado!" , "Error");
                         }
                     }
 

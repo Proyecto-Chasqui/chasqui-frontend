@@ -8,7 +8,7 @@
    * @ngInject Lista de productos.
    */
   function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
-    $state, ToastCommons, productoService, us, contextCatalogsService,
+    $state, toastr, productoService, us, contextCatalogsService,
     $mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
         usuario_dao, $stateParams, addProductService, dialogCommons) {
 
@@ -68,15 +68,15 @@
     vm.verProducto = function(product) {
       dialogCommons.showProductInfo(product);
     }
-    
-    
-    ////////////// PAGINACION
-    // vm.currentPage = 0;
-    // vm.paging = {
-    //   total: 0,
-    //   current: 1,
-    //   onPageChanged: loadPages,
-    // };
+
+
+    // PAGINACION
+    vm.currentPage = 0;
+    vm.paging = {
+     total: 0,
+     current: 1,
+     onPageChanged: loadPages,
+    };
 
     // function loadPages() {
     //   console.log('Current page is : ' + vm.paging.current);
@@ -88,10 +88,12 @@
 
     vm.setLastPage = function(){
       $scope.$broadcast('setLastPage', vm.lastPage)
-      $log.warn("BroadcastLastPage ", vm.lastPage)}
+      $log.warn("BroadcastLastPage ", vm.lastPage)
+    }
 
       $scope.$watch(vm.lastPage, vm.setLastPage());
-    $scope.$on('paginatorChange', function(event, data){
+
+      $scope.$on('paginatorChange', function(event, data){
       $log.warn("paginatorChange", vm.setLastPage);
       vm.activeIndex = data;
       vm.paging = {
@@ -108,12 +110,16 @@
       console.log("Mi indice es:  " + vm.activeIndex);
 
       // TODO : Load current page Data here
-      //vm.currentPage = vm.paging.current;
+      vm.currentPage = vm.paging.current;
       findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro);
 
     }
     $scope.$watch();
     //////////////////////////////
+
+    function toTop(){
+        window.scrollTo(0,0);
+    }
 
     vm.agregar = function(variety) {
 
@@ -129,16 +135,16 @@
                 addProductService(variety);
               }
             })
-          })        
+          })
         }else{
-          dialogCommons.acceptIssue("Producto sin stock", 
-                                    "Lamentablemente no queda más stock, te recomendamos buscar productos similares", 
-                                    "Ok", 
-                                    function(){}, 
+          dialogCommons.acceptIssue("Producto sin stock",
+                                    "Lamentablemente no queda más stock, te recomendamos buscar productos similares",
+                                    "Ok",
+                                    function(){},
                                     function(){});
         }
       } else {
-        ToastCommons.mensaje(us.translate('INVITARMOS_INGRESAR'));
+        toastr.info(us.translate('INVITARMOS_INGRESAR'));
         $log.log('not logued" ', variety);
         contextPurchaseService.ls.varianteSelected = variety;
         $state.go('catalog.login');
@@ -228,8 +234,9 @@
         vm.pageNum = (6 <= vm.paging.disponibles)? 6 : vm.paging.disponibles;
         vm.lastPage = response.data.totalDePaginas;
         vm.setLastPage();
-        $log.warn("SOY LA PRUEBA DE PAGINACION" + vm.productos.total);
-        $log.warn("SOY LA ULTIMA PAGINA: " + vm.lastPage);
+        //$log.warn("SOY LA PRUEBA DE PAGINACION" + vm.productos.total);
+        //$log.warn("SOY LA ULTIMA PAGINA: " + vm.lastPage);
+        toTop();
         //console.log(vm.prueba);
       }
 

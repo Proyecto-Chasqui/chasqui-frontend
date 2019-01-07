@@ -6,9 +6,9 @@
 
   /** @ngInject */
   function ListaPedidosController($log, $state, $scope, StateCommons, contextCatalogObserver,
-            productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, REST_ROUTES, 
+            productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, REST_ROUTES,
             navigation_state, $rootScope, $stateParams, order_context, contextCatalogsService, dialogCommons) {
-        
+
     $log.debug('ListaPedidosController ..... ');
     navigation_state.goMyOrdersTab();
 
@@ -26,14 +26,14 @@
     $scope.descripcionDelEstado = descripcionDelEstado;
     $scope.direccionDeEntrega = direccionDeEntrega;
 
-    
+
     ////////////////////////// Init //////////////////////////
-    
+
     function init() {
       $scope.selectedState = $scope.states[0];
       getOrdersWithState($scope.selectedState);
       contextCatalogObserver.observe(function(){
-        
+
         /*contextCatalogsService.getCatalogs().then(function(catalogs){
           contextPurchaseService.getOrders().then(function(orders){
             contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
@@ -61,15 +61,15 @@
         }
     });
 
-        
+
     function setTabSeleccionado(tabSelected) {
         $scope.selectedIndex = $scope.orders.map(function(o){return o.id}).indexOf(tabSelected);
         $scope.selectedIndex = ($scope.selectedIndex === -1)? 0: $scope.selectedIndex;
         $scope.selected = $scope.orders[$scope.selectedIndex];
     }
-        
+
     $scope.isPersonal = function(order){
-        return order.idGrupo === 0; 
+        return order.idGrupo === 0;
     }
 
     $scope.isCollective = function(order){
@@ -88,38 +88,38 @@
             function doOk(response) {
                 $scope.pedidosFiltrados = response.data;
                 $scope.pedidosFiltrados.reverse();
-                console.log($scope.pedidosFiltrados);    
+                console.log($scope.pedidosFiltrados);
             }
 
             promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(doOk);
         })
-    } 
+    }
 
-    
+
     function getAliasGrupo(pedido){
-      return pedido.aliasGrupo == null? "Personal": pedido.aliasGrupo;
+      return pedido.aliasGrupo == null? "Individual": pedido.aliasGrupo;
     }
 
     function viewOrderDetail(order){
       dialogCommons.viewOrderDetail(order);
     }
-    
+
     function classForItem(i){
       return i%2 == 0? "par" : "impar";
     }
-    
-    
+
+
     function descripcionDelEstado(estado){
       switch(estado){
         case "Confirmado":
-          return "Los pedidos confirmados son los últimos pedidos que le hiciste al vendedor."
+          return "Los pedidos confirmados son los últimos pedidos que hiciste."
         case "Preparado":
-          return "Los pedidos preparados son los que el vendedor ya tiene listos para entregar."
+          return "Los pedidos preparados son los que ya están listos para entregar."
         case "Enviado":
-          return "Los pedidos enviados son los que estan en camino o ya fueron entregados en la dirección."
+          return "Los pedidos enviados son los que están en camino o ya fueron entregados."
       }
     }
-    
+
     function mapToBEStates(state){
       var capState = state.toUpperCase();
       if(capState == "ENVIADO"){
@@ -128,7 +128,7 @@
         return capState;
       }
     }
-    
+
     function direccionDeEntrega(pedido){
       if(pedido.direccion != null){
         return formatDireccion(pedido.direccion) +" ("+pedido.direccion.alias + ")";
@@ -138,14 +138,14 @@
       }
       return "";
     }
-    
-    
+
+
     function formatDireccion(direccion){
       return direccion.calle +" "+ direccion.altura +", "+ direccion.localidad;
     }
-    
+
     ///////////////////////////////////
-    
+
     $rootScope.$on('lista-producto-agrego-producto', function(event) {
         $log.debug("on lista-producto-agrego-producto");
         init();
@@ -163,5 +163,5 @@
 
 
     init();
-    
+
 }})();

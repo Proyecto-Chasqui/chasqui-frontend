@@ -3,7 +3,7 @@
 
   angular.module('chasqui').service('modifyVarietyCount', modifyVarietyCount);
 
-  function modifyVarietyCount($log, dialogCommons, contextPurchaseService, ToastCommons, $rootScope, agrupationTypeVAL,
+  function modifyVarietyCount($log, dialogCommons, contextPurchaseService, toastr, $rootScope, agrupationTypeVAL,
                                 productoService, us, $state, contextOrdersService, setPromise, agrupationTypeDispatcher,
                                 contextAgrupationsService, contextCatalogObserver){
 
@@ -37,10 +37,10 @@
             dialogCommons.modifyVarietyCount(variety,
                                              order,
                                             {
-                                                title: "¿Cuántos " + varietyName + " queres?",
-                                                okButtonAgregar: "Agregar al carrito",
+                                                title: "¿Cuántos " + varietyName + " querés?",
+                                                okButtonAgregar: "Agregar al changuito",
                                                 okButtonModificar: "Modificar cantidad",
-                                                okButtonRemover: "Quitar del carrito",
+                                                okButtonRemover: "Quitar del changuito",
                                                 cancelButton: "Cancelar"
                                             },
                                              initialCount,
@@ -80,7 +80,7 @@
                                                    selectedOrder,
                                                    orderModification);
 
-                  ToastCommons.mensaje(us.translate(modifierOkText));
+                  toastr.success(us.translate(modifierOkText), us.translate('AVISO_TOAST_TITLE'));
                   $rootScope.$emit('lista-producto-agrego-producto');
               })
           }
@@ -114,7 +114,7 @@
     }
 
 
-    function modifyVarietyCountOnOrder(order, variety, countModification){   
+    function modifyVarietyCountOnOrder(order, variety, countModification){
 
         return agrupationTypeDispatcher.byElem(modifyVarietyCountOnThisOrder(order, variety, countModification),
             function(personalOrder){
@@ -122,9 +122,9 @@
             },
             function(groupOrder){
                 contextCatalogObserver.observe(function(){
-                    contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(), 
-                                                               groupOrder.idGrupo, 
-                                                               agrupationTypeVAL.TYPE_GROUP, 
+                    contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(),
+                                                               groupOrder.idGrupo,
+                                                               agrupationTypeVAL.TYPE_GROUP,
                                                                function(group){
                         group.estado = "ABIERTO";
                         return group;
@@ -138,7 +138,7 @@
             });
     }
 
-    function modifyVarietyCountOnThisOrder(order, variety, countModification){   
+    function modifyVarietyCountOnThisOrder(order, variety, countModification){
         if(order.productosResponse.filter(function(p){return p.idVariante == variety.idVariante}).length > 0){
             var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf(variety.idVariante);
             if(order.productosResponse[index].cantidad + countModification == 0){
@@ -163,5 +163,5 @@
             imagen: variety.imagenPrincipal
         }
     }
-  } 
-})(); 
+  }
+})();

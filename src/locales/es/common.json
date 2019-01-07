@@ -15,11 +15,13 @@
     "CONTACTO" : "Contacto:",
     "DOMICILIO" : "Domicilio",
     "CANCELAR" : "Cancelar",
-    "CANCELADO" : "Cancelado",
+    "CANCELADO" : "El pedido fue cancelado",
     "CONFIRMAR" : "Confirmar",
     "ANTERIOR": "Anterior",
     "SIGUIENTE": "Siguiente",
-    "ENTIENDO" : "Entiendo",
+    "ENTIENDO" : "Marcar como leído",
     "CERRAR" : "Cerrar",
-    "TOTAL_ORDERS": "Total pedidos:"
+    "TOTAL_ORDERS": "Total pedidos:",
+    "AVISO_TOAST_TITLE": "Aviso",
+    "VUELVA_A_LOGUEAR" : "Por favor volvé a ingresar"
 }

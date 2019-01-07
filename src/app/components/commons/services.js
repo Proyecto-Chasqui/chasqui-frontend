@@ -3,7 +3,7 @@
 
   angular.module('chasqui').factory('restProxy', ChasquiRest);
 
-  function ChasquiRest($http, $rootScope, $log, $state, StateCommons, ToastCommons, usuario_dao, $stateParams, catalogs_dao) {
+  function ChasquiRest($http, $rootScope, us,  $log, $state, StateCommons, toastr, usuario_dao, $stateParams, catalogs_dao) {
     /*
      * LocalStorage conserva el token del usuario. Para acceder él:
      * usuario_dao.getToken()
@@ -18,7 +18,7 @@
       $log.error("error al llamar a un servicio", response);
 
       if (response.status == 401) {
-        ToastCommons.mensaje("Por favor vuelva a loguarse");
+        toastr.info(us.translate('VUELVA_A_LOGUEAR'), us.translate('AVISO_TOAST_TITLE'));
         $state.go('catalog.login');
       } else {
 
@@ -27,7 +27,7 @@
             key: 'GENERIC_ERROR'
           });
         } else {
-          ToastCommons.mensaje(response.data.error);
+          toastr.error(response.data.error, "Error");
         }
 
       }

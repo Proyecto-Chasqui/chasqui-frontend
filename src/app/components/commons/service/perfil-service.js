@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('perfilService', perfilService);
 
-	function perfilService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons) {
+	function perfilService($log, REST_ROUTES, StateCommons, promiseService, toastr) {
 		var vm = this;
 
 		vm.verDirecciones = function() {
@@ -61,8 +61,8 @@
 			$log.debug(" service login ");
 
 			function doNoOk(response, headers) {
-				ToastCommons
-					.mensaje("Fallo la autenticación, verifique los datos");
+				toastr
+					.error("Fallo la autenticación, verifique los datos", "Error");
 			}
 
 			return promiseService.doPostPublic(REST_ROUTES.login, user, doNoOk);
@@ -73,7 +73,7 @@
 
 			function doNoOk(response) {
 				$log.debug('response reset pass ', response);
-				ToastCommons.mensaje("Error , el mail es correcto ?");
+				toastr.error("¿El mail es correcto ?", "Error");
 			}
 
 			return promiseService.doGet(REST_ROUTES.resetPass(email), {}, doNoOk);
@@ -102,10 +102,10 @@
 				$log.debug("error al guardar usuario", response.data);
 
 				if (response.status == 409) {
-					ToastCommons.mensaje(response.data.error);
+					toastr.error(response.data.error, "Error");
 				} else {
-					ToastCommons
-						.mensaje('error inesperado, intente nuevamente');
+					toastr
+						.error('error inesperado, intente nuevamente' , "Error");
 				}
 
 			}
@@ -120,10 +120,10 @@
 				$log.debug("error al guardar usuario", response.data);
 
 				if (response.status == 409) {
-					ToastCommons.mensaje(response.data.error);
+					toastr.error(response.data.error, "Error");
 				} else {
-					ToastCommons
-						.mensaje('error inesperado, intente nuevamente');
+					toastr
+						.error('error inesperado, intente nuevamente' , "Error");
 				}
 
 			}
@@ -136,7 +136,7 @@
                         
 			function doNoOk(response) {
 				$log.debug('response reset pass ', response);
-				ToastCommons.mensaje("El mail no tiene asociada una invitación");
+				toastr.warn("El mail no tiene asociada una invitación", "Advertencia");
 			}
 
 			return promiseService.doPostPublic(REST_ROUTES.getMailInvitacionAlGCC, {

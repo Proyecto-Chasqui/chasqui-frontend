@@ -1,6 +1,6 @@
 <md-dialog>
     <form ng-cloak>
-        <modal-window-title-bar title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>  
+        <modal-window-title-bar title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>
 
     <md-dialog-content>
         <div class="content" layout="row" layout-align="space-between">
@@ -15,7 +15,7 @@
                   </div>
                   <div layout="row" layout-align="start end">
                     <label style="margin-right: 4px;">
-                      El precio por unidad es 
+                      El precio por unidad es
                     </label>
                     <chq-price-product precio="variety.precio" tamanho="1.2"></chq-price-product>
                   </div>
@@ -39,7 +39,7 @@
                               No llevar el producto te sale:
                             </div>
                             <div ng-show="count() == 1">
-                              La unidad te saldría:
+                              La unidad te sale:
                             </div>
                             <div ng-show="count() > 1">
                               Las {{count()}} unidades te saldrían:
@@ -56,7 +56,7 @@
                     </div>
                     <div layout="row" layout-align="space-between center" flex="100">
                         <div flex="70" style="font-weight: bold">
-                            El total de tu pedido sería:
+                            El total es:
                         </div>
                         <div flex="30" layout="row" layout-align="center">
                             <chq-price-product precio="getTotalOrder(variety)" tamanho="1.4"></chq-price-product>

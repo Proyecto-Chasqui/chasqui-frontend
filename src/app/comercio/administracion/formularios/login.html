@@ -4,14 +4,14 @@
 			<md-card>
 				<md-card-title>
 					<md-card-title-text>
-						<span class="md-headline">Iniciar  sesión</span>
+						<span class="md-headline">Iniciar sesión</span>
 					</md-card-title-text>
 				</md-card-title>
 				<md-card-content>
 					<md-content>
 						<div layout="column" layout-align="center center">
 							<md-input-container ng-keyup="$event.keyCode == 13 && loginCtrl.login()">
-								<label>Email</label>
+								<label>Correo electrónico</label>
 								<input ng-model="loginCtrl.user.email" type="email">
 							</md-input-container>
 							<md-input-container ng-keyup="$event.keyCode == 13 && loginCtrl.login()">
@@ -24,10 +24,10 @@
 				<md-card-actions layout="row" layout-align="end center">
           <element-wrapper not-supported-strategies="nodos">
             <md-button md-no-ink class="md-primary" ui-sref="catalog.singUp">
-              Soy nuevo!
+              Registrarme
             </md-button>
           </element-wrapper>
-					<md-button md-no-ink class="md-primary" ng-click="loginCtrl.recuperar()">Olvide mi Contraseña</md-button>
+					<md-button md-no-ink class="md-primary" ng-click="loginCtrl.recuperar()">Olvidé mi contraseña</md-button>
 					<md-button class="btn-confirmar" ng-click="loginCtrl.login()">Ingresar</md-button>
 				</md-card-actions>
 			</md-card>
