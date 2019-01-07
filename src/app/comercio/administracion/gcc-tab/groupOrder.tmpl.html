@@ -38,12 +38,14 @@
                   label="{{::selfPara(miembro)}}"
                 >
                     <md-content class="md-padding" layout="column" layout-align="space-around">
-                        <div layout="column" layout-align="space-sround center" ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
+                        <div layout="column" layout-align="space-sround center" 
+                             ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
                             <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
-                                <label translate="MIEMBRO_SIN_PROD"></label>
+                                <label translate="USUARIO_SIN_PROD"></label>
                                 <continue-buying></continue-buying>
                             </div>
-                            <div ng-hide="isLoggedUser(miembro)">
+                            <div ng-show="!isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="MIEMBRO_SIN_PROD"></label>
                             </div>
                         </div>
 

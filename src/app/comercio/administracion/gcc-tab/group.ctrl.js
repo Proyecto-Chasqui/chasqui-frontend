@@ -103,8 +103,8 @@
                 $scope.group = groups[$stateParams.groupId];
                 $scope.montoMinimo = $scope.group.miembros[0].pedido? $scope.group.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
                 runStatusBar();
-                $rootScope.$broadcast('group-is-loaded', $scope.group);
                 $scope.selectedState = $state.current.name.split(".").slice(-1)[0];
+                $rootScope.$broadcast('group-is-loaded', $scope.group);
             });
         })
     }

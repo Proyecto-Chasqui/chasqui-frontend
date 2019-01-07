@@ -60,8 +60,8 @@
     
                 .state('catalog.userGroups.all', {
                     url: '/todos',
-                    templateUrl: 'app/comercio/administracion/gcc-tab/lista-grupos.html',
-                    controller: 'ListaGruposController',
+                    templateUrl: 'app/comercio/administracion/gcc-tab/groupsList.tmpl.html',
+                    controller: 'GroupsListController',
                     auth: true
                 })
                 .state('catalog.userGroups.group', {

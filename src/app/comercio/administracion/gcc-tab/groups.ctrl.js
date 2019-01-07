@@ -4,8 +4,13 @@
   angular.module('chasqui').controller('GroupsController', GroupsController);
 
   
-  function GroupsController($scope, $stateParams, contextCatalogObserver, contextPurchaseService, agrupationTypeVAL) {
+  function GroupsController($scope, $rootScope, $stateParams, contextCatalogObserver, contextPurchaseService, 
+                             agrupationTypeVAL, navigation_state, $log) {
 
+    
+    $log.debug("controler ListaGruposController");
+    navigation_state.goMyGroupsTab();
+    
     $scope.groups = [];
 
     ///////////////////////////////////////
@@ -15,7 +20,7 @@
       
     //////////////////////////////////////////
       
-    $scope.$on('group-information-actualized', function(event) {
+    $rootScope.$on('group-information-actualized', function(event) {
         init();
     });
       
@@ -26,6 +31,7 @@
         contextCatalogObserver.observe(function(){
             contextPurchaseService.getAgrupations().then(function(agrupationsInt){
                 $scope.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
+                $rootScope.$broadcast('groups-are-loaded', $scope.group);
             });
         })
     }
