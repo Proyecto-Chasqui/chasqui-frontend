@@ -11,6 +11,18 @@ $colorHoverCancelar: #7F0000;
 	//background-color: #462342 !important;*/
 }
 
+
+/* RESET */
+
+
+md-list-item.md-3-line::before {
+  min-height: 0px !important;
+}
+
+md-list-item.md-3-line > .md-no-style::before {
+  min-height: 0px !important;
+}
+
 .color-uno{
 	background-color: $colorUno !important;
 }
