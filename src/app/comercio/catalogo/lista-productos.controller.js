@@ -186,42 +186,7 @@
     // /////////// REST
 
 
-    // var findProductosPorMultiplesFiltros = function(pagina, items, params){
-    //         contextCatalogsService.getCatalogs().then(function(catalogs){
-    //             contextCatalogObserver.observe(function(){
-
-    //                 console.log('find productos multiples filtros');
-    //                 function doOk(response) {
-    //                     $log.log('findProductos Response ', response);
-
-    //                     vm.productos = response.data.productos;
-
-    //                     vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-    //                     vm.paging.current = response.data.pagina;
-    //                 }
-
-
-    //                 var serviceParams = {
-    //                     query : params.query,
-    //                     idVendedor : contextPurchaseService.getCatalogContext(),
-    //                     idMedalla : params.sello,
-    //                     idProductor: params.productor,
-    //                     idMedallaProductor: params.selloProductor,
-    //                     idCategoria: params.categoria,
-    //                     pagina: pagina,
-    //                     cantItems: items,
-    //                     precio: 'Down'
-    //                 }
-
-    //                 $log.log("parametros", serviceParams);
-
-    //                 productoService.getProductosByMultiplesFiltros(serviceParams).then(doOk);
-
-    //             })
-    //         })
-    // }
-
-    var findProductosPorMultiplesFiltros = function(pagina, items, params){
+    function findProductosPorMultiplesFiltros(pagina, items, params){
       console.log('find productos multiples filtros');
       function doOk(response) {
         $log.log('findProductos Response ', response);
@@ -234,28 +199,27 @@
         vm.pageNum = (6 <= vm.paging.disponibles)? 6 : vm.paging.disponibles;
         vm.lastPage = response.data.totalDePaginas;
         vm.setLastPage();
-        //$log.warn("SOY LA PRUEBA DE PAGINACION" + vm.productos.total);
-        //$log.warn("SOY LA ULTIMA PAGINA: " + vm.lastPage);
         toTop();
-        //console.log(vm.prueba);
       }
 
 
-      var params = {
-        query : params.query,
-        idVendedor : contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
-        idMedalla : params.sello,
-        idProductor: params.productor,
-        idMedallaProductor: params.selloProductor,
-        idCategoria: params.categoria,
-        pagina: pagina,
-        cantItems: items,
-        precio: 'Down'
-      }
-      console.log("parametros",params);
-      $log.log("parametros",params);
+      contextCatalogObserver.observe(function executeWhenCatalogIsLoaded(){          
+        var query = {
+          query : params.query,
+          idVendedor : contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
+          idMedalla : params.sello,
+          idProductor: params.productor,
+          idMedallaProductor: params.selloProductor,
+          idCategoria: params.categoria,
+          pagina: pagina,
+          cantItems: items,
+          precio: 'Down'
+        }
+        console.log("parametros",params);
+        $log.log("parametros",params);
 
-      productoService.getProductosByMultiplesFiltros(params).then(doOk);
+        productoService.getProductosByMultiplesFiltros(query).then(doOk);      
+      })
 
     }
         //Posiblemente deprecado por findProductosPorMultiplesFiltros
@@ -299,15 +263,16 @@
         vm.paging.current = response.data.pagina;
       }
 
-      var params = {
-        idVendedor: contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
-        pagina: pagina,
-        cantItems: items,
-        precio: 'Down'
-      }
+      contextCatalogObserver.observe(function executeWhenCatalogIsLoaded(){          
+        var params = {
+          idVendedor: contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
+          pagina: pagina,
+          cantItems: items,
+          precio: 'Down'
+        }
 
-      productoService.getProductosByMultiplesFiltros(params).then(doOk);
-
+        productoService.getProductosByMultiplesFiltros(params).then(doOk);
+      })
     }
 
 
@@ -316,8 +281,9 @@
     function callEmprendedores() {
       $log.debug("---callEmprendedor ---");
 
-      productorService.getProductores()
-        .then(function(data) { vm.emprendedores = data.data; })
+      productorService.getProductores().then(function(data){ 
+        vm.emprendedores = data.data; 
+      })
     }
 
     // findProductos();
