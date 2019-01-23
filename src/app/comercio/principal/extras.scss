@@ -626,3 +626,14 @@ md-tabs md-ink-bar {
     transform: rotate(360deg);
   }
 }
+
+.ch-group-administrator-description {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.ch-group-administrator-description-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
