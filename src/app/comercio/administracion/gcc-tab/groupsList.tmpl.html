@@ -1,3 +1,34 @@
+<div ng-show="groups == []" layout="column" layout-align="center center">
+  <md-card style="width: 400px; margin-top: 50px; ">
+    <md-card-content layout="column" layout-align="space-between">
+      <label>
+        Un grupo de compras colectivas está conformado por varias personas
+        que se ponen de acuerdo para comprar conjuntamente a través de la 
+        comunidad de consumo solidario 
+        <label style="text-size: 1.2rem; font-weight: bold; font-style: italic;"> Chasqui </label>.
+      </label>
+      <div style="height: 30px;">
+      </div>
+      <label style="text-size: 1.2rem; font-style: italic;">
+        ¿Por qué hacer compras colectivas?
+      </label>
+      <label style="margin-top: 10px;">
+        Quienes participamos en un grupo de compras colectivas nos coordinamos 
+        para que sea más fácil hacer y recibir los pedidos. Haciendo compras colectivas, 
+        también reducimos los tiempos y costos de logística y contribuimos a la sustentabilidad 
+        de las iniciativas de la Economía Social y Solidaria.  
+      </label>
+    </md-card-content>
+    
+    <md-card-actions layout="row" layout-align="center">
+      <md-button ng-click="newGroup()" class="btn-agregar"> 
+          <label translate="CREAR_NUEVO_GRUPO"></label>    
+          <md-icon style="color:white"> group </md-icon>
+      </md-button>
+    </md-card-actions>
+  </md-card>
+</div>
+
 <div ng-show="groups != []">
   <div layout="row" layout-align="space-between center">
       <div>
