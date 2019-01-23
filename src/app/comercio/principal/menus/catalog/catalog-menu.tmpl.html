@@ -9,17 +9,25 @@
       <div layout="row" layout-align="space-between center">
         <catalog-menu-items class="menu-element" general="true"></catalog-menu-items>
         <div ng-show="isLogued" id="menu_list_usuario" layout="row" layout-align="space-between center">
-          <div class="menu-element" style="cursor: pointer;">
-            <img ng-click="toTop()" ui-sref="catalog.profile" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">
-          </div>
-          <h2 class="menu-element" ng-click="toTop()" ui-sref="catalog.profile" style="cursor: pointer;">{{usuario.nickname}}</h2>
+          <md-button layout="row" layout-align="space-between center" style="cursor: pointer;" ng-click="toTop()" ui-sref="catalog.profile" >
+            
+            <img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">
+            
+            <h2 class="menu-element">
+              {{usuario.nickname}}
+            </h2>
+            
+            <md-tooltip style="color:#fff" md-direction="bottom">
+               Mi perfil
+            </md-tooltip>
+          </md-button>
           
           <md-button class="menu-icon menu-element" ui-sref="catalog.notifications">
 
               <ng-md-icon options="{{options}}" id="icon" icon="{{icon}}" style="fill: {{fill}};">
               </ng-md-icon>
               
-              <md-tooltip style="color:#fff" md-direction="left">
+              <md-tooltip style="color:#fff" md-direction="bottom">
                  {{'SIN_LEER' | translate}} {{notificacionesSinLeer}} 
               </md-tooltip>
           </md-button>
@@ -27,6 +35,10 @@
           </notification-icon>
           <md-button class="md-secondary menu-icon menu-element" ng-click="logOut()">
               <md-icon style="color:white;"> exit_to_app </md-icon>
+              
+              <md-tooltip style="color:#fff" md-direction="bottom">
+                 Salir
+              </md-tooltip>
           </md-button>
         </div>
         <md-button class="md-raised btn-chq-ingresa" ui-sref="catalog.login" ng-show="!isLogued"> {{'INGRESA' | translate}} </md-button>
@@ -105,7 +117,8 @@
     }
   
   .menu-element {
-    margin: 15px !important;
+    margin-left: 15px !important;
+    margin-right: 15px !important;
   }
   
   .menu-icon {
