@@ -16,13 +16,13 @@
 </div>
 
 
-</div>      
+</div>  
 
 
 
 <div class="ch-content-home">
    <section>
-   <div ng-include="'app/comercio/catalogo/lista-productos-destacados.html'"></div>
+        <div ng-include="'app/comercio/catalogo/lista-productos-destacados.html'"></div>
    </section>
 </div>
 
@@ -33,15 +33,15 @@
 
 <div class="ch-content-home">
     <div layout=row style="padding-bottom: 40px;">
-    <div flex="50" class="comocomprar-btn">
+    <div  style="cursor: pointer;" flex="50" class="comocomprar-btn" ng-click="principalCtrl.ir('catalog.howToBuy')">
   <div class="titulo-btn">
   <h2>¿Comó comprar?</h2>
   <h3>INGRESAR</h3>
   </div>
   </div>
   
-    <div flex="50" class="puntosdeentrega-btn">
-  <div class="titulo-btn">  
+    <div style="cursor: pointer;" flex="50" class="puntosdeentrega-btn" ng-click="principalCtrl.ir('catalog.deliveryPoints')">
+  <div  class="titulo-btn">  
   <h2>Puntos de entrega</h2>
   <h3>INGRESAR</h3>
   </div>
@@ -199,7 +199,7 @@
          //  nav:true,
          //  rtl:true,
 
-        dots: true,
+        dots: false,
         autoplay:true,
         autoplayTimeout:4000,
         autoplayHoverPause:true,

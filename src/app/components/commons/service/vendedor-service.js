@@ -6,6 +6,8 @@
 	function vendedorService($log, REST_ROUTES, StateCommons, promiseService, $stateParams, contextPurchaseService) {
 		var vm = this;
 		var nombreVendedor;
+		var sellerPromiseConfig;
+		var sellerPromisePageConfig;
 
 		vm.verPuntosDeEntrega = function(){
 			function filldata(response){
@@ -16,13 +18,24 @@
 		}
 
 		vm.obtenerConfiguracionVendedor = function(){
+			if(sellerPromiseConfig == null){
 				nombreVendedor = $stateParams.catalogShortName;
-				return promiseService.doGetPrivate(REST_ROUTES.seller(nombreVendedor), {});		
+				sellerPromiseConfig = promiseService.doGetPrivate(REST_ROUTES.seller(nombreVendedor), {});
+				return sellerPromiseConfig;
+			}else{
+				return sellerPromiseConfig;
+			}
+		
 		}
 
 		vm.verDatosDePortada = function(){
+			if(sellerPromisePageConfig == null){
 				nombreVendedor = $stateParams.catalogShortName;
-				return promiseService.doGetPrivate(REST_ROUTES.datosDePortada(nombreVendedor), {});
+				sellerPromisePageConfig = promiseService.doGetPrivate(REST_ROUTES.datosDePortada(nombreVendedor), {});
+				return sellerPromisePageConfig;
+			}else{
+				return sellerPromisePageConfig;
+			}
 		}
 
 	}

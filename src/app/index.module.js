@@ -5,7 +5,7 @@
       'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router',
       'toastr', 'ngMaterial', 'ngStorage', 'ngMdIcons', 'pascalprecht.translate', 
       'leaflet-directive','angular-loading-bar', 'angularMoment', 'angular-carousel',
-       'angular-notification-icons','toastr', 'ngWebSocket'
+       'angular-notification-icons','toastr', 'ngWebSocket', 'slick'
     ])
     .config(function($mdThemingProvider) {
       $mdThemingProvider.theme('forest')

@@ -8,8 +8,9 @@
 		
 <div class="container">
 		
-    <div layout="column" layout-gt-sm="row" layout-wrap>
-        <div ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20" ng-click="ctrl.ir('catalog.products')">
+
+        <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded" infinite="true">
+        <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20" ng-click="ctrl.ir('catalog.products')">
             
 			<div  layout="column" layout-align="space-between" class="ch-destacado" >
                 
@@ -40,7 +41,8 @@
 
             </div>
         </div>
-    </div>
+        </slick>
+
 	
  
 
@@ -166,7 +168,7 @@
 	.destacado{
     height: 40px;
     max-width: 570px;
-    margin: 20px auto 30px;
+    margin: 60px auto 30px;
     position: relative;
 	padding-top: 10px;
 	background-image: url("app/components/image/line-titulo.png");
