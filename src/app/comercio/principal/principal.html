@@ -193,7 +193,7 @@
     var owl = $('.owl-carousel.bannerNewHome');
       owl.owlCarousel({
         loop:true,
-               nav:true,
+               nav:false,
                rtl:false,        // loop:(this.children().length>1?true:false),
          // loop:true,
          //  nav:true,
@@ -202,13 +202,7 @@
         dots: false,
         autoplay:true,
         autoplayTimeout:4000,
-        autoplayHoverPause:true,
-        navText: [ '<img src="app/components/image/prev-banner.svg" class="control">','<img src="app/components/image/next-banner.svg" class="control">' ],
-        navSpeed: false,
-        navElement: 'div',
-        navContainer: false,
-        navContainerClass: 'owl-nav-banner',
-        navClass: [ 'owl-prev-banner','owl-next-banner' ],        
+        autoplayHoverPause:true,      
         moveSlides: 1,
         margin: 15,
         items: 1,
@@ -217,13 +211,13 @@
             nav:false,
           },
           992: {
-            nav:true
+            nav:false
           },
           1200: {
             nav:false
           },
           1620: {
-            nav:true
+            nav:false
           }
         }
       });
