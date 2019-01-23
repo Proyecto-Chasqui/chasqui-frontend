@@ -48,6 +48,7 @@ a img {
 	border: none;
 }
 
+
 /*
 ***********************
 		LAYOUT
@@ -57,10 +58,13 @@ html, body{
 	height: 100%;
 }
 body{
-	background-color: #fff;
-	font-family: arial, helvetica, sans-serif;
+	background-color: #e5e5e5;	
+    font-family: 'Roboto',sans-serif;
 	font-size: 16px;
-	color: #222222;
+    line-height: 20px;
+    color: #494949;
+    font-weight: 400;
+
 }
 #wrapper{
 	width: 900px;
@@ -80,7 +84,6 @@ body{
 .bg-white {
     background-color: #412467 !important;
 }
-
 
 .container {
 	width: 1170px;
@@ -102,7 +105,7 @@ body{
 
 #chasqui-content-full{
 	margin: 0px auto;
-	padding-top: 120px;
+	padding-top: 88px;
 	background-color: #f7f7f7;
 }
 
@@ -135,6 +138,7 @@ body{
     padding: 42px 0 40px;
     background: #f6f6f6;
 	background-image: url(../components/image/fondo-box.jpg);
+	height: 180px;
 }
 
 
@@ -143,6 +147,7 @@ body{
     color: #fff;
     font-size: 30px;
 	font-family: 'Indie Flower', cursive;
+	padding-top: 30px;
 }
 
 /*
@@ -150,15 +155,8 @@ body{
 		FOOTER
 ***********************
 */
-.push{
-	height: 40px; /* Debe tener el alto del footer */
-}
-.foot{
-	width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-}
-#footer{
+
+#footer-ch{
 	height: 25px; /* 40px - el padding = 25px */
 	background-color: #111111;
 	font-family: Verdana, Geneva, sans-serif;
@@ -167,27 +165,49 @@ body{
 	padding-top: 15px;
 }
 
-#footer .copy{
-	float: left;
-}
-#footer .by{
-	float: right;
-}
-.by a{
-	color: #e4f80b;
-	text-decoration: none;
-}
-.by a:hover{
-	color: #ffffff;
+.footer {
+	background-color: #2f1a4a !important;
+	padding: 1rem 2rem;
 }
 
+.footer-by {
+	background-color: #1d112d !important;
+	padding: 1rem 2rem;
+}
+
+.by {
+	color:#fff;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+	float:right;
+}
+.by p {
+    display: inline;
+	padding-left:5px;
+}
+
+	.footer-icon{
+		display: block;
+		background: #1d112d;
+		border-radius: 2px;
+		width: 2.1rem;
+		height: 2.1rem;
+		padding: .3rem;
+		margin: .6rem;
+
+	}
+
+	.footer-icon:hover{
+		box-shadow: 1px 1px 3px #FFF,
+					-1px -1px 3px #FFF;
+		transition: all .3s;
+	}
 
 /*
 ***********************
 		HEADER
 ***********************
 */
-
 
 
 #header {
@@ -610,4 +630,351 @@ body{
 }
 
 
+/*
+**********************************************
+		CARD CATALOGO 
+**********************************************
+*/
+
+.txt-sellos {
+    color: #333;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+
+
+
+/*
+**********************************************
+		CARD TARJETA  
+**********************************************
+*/
+
+.image-mini-preview {
+    margin: 3px;
+	border: 1px solid #3333331a;
+}
+
+div.image-mini-preview:hover {
+    border: 1px solid #00adee;
+}
+
+.toolbar-tarjeta {
+background-color: #fff;
+}
+
+.tarjeta-nombre {
+    display: block;
+	font-size: 24px;
+    color: #222;
+    font-weight: 700 !important;
+    margin-bottom: 12px;
+    text-transform: capitalize;
+	width:420px;
+}
+.tarjeta-price {
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    color: #00adee;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+	padding-bottom:20px;
+}
+.tarjeta-fabricante {
+    color: #82d2f1;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.29;
+    padding-bottom: 10px;	
+}
+.tarjeta-descripcion {
+	width:450px;
+	font-size: 14px;
+    color: #242424;
+}
+.tarjeta-imagen {
+    border: 1px solid #3333331a;
+}
+
+
+.tarjeta-line {
+    display: block;
+    overflow: hidden;
+    padding: 20px 0 0;
+    border-top: 1px solid #f0f0ed;
+	margin-right:20px;
+}
+
+
+/*
+**********************************************
+		BUSCADOR   
+**********************************************
+*/
+
+
+
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], input, textarea, select, button 
+{
+    border-radius: 25px 0px 0px 25px;
+    border: 1px solid rgba(255,255,255,0.87);
+    height: 46px;
+    padding: .2 .5rem .2 .5rem !important;
+    /* margin-right: .5rem !important; */
+    width: 80%;
+    color: #333;
+    font-size: 16px;
+    padding-left: 15px;
+}
+	   
+.search-input-container {
+    margin-left: 25px;
+	margin-top: 16px;
+}
+	   
+
+
+/*
+**********************************************
+		HOME PAGE   
+**********************************************
+*/
+
+.ch-content-home {
+    min-height: 50vh !important;
+	width: 90%;
+    padding-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+
+   .principal{
+      text-align: justify;
+    }
+
+    .principal h1{
+      font-size: 2rem;
+      text-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+      color: rgb(0,0,15);
+      font-weight: bold;
+    }
+
+    .social-media{
+      margin-top: 5rem;
+      padding-top: 1.5rem;
+    }
+    .princ-icon{
+      display: block;
+      background: #462342;
+      border-radius: 2px;
+      width: 4rem;
+      height: 4rem;
+      padding: .3rem;
+      margin: .8rem;
+      transition: all .7s;
+    }
+    .princ-icon:hover{
+      background-color: #2F3539;
+      border-radius: 50%;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6),
+            -1px -1px 3px rgba(0, 0, 0, 0.6);
+      transition: all .7s;
+    }
+	
+    .heading-sub {
+    margin-bottom: 50px;
+    position: relative;
+    }
+    .heading-sub h5 {
+    font-family: Montserrat;
+    font-size: 23px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+    position: relative;
+    }
+
+.heading-sub p {
+    font-size: 16px;
+    color: #666;
+	font-family: 'Raleway', sans-serif;
+}
+	
+.frase	{
+    font-size: 16px;
+    color: #fff;
+	font-family: 'Raleway', sans-serif;
+	display: block;
+	background: #f89921;
+    height: 175px;	
+}	
+
+.comercializadora	{
+    font-size: 16px;
+    color: #6b6b6b;
+	font-family: 'Raleway', sans-serif;
+	background: #f4f4f4;
+
+}
+
+
+
+.tituloquienessomos {
+    color: #252525;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.titulocomercializadora {
+    color: #252525;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.textocomercializadora {
+    color: #777979;
+    font-size: 17px;
+    text-align: justify;
+    line-height: 150%;
+}
+
+.imagencomercializadora {
+    color: #777979;
+    font-size: 17px;
+    text-align: justify;
+    line-height: 150%;
+}
+
+
+.comocomprar-btn {
+color: #fff;
+background-color: #6a3f93;
+width: 100%;
+height: 266px;
+border-radius: 7px;
+margin: 10px;
+background-image: url(../components/image/comocomprar.png);
+background-repeat: no-repeat, repeat;
+background-position: right;
+}
+
+.puntosdeentrega-btn {
+color: #fff;
+background-color: #0196ce;
+width: 100%;
+height: 266px;
+border-radius: 7px;
+margin: 10px;
+background-image: url(../components/image/entrega.png);
+background-repeat: no-repeat, repeat;
+background-position: right;
+}
+
+.titulo-btn {
+position: relative;
+margin-top: 150px;
+margin-left: 50px;
+}
+
+
+.quienessomos {
+width: 100%;
+margin: 10px;
+}
+
+.quienesimagenes {
+width: 100%;
+margin: 10px;
+}
+
+.quienes-txt {
+    color: #777979;
+    font-size: 15px;
+    text-align: justify;
+    line-height: 140%;
+}
+.quienes-txt h2 {
+    margin-bottom: 12px;
+}
+.quienes-titulo {
+    color: #777979;
+}
+.quienes-titulo h2 {
+    margin-bottom: 12px;
+}
+
+.quienes-titulo img {
+width: 100%;
+}
+
+
+
+/*
+**********************************************
+		carusel principal   
+**********************************************
+*/
+
+	.sectionStyle {
+		background-color: #F5F5F5 !important; 
+	}
+
+	.anchobanner {
+		max-width:1500px;
+		padding-top: 88px;
+	}
+
+	@media (max-width: 1199px) and (min-width: 992px) {
+		.anchobanner {
+			max-width:918px;
+		}
+	}
+
+
+	@media (min-width: 1400px) {
+		.owl-theme .owl-dots {position: absolute; top:90% !important; right: 46.75% !important;}
+	}
+
+	@media (min-width: 1300px) and (max-width: 1399px) {
+		.owl-theme .owl-dots {position: absolute; top:90% !important; right: 46.5% !important;}
+	}
+
+
+	@media (min-width: 1200px) and (max-width: 1299px) {
+		.owl-theme .owl-dots {position: absolute; top:90% !important; right: 46% !important;}
+	}
+
+	@media (min-width: 992px) and (max-width: 1199px) {
+		.owl-theme .owl-dots {position: absolute; top:88% !important; right: 45% !important;}
+	}
+
+	@media (min-width: 768px) and (max-width: 991px) {
+		.owl-theme .owl-dots {position: absolute; top:88% !important; right: 45% !important;}
+	}
+
+	@media (max-width: 767px) {
+		.owl-theme .owl-dots {position: absolute; top:85% !important; right: 43% !important;}
+	}
+
+
+	.owl-theme .owl-dots .owl-dot span {
+	   background:transparent; 
+	   border:1px solid white;
+	   }
+	.owl-theme .owl-dots .owl-dot.active span {
+	   background:white; 
+	   border: 1px solid white;
+	   }
+	   
+	   
 

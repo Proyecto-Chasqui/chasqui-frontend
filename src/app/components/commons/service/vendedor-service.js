@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('vendedorService', vendedorService);
 
-	function vendedorService($log, REST_ROUTES, StateCommons, promiseService, contextPurchaseService) {
+	function vendedorService($log, REST_ROUTES, StateCommons, promiseService, $stateParams, contextPurchaseService) {
 		var vm = this;
 		var nombreVendedor;
 
@@ -16,12 +16,13 @@
 		}
 
 		vm.obtenerConfiguracionVendedor = function(){
+				nombreVendedor = $stateParams.catalogShortName;
+				return promiseService.doGetPrivate(REST_ROUTES.seller(nombreVendedor), {});		
+		}
 
-			function filldata(response){
-				nombreVendedor = response.nombreCorto;
-				return promiseService.doGetPrivate(REST_ROUTES.seller(nombreVendedor), {});
-			}	
-			return contextPurchaseService.getSelectedCatalog().then(filldata);		
+		vm.verDatosDePortada = function(){
+				nombreVendedor = $stateParams.catalogShortName;
+				return promiseService.doGetPrivate(REST_ROUTES.datosDePortada(nombreVendedor), {});
 		}
 
 	}

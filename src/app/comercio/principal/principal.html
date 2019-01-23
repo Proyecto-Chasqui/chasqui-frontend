@@ -1,73 +1,253 @@
-<div class="principal" style="padding-top: 11%;" layout="row" layout-align="space-between start">
-  <aside flex="30" style="padding-left: 2rem; padding-bottom: 4rem; padding-top: 3rem;">
-    <div class="destacados" ng-include="'app/comercio/catalogo/lista-productos-destacados.html'"></div>
-  </aside>
-  <section flex="50" layout="column" layout-align="space-between center">
-    <header>
-      <h1>Conocé Chasqui</h1>
-    </header>
-    <article>
-      <p>Chasqui es una herramienta multiplataforma de licencia libre que permite a diferentes organizaciones de
-  la Economía Social y Solidaria (productores, comercializadoras y cooperativas de servicios,etc...) vender
-  de forma electrónica sus productos y servicios desde su catálogo en la plataforma. Para los consumidores
-  es una forma simple de acceder a una oferta variada y reconocer los diferenciales de la Economía Social,
-  sus valores y su calidad.</p>
-          <p>
-  Chasqui consta de una aplicación móvil y una aplicación web, que permiten realizar pedidos en las
-  diversas modalidades que hemos identificado que proveen identidad, pero también sostenibilidad a la
-  economía social: compras individuales y colectivas, nodos de consumo, almacenes y ferias.
-  La herramienta busca visibilizar y poner en valor las caracterı́sticas del comercio
-  justo y la Economía Social y Solidaria, promoviendo el consumo responsable a través de una interfaz
-  atractiva e intuitiva. Además, Chasqui se desarrolla bajo licencia libre, lo que permite su difusión y
-  adaptación a nuevos contextos, nacionales e internacionales.</p>
-          <p>
-  Está previsto que pueda conectarse con complementos y programas que le permitan incorporar nuevas
-  funcionalidades como: gestión de compras y ventas, control de stock, administración contable y
-  financiera, sistemas de pago electrónico y monedas sociales, etc.</p>
-    </article>
-
-    <article ng-include="'app/comercio/principal/principal-info.html'">
-    </article>
-    <footer>
-    </footer>
-  </section>
-
-  <aside class="social-media" flex="20" layout="column" layout-align="space-between center">
 
 
-  </aside>
+<div class="owl-carousel bannerNewHome anchobanner">
+      
+          
+<div style="width: 100%; height: auto;" class="item active ">
+<img style=""  alt="banner01-chasqui"  ng-src="{{imageurl1}}"/>
+</div>
+
+<div style="width: 100%; height: auto;" class="item ">
+<img  style=""  alt="banner02-chasqui"  src="{{imageurl2}}"/>
+</div>
+
+<div style="width: 100%; height: auto;" class="item ">
+<img  style=""  alt="banner02-chasqui"  src="{{imageurl3}}"/>
+</div>
+
+
+</div>      
+
+
+
+<div class="ch-content-home">
+   <section>
+   <div ng-include="'app/comercio/catalogo/lista-productos-destacados.html'"></div>
+   </section>
+</div>
+
+
+<div class="destacado">
+    <h5> INFORMACION UTIL </h5>
+</div>
+
+<div class="ch-content-home">
+    <div layout=row style="padding-bottom: 40px;">
+    <div flex="50" class="comocomprar-btn">
+  <div class="titulo-btn">
+  <h2>¿Comó comprar?</h2>
+  <h3>INGRESAR</h3>
   </div>
-  <style type="text/css">
-    .principal{
-      text-align: justify;
-    }
+  </div>
+  
+    <div flex="50" class="puntosdeentrega-btn">
+  <div class="titulo-btn">  
+  <h2>Puntos de entrega</h2>
+  <h3>INGRESAR</h3>
+  </div>
+    </div>
+    </div>
+</div>
 
-    .principal h1{
-      font-size: 2rem;
-      text-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
-      color: rgb(0,0,15);
-      font-weight: bold;
-    }
 
-    .social-media{
-      margin-top: 5rem;
-      padding-top: 1.5rem;
-    }
-    .princ-icon{
-      display: block;
-      background: #462342;
-      border-radius: 2px;
-      width: 4rem;
-      height: 4rem;
-      padding: .3rem;
-      margin: .8rem;
-      transition: all .7s;
-    }
-    .princ-icon:hover{
-      background-color: #2F3539;
-      border-radius: 50%;
-      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6),
-            -1px -1px 3px rgba(0, 0, 0, 0.6);
-      transition: all .7s;
-    }
-  </style>
+<div class="ch-content-home">
+    <div layout=row style="padding-bottom: 40px;">
+    <div flex="50" class="quienessomos">
+    <div ng-bind-html="texto" class="quienes-txt">
+    
+    </div>
+  </div>
+
+    
+    <div flex="50" class="quienesimagenes">
+      <div class="quienes-titulo">
+    <h3>Cooperativa</h3>
+      <h2><b>{{nombreOrganizacion}}</b></h2>
+      <img ng-src="{{imagenUrlPortada}}" >  
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--- 
+
+<section flex="100" layout="row" layout-align="space-between center" style="padding-top: 3%;" class="frase">
+    
+  <div class="container">  
+    <h5>CHASQUI</h5>
+    <h2>Herramienta multiplataforma de licencia libre que permite a diferentes organizaciones de
+    la Economía Social y Solidaria vender de forma electrónica sus productos y servicios desde su catálogo en la plataforma.</h2>
+    </div>    
+
+</section>    
+  
+
+  -->
+  
+  
+  <style>
+  /*--------------------------------------------------- OWL CAROUSEL ---------------------------------------------------*/
+  .owl-nav { position: unset; }
+  .owl-theme .owl-controls{ margin-top: 10px; }
+  .owl-theme .owl-controls .owl-nav [class*=owl-] { display:inline-block; margin:5px; padding:7px 5px; background:#ffffff; border-radius:5px; border:1px solid #d6d6d64d; }
+  .owl-theme .owl-controls .owl-nav [class*=owl-]:hover { background:#ffffff; }
+  .owl-theme .owl-controls .owl-nav .disabled { opacity: .5; cursor:default; }
+  .owl-theme .owl-controls .owl-nav-banner [class*=owl-] { display:inline-block; margin:5px; padding:7px 5px; border-radius:3px; background-color:rgba(0, 0, 0, 0.51); background-image:none; text-shadow:none; }
+  .owl-theme .owl-controls .owl-nav-banner [class*=owl-]:hover { background-color:rgba(0, 0, 0, 0.51); }
+  .owl-theme .owl-controls .owl-nav-banner .disabled { opacity: .5; cursor:default; }
+  .owl-item { display:inline!important; }
+  .control { width:30px; height:50px; }
+  .owl-carousel { display:none; width:100%; -webkit-tap-highlight-color:transparent; position:relative; z-index:1; }
+  .owl-carousel .owl-stage { position:relative; -ms-touch-action:pan-Y; }
+  .owl-carousel .owl-stage:after { content:"."; display: block; clear:both; visibility:hidden; line-height:0; height:0;}
+  .owl-carousel .owl-stage-outer { position:relative; overflow:hidden; -webkit-transform:translate3d(0px, 0px, 0px); }
+  .owl-carousel .owl-controls .owl-nav .owl-next { cursor:pointer; cursor:hand; -webkit-user-select:none; -khtml-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; margin:0; }
+  .owl-carousel.owl-loaded { display: block; }
+  .owl-carousel.owl-loading { opacity:0; display:block; }
+  .owl-carousel.owl-hidden { opacity: 0; }
+  .owl-carousel .owl-refresh .owl-item { display:none; }
+  .owl-carousel .owl-item { position:relative; min-height:1px; float:left; -webkit-backface-visibility:hidden; -webkit-tap-highlight-color:transparent; -webkit-touch-callout:none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+  .owl-carousel .owl-item img { display:block; -webkit-transform-style: preserve-3d; }
+  .owl-carousel.owl-text-select-on .owl-item { -webkit-user-select:auto; -moz-user-select:auto; -ms-user-select:auto; user-select:auto; }
+  .owl-carousel .owl-grab { cursor:move; cursor:-webkit-grab; cursor:-o-grab; cursor:-ms-grab; cursor:grab; }
+  .owl-carousel.owl-rtl { direction:rtl; }
+  .owl-carousel.owl-rtl .owl-item { float:right; }
+  .no-js .owl-carousel { display:block; }
+  .owl-next { float:right; }
+  .owl-next-banner{ float:right; }
+  .owl-prev-banner{ float:left; }
+  .owl-controls .owl-nav-banner { position:relative; z-index:1; padding:0; margin-top:-225px; width:104.6%; left:-35px; }
+  .owl-prev{
+    position: absolute; margin:0px !important; z-index: 100; left: 0;
+    top: calc(64% - 100px); margin-left: -30px  !important;
+  }
+  
+   .classmediadehome{
+    margin-top: 4.5% !important;
+  }
+  
+  @media (max-width: 767px) {
+    .owl-controls .owl-nav-banner { left:0px; }
+  }
+.tituloland{
+      direction: ltr;
+}
+  /*------------------ show/hide controls ------------------*/
+  .owl-nav { opacity: 0; }
+  .owl-nav:hover { opacity: 1; }
+  .owl-carousel:hover .owl-nav{ opacity: 1; }
+  .owl-nav-banner { opacity: 0; }
+  .owl-nav-banner:hover { opacity: 1; }
+  .owl-carousel:hover .owl-nav-banner{ opacity: 1; }
+
+  /*--------------------- Stage Padding en celular ---------------------*/
+
+  @media (max-width: 767px) {
+    .featuredProductsSliderNewHome .owl-stage { padding-left:0px!important; padding-right:30px!important; }
+    .partnersLogoSliderNewHome .owl-stage { padding-left:0px!important; padding-right:30px!important; }
+    .buttonsProducts .owl-stage { padding-left:0px!important; padding-right:35px!important; }
+    .featuredCollectionSliderNewHome .owl-stage { padding-left:0px!important; padding-right:30px!important; }
+  }
+
+  /*--------------------- Posicion controles Owl Carousel ---------------------*/
+
+  .featuredCollectionSliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:-3%; top:calc(85% - 100px); }
+  .featuredProductsSliderNewHome   .owl-controls .owl-nav .owl-next { position:absolute; right:calc(6% - 100px); top:calc(64% - 100px); }
+  .categorySliderNewHome           .owl-controls .owl-nav .owl-next { position:absolute; right:calc(10.5% - 100px); top:calc(63.5% - 100px); }
+  .partnersLogoSliderNewHome       .owl-controls .owl-nav .owl-next { position:absolute; right:-2.9%; top:34.5%; }
+
+  @media (max-width: 1199px) and (min-width: 992px) {
+    .featuredCollectionSliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:-3.5%; top:calc(85% - 100px); }
+    .featuredProductsSliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:calc(7% - 100px); top:calc(61% - 100px); }
+    .categorySliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:calc(12% - 100px); top:calc(61% - 100px); }
+    .partnersLogoSliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:calc(7% - 100px); top:calc(80% - 100px); }
+    .owl-controls .owl-nav-banner { margin-top:-160px; width:107.5%; }
+  }
+
+  @media (max-width: 991px) and (min-width: 768px) {
+    .featuredCollectionSliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:calc(9% - 100px); top:calc(85% - 100px); }
+    .featuredProductsSliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:calc(10% - 100px); top:calc(66% - 100px); }
+    .categorySliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:calc(16.5% - 100px); top:calc(60.5% - 100px); }
+    .partnersLogoSliderNewHome .owl-controls .owl-nav .owl-next { position:absolute; right:-4.5%; top:40%; }    
+  }
+
+  .mobileitem { padding:0px; }
+
+  /*--------------------------------------------------- OWL CAROUSEL ---------------------------------------------------*/
+
+  .mainContent {  font-family:Roboto!important; background-color: #F5F5F5; /* background-color: #C6B2B2; */ } 
+
+  .mainContent .featuredProducts .slide .productImage:hover img { transform: none!important; transform: scale(1.0)!important }
+
+  .mainContent .featuredProducts .slide .productImage img { transform: scale(1.0)!important; }
+
+</style>
+ 
+ <!--- OWL CAROUSEL  -->
+
+
+<script>
+
+  jQuery(document).ready(function(){
+    var owl = $('.owl-carousel.bannerNewHome');
+      owl.owlCarousel({
+        loop:true,
+               nav:true,
+               rtl:false,        // loop:(this.children().length>1?true:false),
+         // loop:true,
+         //  nav:true,
+         //  rtl:true,
+
+        dots: true,
+        autoplay:true,
+        autoplayTimeout:4000,
+        autoplayHoverPause:true,
+        navText: [ '<img src="app/components/image/prev-banner.svg" class="control">','<img src="app/components/image/next-banner.svg" class="control">' ],
+        navSpeed: false,
+        navElement: 'div',
+        navContainer: false,
+        navContainerClass: 'owl-nav-banner',
+        navClass: [ 'owl-prev-banner','owl-next-banner' ],        
+        moveSlides: 1,
+        margin: 15,
+        items: 1,
+        responsive: {
+          320: {
+            nav:false,
+          },
+          992: {
+            nav:true
+          },
+          1200: {
+            nav:false
+          },
+          1620: {
+            nav:true
+          }
+        }
+      });
+  })
+</script>
+
+
+<script>
+  function select_contentgoogle(id, products_name, manufacturer, namecategory, price) {
+    gtag('event', 'select_content', {
+        "content_type": "product",
+        "items": [
+        {
+          "id": id,
+          "name": products_name,
+          "list": "Search Results",
+          "brand": manufacturer,
+          "category": namecategory,
+          "variant": "Black",
+          "list_position": 1,
+          "quantity": 1,
+          "price": price
+        }
+        ]
+      });
+  }
+</script>
