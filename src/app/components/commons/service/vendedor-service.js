@@ -6,8 +6,8 @@
 	function vendedorService($log, REST_ROUTES, StateCommons, promiseService, $stateParams, contextPurchaseService) {
 		var vm = this;
 		var nombreVendedor;
-		var sellerPromiseConfig;
-		var sellerPromisePageConfig;
+		var sellerPromiseConfig = {};
+		var sellerPromisePageConfig = {};
 
 		vm.verPuntosDeEntrega = function(){
 			function filldata(response){
@@ -18,23 +18,23 @@
 		}
 
 		vm.obtenerConfiguracionVendedor = function(){
-			if(sellerPromiseConfig == null){
-				nombreVendedor = $stateParams.catalogShortName;
-				sellerPromiseConfig = promiseService.doGetPrivate(REST_ROUTES.seller(nombreVendedor), {});
-				return sellerPromiseConfig;
+			nombreVendedor = $stateParams.catalogShortName;
+			if(sellerPromiseConfig[nombreVendedor] == null){				
+				sellerPromiseConfig[nombreVendedor] = promiseService.doGetPrivate(REST_ROUTES.seller(nombreVendedor), {});
+				return sellerPromiseConfig[nombreVendedor];
 			}else{
-				return sellerPromiseConfig;
+				return sellerPromiseConfig[nombreVendedor];
 			}
 		
 		}
 
 		vm.verDatosDePortada = function(){
-			if(sellerPromisePageConfig == null){
-				nombreVendedor = $stateParams.catalogShortName;
-				sellerPromisePageConfig = promiseService.doGetPrivate(REST_ROUTES.datosDePortada(nombreVendedor), {});
-				return sellerPromisePageConfig;
+			nombreVendedor = $stateParams.catalogShortName;
+			if(sellerPromisePageConfig[nombreVendedor] == null){
+				sellerPromisePageConfig[nombreVendedor] = promiseService.doGetPrivate(REST_ROUTES.datosDePortada(nombreVendedor), {});
+				return sellerPromisePageConfig[nombreVendedor];
 			}else{
-				return sellerPromisePageConfig;
+				return sellerPromisePageConfig[nombreVendedor];
 			}
 		}
 
