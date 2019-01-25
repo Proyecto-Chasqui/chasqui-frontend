@@ -28,6 +28,8 @@
 	"TEL_CEL": "Teléfono móvil",
 	"TEL_FIJO": "Teléfono fijo",
 	"PASS": "Contraseña",
+  "OLD_PASS": "Contraseña anterior",
+  "NEW_PASS": "Nueva contraseña",
   "MINIMUM_PASS_LENGHT": "Mínimo 10 caracteres",
 	"REP_PASS": "Repetir contraseña",
     "REP_EMAIL": "Repetir correo",
