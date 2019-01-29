@@ -13,7 +13,9 @@
 		vm.urlbase = URLS.be_base;
 		vm.productos = [];
 		vm.medallaSelect = undefined;
+		vm.loaded = false;
 
+        
 		//////// dialogo medalla
 		vm.showPrerenderedDialog = function(medalla) {
 			vm.medallaSelect = medalla;
@@ -24,6 +26,7 @@
 				clickOutsideToClose: true
 			});
 		};
+
 
 		vm.showPrerenderedDialogProductor = function(id) {
 
@@ -48,12 +51,15 @@
 		function findProductos() {
 			productoService.getProductosDestacados()
 				.then(function(response) {
-					vm.productos = response.data.productos;
+					if(vm.productos.length == 0 ){						
+						vm.productos = response.data.productos;
+						vm.loaded = true;
+					}
           console.log("Productos destacados: ", vm.productos);
 				})
 		}
 
-		findProductos();
+		
 
 		vm.mostrarDecimales = function(parteDecimal) {
 			var res = Number(parteDecimal).toFixed(0).toString();
@@ -65,5 +71,7 @@
 			$log.debug("ir a ..... ", page);
             $state.go(page);
         };
+
+        findProductos();
 	}
 })();

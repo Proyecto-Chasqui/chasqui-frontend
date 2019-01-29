@@ -177,6 +177,7 @@
             
             puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
 
+            datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 
 

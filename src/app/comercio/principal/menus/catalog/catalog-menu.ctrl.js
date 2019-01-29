@@ -6,19 +6,24 @@
     .controller('CatalogMenuController', CatalogMenuController);
 
   
-function CatalogMenuController($scope, $log,$rootScope, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
+function CatalogMenuController($scope,vendedorService, $log,$rootScope, $state, StateCommons, URLS, REST_ROUTES, $interval, ToastCommons,
                                  perfilService, contextPurchaseService,us, usuario_dao, navigation_state, toastr) {
         
     
     $scope.urlBase = URLS.be_base;
     $scope.toTop = toTop;
     $scope.nroNoLeidas = 0;
-
+    $scope.urlLogo = "assets/images/chasqui_logo.png";
     
     ////////////////////////// INIT //////////////////////////
 
 
     function init() {
+        vendedorService.verDatosDePortada().then(function(response){
+            if(response.data.urlLogo != null){
+                $scope.urlLogo = URLS.be_base + response.data.urlLogo;
+            }
+        });
         $scope.usuario = usuario_dao.getUsuario();
         $scope.isLogued = usuario_dao.isLogged();
         initRefreshNotification();
