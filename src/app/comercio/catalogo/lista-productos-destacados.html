@@ -1,17 +1,35 @@
 <div ng-controller="ListaProductosDestacadosController as ctrl">
 
-    <h3 style="text-align:center;"> Productos destacados </h3>
-    <div layout="column" layout-gt-sm="row" layout-wrap>
-        <div ng-repeat="producto in ctrl.productos" flex="45" flex-gt-sm="45" ng-click="ctrl.ir('catalog.products')">
-            <div  layout="column" layout-align="space-between" class="ch-destacado" >
-                <div class="img-destacado">
+		<div class="destacado">
+              <h5> Productos destacados </h5>
+        </div>
+		
+		
+		
+<div class="container">
+		
+
+        <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded" infinite="true" autoplay= "true" autoplaySpeed= "3800">
+        <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20" ng-click="ctrl.ir('catalog.products')">
+            
+			<div  layout="column" layout-align="space-between" class="ch-destacado" >
+                
+				<div class="img-destacado">
                     <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%">
                 </div>
-
-                <div class="nombre-producto" layout="row">
-                    <h4>{{producto.nombreProducto}}</h4>
+                <div class="nombre-producto" >
+                    <p>{{producto.nombreProducto}}</p>
                 </div>	
-                <div class="chq-sello-producto" layout="row" layout-align="start start" style="width: 100%; min-height: 20px;"> 
+                <div class="nombre-fabricante">
+                    <p>{{producto.nombreFabricante}}</p>
+                </div>				
+                <div class="precio-variedad">
+                    <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
+                </div>
+				
+                <div class="chq-sello-producto" layout="row" layout-align="start start" > 
+				
+				<div class="txt-sellos">Sellos</div>
                     <picture ng-repeat="medalla in producto.medallasProducto">
                     <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados" ng-click="ctrl.showPrerenderedDialog(medalla)">
                         <md-tooltip md-direction="up">
@@ -19,13 +37,17 @@
                         </md-tooltip>
                     </picture>
                 </div>
-                <div layout="row" layout-align="end end">
-                    <chq-price-product class="precio" precio="producto.precio" tamanho="1.6"></chq-price-product>
-                  </h3>
-                </div>
+				
+
             </div>
         </div>
-    </div>
+        </slick>
+
+	
+ 
+
+ 
+ 
         <!-- ********************* dialogo de medalla *******************-->
     <div style="visibility: hidden">
         <div class="md-dialog-container" id="myDialog">
@@ -34,7 +56,7 @@
                     <h2 class="md-headline">{{ctrl.medallaSelect.nombre}}</h2>
                     <span flex></span>
                     <div ng-click="ctrl.cerrarDialogoMedalla(1)">
-                        <i style="font-size: 36px;" class="material-icons">close</i>
+                        <a href=""><i style="font-size: 18px; color:#cbcbcb" class="material-icons">close</i></a>
                     </div>
                 </div>
                 <div layout="column" layout-align="center center">
@@ -44,35 +66,40 @@
             </md-dialog>
         </div>
     </div>
+
 </div>
 
 
 
-<style>
-	.red{
-		background-color: red;
-		width: 50%;
-	}
 
-	.card{
-		width: 30%;
-	}
+
+
+
+
+
+<style>
 
 	.ch-destacado{
-		margin: .3rem;
-		border-radius: 3px;
-		border: 2px solid #468385;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: auto;
+		border: 1px solid #3333331a;
+		transition: all .5s ease;
 		overflow: hidden;
+		background-color: #fff;
+		border-radius: 6px 6px 0 0;
 	}
 
 	.ch-destacado:hover{
-		border: 2px solid green;
-		box-shadow:  0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-		transition: all 0.7s;
+		box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+        transition: all .5s ease;
 	}
+	.ch-destacado > *{
+		margin: 10px;
 
+	}
+	
 	.ch-destacado .img-destacado{
 		overflow: hidden;
 	}
@@ -87,24 +114,45 @@
 	}
 
 	.ch-destacado > .nombre-producto{
-		padding: 0 .3rem;
-		height: 4rem;
-		text-align: left;
+     color: #333;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.29;
+    cursor: pointer;
+    transition: all .5s ease;
 	}
-
+	
+	.ch-destacado > .nombre-fabricante{
+	color: #652d90;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.29;
+    cursor: pointer;
+    transition: all .5s ease;
+    text-transform: uppercase;
+	}	
+	
 	.ch-destacado > .nombre-variedad{
 		padding: .3rem .3rem;
 		height: 1.3rem;
 	}
-  
-  .precio{
-    color: green;
-  }
+
+	.ch-destacado > .precio-variedad{
+        cursor: default;
+        display: flex;
+        flex-direction: row;
+		color: #00adee;		
+		font-weight: 600;
+        font-size: 24px;
+        line-height: 30px;
+	}
+
+	.ch-destacado > .precio-variedad h3{
+		padding: 0 .3rem !important;
+	}
 
 	.ch-destacado .medallas-destacados{
-		width: 20%;
-		margin: .3rem;
-		padding-bottom: .3rem;
+		width: 9%;
 		transition: all .4s; 
 	}
 
@@ -112,4 +160,35 @@
 		transform: rotate(-45deg);
 		transition: all .4s;
 	}
+
+	.ch-destacado .chq-sello-producto{	
+	border-top: 1px solid #3333331a;
+    padding-top: 6px;
+	}	
+	.destacado{
+    height: 40px;
+    max-width: 570px;
+    margin: 60px auto 30px;
+    position: relative;
+	padding-top: 10px;
+	background-image: url("app/components/image/line-titulo.png");
+	/* height: 40px; */!important;
+    background-color: rgba(255, 255, 255, 0);!important;
+	
+    }	
+
+   .destacado h5 {
+    font-family: roboto;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background: #4e2d7e;
+    z-index: 99;
+    padding: 7px 23px;
+    margin: -7px auto;
+    display: table;
+}	
+
+
 </style>

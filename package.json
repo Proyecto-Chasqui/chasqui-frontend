@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "angular-leaflet-directive": "^0.10.0",
+    "angularjs-slick": "^1.0.1",
     "leaflet": "^1.2.0"
   },
   "scripts": {

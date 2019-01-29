@@ -7,10 +7,11 @@ angular
 
     function webSocketService(toastr,$websocket,$log,contextPurchaseService,digestMessageService,URLS){
     	//parametrizar
-      var dataStream = $websocket(URLS.be_websocket.concat(""), null, { reconnectIfNotNormalClose: true });
+      var dataStream = $websocket(URLS.be_websocket, null, { reconnectIfNotNormalClose: true });
 
       dataStream.onMessage(function(message) {
         $log.debug("MESSAGE", message.data);
+        toastr.info(message.data,"WEBSOCKET MESSAGE",{timeOut: 800000});
         digestMessageService.webSocketMessageDispatch(JSON.parse(message.data));
       });
       //solo para debug, elminar los toast cuando se vaya a produccion
