@@ -15,11 +15,11 @@ angular
       });
       //solo para debug, elminar los toast cuando se vaya a produccion
       dataStream.onClose(function(message){
-        toastr.info("","WEBSOCKET CLOSE",{timeOut: 800000});
+        //toastr.info("","WEBSOCKET CLOSE",{timeOut: 8000});
       });
 
       dataStream.onOpen(function(message){
-        toastr.info("","WEBSOCKET OPEN",{timeOut: 800000});
+        //toastr.info("","WEBSOCKET OPEN",{timeOut: 8000});
       });
 
     };
