@@ -34,7 +34,7 @@ angular
             toastr.info(
                 (expiredOrder.type == agrupationTypeVAL.TYPE_PERSONAL? 
                 "Tu pedido individual" : "Tu pedido del grupo " + expiredOrder.aliasGrupo )
-                + " se vención por falta de actividad",
+                + " se venció por falta de actividad",
                 "Pedido vencido",
                 {timeOut: 300000}
             );
