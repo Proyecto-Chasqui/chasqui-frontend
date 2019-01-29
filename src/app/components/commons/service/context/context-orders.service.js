@@ -23,7 +23,8 @@
             setVirtualPersonalOrder: setVirtualPersonalOrder,
             modifyOrder: modifyOrder,            // catalogId -> Order -> Modification -> Null
             setStateConfirmed: setStateConfirmed,// catalogId -> Order -> Null
-            setStateCancel: setStateCancel       // catalogId -> Order -> Null
+            setStateCancel: setStateCancel,       // catalogId -> Order -> Null
+            setStateExpired: setStateExpired,       // catalogId -> Order -> Null
         }
 
 
@@ -111,17 +112,15 @@
         }
 
         function setStateConfirmed(catalogId, order){
-            orders_dao.modifyOrder(catalogId, order, function(orderSelected){
-                orderSelected.estado = "CONFIRMADO";
-                return orderSelected;
-            });
+            orders_dao.changeToStateConfirm(catalogId, order.id, order.type);
         }
 
         function setStateCancel(catalogId, order){
-            orders_dao.modifyOrder(catalogId, order, function(orderSelected){
-                orderSelected.estado = "CANCELADO";
-                return orderSelected;
-            });
+            orders_dao.changeToStateCancel(catalogId, order.id, order.type);
+        }
+    
+        function setStateExpired(catalogId, order){
+            orders_dao.removeOrder(catalogId, order.id, order.type);
         }
 
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

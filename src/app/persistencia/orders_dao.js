@@ -14,8 +14,10 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
             getOrdersByType: getOrdersByType, 
             getOrder: getOrder,
             removeOrder: removeOrder,
+            changeToStateOpen: changeToStateOpen,
             changeToStateCancel: changeToStateCancel,
-            changeToStateOpen: changeToStateOpen
+            changeToStateConfirm: changeToStateConfirm,
+            changeToStateExpired: changeToStateExpired,
         }
     
     /////////////////////////////////////////  Public   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -86,19 +88,29 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
             
             })();
     }
-                        
-    function changeToStateCancel(catalogId, orderId, orderType){
-        changeToState(catalogId, orderId, orderType, STATE_CANCEL);
-    } 
       
     function changeToStateOpen(catalogId, orderId, orderType){
         changeToState(catalogId, orderId, orderType, STATE_OPEN);
+    } 
+              
+    function changeToStateCancel(catalogId, orderId, orderType){
+        changeToState(catalogId, orderId, orderType, STATE_CANCEL);
+    } 
+                        
+    function changeToStateConfirm(catalogId, orderId, orderType){
+        changeToState(catalogId, orderId, orderType, STATE_CONFIRM);
+    } 
+      
+    function changeToStateExpired(catalogId, orderId, orderType){
+        changeToState(catalogId, orderId, orderType, STATE_EXPIRED);
     } 
     
     /////////////////////////////////////////  Private  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
     
     var STATE_OPEN = "ABIERTO";                                
     var STATE_CANCEL = "CANCELADO";  
+    var STATE_CONFIRM = "CONFIRMADO";  
+    var STATE_EXPIRED = "VENCIDO";                                
     
     function modifyOrdersInCatalog(catalogId, ordersType, modification){
         catalogs_data.modifyCatalogData(catalogId, function(catalog){
@@ -108,7 +120,7 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
     }
     
     function changeToState(catalogId, orderId, orderType, state){
-        modifyOrdersInCatalog(catalogId, ordersType, function(orders){
+        modifyOrdersInCatalog(catalogId, orderType, function(orders){
             orders.filter(function(o){return o.id == orderId})[0].estado = state;
             return orders;
         });
