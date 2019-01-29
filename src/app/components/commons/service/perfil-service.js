@@ -50,11 +50,13 @@
 			return promiseService.doPost(REST_ROUTES.notificacionesLeidas(id), {});
 		}
 
-		vm.cambiarPass = function(pass) {
-			$log.debug(" service cambiarPass ");
-			var params = {};
-			params.password = pass;
-			return promiseService.doPut(REST_ROUTES.editPassword, params);
+		vm.cambiarPass = function(newPassword, oldPassword, doNoOk) {
+			var params = {
+        password: newPassword,
+        oldPassword: oldPassword
+      };
+      
+			return promiseService.doPut(REST_ROUTES.editPassword, params, doNoOk);
 		}
 
 		vm.login = function(user) {

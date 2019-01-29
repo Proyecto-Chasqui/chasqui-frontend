@@ -9,7 +9,7 @@
   function ComoComprarController($log, navigation_state, $scope) {
     $log.debug('ComoComprarController ..... ')
     navigation_state.goHowToBuyTab();
-
+      
     $scope.instruccionesCards = [
         {
             titulo: "Ingresa un catalogo",
@@ -18,14 +18,14 @@
             titulo: "Elegí tu forma de consumo",
             contenido: "Chasqui te permite comprar de forma colectiva o individual."
         },{
-            titulo: "Arma tu pedido",
+            titulo: "Arma tu pedido", 
             contenido: "Elegí tus productos y completa tu compra."
         },{
             titulo: "Coordinar con el vendedor",
             contenido: "Coordina la fecha y lugar de entrega o retiro."
         }
     ];
-
+      
     $scope.instrucciones = [
         {
             titulo: "¿Cómo me registro?",
@@ -89,7 +89,7 @@
                             "Elija la cantidad que desee."
                         ]
                      },{
-                        principal: "Una vez finalizada la compra, vaya a Mis pedidos.",
+                        principal: "Una vez finalizada la compra, vaya a Mis Pedidos.",
                         subPasos:[]
                      },{
                         principal: "Haga click en [CONFIRMAR].",
@@ -105,14 +105,14 @@
             pasos: [{
                         principal: "Cree un grupo:",
                         subPasos:[
-                            "Vaya a Mis grupos.",
+                            "Vaya a Mis Grupos.",
                             "Haga click en [CREAR GRUPO].",
                             "Elija un nombre para el grupo y una descripción."
                         ]
                      },{
                         principal: "Si usted es administrador de un grupo, puede invitar amigos a su grupo:",
                         subPasos:[
-                            "Vaya a Mis grupos.",
+                            "Vaya a Mis Grupos.",
                             "Seleccione el grupo al que desee invitar amigos.",
                             "Haga click en el ícono +.",
                             "Escriba el mail de su amigo. Le llegará un mail y, si ya tiene una cuenta en Chasqui, una notificación con la invitación al grupo."
@@ -120,12 +120,12 @@
                      },{
                         principal: "Vaya a Catálogo y en vez de compra individual seleccione el grupo de compra colectiva que desee. El funcionamiento es el mismo que en el caso de compra individual.",
                         subPasos:[
-                            "Recuerde confirmar su pedido en Mis pedidos."
+                            "Recuerde confirmar su pedido en Mis Pedidos."
                         ]
                      },{
                         principal: "Si usted es administrador del grupo, es NECESARIO que cierre el pedido antes de la fecha de entrega. De otra forma el pedido no será entregado.",
                         subPasos:[
-                            "Vaya a Mis grupos.",
+                            "Vaya a Mis Grupos.",
                             "Seleccione el grupo al que le desee cerrar el pedido.",
                             "Haga click en [CONFIRMAR PEDIDO].",
                             "Seleccione el domicilio de entrega."
@@ -137,16 +137,16 @@
                     ]
         }
     ];
-
-
+      
+      
     $scope.idFrom = function(instruccion){
         return "#instructionContent_" + instruccion.id;
     }
-
-
+    
+    
     $scope.idFor = function(instruccion){
         return "instructionContent_" + instruccion.id;
     }
-
+    
   }
 })();

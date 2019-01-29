@@ -1,8 +1,14 @@
-<div class="ch-content-full">
-    <section-wrapper not-supported-strategies="nodos" supported-strategies="puntoDeEntrega">
-        <md-content layout="row" layout-align="center center">
+<section-wrapper not-supported-strategies="nodos" supported-strategies="puntoDeEntrega">
+  <div id="chasqui-content-full">
+    <div class="archive-box-catalogo">
+      <h3>Puntos de entrega</h3>
+    </div>
+  </div>
+
+  <div class="ch-content">
+        <div layout="row" layout-align="center center">
             <md-card ng-repeat="deliveryPoint in deliveryPoints" class="chq-delivery-point selector-delivery" >
-                <md-card-title >
+                <md-card-title>
                     <md-card-title-text>
                         <label class="md-headline"> {{deliveryPoint.nombre}}</label>
                         <label class="md-subhead"> {{formatAddress(deliveryPoint.direccion)}}</label>
@@ -12,9 +18,9 @@
                     <label > {{deliveryPoint.mensaje}}</label>
                 </md-card-content>
             </md-card>
-        </md-content>
-    </section-wrapper>
-</div>
+        </div>
+    </div>
+</section-wrapper>
 <style>
   .selector-delivery{
     background: #F1F1F1;

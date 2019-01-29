@@ -1,33 +1,99 @@
-<div class="ch-content-full">
-    <div class="ch-catalog-controls ch-catalog-controls-left">
+<div id="chasqui-content-full">
+  <div class="archive-box-catalogo">
+    <div layout=row layout-align="">
+      <div flex="25">
         <div layout=column>
-            <div >
-                <section ng-include="'app/comercio/catalogo/filtros.html'">
-                </section>
-            </div>
+          <h3>Catalogo de compras</h3>
         </div>
-    </div>
-    <div layout=row layout-align="center">
-        <div flex="1" class="ch-catalog-items" layout="column" layout-align="center">
-            <div layout=row layout-align="center center" class="ch-catalog-items-filter">
-                <md-input-container>
-                    <input ng-keyup="$event.keyCode == 13 && catalogoCtrl.filtrar()"  ng-model="catalogoCtrl.queryText"  type="text" placeholder="{{'BUSCAR' | translate}}">
-                </md-input-container>
-                <md-button ng-click="catalogoCtrl.filtrar()" >
-                    <md-icon md-svg-src="app/components/image/ic_search_black_24px.svg">
-                    </md-icon>
-                </md-button>
-            </div>
-            <div >
-                <section ng-include="'app/comercio/catalogo/lista-productos.html'" ng-init="count = catalogoCtrl.count" ng-cloak></section>
-            </div>
-        </div>
-    </div>
-    <div ng-if="catalogoCtrl.isLogued" class="ch-catalog-controls ch-catalog-controls-right">
-      <div >
-        <section ng-include="'app/comercio/catalogo/contexto.compra.html'"></section>
+      </div>
 
-        <section ng-include="'app/comercio/catalogo/contexto.pedido.html'" ng-cloak></section>
+
+      <div flex="75">
+        <div>
+          <div class="search-input-container"> 
+
+            <input ng-keyup="$event.keyCode == 13 &amp;&amp; catalogoCtrl.filtrar()" ng-model="catalogoCtrl.queryText" type="text" class="buscador-catalogo" aria-invalid="false" placeholder=" Tu busqueda empieza aqui... ">   
+
+            <button type="submit" class="btn btn-default search_submit" ng-click="catalogoCtrl.filtrar()">
+              <md-icon style="color:white;">search</md-icon> Buscar
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 </div>
+
+
+<div class="ch-content">
+  <div layout="row" layout-align="space-between start">
+    <div flex="25">
+      <div layout="column">
+        <!-- Cambios de ubicacion en el carro de compra - tom -->			
+        <div ng-if="catalogoCtrl.isLogued" >
+          <section ng-include="'app/comercio/catalogo/contexto.compra.html'"></section>
+          <section ng-include="'app/comercio/catalogo/contexto.pedido.html'" ng-cloak></section>
+        </div>
+
+        <div>
+          <section ng-include="'app/comercio/catalogo/filtros.html'">
+          </section>
+        </div>
+      </div>
+    </div>
+    <div flex="75">
+      <section ng-include="'app/comercio/catalogo/lista-productos.html'" ng-init="count = catalogoCtrl.count" ng-cloak></section>
+    </div>
+  </div>
+</div>
+
+<!-- Buscador para realizar TOM -->
+
+  
+<style>
+
+.search_submit  {
+    width:10%;
+    position: absolute;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    text-align: center;
+    color: white;
+    background: #242424;
+    padding: 0 35px;
+    border: 0;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0 25px 25px 0;	
+    -webkit-border-radius: 0 25px 25px 0;
+    -moz-border-radius: 0 25px 25px 0;
+    -ms-border-radius: 0 25px 25px 0;
+    -o-border-radius: 0 25px 25px 0;
+
+    -webkit-transition: all 300ms linear;
+    -moz-transition: all 300ms linear;
+    -ms-transition: all 300ms linear;
+    -o-transition: all 300ms linear;
+    transition: all 300ms linear;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+
+}
+
+</style>
