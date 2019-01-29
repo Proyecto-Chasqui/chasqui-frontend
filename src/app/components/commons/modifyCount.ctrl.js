@@ -26,7 +26,6 @@
         /// Private
         function getTotal(variety){
             var decimal = Math.floor((variety.precio - Math.floor(variety.precio))*100);
-            console.log("decimal",$scope._count *decimal, decimal, $scope._count * (Math.floor(variety.precio) + (decimal/100)));
             return $scope._count * (Math.floor(variety.precio) + (decimal/100));
         }
     
