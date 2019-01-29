@@ -1,23 +1,28 @@
-<div class="ch-content">
-  <section-wrapper not-supported-strategies="nodos">
+<div id="chasqui-content-full">
+<div class="archive-box-catalogo">
+<h3>Como comprar ?</h3>
+</div>
+</div>
 
+
+
+<div class="ch-content">
     <md-grid-list md-cols="4" md-row-height="1:1">
         <md-grid-tile layout="row" md-colspan="1" md-rowspan="1" ng-repeat="(i,instruccion) in instruccionesCards">
-            <md-card style="width:200px; height:280px;">
-                <div style="position: relative; ">
-
+            <md-card style="width:250px; padding:20px; margin-top:20px;">
+                <div>
                     <img src="{{'assets/images/help/purchaseHelp_' + i + '.jpg'}}">
-                    <div style="padding-left:3px;
-                                padding-right:3px;">
-                        <b>{{instruccion.titulo}}</b>
-                        <br>
-                        {{instruccion.contenido}}
+                    <div class="txt-comocomprar">
+                        <h3><b>{{instruccion.titulo}}</b></h3>
+                        <p>{{instruccion.contenido}}</p>
                     </div>
                 </div>
             </md-card>
         </md-grid-tile>
     </md-grid-list>
 
+	
+	
     <div style="margin-top: 50px">
         <div ng-repeat="instruccion in instrucciones">
             <chq-colapsable titulo="{{instruccion.titulo}}" color="#412467" ancho="60%">
@@ -48,8 +53,9 @@
                 </ol><br>
             </md-card-content> -->
           </div>
-      </div>
-  </section-wrapper>
+    </div>
+ </div>
+
 </div>
 
 
@@ -61,6 +67,8 @@
     padding: 0.5rem;
     box-shadow: 0px 0px 2px #000;
   }
+  
+  
   .tarjeta .precio-comprar{
     width: 100%;
     display: inline-flex;
@@ -69,4 +77,20 @@
     align-items: center;
     justify-content: space-between;
   }
+  
+  
+  .txt-comocomprar {
+    padding:auto; 
+    margin-top:10px;
+	height: 65px;
+  }
+    .txt-comocomprar p{ 
+    color: #111;
+    font-size: 12px;
+  }
+    .txt-comocomprar h3{
+      color: #111;
+    font-size: 16px;
+  }
+  
 </style>
