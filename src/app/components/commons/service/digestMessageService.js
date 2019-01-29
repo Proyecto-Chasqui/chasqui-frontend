@@ -5,7 +5,8 @@ angular
     .module('chasqui').
     service('digestMessageService', digestMessageService);
 
-    function digestMessageService(toastr,$log,contextPurchaseService,usuario_dao){
+    function digestMessageService(toastr,$log,contextPurchaseService,usuario_dao, contextOrdersService, $rootScope,
+                                  agrupationTypeVAL){
     var vm = this;
 
     //Campos del mensaje
@@ -24,9 +25,21 @@ angular
         }
     }
 
-    function dispatchAction(JSON){
-        if(JSON.accion === "notificar_vencimiento"){
-            toastr.info("Pedido Vencido!!!","WEBSOCKET MESSAGE",{timeOut: 800000});
+    function dispatchAction(info){
+        if(info.accion === "notificar_vencimiento"){
+          contextOrdersService.getOrders(info.idVendedor).then(function(orders){
+            var expiredOrder = orders.filter(function(o){return o.id == info.idPedido;})[0];
+            contextOrdersService.setStateExpired(info.idVendedor, expiredOrder);
+            contextPurchaseService.setContextByCatalogId(info.idVendedor);
+            toastr.info(
+                (expiredOrder.type == agrupationTypeVAL.TYPE_PERSONAL? 
+                "Tu pedido individual" : "Tu pedido del grupo " + expiredOrder.aliasGrupo )
+                + " se vención por falta de actividad",
+                "Pedido vencido",
+                {timeOut: 300000}
+            );
+            $rootScope.$broadcast('order-cancelled');
+          });
         }
     }
 

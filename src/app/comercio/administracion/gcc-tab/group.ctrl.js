@@ -93,6 +93,9 @@
         init();
     });
       
+    $rootScope.$on('order-cancelled', function(event) {
+        init();
+    });
       
     /////////////////// INIT ////////////////////
 
