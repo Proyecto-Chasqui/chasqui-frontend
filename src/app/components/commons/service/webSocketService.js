@@ -11,7 +11,7 @@ angular
 
       dataStream.onMessage(function(message) {
         $log.debug("MESSAGE", message.data);
-        toastr.info(message.data,"WEBSOCKET MESSAGE",{timeOut: 800000});
+        //toastr.info(message.data,"WEBSOCKET MESSAGE",{timeOut: 800000});
         digestMessageService.webSocketMessageDispatch(JSON.parse(message.data));
       });
       //solo para debug, elminar los toast cuando se vaya a produccion
