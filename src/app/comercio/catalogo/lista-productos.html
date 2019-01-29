@@ -53,13 +53,10 @@
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="myDialog">
           <md-dialog layout-padding style="width:40%;">
-              <div class="md-toolbar-tools chq-color-toolbar">
-                  <h2 class="md-headline">{{listaProductosCtrl.medallaSelect.nombre}}</h2>
-                  <span flex></span>
-                  <div ng-click="listaProductosCtrl.cerrarDialogoMedalla(1)">
-                      <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
-                  </div>
-              </div>
+              <modal-window-title-bar 
+                title="{{listaProductosCtrl.medallaSelect.nombre}}"
+                cancel-action="listaProductosCtrl.cerrarDialogoMedalla">
+              </modal-window-title-bar>
               <div layout="column" layout-align="center center">
                   <ch-image src="listaProductosCtrl.medallaSelect.pathImagen" width="200" height="200"></ch-image>
                   <div ng-bind-html="listaProductosCtrl.medallaSelect.descripcion"></div>
@@ -72,13 +69,10 @@
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="productorDialog">
           <md-dialog layout-padding style="width:40%;">
-              <div class="md-toolbar-tools chq-color-toolbar">
-                  <span class="md-headline">{{listaProductosCtrl.emprendedorSelect.nombreProductor}}</span>
-                  <span flex></span>
-                  <div ng-click="listaProductosCtrl.cerrarDialogoMedalla(1)">
-                      <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
-                  </div>
-              </div>
+              <modal-window-title-bar 
+                title="{{listaProductosCtrl.emprendedorSelect.nombreProductor}}"
+                cancel-action="listaProductosCtrl.cerrarDialogoMedalla">
+              </modal-window-title-bar>
               <div layout="column" layout-align="center center">
                 <ch-image src="listaProductosCtrl.emprendedorSelect.pathImagen" width="200" height="200"></ch-image>
               </div>
