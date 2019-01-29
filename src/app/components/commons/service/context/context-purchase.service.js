@@ -21,6 +21,7 @@
             
             // Set context
             setContextByCatalog: setContextByCatalog,       // :: catalog -> null
+            setContextByCatalogId: setContextByCatalogId,       // :: catalog -> null
             setContextByOrder: setContextByOrder,           // :: order -> null
             setContextByAgrupation: setContextByAgrupation,  // :: agrupation -> null
             
@@ -69,8 +70,19 @@
          */
         function setContextByCatalog(catalog){
             // Dadas las estrategias del catalogo depende el contexto inicial. TODO: Dinamizar
+            setContextByCatalogId(catalog.id);
+        }
+    
+        /* Prop: setea el contexto de compra segun el catalogo para el usuario logeado.
+                 Inicializa los datos del catalogo
+         * Modifica:    order_context.agrupationId
+         *              order_context.agrupationType
+         *              order_context.orderId
+         */
+        function setContextByCatalogId(catalogId){
+            // Dadas las estrategias del catalogo depende el contexto inicial. TODO: Dinamizar
             
-            order_context.setCatalogId(catalog.id);
+            order_context.setCatalogId(catalogId);
             
             // Por el momento se setea por defecto el pedido individual
             order_context.setAgrupationId(idGrupoPedidoIndividual); 
