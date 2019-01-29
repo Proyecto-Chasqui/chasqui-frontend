@@ -1,58 +1,47 @@
-<md-dialog style="width:50%; margin-top: 10rem;">
-    <md-toolbar>
-        <div class="md-toolbar-tools chq-color-toolbar">
-            <h2> {{producto.nombreProducto}} </h2>
-            <span flex></span>
-            <div ng-click="cerrariDalogo()">
-                <a href=""><i style="font-size: 36px;" class="material-icons">close</i></a>
-            </div>
-        </div>
-    </md-toolbar>
+<md-dialog style="width:960px; height:555px; margin-top: 20px;">
+    
+	<modal-window-title-bar title="" cancel-action="cerrariDalogo"></modal-window-title-bar>
+	
+	
     <md-dialog-content>
-        <div layout="row" layout-align="space-between center">
-            <div flex>
-                <img ng-src="{{urlBase}}{{imageSelect}}" style="max-height:200px;padding: 10px;">
-            </div>
-            <md-card flex="50">
-                <md-card-content>
-                    <div layout="column">
-                        <div class="md-subhead">
-                            {{producto.nombreFabricante}}
-                        </div>
-                        <div class="md-subhead">
-                            <div ng-bind-html="producto.descripcion">
-                            </div>
-                        </div>
-                    </div>
-                    <div layout="row" layout-align="space-around center">
-                        <div>
-                            <h1>$ {{producto.precioParteEntera}} <sup>{{mostrarDecimales(producto.precioParteDecimal)}}</sup></h1>
-                        </div>
-                    </div>
-                </md-card-content>
-            </md-card>
-        </div>
-        <md-divider md-inset></md-divider>
-        <md-card>
-            <div layout="row">
-                <div ng-repeat="image in imagenes" class="image-mini-preview">
-                    <img ng-src="{{urlBase}}{{image.path}}" style="height:100px;" ng-click="setImageSelected(image.path)">
+
+        <div layout="row" layout-xs="column">
+            	
+			<div flex="50">
+                <img ng-src="{{urlBase}}{{imageSelect}}" style="max-height:300px; margin-left:20px;" class="tarjeta-imagen">
+				
+				<div layout="row" style="margin-left:18px;">
+                <div ng-repeat="image in imagenes" class="image-mini-preview" >
+                <img ng-src="{{urlBase}}{{image.path}}" style="height:96px;" ng-click="setImageSelected(image.path)">
                 </div>
             </div>
-        </md-card>
-    </md-dialog-content>
+            </div>
+			
+			<div flex>
+                    <div layout="column" style="margin-left:20px;">
+					    <div class="md-subhead tarjeta-fabricante">
+                            {{producto.nombreFabricante}}
+                        </div>
+					    <h2 class="tarjeta-nombre"> {{producto.nombreProducto}} </h2>
+					    <div class="tarjeta-price">$ {{producto.precioParteEntera}}.{{mostrarDecimales(producto.precioParteDecimal)}}
+                        </div>
+						<div class="tarjeta-line"></div>
+                        
+                        <div class="md-subhead tarjeta-descripcion">
+                            <div ng-bind-html="producto.descripcion"></div>
+                        </div>
+                    </div>
+            </div>		
+        </div>
+    	
+	</md-dialog-content>
 </md-dialog>
+
+
+
 <style type="text/css">
 .image-preview {
-    padding: 15px 15px 15px 15px;
 }
 
-.image-mini-preview {
-    padding: 15px 15px 15px 15px;
-}
-
-div.image-mini-preview:hover {
-    border: 1px solid #777;
-}
 
 </style>

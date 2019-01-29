@@ -5,6 +5,7 @@ $colorCancela: #d50000;
 $colorConfirmar: #43a047;
 $colorHoverConfirmar: #215023;
 $colorHoverCancelar: #7F0000;
+$colorBlanco: #FFFFFF;
 // https://www.materialpalette.com/colors
 .body {
 	/*background: linear-gradient(#F7F7F7,#D7D7D7) !important;
@@ -46,7 +47,7 @@ md-list-item.md-3-line > .md-no-style::before {
 
 // Barra de titulo de las ventanas modales
 .ch-dialog.md-toolbar-tools{
-    background-color: $colorDos;
+    background-color: $colorBlanco;
 }
 
 .titulo-pagina {
