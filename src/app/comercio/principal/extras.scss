@@ -47,7 +47,8 @@ md-list-item.md-3-line > .md-no-style::before {
 
 // Barra de titulo de las ventanas modales
 .ch-dialog.md-toolbar-tools{
-    background-color: $colorBlanco;
+  background-color: $colorBlanco;
+  color: #98989b;
 }
 
 .titulo-pagina {
