@@ -105,7 +105,7 @@
 						key: 'GENERIC_ERROR'
 					});
 				} else {
-					ToastCommons.error(response.data.error, "Error");
+					toastr.error(response.data.error, "Error");
 				}
 
 			}
