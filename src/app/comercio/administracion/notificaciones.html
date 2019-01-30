@@ -1,12 +1,14 @@
+      <div id="chasqui-content-full">
+    <div class="archive-box-catalogo">
+      <h3>Notificaciones</h3>
+    </div>
+  </div>
 <div class="container-fluid ch-content md-padding" id="popupContainer" ng-cloak>
+
     <div ng-cloak>
 
             <md-content  class="md-padding">
             	<section>
-            		<md-subheader class="md-accent">
-            			<md-icon> message </md-icon>
-            			<label translate="NOTIFICACIONES"></label>
-            		</md-subheader>
             		<div>
             			<md-card class="md-3-line" ng-repeat="item in perfilCtrl.notificaciones"  md-colors="{background: '{{perfilCtrl.getColor(item)}}'}">
                             <md-card-title>
