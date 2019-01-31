@@ -33,6 +33,9 @@
         $scope.zoneDefined = false;
         $scope.deliveryPointDefined = false;
         $scope.zonesMap = "";
+        $scope.minPrice = 0;
+        $scope.showMinPriceWarn = false;
+
         
         /////////////////////////////////////
         
@@ -44,6 +47,11 @@
                 loadZones(selectedCatalog.id);
                 initAdress();
             })
+            vendedorService.obtenerConfiguracionVendedor().then(
+                function(response){
+                    $scope.minPrice = response.data.montoMinimo;
+                }
+            );
         }
     
         function initAdress(){
@@ -102,13 +110,14 @@
 			function fillUserAddresses(response) {
                 $log.debug('call direcciones ', response.data);
 				$scope.addresses = response.data;
+                showMultipleSelection(catalog);
 			}
 
 			function fillDeliveryPoints(response) {
                 $log.debug('call delivery points ', response.data);
 				$scope.deliveryPoints = response.data.puntosDeRetiro;
 			}
-      		showMultipleSelection(catalog);
+      		
 			vendedorService.verPuntosDeEntrega().then(fillDeliveryPoints);
 			perfilService.verDirecciones().then(fillUserAddresses);
 		}
@@ -116,11 +125,22 @@
         
         function showMultipleSelection(catalog){
             $scope.mostrarSeleccionMultiple = catalog.few.seleccionDeDireccionDelUsuario && catalog.few.puntoDeEntrega;
+
             if(!$scope.mostrarSeleccionMultiple){
                 $scope.deliveryTypes[0].show = catalog.few.seleccionDeDireccionDelUsuario;
                 $scope.showGoProfile = $scope.deliveryTypes[0].show && $scope.addresses.length == 0;
               
                 $scope.deliveryTypes[1].show = catalog.few.puntoDeEntrega;
+            }
+
+            if($scope.minPrice > $scope.order.montoActual){
+                if($scope.mostrarSeleccionMultiple){
+                    $scope.mostrarSeleccionMultiple = false
+                }
+                $scope.deliveryTypes[0].show = false;
+                $scope.deliveryTypes[1].show = catalog.few.puntoDeEntrega;
+                $scope.showGoProfile = false;
+                $scope.showMinPriceWarn = true;
             }
 		}
         

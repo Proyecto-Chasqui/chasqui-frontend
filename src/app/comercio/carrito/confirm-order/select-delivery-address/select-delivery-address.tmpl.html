@@ -1,5 +1,13 @@
+    <md-card>
+    <md-card-contents class="ch-warn-card-content" >
+    <div ng-show="showMinPriceWarn">
+        <span class="ch-warn">Su pedido no supera el monto minimo de ${{minPrice}}, solo puede pasar a retirar el pedido</span>
+    </div>
+     </md-card-contents>
+    </md-card>
+
 <div layout="row" layout-align="space-between center">
-    <div flex="50" layout="column">
+    <div ng-show="mostrarSeleccionMultiple" flex="50" layout="column">
         <span>Selecciona un modo de entrega: <strong>*</strong></span>
         <span class="ch-error" ng-show="validated && !modeDefined">Se debe elegir un modo de entrega</span>
     </div>

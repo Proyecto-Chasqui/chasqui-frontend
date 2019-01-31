@@ -4,7 +4,7 @@
 	angular.module('chasqui').service('confirmOrder', confirmOrder);
 
 	function confirmOrder(dialogCommons, gccService, contextOrdersService, $rootScope, toastr, 
-                        $mdDialog, $log, productoService, us, contextPurchaseService) {
+                        $mdDialog, $log, productoService, us, contextPurchaseService, vendedorService) {
     
     function confirmOrderImpl(order){
         var confirm = {
@@ -18,13 +18,52 @@
     
     /////// personal order confirm
     
-    function confirmPersonalOrder(order) {  
-            var actions = {
-                doOk: doConfirmPersonalOrder(order),
-                doNotOk: ignoreAction
-            };
+    $rootScope.minPrice;
+
+    function confirmPersonalOrder(order) {
+        contextPurchaseService.getSelectedCatalog().then(
+            function(selectedCatalog){
+
+            if(selectedCatalog.few.seleccionDeDireccionDelUsuario && !selectedCatalog.few.puntoDeEntrega && order.aliasGrupo === "Individual"){
+                
+                if(priceValid(order.montoActual)){
+                    showDialog(order);
+                }else{
+                    warn();
+                }
+            }else{
+                showDialog(order);
+            }
+            });
+
+    }
+
+    function priceValid(value){
+        vendedorService.obtenerConfiguracionVendedor().then(
+            function(response){
+                $rootScope.minPrice = response.data.montoMinimo;
+                return value > $rootScope.minPrice;
+            }
+        );
+    }
+
+    function warn(){
+        vendedorService.obtenerConfiguracionVendedor().then(
+            function(response){
+                var minPrice = response.data.montoMinimo;
+                var msj = 'No puede confirmar su pedido debido a que no supera el monto mínimo de $' + String(minPrice);
+                toastr.warning(msj, 'Aviso',{timeOut: 30000});
+            }
+        );
+    }
+
+    function showDialog(order){
+        var actions = {
+            doOk: doConfirmPersonalOrder(order),
+            doNotOk: ignoreAction
+        };
             
-            dialogCommons.selectDeliveryAddress(actions, order);
+        dialogCommons.selectDeliveryAddress(actions, order);
     }
     
     

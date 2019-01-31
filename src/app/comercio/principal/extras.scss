@@ -212,7 +212,22 @@ md-tabs md-ink-bar {
 
 .ch-error{
     color: $colorCancela !important;
+    text-align: center;
 }
+
+.ch-warn{
+    color: #720000 !important;
+    font-weight: bold;
+    margin-left: 18%;
+    margin-right: 18%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.ch-warn-card-content{
+  background-color: #47c1ff;
+}
+
 
 .confirm-order{
 	color: $colorUno;
