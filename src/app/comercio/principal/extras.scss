@@ -409,14 +409,22 @@ md-tabs md-ink-bar {
 }
 
 .ch-item-selected {
-    /*background-color: #524aef;
-    color: #ffbb35;*/
+    background-color: $colorUno;
+    color: $colorDos;
+    margin-inline-start: 0px;
+    margin-block-start: 1em;
+
 }
 
 .ch-item-no-selected {
     display: flex;
+    color: white;
     flex-direction: column;
-    justify-content: space-between;    
+    justify-content: space-between;
+    background-color: #412467 !important;
+    margin-block-start: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;   
 }
 
 /* Pagina del grupo en particular */
@@ -429,7 +437,8 @@ md-tabs md-ink-bar {
     padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px;
-    /*background-color: #c5f7f9;*/
+    background-color: #6a4896;
+    border-top: 1px solid black; 
 }
 
 

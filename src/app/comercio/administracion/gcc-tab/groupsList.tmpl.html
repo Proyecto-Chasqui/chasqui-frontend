@@ -46,7 +46,7 @@
       <div ng-repeat="(i, group) in groups" layout="column" layout-align="start">
           <md-list-item ng-class="getClassForItemGroup(i)" class="md-3-line" ng-click="showOptionsForGroup(i)" flex>
               <ch-image src="group.miembros[0].avatar" description="group.members[0].nickname + '(Administrador)'" class="md-avatar"></ch-image>
-              <div class="md-list-item-text" layout="column" flex>
+              <div  class="md-list-item-text" layout="column" flex>
                   <div layout="row" layout-align="space-between">
                       <h3>{{group.alias}}</h3>
                       <h4> ABIERTO </h4>
@@ -70,13 +70,13 @@
                   </div>
               </div>
               <div layout="row" layout-align="space-around center">
-                  <md-button ui-sref="catalog.userGroups.group.membersOrders({groupId: i})">
+                  <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.membersOrders({groupId: i})">
                       Ver pedidos de los miembros
                   </md-button>
-                  <md-button ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
+                  <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
                       Ver historial de pedidos
                   </md-button>
-                  <md-button ui-sref="catalog.userGroups.group.admin({groupId: i})">
+                  <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.admin({groupId: i})">
                       Administrar grupo
                   </md-button>
               </div>
