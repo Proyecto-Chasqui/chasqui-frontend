@@ -140,7 +140,10 @@
                 $scope.deliveryTypes[0].show = false;
                 $scope.deliveryTypes[1].show = catalog.few.puntoDeEntrega;
                 $scope.showGoProfile = false;
-                $scope.showMinPriceWarn = true;
+                if(catalog.few.seleccionDeDireccionDelUsuario && catalog.few.puntoDeEntrega ||
+                 catalog.few.seleccionDeDireccionDelUsuario && !catalog.few.puntoDeEntrega){
+                    $scope.showMinPriceWarn = true;
+                }
             }
 		}
         
