@@ -35,6 +35,7 @@
         $scope.zonesMap = "";
         $scope.minPrice = 0;
         $scope.showMinPriceWarn = false;
+        $scope.advertencia = "Su pedido no supera el monto minimo, solo puede pasar a retirar el pedido";
 
         
         /////////////////////////////////////
@@ -140,8 +141,12 @@
                 $scope.deliveryTypes[0].show = false;
                 $scope.deliveryTypes[1].show = catalog.few.puntoDeEntrega;
                 $scope.showGoProfile = false;
-                if(catalog.few.seleccionDeDireccionDelUsuario && catalog.few.puntoDeEntrega ||
-                 catalog.few.seleccionDeDireccionDelUsuario && !catalog.few.puntoDeEntrega){
+                if(catalog.few.seleccionDeDireccionDelUsuario && catalog.few.puntoDeEntrega){                 
+                    $scope.advertencia = "Su pedido no supera el monto minimo de $" +String($scope.minPrice) + ", solo puede pasar a retirar el pedido";
+                    $scope.showMinPriceWarn = true;
+                }
+                if(catalog.few.seleccionDeDireccionDelUsuario && !catalog.few.puntoDeEntrega){
+                    $scope.advertencia = "No puede confirmar este pedido debido a que no supera el monto minimo de $" +String($scope.minPrice);
                     $scope.showMinPriceWarn = true;
                 }
             }

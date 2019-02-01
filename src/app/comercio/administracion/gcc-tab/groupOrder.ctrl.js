@@ -5,13 +5,14 @@
 
   function GroupOrderController($scope, $rootScope, $log, URLS, gccService, us, toastr, agrupationTypeVAL, $interval, 
                                    contextOrdersService, contextPurchaseService,$state, usuario_dao, dialogCommons, 
-                                   $mdDialog, confirmOrder, productoService) {
+                                   $mdDialog, confirmOrder, productoService, vendedorService) {
 
     $scope.urlBase = URLS.be_base;
 
     $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
     $scope.cerrarToolTipMsg = cerrarToolTipMsg;
     $scope.cerradoToolTipMsg = cerradoToolTipMsg;
+    $scope.puedeCerrarPedidoGCCSegunEstrategias = puedeCerrarPedidoGCCSegunEstrategias;
 
     $scope.selfPara = selfPara;
     $scope.vocativoPara = vocativoPara;
@@ -51,6 +52,11 @@
 
     function puedeCerrarPedidoGCC(){
         return !hayAlgunPedidoAbierto() && hayAlgunPedidoConfirmado() && montoTotalGrupo() >= $scope.montoMinimo;
+    }
+
+
+    function puedeCerrarPedidoGCCSegunEstrategias(){
+        return !hayAlgunPedidoAbierto() && hayAlgunPedidoConfirmado();
     }
 
     function hayAlgunPedidoAbierto() {
@@ -204,6 +210,11 @@
           $scope.montoMinimo = $scope.group.miembros[0].pedido? $scope.group.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
           $scope.porcentajeMontoMinimo = 0;
         }
+        vendedorService.obtenerConfiguracionVendedor().then(
+            function(response){
+                $scope.montoMinimo = response.data.montoMinimo;
+            }
+        );
     }
 
     $rootScope.$on('group-is-loaded', function(event, group) {

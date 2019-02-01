@@ -9,7 +9,7 @@
             </div>
         </div>
         
-        <div style="margin: 8px;" flex>
+        <div ng-hide="showProgressBar" style="margin: 8px;" flex>
           <div layout="row" layout-align="end center">
             <div layout="row" layout-align="space-around center">
               <chq-price-product precio="montoTotalGrupo()" tamanho="1.3"></chq-price-product>
@@ -17,7 +17,7 @@
               <chq-price-product precio="montoMinimo" tamanho="1"></chq-price-product>
             </div>
           </div>
-          <md-progress-linear ng-class="estadoPedido" md-mode="determinate" value="{{porcentajeMontoMinimo}}">
+          <md-progress-linear  ng-class="estadoPedido" md-mode="determinate" value="{{porcentajeMontoMinimo}}">
           </md-progress-linear>
           <md-tooltip md-direction="bottom">
               {{statusBarToolTipMsg()}}

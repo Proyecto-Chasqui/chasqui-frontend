@@ -5,7 +5,7 @@
 
   
   function GroupController($scope, $rootScope, $stateParams, contextCatalogObserver, contextPurchaseService, agrupationTypeVAL,
-                           $interval, $state) {
+                           $interval, $state,vendedorService, $log) {
 
     $scope.group = {};
     $scope.montoMinimo = 0;
@@ -17,6 +17,7 @@
     $scope.goToState = goToState;
     $scope.getArrowState = getArrowState;
     $scope.selectedState = "";
+    $scope.showProgressBar;
 
     ///////////////////////////////////////
 
@@ -32,8 +33,8 @@
     // Tooltips
     
     function statusBarToolTipMsg(){
-      return "Total del pedido colectivo sobre el monto mínimo para poder confirmar el pedido. \n" + 
-             "Para poder confirmar este pedido hace falta agregar productos por $" + ($scope.montoMinimo - montoTotalGrupo());
+      return "Total del pedido colectivo sobre el monto mínimo para poder hacer envio a domicilio. \n" + 
+             "Para poder confirmar este pedido hace falta que al menos 1 integrante confirme su pedido";
     }
       
     // Datos del grupo
@@ -104,12 +105,19 @@
             contextPurchaseService.getAgrupations().then(function(agrupationsInt){
                 var groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
                 $scope.group = groups[$stateParams.groupId];
-                $scope.montoMinimo = $scope.group.miembros[0].pedido? $scope.group.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
+                //$scope.montoMinimo = $scope.group.miembros[0].pedido? $scope.group.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
                 runStatusBar();
                 $scope.selectedState = $state.current.name.split(".").slice(-1)[0];
                 $rootScope.$broadcast('group-is-loaded', $scope.group);
             });
         })
+        vendedorService.obtenerConfiguracionVendedor().then(
+            function(response){
+                $scope.montoMinimo = response.data.montoMinimo;
+                $scope.showProgressBar = response.data.few.puntoDeEntrega && !response.data.few.seleccionDeDireccionDelUsuario
+                $log.debug("CONFIG VENDEDOR", response.data); 
+            }
+        );
     }
 
     init();
