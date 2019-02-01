@@ -150,6 +150,11 @@
                     $scope.showMinPriceWarn = true;
                 }
             }
+
+            if(!catalog.few.seleccionDeDireccionDelUsuario && !catalog.few.puntoDeEntrega){
+                $scope.advertencia = "Por el momento las ventas estan deshabilitadas, vuelva a intentar mas tarde.";
+                $scope.showMinPriceWarn = true;
+            }
 		}
         
         

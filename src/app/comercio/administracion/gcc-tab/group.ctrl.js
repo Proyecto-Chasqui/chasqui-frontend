@@ -114,8 +114,7 @@
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
                 $scope.montoMinimo = response.data.montoMinimo;
-                $scope.showProgressBar = response.data.few.puntoDeEntrega && !response.data.few.seleccionDeDireccionDelUsuario
-                $log.debug("CONFIG VENDEDOR", response.data); 
+                $scope.showProgressBar = response.data.few.puntoDeEntrega && !response.data.few.seleccionDeDireccionDelUsuario || !response.data.few.puntoDeEntrega && !response.data.few.seleccionDeDireccionDelUsuario;
             }
         );
     }

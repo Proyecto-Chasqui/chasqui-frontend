@@ -7,7 +7,7 @@
     
 	function SelectPurchaseContextCtrl($scope, contextPurchaseService, agrupationTypeVAL, contextCatalogObserver, 
                                      $mdDialog, addProductService, $rootScope, variety, $timeout, contextOrdersService,
-                                     contextAgrupationsService) {
+                                     contextAgrupationsService, vendedorService) {
     
     $scope.grupos = [];
     $scope.agrupationSelected = {};
@@ -22,10 +22,17 @@
           idGrupo: contextPurchaseService.getAgrupationContextId(),
           type: agrupationTypeVAL.TYPE_PERSONAL
         }
-        contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
-          $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
-                                                              agrupationTypeVAL.TYPE_GROUP);
-        });
+        vendedorService.obtenerConfiguracionVendedor().then(
+            function(response){
+                var few = response.data.few;
+                if(few.gcc){
+                    contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
+                    $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(),agrupationTypeVAL.TYPE_GROUP);
+                    });
+                }
+            }
+        );
+
         
         checkSelectedOrderConfirmed();
       })

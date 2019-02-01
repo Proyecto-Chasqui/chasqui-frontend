@@ -10,7 +10,7 @@
   function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
     $state, toastr, productoService, us, contextCatalogsService,
     $mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
-        usuario_dao, $stateParams, addProductService, dialogCommons) {
+        usuario_dao, $stateParams, addProductService, dialogCommons, vendedorService) {
 
     $log.debug('ListaProductosController',
       $scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -31,6 +31,7 @@
     vm.emprendedorSelect = {};
     vm.activeIndex = 1; // Seteado desde paginador
     vm.lastPage = undefined;
+    vm.permitirComprar = false;
 
     //////// dialogo medalla
     vm.showPrerenderedDialog = function(medalla) {
@@ -122,32 +123,35 @@
     }
 
     vm.agregar = function(variety) {
-
-      if (usuario_dao.isLogged()) {
-        if(variety.stock > 0){
-          contextPurchaseService.getSelectedOrder().then(function(order){
-            contextPurchaseService.getOrders().then(function(orders){
-              if(orders.length > 1
-                 && order.productosResponse.length == 0
-                 && contextPurchaseService.isGrupoIndividualSelected() ){
-                dialogCommons.selectPurchaseContext(variety);
-              }else{
-                addProductService(variety);
-              }
-            })
-          })
-        }else{
-          dialogCommons.acceptIssue("Producto sin stock",
-                                    "Lamentablemente no queda más stock, te recomendamos buscar productos similares",
-                                    "Ok",
-                                    function(){},
-                                    function(){});
-        }
-      } else {
-        toastr.info(us.translate('INVITARMOS_INGRESAR'));
-        $log.log('not logued" ', variety);
-        contextPurchaseService.ls.varianteSelected = variety;
-        $state.go('catalog.login');
+      if(vm.permitirComprar){
+          if (usuario_dao.isLogged()) {
+            if(variety.stock > 0){
+              contextPurchaseService.getSelectedOrder().then(function(order){
+                contextPurchaseService.getOrders().then(function(orders){
+                  if(orders.length > 1
+                     && order.productosResponse.length == 0
+                     && contextPurchaseService.isGrupoIndividualSelected() ){
+                    dialogCommons.selectPurchaseContext(variety);
+                  }else{
+                    addProductService(variety);
+                  }
+                })
+              })
+            }else{
+              dialogCommons.acceptIssue("Producto sin stock",
+                                        "Lamentablemente no queda más stock, te recomendamos buscar productos similares",
+                                        "Ok",
+                                        function(){},
+                                        function(){});
+            }
+          } else {
+            toastr.info(us.translate('INVITARMOS_INGRESAR'));
+            $log.log('not logued" ', variety);
+            contextPurchaseService.ls.varianteSelected = variety;
+            $state.go('catalog.login');
+          }       
+      }else{
+        toastr.warning("Por el momento las ventas estan deshabilitadas, vuelva a intentar mas tarde.","Advertencia");
       }
     }
 
@@ -293,7 +297,16 @@
       contextPurchaseService.ls.varianteSelected = undefined;
     }
 
+    function setCatalogState(){
+        vendedorService.obtenerConfiguracionVendedor().then(
+            function(response){
+                var few = response.data.few;
+                vm.permitirComprar = few.compraIndividual || few.gcc || few.nodos;
+            }
+        );
+    }
 
+    setCatalogState();
     //vm.productos = findProductos(1,10,{});
     callEmprendedores();
     //loadPages();
