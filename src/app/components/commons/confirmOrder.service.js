@@ -25,12 +25,7 @@
             function(selectedCatalog){
 
             if(selectedCatalog.few.seleccionDeDireccionDelUsuario && !selectedCatalog.few.puntoDeEntrega && order.aliasGrupo === "Individual"){
-                
-                if(priceValid(order.montoActual)){
-                    showDialog(order);
-                }else{
-                    warn();
-                }
+                priceValid(order);
             }else{
                 showDialog(order);
             }
@@ -38,11 +33,19 @@
 
     }
 
-    function priceValid(value){
+    function priceValid(order){
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
                 $rootScope.minPrice = response.data.montoMinimo;
-                return value > $rootScope.minPrice;
+                $log.debug("PRECIO MINIMO", $rootScope.minPrice);
+                $log.debug("PRECIO ORDEN", order.montoActual);
+                $log.debug("booleano",order.montoActual > $rootScope.minPrice);
+                if(order.montoActual > $rootScope.minPrice){
+                    $log.debug("ENTRO A VALIDO");
+                    showDialog(order);
+                }else{
+                    warn();
+                }
             }
         );
     }
