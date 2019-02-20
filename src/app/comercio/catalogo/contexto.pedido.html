@@ -2,7 +2,12 @@
     <div ng-show="showOrderResume">
         <md-subheader class="md-no-sticky" layout="column" layout-align="space-between">
           <label style="margin-bottom: 10px;">
-            {{'PROD_EN_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}}
+            <element-wrapper not-supported-strategies="nodos">
+              {{'PROD_EN_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}}
+            </element-wrapper>
+            <element-wrapper supported-strategies="nodos">
+              {{'PROD_EN_PEDIDO_NODO' | translate}}
+            </element-wrapper>
           </label>
           <div layout="row" layout-align="space-between">
             <label>
@@ -49,6 +54,11 @@
         </md-subheader>
     </div>
     <md-subheader ng-show="!showOrderResume">
-        <p> {{'SIN_PROD_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}} </p>
+      <element-wrapper not-supported-strategies="nodos">
+          <p> {{'SIN_PROD_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}} </p>
+      </element-wrapper>
+      <element-wrapper supported-strategies="nodos">
+            <p> {{'SIN_PROD_PEDIDO_NODO' | translate}}</p>
+      </element-wrapper>
     </md-subheader>
 </md-card>
