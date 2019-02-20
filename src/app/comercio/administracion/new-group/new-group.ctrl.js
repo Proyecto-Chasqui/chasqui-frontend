@@ -37,6 +37,7 @@
             function doOk(response) {
                 $log.debug("respuesta guardar grupo ", response);
                 callback($scope.group);
+                $scope.$emit("new-group");
                 $mdDialog.hide();
 
             }

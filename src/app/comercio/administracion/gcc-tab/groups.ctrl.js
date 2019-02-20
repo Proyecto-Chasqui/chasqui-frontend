@@ -23,6 +23,10 @@
     $rootScope.$on('group-information-actualized', function(event) {
         init();
     });
+    
+    $rootScope.$on('new-group', function(event) {
+        init();
+    });
       
       
     /////////////////// INIT ////////////////////
