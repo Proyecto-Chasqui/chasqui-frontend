@@ -21,28 +21,32 @@
     $rootScope.minPrice;
 
     function confirmPersonalOrder(order) {
-        contextPurchaseService.getSelectedCatalog().then(
-            function(selectedCatalog){
+        contextPurchaseService.getSelectedCatalog().then(function(selectedCatalog){
 
-            if(selectedCatalog.few.seleccionDeDireccionDelUsuario && !selectedCatalog.few.puntoDeEntrega && order.aliasGrupo === "Individual"){
+            if(selectedCatalog.few.seleccionDeDireccionDelUsuario 
+               && !selectedCatalog.few.puntoDeEntrega 
+               && order.aliasGrupo === "Individual"){
+              
+                priceValid(order.montoActual, function(isValid){
+                  if(isValid){
+                      showDialog(order);
+                  }else{
+                      warn();
+                  }
+                });
                 
-                if(priceValid(order.montoActual)){
-                    showDialog(order);
-                }else{
-                    warn();
-                }
             }else{
                 showDialog(order);
             }
-            });
+        });
 
     }
 
-    function priceValid(value){
+    function priceValid(value, callback){
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
                 $rootScope.minPrice = response.data.montoMinimo;
-                return value > $rootScope.minPrice;
+                callback(value > $rootScope.minPrice);
             }
         );
     }
