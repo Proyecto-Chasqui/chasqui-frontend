@@ -1,4 +1,4 @@
-<div ng-show="groups == []" layout="column" layout-align="center center">
+<div ng-show="groups.length == 0" layout="column" layout-align="center center">
   <md-card style="width: 400px; margin-top: 50px; ">
     <md-card-content layout="column" layout-align="space-between">
       <label>
@@ -29,7 +29,7 @@
   </md-card>
 </div>
 
-<div ng-show="groups != []">
+<div ng-show="groups.length > 0">
   <div layout="row" layout-align="space-between center">
       <div>
           <md-button ng-click="newGroup()" class="btn-agregar"> 
