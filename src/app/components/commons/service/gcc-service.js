@@ -121,12 +121,12 @@
 		}
 
     function pedidosColectivosConEstado(idGrupo, estados){
-			$log.debug(" service direccionGrupo ");
+			$log.debug(" service pedidosColectivosConEstado ");
 			return promiseService.doPost(REST_ROUTES.pedidosColectivosConEstado, {idGrupo: idGrupo, estados: estados});        
     }
       
     function cerrarGrupo(idVendedor, idGrupo){
-			$log.debug(" service direccionGrupo ");
+			$log.debug(" service cerrarGrupo ");
 			return promiseService.doPost(REST_ROUTES.cerrarGrupo, {idGrupo: idGrupo, idVendedor: idVendedor});           
     }
         

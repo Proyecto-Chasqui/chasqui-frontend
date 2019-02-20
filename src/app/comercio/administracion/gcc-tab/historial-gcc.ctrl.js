@@ -4,7 +4,7 @@
   angular.module('chasqui').controller('HistorialGCCController', HistorialGCCController);
 
   
-  function HistorialGCCController($log, $scope, $state, gccService, contextCatalogObserver, dialogCommons) {
+  function HistorialGCCController($log, $scope, $state, gccService, contextCatalogObserver, dialogCommons, $rootScope) {
 
     $scope.pedidosFiltrados = [];
     $scope.states = ["Confirmado", "Preparado", "Enviado"];
@@ -64,8 +64,13 @@
         getOrdersWithStates($scope.states.map(mapToBEStates))
     }
 
-    init();
+    //init();
 
+    $rootScope.$on('group-is-loaded', function(event, group) {
+        $scope.group = group;      
+        init();
+    });
+    
   }
 
 })();
