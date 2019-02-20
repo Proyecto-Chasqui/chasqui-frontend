@@ -22,7 +22,6 @@
 
     function confirmPersonalOrder(order) {
         contextPurchaseService.getSelectedCatalog().then(function(selectedCatalog){
-
             if(selectedCatalog.few.seleccionDeDireccionDelUsuario 
                && !selectedCatalog.few.puntoDeEntrega 
                && order.aliasGrupo === "Individual"){
@@ -34,7 +33,6 @@
                       warn();
                   }
                 });
-                
             }else{
                 showDialog(order);
             }
