@@ -69,6 +69,7 @@
             return setPromise(function(defered){
                 ensureOrders(catalogId, agrupationTypeVAL.TYPE_PERSONAL).then(function(personalOrder){
                     ensureOrders(catalogId, agrupationTypeVAL.TYPE_GROUP).then(function(groupOrders){
+                        console.log(personalOrder);
                         defered.resolve(personalOrder.concat(groupOrders));
                     })
                 })
@@ -139,6 +140,7 @@
                 function(defered){
                     isPersonalOrderOpen(catalogId).then(function(isOpen){
                         if(isOpen){
+                            console.log("isOpen");
                             function doOkPedido(response) {
                                 var personalOrder = response.data;
                                 personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
@@ -150,8 +152,9 @@
 
                             productoService.verPedidoIndividual().then(doOkPedido);
                         }else{
+                            console.log("nop isOpen");
                             addOrder(catalogId, pedidoIndividualVirtual);
-                            defered.resolve(pedidoIndividualVirtual);
+                            defered.resolve([pedidoIndividualVirtual]);
                         }
                     })
 
