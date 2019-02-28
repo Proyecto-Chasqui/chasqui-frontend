@@ -12,9 +12,9 @@
 
         // Set options third-party lib
         toastrConfig.allowHtml = true;
-        toastrConfig.timeOut = 3000;
+        toastrConfig.timeOut = 15000;
         maxOpened: 3,
-        toastrConfig.positionClass = 'toast-top-left';
+        toastrConfig.positionClass = 'toast-bottom-right';
         toastrConfig.preventOpenDuplicates = true;
         toastrConfig.progressBar = true;
         cfpLoadingBarProvider.spinnerTemplate = '<div class="ch-loader"></div>';
