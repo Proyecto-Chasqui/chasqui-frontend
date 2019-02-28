@@ -1,6 +1,6 @@
 angular.module('chasqui').factory('orders_dao', orders_dao);
 
-function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
+function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher, $log){
     
     ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
    
@@ -129,7 +129,7 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher){
     /////////////////////////////////////////   Init    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
          
     function init(catalogId){ 
-        console.log("Init orders_dao");
+        $log.debug("Init orders_dao");
         catalogs_data.resetOrders(catalogId);
     }
                    

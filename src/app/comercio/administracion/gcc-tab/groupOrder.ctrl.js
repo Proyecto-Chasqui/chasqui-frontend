@@ -218,7 +218,7 @@
     }
 
     $rootScope.$on('group-is-loaded', function(event, group) {
-        console.log("group", group);
+        $log.debug("group", group);
         init();
     });
     

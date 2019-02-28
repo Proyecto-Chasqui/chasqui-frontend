@@ -4,7 +4,7 @@
   angular.module('chasqui').controller('DetallePedidoDialogController', DetallePedidoDialogController);
 
   /** @ngInject */
-  function DetallePedidoDialogController($scope, order) {
+  function DetallePedidoDialogController($scope, order, $log) {
     $scope.order = order;
     
     $scope.isPersonal = function(order){
@@ -12,7 +12,7 @@
     }
 
     $scope.isCollective = function(order){
-        console.log(order);
+        $log.debug(order);
         return order.idGrupo != null && order.pedidos != undefined;
     }
     

@@ -1,6 +1,6 @@
 angular.module('chasqui').factory('agrupations_dao', agrupations_dao);
 
-function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
+function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log){
     
     ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                  
@@ -100,7 +100,7 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc){
     /////////////////////////////////////////   Init    \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
     
     function init(catalogId){
-        console.log("Init agrupations_dao");
+        $log.debug("Init agrupations_dao");
         catalogs_data.resetAgrupations(catalogId);
     }
     

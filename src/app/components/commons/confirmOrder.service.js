@@ -134,7 +134,7 @@
                 $rootScope.$emit('order-confirmed');
                 $rootScope.refrescarNotificacion();
                 contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
-                  console.log("selectedAgrupation", selectedAgrupation);
+                  $log.debug("selectedAgrupation", selectedAgrupation);
                   if(selectedAgrupation.esAdministrador){
                     dialogCommons.acceptIssue(
                       "Es administrador del grupo " + selectedAgrupation.alias, 

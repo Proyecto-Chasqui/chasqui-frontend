@@ -19,7 +19,7 @@
             function doOk(response) {
                 $scope.pedidosFiltrados = response.data;
                 $scope.pedidosFiltrados.reverse();
-                console.log($scope.pedidosFiltrados);
+                $log.debug($scope.pedidosFiltrados);
             }
 
             gccService.pedidosColectivosConEstado($scope.group.idGrupo, states).then(doOk);

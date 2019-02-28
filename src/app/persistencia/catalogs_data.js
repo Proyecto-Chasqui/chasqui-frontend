@@ -1,7 +1,7 @@
 angular.module('chasqui').factory('catalogs_data', catalogs_data);
 
     
-function catalogs_data(ss_connection, agrupationTypeVAL){
+function catalogs_data(ss_connection, agrupationTypeVAL, $log){
     
     ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     
@@ -86,7 +86,7 @@ function catalogs_data(ss_connection, agrupationTypeVAL){
         ss_connection.init({
             catalogs_data: {}
         });
-        console.log("Init catalogs_data");
+        $log.debug("Init catalogs_data");
     }
                         
     init();

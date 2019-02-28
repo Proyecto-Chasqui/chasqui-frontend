@@ -43,7 +43,7 @@
     });
 
     // it('should call Moment', function() {
-    //   console.log($window.moment)
+    //   $log.debug($window.moment)
     //   expect($window.moment).toHaveBeenCalled();
     // });
   });

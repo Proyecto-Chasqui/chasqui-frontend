@@ -6,7 +6,7 @@
 	function contextOrdersService(getContext, orders_dao, $localStorage, gccService, moment, contextAgrupationsService,
                                   createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal,
                                   agrupationTypeVAL, order_context, agrupationTypeDispatcher, productoService, ensureContext,
-                                  setPromise){
+                                  setPromise, $log){
 
 
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -69,7 +69,7 @@
             return setPromise(function(defered){
                 ensureOrders(catalogId, agrupationTypeVAL.TYPE_PERSONAL).then(function(personalOrder){
                     ensureOrders(catalogId, agrupationTypeVAL.TYPE_GROUP).then(function(groupOrders){
-                        console.log(personalOrder);
+                        $log.debug(personalOrder);
                         defered.resolve(personalOrder.concat(groupOrders));
                     })
                 })
@@ -140,7 +140,7 @@
                 function(defered){
                     isPersonalOrderOpen(catalogId).then(function(isOpen){
                         if(isOpen){
-                            console.log("isOpen");
+                            $log.debug("isOpen");
                             function doOkPedido(response) {
                                 var personalOrder = response.data;
                                 personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
@@ -152,7 +152,7 @@
 
                             productoService.verPedidoIndividual().then(doOkPedido);
                         }else{
-                            console.log("nop isOpen");
+                            $log.debug("nop isOpen");
                             addOrder(catalogId, pedidoIndividualVirtual);
                             defered.resolve([pedidoIndividualVirtual]);
                         }
@@ -175,11 +175,11 @@
                 orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_GROUP),
                 function(defered){
                     function doOk(response) {
-                        console.log("orders", response.data);
+                        $log.debug("orders", response.data);
                         vm.ls.lastUpdate = moment();
                         resetType(catalogId, agrupationTypeVAL.TYPE_GROUP);
                         addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
-                            console.log("Cargando dsd el server:", catalogId, orders);
+                            $log.debug("Cargando dsd el server:", catalogId, orders);
                             orders_dao.loadOrders(catalogId, orders);
                             defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_GROUP));
                         });
@@ -239,7 +239,7 @@
                         var groupsWithoutOrders = separatedGroupsAndOrders[0];
                         var ordersPreviouslyCreated = separatedGroupsAndOrders[1];
 
-                        console.log("groupsWithoutOrders", groupsWithoutOrders);
+                        $log.debug("groupsWithoutOrders", groupsWithoutOrders);
 
                         createOrdersForGroupsWithoutOrders(groupsWithoutOrders, ordersPreviouslyCreated).then(defered.resolve);
                 })

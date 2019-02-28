@@ -8,14 +8,14 @@
 	/**
 	 * Lista lateral de productos del pedido seleccionado
 	 */
-	function addProductService(contextPurchaseService, addProductPersonalOrderService, modifyVarietyCount, agrupationTypeDispatcher) {
+	function addProductService($log, contextPurchaseService, addProductPersonalOrderService, modifyVarietyCount, agrupationTypeDispatcher) {
 
         return addProduct;
         
         ///////////////////////////////////////////////////////////////////////////////
         
         function addProduct(variety){
-            console.log("Agregar producto al pedido individual:", variety);
+            $log.debug("Agregar producto al pedido individual:", variety);
             contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
                 contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
                     agrupationTypeDispatcher.byElem(selectedAgrupation, 

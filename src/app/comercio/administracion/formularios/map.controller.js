@@ -454,7 +454,7 @@ angular.module('chasqui').controller('MapGeocoderController', ['$scope', '$rootS
         var lng = marker.getLatLng().lng;
         aQuery = new HttpClient();
         var httpquery = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng + '&key=AIzaSyD_8mUpLuoMmB6qSW_kI3vQXY7jpvbfnB4';
-        console.log(httpquery);
+        $log.debug(httpquery);
         aQuery.get(httpquery, function(response) {
           if (JSON.parse(response).status == "OK") {
             var jsonarray = JSON.parse(response).results[0].address_components;

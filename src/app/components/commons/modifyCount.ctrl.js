@@ -5,7 +5,7 @@
 		.module('chasqui')
 		.controller('ModifyCountCtrl', ModifyCountCtrl);
     
-	function ModifyCountCtrl($scope, $mdDialog, URLS, variety, order, texts, initCount, actions) {
+	function ModifyCountCtrl($log, $scope, $mdDialog, URLS, variety, order, texts, initCount, actions) {
         $scope.urlBase = URLS.be_base;
       
         $scope.title = texts.title;
@@ -18,7 +18,7 @@
         $scope.order = order;
         $scope.variety = variety;
       
-        console.log(variety);
+        $log.debug(variety);
       
         $scope.getTotal = getTotal;
         $scope.getTotalOrder = getTotalOrder;

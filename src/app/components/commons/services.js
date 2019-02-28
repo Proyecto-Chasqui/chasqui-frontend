@@ -15,7 +15,7 @@
 
     /** En caso de no ser un respues exitosa va a la pantalla de error generica */
     var doNoOkDefault = function(response) {
-      $log.error("error al llamar a un servicio", response);
+      $log.debug("error al llamar a un servicio", response);
 
       if (response.status == 401) {
         toastr.info(us.translate('VUELVA_A_LOGUEAR'), us.translate('AVISO_TOAST_TITLE'));

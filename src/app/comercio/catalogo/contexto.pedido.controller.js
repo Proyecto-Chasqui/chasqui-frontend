@@ -64,7 +64,7 @@
         //////////////// Init 
         function load() {
             contextCatalogObserver.observe(function(){
-                console.log("Loading", contextPurchaseService.getAgrupationContextType());
+                $log.debug("Loading", contextPurchaseService.getAgrupationContextType());
                 contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType()).then(function(){
                     contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
                         $scope.pedidoSelected = selectedOrder;

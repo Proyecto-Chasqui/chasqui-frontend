@@ -233,7 +233,7 @@
         us.translate('SI_QUIERO'), 
         us.translate('NO'),
         function doOk() {
-          console.log("Nuevo administrador: ", member);
+          $log.debug("Nuevo administrador: ", member);
                     callCederAdministracionGrupo(member);
         },
         function doNotOk() {
@@ -282,7 +282,7 @@
     }
     
     $rootScope.$on('group-is-loaded', function(event, group) {
-        console.log("group", group);
+        $log.debug("group", group);
         init();
     });
     

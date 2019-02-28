@@ -3,7 +3,7 @@
     
     angular.module('chasqui').factory('order_context', order_context);
 
-    function order_context(ss_connection, settersAndGettersBuilder, fn_set, fn_get){
+    function order_context(ss_connection, settersAndGettersBuilder, fn_set, fn_get, $log){
 
         var initFields = {
                             catalogId: -1,
@@ -13,7 +13,7 @@
                         }
 
         function init(){
-            console.log("Init order_context");
+            $log.debug("Init order_context");
             ss_connection.init(initFields);
         }
 

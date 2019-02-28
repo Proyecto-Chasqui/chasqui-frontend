@@ -38,7 +38,7 @@
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     function cambiarContexto() {
-      console.log("Cambio de contexto:", $scope.agrupationSelected);
+      $log.debug("Cambio de contexto:", $scope.agrupationSelected);
       contextPurchaseService.setContextByAgrupation($scope.agrupationSelected);
       $rootScope.$emit('contexto.compra.cambia.grupo', $scope.agrupationSelected);
     }

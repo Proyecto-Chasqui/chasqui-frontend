@@ -39,7 +39,7 @@
                 //$scope.selectedIndex ++;                
                 $scope.guardar(perfil);
             }else{
-				$log.error("las contrasenas no coinciden: ", perfil.password, perfil.passVerification);
+				$log.debug("las contrasenas no coinciden: ", perfil.password, perfil.passVerification);
 				// TODO: enviar mensaje
 				toastr.error(us.translate('PASS_INCORRECTO_MSG'), "Error");
             }

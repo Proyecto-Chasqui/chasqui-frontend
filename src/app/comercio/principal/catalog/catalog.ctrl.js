@@ -6,7 +6,7 @@
 		.controller('CatalogController', CatalogController);
 
     
-	function CatalogController($scope, contextCatalogsService, URLS, $stateParams, contextPurchaseService) {
+	function CatalogController($log, $scope, contextCatalogsService, URLS, $stateParams, contextPurchaseService) {
            
         $scope.url = url;
         
@@ -24,7 +24,7 @@
         }
         
         $scope.$on('resetCatalogInfo', function(event, msg) {
-            console.log("resetCatalogInfo");
+            $log.debug("resetCatalogInfo");
             init();
         });    
     

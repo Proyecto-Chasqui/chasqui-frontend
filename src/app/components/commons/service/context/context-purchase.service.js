@@ -156,7 +156,7 @@
         function getSelectedOrder(){
             return setPromise(function(defered){
                 getSelectedAgrupation().then(function(selectedAgrupation){
-                    console.log(selectedAgrupation);
+                    $log.debug(selectedAgrupation);
                     defered.resolve(contextOrdersService.getOrder(order_context.getCatalogId(), 
                                                                   selectedAgrupation.idPedidoIndividual, 
                                                                   selectedAgrupation.type));
@@ -168,7 +168,7 @@
          *  Retorna: Agrupacion seleccionado
          */
         function getSelectedAgrupation(){
-            console.log(order_context.getCatalogId(), 
+            $log.debug(order_context.getCatalogId(), 
                        order_context.getAgrupationId(), 
                        order_context.getAgrupationType());
             

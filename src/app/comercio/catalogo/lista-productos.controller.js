@@ -80,7 +80,7 @@
     };
 
     // function loadPages() {
-    //   console.log('Current page is : ' + vm.paging.current);
+    //   $log.debug('Current page is : ' + vm.paging.current);
     //   // TODO : Load current page Data here
     //   vm.currentPage = vm.paging.current;
 
@@ -89,13 +89,13 @@
 
     vm.setLastPage = function(){
       $scope.$broadcast('setLastPage', vm.lastPage)
-      $log.warn("BroadcastLastPage ", vm.lastPage)
+      $log.debug("BroadcastLastPage ", vm.lastPage)
     }
 
       $scope.$watch(vm.lastPage, vm.setLastPage());
 
       $scope.$on('paginatorChange', function(event, data){
-      $log.warn("paginatorChange", vm.setLastPage);
+      $log.debug("paginatorChange", vm.setLastPage);
       vm.activeIndex = data;
       vm.paging = {
         current: vm.activeIndex
@@ -107,8 +107,8 @@
 
 
     function loadPages() {
-      console.log('Current page is : ' + vm.paging.current);
-      console.log("Mi indice es:  " + vm.activeIndex);
+      $log.debug('Current page is : ' + vm.paging.current);
+      $log.debug("Mi indice es:  " + vm.activeIndex);
 
       // TODO : Load current page Data here
       vm.currentPage = vm.paging.current;
@@ -146,7 +146,7 @@
             }
           } else {
             toastr.info(us.translate('INVITARMOS_INGRESAR'));
-            $log.log('not logued" ', variety);
+            $log.debug('not logued" ', variety);
             contextPurchaseService.ls.varianteSelected = variety;
             $state.go('catalog.login');
           }       
@@ -191,12 +191,12 @@
 
 
     function findProductosPorMultiplesFiltros(pagina, items, params){
-      console.log('find productos multiples filtros');
+      $log.debug('find productos multiples filtros');
       function doOk(response) {
-        $log.log('findProductos Response ', response);
+        $log.debug('findProductos Response ', response);
 
         vm.productos = response.data.productos;
-        $log.warn('productos', vm.productos);
+        $log.debug('productos', vm.productos);
         vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
         vm.paging.current = response.data.pagina;
         vm.paging.disponibles = Math.ceil(response.data.total / CANT_ITEMS);
@@ -219,8 +219,7 @@
           cantItems: items,
           precio: 'Down'
         }
-        console.log("parametros",params);
-        $log.log("parametros",params);
+        $log.debug("parametros",params);
 
         productoService.getProductosByMultiplesFiltros(query).then(doOk);      
       })
@@ -230,11 +229,11 @@
     // var findProductos = function(pagina, items, filtro) {
     //         contextCatalogsService.getCatalogs().then(function(catalogs){
     //             contextCatalogObserver(function(){
-    //                 $log.log('findProductos: ' + pagina + " " + items + " " +
+    //                 $log.debug('findProductos: ' + pagina + " " + items + " " +
     //                     filtro.tipo + " " + filtro.valor);
 
     //                 function doOk(response) {
-    //                     $log.log('findProductos Response ', response);
+    //                     $log.debug('findProductos Response ', response);
 
     //                     vm.productos = response.data.productos;
 
@@ -255,11 +254,11 @@
     // }
 
     var findProductos = function(pagina, items, filtro) {
-      $log.log('findProductos: ' + pagina + " " + items + " " +
+      $log.debug('findProductos: ' + pagina + " " + items + " " +
         filtro.tipo + " " + filtro.valor);
 
       function doOk(response) {
-        $log.log('findProductos Response ', response);
+        $log.debug('findProductos Response ', response);
 
         vm.productos = response.data.productos;
 

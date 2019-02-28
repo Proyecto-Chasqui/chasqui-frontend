@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  angular.module('chasqui', ['ngAnimate', 'ngCookies', 'ngTouch',
+  angular.module('chasqui', ['ngAnimate', 'ngCookies',
       'ngSanitize', 'ngMessages', 'ngAria', 'ngResource', 'ui.router',
       'toastr', 'ngMaterial', 'ngStorage', 'ngMdIcons', 'pascalprecht.translate', 
       'leaflet-directive','angular-loading-bar', 'angularMoment', 'angular-carousel',

@@ -6,7 +6,8 @@
 		.controller('CatalogMenuItemsController', CatalogMenuItemsController);
 
     
-	function CatalogMenuItemsController($scope, $stateParams, itemsBuilder, navigation_state, usuario_dao, contextCatalogsService) {
+	function CatalogMenuItemsController($scope, $stateParams, itemsBuilder, navigation_state, usuario_dao, 
+                                       contextCatalogsService, $log) {
        
         
     $scope.catalog;
@@ -19,7 +20,7 @@
         $scope.isLogued = usuario_dao.isLogged();
         contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
             $scope.catalog = catalog;
-            console.log("general items: ", $scope.general);
+            $log.debug("general items: ", $scope.general);
             $scope.menuItems = $scope.general? 
                                     itemsBuilder.general($scope.catalog.few):
                                     itemsBuilder.catalog($scope.catalog.few);          

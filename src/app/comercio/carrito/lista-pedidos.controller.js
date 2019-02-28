@@ -88,7 +88,7 @@
             function doOk(response) {
                 $scope.pedidosFiltrados = response.data;
                 $scope.pedidosFiltrados.reverse();
-                console.log($scope.pedidosFiltrados);
+                $log.debug($scope.pedidosFiltrados);
             }
 
             promiseService.doPost(REST_ROUTES.filtrarPedidosConEstado, params).then(doOk);

@@ -21,11 +21,11 @@
 * Request the loading of the first page by default.
 */
     function init(){
-      console.log("INIT");
+      $log.debug("INIT");
       $scope.activate(0);
       $scope.$on('setLastPage', function(event, data){
         $scope.lastPage = data;
-        $log.warn("Ultima pagina", data);
+        $log.debug("Ultima pagina", data);
       })
     }
 

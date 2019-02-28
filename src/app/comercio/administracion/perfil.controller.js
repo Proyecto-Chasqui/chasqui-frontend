@@ -39,7 +39,7 @@
     };
 
     function loadPages() {
-        console.log('Current page is : ' + $scope.paging.current);
+        $log.debug('Current page is : ' + $scope.paging.current);
         vm.count = $scope.paging.current;
         callNotificaciones();
         $scope.currentPage = $scope.paging.current;
@@ -258,9 +258,9 @@
 
 
     function callActualizarUsuario(profile){
-      console.log("Actualizando:", profile);
+      $log.debug("Actualizando:", profile);
 			function doOk(response) {
-        console.log("Resultado de actualizar datos:", response);
+        $log.debug("Resultado de actualizar datos:", response);
         usuario_dao.logIn(response.data);
 				toastr.success(us.translate('ACTUALIZO_PERFIL_MSG'), us.translate('AVISO_TOAST_TITLE'));
         location.reload(); // para recargar el avatar. TODO revisar $localStorage

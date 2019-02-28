@@ -1,7 +1,7 @@
 (function(){
 	angular.module('chasqui')
 	.component('avatarComponent', {
-//		console.log("Estoy vivo");
+//		$log.debug("Estoy vivo");
 		//templateUrl: "../components/commons/components/avatar.html";
 		template: "<h2>Hola Mundo</h2>"
 

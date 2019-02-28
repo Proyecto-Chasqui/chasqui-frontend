@@ -43,7 +43,7 @@
         function init(){
             contextPurchaseService.getSelectedCatalog().then(function(selectedCatalog){
                 $scope.zonesMap = $sce.trustAsResourceUrl(selectedCatalog.urlMapa);
-                console.log($scope.zonesMap);
+                $log.debug($scope.zonesMap);
                 callDirecciones(selectedCatalog);
                 loadZones(selectedCatalog.id);
                 initAdress();
@@ -82,7 +82,7 @@
         }
         
         function setAddressParticularities(newComments){
-            console.log(newComments);
+            $log.debug(newComments);
             $scope.addressParticularities = newComments;
         }
         

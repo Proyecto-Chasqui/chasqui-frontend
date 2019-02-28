@@ -1,10 +1,10 @@
-angular.module('chasqui').factory('navigation_state', 
-                            ['ls_connection', '$mdDialog',
-                    function(ls_connection, $mdDialog){
+angular.module('chasqui').factory('navigation_state', navigation_state);
+
+function navigation_state(ls_connection, $mdDialog, $log){
     
                         
     function init(){
-        console.log("Init navigation_state");
+        $log.debug("Init navigation_state");
         ls_connection.init({
             selectedTab: ""
         });
@@ -21,7 +21,7 @@ angular.module('chasqui').factory('navigation_state',
     var MY_GROUPS       =       "MY_GROUPS";
     var MY_NODES        =        "MY_NODES";
     var DELIVERY_POINTS = "DELIVERY_POINTS";
-    var PROFILE          =         "PROFILE";
+    var PROFILE         =         "PROFILE";
     var UNSELECTED_TAB  =  "UNSELECTED_TAB";
                         
                      
@@ -56,4 +56,4 @@ angular.module('chasqui').factory('navigation_state',
         getSelectedTab: getSelectedTab
     }
     
-}]);
+}

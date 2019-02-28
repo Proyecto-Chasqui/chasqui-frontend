@@ -1,11 +1,10 @@
-angular.module('chasqui').factory('usuario_dao', 
-                            ['ls_connection',
-                    function(ls_connection){
-                        
+angular.module('chasqui').factory('usuario_dao', usuario_dao);
+
+function usuario_dao(ls_connection, $log){                        
                                   
     function init(){
         if(!isLogged() && getUsuario() == undefined){
-            console.log("Starting usuario_dao");
+            $log.debug("Starting usuario_dao");
             ls_connection.init({
                 usuario: {},
                 isLogged: false
@@ -48,4 +47,4 @@ angular.module('chasqui').factory('usuario_dao',
         getToken: getToken
     }
     
-}]);
+}

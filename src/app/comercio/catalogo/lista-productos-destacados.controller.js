@@ -7,7 +7,7 @@
 	/** @ngInject */
 	function ListaProductosDestacadosController($log, $scope, URLS,
 		REST_ROUTES, productoService, $state, $mdDialog, $rootScope, us, dialogCommons, gccService) {
-		$log.log('ListaProductosDestacadosController ..... ');
+		$log.debug('ListaProductosDestacadosController ..... ');
 
 		var vm = this;
 		vm.urlbase = URLS.be_base;
@@ -55,7 +55,7 @@
 						vm.productos = response.data.productos;
 						vm.loaded = true;
 					}
-          console.log("Productos destacados: ", vm.productos);
+          $log.debug("Productos destacados: ", vm.productos);
 				})
 		}
 

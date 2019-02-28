@@ -83,7 +83,7 @@
         
         function selectDeliveryAddressOkAction(address){
             $scope.selectedAddress = address;
-            console.log(address);
+            $log.debug(address);
             show(Object.keys($scope.sections)[$scope.currentNavItem + 1]);
         }
         

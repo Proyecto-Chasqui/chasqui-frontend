@@ -47,19 +47,19 @@
         return function (groupsWithoutOrders, orders){
             var defered = $q.defer();
 			var promise = defered.promise;
-			console.log("Groups wo order:", groupsWithoutOrders);
+			$log.debug("Groups wo order:", groupsWithoutOrders);
             
             async.each(groupsWithoutOrders, function(group, callback) {  
-                console.log("Inside");
+                $log.debug("Inside");
                 createOrderForGroup(group).then(function(newOrder){
                     orders.push(newOrder);
-                    console.log('Pedido agregado', newOrder, orders);
+                    $log.debug('Pedido agregado', newOrder, orders);
                     callback();
                 })
                 
             }, function(err) {
                 if( err ) {
-                  console.log('A file failed to process');
+                  $log.debug('A file failed to process');
                 } else {
                   defered.resolve(orders);
                 }

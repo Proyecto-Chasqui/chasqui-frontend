@@ -95,7 +95,7 @@
 
 		// Modificado por Favio 28-9 
 		function confirmarPedidoColectivo(params){
-			console.log(".... Confirmar pedido colectivo...");
+			$log.debug(".... Confirmar pedido colectivo...");
 			return promiseService.doPost(REST_ROUTES.confirmarPedidoColectivo, params);
 		}
 

@@ -18,7 +18,7 @@
 		vm.isAdmin = $scope.grupo.esAdministrador;
 
 		vm.allContacts;
-        vm.membersOptionsShowed = false;
+    vm.membersOptionsShowed = false;
 		vm.urlBase = URLS.be_base;
         
 
@@ -93,62 +93,62 @@
 			return (vm.isAdmin && !vm.isLoggedMember(member)) || (!vm.isAdmin && vm.isLoggedMember(member));
 		}
         
-        vm.showCederAdministracionGrupo = function(member){
-            return vm.isAdmin && !vm.isLoggedMember(member);
-        }
-        
-        
-        vm.cederAdministracionGrupo = function(member){
-			var nombre = member.nickname == null ? member.email : member.nickname;
-			// Esto es un resabio de la forma de cargar members que pronto va a ser modificado. 
-			var pregunta,confirmacion,fallo;
+    vm.showCederAdministracionGrupo = function(member){
+        return vm.isAdmin && !vm.isLoggedMember(member);
+    }
+
+
+    vm.cederAdministracionGrupo = function(member){
+      var nombre = member.nickname == null ? member.email : member.nickname;
+      // Esto es un resabio de la forma de cargar members que pronto va a ser modificado. 
+      var pregunta,confirmacion,fallo;
             
-            pregunta = us.translate('SWAP_ADMINISTRATION_WITH') + nombre + "? ";
-            fallo = 'No se pudo quitar a ' + nombre + ' del grupo de compra';
+      pregunta = us.translate('SWAP_ADMINISTRATION_WITH') + nombre + "? ";
+      fallo = 'No se pudo quitar a ' + nombre + ' del grupo de compra';
 
 			dialogCommons.confirm(us.translate('SWAP_GROUP_ADMINISTRATION_TITLE'),
 				us.translate('ESTAS_SEGURO_DE') + pregunta + us.translate('REVERSIBLE_OPTION'),
 				us.translate('SI_QUIERO'), 
-                us.translate('NO'),
+        us.translate('NO'),
 				function() {
-					console.log("Nuevo administrador: ", member);
+					$log.debug("Nuevo administrador: ", member);
                     callCederAdministracionGrupo(member);
 				},
 				function() {
 					$log.debug(fallo);
 				});
-        }
+    }
         
-        function callCederAdministracionGrupo(miembro){            
-			function doOk() {
-				toastr.success("El nuevo administrador es " + miembro.nickname , us.translate('AVISO_TOAST_TITLE'));
-				vm.isAdmin = false;
-                vm.grupo.emailAdministrador = miembro.email;
-                vm.hideMemberOptions();
-			}
-			var params = {
-                idGrupo: vm.grupo.idGrupo,
-                emailCliente: miembro.email
-            };
+    function callCederAdministracionGrupo(miembro){            
+      function doOk() {
+        toastr.success("El nuevo administrador es " + miembro.nickname , us.translate('AVISO_TOAST_TITLE'));
+        vm.isAdmin = false;
+        vm.grupo.emailAdministrador = miembro.email;
+        vm.hideMemberOptions();
+      }
+      var params = {
+          idGrupo: vm.grupo.idGrupo,
+          emailCliente: miembro.email
+      };
 
-			gccService.cederAdministracion(params).then(doOk)   
-        }
-        
-        
-        vm.canShowMemberOptions = function(){
-            return !vm.membersOptionsShowed;
-        }
-        
-        vm.showMembersOptions = function(){
-            vm.membersOptionsShowed = true;
-        }
-        
-        vm.canHideMemberOptions = function(){
-            return vm.membersOptionsShowed;
-        }
-        
-        vm.hideMemberOptions = function(){
-            vm.membersOptionsShowed = false;
-        }
+      gccService.cederAdministracion(params).then(doOk)   
+    }
+
+
+    vm.canShowMemberOptions = function(){
+        return !vm.membersOptionsShowed;
+    }
+
+    vm.showMembersOptions = function(){
+        vm.membersOptionsShowed = true;
+    }
+
+    vm.canHideMemberOptions = function(){
+        return vm.membersOptionsShowed;
+    }
+
+    vm.hideMemberOptions = function(){
+        vm.membersOptionsShowed = false;
+    }
 	}
 })();

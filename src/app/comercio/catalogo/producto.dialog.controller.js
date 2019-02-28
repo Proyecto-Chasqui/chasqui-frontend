@@ -10,8 +10,7 @@
 	 * Es solo un lugar para hacer pruebas*/
 	function ProductoDialogController($scope, $log, StateCommons, productoService, URLS, REST_ROUTES, productSelected, $mdDialog) {
 		//	$log.debug('ProductoDialogController ..... ') 
-		console.log("productSelected")
-		console.log(productSelected)
+		$log.debug("productSelected", productSelected)
 
 		$scope.urlBase = URLS.be_base;
 		$scope.producto = productSelected;
