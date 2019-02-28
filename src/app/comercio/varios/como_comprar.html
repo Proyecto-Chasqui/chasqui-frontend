@@ -1,17 +1,17 @@
 <div id="chasqui-content-full">
-<div class="archive-box-catalogo">
-<h3>Como comprar ?</h3>
+  <div class="archive-box-catalogo">
+    <h3>Como comprar ?</h3>
+  </div>
 </div>
-</div>
-
 
 
 <div class="ch-content">
-    <md-grid-list md-cols="4" md-row-height="1:1">
+    <md-grid-list md-cols="3" md-row-height="1:1">
         <md-grid-tile layout="row" md-colspan="1" md-rowspan="1" ng-repeat="(i,instruccion) in instruccionesCards">
             <md-card style="width:250px; padding:20px; margin-top:20px;">
                 <div>
-                    <img src="{{'assets/images/help/purchaseHelp_' + i + '.jpg'}}">
+                    <!-- i+1 porque la primer imagen es de elegir el catalogo-->
+                    <img src="{{'assets/images/help/purchaseHelp_' + (i+1) + '.jpg'}}">
                     <div class="txt-comocomprar">
                         <h3><b>{{instruccion.titulo}}</b></h3>
                         <p>{{instruccion.contenido}}</p>
@@ -23,18 +23,19 @@
 
 	
 	
-    <div style="margin-top: 50px">
-        <div ng-repeat="instruccion in instrucciones">
-            <chq-colapsable titulo="{{instruccion.titulo}}" color="#412467" ancho="60%">
-                <ol>
-                    <div ng-repeat="paso in instruccion.pasos">
-                        <li>{{paso.principal}}</li>
-                        <ol type="a">
-                            <li ng-repeat="subpaso in paso.subPasos"> {{subpaso}}</li>
-                        </ol>
-                    </div>
-                </ol>
-            </chq-colapsable>
+  <div layout="column" layout-align="space-between center">
+    <div style="margin-top: 50px; margin-bottom: 50px">
+      <div ng-repeat="instruccion in instrucciones">
+        <chq-colapsable titulo="{{instruccion.titulo}}" color="#412467" ancho="60%">
+          <ol>
+            <div ng-repeat="paso in instruccion.pasos">
+              <li>{{paso.principal}}</li>
+              <ol type="a">
+                <li ng-repeat="subpaso in paso.subPasos"> {{subpaso}}</li>
+              </ol>
+            </div>
+          </ol>
+        </chq-colapsable>
             <!--<md-card-title>
                 <md-card-title-text>
                     <button class="btn" data-toggle="collapse" href="{{idFrom(instruccion)}}" style="text-align: left">
@@ -52,10 +53,9 @@
                     </div>
                 </ol><br>
             </md-card-content> -->
-          </div>
+      </div>
     </div>
- </div>
-
+  </div>
 </div>
 
 

@@ -11,10 +11,10 @@
     navigation_state.goHowToBuyTab();
       
     $scope.instruccionesCards = [
-        {
+        /*{
             titulo: "Ingresa un catalogo",
             contenido: "Ingresa a cada catálogo para poder ver sus productos."
-        },{
+        },*/{
             titulo: "Elegí tu forma de consumo",
             contenido: "Chasqui te permite comprar de forma colectiva o individual."
         },{
