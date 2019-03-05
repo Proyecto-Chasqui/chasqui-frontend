@@ -261,7 +261,9 @@
       $log.debug("Actualizando:", profile);
 			function doOk(response) {
         $log.debug("Resultado de actualizar datos:", response);
-        usuario_dao.logIn(response.data);
+        var nuevoUsuario = response.data;
+        nuevoUsuario.nickname = profile.nickName;
+        usuario_dao.logIn(nuevoUsuario);
 				toastr.success(us.translate('ACTUALIZO_PERFIL_MSG'), us.translate('AVISO_TOAST_TITLE'));
         location.reload(); // para recargar el avatar. TODO revisar $localStorage
 			}
