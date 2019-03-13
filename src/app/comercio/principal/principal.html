@@ -43,7 +43,7 @@
   
     <div style="cursor: pointer;" flex="50" class="puntosdeentrega-btn" ng-click="principalCtrl.ir('catalog.deliveryPoints')">
   <div  class="titulo-btn">  
-  <h2>Puntos de entrega</h2>
+  <h2>Entregas</h2>
   <h3>INGRESAR</h3>
   </div>
     </div>
@@ -55,9 +55,22 @@
 <div class="ch-content-home">
     <div layout=row style="padding-bottom: 40px;">
     <div flex="50" class="quienessomos">
-    <div ng-bind-html="texto" class="quienes-txt">
-    
+    <div ng-bind-html="texto" class="quienes-txt"> 
     </div>
+  
+    <div class="contacto-home">
+    <h2><b>Contacto</b></h2>
+    <div class="contacto-info">
+    <ul>
+        <li> <i class="material-icons" style="width:30px;font-size: 15px;">location_on</i> {{direccion}} </li>
+        <li> <i class="material-icons" style="width:30px;font-size: 15px;">call</i> Tel: {{telefono}} </li>
+        <li> <i class="material-icons" style="width:30px;font-size: 15px;">phone_android</i> Cel: {{celular}} </li>     
+        <li> <i class="material-icons" style="width:30px;font-size: 15px;">email</i> {{email}} </li>  
+        <li> <i class="material-icons" style="width:30px;font-size: 15px;">link</i> <a href="{{url}}">{{url}}</a> </li>
+    </ul>  
+    </div>
+    </div>
+    
   </div>
 
     

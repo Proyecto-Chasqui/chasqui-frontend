@@ -18,7 +18,13 @@
     $scope.imagenUrlPortada = "app/components/image/imagenNoDisponiblePortada.jpg";
     $scope.nombreOrganizacion = "";
     $scope.imagesurls = ["app/components/image/banner-chasqui2.jpg","app/components/image/banner-chasqui.jpg","app/components/image/banner-chasqui3.jpg"];
+    $scope.direccion = "---";
+    $scope.celular = "---";
+    $scope.telefono = "---";
+    $scope.email = "---";
+    $scope.url= "---";
 
+    $scope.show_contacto = true;
     vm.ir = function(page) {
       $log.debug("ir a ..... ", page);
             toTop();
@@ -29,8 +35,51 @@
         window.scrollTo(0,0);
     }
 
+    function validateForNullDir(data){
+      var value = data + " "
+      if(data === null || data === undefined){
+        value = "";
+      }
+      return value;
+    }
+
+    function validateForNull(data){
+      var value = data + " "
+      if(data === null || data === undefined || data === ""){
+        value = "---";
+      }
+      return value;
+    }
+
+    function formarDireccion(direccion){
+      var direccionFormada = "";
+      if(direccion !== null){
+          var calle = validateForNullDir(direccion.calle);
+          var altura = validateForNullDir(direccion.altura);
+          var localidad = validateForNullDir(direccion.localidad);
+          var provincia = validateForNullDir(direccion.provincia);
+          var pais = validateForNullDir(direccion.pais);
+          var codigo_postal = validateForNullDir(direccion.codigo_postal);
+          var direccionFormada = calle + altura + localidad + provincia + pais + codigo_postal;
+          if(direccionFormada === null || direccionFormada === undefined || direccionFormada === "" || direccionFormada.trim().length === 0){
+            direccionFormada = "---";
+          }
+      }      
+      return direccionFormada
+    }
+
+    function completarDatosDeContacto(data){
+      $scope.direccion = formarDireccion(data.direccion);
+      $scope.celular = validateForNull(data.celular);
+      $scope.telefono = validateForNull(data.telefono);
+      $scope.email= validateForNull(data.email);
+      $scope.url= validateForNull(data.url);
+    }
+
     function init(){
       vendedorService.verDatosDePortada().then(function(response){
+        completarDatosDeContacto(response.data.dataContacto);
+        console.log(response.data.dataContacto);
         var i;
         var text = response.data.textoPortada;
         var urlportada = response.data.urlImagenesPortada;
