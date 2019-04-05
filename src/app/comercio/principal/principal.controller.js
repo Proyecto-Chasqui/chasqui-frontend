@@ -79,7 +79,6 @@
     function init(){
       vendedorService.verDatosDePortada().then(function(response){
         completarDatosDeContacto(response.data.dataContacto);
-        console.log(response.data.dataContacto);
         var i;
         var text = response.data.textoPortada;
         var urlportada = response.data.urlImagenesPortada;
@@ -93,16 +92,18 @@
             $scope.imagenUrlPortada = URLS.be_base + urlportada[0];
           }
         }
-        for (i = 0; i < response.data.urlImagenesBanner.length; i++) { 
-          if(i===0){
-            $scope.imageurl1 = URLS.be_base + response.data.urlImagenesBanner[i];
-          }
-          if(i===1){
-            $scope.imageurl2 = URLS.be_base + response.data.urlImagenesBanner[i];
-          }
+        if(response.data.urlImagenesBanner !== null){
+          for (i = 0; i < response.data.urlImagenesBanner.length; i++) { 
+            if(i===0){
+              $scope.imageurl1 = URLS.be_base + response.data.urlImagenesBanner[i];
+            }
+            if(i===1){
+              $scope.imageurl2 = URLS.be_base + response.data.urlImagenesBanner[i];
+            }
 
-          if(i===2){
-            $scope.imageurl3 = URLS.be_base + response.data.urlImagenesBanner[i];
+            if(i===2){
+              $scope.imageurl3 = URLS.be_base + response.data.urlImagenesBanner[i];
+            }
           }
         }
 
