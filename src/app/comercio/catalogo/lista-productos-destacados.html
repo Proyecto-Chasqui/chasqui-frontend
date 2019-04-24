@@ -10,7 +10,7 @@
 		
 
         <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded" infinite="true" autoplay="true" autoplaySpeed="3800">
-        <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20" ng-click="ctrl.ir('catalog.products')">
+        <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
             
 			<div  layout="column" layout-align="space-between" class="ch-destacado" >
                 
@@ -31,7 +31,7 @@
 				
 				<div class="txt-sellos">Sellos</div>
                     <picture ng-repeat="medalla in producto.medallasProducto">
-                    <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados" ng-click="ctrl.showPrerenderedDialog(medalla)">
+                    <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados"> <!--ng-click="ctrl.showPrerenderedDialog(medalla)">-->
                         <md-tooltip md-direction="up">
                             {{medalla.nombre}}
                         </md-tooltip>
