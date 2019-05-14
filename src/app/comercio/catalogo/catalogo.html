@@ -1,21 +1,21 @@
 <div id="chasqui-content-full">
   <div class="archive-box-catalogo">
-    <div layout=row layout-align="">
-      <div flex="25">
+    <div layout=row layout-xs="column">
+      <div flex="25" class="nombreseccion">
         <div layout=column>
           <h3>Catalogo de compras</h3>
         </div>
       </div>
 
 
-      <div flex="75">
+      <div flex>
         <div>
           <div class="search-input-container"> 
 
             <input ng-keyup="$event.keyCode == 13 &amp;&amp; catalogoCtrl.filtrar()" ng-model="catalogoCtrl.queryText" type="text" class="buscador-catalogo" aria-invalid="false" placeholder=" Tu busqueda empieza aqui... ">   
 
             <button type="submit" class="btn btn-default search_submit" ng-click="catalogoCtrl.filtrar()">
-              <md-icon style="color:white;">search</md-icon> Buscar
+              <md-icon style="color:white;">search</md-icon>
             </button>
           </div>
         </div>
@@ -26,8 +26,9 @@
 
 
 <div class="ch-content">
-  <div layout="row" layout-align="space-between start">
-    <div flex="25">
+  <div layout="row" layout-xs="column">
+  
+    <div flex-xs>
       <div layout="column">
         <!-- Cambios de ubicacion en el carro de compra - tom -->			
         <div ng-if="catalogoCtrl.isLogued" >
@@ -41,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div flex="75">
+    <div flex >
       <section ng-include="'app/comercio/catalogo/lista-productos.html'" ng-init="count = catalogoCtrl.count" ng-cloak></section>
     </div>
   </div>
@@ -91,7 +92,7 @@
     -ms-user-select: none;
     user-select: none;
     border: 1px solid transparent;
-    padding: .5rem 1rem;
+    padding: .4rem 0rem;
     font-size: 1rem;
 
 }

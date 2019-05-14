@@ -6,7 +6,7 @@
 		</md-card-title>
 		<md-card-content>
 			<div>
-				<md-input-container class="md-block" flex-gt-sm>
+				<md-input-container class="md-block" flex>
 					<label>{{'CATEGORIA' | translate}}</label>
 					<md-select  ng-model="catalogoCtrl.categoriaSelect">
 						<md-select-header>
@@ -20,7 +20,7 @@
 				</md-input-container>
 			</div>
 			<div flex>
-				<md-input-container class="md-block" flex-gt-sm>
+				<md-input-container class="md-block" flex>
 					<label>{{'PRODUCTOR' | translate}}</label>
 					<md-select ng-model="catalogoCtrl.productorSelect">
 						<md-input-container>
@@ -32,7 +32,7 @@
 				</md-input-container>
 			</div>
 			<div flex>
-				<md-input-container class="md-block" flex-gt-sm>
+				<md-input-container class="md-block" flex>
 					<label>{{'SELLO' | translate}}</label>
 					<md-select ng-model="catalogoCtrl.medallaSelect">
 						<md-option ng-repeat="medalla in catalogoCtrl.medallas" value="{{medalla.idMedalla}}">
@@ -44,7 +44,7 @@
 				</md-input-container>
 			</div>
 			<div flex>
-				<md-input-container class="md-block" flex-gt-sm>
+				<md-input-container class="md-block" flex>
 					<label>{{'SELLO_PRODUCTOR' | translate}}</label>
 					<md-select ng-model="catalogoCtrl.medallaProductorSelect">
 						<md-option ng-repeat="medallaProductor in catalogoCtrl.medallasProductor" value="{{medallaProductor.idMedalla}}">

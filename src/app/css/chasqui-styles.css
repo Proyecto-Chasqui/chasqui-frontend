@@ -135,7 +135,7 @@ body{
 .archive-box-catalogo {
     border-bottom: 1px solid;
     border-color: #eee;
-    padding: 42px 0 40px;
+    padding: 60px 0 40px;
     background: #f6f6f6;
     background-image: url(../components/image/fondo-box.jpg);
     height: 180px;
@@ -593,7 +593,9 @@ body{
     position: absolute;
     top: 90px;
     right: 15px;
+
 }
+.nombreseccion {display: none;}	
 }
 @media (max-width: 767px) {
 .no-sidebar .universal_mas_item.product {width: 50%;}
@@ -604,6 +606,7 @@ body{
 .sidebar-left {float: none;margin-left: 0;}
 #search {display: none;}
 .frase-nav{display: none;}
+.nombreseccion {display: none;}
 }
  
 @media (max-width: 600px) { 
@@ -1036,3 +1039,7 @@ line-height:20px;
     color: rgb(250,250,250);
 }
 
+
+.paginador {
+    margin: 30px 0px 30px 0px;
+}
