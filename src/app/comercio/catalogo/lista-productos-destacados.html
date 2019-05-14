@@ -79,103 +79,107 @@
 
 <style>
 
-	.ch-destacado{
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: auto;
-		border: 1px solid #3333331a;
-		transition: all .5s ease;
-		overflow: hidden;
-		background-color: #fff;
-		border-radius: 6px 6px 0 0;
-	}
-
-	.ch-destacado:hover{
-		box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    .ch-destacado{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        border: 1px solid #3333331a;
         transition: all .5s ease;
-	}
-	.ch-destacado > *{
-		margin: 10px;
+        overflow: hidden;
+        background-color: #fff;
+        border-radius: 6px 6px 0 0;
+    }
 
-	}
-	
-	.ch-destacado .img-destacado{
-		overflow: hidden;
-	}
+    .ch-destacado:hover{
+        box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+        transition: all .5s ease;
+    }
+    .ch-destacado > *{
+        margin: 10px;
 
-	.ch-destacado:hover > .img-destacado img{
-		width: 100%;
-		transform : scale(1.3);
-		-moz-transform : scale(1.3);      /* Firefox */
-		-webkit-transform : scale(1.3);   /* Chrome - Safari */
-		-o-transform : scale(1.3);        /* Opera */
-		transition: all 500ms;
-	}
+    }
+    
+    .ch-destacado .img-destacado{
+      overflow: hidden;
+      height: 220px;
+    }
 
-	.ch-destacado > .nombre-producto{
+    .ch-destacado:hover > .img-destacado img{
+        width: 100%;
+        transform : scale(1.3);
+        -moz-transform : scale(1.3);      /* Firefox */
+        -webkit-transform : scale(1.3);   /* Chrome - Safari */
+        -o-transform : scale(1.3);        /* Opera */
+        transition: all 500ms;
+    }
+
+    .ch-destacado > .nombre-producto{
      color: #333;
     font-size: 16px;
     font-weight: 300;
     line-height: 1.29;
     cursor: pointer;
     transition: all .5s ease;
-	}
-	
-	.ch-destacado > .nombre-fabricante{
-	color: #652d90;
+     height: 28px;
+    }
+    
+    .ch-destacado > .nombre-fabricante{
+    color: #652d90;
     font-size: 12px;
     font-weight: 600;
     line-height: 1.29;
     cursor: pointer;
     transition: all .5s ease;
     text-transform: uppercase;
-	}	
-	
-	.ch-destacado > .nombre-variedad{
-		padding: .3rem .3rem;
-		height: 1.3rem;
-	}
+    height: 20px;
+    }   
+    
+    .ch-destacado > .nombre-variedad{
+        padding: .3rem .3rem;
+        height: 1.3rem;
+    }
 
-	.ch-destacado > .precio-variedad{
+    .ch-destacado > .precio-variedad{
         cursor: default;
         display: flex;
         flex-direction: row;
-		color: #00adee;		
-		font-weight: 600;
+        color: #00adee;     
+        font-weight: 600;
         font-size: 24px;
         line-height: 30px;
-	}
+    }
 
-	.ch-destacado > .precio-variedad h3{
-		padding: 0 .3rem !important;
-	}
+    .ch-destacado > .precio-variedad h3{
+        padding: 0 .3rem !important;
+    }
 
-	.ch-destacado .medallas-destacados{
-		width: 9%;
-		transition: all .4s; 
-	}
+    .ch-destacado .medallas-destacados{
+        width: 9%;
+        transition: all .4s; 
+    }
 
-	.ch-destacado .medallas-destacados:hover{
-		transform: rotate(-45deg);
-		transition: all .4s;
-	}
+    .ch-destacado .medallas-destacados:hover{
+        transform: rotate(-45deg);
+        transition: all .4s;
+    }
 
-	.ch-destacado .chq-sello-producto{	
-	border-top: 1px solid #3333331a;
+    .ch-destacado .chq-sello-producto{  
+    border-top: 1px solid #3333331a;
     padding-top: 6px;
-	}	
-	.destacado{
+    height: 40px;
+    }   
+    .destacado{
     height: 40px;
     max-width: 570px;
     margin: 60px auto 30px;
     position: relative;
-	padding-top: 10px;
-	background-image: url("app/components/image/line-titulo.png");
-	/* height: 40px; */!important;
+    padding-top: 10px;
+    background-image: url("app/components/image/line-titulo.png");
+    /* height: 40px; */!important;
     background-color: rgba(255, 255, 255, 0);!important;
-	
-    }	
+    
+    }   
 
    .destacado h5 {
     font-family: roboto;
@@ -188,7 +192,7 @@
     padding: 7px 23px;
     margin: -7px auto;
     display: table;
-}	
+}   
 
 
 </style>
