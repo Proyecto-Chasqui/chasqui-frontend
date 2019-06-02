@@ -480,6 +480,27 @@ md-tabs md-ink-bar {
     font-size: 0.5em;
 }
 
+.listanombremobil .angular-notifications-icon{
+    left: 85px;
+    top: 10px;
+    border-radius: 50%;
+    text-align: center;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 1px;
+    min-width: 15px;
+    height: 15px;
+    line-height: 1.34;
+    background: red;
+    color: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    font-size: 0.75em;
+}
+
 
 .ch-arrow-list-container {
   display: flex;

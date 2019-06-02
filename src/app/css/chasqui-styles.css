@@ -527,6 +527,70 @@ body{
     margin-bottom: 10px;
 }
 
+/*
+**********************************************
+        RESPONISIBE MOBILE 
+**********************************************
+*/
+
+.mob-usuario {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;    
+    padding-left: 10px;
+    color:#111;
+    font-size: 20px !important; 
+    border-bottom: 1px solid #3333331a; 
+    font-weight: bold;  
+    
+}
+
+.mob-exit {
+    padding-top: 5px;   
+    padding-left: 10px;
+    color:#111;
+    font-size: 16px !important; 
+    border-top: 1px solid #3333331a;    
+    font-weight: bold;  
+}
+
+.menumobil-nombre{
+    color: #fff;
+    height: 70px;
+    background-color: #412467;
+    margin-top: -8px;
+    font-size: 16px !important;
+}
+
+.icomobil{
+    color: #fff;
+    font-size: 50px !important;
+    padding-top:10px;
+    padding-left:6px;
+}
+
+.icomobil-byn{
+    color: #111;
+    margin-right:10px;
+}
+.nombremobil{
+    color: #fff;
+    font-size: 16px !important;
+}
+
+.listanombremobil{
+    color: #111;
+    font-size: 12px !important;
+}
+
+#md-menu-content {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 0!important;
+    max-height: 500px !important;
+    overflow-y: auto;
+}
+
 
 /*
 **********************************************
@@ -561,6 +625,7 @@ body{
 @media (min-width: 991px) {
 #menu-sub-mobile {display: none;}
 #menu-sub {display: block;}
+#movil-catalogo {display: none;}
 }
 
 @media (max-width: 990px) {
@@ -574,7 +639,6 @@ body{
 .navbar-custom.top-nav-collapse .nav-icon3 {top:20px;width: 28px;height: 18px;}
 .navbar-custom.top-nav-collapse .nav-icon3 span:nth-child(3), .navbar-custom.top-nav-collapse .nav-icon3 span:nth-child(4) {top: 8px;}
 .navbar-custom.top-nav-collapse .nav-icon3 span:nth-child(5), .navbar-custom.top-nav-collapse .nav-icon3 span:nth-child(6) {top: 16px;}
-
 .black-search-table-cell div {width: 75%}
 .logo {padding-left: 0px; line-height: 88px;}
 #menu-sub-mobile {display: block;float: right;margin-right: 10px;margin-top: 10px;z-index: 999;}
@@ -595,7 +659,7 @@ body{
     right: 15px;
 
 }
-.nombreseccion {display: none;}	
+.nombreseccion {display: none;} 
 }
 @media (max-width: 767px) {
 .no-sidebar .universal_mas_item.product {width: 50%;}
@@ -607,10 +671,19 @@ body{
 #search {display: none;}
 .frase-nav{display: none;}
 .nombreseccion {display: none;}
+#slider-home{display: none;}
+.nav-sticker-b {display: none;}
+#menuusuario {display: none;}
+#menuusuario2 {display: none;}
+#web-catalogo {display: none;}
+.ch-content-home {
+margin-top: 100px;
+}
 }
  
 @media (max-width: 600px) { 
 .commentlist .children {margin-left: 0px;}
+#slider-home{display: none;}
 }
 
  @media (max-width: 480px) { 
@@ -628,8 +701,10 @@ body{
     line-height: 1.75;
     padding: 15px 0 0 0;
     text-align: center;
+    
 }
 .contact-top li:last-child {padding-bottom: 15px;}
+#slider-home{display: none;}
 }
 
 

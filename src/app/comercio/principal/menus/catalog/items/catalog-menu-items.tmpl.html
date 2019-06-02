@@ -1,9 +1,21 @@
-<div layout="row" layout-align="center" ng-cloak>
-    <div ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued" layout="row" layout-align="end center">
+<div layout-align="center" ng-cloak id="movil-catalogo">
+    <div ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued">
+		<md-list-item ui-sref="{{'catalog.' + item.route}}" 
+                   ng-click="toTop()">
+		   <div class="listanombremobil">{{item.label | translate}}</div>	
+	   </md-list-item> 
+    </div>
+</div>
+<div layout="row" layout-align="center" ng-cloak id="web-catalogo">
+    <div ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued">
+	
+	
         <md-button class="{{classFor(item.id)}}" 
                    ui-sref="{{'catalog.' + item.route}}" 
                    ng-click="toTop()">
                 <b> {{item.label | translate}}</b> 
         </md-button>
+		
+		
     </div>
 </div>

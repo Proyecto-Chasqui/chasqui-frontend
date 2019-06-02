@@ -5,8 +5,10 @@
 </div>
 
 <div class="ch-content">
-  <div layout="row" layout-align="space-between start">
-    <md-card flex="20">
+  <div layout="row" layout-xs="column">
+  
+  
+    <md-card flex-gt-sm="30" flex>
       <div layout="column" layout-align="start" style="margin: 25px;">
         <div>
           Filtrar pedidos por:
@@ -24,7 +26,10 @@
         </div>
       </div>
     </md-card>
-    <md-card flex="80">
+  
+  
+  
+    <md-card flex>
       <div ng-show="pedidosFiltrados.length == 0" layout="row" layout-align="center center" style="font-style: italic;">
         No hay pedidos con el estado seleccionado
       </div>
