@@ -47,35 +47,40 @@
                           id: 'WELCOME',
                           route: 'landingPage',
                           label: 'MENU_BIENVENIDO',
-                          needLogin: false
+                          needLogin: false,
+                          mobile_icon: 'home',
                       };
 
       var howToBuy = {   
                           id: 'HOW_TO_BUY',
                           route: 'howToBuy',
                           label: 'MENU_COMO_COMPRAR',
-                          needLogin: false
+                          needLogin: false,
+                          mobile_icon: 'live_help',
                       };
 
       var products = {
                           id: 'CATALOG',
                           route: 'products',
                           label: 'MENU_CATALOGO',
-                          needLogin: false
+                          needLogin: false,
+                          mobile_icon: 'list',
                       };
 
       var userOrders = {
                           id: 'MY_ORDERS',
                           route: 'userOrders',
                           label: 'MENU_PEDIDO',
-                          needLogin: true
+                          needLogin: true,
+                          mobile_icon: 'location_on',
                       };
 
       var userGroups = { 
                           id: 'MY_GROUPS',
                           route: 'userGroups.all',
                           label: 'MENU_GRUPO',
-                          needLogin: true
+                          needLogin: true,
+                          mobile_icon: 'group', 
                       };
 
       var userNodes = { 
