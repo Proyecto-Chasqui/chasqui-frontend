@@ -6,7 +6,8 @@
 
 
 <div class="ch-content">
-    <md-grid-list md-cols="3" md-row-height="1:1">
+    <div class="imagenes-comocomprar">
+  <md-grid-list md-cols="3" md-row-height="1:1" >
         <md-grid-tile layout="row" md-colspan="1" md-rowspan="1" ng-repeat="(i,instruccion) in instruccionesCards">
             <md-card style="width:250px; padding:20px; margin-top:20px;">
                 <div>
@@ -20,13 +21,13 @@
             </md-card>
         </md-grid-tile>
     </md-grid-list>
-
-	
-	
+     </div>
+  
+  
   <div layout="column" layout-align="space-between center">
     <div style="margin-top: 50px; margin-bottom: 50px">
       <div ng-repeat="instruccion in instrucciones">
-        <chq-colapsable titulo="{{instruccion.titulo}}" color="#412467" ancho="60%">
+        <chq-colapsable titulo="{{instruccion.titulo}}" color="#412467" >
           <ol>
             <div ng-repeat="paso in instruccion.pasos">
               <li>{{paso.principal}}</li>
@@ -82,7 +83,7 @@
   .txt-comocomprar {
     padding:auto; 
     margin-top:10px;
-	height: 65px;
+  height: 65px;
   }
     .txt-comocomprar p{ 
     color: #111;
