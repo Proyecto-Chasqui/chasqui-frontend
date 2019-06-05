@@ -681,6 +681,12 @@ margin-top: 100px;
 }
 }
  
+@media (min-width: 767px) {
+#menu-sub-mobile {display: none;}
+#menu-sub {display: block;}
+#movil-catalogo {display: none;}
+}
+
 @media (max-width: 600px) { 
 .commentlist .children {margin-left: 0px;}
 #slider-home{display: none;}
