@@ -1,49 +1,100 @@
 <div ng-controller="ListaProductosDestacadosController as ctrl">
 
-		<div class="destacado">
+        <div class="destacado">
               <h5> Productos destacados </h5>
         </div>
-		
-		
-		
-<div class="container">
-		
+        
+        
+        
+<div class="container" id="destacados-slider-movil1">
+        
 
-        <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded" infinite="true" autoplay="true" autoplaySpeed="3800">
+        <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded">
         <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
             
-			<div  layout="column" layout-align="space-between" class="ch-destacado" >
+            <div  layout="column" layout-align="space-between" class="ch-destacado" >
                 
-				<div class="img-destacado">
-                    <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%">
+                <div class="img-destacado">
+                    <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
                 </div>
                 <div class="nombre-producto" >
                     <p>{{producto.nombreProducto}}</p>
-                </div>	
+                </div>  
                 <div class="nombre-fabricante">
                     <p>{{producto.nombreFabricante}}</p>
-                </div>				
+                </div>              
                 <div class="precio-variedad">
                     <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
                 </div>
-				
+                
                 <div class="chq-sello-producto" layout="row" layout-align="start start" > 
-				
-				<div class="txt-sellos">Sellos</div>
+                
+                <div class="txt-sellos">Sellos</div>
                     <picture ng-repeat="medalla in producto.medallasProducto">
-                    <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados"> <!--ng-click="ctrl.showPrerenderedDialog(medalla)">-->
+                    <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados"/> <!--ng-click="ctrl.showPrerenderedDialog(medalla)">-->
                         <md-tooltip md-direction="up">
                             {{medalla.nombre}}
                         </md-tooltip>
                     </picture>
                 </div>
-				
+                
 
             </div>
         </div>
         </slick>
 
-	
+    
+ 
+
+ 
+ 
+
+</div>
+
+
+
+       <!-- ********************* VERSION RESPONSIVE CELULAR  *******************-->
+
+
+        
+<div id="destacados-slider-movil2">
+        
+
+        <slick  slides-to-show="1"  slides-to-scroll="1" ng-if="ctrl.loaded">
+        <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
+            
+            <div  layout="column" layout-align="space-between" class="ch-destacado" >
+                
+                <div class="img-destacado">
+                    <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
+                </div>
+                <div class="nombre-producto" >
+                    <p>{{producto.nombreProducto}}</p>
+                </div>  
+                <div class="nombre-fabricante">
+                    <p>{{producto.nombreFabricante}}</p>
+                </div>              
+                <div class="precio-variedad">
+                    <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
+                </div>
+                
+                <div class="chq-sello-producto" layout="row" layout-align="start start" > 
+                
+                <div class="txt-sellos">Sellos</div>
+                    <picture ng-repeat="medalla in producto.medallasProducto">
+                    <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados"/> <!--ng-click="ctrl.showPrerenderedDialog(medalla)">-->
+                        <md-tooltip md-direction="up">
+                            {{medalla.nombre}}
+                        </md-tooltip>
+                    </picture>
+                </div>
+                
+
+            </div>
+        </div>
+        </slick>
+
+    
  
 
  
@@ -60,15 +111,15 @@
                     </div>
                 </div>
                 <div layout="column" layout-align="center center">
-                    <img ng-src="{{ctrl.urlbase}}{{ctrl.medallaSelect.pathImagen}}" width="200" height="200">
-                    <div ng-bind-html="ctrl.medallaSelect.descripcion" />
+                    <img ng-src="{{ctrl.urlbase}}{{ctrl.medallaSelect.pathImagen}}" width="200" height="200"/>
+                    <div ng-bind-html="ctrl.medallaSelect.descripcion"></div>
                 </div>
             </md-dialog>
         </div>
     </div>
 
 </div>
-
+ 
 
 
 

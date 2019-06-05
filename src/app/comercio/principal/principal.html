@@ -53,8 +53,8 @@
 </element-wrapper>
 
 <div class="ch-content-home">
-    <div layout=row style="padding-bottom: 40px;">
-    <div flex="50" class="quienessomos">
+    <div layout=row style="padding-bottom: 40px;" layout-xs="column">
+    <div class="quienessomos">
     <div ng-bind-html="texto" class="quienes-txt"> 
     </div>
   
@@ -74,7 +74,7 @@
   </div>
 
     
-    <div flex="50" class="quienesimagenes">
+    <div class="quienesimagenes">
       <div class="quienes-titulo">
       <h2><b>{{nombreOrganizacion}}</b></h2>
       <img ng-src="{{imagenUrlPortada}}" >  

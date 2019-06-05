@@ -591,6 +591,13 @@ body{
     overflow-y: auto;
 }
 
+.puntosderetiro {
+padding-left: 40px;
+}
+
+.imagen-puntosderetiro {
+padding-top: 8px;
+}
 
 /*
 **********************************************
@@ -620,12 +627,16 @@ body{
 .navbar-custom.top-nav-collapse .container.full .cart_search_block > li.menu-divider {margin-top: 24px;}
 .navbar.top-nav-collapse .logo {line-height: 70px;}
 .no-sidebar .universal_mas_item.product {width: 33.33333%;}
+.destacados-slider-movil2 {display: none;}
 }
 
 @media (min-width: 991px) {
 #menu-sub-mobile {display: none;}
 #menu-sub {display: block;}
 #movil-catalogo {display: none;}
+#destacados-slider-movil2 {display: none;}
+.puntosderetiro {width: 50%;}
+.imagen-puntosderetiro {width: 50%; height: 220px;}
 }
 
 @media (max-width: 990px) {
@@ -644,7 +655,7 @@ body{
 #menu-sub-mobile {display: block;float: right;margin-right: 10px;margin-top: 10px;z-index: 999;}
 .pheromone_testimonial_content_holder {padding: 0px;}
 #menu-sub {display: none;}
-
+.puntosderetiro {padding-left: 0px;}
 .resp-right {float: right;}
 .resp-left {float: left;}
 .content-wrap .sidebar {margin-top: 50px;}
@@ -660,6 +671,9 @@ body{
 
 }
 .nombreseccion {display: none;} 
+#destacados-slider-movil1 {display: none;}
+.imagenes-comocomprar {display: none;}
+
 }
 @media (max-width: 767px) {
 .no-sidebar .universal_mas_item.product {width: 50%;}
@@ -676,9 +690,11 @@ body{
 #menuusuario {display: none;}
 #menuusuario2 {display: none;}
 #web-catalogo {display: none;}
-.ch-content-home {
-margin-top: 100px;
-}
+.ch-content-home {margin-top: 100px;}
+#destacados-slider-movil1 {display: none;}
+.imagenes-comocomprar {display: none;}
+.puntosderetiro {padding-left: 0px;}
+
 }
  
 @media (min-width: 767px) {
@@ -690,6 +706,10 @@ margin-top: 100px;
 @media (max-width: 600px) { 
 .commentlist .children {margin-left: 0px;}
 #slider-home{display: none;}
+#destacados-slider-movil1 {display: none;}
+.imagenes-comocomprar {display: none;}
+.puntosderetiro {padding-left: 0px;}
+
 }
 
  @media (max-width: 480px) { 
@@ -711,6 +731,10 @@ margin-top: 100px;
 }
 .contact-top li:last-child {padding-bottom: 15px;}
 #slider-home{display: none;}
+#destacados-slider-movil1 {display: none;}
+.imagenes-comocomprar {display: none;}
+.puntosderetiro {padding-left: 0px;}
+
 }
 
 

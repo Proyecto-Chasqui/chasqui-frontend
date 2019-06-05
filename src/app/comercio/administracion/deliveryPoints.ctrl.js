@@ -8,14 +8,17 @@
         navigation_state.goDeliveryPointsTab();
         $scope.deliveryPoints = [];
         $scope.formatAddress = formatAddress;
-        $scope.zonesMap = ""
+        $scope.zonesMap = "";
+        $scope.showMap = false;
         ///////////////////////////////
         function init(){
             contextCatalogObserver.observe(function(){
               contextPurchaseService.getSelectedCatalog().then(function(catalog){
                 $scope.zonesMap = $sce.trustAsResourceUrl(catalog.urlMapa);
+                $scope.showMap = $scope.zonesMap != ""; 
                   deliveryPointsService.deliveryPoints(catalog.nombreCorto).then(function(response){
                       $scope.deliveryPoints = response.data.puntosDeRetiro;
+
                   });    
               })
             });
