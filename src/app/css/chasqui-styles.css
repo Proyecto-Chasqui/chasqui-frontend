@@ -709,6 +709,8 @@ padding-top: 8px;
 #destacados-slider-movil1 {display: none;}
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
+.ch-dialog.md-toolbar-tools .ch-dialog-modal-title{  font-size: 15px;}
+div.ch-modal-price-per-unit-and-description {display: none;}
 
 }
 
@@ -734,6 +736,8 @@ padding-top: 8px;
 #destacados-slider-movil1 {display: none;}
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
+.ch-dialog.md-toolbar-tools .ch-dialog-modal-title{  font-size: 15px;}
+div.ch-modal-price-per-unit-and-description {display: none;}
 
 }
 
