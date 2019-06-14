@@ -705,6 +705,11 @@ padding-top: 8px;
 #destacados-slider-movil1 {display: none;}
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
+.tarjeta-content {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+}
 
 }
 @media (min-width: 767px) {
@@ -724,7 +729,8 @@ padding-top: 8px;
 #destacados-slider-movil1 {display: none;}
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
-
+.ch-dialog.md-toolbar-tools .ch-dialog-modal-title{  font-size: 15px;}
+div.ch-modal-price-per-unit-and-description {display: none;}
 }
 
  @media (max-width: 480px) { 
@@ -750,6 +756,8 @@ padding-top: 8px;
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
 
+.ch-dialog.md-toolbar-tools .ch-dialog-modal-title{  font-size: 15px;}
+div.ch-modal-price-per-unit-and-description {display: none;}
 }
 
 
