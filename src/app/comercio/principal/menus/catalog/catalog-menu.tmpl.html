@@ -4,72 +4,70 @@
     <div class="nav-sticker-a" layout="row" layout-align="space-between center">
       
 
-    
-    <div id="menu-sub-mobile">
-             <md-menu md-position-mode="target-left target" >
+	  
+	  <div id="menu-sub-mobile">
+					   <md-menu md-position-mode="target-left target" >
                        <md-button aria-label="Open menu with custom trigger" class="md-icon-button" ng-mouseenter="$mdMenu.open()">
-             <md-icon style="color:#fff">menu</md-icon>
+					   <md-icon style="color:#fff">menu</md-icon>
                        </md-button>
                        <md-menu-content width="6" ng-mouseleave="$mdMenu.close()">
-             
-             <div ng-show="isLogued" >
+					   
+					   <div ng-show="isLogued" >
                        <div class="menumobil-nombre"> 
 
-             <i class="material-icons icomobil">account_circle</i>Hola {{usuario.nickname}}
-             </div>
-             <md-divider></md-divider>
-                 </div>
+					   <i class="material-icons icomobil">account_circle</i>Hola {{usuario.nickname}}
+					   </div>
+					   <md-divider></md-divider>
+			           </div>
                        <catalog-menu-items general="true"></catalog-menu-items>
-             
-             <catalog-menu-items general="false"></catalog-menu-items>
-                        
-             <div ng-show="isLogued"> 
-                       <md-divider></md-divider>             
+					   
+					   <catalog-menu-items general="false"></catalog-menu-items>
+                      	
+					   <div ng-show="isLogued"> 
+                       <md-divider></md-divider>					   
                        <md-list-item ng-click="toTop()" ui-sref="catalog.profile">
                           <i class="material-icons icomobil-byn">person_outline</i> <div class="listanombremobil">Mi perfil </div>
                        </md-list-item>                   
-            
+					  
                        <md-list-item ui-sref="catalog.notifications">
-             <i class="material-icons icomobil-byn">notification_important</i> <div class="listanombremobil"><notification-icon  count="nroNoLeidas" >Notificaciones</notification-icon></div>  
-                       </md-list-item>        
-             
-            <md-divider></md-divider>
-      
+					   <i class="material-icons icomobil-byn">notification_important</i> <div class="listanombremobil"><notification-icon  count="nroNoLeidas" >Notificaciones</notification-icon></div>	
+                       </md-list-item>    		
+					   
+					  <md-divider></md-divider>
+			
                        <md-list-item ng-click="logOut()">
                         <i class="material-icons icomobil-byn">input</i> <div class="listanombremobil">Salir</div>
-                       </md-list-item>            
+                       </md-list-item>  					
                        
-             </div> 
-             
-             <md-list-item ui-sref="catalog.login" ng-show="!isLogued">
+					   </div>	
+					   
+					   <md-list-item ui-sref="catalog.login" ng-show="!isLogued">
                           <div class="listanombremobil"> {{'INGRESA' | translate}}</div>
                        </md-list-item>
-             
+					   
                        </md-menu-content>
-                       </md-menu> 
-    </div>  
-    
-    
-    
-    
-    
-    <div class="nav-logo">
+                       </md-menu>	
+	  </div>	
+	  
+	  
+	  <div class="nav-logo">
         <a ui-sref="catalog.landingPage">
           <img ng-src="{{urlLogo}}">
         </a>
       </div>
-    
-    
-    
-      <div id="menuusuario" layout="row" layout-align="space-between center">
-        <catalog-menu-items class="menu-element" general="true"></catalog-menu-items>
-    
-    
+	  
+	  
+	  
+      <div id="menuusuario" class="usuario"layout="row" layout-align="space-between center">
+        
+		
+		
         <div ng-show="isLogued" id="menu_list_usuario" layout="row" layout-align="space-between center">
-    
+		
+		<img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">
+		
           <md-button layout="row" layout-align="space-between center" style="cursor: pointer;" ng-click="toTop()" ui-sref="catalog.profile" >
             
-            <img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">
             
             <h2 class="menu-element">
               {{usuario.nickname}}
@@ -99,21 +97,25 @@
               </md-tooltip>
           </md-button>
         </div>
-    
+		
         <md-button class="md-raised btn-chq-ingresa" ui-sref="catalog.login" ng-show="!isLogued"> {{'INGRESA' | translate}} </md-button>
       </div>       
     </div>   
 
-  
-    <div id="menuusuario2" class="nav-sticker-b" layout="row" layout-align="space-between center">
+	
+    <div id="menuusuario2" class="nav-sticker-b" layout="row" >
       <div>
         <!-- buscador -->
       </div>
+	  <div>
+        <catalog-menu-items general="true"></catalog-menu-items>
+      </div>
+	  
       <div>
         <catalog-menu-items general="false"></catalog-menu-items>
       </div>
     </div>
-    
+		
   </div>
   
   
