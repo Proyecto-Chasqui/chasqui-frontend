@@ -158,5 +158,27 @@
       $mdDialog.show(productInfo);
     }
     
+    vm.askToCollaborate = function(){
+      var askToCallaborateDialog = {
+        parent: angular.element(document.body),
+        templateUrl: "app/comercio/varios/cuestionario/ask_to_collaborate.tmpl.html",
+        controller: "AskToCollaborateCtrl",
+        clickOutsideToClose: false
+      }
+
+      $mdDialog.show(askToCallaborateDialog);
+    }
+    
+    vm.collaborateWithQuestions = function(){
+      var selectDeliveryAddress = {
+        parent: angular.element(document.body),
+        templateUrl: "app/comercio/varios/cuestionario/collaborate_with_qustions.tmpl.html",
+        controller: "CollaborateCtrl",
+        clickOutsideToClose: false
+      }
+
+      $mdDialog.show(selectDeliveryAddress);
+    }
+    
   } 
 })(); 

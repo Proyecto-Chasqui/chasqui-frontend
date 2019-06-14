@@ -1,0 +1,16 @@
+<md-dialog class="ask-to-collaborate" aria-label="options dialog" style="min-width: 50%; min-heigth: 60%;">
+  <modal-window-title-bar title="¿Querés colaborar con Chasqui?"></modal-window-title-bar>
+  <md-dialog-content>
+    <div style="margin: 20px 20px 20px 20px;">
+      Chasqui lo hacemos entre todos, tus sugerencias son importantes para mejorar la herramienta.
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions style="margin-bottom: 10px;" layout="row" layout-align="space-between">
+    <md-button class="cancel" ng-click="cancelAction()">
+      <label translate="NO_COLLABORATE"></label>
+    </md-button>
+    <md-button class="confirm" ng-click="collaborate()">
+      <label translate="COLLABORATE"></label>
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

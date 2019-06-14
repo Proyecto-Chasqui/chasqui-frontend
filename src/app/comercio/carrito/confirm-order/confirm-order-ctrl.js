@@ -5,7 +5,7 @@
 
 	/** @ngInject */
 	function ConfirmOrderCtrl($scope, contextPurchaseService, $log, vendedorService, perfilService,
-                              actions, order, $mdDialog, $state) {
+                              actions, order, $mdDialog, $state, dialogCommons) {
         
         $scope.catalog = null;
         $scope.currentNavItem = 0;
@@ -68,6 +68,7 @@
                 function(){
                     actions.doOk($scope.selectedAddress, $scope.answers);
                     $mdDialog.hide();
+                    dialogCommons.askToCollaborate();
                 }
             ][$scope.currentNavItem]();
         }

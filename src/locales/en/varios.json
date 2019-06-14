@@ -11,5 +11,7 @@
     "MENU_DELIVERY_POINTS": "Entregas",
 	"MENU_PERFIL" : "Perfil",
 	"CERRAR_GRUPAL" : "Cerrar pedido grupal",
-	"LOADING_TEXT" : "Cargando..."
+	"LOADING_TEXT" : "Cargando...",
+  "COLLABORATE": "Quiero ayudar a Chasqui!",
+  "NO_COLLABORATE": "No, gracias"
 }
