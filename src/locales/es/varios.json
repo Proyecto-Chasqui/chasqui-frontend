@@ -13,5 +13,6 @@
 	"CERRAR_GRUPAL" : "Cerrar pedido grupal",
 	"LOADING_TEXT" : "Cargando...",
   "COLLABORATE": "Quiero ayudar a Chasqui!",
-  "NO_COLLABORATE": "No, gracias"
+  "NO_COLLABORATE": "No, gracias",
+  "END_COLLABORATION": "Listo"
 }
