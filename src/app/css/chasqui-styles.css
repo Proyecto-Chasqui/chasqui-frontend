@@ -784,6 +784,29 @@ div.ch-modal-price-per-unit-and-description {display: none;}
 **********************************************
 */
 
+.boton-cerrar-card {
+  position: absolute;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  right: 5px;
+  top: 5px;
+  padding: 4px;
+  color: rgb(66, 82, 110);
+  background-color: white;
+  transition: background-color .1s, color .1s;
+  transition-property: background-color, color;
+  transition-duration: 0.1s, 0.1s;
+  transition-timing-function: ease, ease;
+  transition-delay: 0s, 0s;
+  cursor: pointer;
+}
+
+.boton-cerrar-card:hover {
+  background-color: #d7d8dd;
+  color: #2a2a2b;
+}
+
 .image-mini-preview {
     margin: 3px;
     border: 1px solid #3333331a;
