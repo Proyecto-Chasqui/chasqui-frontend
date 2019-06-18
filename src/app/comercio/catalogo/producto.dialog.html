@@ -1,14 +1,14 @@
 <md-dialog style="width:960px; height:555px; margin-top: 20px;">
-	<modal-window-title-bar cancel-action="cerrariDalogo"></modal-window-title-bar>
+	<modal-window-title-bar cancel-action="cerrarDialogo"></modal-window-title-bar>
   <md-dialog-content style="width: 100%;">
     <div class="tarjeta-content">
             	
 			<div flex>
         <img ng-src="{{urlBase}}{{imageSelect}}" style="width: 100%;" class="tarjeta-imagen">
 				
-				<div layout="row">
-          <div ng-repeat="image in imagenes" class="image-mini-preview" >
-            <img style="width: 100%;" ng-src="{{urlBase}}{{image.path}}" style="height:96px;" ng-click="setImageSelected(image.path)">
+				<div style="width: 100%;" layout="row">
+          <div style="width: 33%;" ng-repeat="image in imagenes" class="image-mini-preview" >
+            <img ng-src="{{urlBase}}{{image.path}}" style="height:96px;" ng-click="setImageSelected(image.path)">
           </div>
         </div>
       </div>

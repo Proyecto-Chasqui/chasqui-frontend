@@ -18,13 +18,11 @@
 		$scope.imageSelect = productSelected.imagenPrincipal;
 		$scope.class = "";
 
-		$scope.cerrariDalogo = function() {
+		$scope.cerrarDialogo = function() {
 			$mdDialog.hide();
 		}
 
 		$scope.cambiarImagen = function(imagen) {
-			//$scope.class="zoomIn animated";
-			//$scope.class=undefined;		
 			$scope.imagenSelect = imagen;
 		}
 
@@ -34,19 +32,22 @@
 			return res;
 		}
         
-        $scope.setImageSelected = function(image){
-            $scope.imageSelect = image;
-        }
+    $scope.setImageSelected = function(image){
+        $scope.imageSelect = image;
+    }
 
 		////////////
+    
+    function init(){
+      function setImagenes(response) {
+        $log.debug("imagenProducto", response);
+        $scope.imagenes = response.data;
+      }
 
-
-		function doOkPedido(response) {
-			$log.debug("imagenProducto", response);
-			$scope.imagenes = response.data;
-		}
-
-		productoService.imagenProducto($scope.producto.idVariante).then(doOkPedido);
+      productoService.imagenProducto($scope.producto.idVariante).then(setImagenes);
+    }
+    
+    init();
 
 	}
 })();
