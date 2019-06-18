@@ -289,26 +289,35 @@
       })
     }
 
-    // findProductos();
-    if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
-      $log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
-      vm.agregar(contextPurchaseService.ls.varianteSelected)
-      contextPurchaseService.ls.varianteSelected = undefined;
-    }
+    
 
-    function setCatalogState(){
+    function setCatalogState(callback){
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
                 var few = response.data.few;
                 vm.permitirComprar = few.compraIndividual || few.gcc || few.nodos;
+                callback();
             }
         );
     }
+    
+    function init(){
+      if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
+        $log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
+        setCatalogState(function(){
+          vm.agregar(contextPurchaseService.ls.varianteSelected);
+          contextPurchaseService.ls.varianteSelected = undefined;
+        })
 
-    setCatalogState();
-    //vm.productos = findProductos(1,10,{});
-    callEmprendedores();
-    //loadPages();
+      }
+      setCatalogState(function(){});
+      //vm.productos = findProductos(1,10,{});
+      callEmprendedores();
+      //loadPages();
+      // findProductos();
+    }
+    
+    init();
   }
 
 })();
