@@ -1,13 +1,13 @@
 <md-dialog>
     <form ng-cloak>
-        <modal-window-title-bar title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>
+    <modal-window-title-bar title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>
 
     <md-dialog-content>
         <div class="content" layout="row" layout-xs="column" layout-align="space-between">
             <div flex-xs="100" flex="50">
                 <img ng-src="{{urlBase}}{{variety.imagenPrincipal != null? variety.imagenPrincipal : variety.imagen}}" style="width:100%">
             </div>
-            <div flex-xs="100" flex="50" layout="column" layout-align="space-between">
+            <div class="ch-modal-modify-count"flex-xs="100" flex="50" layout="column" layout-align="space-between">
                 <div class="ch-modal-price-per-unit-and-description" flex="50" layout="column" layout-align="space-around">
                   <div>
                       <div style="font-style: italic" ng-bind-html="variety.descripcion">
@@ -67,7 +67,7 @@
         </div>
     </md-dialog-content>
 
-    <md-dialog-actions>
+    <md-dialog-actions layout="row" layout-align="space-between center">
         <md-button ng-click="okAction(count())" class="md-raised md-primary" ng-show="showOkButton()">
             {{okButton()}}
         </md-button>
