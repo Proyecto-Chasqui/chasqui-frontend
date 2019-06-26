@@ -1,22 +1,28 @@
 <md-dialog style="width:960px; height:555px; margin-top: 20px;">
+
+
+
   <div class="boton-cerrar-card" ng-click="cerrarDialogo()" title="Cerrar">
     <i class="material-icons" aria-label="Cancelar">close</i>
   </div>
+
+
   <md-dialog-content style="width: 100%;">
     <div class="tarjeta-content">
             	
 			<div flex>
-        <img ng-src="{{urlBase}}{{imageSelect}}" style="width: 100%;" class="tarjeta-imagen">
+        <img ng-src="{{urlBase}}{{imageSelect}}" class="tarjeta-imagen">
 				
-				<div style="width: 100%;" layout="row">
-          <div style="width: 33%;" ng-repeat="image in imagenes" class="image-mini-preview" >
-            <img ng-src="{{urlBase}}{{image.path}}" style="height:96px;" ng-click="setImageSelected(image.path)">
+				<div style="width: 100%; margin-left:10px;" layout="row">
+          <div ng-repeat="image in imagenes" class="image-mini-preview" >
+            <img class="image-mini-producto"ng-src="{{urlBase}}{{image.path}}" ng-click="setImageSelected(image.path)">
           </div>
         </div>
       </div>
 			
 			<div flex>
-        <div layout="column" style="width: 100%; padding-left:20px;">
+        <div layout="column" class="tarjeta-descripcion-producto">
+
           <div class="md-subhead tarjeta-fabricante">
               {{producto.nombreFabricante}}
           </div>
@@ -28,7 +34,7 @@
           </div>
           <div class="tarjeta-line"></div>
           <div class="md-subhead tarjeta-descripcion">
-              <div style="width: 100%;" ng-bind-html="producto.descripcion"></div>
+              <div ng-bind-html="producto.descripcion"></div>
           </div>
         </div>
       </div>		
