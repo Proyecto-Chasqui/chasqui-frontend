@@ -26,7 +26,7 @@
           </md-button>
         </div>
         <md-list class="md-dense ch-contexto-pedido-panel-list">
-            <md-list-item class="md-3-line" ng-repeat="variety in pedidoSelected.productosResponse">
+            <md-list-item class="md-3-line ch-contexto-pedido-panel-list-item" ng-repeat="variety in pedidoSelected.productosResponse">
                 <md-button ng-click="modifyVarietyCount(variety, pedidoSelected)" ng-disabled="pedidoSelected.estado == 'CONFIRMADO'">
                     <div layout="row" layout-align="space-between center">
                         <img ng-src="{{urlBase}}{{variety.imagen}}" class="md-avatar" alt="{{variety.nombre}}" />
@@ -50,7 +50,7 @@
                 </md-button>
             </md-list-item>
         </md-list>
-        <md-subheader class="md-no-sticky" ng-show="pedidoSelected.estado == 'CONFIRMADO'">
+        <md-subheader class="md-no-sticky ch-contexto-pedido-descripcion" ng-show="pedidoSelected.estado == 'CONFIRMADO'">
             {{'PEDIDO_CONFIRMADO_MSG_1' | translate}} {{pedidoSelected.aliasGrupo}} {{'PEDIDO_CONFIRMADO_MSG_2' | translate}}
         </md-subheader>
     </div>

@@ -144,6 +144,7 @@
                       function(){}
                     );
                   }
+                  dialogCommons.askToCollaborate();
                 });
             }
             gccService.confirmarPedidoIndividualGcc(order.id).then(doOk);          

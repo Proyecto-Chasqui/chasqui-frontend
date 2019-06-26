@@ -39,6 +39,12 @@
             $scope.questions = $scope.questions.map(function(q){q.answered = q.answer != null || q.answer != undefined; return q});
             $log.debug($scope.questions);
         }
+    
+        $scope.$on("check-direccion", function(){
+          if($scope.questions.length == 0){
+              $scope.okAction([]);              
+          }
+        })
         
         $scope.$on("check-answers", function(){
             if(validInformation()){
