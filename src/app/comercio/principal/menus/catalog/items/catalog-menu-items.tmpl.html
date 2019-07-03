@@ -16,11 +16,11 @@
     <div ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued">
 	
 	
-        <md-button class="{{classFor(item.id)}}" 
+        <a class="menu-button {{classFor(item.id)}}" 
                    ui-sref="{{'catalog.' + item.route}}" 
                    ng-click="toTop()">
                 <b> {{item.label | translate}}</b> 
-        </md-button>
+         </a>
 		
 		
     </div>

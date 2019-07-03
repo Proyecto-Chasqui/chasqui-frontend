@@ -371,6 +371,11 @@ padding-right:20px;
         MENU
 ***********************
 */
+
+
+
+
+
 #menu{
     top: 0px;
     margin: 0;
@@ -400,6 +405,9 @@ padding-right:20px;
     float:right;
     z-index: 999;   
 }
+
+
+
 
 /*
 ***********************
@@ -479,6 +487,27 @@ padding-right:20px;
 }
 
 
+.menu-button {
+    font-size: 12px!important;
+    text-transform: none!important;
+    /* margin: 14px 0px!important; */
+    /* min-height: 69px!important; */
+    /* min-width: 88px!important; */
+    margin-right: 30px!important;
+    margin-top: 9px;
+    cursor: pointer;
+    color: #ffffff!important;
+    text-decoration: none;
+    font-size: small;
+    /* margin: 0; */
+    /* padding: 0; */
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-weight: normal;
+    display: inline-block;
+    position: relative;
+
+}
+
 
 
 /*
@@ -492,7 +521,7 @@ padding-right:20px;
 
 
 
-
+/*
 .md-button {
     font-size: 12px!important;
     text-transform: none!important;
@@ -504,7 +533,7 @@ padding-right:20px;
     
 }
 
-
+*/
 
 
 /*
@@ -541,6 +570,28 @@ padding-right:20px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+/*
+**********************************************
+        ESTILO TARJETAS  
+**********************************************
+*/
+
+.botontarjetas {
+    cursor: pointer;
+    color: #818181!important;
+    text-decoration: none;
+    font-size: small;
+    margin: 0;
+    padding: 0;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.bloque-usuario {
+margin-top: 20px;
+}
+
+
 
 /*
 **********************************************
@@ -611,7 +662,8 @@ padding-left: 40px;
 }
 
 .imagen-puntosderetiro {
-padding-top: 8px;
+    padding-top: 8px;
+    padding-bottom: 10px;
 }
 
 /*
@@ -709,17 +761,14 @@ padding-top: 8px;
 #destacados-slider-movil1 {display: none;}
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
-.tarjeta-content {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: space-between;
-}
+
 
 }
 @media (min-width: 767px) {
 #menu-sub-mobile {display: none;}
 #menu-sub {display: block;}
 #movil-catalogo {display: none;}
+
 .tarjeta-content {
   display: flex;
   flex-direction: row;
@@ -816,6 +865,10 @@ div.ch-modal-price-per-unit-and-description {display: none;}
     border: 1px solid #3333331a;
 }
 
+.image-mini-producto {
+    height: 96px;
+}
+
 div.image-mini-preview:hover {
     border: 1px solid #00adee;
 }
@@ -850,15 +903,27 @@ background-color: #fff;
     line-height: 1.29;
     padding-bottom: 10px;   
 }
+
+
 .tarjeta-descripcion {
-    width:450px;
+    width:400px;
     font-size: 14px;
     color: #242424;
 }
+
 .tarjeta-imagen {
     border: 1px solid #3333331a;
+    width: 500px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
+.tarjeta-descripcion-producto {
+    width:300px;
+    margin-top: 10px;
+    margin-right:10px;
+    margin-left:10px;
+}
 
 .tarjeta-line {
     display: block;
@@ -874,14 +939,130 @@ background-color: #fff;
 }
 
 
+/* para 980px o menos */
+@media screen and (max-width:980px) {
+
+    .tarjeta-nombre {
+        display: block;
+        font-size: 18px;
+        color: #222;
+        font-weight: 700 !important;
+        margin-bottom: 12px;
+        text-transform: capitalize;
+        width:300px;
+    }
+    
+    .tarjeta-descripcion {
+        width:300px;
+        font-size: 10px;
+        color: #242424;
+    }
+    
+    .tarjeta-imagen {
+        border: 1px solid #3333331a;
+        width: 450px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .image-mini-producto {
+        height: 70px;
+    }
+    
+    .tarjeta-descripcion-producto {
+        width:300px;
+        margin-top: 10px;
+        margin-right:10px;
+        margin-left:10px;
+    }
+  
+}
+
+/* para 700px o menos */
+@media screen and (max-width:700px) {
+   
+    .tarjeta-nombre {
+        display: block;
+        font-size: 18px;
+        color: #222;
+        font-weight: 700 !important;
+        margin-bottom: 12px;
+        text-transform: capitalize;
+        width:280px;
+    }
+    
+    .tarjeta-descripcion {
+        width:260px;
+        font-size: 10px;
+        color: #242424;
+    }
+    
+    .tarjeta-imagen {
+        border: 1px solid #3333331a;
+        width: 400px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .image-mini-producto {
+        height: 50px;
+    }
+    
+    .tarjeta-descripcion-producto {
+        width:300px;
+        margin-top: 10px;
+        margin-right:10px;
+        margin-left:10px;
+    }
+
+}
+
+/* para 480px o menos */
+@media screen and (max-width:480px) {
+    .tarjeta-nombre {
+        display: block;
+        font-size: 18px;
+        color: #222;
+        font-weight: 700 !important;
+        margin-bottom: 12px;
+        text-transform: capitalize;
+        width:260px;
+    }
+    
+    .tarjeta-descripcion {
+        width:260px;
+        font-size: 10px;
+        color: #242424;
+    }
+    
+    .tarjeta-imagen {
+        border: 1px solid #3333331a;
+        width: 280px;
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .image-mini-producto {
+        height: 40px;
+    }
+    
+    .tarjeta-descripcion-producto {
+        width:260px;
+        margin-top: 10px;
+        margin-right:10px;
+        margin-left:10px;
+    }
+
+}
+
+
+
+
 /*
 **********************************************
         BUSCADOR   
 **********************************************
 */
-
-
-
 
 .buscador-catalogo
 {
@@ -1200,6 +1381,11 @@ line-height:20px;
 }
 
 
+/*********************************
+ paginador 
+**********************************/
+
+
 .paginador {
-    margin: 30px 0px 30px 0px;
+    margin: 30px 0px 60px 0px;
 }

@@ -20,16 +20,18 @@
 							</md-input-container>
 						</div>
 					</md-content>
+					<div layout="column" layout-align="center center" >
+				       <md-button class="btn-confirmar" ng-click="loginCtrl.login()">Ingresar</md-button>
+					   <div layout="row" layout-align="center center" class="bloque-usuario">
+					   <a md-no-ink class="botontarjetas" ng-click="loginCtrl.recuperar()">Olvidé mi contraseña</a>
+                       <element-wrapper not-supported-strategies="nodos">
+					   <span style="margin-left: 15px; margin-right: 15px; color:#b0b8bf;">|</span>
+                       <a md-no-ink class="botontarjetas" ui-sref="catalog.singUp">REGISTRARME</a>
+                        </element-wrapper></div>
+                     </div>
+					
 				</md-card-content>
-				<md-card-actions layout="row" layout-align="end center">
-          <element-wrapper not-supported-strategies="nodos">
-            <md-button md-no-ink class="md-primary" ui-sref="catalog.singUp">
-              Registrarme
-            </md-button>
-          </element-wrapper>
-					<md-button md-no-ink class="md-primary" ng-click="loginCtrl.recuperar()">Olvidé mi contraseña</md-button>
-					<md-button class="btn-confirmar" ng-click="loginCtrl.login()">Ingresar</md-button>
-				</md-card-actions>
+				
 			</md-card>
 		</div>
 	</div>
