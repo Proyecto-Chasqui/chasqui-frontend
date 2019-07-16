@@ -20,6 +20,13 @@
             controller: 'CatalogController',
             abstract: true
         })
+      
+            .state('catalog.terminosYcondiciones', {
+              url: '/terminosYcondiciones',
+              templateUrl: 'app/comercio/varios/terminos.html',
+              controller: 'TerminosCtrl',
+            })
+    
             .state('catalog.landingPage', {
                 url: '/bienvenida',
                 templateUrl: 'app/comercio/principal/principal.html',
@@ -136,6 +143,13 @@
                 controller: 'PrincipalController',
                 controllerAs: 'principalCtrl'
             })
+    
+      .state('terminosYcondiciones', {
+        url: '/terminosYcondiciones',
+        templateUrl: 'app/comercio/varios/terminos.html',
+        controller: 'TerminosCtrl',
+      })
+
 
     
       .state('error', {
