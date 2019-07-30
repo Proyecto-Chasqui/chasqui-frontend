@@ -63,11 +63,9 @@
 		
 		
         <div ng-show="isLogued" id="menu_list_usuario" layout="row" layout-align="space-between center">
-		
-		<img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">
-		
           <md-button layout="row" layout-align="space-between center" style="cursor: pointer;" ng-click="toTop()" ui-sref="catalog.profile" >
-            
+          
+		        <img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">           
             
             <h3 class="menu-element">
               {{usuario.nickname}}
@@ -107,13 +105,9 @@
       <div>
         <!-- buscador -->
       </div>
-	  <div>
-        <catalog-menu-items general="true"></catalog-menu-items>
-      </div>
 	  
-      <div>
-        <catalog-menu-items general="false"></catalog-menu-items>
-      </div>
+      <catalog-menu-items general="true" style="height: 100%;"></catalog-menu-items>
+      <catalog-menu-items general="false" style="height: 100%;"></catalog-menu-items>
     </div>
 		
   </div>
