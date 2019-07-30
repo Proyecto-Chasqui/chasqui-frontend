@@ -209,7 +209,7 @@
                 return {
                     id: getAvatarId(a_id),
                     src: getAvatarSrc(a_id),
-                    extension: ".jpg"
+                    extension: ".svg"
                 }
             });          
         
