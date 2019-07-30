@@ -209,7 +209,7 @@
                 return {
                     id: getAvatarId(a_id),
                     src: getAvatarSrc(a_id),
-                    extension: ".svg"
+                    extension: ".jpg"
                 }
             });          
         
@@ -344,6 +344,7 @@
         
         
         function extensionDe(nombreDelArchivo){
+            return "jpg";
             return nombreDelArchivo.substring(nombreDelArchivo.lastIndexOf('.')).toLowerCase();
         }
         
