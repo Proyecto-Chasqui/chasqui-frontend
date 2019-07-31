@@ -32,10 +32,10 @@
 <div ng-show="groups.length > 0">
   <div layout="row" layout-align="space-between center">
       <div>
-          <md-button ng-click="newGroup()" class="btn-agregar"> 
-              <label translate="CREAR_GRUPO"></label>    
-              <md-icon style="color:white"> group </md-icon>
-              <md-tooltip md-direction="left">
+          <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="newGroup()"> 
+              <md-icon class="ch-button-content"> group_add </md-icon>
+              <label translate="CREAR_GRUPO" style="cursor: pointer;"></label>    
+              <md-tooltip md-direction="bottom">
                   <label translate="CREAR_GRUPO_MSG"></label>                    
               </md-tooltip>
           </md-button>
@@ -44,42 +44,33 @@
 
   <div layout="column" layout-align="space-between">
       <div ng-repeat="(i, group) in groups" layout="column" layout-align="start">
-          <md-list-item ng-class="getClassForItemGroup(i)" class="md-3-line" ng-click="showOptionsForGroup(i)" flex>
-              <ch-image src="group.miembros[0].avatar" description="group.members[0].nickname + '(Administrador)'" class="md-avatar"></ch-image>
-              <div  class="md-list-item-text" layout="column" flex>
-                  <div layout="row" layout-align="space-between">
-                      <h3>{{group.alias}}</h3>
-                      <h4> ABIERTO </h4>
-                  </div>
-
-                  <h3>{{group.descripcion}}</h3>                            
-
-                  <h3>Hay {{countOrdersConfirmed(group)}} miembros que confirmaron su pedido.</h3>
+          <div class="ch-group-card" ng-click="showOptionsForGroup(i)">
+            <div class="ch-group-card-data">
+              <ch-image class="ch-group-card-data-avatar" src="group.miembros[0].avatar" description="group.members[0].nickname + '(Administrador)'"></ch-image>
+              <h3 style="margin-top: 8px;">{{group.alias}}</h3>
+              <h4 ng-show="countOrdersConfirmed(group) > 0"> ABIERTO </h4>
+              <div class="ch-group-card-data-actions">
+                <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="goToCatalog(group)">
+                  Comprar
+                </md-button>
+                <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
+                  Historial
+                </md-button>
+                <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.membersOrders({groupId: i})">
+                    Integrantes
+                </md-button>              
+                <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.admin({groupId: i})">
+                  Administración
+                </md-button>
               </div>
-              <md-tooltip md-direction="bottom">
-                  <label>Mostrar opciones</label>
-              </md-tooltip>
-          </md-list-item>
+            </div>
+            <div class="ch-group-card-description">
+              <h3>{{group.descripcion}}</h3>
+            </div>
+          </div>
 
           <div class="ch-item-options" layout="column" ng-show="showOptions[i]">
-              <div>        
-                  <div layout="row" layout-align="start center">
-                      <div class="ch-avatar-min" ng-repeat="member in group.miembros" >
-                          <ch-image src="member.avatar" description="member.nickname"></ch-image>
-                      </div>
-                  </div>
-              </div>
-              <div layout="row" layout-align="space-around center">
-                  <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.membersOrders({groupId: i})">
-                      Ver pedidos de los miembros
-                  </md-button>
-                  <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
-                      Ver historial de pedidos
-                  </md-button>
-                  <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.admin({groupId: i})">
-                      Administrar grupo
-                  </md-button>
-              </div>
+              
           </div>
       </div>
   </div>

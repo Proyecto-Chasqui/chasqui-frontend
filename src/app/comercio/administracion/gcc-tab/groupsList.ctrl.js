@@ -15,6 +15,9 @@
     $scope.showOptionsForGroup = showOptionsForGroup;
     $scope.countOrdersConfirmed = countOrdersConfirmed;
     $scope.getClassForItemGroup = getClassForItemGroup;
+    $scope.goToCatalog = goToCatalog;
+
+    
 
     ///////////////////////////////////////
 
@@ -39,6 +42,11 @@
       
     function getClassForItemGroup(i){
         return $scope.showOptions[i]? "ch-item-selected" : "ch-item-no-selected";
+    }
+
+    function goToCatalog(group){
+      contextPurchaseService.setContextByAgrupation(group);
+      $state.go('catalog.products');
     }
       
     // Privado
