@@ -495,6 +495,13 @@ md-tabs md-ink-bar {
   margin: 8px;
 }
 
+.ch-group-card-data-information {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
 .ch-group-card-data-actions {
   display: flex;
   flex-direction: row;
