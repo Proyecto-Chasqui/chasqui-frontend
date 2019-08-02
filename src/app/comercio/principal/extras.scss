@@ -502,12 +502,24 @@ md-tabs md-ink-bar {
   justify-content: flex-start;
 }
 
-.ch-group-card-data-information-description {
+.ch-group-card-data-information-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
+
+.ch-group-card-data-information-alias {
+  margin-top: 8px;
+}
+
+
+.ch-group-card-data-information-description {
+  margin-bottom: 4px;
+  color: #9b9898 !important;  
+  font-style: italic;
+}
+
 
 .ch-group-card-data-actions {
   display: flex;
@@ -528,7 +540,10 @@ md-tabs md-ink-bar {
 /* Pagina del grupo en particular */
 
 .ch-group-info {
-    
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 

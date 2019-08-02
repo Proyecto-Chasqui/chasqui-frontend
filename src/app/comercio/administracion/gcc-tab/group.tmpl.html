@@ -1,12 +1,10 @@
 <div layout="column" layout-align="space-between">
     
     <div class="ch-group-info">
-        <h3> {{group.alias}} </dh3>
-        <h4> {{group.descripcion}} </h4>
+        <label class="ch-group-card-data-information-alias">{{group.alias}}</label>
+        <label class="ch-group-card-data-information-description">{{group.descripcion}}</label>
         <div layout="row" layout-align="start center">
-            <div class="ch-avatar-min" ng-repeat="member in group.miembros" >
-                <ch-image src="member.avatar" description="member.nickname"></ch-image>
-            </div>
+          <ch-image class="ch-avatar-min" ng-repeat="member in group.miembros" src="member.avatar" description="member.nickname" width="40" height="40"></ch-image>
         </div>
         
         <div  style="margin: 8px;" flex>

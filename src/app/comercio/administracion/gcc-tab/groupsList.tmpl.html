@@ -47,10 +47,10 @@
           <div class="ch-group-card">
             <div class="ch-group-card-data">
               <div class="ch-group-card-data-information" ng-click="showOptionsForGroup(i)">
-                <ch-image class="ch-group-card-data-avatar" src="group.miembros[0].avatar" description="group.members[0].nickname + '(Administrador)'"></ch-image>
-                <div class="ch-group-card-data-information-description">
-                  <h3 style="margin-top: 8px;">{{group.alias}}</h3>
-                  <h3 style="margin-bottom: 4px;">{{group.descripcion}}</h3>
+                <ch-image class="ch-group-card-data-avatar" src="group.miembros[0].avatar" description="group.members[0].nickname + '(Administrador)'" width="40" height="40"></ch-image>
+                <div class="ch-group-card-data-information-content">
+                  <label class="ch-group-card-data-information-alias">{{group.alias}}</label>
+                  <label class="ch-group-card-data-information-description">{{group.descripcion}}</label>
                 </div>
                 <md-tooltip md-direction="bottom">
                   <div layout="row" layout-align="space-between center">
