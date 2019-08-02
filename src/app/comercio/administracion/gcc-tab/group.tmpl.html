@@ -49,6 +49,15 @@
             </div>
             
             <div layout="row" layout-align="start center" class="ch-group-menu-item">
+              <div ng-class="getArrowState('members')" class="ch-arrow-list-elem ch-group-menu-item-width" ng-click="goToState('members')"
+                   ui-sref="catalog.userGroups.group.members">
+                  Integrantes
+              </div>
+              <div ng-show="selectedState == 'members'" class="ch-arrow-list-elem-selected">
+              </div>
+            </div>
+            
+            <div layout="row" layout-align="start center" class="ch-group-menu-item">
               <div ng-class="getArrowState('admin')" class="ch-arrow-list-elem ch-group-menu-item-width" ng-click="goToState('admin')"
                    ui-sref="catalog.userGroups.group.admin">
                   Administración

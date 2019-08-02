@@ -90,6 +90,12 @@
                         //controller: 'GroupOrdersController',
                         auth: true
                     })
+                    .state('catalog.userGroups.group.members', {
+                        url: '/integrantes',
+                        templateUrl: 'app/comercio/administracion/gcc-tab/groupMembers.tmpl.html',
+                        controller: 'groupMembersController',
+                        auth: true
+                    })
                     .state('catalog.userGroups.group.admin', {
                         url: '/administracion',
                         templateUrl: 'app/comercio/administracion/gcc-tab/groupAdmin.tmpl.html',
