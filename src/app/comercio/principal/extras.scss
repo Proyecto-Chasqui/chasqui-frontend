@@ -390,22 +390,22 @@ md-tabs md-ink-bar {
 
 .ch-estado-pedido {
     padding: 8px;
-    border-radius: 2px;
 }
 
 .ch-estado-pedido-abierto {
-    color: #FFFFFF !important;
-    background-color: $colorDos !important;
+    color: $colorDos !important;
 }
 
 .ch-estado-pedido-cancelado {
-    color: #FFFFFF !important;
-    background-color: $colorUno !important;
+    color: $colorUno !important;
 }
 
 .ch-estado-pedido-confirmado {
-    color: #FFFFFF !important;
-    background-color: $colorConfirmar !important;
+    color: $colorConfirmar !important;
+}
+
+.ch-estado-pedido-colectivo {
+  margin: 8px;
 }
 
 /* Paneles laterales del catalogo */
@@ -479,7 +479,7 @@ md-tabs md-ink-bar {
   margin-top: 20px;
 }
 .ch-group-card:hover{
-  box-shadow: 1px 1px 6px rgb(33, 183, 238);
+  box-shadow:  1px 1px 6px rgba(0, 0, 0, 0.4);
   transition: all .5s ease;
 }
 
@@ -502,18 +502,20 @@ md-tabs md-ink-bar {
   justify-content: flex-start;
 }
 
+.ch-group-card-data-information-description {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .ch-group-card-data-actions {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
-.ch-group-card-description {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: stretch;
-}
 
 .ch-item-options {
   padding-top: 10px;

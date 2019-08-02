@@ -18,6 +18,7 @@
     $scope.goToCatalog = goToCatalog;
     $scope.miembrosActivosDelGrupo = miembrosActivosDelGrupo;
     $scope.selfPara = selfPara;
+    $scope.getLoggedUser = getLoggedUser;
 
     $scope.isLoggedUser = isLoggedUser;
     $scope.classForState = classForState;
@@ -65,6 +66,10 @@
 
     function selfPara(miembro){
       return miembro.nickname + ((miembro.email == usuario_dao.getUsuario().email) ? " (Vos)" : ""); 
+    }
+
+    function getLoggedUser(group){
+        return group.miembros.filter(isLoggedUser)[0];
     }
 
     function isLoggedUser(member){
