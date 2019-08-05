@@ -539,7 +539,21 @@ md-tabs md-ink-bar {
 
 /* Pagina del grupo en particular */
 
+.ch-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
 .ch-group-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ch-group-info-name {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
