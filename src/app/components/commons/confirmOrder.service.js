@@ -140,8 +140,8 @@
                       "Es administrador del grupo " + selectedAgrupation.alias, 
                       'Como administrador del grupo, no se olvide de confirmar el pedido grupal en la sección "Mis grupos"',
                       "Gracias por recordarmelo!", 
-                      dialogCommons.askToCollaborate(), //ok
-                      dialogCommons.askToCollaborate()  // no ok
+                      dialogCommons.askToCollaborate, //ok
+                      dialogCommons.askToCollaborate  // no ok
                     );
                   }
                 });
