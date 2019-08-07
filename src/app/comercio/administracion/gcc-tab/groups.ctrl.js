@@ -37,7 +37,7 @@
                 $scope.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
                 $scope.groups = $scope.groups.map(function(g){
                     g.alias = g.alias.length > 40? g.alias.slice(0,40) + "..." : g.alias;
-                    g.descripcion = g.descripcion.length > 60? g.descripcion.slice(0,60) + "..." : g.descripcion;
+                    g.descripcion = g.descripcion && g.descripcion.length > 60? g.descripcion.slice(0,60) + "..." : g.descripcion;
                     return g;
                 });
                 $rootScope.$broadcast('groups-are-loaded', $scope.group);
