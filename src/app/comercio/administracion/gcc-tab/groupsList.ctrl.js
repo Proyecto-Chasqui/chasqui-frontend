@@ -14,6 +14,7 @@
     $scope.newGroup = newGroup;
     $scope.showOptionsForGroup = showOptionsForGroup;
     $scope.countOrdersConfirmed = countOrdersConfirmed;
+    $scope.montoTotalGrupo = montoTotalGrupo;
     $scope.getClassForItemGroup = getClassForItemGroup;
     $scope.goToCatalog = goToCatalog;
     $scope.miembrosActivosDelGrupo = miembrosActivosDelGrupo;

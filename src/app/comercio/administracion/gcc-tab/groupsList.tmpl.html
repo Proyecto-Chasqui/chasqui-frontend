@@ -64,7 +64,10 @@
                   </div>                  
                 </md-tooltip>
               </div>
-              <div class="ch-group-card-data-actions">
+              <div class="ch-group-card-data-actions">                
+                <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(group) > 0"> 
+                  ${{montoTotalGrupo(group)}}
+                </label>                
                 <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(group) > 0"> 
                   Con compras
                 </label>
