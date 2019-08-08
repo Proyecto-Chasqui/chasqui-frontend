@@ -47,7 +47,7 @@
           <div class="ch-group-card">
             <div class="ch-group-card-data">
               <div class="ch-group-card-data-information" ng-click="showOptionsForGroup(i)">
-                <ch-image class="ch-group-card-data-avatar" src="group.miembros[0].avatar" description="group.members[0].nickname + '(Administrador)'" width="40" height="40"></ch-image>
+                <ch-image class="ch-group-card-data-avatar" src="group.miembros[0].avatar" description="group.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
                 <div class="ch-group-card-data-information-content">
                   <label class="ch-group-card-data-information-alias">{{group.alias}}</label>
                   <label class="ch-group-card-data-information-description">{{group.descripcion}}</label>
@@ -86,7 +86,7 @@
                     <label>Ver los integrantes del grupo</label>
                   </md-tooltip>
                 </md-button>              
-                <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.admin({groupId: i})">
+                <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.admin({groupId: i})" ng-if="isLoggedUserGroupAdmin(group)">
                   Administración
                   <md-tooltip md-direction="bottom">
                     <label>Configurar datos del grupo</label>

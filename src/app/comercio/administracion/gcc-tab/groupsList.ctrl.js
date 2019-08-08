@@ -24,6 +24,8 @@
     $scope.classForState = classForState;
     $scope.vocativoPara = vocativoPara;
     $scope.totalForMember = totalForMember;
+    $scope.isLoggedUserGroupAdmin = isLoggedUserGroupAdmin;
+    
 
     $scope.confirmGCCOrder = confirmGCCOrder;
     $scope.puedeCerrarPedidoGCCSegunEstrategias = puedeCerrarPedidoGCCSegunEstrategias;
@@ -78,6 +80,10 @@
 
     function vocativoPara(miembro){
         return (miembro.email == usuario_dao.getUsuario().email) ? "tuyos" : "de " + miembro.nickname;
+    }
+
+    function isLoggedUserGroupAdmin(group){
+      return group.miembros[0].email == usuario_dao.getUsuario().email;
     }
 
     function classForState(state){
