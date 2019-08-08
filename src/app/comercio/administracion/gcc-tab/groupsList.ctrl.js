@@ -211,6 +211,9 @@
         return group.miembros.filter(function(m){return m.pedido != null && m.pedido.estado == state}).length;
     }
       
+    function toTop(){
+      window.scrollTo(0,0);
+    }
     //////////////////////////////////////////
       
     $rootScope.$on('group-information-actualized', init);
@@ -226,6 +229,7 @@
                 $scope.montoMinimo = response.data.montoMinimo;
             }
         );
+        toTop();
     }
 
     init();
