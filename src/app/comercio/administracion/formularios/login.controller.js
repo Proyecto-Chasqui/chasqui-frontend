@@ -10,6 +10,10 @@
 		var vm = this
 		vm.user = {};
 
+    function toTop(){
+      window.scrollTo(0,0);
+    }
+
 		vm.recuperar = function(ev) {
 			dialogCommons.prompt('Recuperar contraseña',
 				'Enviaremos instrucciones a tu correo',
@@ -57,7 +61,13 @@
 			}
 
 			perfilService.resetPass(email).then(doOk)
-		}
+    }
+    
+    function init(){
+      toTop();
+    }
 
+
+    init();
 	}
 })();
