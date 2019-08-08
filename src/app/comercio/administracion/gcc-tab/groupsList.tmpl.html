@@ -69,7 +69,7 @@
                   ${{montoTotalGrupo(group)}}
                 </label>                
                 <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(group) > 0"> 
-                  Con compras
+                  Activo
                 </label>
                 <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="goToCatalog(group)" ng-show="getLoggedUser(group).pedido == null || getLoggedUser(group).pedido.productosResponse.length == 0 || getLoggedUser(group).pedido.estado == 'CANCELADO'">
                   Comprar
