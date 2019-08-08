@@ -1,19 +1,33 @@
 <div>
   <md-card>
-    <md-subheader layout="row" layout-align="space-between center">
-    <label translate>MIEMBROS_GRUPO</label>
-    <md-button aria-label="ShowMembersOptions" ng-show="canShowMemberOptions()" ng-click="showMembersOptions()">
-      <ng-md-icon icon="settings" style="fill: grey"></ng-md-icon>
-      <md-tooltip md-direction="bottom">
-      <label translate="TT_SHOW_ADMIN_OPTIONS"></label>
-      </md-tooltip>
-    </md-button>
-    <md-button aria-label="HideMembersOptions" ng-show="canHideMemberOptions()"ng-click="hideMemberOptions()">
-      <ng-md-icon icon="settings" style="fill: black"></ng-md-icon>
-      <md-tooltip md-direction="bottom">
-      <label translate="TT_HIDE_ADMIN_OPTIONS"></label>
-      </md-tooltip>
-    </md-button>
+    <md-subheader >
+      <div layout="row" layout-align="space-between center">
+        <label translate>MIEMBROS_GRUPO</label>
+        <div layout="row" layout-align="space-between center" ng-show="isAdmin">
+          <md-button aria-label="ShowMembersOptions" ng-show="canShowMemberOptions()" ng-click="showMembersOptions()" layout="row" layout-align="space-between center">
+            <ng-md-icon icon="settings" style="fill: grey"></ng-md-icon>
+            <label style="cursor: pointer;"> OPCIONES</label>
+            <md-tooltip md-direction="bottom">
+            <label translate="TT_SHOW_ADMIN_OPTIONS"></label>
+            </md-tooltip>
+          </md-button>
+          <md-button aria-label="HideMembersOptions" ng-show="canHideMemberOptions()" ng-click="hideMemberOptions()" layout="row" layout-align="space-between center">
+            <md-icon style="fill: black">
+              settings
+            </md-icon>
+            <label style="cursor: pointer;"> OPCIONES</label>
+            <md-tooltip md-direction="bottom">
+              <label translate="TT_HIDE_ADMIN_OPTIONS"></label>
+            </md-tooltip>
+          </md-button>
+        </div>
+        <md-button aria-label="showRemoveGroupsMember" ng-show="!isAdmin" ng-click="quitarMiembro(member)">
+          <ng-md-icon icon="remove_circle_outline" style="fill: red"></ng-md-icon>
+          <md-tooltip md-direction="bottom">
+            <label translate="SALIR_GRUPO_MSG"></label>
+          </md-tooltip>
+        </md-button>
+      </div>
     </md-subheader>
   
     <md-divider> 
@@ -36,8 +50,7 @@
           <md-button aria-label="showRemoveGroupsMember" ng-show="showRemoveGroupsMember(member)" ng-click="quitarMiembro(member)">
             <ng-md-icon icon="remove_circle_outline" style="fill: red"></ng-md-icon>
             <md-tooltip md-direction="bottom">
-              <label ng-if="isLoggedMember(member)" translate="SALIR_GRUPO_MSG"></label>
-              <label ng-if="!isLoggedMember(member)" translate="QUITAR_GRUPO_MSG"></label>
+              <label translate="QUITAR_GRUPO_MSG"></label>
             </md-tooltip>
           </md-button>
           </div>
@@ -49,7 +62,7 @@
           </div>
           <div ng-if="member.invitacion == 'NOTIFICACION_ACEPTADA'">
           <ng-md-icon icon="done" style="fill: green" class="md-list-item-text compact"></ng-md-icon>
-          <md-tooltip md-direction="right">
+          <md-tooltip md-direction="bottom">
             <label translate="INV_ACEP_MSG"></label>
           </md-tooltip>
           </div>
@@ -59,3 +72,11 @@
     </md-list>
   </md-card> 
 </div>
+
+<style>
+
+.md-subheader-inner{
+  width: 100% !important;
+}
+
+</style>
