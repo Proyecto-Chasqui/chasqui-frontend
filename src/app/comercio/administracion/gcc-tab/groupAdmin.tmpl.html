@@ -16,14 +16,9 @@
             <label translate="EDITAR_GRUPO"></label>
           </md-tooltip>
         </md-button>
-        <md-button ng-if="!group.esAdministrador" ng-click="exitGroup(group)">
+        <md-button ng-if="group.esAdministrador" ng-click="deleteGroup(group)" style="color: #f00;" layout="row" layout-alig="center center">
           <md-icon style="color: #f00;"> remove_circle_outline</md-icon>
-          <md-tooltip md-direction="bottom">
-            <label translate="SALIR_GRUPO"></label>
-          </md-tooltip>
-        </md-button>
-        <md-button ng-if="group.esAdministrador" ng-click="deleteGroup(group)">
-          <md-icon style="color: #f00;"> remove_circle_outline</md-icon>
+          <label translate="ELIMINAR_GRUPO"></label>
           <md-tooltip md-direction="bottom">
             <label translate="ELIMINAR_GRUPO"></label>
           </md-tooltip>
