@@ -7,7 +7,7 @@
                           dialogCommons, toastr, gccService, URLS, agrupationTypeVAL,
                           us, usuario_dao, navigation_state, contextPurchaseService, contextAgrupationsService) {
 
-    $scope.editGroup = editGroup;
+    $scope.saveEdition = saveEdition;
     $scope.deleteGroup = deleteGroup;
     
     $scope.isAdmin = false;
@@ -18,22 +18,36 @@
 
     
 
-    function editGroup(group) {
-        dialogCommons.editGroup(group, function(editedGroup){
-            contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(), group.idGrupo, agrupationTypeVAL.TYPE_GROUP, function(toModifyGroup){
-                toModifyGroup.alias = editedGroup.alias;
-                toModifyGroup.descripcion = editedGroup.descripcion;
-                $scope.$emit("group-information-actualized");
-                return toModifyGroup;
-            })
-        });
+    function saveEdition() {
+      $log.debug("editar grupo", $scope.group);
+
+      function doOk(response) {       
+        toastr.success(us.translate('GROUP_EDITION_SAVED_CONTENT'),us.translate('GROUP_EDITION_SAVED_TITLE'));
+        contextPurchaseService.getAgrupations().then(function(agrupationsInt){
+          agrupationsInt.modifyGroup(contextPurchaseService.getCatalogContext(), 
+                                     $scope.group.idGrupo,
+                                     agrupationTypeVAL.TYPE_GROUP,
+                                     function(group){
+                                      group.alias = $scope.group.alias;
+                                      group.descripcion = $scope.group.descripcion;
+                                      return group;
+                                     });
+        })
+      }
+      
+      var params = {
+          alias: $scope.group.alias,
+          descripcion: $scope.group.descripcion
+      }
+      
+      gccService.editarGrupo($scope.group.idGrupo, params).then(doOk);      
     }
 
 
     function deleteGroup(group){
         dialogCommons.confirm(
             us.translate('ELIMINAR_GRUPO'), 
-            us.translate("SEGURO_ELIMINAR_GCC") + group.alias + "?" + "\n" +
+            us.translate("SEGURO_ELIMINAR_GCC") + $scope.group.alias + "?" + "\n" +
             "Solo se puede eliminar el grupo si ningún miembro tiene su pedido confirmado o abierto", 
             us.translate('SI_ELIMINAR'), 
             us.translate('CANCELAR'),
@@ -49,13 +63,13 @@
     /////// REST ////////
 
     function callDeleteGroup(group){
-        $log.debug("group", group)
+        $log.debug("group", $scope.group)
 
         function doOk(response) {
             location.reload();
         }
 
-        gccService.cerrarGrupo(contextPurchaseService.getCatalogContext(), group.idGrupo).then(doOk);
+        gccService.cerrarGrupo(contextPurchaseService.getCatalogContext(), $scope.group.idGrupo).then(doOk);
         
     }
     
