@@ -8,94 +8,16 @@
                           us, usuario_dao, navigation_state, contextPurchaseService, contextAgrupationsService) {
 
 
-    $scope.exitGroup = exitGroup;
-    
+    $scope.exitGroup = exitGroup;    
     $scope.isAdmin = false;
     $scope.allContacts;
     $scope.membersOptionsShowed = false;
     $scope.urlBase = URLS.be_base;
-    
+    $scope.invitarUsuario = invitarUsuario;
+   
       
     //////////////////////////// Private ///////////////////////////////////////
 
-
-    /** Salir del grupo. Manejo del popUP */
-    function exitGroup(group) {
-        dialogCommons.confirm(
-            us.translate('SALIR'), 
-            us.translate('SEGURO_SALIR') + $scope.selectedGroup.alias, 
-            us.translate('SI_MEVOY'), 
-            us.translate('CANCELAR'),
-            function(result) {
-                callQuitarMiembro(group);
-            },
-            function() {
-            $log.debug("se quedo");
-            }
-        )
-    }
-
-    /////// REST ////////
-
-
-    function callQuitarMiembro(miembro) {
-        $log.debug("quitar", miembro)
-
-        function doOk(response) {
-            toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'))
-            callLoadGrupos();
-        }
-        var params = {
-            idGrupo: miembro.idGrupo,
-            emailCliente: usuario_dao.getUsuario().email
-        }
-
-        gccService.quitarMiembro(params).then(doOk);
-    }
-
-    $scope.quitarMiembro = function(miembro) {
-      var nombre = miembro.nickname == null ? miembro.email : miembro.nickname;
-      // Esto es un resabio de la forma de cargar miembros que pronto va a ser modificado. 
-      var pregunta,confirmacion,fallo;
-      if ($scope.isLoggedMember(miembro)) {
-        pregunta = us.translate('SALIR_GRUPO');
-        confirmacion = us.translate('SALIR');
-        fallo = 'No pudo salir del grupo de compra';
-      } else {
-        pregunta = us.translate('QUITAR_A') + nombre;
-        confirmacion = us.translate('QUITARLO');
-        fallo = 'No se pudo quitar a ' + nombre + ' del grupo de compra';
-      }
-
-      dialogCommons.confirm(us.translate('SALIR_GRUPO_TITULO'),
-        us.translate('ESTAS_SEGURO_DE') + pregunta + '?',
-        us.translate('SI_QUIERO') + ' ' + confirmacion, 
-        us.translate('NO'),
-        function() {
-          $scope.callQuitarMiembro(miembro);
-        },
-        function() {
-          $log.debug(fallo);
-        });
-    }
-
-    // //////////
-    // //////REST
-
-    $scope.callQuitarMiembro = function(miembro) {
-      function doOk() {
-        toastr.info(us.translate('SE_QUITO_MIEMBRO'),us.translate('AVISO_TOAST_TITLE'));
-        //$scope.$emit("quito-miembro-grupo");
-        $scope.group.miembros.splice($scope.group.miembros.indexOf(miembro), 1);
-      }
-      var params = {};
-      params.idGrupo = $scope.group.idGrupo;
-      params.emailCliente = miembro.email;
-
-      gccService.quitarMiembro(params).then(doOk)
-    }
-
-    
     $scope.selfPara = function(miembro) {
       if (us.isUndefinedOrNull(miembro.nickname)) return "";
       return miembro.nickname + tagSelf(miembro.email == $scope.group.emailAdministrador, us.translate('ADMIN')) +
@@ -127,8 +49,23 @@
     $scope.showCederAdministracionGrupo = function(member){
         return $scope.isAdmin && !$scope.isLoggedMember(member) && member.invitacion != 'NOTIFICACION_NO_LEIDA';
     }
-
         
+    $scope.canShowMemberOptions = function(){
+      return !$scope.membersOptionsShowed;
+    }
+
+    $scope.showMembersOptions = function(){
+        $scope.membersOptionsShowed = true;
+    }
+
+    $scope.canHideMemberOptions = function(){
+        return $scope.membersOptionsShowed;
+    }
+
+    $scope.hideMemberOptions = function(){
+        $scope.membersOptionsShowed = false;
+    }
+    
     $scope.cederAdministracionGrupo = function(member){
       var nombre = member.nickname == null ? member.email : member.nickname;
       // Esto es un resabio de la forma de cargar members que pronto va a ser modificado. 
@@ -151,6 +88,126 @@
         }
       )
     }
+
+    /** habilita el panel para agregar integrantes. */
+    function invitarUsuario(grupo) {
+      $log.debug("Invitar miembro al grupo");
+
+      function doOk(response) {
+          $log.debug("Se seleccionó Invitar a usuario con mail", response);
+          callInvitarUsuario(response, grupo);
+      }
+
+      function doNoOk() {
+          $log.debug("Se seleccionó Cancelar");
+      }
+
+      dialogCommons.prompt(
+          us.translate('INV_MIEMBRO'),
+          us.translate('INGRESAR_CORREO'), 
+          'correo@correo.com',
+          us.translate('INVITAR'), 
+          us.translate('CANCELAR'), 
+          doOk, 
+          doNoOk
+      );
+    }
+
+    /** Salir del grupo. Manejo del popUP */
+    function exitGroup() {
+        dialogCommons.confirm(
+            us.translate('SALIR'), 
+            us.translate('SEGURO_SALIR'), 
+            us.translate('SI_MEVOY'), 
+            us.translate('CANCELAR'),
+            function(result) {
+              callQuitarMiembro(usuario_dao.getUsuario(), function(){
+                toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
+                contextPurchaseService.getAgrupations().then(function(agrupationsInt){
+                  agrupationsInt.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
+                                                  $scope.group.idGrupo,
+                                                  agrupationTypeVAL.TYPE_GROUP
+                                                  );
+                  $scope.$emit("exit-group");
+                  $state.go('catalog.userGroups.all');
+                });
+              });
+            },
+            function() {
+              $log.debug("se quedo");
+            }
+        )
+    }
+
+
+
+    $scope.quitarMiembro = function(miembro) {
+      // Esto es un resabio de la forma de cargar miembros 
+      var nombre = miembro.nickname == null ? miembro.email : miembro.nickname;
+      var pregunta,confirmacion,fallo;
+      if ($scope.isLoggedMember(miembro)) {
+        pregunta = us.translate('SALIR_GRUPO');
+        confirmacion = us.translate('SALIR');
+        fallo = 'No pudo salir del grupo de compra';
+      } else {
+        pregunta = us.translate('QUITAR_A') + nombre;
+        confirmacion = us.translate('QUITARLO');
+        fallo = 'No se pudo quitar a ' + nombre + ' del grupo de compra';
+      }
+
+      dialogCommons.confirm(us.translate('SALIR_GRUPO_TITULO'),
+        us.translate('ESTAS_SEGURO_DE') + pregunta + '?',
+        us.translate('SI_QUIERO') + ' ' + confirmacion, 
+        us.translate('NO'),
+        function() {
+          callQuitarMiembro(miembro, function(){
+            toastr.info(us.translate('SE_QUITO_MIEMBRO'),us.translate('AVISO_TOAST_TITLE'));
+            $scope.group.miembros.splice($scope.group.miembros.indexOf(miembro), 1);
+          });
+        },
+        function() {
+          $log.debug(fallo);
+        });
+    }
+
+    /////// REST ////////
+
+
+    function callQuitarMiembro(miembro, callback) {
+      $log.debug("quitar", miembro)
+
+      var params = {
+          idGrupo: $scope.group.idGrupo,
+          emailCliente: miembro.email
+      }
+
+      gccService.quitarMiembro(params).then(callback);
+    }
+    
+    function callInvitarUsuario(emailClienteInvitado, grupo) {
+
+      var doOk = function(response) {
+          toastr.info(us.translate('ENVIARA_MAIL'),us.translate('AVISO_TOAST_TITLE'));
+          var recienInvitado = {
+              avatar: null, 
+              nickname: null, 
+              email: emailClienteInvitado, 
+              invitacion: "NOTIFICACION_NO_LEIDA", 
+              estadoPedido: "INEXISTENTE",
+              pedido:null
+          };
+          
+          grupo.miembros.push(recienInvitado);
+      }
+
+      var params = {
+          idGrupo: grupo.idGrupo,
+          emailInvitado: emailClienteInvitado
+      }
+      gccService.invitarUsuarioAGrupo(params).then(doOk);
+    }
+    
+    
         
     function callCederAdministracionGrupo(miembro){            
       function doOk() {
@@ -168,22 +225,6 @@
       gccService.cederAdministracion(params).then(doOk)   
     }
         
-        
-    $scope.canShowMemberOptions = function(){
-        return !$scope.membersOptionsShowed;
-    }
-
-    $scope.showMembersOptions = function(){
-        $scope.membersOptionsShowed = true;
-    }
-
-    $scope.canHideMemberOptions = function(){
-        return $scope.membersOptionsShowed;
-    }
-
-    $scope.hideMemberOptions = function(){
-        $scope.membersOptionsShowed = false;
-    }
     
     //////////////////////////// INIT ///////////////////////////////////////
     

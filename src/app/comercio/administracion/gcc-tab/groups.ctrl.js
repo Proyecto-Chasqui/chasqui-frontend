@@ -27,11 +27,16 @@
     $rootScope.$on('new-group', function(event) {
         init();
     });
+    
+    $rootScope.$on('exit-group', function(event) {
+        init();
+    });
       
       
     /////////////////// INIT ////////////////////
 
     function init(){
+        $log.debug("init grupos")
         contextCatalogObserver.observe(function(){
             contextPurchaseService.getAgrupations().then(function(agrupationsInt){
                 $scope.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
