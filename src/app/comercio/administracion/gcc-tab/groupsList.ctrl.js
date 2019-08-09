@@ -223,6 +223,7 @@
     /////////////////// INIT ////////////////////
 
     function init(){
+        $scope.showOptions = $scope.groups.map(function(g){return false});
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
                 $scope.montoMinimo = response.data.montoMinimo;
