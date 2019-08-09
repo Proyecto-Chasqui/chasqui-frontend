@@ -4,6 +4,12 @@
       <div layout="row" layout-align="space-between center">
         <label translate>MIEMBROS_GRUPO</label>
         <div layout="row" layout-align="space-between center" ng-show="isAdmin">
+          <md-button ng-click="invitarUsuario(group)">
+            <md-icon> group add </md-icon>
+            <md-tooltip md-direction="bottom">
+              <label translate="AGREGAR_GRUPO"></label>
+            </md-tooltip>
+          </md-button>
           <md-button aria-label="ShowMembersOptions" ng-show="canShowMemberOptions()" ng-click="showMembersOptions()" layout="row" layout-align="space-between center">
             <ng-md-icon icon="settings" style="fill: grey"></ng-md-icon>
             <label style="cursor: pointer;"> OPCIONES</label>
@@ -21,7 +27,7 @@
             </md-tooltip>
           </md-button>
         </div>
-        <md-button aria-label="showRemoveGroupsMember" ng-show="!isAdmin" ng-click="quitarMiembro(member)">
+        <md-button aria-label="showRemoveGroupsMember" ng-show="!isAdmin" ng-click="exitGroup()">
           <ng-md-icon icon="remove_circle_outline" style="fill: red"></ng-md-icon>
           <md-tooltip md-direction="bottom">
             <label translate="SALIR_GRUPO_MSG"></label>
