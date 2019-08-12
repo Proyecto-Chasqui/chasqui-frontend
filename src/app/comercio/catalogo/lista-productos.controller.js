@@ -126,17 +126,11 @@
       if(vm.permitirComprar){
           if (usuario_dao.isLogged()) {
             if(variety.stock > 0){
-              contextPurchaseService.getSelectedOrder().then(function(order){
-                contextPurchaseService.getOrders().then(function(orders){
-                  if(orders.length > 1
-                     && order.productosResponse.length == 0
-                     && contextPurchaseService.isGrupoIndividualSelected() ){
-                    dialogCommons.selectPurchaseContext(variety);
-                  }else{
-                    addProductService(variety);
-                  }
-                })
-              })
+              if(contextPurchaseService.getAgrupationContextType()){
+                addProductService(variety);
+              }else{
+                dialogCommons.selectPurchaseContext(variety);
+              }
             }else{
               dialogCommons.acceptIssue("Producto sin stock",
                                         "Lamentablemente no queda más stock, te recomendamos buscar productos similares",

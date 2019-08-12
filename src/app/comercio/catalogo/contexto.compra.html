@@ -7,9 +7,13 @@
                         <label>{{'CAMBIAR_CHANGO' | translate}}</label>
                         <md-select ng-change="cambiarContexto()" ng-model="agrupationSelected.idGrupo">
                             <element-wrapper supported-strategies="compraIndividual">
-                                <md-option ng-value="0" ng-click="setPersonalAsAgrupationSelected()" translate>CONTEXTO_INDIVIDUAL</md-option>
+                              <md-option ng-value="0" ng-click="setPersonalAsAgrupationSelected()" translate>
+                                CONTEXTO_INDIVIDUAL
+                              </md-option>
                             </element-wrapper>
-                            <md-option ng-repeat="group in grupos" ng-value="group.idGrupo" ng-click="setGroupAsAgrupationSelected()"> {{group.alias}} </md-option>
+                            <md-option ng-repeat="group in grupos" ng-value="group.idGrupo" ng-click="setGroupAsAgrupationSelected()"> 
+                              {{group.alias}} 
+                            </md-option>
                         </md-select>
                     </md-input-container>
                 </div>

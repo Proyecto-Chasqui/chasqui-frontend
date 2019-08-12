@@ -65,15 +65,17 @@
         function load() {
             contextCatalogObserver.observe(function(){
                 $log.debug("Loading", contextPurchaseService.getAgrupationContextType());
-                contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType()).then(function(){
-                    contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+                if(contextPurchaseService.getAgrupationContextType()){
+                  contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType()).then(function(){
+                      contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
                         $scope.pedidoSelected = selectedOrder;
                         $scope.pedidoSelected.productosResponse = $scope.pedidoSelected.productosResponse.reverse();
                         $scope.showOrderResume = $scope.pedidoSelected.productosResponse.length > 0 
-                                                 && $scope.pedidoSelected.estado != 'VENCIDO' 
-                                                 && $scope.pedidoSelected.estado != 'CANCELADO';
-                    })
-                });
+                                                && $scope.pedidoSelected.estado != 'VENCIDO' 
+                                                && $scope.pedidoSelected.estado != 'CANCELADO';
+                      })
+                  });
+                }
             })
         }
 
