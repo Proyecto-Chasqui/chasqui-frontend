@@ -437,6 +437,25 @@ md-tabs md-ink-bar {
   max-height: 400px;
 }
 
+.ch-agrupation-selection-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ch-agrupation-icon {
+  margin-right: 8px;
+}
+
+.ch-agrupation-label {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px
+}
+
 .ch-contexto-pedido-panel-list{
   max-height: 274px;
   overflow: scroll;
