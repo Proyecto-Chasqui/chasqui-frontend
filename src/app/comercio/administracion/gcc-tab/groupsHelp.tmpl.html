@@ -1,0 +1,23 @@
+<div class="ch-groups-help">
+  <div class="ch-group-card ch-groups-help-question">
+    <span class="ch-groups-help-question-title">
+        ¿Qué es un grupo de compras?
+    </span>
+    <span class="ch-groups-help-question-answer">
+        Un grupo de compras colectivas está conformado por varias personas que se ponen de acuerdo para comprar conjuntamente. La persona que crea el grupo es quien lo administra. Debe invitar al resto de integrantes del grupo, que tienen que aceptar la invitación siguiendo el enlace que les llega por correo. Luego, cada integrante carga su changuito del grupo y confirma su compra. Cuando nadie más del grupo quiere comprar, quien administra el grupo debe cerrar el pedido grupal (además de su pedido individual).
+    </span>
+  </div>
+  <div ng-repeat="(i, pregunta) in preguntas" class="ch-group-card ch-groups-help-question" ng-click="showHelpsAnswer(i)" style="cursor: pointer;">
+    <div layout="row" layout-align="space-between center" class="ch-groups-help-question-title">
+      <span>
+        {{pregunta.titulo}}
+      </span>
+      <i class="material-icons">
+        expand_more
+      </i>
+    </div>
+    <span ng-show="showHelp[i]" class="ch-groups-help-question-answer">
+      {{pregunta.respuesta}}
+    </span>
+  </div>
+</div>

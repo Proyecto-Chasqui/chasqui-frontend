@@ -610,6 +610,33 @@ md-tabs md-ink-bar {
 
 }
 
+.ch-groups-help {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;  
+}
+
+.ch-groups-help-question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 10px;
+  max-width: 600px;
+}
+
+.ch-groups-help-question-title {
+  font-size: 16px;
+  color: $colorDos;
+}
+
+.ch-groups-help-question-answer {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+
 /* Pagina del grupo en particular */
 
 .ch-group {

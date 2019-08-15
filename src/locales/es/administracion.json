@@ -41,6 +41,7 @@
 	"CREAR_NUEVO_GRUPO" : "Crea tu primer grupo",
 	"CREAR_GRUPO" : "Crear grupo",
 	"CREAR_GRUPO_MSG" : "Creá tu propio grupo de compras colectivas",
+  "GRUPO_AYUDA" : "¿Qué es un grupo?",
 	"SIN_GRUPO" : "Aún no hay grupos",
 	"NOTIFICACIONES" : "Notificaciones",
   "USUARIO_SIN_PROD" : "Tu changuito esta vacio, hace click en COMPRAR para ir al catalogo con este grupo seleccionado.",

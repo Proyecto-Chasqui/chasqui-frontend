@@ -66,10 +66,15 @@
             })
     
                 .state('catalog.userGroups.all', {
-                    url: '/todos',
-                    templateUrl: 'app/comercio/administracion/gcc-tab/groupsList.tmpl.html',
-                    controller: 'GroupsListController',
-                    auth: true
+                  url: '/todos',
+                  templateUrl: 'app/comercio/administracion/gcc-tab/groupsList.tmpl.html',
+                  controller: 'GroupsListController',
+                  auth: true
+                }).state('catalog.userGroups.help', {
+                  url: '/ayuda',
+                  templateUrl: 'app/comercio/administracion/gcc-tab/groupsHelp.tmpl.html',
+                  controller: 'HelpGCCController',
+                  auth: true
                 })
                 .state('catalog.userGroups.group', {
                     url: '/:groupId',
