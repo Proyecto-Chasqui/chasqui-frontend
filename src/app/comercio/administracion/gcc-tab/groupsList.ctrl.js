@@ -6,7 +6,7 @@
   
   function GroupsListController($log, $scope, $rootScope, $state, contextCatalogObserver, $mdDialog,
                     dialogCommons, gccService, URLS, agrupationTypeVAL, productoService, toastr,
-                    us, usuario_dao, contextPurchaseService, vendedorService) {
+                    us, usuario_dao, contextPurchaseService, vendedorService, perfilService) {
 
 
     $scope.urlBase = URLS.be_base;
@@ -214,6 +214,22 @@
     function toTop(){
       window.scrollTo(0,0);
     }
+
+    function callNotificaciones() {
+
+			function doOk(response) {
+				$scope.invitaciones = response.data.filter(function(notificacion){
+          return notificacion.estado == 'NOTIFICACION_NO_LEIDA' && isCompraColectiva(notificacion);
+        }).length;
+			}
+			perfilService.notificacionesNoLeidas().then(doOk);
+    }
+    
+    function isCompraColectiva(notificacion){			
+			return us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas');
+    }
+    
+
     //////////////////////////////////////////
       
     $rootScope.$on('group-information-actualized', init);
@@ -229,6 +245,7 @@
                 $scope.montoMinimo = response.data.montoMinimo;
             }
         );
+        callNotificaciones();
         toTop();
     }
 

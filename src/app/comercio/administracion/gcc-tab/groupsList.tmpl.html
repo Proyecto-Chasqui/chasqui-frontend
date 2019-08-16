@@ -40,13 +40,29 @@
               </md-tooltip>
           </md-button>
       </div>
-      <div>
-          <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.help">
-              <md-icon class="ch-button-content"> help_outline </md-icon>
-              <md-tooltip md-direction="bottom">
-                  <label translate="GRUPO_AYUDA"></label>                    
-              </md-tooltip>
-          </md-button>
+      <div layout="row" layout-align="space-between center">
+        <a class="ch-icon-outlined" ui-sref="catalog.userGroups.invitations">
+            <md-icon class="ch-icon-outlined-content"> email </md-icon>
+            <md-tooltip md-direction="bottom" ng-if="invitaciones == 0">
+                <label translate="GRUPO_SIN_INVITACIONES"></label>
+            </md-tooltip>
+            <md-tooltip md-direction="bottom" ng-if="invitaciones == 1">
+                <label translate="GRUPO_INVITACION"></label>
+            </md-tooltip>
+            <md-tooltip md-direction="bottom" ng-if="invitaciones > 1">
+                <label translate="GRUPO_INVITACIONES_1"></label>
+                <label>{{invitaciones}}</label>
+                <label translate="GRUPO_INVITACIONES_2"></label>
+            </md-tooltip>
+          </a>
+        <notification-icon count="invitaciones" class="ch-count-group-invitations">
+        </notification-icon>
+        <a class="ch-icon-outlined" ui-sref="catalog.userGroups.help">
+            <md-icon class="ch-icon-outlined-content"> help_outline </md-icon>
+            <md-tooltip md-direction="bottom">
+                <label translate="GRUPO_AYUDA"></label>                    
+            </md-tooltip>
+          </a>
       </div>
   </div>
 

@@ -685,6 +685,12 @@ md-tabs md-ink-bar {
     font-size: 0.5em;
 }
 
+.ch-count-group-invitations {
+  position: relative;
+  left: 18px;
+  top: 9px;
+}
+
 .listanombremobil .angular-notifications-icon{
     left: 85px;
     top: 10px;
@@ -888,4 +894,20 @@ md-tabs md-ink-bar {
 .ch-group-administrator-description-item {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.ch-icon-outlined {
+  cursor: pointer;
+  margin: 15px;
+}
+
+
+.ch-icon-outlined-content {
+  cursor: pointer;
+  color: $colorDos;
+  font-size: 36px;
+}
+
+.ch-icon-outlined-content:hover {
+  color: $colorUno;
 }

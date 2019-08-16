@@ -70,10 +70,17 @@
                   templateUrl: 'app/comercio/administracion/gcc-tab/groupsList.tmpl.html',
                   controller: 'GroupsListController',
                   auth: true
-                }).state('catalog.userGroups.help', {
+                })
+                .state('catalog.userGroups.help', {
                   url: '/ayuda',
                   templateUrl: 'app/comercio/administracion/gcc-tab/groupsHelp.tmpl.html',
                   controller: 'HelpGCCController',
+                  auth: true
+                })
+                .state('catalog.userGroups.invitations', {
+                  url: '/invitaciones',
+                  templateUrl: 'app/comercio/administracion/gcc-tab/groupsInvitations.tmpl.html',
+                  controller: 'InvitationsGCCController',
                   auth: true
                 })
                 .state('catalog.userGroups.group', {
