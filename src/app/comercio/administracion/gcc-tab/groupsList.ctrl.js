@@ -6,7 +6,7 @@
   
   function GroupsListController($log, $scope, $rootScope, $state, contextCatalogObserver, $mdDialog,
                     dialogCommons, gccService, URLS, agrupationTypeVAL, productoService, toastr,
-                    us, usuario_dao, contextPurchaseService, contextAgrupationsService, vendedorService) {
+                    us, usuario_dao, contextPurchaseService, vendedorService) {
 
 
     $scope.urlBase = URLS.be_base;
@@ -38,8 +38,8 @@
     function newGroup(){
 
         function doOk(newGroup){
-            contextAgrupationsService.reset(contextPurchaseService.getCatalogContext());
-            init();
+          contextPurchaseService.refreshGrupos();
+          init();
         }
 
         dialogCommons.newGroup(doOk);

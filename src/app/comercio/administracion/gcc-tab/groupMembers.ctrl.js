@@ -5,7 +5,7 @@
 
   function groupMembersController($log, $scope, $state, contextCatalogObserver, $rootScope,
                           dialogCommons, toastr, gccService, URLS, agrupationTypeVAL,
-                          us, usuario_dao, navigation_state, contextPurchaseService, contextAgrupationsService) {
+                          us, usuario_dao, navigation_state, contextPurchaseService) {
 
 
     $scope.exitGroup = exitGroup;    
