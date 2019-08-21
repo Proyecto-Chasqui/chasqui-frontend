@@ -18,11 +18,11 @@
           </div>
         </md-subheader>
         <div layout="row" layout-align="space-between">
-          <md-button style="color: white" ng-click="confirmOrder(pedidoSelected)" class="confirm-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
-            <label translate="CONFIRMAR"></label>
-          </md-button>
           <md-button style="color: white" ng-click="cancelOrder(pedidoSelected)" class="cancel-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
             <label translate="CANCELAR"></label>
+          </md-button>
+          <md-button style="color: white" ng-click="confirmOrder(pedidoSelected)" class="confirm-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+            <label translate="CONFIRMAR"></label>
           </md-button>
         </div>
         <md-list class="md-dense ch-contexto-pedido-panel-list">
