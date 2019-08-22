@@ -237,7 +237,7 @@
 
 		function refreshGrupos() {
 			$log.debug("refreshGrupos");
-            contextAgrupationsService.init();
+            contextAgrupationsService.reset(order_context.getCatalogId().toString());
 			return contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString());
 		}
 
