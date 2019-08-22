@@ -76,7 +76,8 @@
                     contextCatalogObserver.restart();
                     $rootScope.$broadcast('resetCatalogInfo', "");
                     $rootScope.refrescarNotificacion();
-
+                    
+                    toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
                     $state.go('catalog.userGroups.all')
                 }
 
