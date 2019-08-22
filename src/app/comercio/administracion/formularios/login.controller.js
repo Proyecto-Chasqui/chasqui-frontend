@@ -4,7 +4,7 @@
 	angular.module('chasqui').controller('LogInController', LogInController);
 
 	/** @ngInject */
-	function LogInController($log, $state, StateCommons, contextCatalogObserver,
+	function LogInController($log, $state, StateCommons, contextCatalogObserver, $stateParams,
 		ToastCommons,toastr, $rootScope, dialogCommons, perfilService, us, contextPurchaseService, usuario_dao) {
 
 		var vm = this
@@ -44,10 +44,13 @@
         contextCatalogObserver.restart();
         $rootScope.$broadcast('resetCatalogInfo', "");
         $rootScope.refrescarNotificacion();
-				if (us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
-				    $state.go("catalog.landingPage");
-				} else {
+
+        if($stateParams.toPage){
+          $state.go($stateParams.toPage);
+        } else if (contextPurchaseService.ls.varianteSelected) {
 					$state.go("catalog.products");
+				} else {
+          $state.go("catalog.landingPage");
 				}
 			}
 
@@ -64,6 +67,7 @@
     }
     
     function init(){
+      console.log($stateParams);
       toTop();
     }
 

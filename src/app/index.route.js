@@ -143,7 +143,8 @@
                 url: '/login',
                 templateUrl: 'app/comercio/administracion/formularios/login.html',
                 controller: 'LogInController',
-                controllerAs: 'loginCtrl'
+                controllerAs: 'loginCtrl',
+                params: { toPage: null },
             })
             .state('catalog.singUp', {
                 url: '/registro',
