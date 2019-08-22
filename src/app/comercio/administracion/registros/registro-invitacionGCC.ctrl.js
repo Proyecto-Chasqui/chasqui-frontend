@@ -7,7 +7,8 @@
 	/** Contempla los datos personales y 
 	 *  el domicilio en dos pasos pero en la misma pantalla*/
 	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, contextCatalogObserver,
-                                              ToastCommons, toastr, us, $timeout, contextPurchaseService) {
+                                           $rootScope, toastr, us, $timeout, contextPurchaseService, usuario_dao,
+                                              ) {
         
         $scope.selectedIndex = 0;
         
@@ -69,12 +70,14 @@
                 $log.debug("guardar usuario", profile);
                 function doOk(response) {
                     mostrarMensajesDeBienvenida();                    
-                    $log.debug("Nuevo usuario creado", response.data);                    
-                    /*
-                        Algo se deberia hacer con la informacion que esta trayendo el servidor
-                    */
-                    //usuario_dao.logIn(response.data); 
-                    $state.go('catalog.login');
+                    $log.debug("Nuevo usuario creado", response.data);
+                    usuario_dao.logIn(response.data);
+                    $rootScope.$broadcast('resetHeader', "");
+                    contextCatalogObserver.restart();
+                    $rootScope.$broadcast('resetCatalogInfo', "");
+                    $rootScope.refrescarNotificacion();
+
+                    $state.go('catalog.userGroups.all')
                 }
 
                 perfilService.singUpInvitacionGCC(prepareProfile(profile)).then(doOk);
