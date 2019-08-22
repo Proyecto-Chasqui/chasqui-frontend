@@ -66,7 +66,15 @@
         $log.debug("group", $scope.group)
 
         function doOk(response) {
-            location.reload();
+          toastr.success(us.translate('GRUPO_ELIMINADO'), us.translate('AVISO_TOAST_TITLE'));
+          contextPurchaseService.getAgrupations().then(function(agrupationsInt){
+            agrupationsInt.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
+                                            $scope.group.idGrupo,
+                                            agrupationTypeVAL.TYPE_GROUP
+                                            );
+            $scope.$emit("exit-group");
+            $state.go('catalog.userGroups.all');
+          });
         }
 
         gccService.cerrarGrupo(contextPurchaseService.getCatalogContext(), $scope.group.idGrupo).then(doOk);
