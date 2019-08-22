@@ -242,66 +242,66 @@
               </md-button>
             </div>
           </div>
-        </div>
-        <div class="" layout="column" ng-show="showOptions[i]">
-          <md-tabs>
-              <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(group)" label="{{::selfPara(miembro)}}">
-                  <md-content class="md-padding" layout="column" layout-align="space-around">
-                      <div layout="column" layout-align="space-sround center" 
-                            ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
-                          <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
-                              <label translate="USUARIO_SIN_PROD"></label>
-                          </div>
-                          <div ng-show="!isLoggedUser(miembro)" layout="column" layout-align="space-between center">
-                              <label translate="MIEMBRO_SIN_PROD"></label>
-                          </div>
-                      </div>
 
-                      <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0
-                                    && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO')"
-                        style="margin: 10px;"
-                        layout="row" layout-align="space-between center">
-                          <div>Estado:</div>
-                          <div class ="ch-estado-pedido" ng-class="classForState(miembro.pedido.estado)">
-                              {{miembro.pedido.estado}}
-                          </div>
-                      </div>
+          <div layout="column" ng-show="showOptions[i]">
+            <md-tabs>
+                <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(group)" label="{{::selfPara(miembro)}}">
+                    <md-content class="md-padding" layout="column" layout-align="space-around">
+                        <div layout="column" layout-align="space-sround center" 
+                              ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
+                            <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="USUARIO_SIN_PROD"></label>
+                            </div>
+                            <div ng-show="!isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="MIEMBRO_SIN_PROD"></label>
+                            </div>
+                        </div>
 
-                      <div layout="row" layout-align="space-between center"
-                        ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0
-                                  && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
-                        style="margin: 10px;">
-                          <div>Total:</div>
-                          <div>
-                            <chq-price-product precio="totalForMember(miembro)" tamanho="1"></chq-price-product>
-                          </div>
-                      </div>
+                        <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0
+                                      && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO')"
+                          style="margin: 10px;"
+                          layout="row" layout-align="space-between center">
+                            <div>Estado:</div>
+                            <div class ="ch-estado-pedido" ng-class="classForState(miembro.pedido.estado)">
+                                {{miembro.pedido.estado}}
+                            </div>
+                        </div>
 
-                      <md-list ng-show="miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'" class="md-dense" flex>
-                          <md-list-item class="md-3-line" ng-repeat="item in miembro.pedido.productosResponse">
-                              <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
-                              <div class="md-list-item-text" layout="column">
-                                  {{ item.nombre }}
-                                  <p>{{item.cantidad}} X $ {{ item.precio }} = ${{item.cantidad * item.precio }} </p>
-                              </div>
-                          </md-list-item>
-                      </md-list>
-                  </md-content>
-              </md-tab>
-          </md-tabs>
-          <md-button class="btn-confirmar" 
-              ng-click="confirmGCCOrder(group)"
-              ng-show="group.esAdministrador"
-              ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(group)">
-            <label translate style="cursor: pointer;">
-                CONFIRMAR_PEDIDO_GCC
-            </label>
-            <md-icon ng-show="puedeCerrarPedidoGCC(group)" style="color:white; cursor: pointer;">
-                done
-            </md-icon>
-          </md-button>
-        </div>
+                        <div layout="row" layout-align="space-between center"
+                          ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0
+                                    && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
+                          style="margin: 10px;">
+                            <div>Total:</div>
+                            <div>
+                              <chq-price-product precio="totalForMember(miembro)" tamanho="1"></chq-price-product>
+                            </div>
+                        </div>
+
+                        <md-list ng-show="miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'" class="md-dense" flex>
+                            <md-list-item class="md-3-line" ng-repeat="item in miembro.pedido.productosResponse">
+                                <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
+                                <div class="md-list-item-text" layout="column">
+                                    {{ item.nombre }}
+                                    <p>{{item.cantidad}} X $ {{ item.precio }} = ${{item.cantidad * item.precio }} </p>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+            <md-button class="btn-confirmar" 
+                ng-click="confirmGCCOrder(group)"
+                ng-show="group.esAdministrador"
+                ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(group)">
+              <label translate style="cursor: pointer;">
+                  CONFIRMAR_PEDIDO_GCC
+              </label>
+              <md-icon ng-show="puedeCerrarPedidoGCC(group)" style="color:white; cursor: pointer;">
+                  done
+              </md-icon>
+            </md-button>
+          </div>
       </div>
+    </div>
   </div>
-
 </div>
