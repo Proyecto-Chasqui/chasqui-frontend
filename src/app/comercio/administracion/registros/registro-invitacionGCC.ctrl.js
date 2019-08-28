@@ -20,6 +20,11 @@
         var idInvitacion = $stateParams.idInvitacion;
         perfilService.getMailInvitacion(idInvitacion).then(function(data){
             $scope.mailInvitacion = "";
+            if(data.existeUsuario){
+              $state.go('catalog.userGroups.invitations');
+            } else if(data.mail != usuario_dao.getUsuario().email){
+              usuario_dao.logOut();
+            }
         })
       })
     }
