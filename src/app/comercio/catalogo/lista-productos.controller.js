@@ -211,7 +211,8 @@
           idCategoria: params.categoria,
           pagina: pagina,
           cantItems: items,
-          precio: 'Down'
+          precio: 'Down',
+          numeroDeOrden: Math.ceil(Math.random()*100),
         }
         $log.debug("parametros",params);
 
