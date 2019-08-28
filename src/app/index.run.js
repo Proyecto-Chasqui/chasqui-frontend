@@ -6,7 +6,7 @@
 		.run(runBlock);
 
 	/** @ngInject */
-	function runBlock($log, $rootScope, $state, StateCommons, us, usuario_dao) {
+	function runBlock($log, $rootScope, $state, us, usuario_dao) {
 
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 

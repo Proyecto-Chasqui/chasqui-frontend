@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('perfilService', perfilService);
 
-	function perfilService($log, REST_ROUTES, StateCommons, promiseService, toastr) {
+	function perfilService($log, REST_ROUTES, promiseService, toastr) {
 		var vm = this;
 
 		vm.verDirecciones = function() {

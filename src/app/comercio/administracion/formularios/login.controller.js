@@ -4,8 +4,8 @@
 	angular.module('chasqui').controller('LogInController', LogInController);
 
 	/** @ngInject */
-	function LogInController($log, $state, StateCommons, contextCatalogObserver, $stateParams,
-		ToastCommons,toastr, $rootScope, dialogCommons, perfilService, us, contextPurchaseService, usuario_dao) {
+	function LogInController($log, $state, contextCatalogObserver, $stateParams,
+		toastr, $rootScope, dialogCommons, perfilService, us, contextPurchaseService, usuario_dao) {
 
 		var vm = this
 		vm.user = {};

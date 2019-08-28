@@ -9,7 +9,7 @@
 	 * Pagina donde se muestran los productos. Contiene los filtros y el
 	 * contexto de compra , pero NO la lista de productos la cual se incluye
 	 */
-	function CatalogoController($scope, $rootScope, $log, URLS, REST_ROUTES, $timeout, StateCommons, productorService,
+	function CatalogoController($scope, $rootScope, $log, URLS, REST_ROUTES, $timeout, productorService,
 		productoService, ToastCommons, webSocketService, gccService, us, $mdSidenav, $state, usuario_dao, navigation_state, contextPurchaseService) {
 
 		$log.debug("CatalogoController ..... grupoSelected");
