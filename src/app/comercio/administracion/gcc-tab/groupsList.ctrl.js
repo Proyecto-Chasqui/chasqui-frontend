@@ -40,6 +40,8 @@
         function doOk(newGroup){
           contextPurchaseService.refreshGrupos();
           init();
+          $state.go('catalog.userGroups.group.members', {groupId: $scope.groups.length - 1});
+          toastr.success(us.translate('NUEVO_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
         }
 
         dialogCommons.newGroup(doOk);
