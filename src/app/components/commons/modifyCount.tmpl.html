@@ -56,7 +56,7 @@
                     </div>
                     <div layout="row" layout-align="space-between center" flex="100">
                         <div flex="70" style="font-weight: bold">
-                            El total de tu pedido es:
+                            {{getTotalLabel()}}
                         </div>
                         <div flex="30" layout="row" layout-align="center">
                             <chq-price-product precio="getTotalOrder(variety)" tamanho="1.4"></chq-price-product>
