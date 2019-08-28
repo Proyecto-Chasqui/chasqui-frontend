@@ -7,7 +7,7 @@
   /**
    * @ngInject Lista de productos.
    */
-  function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
+  function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES, StateCommons,
     $state, toastr, productoService, us, contextCatalogsService,
     $mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
         usuario_dao, $stateParams, addProductService, dialogCommons, vendedorService) {
@@ -212,7 +212,7 @@
           pagina: pagina,
           cantItems: items,
           precio: 'Down',
-          numeroDeOrden: Math.ceil(Math.random()*100),
+          numeroDeOrden: StateCommons.getNextRandom(),
         }
         $log.debug("parametros",params);
 
