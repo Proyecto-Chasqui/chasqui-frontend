@@ -35,13 +35,15 @@
 
     ///////////////////////////////////////
 
+    var newGroupCreated = false;
+
     function newGroup(){
 
         function doOk(newGroup){
-          contextPurchaseService.refreshGrupos();
-          init();
-          $state.go('catalog.userGroups.group.members', {groupId: $scope.groups.length - 1});
-          toastr.success(us.translate('NUEVO_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
+          contextPurchaseService.refreshGrupos().then(function(){
+            newGroupCreated = true;
+            $rootScope.$emit('new-group');
+          });
         }
 
         dialogCommons.newGroup(doOk);
@@ -249,6 +251,12 @@
         );
         callNotificaciones();
         toTop();
+        if(newGroupCreated){
+          console.log($scope.groups);
+          $state.go('catalog.userGroups.group.members', {groupId: $scope.groups.length - 1});
+          toastr.success(us.translate('NUEVO_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
+          newGroupCreated = false;
+        }
     }
 
     init();
