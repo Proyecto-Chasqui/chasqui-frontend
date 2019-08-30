@@ -19,8 +19,11 @@
       <span>
         {{pregunta.titulo}}
       </span>
-      <i class="material-icons">
+      <i class="material-icons" ng-show="!showHelp[i]">
         expand_more
+      </i>
+      <i class="material-icons" ng-show="showHelp[i]">
+        expand_less
       </i>
     </div>
     <span ng-show="showHelp[i]" class="ch-groups-help-question-answer">

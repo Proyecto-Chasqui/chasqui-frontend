@@ -45,7 +45,6 @@
 
     function init(){
       $scope.showHelp = $scope.preguntas.map(function(i){return false});
-      
     }
 
     init();
