@@ -187,7 +187,7 @@
     function findProductosPorMultiplesFiltros(pagina, items, params){
       $log.debug('find productos multiples filtros');
       function doOk(response) {
-        $log.debug('findProductos Response ', response);
+        $log.debug('findProductosPorMultiplesFiltros Response ', response);
 
         vm.productos = response.data.productos;
         $log.debug('productos', vm.productos);
@@ -220,60 +220,6 @@
       })
 
     }
-        //Posiblemente deprecado por findProductosPorMultiplesFiltros
-    // var findProductos = function(pagina, items, filtro) {
-    //         contextCatalogsService.getCatalogs().then(function(catalogs){
-    //             contextCatalogObserver(function(){
-    //                 $log.debug('findProductos: ' + pagina + " " + items + " " +
-    //                     filtro.tipo + " " + filtro.valor);
-
-    //                 function doOk(response) {
-    //                     $log.debug('findProductos Response ', response);
-
-    //                     vm.productos = response.data.productos;
-
-    //                     vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-    //                     vm.paging.current = response.data.pagina;
-    //                 }
-
-    //                 var params = {
-    //                     idVendedor: contextPurchaseService.getCatalogContext(),
-    //                     pagina: pagina,
-    //                     cantItems: items,
-    //                     precio: 'Down'
-    //                 }
-
-    //                 productoService.getProductosByMultiplesFiltros(params).then(doOk);
-    //             })
-    //         })
-    // }
-
-    var findProductos = function(pagina, items, filtro) {
-      $log.debug('findProductos: ' + pagina + " " + items + " " +
-        filtro.tipo + " " + filtro.valor);
-
-      function doOk(response) {
-        $log.debug('findProductos Response ', response);
-
-        vm.productos = response.data.productos;
-
-        vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-        vm.paging.current = response.data.pagina;
-      }
-
-      contextCatalogObserver.observe(function executeWhenCatalogIsLoaded(){          
-        var params = {
-          idVendedor: contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
-          pagina: pagina,
-          cantItems: items,
-          precio: 'Down'
-        }
-
-        productoService.getProductosByMultiplesFiltros(params).then(doOk);
-      })
-    }
-
-
 
 
     function callEmprendedores() {

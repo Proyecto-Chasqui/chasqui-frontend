@@ -20,9 +20,8 @@
             time: moment(),
             random: Math.ceil(Math.random()*100)
           };
-      } else {
-        return vm.ls.lastRandom.random;
       }
+      return vm.ls.lastRandom.random;
     }
 
 
