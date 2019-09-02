@@ -18,11 +18,12 @@
     function init(){
       contextCatalogObserver.observe(function(){
         var idInvitacion = $stateParams.idInvitacion;
-        perfilService.getMailInvitacion(idInvitacion).then(function(data){
+        perfilService.getMailInvitacion(idInvitacion).then(function(response){
             $scope.mailInvitacion = "";
-            if(data.existeUsuario){
+            console.log("response.data.existeUsuario", response.data.existeUsuario);
+            if(response.data.existeUsuario){
               $state.go('catalog.userGroups.invitations');
-            } else if(data.mail != usuario_dao.getUsuario().email){
+            } else if(response.data.mail != usuario_dao.getUsuario().email){
               usuario_dao.logOut();
             }
         })
@@ -77,13 +78,13 @@
             $log.debug("Nuevo usuario creado", response.data);
             usuario_dao.logIn(response.data);
             $rootScope.$broadcast('resetHeader', "");
-            contextCatalogObserver.restart();
-            $rootScope.$broadcast('resetCatalogInfo', "");
-            $rootScope.refrescarNotificacion();
+            // contextCatalogObserver.restart();
+            // $rootScope.$broadcast('resetCatalogInfo', "");
             
             toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
             $state.go('catalog.userGroups.all');
         }
+
 
         perfilService.singUpInvitacionGCC(prepareProfile(profile)).then(doOk);
       })

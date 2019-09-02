@@ -41,7 +41,6 @@
 				var tmp = contextPurchaseService.ls.varianteSelected;
 				$rootScope.$broadcast('resetHeader', "");
 				contextPurchaseService.ls.varianteSelected=tmp;
-        contextCatalogObserver.restart();
         $rootScope.$broadcast('resetCatalogInfo', "");
         $rootScope.refrescarNotificacion();
 
