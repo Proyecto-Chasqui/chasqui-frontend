@@ -4,8 +4,7 @@
 	angular.module('chasqui').controller('RegistroInvitacionGCCController',
 		RegistroInvitacionGCCController);
 
-	/** Contempla los datos personales y 
-	 *  el domicilio en dos pasos pero en la misma pantalla*/
+    
 	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, contextCatalogObserver,
                                            $rootScope, toastr, us, $timeout, contextPurchaseService, usuario_dao) {
         
@@ -20,12 +19,10 @@
         var idInvitacion = $stateParams.idInvitacion;
         perfilService.getMailInvitacion(idInvitacion).then(function(response){
             $scope.mailInvitacion = "";
-            if(usuario_dao.isLogged()){
-              if(response.data.mail != usuario_dao.getUsuario().email){
-                usuario_dao.logOut();
-              }
-              $state.go('catalog.userGroups.invitations', {mail: response.data.mail});
-            } else if(response.data.existeUsuario) {
+            if(usuario_dao.isLogged() && response.data.mail != usuario_dao.getUsuario().email){
+              usuario_dao.logOut();
+            }
+            if(response.data.existeUsuario){
               $state.go('catalog.userGroups.invitations', {mail: response.data.mail});
             }
         })
