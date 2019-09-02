@@ -18,6 +18,7 @@
             url: '/:catalogShortName',
             templateUrl: 'app/comercio/principal/catalog/catalog.tmpl.html',
             controller: 'CatalogController',
+            params: { mail: null },
             abstract: true
         })
       

@@ -22,11 +22,9 @@
           window.location.href.indexOf("/", window.location.href.indexOf("#")+2)
         )
 
-        console.log("run", catalogShortname);
-				$state.go('catalog.login', { 
-          catalogShortName: catalogShortname,
-          toPage: toState.name 
-        })
+        toParams.catalogShortName = catalogShortname;
+        toParams.toPage = toState.name;
+				$state.go('catalog.login', toParams);
 			}
 
 		});

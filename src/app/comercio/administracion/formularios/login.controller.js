@@ -67,6 +67,7 @@
     
     function init(){
       console.log($stateParams);
+      vm.user.email = $stateParams.mail;
       toTop();
     }
 

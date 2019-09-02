@@ -20,11 +20,13 @@
         var idInvitacion = $stateParams.idInvitacion;
         perfilService.getMailInvitacion(idInvitacion).then(function(response){
             $scope.mailInvitacion = "";
-            console.log("response.data.existeUsuario", response.data.existeUsuario);
-            if(response.data.existeUsuario){
-              $state.go('catalog.userGroups.invitations');
-            } else if(response.data.mail != usuario_dao.getUsuario().email){
-              usuario_dao.logOut();
+            if(usuario_dao.isLogged()){
+              if(response.data.mail != usuario_dao.getUsuario().email){
+                usuario_dao.logOut();
+              }
+              $state.go('catalog.userGroups.invitations', {mail: response.data.mail});
+            } else if(response.data.existeUsuario) {
+              $state.go('catalog.userGroups.invitations', {mail: response.data.mail});
             }
         })
       })
@@ -78,8 +80,7 @@
             $log.debug("Nuevo usuario creado", response.data);
             usuario_dao.logIn(response.data);
             $rootScope.$broadcast('resetHeader', "");
-            // contextCatalogObserver.restart();
-            // $rootScope.$broadcast('resetCatalogInfo', "");
+            $rootScope.$broadcast('resetCatalogInfo', "");
             
             toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
             $state.go('catalog.userGroups.all');
