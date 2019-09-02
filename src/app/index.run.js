@@ -19,7 +19,7 @@
 
         const catalogShortname = window.location.href.slice(
           window.location.href.indexOf("#")+2,
-          window.location.href.indexOf("/", window.location.href.indexOf("#")+2),
+          window.location.href.indexOf("/", window.location.href.indexOf("#")+2)
         )
 
         console.log("run", catalogShortname);
