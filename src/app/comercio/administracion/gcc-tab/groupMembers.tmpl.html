@@ -5,23 +5,22 @@
         <label translate>MIEMBROS_GRUPO</label>
         <div layout="row" layout-align="space-between center" ng-show="isAdmin">
           <md-button ng-click="invitarUsuario(group)">
-            <md-icon> group add </md-icon>
+            <ng-md-icon icon="group_add" style="fill: grey"></ng-md-icon>
+            <label style="cursor: pointer;">Invitar</label>
             <md-tooltip md-direction="bottom">
               <label translate="AGREGAR_GRUPO"></label>
             </md-tooltip>
           </md-button>
           <md-button aria-label="ShowMembersOptions" ng-show="canShowMemberOptions()" ng-click="showMembersOptions()" layout="row" layout-align="space-between center">
             <ng-md-icon icon="settings" style="fill: grey"></ng-md-icon>
-            <label style="cursor: pointer;"> OPCIONES</label>
             <md-tooltip md-direction="bottom">
-            <label translate="TT_SHOW_ADMIN_OPTIONS"></label>
+              <label translate="TT_SHOW_ADMIN_OPTIONS"></label>
             </md-tooltip>
           </md-button>
           <md-button aria-label="HideMembersOptions" ng-show="canHideMemberOptions()" ng-click="hideMemberOptions()" layout="row" layout-align="space-between center">
             <md-icon style="fill: black">
               settings
             </md-icon>
-            <label style="cursor: pointer;"> OPCIONES</label>
             <md-tooltip md-direction="bottom">
               <label translate="TT_HIDE_ADMIN_OPTIONS"></label>
             </md-tooltip>
