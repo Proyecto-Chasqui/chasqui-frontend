@@ -1,0 +1,26 @@
+<!-- Poduct Card Directive Template
+	 Important: This component adapts its width size to the container that contains it.
+-->
+<div class="chq-product-container" data-ng-transclude>
+	
+</div>
+<style type="text/css">
+	.chq-product-container{
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: auto;
+		border: 1px solid #3333331a;
+		transition: all .5s ease;
+		overflow: hidden;
+		background-color: #fff;
+		border-radius: 6px 6px 0 0;
+	}
+	.chq-product-container:hover{
+		box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+        transition: all .5s ease;
+	}
+	.chq-product-container > *{
+		margin: 0.5rem;
+	}
+</style>

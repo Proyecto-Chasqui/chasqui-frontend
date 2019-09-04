@@ -4,10 +4,8 @@
 	angular.module('chasqui').controller('LogInController', LogInController);
 
 	/** @ngInject */
-	function LogInController($log, $state, StateCommons,
-		ToastCommons, $rootScope, dialogCommons, perfilService, us, $stateParams, contextoCompraService, usuario_dao) {
-
-		$log.debug('controler log in ..... debe volver a ', $stateParams.toPage);
+	function LogInController($log, $state, StateCommons, contextCatalogObserver,
+		ToastCommons,toastr, $rootScope, dialogCommons, perfilService, us, contextPurchaseService, usuario_dao) {
 
 		var vm = this
 		vm.user = {};
@@ -34,20 +32,18 @@
 
 				usuario_dao.logIn(response.data);
 
-				ToastCommons.mensaje("Bienvenido !");
+				toastr.info(us.translate('BIENVENIDO'));
 
-				var tmp = contextoCompraService.ls.varianteSelected;
+				var tmp = contextPurchaseService.ls.varianteSelected;
 				$rootScope.$broadcast('resetHeader', "");
-				contextoCompraService.ls.varianteSelected=tmp;
-
-				if (us.isUndefinedOrNull(contextoCompraService.ls.varianteSelected)) {
-					if (us.isUndefinedOrNull($stateParams.toPage) || $stateParams.toPage == '') {
-						$state.go("principal");
-					} else {
-						$state.go($stateParams.toPage);
-					}
+				contextPurchaseService.ls.varianteSelected=tmp;
+        contextCatalogObserver.restart();
+        $rootScope.$broadcast('resetCatalogInfo', "");
+        $rootScope.refrescarNotificacion();
+				if (us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
+				    $state.go("catalog.landingPage");
 				} else {
-					$state.go("catalogo");
+					$state.go("catalog.products");
 				}
 			}
 
@@ -57,7 +53,7 @@
 		vm.callReset = function(email) {
 
 			function doOk(response) {
-				ToastCommons.mensaje("Revisa tu correo !");
+				toastr.success("Revisá tu correo","Cuenta creada");
 			}
 
 			perfilService.resetPass(email).then(doOk)

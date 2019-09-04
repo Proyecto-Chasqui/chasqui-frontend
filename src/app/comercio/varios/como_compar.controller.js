@@ -11,10 +11,10 @@
     navigation_state.goHowToBuyTab();
       
     $scope.instruccionesCards = [
-        {
+        /*{
             titulo: "Ingresa un catalogo",
             contenido: "Ingresa a cada catálogo para poder ver sus productos."
-        },{
+        },*/{
             titulo: "Elegí tu forma de consumo",
             contenido: "Chasqui te permite comprar de forma colectiva o individual."
         },{
@@ -40,7 +40,7 @@
                         principal: "Complete el formulario (todos los campos son obligatorios):",
                         subPasos:[
                             "El email debe ser uno valido, para validar que llegan los emails para futuras invitaciones.",
-                            "La contraseña debe tener más de 8 caracteres. Recomendamos no usar la misma contraseña del email."
+                            "La contraseña debe tener más de 10 caracteres. Recomendamos no usar la misma contraseña del email."
                         ]
                      },{
                         principal: "Haga click [REGISTRARME].",

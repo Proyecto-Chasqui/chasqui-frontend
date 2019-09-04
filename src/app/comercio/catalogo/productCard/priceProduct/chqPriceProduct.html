@@ -1,0 +1,24 @@
+<div>
+  <span class="price-product-container" title="{{'Precio: ' + getParteEntera(precio) + ',' + getParteDecimal(precio)}}">
+    <label ng-style="{'font-size': '{{tamanho}}rem'}">
+      ${{getParteEntera(precio)}}
+    </label>
+    
+    <label ng-style="{'vertical-align': 'super', 'font-size': '{{tamanho*0.6}}rem'}" ng-show="getParteDecimal(precio) != 0">
+      .{{adaptToView(getParteDecimal(precio))}}
+    </label>
+  </span>
+</div>
+
+<style>
+    .price-product-container{
+      width: 50%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      cursor: default;
+      font-weight: 500;
+      color: #00adee;
+    }
+
+</style>

@@ -1,30 +1,80 @@
+<div id="chasqui-content-full">
+  <div class="archive-box-catalogo">
+    <h3>Mis pedidos</h3>
+  </div>
+</div>
+
 <div class="ch-content">
-    <md-card>
-        <md-content flex layout-padding ng-show="orders.length==0 && pedidosPorCategoria === null" style="min-height: 100px">
-            <p>
-                <label translate="SIN_PEDIDO_MSG_1"/>
-                <a class="md-accent" href="/#/catalogo">
-                    <label translate="SIN_PEDIDO_MSG_2"/>
-                </a>
-                <label translate="SIN_PEDIDO_MSG_3"/>
-                    <a class="md-accent" href="/#/lista-grupos">
-                        <label translate="SIN_PEDIDO_MSG_4"/>
-                    </a>
-            </p>
-        </md-content>
+  <div layout="row" layout-xs="column">
+  
+  
+    <md-card flex-gt-sm="30" flex>
+      <div layout="column" layout-align="start" style="margin: 25px;">
+        <div>
+          Filtrar pedidos por:
+        </div>
+        <div layout="row" layout-align="space-between center">
+          <label>Estado</label>
+          <md-input-container>          
+            <md-select ng-model="selectedState">
+              <md-option ng-repeat="state in states" ng-value="state" ng-click="getOrdersWithState(state)"> {{state}} </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div>
+          {{descripcionDelEstado(selectedState)}}
+        </div>
+      </div>
     </md-card>
-
-
-    <div ng-include="'app/comercio/carrito/informe-confirmado.html'" ng-show="pedidosPorCategoria != null" ></div>
-    
-    <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom>
-        <md-tab ng-repeat="order in orders" ng-disabled="tab.disabled" label="{{order.aliasGrupo}}">
-            <md-content class="md-padding" ng-if="isCollective(order)">
-                <detalle-pedido-grupal pedido="order"></detalle-pedido>
-            </md-content>
-            <md-content class="md-padding" ng-if="isPersonal(order)">
-                <detalle-pedido-personal pedido="order"></detalle-pedido>
-            </md-content>
-        </md-tab>
-    </md-tabs>
+  
+  
+  
+    <md-card flex>
+      <div ng-show="pedidosFiltrados.length == 0" layout="row" layout-align="center center" style="font-style: italic;">
+        No hay pedidos con el estado seleccionado
+      </div>
+      <md-list layout-fill ng-show="pedidosFiltrados.length > 0" style="padding: 0px;">
+        <md-list-item style="background-color: #33ccff; font-weight: bold;">
+          <div layout="row" layout-align="space-between center" layout-fill>
+            <div flex="25" style="text-align: center">
+              Grupo del pedido
+            </div>
+            <div flex="25" style="text-align: center">
+              Fecha de confirmación
+            </div>
+            <div flex="20" style="text-align: center">
+              Monto total
+            </div>
+            <div flex="30" style="text-align: center">
+              Direccción de entrega
+            </div>
+          </div>
+        </md-list-item>
+        <md-list-item 
+            class="md-1-line" 
+            ng-repeat="(i, pedido) in pedidosFiltrados" 
+            ng-class="classForItem(i)">
+          <div ng-click="viewOrderDetail(pedido)" layout-fill>
+            <div layout="row" layout-align="space-between center" layout-fill>
+              <div flex="25" style="text-align: center">
+                {{getAliasGrupo(pedido)}}
+              </div>
+              <div flex="25" style="text-align: center">
+                {{pedido.fechaVencimiento}}
+              </div>
+              <div flex="20" layout="row" layout-align="center center">
+                <chq-price-product precio="pedido.montoActual" tamanho="1"></chq-price-product>
+              </div>
+              <div flex="30" style="text-align: center">
+                {{direccionDeEntrega(pedido)}}
+              </div>
+            </div>
+            <md-tooltip md-direction="bottom">
+                Ver detalle
+            </md-tooltip>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-card>
+  </div>
 </div>

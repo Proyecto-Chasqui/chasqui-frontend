@@ -1,33 +1,39 @@
 <!-- Pantalla de perfil de usuario -->
+  <div id="chasqui-content-full">
+    <div class="archive-box-catalogo">
+      <h3 translate>REGISTRO_USER</h3>
+    </div>
+  </div>
 <div class="ch-content">
-	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<span class="md-headline" translate>REGISTRO_USER</span>
-            <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom>
-                <md-tab ng-disabled="true" label="{{'REGISTRO_DATOS' | translate}}">
-                    <md-content class="md-padding">
-                        <form-usuario new="true"
-                                      label-button-label="FORM_REGISTER"
-                                      label-button-action="next"
-                                      label-button-show="showLabel"
-                                      
-                                      disable-field="disableField"
-                                      hide-field="hideField"
-                                      ></form-usuario>
-                    </md-content>
-                </md-tab>
-                <!--
-                <md-tab ng-disabled="true" label="{{'REGISTRO_DIRECCIONES' | translate}}">
-                    <md-content class="md-padding">
-                        <form-addresses label-button-label="FORM_REGISTER"
-                                        label-button-action="guardar"></form-addresses>
-                    </md-content>
-                </md-tab> -->
-            </md-tabs>
-		</div>
-		<div class="col-md-2"></div>
-	</div>
+  <section-wrapper not-supported-strategies="nodos">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+              <md-tabs md-selected="selectedIndex" md-dynamic-height md-border-bottom>
+                  <md-tab ng-disabled="true" label="{{'REGISTRO_DATOS' | translate}}">
+                      <md-content class="md-padding">
+                          <form-usuario new="true"
+                                        label-button-label="FORM_REGISTER"
+                                        label-button-action="next"
+                                        label-button-show="showLabel"
+
+                                        disable-field="disableField"
+                                        hide-field="hideField"
+                                        ></form-usuario>
+                      </md-content>
+                  </md-tab>
+                  <!--
+                  <md-tab ng-disabled="true" label="{{'REGISTRO_DIRECCIONES' | translate}}">
+                      <md-content class="md-padding">
+                          <form-addresses label-button-label="FORM_REGISTER"
+                                          label-button-action="guardar"></form-addresses>
+                      </md-content>
+                  </md-tab> -->
+              </md-tabs>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </section-wrapper>
 </div>
 
 

@@ -1,42 +1,49 @@
 <!-- Pantalla de perfil de usuario -->
+  <div id="chasqui-content-full">
+    <div class="archive-box-catalogo">
+      <h3>Mi Perfil</h3>
+    </div>
+  </div>
 <div class="container-fluid ch-content md-padding" id="popupContainer" ng-cloak>
-    <span class="md-headline" translate>MI_PERFIL</span>
     <div ng-cloak>
         <md-content>
             <md-tabs md-dynamic-height md-border-bottom md-selected="perfilCtrl.selectedIndexPerfil">
                 <md-tab label="Datos Personales">
                     <div class="md-padding">
-                        <form-usuario button-edit-label="Editar"
-                                      button-edit-action="editProfile"
-                                      button-edit-show="showEdit"
+                        <form-usuario
+                            button-edit-label="Editar"
+                            button-edit-action="editProfile"
+                            button-edit-show="showEdit"
 
-                                      button-cancel-label="Cancelar los cambios"
-                                      button-cancel-action="cancelEditProfile"
-                                      button-cancel-show="showCancel"
+                            button-cancel-label="Cancelar los cambios"
+                            button-cancel-action="cancelEditProfile"
+                            button-cancel-show="showCancel"
 
-                                      button-next-label="Guardar los cambios"
-                                      button-next-action="saveProfile"
-                                      button-next-show="showSave"
+                            button-next-label="Guardar los cambios"
+                            button-next-action="saveProfile"
+                            button-next-show="showSave"
 
-                                      disable-field="disableField"
-                                      hide-field="hideField"
-                                      disable-avatar-selection="disableAvatarSelection"
-                             ></form-usuario>
-
-                        <form-addresses load-previous-directions="true"
-                                        on-save="save"
-                                        on-delete="delete"
-                                        on-mark-as-primary="markAsPrimary"
-                                        ></form-addresses>
+                            disable-field="disableField"
+                            hide-field="hideField"
+                            disable-avatar-selection="disableAvatarSelection"
+                        />
                     </div>
                 </md-tab>
-                <md-tab label="Notificaciones">
-                    <div ng-include="'app/comercio/administracion/notificaciones.html'"></div>
+                <md-tab label="Direcciones de envio">
+                    <div class="md-padding">
+                        <form-addresses
+                            load-previous-directions="true"
+                            on-save="save"
+                            on-delete="delete"
+                            on-mark-as-primary="markAsPrimary"
+                        />
+                    </div>
                 </md-tab>
-                <md-tab label="Acciones">
+                <md-tab label="Cambio de contraseña">
                     <div ng-include="'app/comercio/administracion/perfil.acciones.html'"></div>
+                </md-tab>
             </md-tabs>
         </md-content>
-        <div ng-include="'app/comercio/administracion/formularios/map.html'"/> 
+        <div ng-include="'app/comercio/administracion/formularios/map.html'"/>
     </div>
 </div>

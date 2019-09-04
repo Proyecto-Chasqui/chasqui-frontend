@@ -1,34 +1,46 @@
 (function() {
-	'use strict';
+  'use strict';
 
-	angular.module('chasqui').service('ModifyVarietyCount', ModifyVarietyCount);
+  angular.module('chasqui').service('modifyVarietyCount', modifyVarietyCount);
 
-	function ModifyVarietyCount($log, dialogCommons, contextoCompraService, ToastCommons, $rootScope, productoService, us, $state){
+  function modifyVarietyCount($log, dialogCommons, contextPurchaseService, toastr, $rootScope, agrupationTypeVAL,
+                                productoService, us, $state, contextOrdersService, setPromise, agrupationTypeDispatcher,
+                                contextAgrupationsService, contextCatalogObserver){
 
-        this.modifyDialog = function(variety){
-                        
-            console.log(variety);
-            var varietyName = (variety.nombreProducto === undefined)? variety.nombre : variety.nombreProducto;
-            
-            var initialCount = initialCountForVariety(variety);
-       
+    return {
+        modifyDialog: modifyDialog
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    function modifyDialog(variety, order){
+        var varietyName = (variety.nombreProducto === undefined)? variety.nombre : variety.nombreProducto;
+
+        initialCountForVariety(variety).then(function(initialCount){
+
             function doOk(result) {
-                if (result > initialCount) {
-                    callAddToCart(variety, result - initialCount);
-                }
-                if (result < initialCount) {
-                    callRemoveFromCart(variety, initialCount - result);
+                if(initialCount == 0 && result > 0){
+                  callAddToCart(variety, result - initialCount, "Producto agregado al changuito con "+result+" unidades");
+                }else if(initialCount > 0 && result == 0){
+                  callRemoveFromCart(variety, initialCount - result, "Producto quitado");
+                }else if (result > initialCount) {
+                  callAddToCart(variety, result - initialCount, "Agregadas "+(result - initialCount)+" unidades");
+                }else if (result < initialCount) {
+                  callRemoveFromCart(variety, initialCount - result, "Quitadas "+(initialCount - result)+" unidades");
                 }
             }
 
             function doNoOk() {
-                $log.debug("Cancelo Agregar")
+                $log.debug("Cancelo Agreglar")
             }
 
-            //dialogCommons.prompt('Agregar al changuito', '¿Cuántos ' + variety.nombreProducto + ' necesitas?','Cantidad', 'Agregar', 'Cancelar', doOk, doNoOk);
-            dialogCommons.modifyVarietyCount({
-                                                title: "¿Cuántos " + varietyName + " necesitas?",
-                                                okButton: "Agregar al carrito",
+            dialogCommons.modifyVarietyCount(variety,
+                                             order,
+                                            {
+                                                title: "¿Cuántos " + varietyName + " querés?",
+                                                okButtonAgregar: "Agregar al changuito",
+                                                okButtonModificar: "Modificar cantidad",
+                                                okButtonRemover: "Quitar del changuito",
                                                 cancelButton: "Cancelar"
                                             },
                                              initialCount,
@@ -36,38 +48,120 @@
                                                 doOk: doOk,
                                                 doNoOk: doNoOk
                                             });
-       }
-        
-        /* Private */
-        
-		function callAddToCart(variety, count) {
-            modifyVarietyCount(variety, count, productoService.agregarPedidoIndividual, 'PRODUCTO_AGREGADO');
-		}
-        
-        function callRemoveFromCart(variety, count){
-            modifyVarietyCount(variety, count, productoService.quitarProductoIndividual, 'QUITO_PRODUCTO');
-        }
-        
-        function modifyVarietyCount(variety, count, modifierFunction, modifierOkText){
-            function doOk(response) {
-				ToastCommons.mensaje(us.translate(modifierOkText));
-				contextoCompraService.refreshPedidos();
-				$rootScope.$emit('lista-producto-agrego-producto');
-			}
-            
-			var params = {
-                idPedido: contextoCompraService.getOrderSelected().id,
-                idVariante: variety.idVariante,
-                cantidad: count
-            };
+       })
+   }
 
-			modifierFunction(params).then(doOk)            
+    /* Private */
+
+  function callAddToCart(variety, count, toastText) {
+        modifyVarietyCount(variety, count, 1, productoService.agregarPedidoIndividual, toastText);
+  }
+
+  function callRemoveFromCart(variety, count, toastText){
+      modifyVarietyCount(variety, count, -1, productoService.quitarProductoIndividual, toastText);
+  }
+
+
+  function modifyVarietyCount(variety, count, sign, modifierFunction, modifierOkText){
+      contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+
+          function doOk(response) {
+              contextCatalogObserver.observe(function(){
+                  function orderModification(order){
+                      if(order.estado != "ABIERTO"){
+                          order.estado = "ABIERTO";
+                          order.montoActual = 0;
+                          order.productosResponse = [];
+                      }
+                      return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
+                  }
+
+                  contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
+                                                   selectedOrder,
+                                                   orderModification);
+
+                  toastr.success(us.translate(modifierOkText), us.translate('AVISO_TOAST_TITLE'));
+                  $rootScope.$emit('lista-producto-agrego-producto');
+              })
+          }
+
+          var params = {
+              idPedido: selectedOrder.id,
+              idVariante: variety.idVariante,
+              cantidad: count
+          };
+
+          modifierFunction(params).then(doOk);
+
+      })
+  }
+
+
+    function initialCountForVariety(variety){
+        return setPromise(function(defered){
+            contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+                var varietyInOrder = selectedOrder.productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
+                var existsVarietyInOrder = varietyInOrder.length === 1;
+                defered.resolve((existsVarietyInOrder && selectedOrder.estado == "ABIERTO")? varietyInOrder[0].cantidad : 0);
+            })
+        })
+    }
+
+
+    function modifyTotalPurchase(order, modification){
+        order.montoActual += modification;
+        return order;
+    }
+
+
+    function modifyVarietyCountOnOrder(order, variety, countModification){
+
+        return agrupationTypeDispatcher.byElem(modifyVarietyCountOnThisOrder(order, variety, countModification),
+            function(personalOrder){
+                return personalOrder;
+            },
+            function(groupOrder){
+                contextCatalogObserver.observe(function(){
+                    contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(),
+                                                               groupOrder.idGrupo,
+                                                               agrupationTypeVAL.TYPE_GROUP,
+                                                               function(group){
+                        group.estado = "ABIERTO";
+                        return group;
+                    });
+                })
+
+                return groupOrder;
+            },
+            function(nodeOrder){
+
+            });
+    }
+
+    function modifyVarietyCountOnThisOrder(order, variety, countModification){
+        if(order.productosResponse.filter(function(p){return p.idVariante == variety.idVariante}).length > 0){
+            var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf(variety.idVariante);
+            if(order.productosResponse[index].cantidad + countModification == 0){
+                order.productosResponse.splice(index, 1);
+            }else{
+                order.productosResponse[index].cantidad += countModification;
+            }
+        }else{
+            order.productosResponse.push(formatLikeServerVariety(variety, countModification));
         }
-        
-        
-        function initialCountForVariety(variety){
-            var varietyInOrder = contextoCompraService.getOrderSelected().productosResponse.filter(function(p){return p.idVariante === variety.idVariante});
-            return (varietyInOrder.length === 1)? varietyInOrder[0].cantidad : 0;
+
+        return order;
+    }
+
+
+    function formatLikeServerVariety(variety, count){
+        return {
+            nombre: variety.nombreProducto,
+            idVariante: variety.idVariante,
+            precio: variety.precio,
+            cantidad: count,
+            imagen: variety.imagenPrincipal
         }
-	} 
-})(); 
+    }
+  }
+})();

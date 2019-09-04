@@ -1,32 +1,50 @@
+<div id="chasqui-content-full">
+  <div class="archive-box-catalogo">
+    <h3>Como comprar ?</h3>
+  </div>
+</div>
+
+
 <div class="ch-content">
-    
-    <md-grid-list md-cols="4" md-row-height="1:1">
+    <div class="imagenes-comocomprar">
+  <md-grid-list md-cols="3" md-row-height="1:1" >
         <md-grid-tile layout="row" md-colspan="1" md-rowspan="1" ng-repeat="(i,instruccion) in instruccionesCards">
-            <md-card style="width:200px; height:280px;">
-                <div style="position: relative; ">
-                    
-                    <img src="{{'assets/images/help/purchaseHelp_' + i + '.jpg'}}">
-                    <div style="padding-left:3px;
-                                padding-right:3px;">
-                        <b>{{instruccion.titulo}}</b>
-                        <br>
-                        {{instruccion.contenido}}
+            <md-card style="width:250px; padding:20px; margin-top:20px;">
+                <div>
+                    <!-- i+1 porque la primer imagen es de elegir el catalogo-->
+                    <img src="{{'assets/images/help/purchaseHelp_' + (i+1) + '.jpg'}}">
+                    <div class="txt-comocomprar">
+                        <h3><b>{{instruccion.titulo}}</b></h3>
+                        <p>{{instruccion.contenido}}</p>
                     </div>
                 </div>
             </md-card>
         </md-grid-tile>
     </md-grid-list>
-        
-    <div style="margin-top: 50px">
-        <md-card ng-repeat="instruccion in instrucciones">
-            <md-card-title>
+     </div>
+  
+  
+  <div layout="column" layout-align="space-between center">
+    <div style="margin-top: 50px; margin-bottom: 50px">
+      <div ng-repeat="instruccion in instrucciones">
+        <chq-colapsable titulo="{{instruccion.titulo}}" color="#412467" >
+          <ol>
+            <div ng-repeat="paso in instruccion.pasos">
+              <li>{{paso.principal}}</li>
+              <ol type="a">
+                <li ng-repeat="subpaso in paso.subPasos"> {{subpaso}}</li>
+              </ol>
+            </div>
+          </ol>
+        </chq-colapsable>
+            <!--<md-card-title>
                 <md-card-title-text>
-                    <button class="btn" data-toggle="collapse" href="{{idFrom(instruccion)}}" style="text-align: left"> 
-                        {{instruccion.titulo}} 
+                    <button class="btn" data-toggle="collapse" href="{{idFrom(instruccion)}}" style="text-align: left">
+                        {{instruccion.titulo}}
                     </button>
                 </md-card-title-text>
-            </md-card-title>
-            <md-card-content id="{{idFor(instruccion)}}" class="collapse">
+            </md-card-title> -->
+            <!-- <md-card-content id="{{idFor(instruccion)}}" class="collapse">
                 <ol>
                     <div ng-repeat="paso in instruccion.pasos">
                         <li>{{paso.principal}}</li>
@@ -35,7 +53,45 @@
                         </ol>
                     </div>
                 </ol><br>
-            </md-card-content>
-        </md-card>
+            </md-card-content> -->
+      </div>
     </div>
+  </div>
 </div>
+
+
+
+<style>
+  .tarjeta{
+    width: 25%;
+    margin: 2rem;
+    padding: 0.5rem;
+    box-shadow: 0px 0px 2px #000;
+  }
+  
+  
+  .tarjeta .precio-comprar{
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  
+  .txt-comocomprar {
+    padding:auto; 
+    margin-top:10px;
+  height: 65px;
+  }
+    .txt-comocomprar p{ 
+    color: #111;
+    font-size: 12px;
+  }
+    .txt-comocomprar h3{
+      color: #111;
+    font-size: 16px;
+  }
+  
+</style>

@@ -41,7 +41,7 @@
 }
 
 .wrapper {
-	margin: 4em auto;
+	margin: 8px auto;
 	max-width: 1024px;
 	width: 100%;
 }
@@ -101,22 +101,28 @@
 	z-index: 900;
 }
 
+.chq-container {
+    max-height: 100vh !important;
+}
+
 .ch-content-block {
-    margin-top: 100px;
+    margin-top: 120px;
 }
 
 .ch-content {
-	margin-top: 125px;
-	width: 80%;
-	margin: 0px auto;
-    padding-bottom: 0px;
+  min-height: 83vh !important;
+	margin-top: 20px;
+	width: 90%;
+  padding-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ch-content-full {
-	margin-top: 125px;
-    width: 100%;
-	margin: 0px;
-    padding-bottom: 0px;
+	margin-top: 120px;
+  min-height: 83vh !important;
+  width: 100%;
+  padding-bottom: 0px;
 }
 
 md-toast.md-center {

@@ -6,18 +6,23 @@
 
 	/** Contempla los datos personales y 
 	 *  el domicilio en dos pasos pero en la misma pantalla*/
-	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, ToastCommons, us, $timeout) {
+	function RegistroInvitacionGCCController($log, $state, $stateParams, $scope, perfilService, contextCatalogObserver,
+                                              ToastCommons, toastr, us, $timeout, contextPurchaseService) {
         
         $scope.selectedIndex = 0;
         
-        
-        var idInvitacion = $stateParams.id;
+        var idInvitacion = 0;
         
         $scope.mailInvitacion = "";
         
-        perfilService.getMailInvitacion(idInvitacion).then(function(data){
-            $scope.mailInvitacion = "";
-        })
+        function init(){
+            contextCatalogObserver.observe(function(){
+                var idInvitacion = $stateParams.idInvitacion;
+                perfilService.getMailInvitacion(idInvitacion).then(function(data){
+                    $scope.mailInvitacion = "";
+                })
+            })
+        }
         
         /////////////////////////////////// Configuración form usuario  ///////////////////////////////////
         
@@ -48,9 +53,9 @@
                 //$scope.selectedIndex ++;                
                 callGuardar(profile);
             }else{
-				$log.error("las contrasenas no coinciden: ", profile.password, profile.passVerification);
+				$log.debug("las contrasenas no coinciden: ", profile.password, profile.passVerification);
 				// TODO: enviar mensaje
-				ToastCommons.mensaje(us.translate('PASS_INCORRECTO_MSG'))
+				toastr.error(us.translate('PASS_INCORRECTO_MSG'), "Error");
             }
 		}
         
@@ -60,30 +65,32 @@
         
         // usuario nuevo
 		function callGuardar(profile) {
-			$log.debug("guardar usuario", profile);
-            function doOk(response) {
-                mostrarMensajesDeBienvenida();                    
-                $log.debug("Nuevo usuario creado", response.data);                    
-                /*
-                    Algo se deberia hacer con la informacion que esta trayendo el servidor
-                */
-                //usuario_dao.logIn(response.data); 
-                $state.go('login');
-            }
-            
-            perfilService.singUpInvitacionGCC(prepareProfile(profile)).then(doOk);
+            contextCatalogObserver.observe(function(){
+                $log.debug("guardar usuario", profile);
+                function doOk(response) {
+                    mostrarMensajesDeBienvenida();                    
+                    $log.debug("Nuevo usuario creado", response.data);                    
+                    /*
+                        Algo se deberia hacer con la informacion que esta trayendo el servidor
+                    */
+                    //usuario_dao.logIn(response.data); 
+                    $state.go('catalog.login');
+                }
+
+                perfilService.singUpInvitacionGCC(prepareProfile(profile)).then(doOk);
+            })
 		}
         
         
         function prepareProfile(profile){
             return addFields(
                         filterFields(profile, ["passVerification", "emailVerification", "email"]), 
-                        {invitacion: idInvitacion}
+                        {invitacion: $stateParams.idInvitacion}
                     );
         }
         
           ////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-         ///////      Buenas funciones [Juan, 14/11/17]     \\\\\\\
+         ///////      Algunas funciones [Juan, 14/11/17]    \\\\\\\
         ////////////////////////////    \\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
         function filterFields(obj, fields){
@@ -105,19 +112,11 @@
         /////////////                                  \\\\\\\\\\\\\
         
 		function mostrarMensajesDeBienvenida() {
-
-			$timeout(function() {
-				ToastCommons.mensaje(us.translate('BIENVENIDO'));
-			}, 3000);
-
-			$timeout(function() {
-				ToastCommons.mensaje(us.translate('INGRESA_MSG'));
-			}, 10000);
-
-			$timeout(function() {
-				ToastCommons.mensaje(us.translate('CORREO_MSG'));
-			}, 15000);
+			toastr.info(us.translate('INGRESA_MSG'), us.translate('AVISO_TOAST_TITLE'));
+			toastr.info(us.translate('CORREO_MSG'), us.translate('AVISO_TOAST_TITLE'));
 		}
+        
+        init();
 	}
 
 })();

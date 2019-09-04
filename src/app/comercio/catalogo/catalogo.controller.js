@@ -9,14 +9,14 @@
 	 * Pagina donde se muestran los productos. Contiene los filtros y el
 	 * contexto de compra , pero NO la lista de productos la cual se incluye
 	 */
-	function CatalogoController($scope, $log, URLS, REST_ROUTES, $timeout, StateCommons, productorService,
-		productoService, ToastCommons, gccService, us, $mdSidenav, $state, usuario_dao, navigation_state, contextoCompraService) {
-		
-		$log.debug("CatalogoController ..... grupoSelected", contextoCompraService.getGroupSelected());
+	function CatalogoController($scope, $rootScope, $log, URLS, REST_ROUTES, $timeout, StateCommons, productorService,
+		productoService, ToastCommons, webSocketService, gccService, us, $mdSidenav, $state, usuario_dao, navigation_state, contextPurchaseService) {
+
+		$log.debug("CatalogoController ..... grupoSelected");
 
 		navigation_state.goCatalogTab();
 		var vm = this;
-
+		vm.webSocketService = webSocketService;
 		vm.toggleLeft = buildToggler('left');
 		vm.toggleRight = buildToggler('right');
 
@@ -73,7 +73,7 @@
 		};
 
 		var doFiltrar = function(valor) {
-			$scope.$broadcast('filterEvent', valor); // llama al evento del
+			$rootScope.$broadcast('filterEvent', valor); // llama al evento del
 			// list-producto-controller
 		}
 

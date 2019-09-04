@@ -2,11 +2,17 @@
 	"LLEGO_NOTIFICACION" : "Tenés una nueva notificación",
 	"SIN_LEER" : "Notificaciones sin leer",
 	"INGRESA" : "Ingresa",
-	"MENU_BIENVENIDO" : "Bienvenido",
+	"MENU_BIENVENIDO" : "Bienvenida",
     "MENU_COMO_COMPRAR" : "Cómo comprar",
 	"MENU_CATALOGO" : "Catálogo",
 	"MENU_PEDIDO" : "Mis pedidos",
-	"MENU_GRUPO" : "Mis Grupos",
+	"MENU_GRUPO" : "Mis grupos",
+    "MENU_NODES" : "Los pedidos de mi nodo",
+    "MENU_DELIVERY_POINTS": "Entregas",
 	"MENU_PERFIL" : "Perfil",
-	"CERRAR_GRUPAL" : "Cerrar pedido grupal"
+	"CERRAR_GRUPAL" : "Cerrar pedido grupal",
+	"LOADING_TEXT" : "Cargando...",
+  "COLLABORATE": "Quiero ayudar a Chasqui!",
+  "NO_COLLABORATE": "No, gracias",
+  "END_COLLABORATION": "Listo"
 }

@@ -8,15 +8,16 @@
     /** @ngInject */
     function config($logProvider, toastrConfig, $translateProvider, cfpLoadingBarProvider) {
         // Enable log
-        $logProvider.debugEnabled(true);
+        $logProvider.debugEnabled(false);
 
         // Set options third-party lib
         toastrConfig.allowHtml = true;
-        toastrConfig.timeOut = 3000;
-        toastrConfig.positionClass = 'toast-top-right';
-        toastrConfig.preventDuplicates = true;
+        toastrConfig.timeOut = 15000;
+        maxOpened: 3,
+        toastrConfig.positionClass = 'toast-bottom-right';
+        toastrConfig.preventOpenDuplicates = true;
         toastrConfig.progressBar = true;
-        cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Cargando ...</div>';
+        cfpLoadingBarProvider.spinnerTemplate = '<div class="ch-loader"></div>';
 
         ////////////// TRADUCCIONES
         /* TODO: VER por que no anda,  se dispara el proceso*/
@@ -65,6 +66,8 @@
 
         $translateProvider.useSanitizeValueStrategy(null).useStaticFilesLoader({ files: translationEntries })
             .registerAvailableLanguageKeys(['en', 'es'], langMap).determinePreferredLanguage().fallbackLanguage(['en']);
+
+
 
     }
 

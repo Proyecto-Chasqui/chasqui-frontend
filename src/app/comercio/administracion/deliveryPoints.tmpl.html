@@ -1,0 +1,98 @@
+<section-wrapper not-supported-strategies="nodos" supported-strategies="puntoDeEntrega">
+  <div id="chasqui-content-full">
+    <div class="archive-box-catalogo">
+      <h3>Entregas</h3>
+    </div>
+  </div>
+
+  <div class="ch-content">
+  
+    <div layout=row layout-xs="column" style="padding-bottom: 40px;">
+    
+  
+  <div class="imagen-puntosderetiro" >
+    <iframe ng-src={{zonesMap}} ng-show={{showMap}} width="100%" height="450px"></iframe>
+  </div>
+  
+    <div  class="puntosderetiro">
+
+          <div layout="column" layout-align="center">
+            <md-card ng-repeat="deliveryPoint in deliveryPoints" class="chq-delivery-point selector-delivery" >
+                              <i class="material-icons">store</i>
+                      <label class="fecha-card">{{deliveryPoint.mensaje}}</label>
+                <label class="nombre-card"> {{deliveryPoint.nombre}}</label>
+                              <label class="direccion-card"> {{formatAddress(deliveryPoint.direccion)}}</label>   
+
+
+            </md-card>
+            </div>
+  
+    </div>
+    </div>
+
+    </div>
+</section-wrapper>
+
+
+
+
+<style>
+
+  .fecha-card{
+    color: #ffffff !important;
+    line-height: 30px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    background-color: #412467 !important;
+    width: fit-content;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .nombre-card{
+    color: #777979;
+    font-size: 22px;
+  font-weight: bold;
+  
+  }
+   .direccion-card{
+    color: #777979;
+    line-height:20px;
+    font-size: 14px;
+  margin-bottom:20px;
+  } 
+
+  
+  
+  .selector-delivery{
+    background: #F1F1F1;
+    transition: all 2s ease-out;
+
+    padding: .4rem;
+  }
+
+  .selector-delivery:hover{
+    background: #21B7EE;
+    cursor: pointer;
+    transition: all 2s ease-out;
+  }
+
+  .tarjeta-multicatalogo{
+    width: 30vw;
+    padding: .4rem;
+  }
+
+  .catalogo-nombre{
+    color: #9A8479;
+    font-weight: bold;
+  }
+
+  .catalogo-nombre-corto{
+    color: #9A8479;
+    font-weight: 500;
+  }
+
+  .catalogo-id{
+    color: #9A8479;
+    font-size: .6rem !important;
+  }
+</style>

@@ -1,31 +1,81 @@
-<head>
-	<meta charset="UTF-8">
-</head>
-<div layout="row" layout-align="center center">
-	<div> <label translate>CAMBIAR_PASS</label>
-		<md-button ng-click="perfilCtrl.cambiarPass()">
-			<md-icon> compare_arrows </md-icon>
-			<md-tooltip md-direction="left">
-				<label translate>CAMBIAR_PASS</label>
-			</md-tooltip>
-	</div>
-</div>
-<!-- DIALOG -->
-<div style="visibility: hidden">
-	<div class="md-dialog-container" id="changePassDialogId">
-		<md-dialog layout-padding>
-			<h2 translate>CAMBIAR_PASS</h2>
-			<md-input-container>
-				<label translate>PASS</label>
-				<input ng-model="perfilCtrl.pass1" type="password">
-			</md-input-container>
-			<md-input-container>
-				<label translate>PASS_CONFIRMAR</label>
-				<input ng-model="perfilCtrl.pass2" type="password">
-			</md-input-container>
-			<md-button class="md-primary md-raised md-button md-ink-ripple" ng-click="perfilCtrl.cambiarPassConfirmar()">
-				<label translate>CONFIRMAR</label>				
-			</md-button>
-		</md-dialog>
-	</div>
+<div layout="column" layout-align="center center">
+  
+  <md-card style="width: 600px;">
+    <md-card-content layout="column" layout-align="space-between">
+      
+      <label>
+        La nueva contraseña debe tener entre 10 y 26 caracteres de largo. 
+        Recomendamos el uso de números, mayúsculas y minúsculas intercaladas
+        y que la contraseña no se relacione directamente con el nombre de usuario
+        ni con datos personales para mayor seguridad.
+      </label>
+      
+      <div>
+        <div layout="row" layout-align="space-between center">
+          <label translate>
+            OLD_PASS
+          </label>
+          <md-input-container>
+            <label translate>OLD_PASS</label>
+            <input ng-model="perfilCtrl.oldPassword" type="password">
+          </md-input-container>
+        </div>
+        <div>
+          <label class="ch-error" ng-show="perfilCtrl.oldPassNotMatch && perfilCtrl.oldPassword.length == 0">
+            * La contraseña no es válida
+          </label>
+        </div>
+      </div>
+      
+      <div>
+        <div layout="row" layout-align="space-between center">
+          <label translate>
+            NEW_PASS
+          </label>
+          <md-input-container>
+            <label translate>NEW_PASS</label>
+            <input ng-model="perfilCtrl.pass1" type="password">
+          </md-input-container>
+        </div>
+        <div>
+          <label class="ch-error" ng-show="perfilCtrl.pass1.length < 10 && perfilCtrl.pass1.length > 1" translate>
+            MIN_LENGTH_PASS_ERROR
+          </label>
+          <label class="ch-error" ng-show="perfilCtrl.pass1.length > 26" translate>
+            MAX_LENGTH_PASS_ERROR
+          </label>
+        </div>
+      </div>
+      
+      <div>
+        <div layout="row" layout-align="space-between center">
+          <label translate>
+            PASS_CONFIRMAR
+          </label>
+          <md-input-container>
+            <label translate>PASS_CONFIRMAR</label>
+            <input ng-model="perfilCtrl.pass2" type="password">
+          </md-input-container>
+        </div>
+        <div>
+          <label class="ch-error" ng-show="perfilCtrl.pass1.length >= 10 && perfilCtrl.pass2.length >= 10 && perfilCtrl.pass1 != perfilCtrl.pass2" translate>
+            PASS_NOT_MATCH_ERROR
+          </label>
+        </div>
+      </div>
+    </md-card-content>
+    
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button ng-click="perfilCtrl.cambiarPassConfirmar()" ng-disabled="perfilCtrl.pass1.length < 10 || perfilCtrl.pass1 != perfilCtrl.pass2">
+        <label translate>CAMBIAR_PASS</label>
+        <md-icon> compare_arrows </md-icon>
+        <md-tooltip md-direction="bottom" ng-show="perfilCtrl.pass1 != perfilCtrl.pass2">
+          <label>La nueva contraseña tiene que coincidir con su confirmación</label>
+        </md-tooltip>
+        <md-tooltip md-direction="bottom" ng-show="perfilCtrl.pass1 == perfilCtrl.pass2">
+          <label translate>CAMBIAR_PASS</label>
+        </md-tooltip>
+      </md-button>
+    </md-card-actions>
+  </md-card>
 </div>

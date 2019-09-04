@@ -6,15 +6,13 @@
 		.controller('ProductorController', ProductorController);
 
 	/** @ngInject */
-	function ProductorController($log, $stateParams, $scope, URLS, REST_ROUTES, navigation_state, productorService, ToastCommons, us) {
+	function ProductorController($log, $stateParams, $scope, URLS, REST_ROUTES, 
+                                  productorService, ToastCommons, us, contextPurchaseService, contextCatalogObserver) {
 		
-        $log.debug('EmprenController ..... ', $stateParams.id);
-		//navigation_state.goMakersTab();
+        $log.debug('EmprenController ..... ');
         
 
 		$scope.urlBase = URLS.be_base;
-		var idProductor = $stateParams.id;
-        
         $scope.productores = [];
         $scope.productor = {};
 
@@ -27,12 +25,15 @@
 
 		function callEmprendedores() {
 			$log.debug("---callEmprendedor ---");
-
-			productorService.getProductores()
-				.then(function(response) { 
-                    $scope.productores = response.data; 
-                    console.log($scope.productores, idProductor);
-                    $scope.productor = $scope.productores.filter(function(p){ return p.idProductor === parseInt(idProductor);})[0];
+            contextCatalogObserver.observe(function(){
+                productorService.getProductores()
+                    .then(function(response) { 
+                        var idProductor = $stateParams.idProductor;
+                        $scope.productores = response.data; 
+                        $log.debug($scope.productores, idProductor);
+                        $scope.productor = $scope.productores.filter(function(p){ return p.idProductor === parseInt(idProductor);})[0];
+                        $log.debug(idProductor, $scope.productor);
+                })
             })
 		}
 

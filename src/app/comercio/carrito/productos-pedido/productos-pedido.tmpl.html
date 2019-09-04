@@ -1,25 +1,31 @@
+
 <md-card ng-repeat="variety in pedido.productosResponse" style="width: 100%">
     <div layout="row" layout-align="space-between center">
-        <md-button ng-click="modifyVarietyCount(variety)">
+        <md-button ng-click="modifyVarietyCount(variety, pedido)" ng-disabled="!modify">
             <div layout="row" layout-align="space-between center">
                 <div>
                     <img ng-src="{{urlBase}}{{variety.imagen}}" style="height: 100px;">
                 </div>            
-                <div layout="column" layout-align="end end" ng-cloak>
+                <div layout="column" layout-align="end" ng-cloak>
                     <span>{{ variety.nombre }}</span>
-                    <span class="md-subhead">
-                        <p>
-                            {{variety.cantidad}} x ${{ variety.precio}} = <strong>${{variety.cantidad * variety.precio}}</strong>
-                        </p>
-                    </span>
+                    <p layout="row" layout-align="start end">
+                      <label>
+                        {{variety.cantidad}} x 
+                      </label>
+                      <chq-price-product precio="variety.precio" tamanho="1"></chq-price-product>
+                      <label style="margin-left: 3px; margin-right: 3px;">
+                        = 
+                      </label>
+                      <chq-price-product precio="variety.cantidad * variety.precio" tamanho="1.1"></chq-price-product>
+                    </p>
                 </div>
             </div>
-            <md-tooltip md-direction="bottom">
+            <md-tooltip md-direction="bottom" ng-show="modify">
                 Modificar cantidad
             </md-tooltip>
         </md-button>
         <div>
-            <md-button ng-click="eliminar(variety)">
+            <md-button ng-click="eliminar(variety)" ng-show="modify">
                 <md-icon style="color: #f00;"> remove_circle_outline</md-icon>
                 <md-tooltip md-direction="bottom">
                     <label translate="QUITAR_PRODUCTO_TIT">

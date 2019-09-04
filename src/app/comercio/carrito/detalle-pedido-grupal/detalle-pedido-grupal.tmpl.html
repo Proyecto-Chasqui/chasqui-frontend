@@ -1,74 +1,64 @@
-<div ng-cloak>
-	<script type="text/ng-template" id="dialog-direccion.html">
-		<md-dialog aria-label="options dialog" class="popUp-domicilio">
-			<md-dialog-content layout-padding >
-				<h2 class="md-title " translate>ELIGE_DOMICILIO</h2>
-				<md-select placeholder="Domicilio" ng-model="direccionSelected"  style="min-width: 30vw;">
-					<md-option ng-value="dire" ng-repeat="dire in direcciones">{{dire.alias}}</md-option>
-				</md-select>
-				<textarea type="" name="" placeholder="Ingrese alguna particularidad del domicilio. Por ejemplo: 'No funciona el timbre'" style="width: 100%; margin: 0 auto;" ng-model="comentario"></textarea> 
-				</textarea>
-			
-			</md-dialog-content>
-			<md-dialog-actions>
-				<span flex></span>
-				<md-button class="confirma-domicilio" ng-click="confirmarDomicilio()">
-					<label translate="CONFIRMAR"></label>
-				</md-button>
-			</md-dialog-actions>
-		</md-dialog>
-	</script>
-	<div layout="row" layout-align="space-between start">
-		<div>
-			<md-card>
-				<md-card-title>
-					<md-card-title-text>
-						<span class="md-headline">
-						{{pedido.aliasGrupo}}</span>
-						<md-divider></md-divider>
-					</md-card-title-text>
-				</md-card-title>
-				<md-card-content layout="row">
-					<div layout="column">
-						<span class="md-body-2">Creado el  : 
-						<strong>{{pedido.fechaCreacion}} </strong></span>
-						<span class="md-body-2">Monto actual : 
-						<strong> ${{pedido.montoActual}} </strong></span>
-						<span class="md-body-2">Estado : 
-						<strong>{{pedido.estado}} </strong></span>
-					</div>
-				</md-card-content>
-                
-				<md-card-actions layout="row" layout-align="end center">
-					<md-button ng-click="cancelar()" style="color:red">
-						<label translate="CANCELAR"></label>
-					</md-button>
-					<md-button ng-click="confirmarClick()" 
-					class="md-primary">
-						<label translate="CONFIRMAR"></label>
-					</md-button>					
-				</md-card-actions>
-			</md-card>
-			<md-card>
-				<div layout="row">
-					<md-button ng-click="comprar()">
-						<img src="app/components/image/changuito_48x48.png">
-						<md-tooltip md-direction="left">
-							<label translate="IR_CATALOGO"></label>
-						</md-tooltip>
-					</md-button>
-					<md-subheader>
-						<label translate="SEGUIR_AGREGENDO"></label>
-					</md-subheader>
-				</div>
-			</md-card>
-		</div>
-		
-		<div>
-			<md-subheader>
-				<label translate="PRODUCTOS_CARRO_TIT"></label>
-			</md-subheader>
-			<productos-pedido pedido="pedido"></productos-pedido>
-		</div>
-	</div>
+<div class="ch-detalle-pedido-grupal-container">
+  <div class="ch-arrow-list-container ch-group-members-orders-list">
+    <div 
+      class="ch-arrow-list-elem ch-group-members-orders-list-width ch-arrow-list-elem-select" 
+      ng-click="showAll()" 
+      ng-show="!showFullOrder"
+      title="Ver todo el pedido">
+      Todo el pedido
+    </div>
+    <div layout="row" layout-align="center center" ng-show="showFullOrder">
+      <div class="ch-arrow-list-elem ch-group-members-orders-list-width ch-arrow-list-elem-hide">
+        Todo el pedido
+      </div>
+      <div class="ch-arrow-list-elem-selected">
+      </div>
+    </div>
+    <div ng-repeat="member in pedido.pedidos">      
+      <div 
+        class="ch-arrow-list-elem ch-group-members-orders-list-width ch-arrow-list-elem-select" 
+        ng-click="showMemberOrder(member)" 
+        ng-show="memberSelected != member"
+        title="Ver el pedido de {{member.cliente.alias}}">
+        Pedido de {{member.cliente.alias}}
+      </div>
+      <div 
+        layout="row" layout-align="center center" 
+        ng-click="hideMemberOrder(member)" 
+        ng-show="memberSelected == member"
+        title="Ocultar pedido de {{member.cliente.alias}}">
+        <div class="ch-arrow-list-elem ch-group-members-orders-list-width ch-arrow-list-elem-hide">
+          Pedido de {{member.cliente.alias}}
+        </div>
+        <div class="ch-arrow-list-elem-selected">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="ch-detalle-pedido-grupal-member-products" ng-cloak>
+    <productos-pedido ng-show="showFullOrder" pedido="fullOrder"></productos-pedido>
+    <productos-pedido ng-show="showOrder" pedido="memberSelected"></productos-pedido>
+  </div>
 </div>
+
+<style>
+  .ch-detalle-pedido-grupal-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-height: 700px;
+  }
+  
+  .ch-group-members-orders-list {
+    width: 350px;  
+  }
+  
+  .ch-group-members-orders-list-width {
+    width: 340px;
+  }
+  
+  .ch-detalle-pedido-grupal-member-products {
+    width: 350px;
+  }
+</style>

@@ -139,6 +139,7 @@
                                             translate: "PASS",
                                             model: "password",
                                             required: function(){return true},
+                                            disclaimer: "MINIMUM_PASS_LENGHT",
                                             type: "password",
                                             errors: [
                                                 {
@@ -194,8 +195,8 @@
         // Configuracion del tamaño del avatar. Estos parametros tienen que ir en sintonia con el tamaño de
         // los avatars por defecto
         
-        var avatar_height = 80;
-        var avatar_width = 80;
+        var avatar_height = 40;
+        var avatar_width = 40;
         
         
         // [0..3]   : avatars predeterminados
@@ -218,23 +219,23 @@
         }
         
         function getAvatarSrc(avatar_id){       
-            return './assets/images/avatar_' + avatar_id + '.jpg';
+            return './assets/images/avatar_' + avatar_id + '.svg';
         }
         
         $scope.selectAvatar = function(avatar){
-            console.log("Select avatar:", avatar);
+            $log.debug("Select avatar:", avatar);
             $scope.avatarSelected = avatar;
         }
         
         $scope.preSelectAvatar = function(avatar_id){
             var style = document.getElementById(avatar_id).style;
-            //console.log("Style: ", style.border);
+            //$log.debug("Style: ", style.border);
             style.border = "thick solid #0000FF";
         }
         
         $scope.desPreSelectAvatar = function(avatar_id){
             var style = document.getElementById(avatar_id).style;
-            //console.log("Style: ", style.border);
+            //$log.debug("Style: ", style.border);
             style.border = "";
         }
         
@@ -242,9 +243,9 @@
          * Prop: setea los campos del objeto user para que hagan referencia al avatar seleccionado
          */
         function setUserAvatar(objAvatar){
-            console.log("Avatar- setUserAvatar", objAvatar)
+            $log.debug("Avatar- setUserAvatar", objAvatar)
             var avatar = document.getElementById(objAvatar.id);
-            console.log("Avatar selected: ", avatar);
+            $log.debug("Avatar selected: ", avatar);
                         
             var canvas = document.createElement("canvas");
             canvas.height = avatar_height;
@@ -256,7 +257,7 @@
             $scope.profile['avatar'] =  base64data(canvas.toDataURL());
             $scope.profile['extension'] = $scope.avatarSelected.extension;
             
-            console.log("User avatar modified: ", $scope.profile['avatar']);
+            $log.debug("User avatar modified: ", $scope.profile['avatar']);
         }
         
         
@@ -274,16 +275,16 @@
                 
                 width = this.width;
                 height = this.height;
-                console.log("onload: ", "Width: ", width, ", Heigth: ", height);
-                console.log("Avatar url: ", this.src);
+                $log.debug("onload: ", "Width: ", width, ", Heigth: ", height);
+                $log.debug("Avatar url: ", this.src);
 
                 if(width/maxWidth > height/maxHeight){
-                    console.log("max width, ", width * maxHeight / height);
+                    $log.debug("max width, ", width * maxHeight / height);
                     width = Math.ceil(width * maxHeight / height);
                     height = maxHeight;
                     sourceX = Math.ceil((width - maxWidth) / 2);
                 }else{
-                    console.log("max height, ", height * maxWidth / width);
+                    $log.debug("max height, ", height * maxWidth / width);
                     height = Math.ceil(height * maxWidth / width);  
                     width = maxWidth;
                     sourceY = Math.ceil((height - maxHeight) / 2);
@@ -303,8 +304,8 @@
                     canvas_crop.width = maxWidth;
                     canvas_crop.height = maxHeight;
                     
-                    console.log("Crop: ", canvas_crop);
-                    console.log("Image: ", this);
+                    $log.debug("Crop: ", canvas_crop);
+                    $log.debug("Image: ", this);
                     
                     var ctx_crop = canvas_crop.getContext("2d");
                     
@@ -314,11 +315,11 @@
                     
                     // asigna a la imagen referenciada por <id> la imagen recortada y redimensionada
                     document.getElementById(id).src = canvas_crop.toDataURL();    
-                    console.log("cropted w: ", canvas_crop.width, "cropted h: ", canvas_crop.height, " img cropted:", document.getElementById(id).src); 
+                    $log.debug("cropted w: ", canvas_crop.width, "cropted h: ", canvas_crop.height, " img cropted:", document.getElementById(id).src); 
                     
                     callback();
                 }
-                console.log("resized w: ", canvas_resize.width, "resized h: ", canvas_resize.height, " img resized:", canvas_resize.toDataURL());
+                $log.debug("resized w: ", canvas_resize.width, "resized h: ", canvas_resize.height, " img resized:", canvas_resize.toDataURL());
                 img_avatar_resize.src = canvas_resize.toDataURL();
                 
             };
@@ -343,6 +344,7 @@
         
         
         function extensionDe(nombreDelArchivo){
+            return "jpg";
             return nombreDelArchivo.substring(nombreDelArchivo.lastIndexOf('.')).toLowerCase();
         }
         

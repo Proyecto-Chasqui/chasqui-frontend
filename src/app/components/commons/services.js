@@ -3,8 +3,7 @@
 
   angular.module('chasqui').factory('restProxy', ChasquiRest);
 
-  function ChasquiRest($http, $rootScope, $log, $state, StateCommons, ToastCommons, usuario_dao) {
-
+  function ChasquiRest($http, $rootScope, us,  $log, $state, StateCommons, toastr, usuario_dao, $stateParams, catalogs_dao) {
     /*
      * LocalStorage conserva el token del usuario. Para acceder él:
      * usuario_dao.getToken()
@@ -16,11 +15,11 @@
 
     /** En caso de no ser un respues exitosa va a la pantalla de error generica */
     var doNoOkDefault = function(response) {
-      $log.error("error al llamar a un servicio", response);
+      $log.debug("error al llamar a un servicio", response);
 
       if (response.status == 401) {
-        ToastCommons.mensaje("Por favor vuelva a loguarse");
-        $state.go('login');
+        toastr.info(us.translate('VUELVA_A_LOGUEAR'), us.translate('AVISO_TOAST_TITLE'));
+        $state.go('catalog.login');
       } else {
 
         if (response.data.error == undefined) {
@@ -28,7 +27,7 @@
             key: 'GENERIC_ERROR'
           });
         } else {
-          ToastCommons.mensaje(response.data.error);
+          toastr.error(response.data.error, "Error");
         }
 
       }
@@ -172,8 +171,8 @@
         var header = {};
         header = {
           'Content-Type': 'application/json',
-          'Authorization': createHeader(),
-          'idVendedor': StateCommons.vendedor().id /// TODO: VENDEDOR HARCODEADO
+          'Authorization': createHeader()/*,
+          'idVendedor': catalogs_dao.getCatalogByShortName($stateParams.catalogShortName).id*/
         };
 
         post(url, header, params, doOk, noOk);

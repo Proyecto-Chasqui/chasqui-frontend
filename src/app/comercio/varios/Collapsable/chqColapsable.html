@@ -1,0 +1,44 @@
+<div class="padre" ng-click="mostrar()">
+  <span><p>{{titulo}}</p></span>
+  <div class="{{visible}}" ng-transclude ></div>
+</div>
+
+<style>
+  .padre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: {{color}};
+    margin-top: .3rem;
+    width: {{ancho}};
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+  }
+  .padre:hover{
+    box-shadow: 0px 0px 2px #000;
+   }
+  .padre span{
+    width: 100%;
+    text-align: left;
+    padding: .5rem .5rem;
+    align-items: center;
+    cursor: pointer;
+    color: #ffffff;
+  }
+  .padre .visible{
+    width: 100%;
+    color: #000;
+    background-color: #fff;
+    padding: 0.5rem;
+    text-align: left;
+    -webkit-transition: visibility height 1s ease-out; /* Safari */
+    -moz-transition: visibility height 1s ease-out;
+    transition: visibility height 1s ease-out;
+  }
+  .padre .invisible{
+    overflow: hidden;
+    height: 0;
+    -webkit-transition: visibility height 1s ease-out; /* Safari */
+    -moz-transition: visibility height 1s ease-out;
+    transition: visibility height 1s ease-out;
+  }
+</style>

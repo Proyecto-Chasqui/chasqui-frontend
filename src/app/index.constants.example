@@ -14,13 +14,17 @@
             
             var backends = [
                 //    Servidor LOCAL
-               "backend local", // COMPLETAR
+               "backend local sin http//", // COMPLETAR
                 
                 // Backend desarrollo
-                "backend de desarrollo" // COMPLETAR
+                "backend de desarrollo http//" // COMPLETAR
             ];
+
+            var serverIndex = 1;
             
-            var URL_BASE = backends[0];        
+            var URL_BASE = "http://".concat(backends[serverIndex]);
+
+            var URL_BASE_WEBSOCKET = "ws://".concat(backends[serverIndex]);           
 
             var URL_REST_BASE = URL_BASE + "rest/";
 
@@ -30,16 +34,10 @@
                 be_base: URL_BASE,
 
                 be_rest: URL_REST_BASE,
+
+                be_websocket: URL_BASE_WEBSOCKET,
             }
 
         }())
-    
-        .constant('IdVendedor', function(){
-            
-            var idVendedorConfig = 0; // COMPLETAR
-        
-            return idVendedorConfig;
-        
-        }());
 
 })();

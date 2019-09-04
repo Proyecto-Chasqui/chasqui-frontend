@@ -1,37 +1,79 @@
 <md-dialog>
-  <form ng-cloak>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>{{title}}</h2>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancelAction()">
-            <i class="material-icons" aria-label="Cancelar">close</i>
-        </md-button>
-      </div>
-    </md-toolbar>
+    <form ng-cloak>
+    <modal-window-title-bar title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>
 
     <md-dialog-content>
-        <div class="content" >
-            <div style="text-align: center;">
-                <a href="" ng-show="count() > 1"><i class="material-icons" ng-click="countPlus(-2)">exposure_neg_2</i></a>
-                <a href="" ng-show="count() > 0"><i class="material-icons" ng-click="countPlus(-1)">exposure_neg_1</i></a>
-                	
-                <md-input-container style="font-size: 18;">
-                    <input ng-model="count" ng-model-options="{ getterSetter: true }">
-                </md-input-container>
-                <a href=""><i class="material-icons" ng-click="countPlus(1)">exposure_plus_1</i></a>
-                <a href=""><i class="material-icons" ng-click="countPlus(2)">exposure_plus_2</i></a>
+        <div class="content" layout="row" layout-xs="column" layout-align="space-between">
+            <div flex-xs="100" flex="50">
+                <img ng-src="{{urlBase}}{{variety.imagenPrincipal != null? variety.imagenPrincipal : variety.imagen}}" style="width:100%">
+            </div>
+            <div class="ch-modal-modify-count"flex-xs="100" flex="50" layout="column" layout-align="space-between">
+                <div class="ch-modal-price-per-unit-and-description" flex="50" layout="column" layout-align="space-around">
+                  <div>
+                      <div style="font-style: italic" ng-bind-html="variety.descripcion">
+                      </div>
+                  </div>
+                  <div layout="row" layout-align="start end">
+                    <label style="margin-right: 4px;">
+                      El precio por unidad es
+                    </label>
+                    <chq-price-product precio="variety.precio" tamanho="1.2"></chq-price-product>
+                  </div>
+                </div>
+                <div flex="50" layout="column" layout-align="space-around">
+                    <div layout="row" layout-align="space-between center" flex="100">
+                        <div flex="70" style="font-weight: bold">
+                            ¿Cuántos querés?
+                        </div>
+                        <div layout="row" layout-align="space-between center" flex="30">
+                            <a href="" ng-disabled="count() <= 0"><i class="material-icons" ng-click="countPlus(-1)">remove</i></a>
+                            <md-input-container style="font-size: 18; margin: 0px;">
+                                <input style="width: 35px" ng-model="count" ng-model-options="{ getterSetter: true }">
+                            </md-input-container>
+                            <a href=""><i class="material-icons" ng-click="countPlus(1)">add</i></a>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="space-between center" flex="100">
+                        <div flex="70" style="font-weight: bold">
+                            <div ng-show="count() == 0">
+                              No llevar el producto te sale:
+                            </div>
+                            <div ng-show="count() == 1">
+                              La unidad te sale:
+                            </div>
+                            <div ng-show="count() > 1">
+                              Las {{count()}} unidades te saldrían:
+                            </div>
+                        </div>
+                        <div flex="30" layout="row" layout-align="center">
+                            <div ng-show="count() == 0">
+                              Gratis
+                            </div>
+                            <div ng-show="count() > 0">
+                              <chq-price-product precio="getTotal(variety)" tamanho="1.2"></chq-price-product>
+                            </div>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="space-between center" flex="100">
+                        <div flex="70" style="font-weight: bold">
+                            El total es:
+                        </div>
+                        <div flex="30" layout="row" layout-align="center">
+                            <chq-price-product precio="getTotalOrder(variety)" tamanho="1.4"></chq-price-product>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </md-dialog-content>
 
-    <md-dialog-actions>
-        <md-button ng-click="okAction(count())" class="md-raised md-primary">
-            {{okButton}}
+    <md-dialog-actions layout="row" layout-align="space-between center">
+        <md-button ng-click="okAction(count())" class="md-raised md-primary" ng-show="showOkButton()">
+            {{okButton()}}
         </md-button>
         <md-button ng-click="cancelAction()" class="md-primary">
             {{cancelButton}}
         </md-button>
     </md-dialog-actions>
   </form>
-</md-dialog> 
+</md-dialog>

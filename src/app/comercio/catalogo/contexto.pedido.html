@@ -1,31 +1,65 @@
-<!-- 22/01/2017 Juan: Este template no se esta usando -->
-<div ng-controller="ContextoPedidoController as contextoPedidoCtrl">
-  <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop md-whiteframe="4" style="top:15%;">
-    <md-toolbar class="md-theme-indigo">
-        <md-subheader class="md-no-sticky"> {{'PROD_EN_PEDIDO' | translate}} {{contextoPedidoCtrl.checkAlias()}}
+
+<md-card class="ch-contexto-pedido-panel" ng-controller="ContextoPedidoController">
+    <div ng-show="showOrderResume">
+        <md-subheader class="md-no-sticky" layout="column" layout-align="space-between">
+          <label style="margin-bottom: 10px;">
+            <element-wrapper not-supported-strategies="nodos">
+              {{'PROD_EN_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}}
+            </element-wrapper>
+            <element-wrapper supported-strategies="nodos">
+              {{'PROD_EN_PEDIDO_NODO' | translate}}
+            </element-wrapper>
+          </label>
+          <div layout="row" layout-align="space-between">
+            <label>
+              {{'TOTAL' | translate}}
+            </label>
+            <chq-price-product precio="pedidoSelected.montoActual" tamanho="1"></chq-price-product>
+          </div>
         </md-subheader>
-    </md-toolbar>
-    <div ng-show="contextoPedidoCtrl.pedidoSelected != undefined && contextoPedidoCtrl.pedidoSelected.productosResponse.length > 0">
-      <md-list class="md-dense" flex>
-        <md-list-item class="md-3-line" ng-repeat="variety in contextoPedidoCtrl.pedidoSelected.productosResponse">
-              <img ng-src="{{contextoPedidoCtrl.urlBase}}{{variety.imagen}}" class="md-avatar" alt="{{variety.nombre}}"/>            
-              <div class="md-list-item-text" layout="column">
-                <h4>{{ variety.nombre }}</h4>
-                <p>{{variety.cantidad}} X $ {{ variety.precio }} = ${{variety.cantidad * variety.precio }} </p>
-              </div>
-        </md-list-item>
-        <md-divider></md-divider>
-      </md-list>
-      <div>
-        {{'TOTAL' | translate}}
-        <strong> $ {{contextoPedidoCtrl.pedidoSelected.montoActual}}</strong>
-      </div>
+        <div layout="row" layout-align="space-between">
+          <md-button style="color: white" ng-click="confirmOrder(pedidoSelected)" class="confirm-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+            <label translate="CONFIRMAR"></label>
+          </md-button>
+          <md-button style="color: white" ng-click="cancelOrder(pedidoSelected)" class="cancel-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+            <label translate="CANCELAR"></label>
+          </md-button>
+        </div>
+        <md-list class="md-dense ch-contexto-pedido-panel-list">
+            <md-list-item class="md-3-line ch-contexto-pedido-panel-list-item" ng-repeat="variety in pedidoSelected.productosResponse">
+                <md-button ng-click="modifyVarietyCount(variety, pedidoSelected)" ng-disabled="pedidoSelected.estado == 'CONFIRMADO'">
+                    <div layout="row" layout-align="space-between center">
+                        <img ng-src="{{urlBase}}{{variety.imagen}}" class="md-avatar" alt="{{variety.nombre}}" />
+                        <div class="md-list-item-text" layout="column">
+                            <h4>{{ variety.nombre }}</h4>
+                            <p layout="row" layout-align="start end">
+                              <label>
+                                {{variety.cantidad}} x 
+                              </label>
+                              <chq-price-product precio="variety.precio" tamanho="0.7"></chq-price-product>
+                              <label style="margin-left: 3px; margin-right: 3px;">
+                                = 
+                              </label>
+                              <chq-price-product precio="variety.cantidad * variety.precio" tamanho="0.8"></chq-price-product>
+                            </p>
+                        </div>
+                    </div>
+                    <md-tooltip md-direction="bottom" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+                        Modificar cantidad
+                    </md-tooltip>
+                </md-button>
+            </md-list-item>
+        </md-list>
+        <md-subheader class="md-no-sticky ch-contexto-pedido-descripcion" ng-show="pedidoSelected.estado == 'CONFIRMADO'">
+            {{'PEDIDO_CONFIRMADO_MSG_1' | translate}} {{pedidoSelected.aliasGrupo}} {{'PEDIDO_CONFIRMADO_MSG_2' | translate}}
+        </md-subheader>
     </div>
-    <div ng-show="contextoPedidoCtrl.pedidoSelected == undefined ">
-      <p> {{'SIN_PROD_PEDIDO' | translate}}</p>
-    </div>
-    <md-button ng-click="catalogoCtrl.toggleLeft()" class="md-accent">
-      {{'CERRAR' | translate}}
-    </md-button>
-  </md-sidenav>
-</div>
+    <md-subheader ng-show="!showOrderResume">
+      <element-wrapper not-supported-strategies="nodos">
+          <p> {{'SIN_PROD_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}} </p>
+      </element-wrapper>
+      <element-wrapper supported-strategies="nodos">
+            <p> {{'SIN_PROD_PEDIDO_NODO' | translate}}</p>
+      </element-wrapper>
+    </md-subheader>
+</md-card>

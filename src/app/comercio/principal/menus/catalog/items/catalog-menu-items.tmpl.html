@@ -1,0 +1,22 @@
+<div layout-align="center" ng-cloak id="movil-catalogo">
+    <div ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued">
+      <md-list-item ui-sref="{{'catalog.' + item.route}}" ng-click="toTop()">
+         <div class="listanombremobil" layout="row" layout-align="start center">
+           <i class="material-icons icomobil-byn">
+             {{item.mobile_icon}}
+           </i>
+           <label>
+             {{item.label | translate}}
+           </label>
+        </div>	
+      </md-list-item> 
+    </div>
+</div>
+<div ng-cloak id="web-catalogo"  class="catalog-mune-item-list">
+  <a class="menu-button {{classFor(item.id)}}" 
+            ui-sref="{{'catalog.' + item.route}}" 
+            ng-click="toTop()"
+            ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued">
+    <b > {{item.label | translate}}</b> 
+  </a>
+</div>

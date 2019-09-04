@@ -1,10 +1,10 @@
 {
     "REGISTRO_DATOS": "Datos personales",
     "REGISTRO_DIRECCIONES" : "Direcciones",
-	"PREDETERMINADO": "Se marcó como predeterminada",
-	"ELIMINO_DIRECCION": "Se eliminó dirección",
-	"AGREGO_DIRECCION": "Se agregó dirección",
-	"ACTUALIZO_DIRECCION": "Se actualizó dirección",
+	"PREDETERMINADO": "La direccion se marcó como predeterminada",
+	"ELIMINO_DIRECCION": "La dirección se eliminó con éxito",
+	"AGREGO_DIRECCION": "La dirección se agregó con éxito",
+	"ACTUALIZO_DIRECCION": "La dirección se actualizó con éxito",
 	"ALIAS": "Alias",
 	"CALLE": "Calle",
 	"ALTURA": "Altura",
@@ -18,15 +18,19 @@
 	"NUEVO_GRUPO": "Nuevo grupo",
 	"MOD_GRUPO": "Modificar grupo ",
 	"DESC": "Descripción",
-	"BIENVENIDO": "Bienvenido",
+	"BIENVENIDO": "Bienvenid@",
 	"INGRESA_MSG": "Ahora podés ingresar a Chasqui",
 	"CORREO_MSG": "Recibirás un mensaje de bienvenida por correo electrónico",
 	"COMPL_PERFIL_MSG": "Podés seguir completando tu perfil",
-	"ACTUALIZO_PERFIL_MSG": "Se actualizó con éxito",
+	"ACTUALIZO_PERFIL_MSG": "Los datos del perfil se actualizaron con éxito",
 	"PASS_INCORRECTO_MSG": "Las contraseñas no coinciden",
+    
 	"TEL_CEL": "Teléfono móvil",
 	"TEL_FIJO": "Teléfono fijo",
 	"PASS": "Contraseña",
+  "OLD_PASS": "Contraseña anterior",
+  "NEW_PASS": "Nueva contraseña",
+  "MINIMUM_PASS_LENGHT": "Mínimo 10 caracteres",
 	"REP_PASS": "Repetir contraseña",
     "REP_EMAIL": "Repetir correo",
     "FORM_NEXT": "Siguiente",
@@ -45,11 +49,10 @@
     "REP_PASS_ERROR": "Para confirmar que escribiste bien la contraseña",
     "PASS_NOT_MATCH_ERROR": "Las contraseñas no coinciden",
     
-    
 	"ACEP_CAMB_USR_MSG": "Aceptar cambios de datos de usuario",
 	"PUEDES_EDITAR_MSG" : "Podés editar tus datos personales",
 	"NO_MOD_MSG" : "Dejar como estaba",
 	"FORM_REGISTER" : "Registrarme",
 	"ACT" : "Actualizar",
-    "CONFIRMAR_PEDIDO" : "Confirmar pedido"
+    "CONFIRMAR_PEDIDO_GCC" : "Confirmar pedido del grupo"
 }

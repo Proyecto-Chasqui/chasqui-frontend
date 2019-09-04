@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('perfilService', perfilService);
 
-	function perfilService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons) {
+	function perfilService($log, REST_ROUTES, StateCommons, promiseService, toastr) {
 		var vm = this;
 
 		vm.verDirecciones = function() {
@@ -36,6 +36,10 @@
 			return promiseService.doGetPrivate(REST_ROUTES.notificacionesLeidas(cantidad), {});
 		}
 
+		vm.totalNotificaciones = function(){
+			return promiseService.doGetPrivate(REST_ROUTES.totalNotificaciones());
+		}
+
 		vm.notificacionesLeidas = function(id) {
 			$log.debug(" service notificacionesLeidas ");
 			return promiseService.doGetPrivate(REST_ROUTES.notificacionesLeidas(id), {});
@@ -46,19 +50,21 @@
 			return promiseService.doPost(REST_ROUTES.notificacionesLeidas(id), {});
 		}
 
-		vm.cambiarPass = function(pass) {
-			$log.debug(" service cambiarPass ");
-			var params = {};
-			params.password = pass;
-			return promiseService.doPut(REST_ROUTES.editPassword, params);
+		vm.cambiarPass = function(newPassword, oldPassword, doNoOk) {
+			var params = {
+        password: newPassword,
+        oldPassword: oldPassword
+      };
+      
+			return promiseService.doPut(REST_ROUTES.editPassword, params, doNoOk);
 		}
 
 		vm.login = function(user) {
 			$log.debug(" service login ");
 
 			function doNoOk(response, headers) {
-				ToastCommons
-					.mensaje("Fallo la autenticación, verifique los datos");
+				toastr
+					.error("Fallo la autenticación, verifique los datos", "Error");
 			}
 
 			return promiseService.doPostPublic(REST_ROUTES.login, user, doNoOk);
@@ -69,7 +75,7 @@
 
 			function doNoOk(response) {
 				$log.debug('response reset pass ', response);
-				ToastCommons.mensaje("Error , el mail es correcto ?");
+				toastr.error("¿El mail es correcto ?", "Error");
 			}
 
 			return promiseService.doGet(REST_ROUTES.resetPass(email), {}, doNoOk);
@@ -98,10 +104,10 @@
 				$log.debug("error al guardar usuario", response.data);
 
 				if (response.status == 409) {
-					ToastCommons.mensaje(response.data.error);
+					toastr.error(response.data.error, "Error");
 				} else {
-					ToastCommons
-						.mensaje('error inesperado, intente nuevamente');
+					toastr
+						.error('error inesperado, intente nuevamente' , "Error");
 				}
 
 			}
@@ -109,17 +115,17 @@
 			return promiseService.doPostPublic(REST_ROUTES.singUp, user, doNoOk);
 		}
         
-        vm.singUpInvitacionGCC = function(user){
+    vm.singUpInvitacionGCC = function(user){
 			$log.debug(" service singUpInvitacionGCC ");
 
 			function doNoOk(response) {
 				$log.debug("error al guardar usuario", response.data);
 
 				if (response.status == 409) {
-					ToastCommons.mensaje(response.data.error);
+					toastr.error(response.data.error, "Error");
 				} else {
-					ToastCommons
-						.mensaje('error inesperado, intente nuevamente');
+					toastr
+						.error('error inesperado, intente nuevamente' , "Error");
 				}
 
 			}
@@ -127,12 +133,12 @@
 			return promiseService.doPostPublic(REST_ROUTES.singUpInvitacionGCC, user, doNoOk);
 		}
         
-        vm.getMailInvitacion = function(idInvitacion){
+    vm.getMailInvitacion = function(idInvitacion){
 			$log.debug(" service obtenerMailInvitacion ");
                         
 			function doNoOk(response) {
 				$log.debug('response reset pass ', response);
-				ToastCommons.mensaje("El mail no tiene asociada una invitación");
+				toastr.warn("El mail no tiene asociada una invitación", "Advertencia");
 			}
 
 			return promiseService.doPostPublic(REST_ROUTES.getMailInvitacionAlGCC, {

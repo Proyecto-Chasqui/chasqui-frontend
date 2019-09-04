@@ -37,9 +37,9 @@
 		}
         
         $rootScope.$on('addNewAddress', function(event, newAddress){
-            console.log("new address!", newAddress);
+            $log.debug("new address!", newAddress);
             $scope.addresses[$scope.addresses.length - 1] = newAddress;
-            console.log("Direcciones posteriores:", $scope.addresses);
+            $log.debug("Direcciones posteriores:", $scope.addresses);
             $scope.selectedIndexDireccion = $scope.addresses.length - 1; //TODO to be continued...
         });
         
@@ -66,13 +66,13 @@
         
         $scope.functionOnDelete = $scope.onDelete(function(address){
             
-            console.log("Direcciones anteriores:", $scope.addresses);
+            $log.debug("Direcciones anteriores:", $scope.addresses);
             
             $scope.addresses = $scope.addresses.filter(function(ad){
                 return ad.idDireccion != address.idDireccion;
             });
             
-            console.log("Direcciones posteriores:", $scope.addresses);
+            $log.debug("Direcciones posteriores:", $scope.addresses);
         });
         
 	}

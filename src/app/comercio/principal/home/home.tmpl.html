@@ -1,0 +1,103 @@
+<md-content ng-cloak >
+
+<div class="homepage" >
+
+     <div class="logo-home">
+     <a href="http://proyectochasqui.org" target="_blank">
+     <img ng-src="app/components/image/chasqui-footer.png" alt="chasqui">
+     </a>  
+   <h2>Proyectochasqui.org</h2> 
+     </div>
+
+</div>
+   <!--   
+
+    <home-menu class="menu"></home-menu>
+
+    <div class="ch-content">
+        <md-grid-list md-cols="3"  md-row-height="120px">
+            <md-grid-tile md-colspan="1" md-rowspan="3" ng-repeat="catalog in catalogs" layout-align="space-around center">
+                <md-card class="tarjeta-multicatalogo">
+                    <a ng-click="goToCatalog(catalog.nombreCorto)" class="selector-catalogo">
+              <md-card-actions layout="row" layout-align="center">
+                            <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 0px;">
+                        </md-card-actions>
+                        <md-card-title class="red">
+                            <md-card-title-text>
+                                <span class="md-headline catalogo-nombre">{{catalog.nombre}}</span>
+                            </md-card-title-text>
+                        </md-card-title>
+
+                    </a>
+                </md-card>
+            </md-grid-tile>
+        </md-grid-list>
+    </div>
+  
+  -->
+  
+  
+</md-content>
+<style>
+
+ md-card md-card-title md-card-title-text {
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    display: -webkit-box;
+    /* display: flex; */
+}
+
+  .selector-catalogo{
+    background: #F1F1F1;
+    transition: all 2s ease-out;
+  }
+
+  .selector-catalogo:hover{
+    background: #21B7EE;
+    cursor: pointer;
+    transition: all 2s ease-out;
+  }
+
+  .tarjeta-multicatalogo{
+    width: 30vw;
+    padding: .4rem;
+  }
+
+  .catalogo-nombre{
+    color: #9A8479;
+    font-weight: bold;
+  }
+
+  .catalogo-nombre-corto{
+    color: #9A8479;
+    font-weight: 500;
+  }
+
+  .catalogo-id{
+    color: #9A8479;
+    font-size: .6rem !important;
+  }
+  
+  .homepage {
+   background-color: #412467 !important;
+    height: -webkit-fill-available;
+  }
+  .logo-home{
+   width:145px;
+   position: absolute;
+   top: 25%;
+   left: 45%;
+  }
+  .logo-home img{
+   width:100px;
+   margin: 15px;   
+  }
+  .logo-home h2{
+   color:#ffffff;
+   font-size:14px;
+  }
+
+</style>

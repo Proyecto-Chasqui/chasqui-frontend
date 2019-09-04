@@ -12,14 +12,5 @@
     vm.ls.notificacionActiva = false;
 
 
-    vm.vendedor = function() {
-      //TODO: pedir al servicio, hacer singleton con el LS
-      var config = {
-          id: REST_ROUTES.idVendedor,
-          imagen: "/imagenes/usuarios/adminpds/puentedelsur.png"          
-      };
-      return config;
-    }
-
   } // function
 })(); // anonimo

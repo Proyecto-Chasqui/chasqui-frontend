@@ -1,115 +1,137 @@
-(function() {
+(function(){
 	'use strict';
 
 	angular.module('chasqui').service('gccService', gccService);
 
-	function gccService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons) {
-		var vm = this;
-		var idVend = StateCommons.vendedor().id;
+	function gccService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons, 
+                         $stateParams, contextCatalogsService, setPromise){
+		
+        var gccServiceInt = {
+            pedidosByUser: pedidosByUser,
+            groupsByUser: groupsByUser,
+            nuevoGrupo: nuevoGrupo,
+            editarGrupo: editarGrupo,
+            invitarUsuarioAGrupo: invitarUsuarioAGrupo,
+            aceptarInvitacionAGrupo: aceptarInvitacionAGrupo,
+            rechazarInvitacionAGrupo: rechazarInvitacionAGrupo,
+            crearPedidoGrupal: crearPedidoGrupal,
+            quitarMiembro: quitarMiembro,
+            cederAdministracion: cederAdministracion,
+            confirmarPedidoColectivo: confirmarPedidoColectivo,
+            confirmarPedidoIndividualGcc: confirmarPedidoIndividualGcc,
+            salirGrupo: salirGrupo,
+            integrantesGrupo: integrantesGrupo,
+            direccionGrupo: direccionGrupo,
+            pedidosColectivosConEstado: pedidosColectivosConEstado,
+            cerrarGrupo: cerrarGrupo,
+        };
 
-		vm.groupsByUser = function() {
-			$log.debug(" service groupsByUser ");
-			return promiseService.doGetPrivate(REST_ROUTES.groupsByUser(StateCommons.vendedor().id), {});
+		function pedidosByUser(idCatalog, doNoOK){
+			$log.debug(" service pedidosByUser ");
+			return promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(idCatalog), {}, doNoOK);
+		}
+        
+		function pedidosByUser(doNoOK){
+			return setPromise(function(defered){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    $log.debug(" service pedidosByUser ");
+			         defered.resolve(promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(catalog.id), {}, doNoOK));
+                });
+            });
+		}
+        
+		function groupsByUser(){
+			return setPromise(function(defered){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    $log.debug(" service groupsByUser ");
+			        defered.resolve(promiseService.doGetPrivate(REST_ROUTES.groupsByUser(catalog.id), {}));
+                });
+            });
 		}
 
-		vm.nuevoGrupo = function(params) {
-			$log.debug(" service groupsByUser ");
-			//return promiseService.doPost(REST_ROUTES.groupsByUser(id),contacts);
-			params.idVendedor = idVend;
-			return promiseService.doPost(REST_ROUTES.nuevoGrupo, params);
+		function nuevoGrupo(params){
+			return setPromise(function(defered){
+                contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+                    $log.debug(" service groupsByUser ");
+                    params.idVendedor = catalog.id;
+                    defered.resolve(promiseService.doPost(REST_ROUTES.nuevoGrupo, params));
+                });
+            })
 		}
 
-		vm.editarGrupo = function(idGrupo, params) {
+		function editarGrupo(idGrupo, params){
 			$log.debug(" service editarGrupo ", params);
 			return promiseService.doPut(REST_ROUTES.editarGrupo(idGrupo), params);
 		}
 
-		vm.invitarUsuarioAGrupo = function(params) {
+		function invitarUsuarioAGrupo(params){
 			$log.debug(" service invitarUsuarioAGrupo ");
 			return promiseService.doPost(REST_ROUTES.invitarUsuarioAGrupo, params);
 		}
 
-		vm.aceptarInvitacionAGrupo = function(params) {
+		function aceptarInvitacionAGrupo(params){
 			$log.debug(" service aceptarInvitacionAGrupo ");
 			return promiseService.doPost(REST_ROUTES.aceptarInvitacionAGrupo, params);
 		}
 
-		vm.rechazarInvitacionAGrupo = function(params) {
+		function rechazarInvitacionAGrupo(params){
 			$log.debug(" service aceptarInvitacionAGrupo ");
 			return promiseService.doPost(REST_ROUTES.rechazarInvitacionAGrupo, params);
 		}
 
-		vm.crearPedidoGrupal = function(params, doNoOK) {
+		function crearPedidoGrupal(params, doNoOK){
 			$log.debug(" service crearPedidoGrupal ");
 			return promiseService.doPost(REST_ROUTES.crearPedidoGrupal, params, doNoOK);
 		}
-
-		vm.pedidosByUser = function(doNoOK) {
-			$log.debug(" service pedidosByUser ");
-			return promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(StateCommons.vendedor().id), {}, doNoOK);
-		}
-
-		vm.quitarMiembro = function(params) {
+        
+		function quitarMiembro(params){
 			$log.debug(" service quitarMiembro ");
 			return promiseService.doPost(REST_ROUTES.quitarMiembro, params);
 		}
         
-        vm.cederAdministracion = function(params){
+        function cederAdministracion(params){
             return promiseService.doPost(REST_ROUTES.cederAdministracion, params);
         }
 
-		/*vm.confirmarPedidoColectivo = function(idGrupo) {
-			var params = {};
-			params.idGrupo = idGrupo;
-			return promiseService.doPost(REST_ROUTES.confirmarPedidoColectivo, params);
-		}*/
-
 		// Modificado por Favio 28-9 
-		vm.confirmarPedidoColectivo = function(params) {
-			console.log(".... Confirmar pedido colectivo...");
+		function confirmarPedidoColectivo(params){
+			$log.debug(".... Confirmar pedido colectivo...");
 			return promiseService.doPost(REST_ROUTES.confirmarPedidoColectivo, params);
 		}
 
-		vm.confirmarPedidoIndividualGcc = function(idPedido) {
+		function confirmarPedidoIndividualGcc(idPedido){
 			var params = {};
 			params.idPedido = idPedido;
 			return promiseService.doPost(REST_ROUTES.confirmarPedidoIndividualGcc, params);
 		}
-		///////////////////////////////
-		/////////// MOCKS 
-
-		//---- DESCOMENTADOS Y DESMOCKEADOS EN index.constants.js por FAVIO 13-6
-
-		vm.salirGrupo = function(id, idSelect) {
+		
+		function salirGrupo(id, idSelect){
 			$log.debug(" service salirGrupo ");
 			return promiseService.doGet(REST_ROUTES.salirGrupo(id, idSelect), {});
 		}
 
-		vm.integrantesGrupo = function(id, contacts) {
+		function integrantesGrupo(id, contacts){
 			$log.debug(" service integrantesGrupo ");
 			return promiseService.doGet(REST_ROUTES.integrantesGrupo(id), contacts);
 		}
 
-		vm.direccionGrupo = function(id, direccion) {
+		function direccionGrupo(id, direccion){
 			$log.debug(" service direccionGrupo ");
 			return promiseService.doPost(REST_ROUTES.direccionGrupo(id), direccion);
 		}
 
-		//-------- DESCOMENTADOS Y DESMOCKEADOS EN index.constants.js por FAVIO 13-6
-		/////////////////////////////////////////
-
-		/*
-		  
-
-        	productosDestacadosByVendedor : function(idVendedor){
-        		return URL_REST_BASE +"client/producto/destacados/"+idVendedor;
-        	},
-        	
-
-            
-
-            
-            
-	 */
-	} // function
-})(); // anonimo
+    function pedidosColectivosConEstado(idGrupo, estados){
+			$log.debug(" service pedidosColectivosConEstado ");
+			return promiseService.doPost(REST_ROUTES.pedidosColectivosConEstado, {idGrupo: idGrupo, estados: estados});        
+    }
+      
+    function cerrarGrupo(idVendedor, idGrupo){
+			$log.debug(" service cerrarGrupo ");
+			return promiseService.doPost(REST_ROUTES.cerrarGrupo, {idGrupo: idGrupo, idVendedor: idVendedor});           
+    }
+        
+		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+                
+        return gccServiceInt;
+	}
+})();

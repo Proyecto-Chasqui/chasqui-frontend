@@ -4,7 +4,7 @@
 
     angular.module('chasqui').factory('REST_ROUTES', REST_ROUTES);
     
-    function REST_ROUTES(URLS, IdVendedor) {
+    function REST_ROUTES(URLS) {
 
         return {
             PRODUCTOS_X_PAG: 12,
@@ -15,11 +15,15 @@
 
             defaultLogo: "imagenes/logo_ch_login.png",
 
-            idVendedor: IdVendedor, //TODO : hasta que sea dinamico
-
             sellers: URLS.be_rest + "client/vendedor/all",
 
             seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
+            
+            sellerIndividualQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
+            
+            sellerColectiveQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoColectivo/" + sellerId},
+            
+            sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
 
             catalogo: URLS.be_rest + "client/catalogo", //Para que se deduzca de la URL
 
@@ -87,6 +91,10 @@
 
             verDirecciones: URLS.be_rest + "user/adm/dir",
 
+            verPuntosDeEntrega: function(nombreVendedor){
+                return URLS.be_rest + 'client/vendedor/puntosDeRetiro/' + nombreVendedor;
+            },
+
             nuevaDireccion: URLS.be_rest + "user/adm/dir",
 
             actualizarDireccion: URLS.be_rest + "user/adm/dir/",
@@ -121,6 +129,10 @@
 
             notificacionesLeidas: function(pagina) {
                 return URLS.be_rest + "user/adm/notificacion/" + pagina;
+            },
+
+            totalNotificaciones: function(){
+                return URLS.be_rest + "user/adm/notificacion/total";
             },
 
             productosDestacadosByVendedor: function(idVendedor) {
@@ -158,8 +170,14 @@
             confirmarPedidoColectivo: URLS.be_rest + "user/gcc/confirmar",
 
             confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
+            
+            pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
+            
+            cerrarGrupo: URLS.be_rest + "user/gcc/eliminarGrupo",
+            
+            puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
 
-
+            datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 
 

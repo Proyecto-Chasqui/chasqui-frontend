@@ -1,0 +1,35 @@
+<div class="wrapper" data-ng-transclude>
+</div>
+<style>
+    /* mobile-portrait (max-width: 767px) */
+    .wrapper{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 6px;
+    }
+
+    /* mobile-landscape & tablet-portrait (min-width: 768px) */
+    @media(min-width: 768px){
+        .wrapper{
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 6px;
+        }
+    }
+
+    /* tablet-landscape & desktop (min-width: 1024px) */
+    @media(min-width: 1024px){
+        .wrapper{
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 6px;
+        }
+    }
+
+    /*  wide-dekstop (min-width: 1200px)*/
+    @media(min-width: 1200px){
+        .wrapper{
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 6px;
+        }
+    }
+
+</style>

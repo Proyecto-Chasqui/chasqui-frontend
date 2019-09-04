@@ -1,15 +1,19 @@
-<!--  Menu de contexto de COMPRA -->
-<div ng-controller="ContextoCompraController">
-	<md-card>
-        <md-card-content>
-			<div>
-				<md-input-container class="md-block" flex-gt-sm>
-                    <label>{{'CAMBIAR_CHANGO' | translate}}</label>
-					<md-select ng-change="cambiarContexto()" ng-model="grupoSelected">
-						<md-option ng-repeat="grupo in grupos" value="{{grupo.idGrupo}}"> {{grupo.alias}} </md-option>
-					</md-select>
-				</md-input-container>
-			</div>
-        </md-card-content>
-    </md-card>
-</div>
+<element-wrapper id="selectorPurchaseContext" supported-strategies="gcc">
+    <div ng-controller="ContextoCompraController">
+        <md-card ng-if="showSelector()">
+            <md-card-content>
+                <div>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>{{'CAMBIAR_CHANGO' | translate}}</label>
+                        <md-select ng-change="cambiarContexto()" ng-model="agrupationSelected.idGrupo">
+                            <element-wrapper supported-strategies="compraIndividual">
+                                <md-option ng-value="0" ng-click="setPersonalAsAgrupationSelected()" translate>CONTEXTO_INDIVIDUAL</md-option>
+                            </element-wrapper>
+                            <md-option ng-repeat="group in grupos" ng-value="group.idGrupo" ng-click="setGroupAsAgrupationSelected()"> {{group.alias}} </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+</element-wrapper>
