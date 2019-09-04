@@ -1,5 +1,5 @@
-angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'MapREST', 'MapGeoJsonDecode', '$scope', '$rootScope', '$log', '$q', 'leafletData', 'StateCommons', 'ToastCommons', '$mdDialog', '$mdSidenav',
-  function(MapDraw, MapUI ,MapREST, MapGeoJsonDecode, $scope, $rootScope, $log, $q, leafletData, StateCommons, ToastCommons, $mdDialog, $mdSidenav) {
+angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'MapREST', 'MapGeoJsonDecode', '$scope', '$rootScope', '$log', '$q', 'leafletData', 'ToastCommons', '$mdDialog', '$mdSidenav',
+  function(MapDraw, MapUI ,MapREST, MapGeoJsonDecode, $scope, $rootScope, $log, $q, leafletData, ToastCommons, $mdDialog, $mdSidenav) {
     /*-------------------------------
      *------Variables Gobales--------
      *------------------------------*/

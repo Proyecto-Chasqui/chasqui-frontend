@@ -10,6 +10,9 @@
     $log.debug('ComoComprarController ..... ')
     navigation_state.goHowToBuyTab();
       
+
+    $scope.showHelpsAnswer = showHelpsAnswer;
+
     $scope.instruccionesCards = [
         /*{
             titulo: "Ingresa un catalogo",
@@ -138,15 +141,18 @@
         }
     ];
       
-      
-    $scope.idFrom = function(instruccion){
-        return "#instructionContent_" + instruccion.id;
+
+    function showHelpsAnswer(groupIndex){
+      $scope.showHelp = $scope.showHelp.map(function(o,i){return i == groupIndex && !o});
     }
     
-    
-    $scope.idFor = function(instruccion){
-        return "instructionContent_" + instruccion.id;
+
+
+    function init(){
+      $scope.showHelp = $scope.instrucciones.map(function(i){return false});
     }
+
+    init();
     
   }
 })();

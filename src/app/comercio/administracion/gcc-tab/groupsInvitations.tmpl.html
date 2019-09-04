@@ -1,0 +1,36 @@
+<div  layout="row" layout-align="start">
+  <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.all" layout="row" layout-align="center">
+    <md-icon class="ch-button-content"> keyboard_arrow_left </md-icon>  
+    Volver
+  </md-button>
+</div>
+  
+<div ng-if="invitations.length == 0">
+  <span>No tenes invitaciones a grupos</span>
+</div>
+
+<div ng-repeat="invitation in invitations" layout="column" layout-align="start">
+  <div class="ch-group-card ch-responsive-xl">
+    <div class="ch-group-card-data">
+      <div class="ch-group-card-data-information">
+        <div class="ch-group-card-data-information-content">
+          <label class="ch-group-card-data-information-alias" style="margin-left: 10px;">{{invitation.mensaje}}</label>
+        </div>
+      </div>
+      <div class="ch-group-card-data-actions">
+        <md-button class="md-raised cancel-order order-button-catalog" ng-click="rechazarInvitacion(invitation)">
+          <md-icon> person_add_disabled </md-icon>
+          <md-tooltip md-direction="bottom">
+            Rechazar invitación a grupo 
+          </md-tooltip>
+        </md-button>   
+        <md-button class="md-raised confirm-order order-button-catalog" ng-click="aceptarInvitacion(invitation)">
+          <md-icon> group_add </md-icon>
+          <md-tooltip md-direction="bottom">
+            Aceptar invitación a grupo 
+          </md-tooltip>
+        </md-button>
+      </div>
+    </div>
+  </div>
+</div>

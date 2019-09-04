@@ -7,7 +7,7 @@
 	/**
 	 * Formulario para crear un grupo
 	 */
-	function FormUsuarioController($log, $state, ToastCommons, StateCommons, $scope, $timeout, perfilService, us, usuario_dao, REST_ROUTES, URLS) {
+	function FormUsuarioController($log, $state, $scope, $timeout, perfilService, us, usuario_dao, REST_ROUTES, URLS) {
         
         
         var fields = ["nombre", "apellido", "nickName", 
@@ -344,6 +344,7 @@
         
         
         function extensionDe(nombreDelArchivo){
+            return "jpg";
             return nombreDelArchivo.substring(nombreDelArchivo.lastIndexOf('.')).toLowerCase();
         }
         

@@ -37,11 +37,11 @@
                 })
             });
         }
-        //David: workaround para que actualice ignorando el tiempo de cache.
-        // donde dice moment().add() originalmente decia vm.ls.lastUpdate;
+
+        
         function getAgrupations(catalogId) {
             return getContext(
-                moment().add(-1.5, 'days'),
+                vm.ls.lastUpdate,
                 "grupos", 
                 
                 function(){

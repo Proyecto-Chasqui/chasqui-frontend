@@ -8,7 +8,7 @@
     /** @ngInject */
     function config($logProvider, toastrConfig, $translateProvider, cfpLoadingBarProvider) {
         // Enable log
-        $logProvider.debugEnabled(false);
+        $logProvider.debugEnabled(true);
 
         // Set options third-party lib
         toastrConfig.allowHtml = true;

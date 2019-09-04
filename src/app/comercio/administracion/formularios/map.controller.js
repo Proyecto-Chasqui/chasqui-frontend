@@ -1,5 +1,6 @@
-angular.module('chasqui').controller('MapGeocoderController', ['$scope', '$rootScope', '$log', '$q', 'leafletData', 'StateCommons', 'ToastCommons', '$mdDialog', '$mdSidenav',
-  function($scope, $rootScope, $log, $q, leafletData, StateCommons, ToastCommons, $mdDialog, $mdSidenav) {
+
+angular.module('chasqui').controller('MapGeocoderController', ['$scope', '$rootScope', '$log', '$q', 'leafletData', 'ToastCommons', '$mdDialog', '$mdSidenav',
+  function($scope, $rootScope, $log, $q, leafletData, ToastCommons, $mdDialog, $mdSidenav) {
     /*-------------------------------
      *------Variables Gobales--------
      *------------------------------*/

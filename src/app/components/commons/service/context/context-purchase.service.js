@@ -84,9 +84,9 @@
             
             order_context.setCatalogId(catalogId);
             
-            // Por el momento se setea por defecto el pedido individual
-            order_context.setAgrupationId(idGrupoPedidoIndividual); 
-            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+            // Ya no se setea más ningun pedido por defecto
+            // order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
             initCatalogData(order_context.getCatalogId().toString());
             contextCatalogObserver.run();
         }
@@ -237,7 +237,7 @@
 
 		function refreshGrupos() {
 			$log.debug("refreshGrupos");
-            contextAgrupationsService.init();
+            contextAgrupationsService.reset(order_context.getCatalogId().toString());
 			return contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString());
 		}
 

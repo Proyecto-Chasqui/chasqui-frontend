@@ -140,11 +140,10 @@
                       "Es administrador del grupo " + selectedAgrupation.alias, 
                       'Como administrador del grupo, no se olvide de confirmar el pedido grupal en la sección "Mis grupos"',
                       "Gracias por recordarmelo!", 
-                      function(){}, 
-                      function(){}
+                      dialogCommons.askToCollaborate, //ok
+                      dialogCommons.askToCollaborate  // no ok
                     );
                   }
-                  dialogCommons.askToCollaborate();
                 });
             }
             gccService.confirmarPedidoIndividualGcc(order.id).then(doOk);          

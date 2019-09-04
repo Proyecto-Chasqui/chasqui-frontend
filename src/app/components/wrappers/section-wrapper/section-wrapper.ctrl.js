@@ -3,7 +3,8 @@
     
     angular.module('chasqui').controller('SectionWrapperCtrl', SectionWrapperCtrl);
     
-	function SectionWrapperCtrl($scope, contextPurchaseService, catalogSupportStrategies, contextCatalogsService, catalogNotSupportStrategies) {
+  function SectionWrapperCtrl($scope, contextPurchaseService, catalogSupportStrategies, 
+    contextCatalogsService, catalogNotSupportStrategies, contextCatalogObserver) {
         
         $scope.showElement = false;
         
@@ -15,11 +16,13 @@
               $scope.notSupportedStrategies = "";
             }
           
-            contextCatalogsService.getCatalogs().then(function(catalogs){
-                contextPurchaseService.getSelectedCatalog().then(function(catalog){
-                  $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies) ||
-                                         catalogNotSupportStrategies(catalog, $scope.notSupportedStrategies);
-                });
+            contextCatalogObserver.observe(function(){
+              contextCatalogsService.getCatalogs().then(function(catalogs){
+                  contextPurchaseService.getSelectedCatalog().then(function(catalog){
+                    $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies) ||
+                                          catalogNotSupportStrategies(catalog, $scope.notSupportedStrategies);
+                  });
+              });
             });
         }
         

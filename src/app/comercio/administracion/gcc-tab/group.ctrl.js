@@ -28,6 +28,10 @@
     function getArrowState(state){
       return $scope.selectedState == state? "ch-arrow-list-elem-hide" : "ch-arrow-list-elem-select";
     }
+
+    function toTop(){
+      window.scrollTo(0,0);
+    }
     
     
     // Tooltips
@@ -117,6 +121,7 @@
                 $scope.showProgressBar = response.data.few.puntoDeEntrega && !response.data.few.seleccionDeDireccionDelUsuario || !response.data.few.puntoDeEntrega && !response.data.few.seleccionDeDireccionDelUsuario;
             }
         );
+        toTop();
     }
 
     init();
