@@ -13,6 +13,11 @@
     
     $scope.groups = [];
 
+    function toTop(){
+      window.scrollTo(0,0);
+    }
+
+
     ///////////////////////////////////////
 
       
@@ -31,6 +36,10 @@
     $rootScope.$on('exit-group', function(event) {
         init();
     });
+
+    $scope.$on("$destroy", function() {
+        console.log("grupos ELIMINADOS");
+    });
       
       
     /////////////////// INIT ////////////////////
@@ -46,6 +55,7 @@
                     return g;
                 });
                 $rootScope.$broadcast('groups-are-loaded', $scope.group);
+                toTop();
             });
         })
     }

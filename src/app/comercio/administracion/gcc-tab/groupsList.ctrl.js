@@ -172,6 +172,7 @@
                                                             group.idGrupo,
                                                             agrupationTypeVAL.TYPE_GROUP);
           $rootScope.$emit("group-information-actualized");
+          toTop();
         }
 
         var params = {

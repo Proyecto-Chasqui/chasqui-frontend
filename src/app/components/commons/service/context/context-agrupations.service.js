@@ -42,7 +42,8 @@
         
         function getAgrupations(catalogId) {
             return getContext(
-                vm.ls.lastUpdate,
+                //vm.ls.lastUpdate,
+                moment().add(-1.5, 'days'),
                 "grupos", 
                 
                 function(){
