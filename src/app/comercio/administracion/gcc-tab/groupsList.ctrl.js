@@ -6,7 +6,7 @@
   
   function GroupsListController($log, $scope, $rootScope, $state, contextCatalogObserver, $mdDialog,
                     dialogCommons, gccService, URLS, agrupationTypeVAL, productoService, toastr,
-                    us, usuario_dao, contextPurchaseService, vendedorService, perfilService) {
+                    us, usuario_dao, contextPurchaseService, vendedorService, perfilService, contextAgrupationsService) {
 
 
     $scope.urlBase = URLS.be_base;
@@ -166,9 +166,12 @@
         $log.debug('callConfirmar', $scope.pedido);
 
         function doOk(response) {
-              $log.debug("--- confirmar pedido response ", response.data);
-              toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'),us.translate('AVISO_TOAST_TITLE'));
-              location.reload();
+          $log.debug("--- confirmar pedido response ", response.data);
+          toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'),us.translate('AVISO_TOAST_TITLE'));
+          contextAgrupationsService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
+                                                            group.idGrupo,
+                                                            agrupationTypeVAL.TYPE_GROUP);
+          $rootScope.$emit("group-information-actualized");
         }
 
         var params = {

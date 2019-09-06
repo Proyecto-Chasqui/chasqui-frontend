@@ -16,7 +16,8 @@
             modifyAgrupation: modifyAgrupation,
             getAgrupation: getAgrupation,
             getAgrupations: getAgrupations,
-            getAgrupationsByType: getAgrupationsByType
+            getAgrupationsByType: getAgrupationsByType,
+            confirmAgrupationOrder: confirmAgrupationOrder
         }
         
         
@@ -67,6 +68,20 @@
         
         function getAgrupationsByType(catalogId, type){
             return agrupations_dao.getAgrupationsByType(catalogId, type);
+        }
+        
+        function confirmAgrupationOrder(catalogId, agrupationId, agrupationType){
+          modifyAgrupation(catalogId, agrupationId, agrupationType, function(group){
+            group.idPedidoIndividual = null;
+            group.miembros = group.miembros.map(function(m){
+              if(m.invitacion == "NOTIFICACION_ACEPTADA"){
+                m.estadoPedido = "ABIERTO";
+                m.pedido = null;
+              }
+              return m;
+            })
+            return group;
+          })
         }
         
         
