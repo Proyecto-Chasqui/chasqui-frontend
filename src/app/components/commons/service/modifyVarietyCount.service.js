@@ -87,7 +87,6 @@
     }
 
     contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
-      console.log(selectedOrder);
       if(selectedOrder.estado == "NO_ABIERTO"){
         contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
           contextOrdersService.openGroupOrder(contextPurchaseService.getCatalogContext(), selectedAgrupation).then(function(createdOrder){

@@ -18,6 +18,7 @@
             getAgrupations: getAgrupations,
             getAgrupationsByType: getAgrupationsByType,
             confirmAgrupationOrder: confirmAgrupationOrder,
+            cancelAgrupationOrder: cancelAgrupationOrder,
             confirmPersonalOrder: confirmPersonalOrder,
         }
         
@@ -77,6 +78,19 @@
             group.idPedidoIndividual = -agrupationId;
             group.miembros = group.miembros.map(function(m){
               if(m.invitacion == "NOTIFICACION_ACEPTADA"){
+                m.estadoPedido = "ABIERTO";
+                m.pedido = null;
+              }
+              return m;
+            })
+            return group;
+          })
+        }
+
+        function cancelAgrupationOrder(catalogId, agrupationId){
+          modifyAgrupation(catalogId, agrupationId, agrupationTypeVAL.TYPE_GROUP, function(group){
+            group.miembros = group.miembros.map(function(m){
+              if(m.email == usuario_dao.getUsuario().email){
                 m.estadoPedido = "ABIERTO";
                 m.pedido = null;
               }
