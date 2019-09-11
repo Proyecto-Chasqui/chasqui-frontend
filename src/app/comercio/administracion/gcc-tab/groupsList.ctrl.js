@@ -4,7 +4,7 @@
   angular.module('chasqui').controller('GroupsListController', GroupsListController);
 
   
-  function GroupsListController($log, $scope, $rootScope, $state, contextCatalogObserver, $mdDialog,
+  function GroupsListController($log, $scope, $rootScope, $state, contextCatalogObserver, $mdDialog, contextOrdersService,
                     dialogCommons, gccService, URLS, agrupationTypeVAL, productoService, toastr,
                     us, usuario_dao, contextPurchaseService, vendedorService, perfilService, contextAgrupationsService) {
 
@@ -171,6 +171,9 @@
           contextAgrupationsService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
                                                             group.idGrupo,
                                                             agrupationTypeVAL.TYPE_GROUP);
+          contextOrdersService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
+                                                      group.idGrupo,
+                                                      agrupationTypeVAL.TYPE_GROUP);
           $rootScope.$emit("group-information-actualized");
           toTop();
         }
@@ -256,7 +259,6 @@
         callNotificaciones();
         toTop();
         if(newGroupCreated){
-          console.log($scope.groups);
           $state.go('catalog.userGroups.group.members', {groupId: $scope.groups.length - 1});
           toastr.success(us.translate('NUEVO_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
           newGroupCreated = false;
