@@ -36,10 +36,6 @@
     $rootScope.$on('exit-group', function(event) {
         init();
     });
-
-    $scope.$on("$destroy", function() {
-        console.log("grupos ELIMINADOS");
-    });
       
       
     /////////////////// INIT ////////////////////
