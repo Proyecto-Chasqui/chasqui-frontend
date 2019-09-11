@@ -7,45 +7,42 @@
                                                  agrupationTypeVAL, contextAgrupationsService){
          
         
-        /* Prop: Creates an order for param group
-         *
-         */
-        function createOrderForGroup(group){
+    /* Prop: Creates an order for param group
+      *
+      */
+    function createOrderForGroup(group){
 			var defered = $q.defer();
 			var promise = defered.promise;
             
-            contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
-                function doOK(response) {
-                    $log.debug("callCrearPedidoGrupal", response);
-                    var newOrder = response.data;
-                    newOrder.idGrupo = group.idGrupo;
-                    newOrder.aliasGrupo = group.alias;
-                    newOrder.type = agrupationTypeVAL.TYPE_GROUP;
-                    contextAgrupationsService.modifyAgrupation(catalog.id, group.idGrupo, agrupationTypeVAL.TYPE_GROUP, function(group){
-                        group.idPedidoIndividual = newOrder.id;
-                        return group; 
-                    });
-                    defered.resolve(newOrder);
-                }
+      contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
+          // nueva implementacion
 
-                function doNoOK(response) {
-                    $log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
-                }
+          const newOrder = {
+            id: -group.idGrupo,
+            idGrupo: group.idGrupo,
+            idVendedor: catalog.id,
+            estado: "NO_ABIERTO",
+            aliasGrupo: group.alias,
+            type: agrupationTypeVAL.TYPE_GROUP,
+            montoMinimo: 600.0,
+            montoActual: 0.0,
+            productosResponse: []
+          }
 
-                var params = {
-                    idGrupo: group.idGrupo,
-                    idVendedor: catalog.id
-                }
-                
-                gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
-            })
-            
-            return promise;
-        }
+          contextAgrupationsService.modifyAgrupation(catalog.id, group.idGrupo, agrupationTypeVAL.TYPE_GROUP, function(group){
+            group.idPedidoIndividual = newOrder.id;
+
+            defered.resolve(newOrder);
+            return group; 
+          });
+      })
+      
+      return promise;
+    }
         
-        // Interfaz 
-        return function (groupsWithoutOrders, orders){
-            var defered = $q.defer();
+    // Interfaz 
+    return function (groupsWithoutOrders, orders){
+      var defered = $q.defer();
 			var promise = defered.promise;
 			$log.debug("Groups wo order:", groupsWithoutOrders);
             
