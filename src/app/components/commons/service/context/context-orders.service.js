@@ -122,7 +122,6 @@
                   group.idPedidoIndividual = newOrder.id;
                   return group; 
               });
-              console.log(newOrder);
 
               orders_dao.removeOrder(catalogId, -group.idGrupo, agrupationTypeVAL.TYPE_GROUP);
               orders_dao.newOrder(catalogId, newOrder);
@@ -138,33 +137,32 @@
                 idVendedor: catalogId
             }
 
-            console.log(params);
-
             gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
           })
         }
 
         function confirmAgrupationOrder(catalogId, agrupationId, type){
-          contextAgrupationsService.modifyAgrupation(catalogId, agrupationId, type, function(agrupation){
+          return setPromise(function(defered){
+            contextAgrupationsService.getAgrupation(catalogId, agrupationId, type).then(function(agrupation){
 
-            const newOrder = {
-              id: -agrupation.idGrupo,
-              idGrupo: agrupation.idGrupo,
-              idVendedor: catalogId,
-              estado: "NO_ABIERTO",
-              aliasGrupo: agrupation.alias,
-              type: type,
-              montoMinimo: 600.0,
-              montoActual: 0.0,
-              productosResponse: []
-            }
+              const newOrder = {
+                id: -agrupation.idGrupo,
+                idGrupo: agrupation.idGrupo,
+                idVendedor: catalogId,
+                estado: "NO_ABIERTO",
+                aliasGrupo: agrupation.alias,
+                type: type,
+                montoMinimo: 600.0,
+                montoActual: 0.0,
+                productosResponse: []
+              }
 
-            orders_dao.removeOrder(catalogId, agrupation.idPedidoIndividual, type);
-            orders_dao.newOrder(catalogId, newOrder);
+              orders_dao.removeOrder(catalogId, agrupation.idPedidoIndividual, type);
+              orders_dao.newOrder(catalogId, newOrder);
 
-            agrupation.idPedidoIndividual = newOrder.id;
-            return agrupation; 
-          });
+              defered.resolve();
+            });
+          })
         }
 
         function modifyOrder(catalogId, order, modification){

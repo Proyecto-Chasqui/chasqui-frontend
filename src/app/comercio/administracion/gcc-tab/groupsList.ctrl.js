@@ -168,13 +168,15 @@
         function doOk(response) {
           $log.debug("--- confirmar pedido response ", response.data);
           toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'),us.translate('AVISO_TOAST_TITLE'));
-          contextAgrupationsService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
-                                                            group.idGrupo,
-                                                            agrupationTypeVAL.TYPE_GROUP);
           contextOrdersService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
                                                       group.idGrupo,
-                                                      agrupationTypeVAL.TYPE_GROUP);
-          $rootScope.$emit("group-information-actualized");
+                                                      agrupationTypeVAL.TYPE_GROUP)
+          .then(function (){
+            contextAgrupationsService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
+                                                              group.idGrupo,
+                                                              agrupationTypeVAL.TYPE_GROUP);
+            $rootScope.$emit("groups-information-actualized");
+          });
           toTop();
         }
 

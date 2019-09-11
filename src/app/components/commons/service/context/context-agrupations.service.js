@@ -74,7 +74,7 @@
         
         function confirmAgrupationOrder(catalogId, agrupationId, agrupationType){
           modifyAgrupation(catalogId, agrupationId, agrupationType, function(group){
-            group.idPedidoIndividual = null;
+            group.idPedidoIndividual = -agrupationId;
             group.miembros = group.miembros.map(function(m){
               if(m.invitacion == "NOTIFICACION_ACEPTADA"){
                 m.estadoPedido = "ABIERTO";

@@ -72,11 +72,9 @@
           contextAgrupationsService.getAgrupation(contextPurchaseService.getCatalogContext(), 
                                                   $scope.agrupationSelected.idGrupo, 
                                                   $scope.agrupationSelected.type).then(function(agrupation){
-            console.log(agrupation);
             var orderSelected = contextOrdersService.getOrder(contextPurchaseService.getCatalogContext(), 
                                                               agrupation.idPedidoIndividual, 
                                                               $scope.agrupationSelected.type);
-            console.log(orderSelected);
             $scope.isSelectedOrderConfirmed = orderSelected.estado == "CONFIRMADO";
             $scope.canSelectAgrupation = !$scope.isSelectedOrderConfirmed;
           })

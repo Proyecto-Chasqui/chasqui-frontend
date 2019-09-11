@@ -25,7 +25,7 @@
       
     //////////////////////////////////////////
       
-    $rootScope.$on('group-information-actualized', function(event) {
+    $rootScope.$on('groups-information-actualized', function(event) {
         init();
     });
     
