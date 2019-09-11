@@ -40,7 +40,7 @@
     function newGroup(){
 
         function doOk(newGroup){
-          contextPurchaseService.refreshGrupos().then(function(){
+          contextPurchaseService.refresh().then(function(){
             newGroupCreated = true;
             $rootScope.$emit('new-group');
           });
