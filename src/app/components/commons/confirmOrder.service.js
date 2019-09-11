@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('confirmOrder', confirmOrder);
 
-	function confirmOrder(dialogCommons, gccService, contextOrdersService, $rootScope, toastr, 
+	function confirmOrder(dialogCommons, gccService, contextOrdersService, $rootScope, toastr, contextAgrupationsService,
                         $mdDialog, $log, productoService, us, contextPurchaseService, vendedorService) {
     
     function confirmOrderImpl(order){
@@ -135,6 +135,10 @@
                 $rootScope.refrescarNotificacion();
                 contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
                   $log.debug("selectedAgrupation", selectedAgrupation);
+                  contextAgrupationsService.confirmPersonalOrder(contextPurchaseService.getCatalogContext(), 
+                                                                 selectedAgrupation.idGrupo, 
+                                                                 selectedAgrupation.type, 
+                                                                 order)
                   if(selectedAgrupation.esAdministrador){
                     dialogCommons.acceptIssue(
                       "Es administrador del grupo " + selectedAgrupation.alias, 

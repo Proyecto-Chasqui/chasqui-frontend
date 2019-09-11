@@ -6,7 +6,7 @@
     
 	function contextAgrupationsService($localStorage, $q, setPromise, getContext, agrupations_dao, moment, gccService, 
                                         ensureContext, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, 
-                                        agrupationTypeVAL, agrupationTypeDispatcher){
+                                        agrupationTypeVAL, agrupationTypeDispatcher, usuario_dao){
      
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -17,7 +17,8 @@
             getAgrupation: getAgrupation,
             getAgrupations: getAgrupations,
             getAgrupationsByType: getAgrupationsByType,
-            confirmAgrupationOrder: confirmAgrupationOrder
+            confirmAgrupationOrder: confirmAgrupationOrder,
+            confirmPersonalOrder: confirmPersonalOrder,
         }
         
         
@@ -42,8 +43,8 @@
         
         function getAgrupations(catalogId) {
             return getContext(
-                //vm.ls.lastUpdate,
-                moment().add(-1.5, 'days'),
+                vm.ls.lastUpdate,
+                //moment().add(-1.5, 'days'),
                 "grupos", 
                 
                 function(){
@@ -85,6 +86,18 @@
           })
         }
         
+        function confirmPersonalOrder(catalogId, agrupationId, agrupationType, personalOrder){
+          modifyAgrupation(catalogId, agrupationId, agrupationType, function(group){
+            group.miembros = group.miembros.map(function(m){
+              if(m.email == usuario_dao.getUsuario().email){
+                m.pedido = personalOrder;
+                m.pedido.estado = "CONFIRMADO";
+              }
+              return m;
+            })
+            return group;
+          })
+        }
         
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
