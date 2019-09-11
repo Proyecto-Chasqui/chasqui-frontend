@@ -63,27 +63,45 @@
 
 
   function modifyVarietyCount(variety, count, sign, modifierFunction, modifierOkText){
-      contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
 
-          function doOk(response) {
-              contextCatalogObserver.observe(function(){
-                  function orderModification(order){
-                      if(order.estado != "ABIERTO"){
-                          order.estado = "ABIERTO";
-                          order.montoActual = 0;
-                          order.productosResponse = [];
-                      }
-                      return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
-                  }
+    function doOk(orderOk){
+      return function (response) {
+        contextCatalogObserver.observe(function(){
+            function orderModification(order){
+                if(order.estado != "ABIERTO"){
+                    order.estado = "ABIERTO";
+                    order.montoActual = 0;
+                    order.productosResponse = [];
+                }
+                return modifyTotalPurchase(modifyVarietyCountOnOrder(order, variety, sign*count), sign * count * variety.precio);
+            }
 
-                  contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
-                                                   selectedOrder,
-                                                   orderModification);
+            contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(),
+                                              orderOk,
+                                              orderModification);
 
-                  toastr.success(us.translate(modifierOkText), us.translate('AVISO_TOAST_TITLE'));
-                  $rootScope.$emit('lista-producto-agrego-producto');
-              })
-          }
+            toastr.success(us.translate(modifierOkText), us.translate('AVISO_TOAST_TITLE'));
+            $rootScope.$emit('lista-producto-agrego-producto');
+        })
+      }
+    }
+
+    contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
+      console.log(selectedOrder);
+      if(selectedOrder.estado == "NO_ABIERTO"){
+        contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
+          contextOrdersService.openGroupOrder(contextPurchaseService.getCatalogContext(), selectedAgrupation).then(function(createdOrder){
+
+            var params = {
+                idPedido: createdOrder.id,
+                idVariante: variety.idVariante,
+                cantidad: count
+            };
+
+            modifierFunction(params).then(doOk(createdOrder));
+          })
+        })
+      } else {
 
           var params = {
               idPedido: selectedOrder.id,
@@ -91,9 +109,9 @@
               cantidad: count
           };
 
-          modifierFunction(params).then(doOk);
-
-      })
+          modifierFunction(params).then(doOk(selectedOrder));
+      }
+    })
   }
 
 
