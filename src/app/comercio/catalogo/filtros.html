@@ -1,6 +1,6 @@
 <!-- incluido en catalogo.html -->
 <div layout="column">
-	<md-card>
+	<md-card2 class="filtros-buscador">
 		<md-card-title>
 			</br> {{'BUSCAR_POR' | translate}}</br>
 		</md-card-title>
@@ -56,13 +56,32 @@
 				</md-input-container>
 			</div>
 			<div>                    
-			<md-button ng-click="catalogoCtrl.filtrar()" >
+			<div class="button-filtro" ng-click="catalogoCtrl.filtrar()" >
 				{{'BUSCAR' | translate}}
-            </md-button>
-            <md-button ng-click="catalogoCtrl.limpiarFiltros()">
+            </div>
+            <div class="button-filtro" ng-click="catalogoCtrl.limpiarFiltros()">
 				{{'BORRAR_FILTROS' | translate}}
-            </md-button>
+            </div>
             </div>
 		</md-card-content>
-	</md-card>
+	</md-card2>
 </div>
+
+
+<style>
+md-card2 {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    /* box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12); */
+color: rgba(0,0,0,0.87);
+    /* background-color: rgb(255,255,255); */
+    /* border-radius: 2px; */
+    /* border-color: #111; */
+    /* border: 1px;
+
+}
+
+
+</style>

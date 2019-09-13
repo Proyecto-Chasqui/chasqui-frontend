@@ -8,7 +8,7 @@
 	  <div id="menu-sub-mobile">
 					   <md-menu md-position-mode="target-left target" >
                        <md-button aria-label="Open menu with custom trigger" class="md-icon-button" ng-mouseenter="$mdMenu.open()">
-					   <md-icon style="color:#fff">menu</md-icon>
+					   <md-icon style="color:#111">menu</md-icon>
                        </md-button>
                        <md-menu-content width="6" ng-mouseleave="$mdMenu.close()">
 					   
@@ -67,9 +67,9 @@
           
 		        <img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">           
             
-            <h3 class="menu-element">
+            <h4 class="menu-element">
               {{usuario.nickname}}
-            </h3>
+            </h4>
             
             <md-tooltip style="color:#fff" md-direction="bottom">
                Mi perfil
@@ -180,4 +180,9 @@
     width: 40px !important;
     min-width: 40px !important;
   }
+  
+  .menu .material-icons {
+    background-color: #41246700 !important;
+    color: #111!important;
+}
 </style>

@@ -17,17 +17,15 @@
                 <div class="img-destacado">
                     <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
                 </div>
+				<div class="precio-variedad">
+                    <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
+                </div>
                 <div class="nombre-producto" >
                     <p>{{producto.nombreProducto}}</p>
                 </div>  
                 <div class="nombre-fabricante">
                     <p>{{producto.nombreFabricante}}</p>
-                </div>              
-                <div class="precio-variedad">
-                    <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
-                </div>
-                
-                <div class="chq-sello-producto" layout="row" layout-align="start start" > 
+                </div>             
                 
                 <div class="txt-sellos">Sellos</div>
                     <picture ng-repeat="medalla in producto.medallasProducto">
@@ -68,17 +66,15 @@
                 <div class="img-destacado">
                     <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
                 </div>
+				<div class="precio-variedad">
+                    <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
+                </div>
                 <div class="nombre-producto" >
                     <p>{{producto.nombreProducto}}</p>
                 </div>  
                 <div class="nombre-fabricante">
                     <p>{{producto.nombreFabricante}}</p>
-                </div>              
-                <div class="precio-variedad">
-                    <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
-                </div>
-                
-                <div class="chq-sello-producto" layout="row" layout-align="start start" > 
+                </div>             
                 
                 <div class="txt-sellos">Sellos</div>
                     <picture ng-repeat="medalla in producto.medallasProducto">
@@ -166,24 +162,27 @@
     }
 
     .ch-destacado > .nombre-producto{
-     color: #333;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.29;
     cursor: pointer;
-    transition: all .5s ease;
-     height: 28px;
+    transition: all .5s ease;	 
+	font-family: 'Barlow', sans-serif, Roboto,Arial,sans-serif,-apple-system: ;
+    font-size: 16px;
+    line-height: 1.35;
+    color: #333;
+    font-weight: 400;
+	height: 6px;
+	 
     }
     
     .ch-destacado > .nombre-fabricante{
-    color: #652d90;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.29;
+
     cursor: pointer;
     transition: all .5s ease;
-    text-transform: uppercase;
-    height: 20px;
+	font-family: 'Barlow', sans-serif, Roboto,Arial,sans-serif,-apple-system: ;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.29;
+    color: #999;
+	
     }   
     
     .ch-destacado > .nombre-variedad{
@@ -194,11 +193,10 @@
     .ch-destacado > .precio-variedad{
         cursor: default;
         display: flex;
-        flex-direction: row;
-        color: #00adee;     
-        font-weight: 600;
-        font-size: 24px;
-        line-height: 30px;
+        flex-direction: row;   	
+	   color: #333;
+       font-size: 24px;
+       line-height: 1.2;
     }
 
     .ch-destacado > .precio-variedad h3{
@@ -238,7 +236,7 @@
     font-weight: bold;
     text-transform: uppercase;
     color: #fff;
-    background: #4e2d7e;
+    background: #909090;
     z-index: 99;
     padding: 7px 23px;
     margin: -7px auto;

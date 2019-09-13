@@ -17,8 +17,8 @@
 
           var itemsMenu = [
                               landingPage,
-                              howToBuy,
-                              products
+							  products,
+                              howToBuy
                           ];
         
           if(strategy.nodos){
