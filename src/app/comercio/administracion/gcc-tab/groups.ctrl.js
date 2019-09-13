@@ -13,6 +13,11 @@
     
     $scope.groups = [];
 
+    function toTop(){
+      window.scrollTo(0,0);
+    }
+
+
     ///////////////////////////////////////
 
       
@@ -20,7 +25,7 @@
       
     //////////////////////////////////////////
       
-    $rootScope.$on('group-information-actualized', function(event) {
+    $rootScope.$on('groups-information-actualized', function(event) {
         init();
     });
     
@@ -46,6 +51,7 @@
                     return g;
                 });
                 $rootScope.$broadcast('groups-are-loaded', $scope.group);
+                toTop();
             });
         })
     }

@@ -8,8 +8,8 @@
    /*
     *  FAB Button de contexto de compra.
     */
-    function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, gccService, us, contextCatalogObserver,
-                                     productoService, $timeout, contextPurchaseService, contextCatalogsService, toastr,
+    function ContextoPedidoController($rootScope, $log, URLS, REST_ROUTES, $scope, contextAgrupationsService, us, contextCatalogObserver,
+                                     productoService, contextPurchaseService, contextCatalogsService, toastr,
                                      usuario_dao, modifyVarietyCount, contextOrdersService, confirmOrder, dialogCommons) {
 
         $log.debug("ContextoPedidoController .....");
@@ -48,6 +48,9 @@
                     contextOrdersService.setStateCancel(contextPurchaseService.getCatalogContext(), order);
                     if(order.type == "PERSONAL"){
                         contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
+                    } else {
+                      contextAgrupationsService.cancelAgrupationOrder(contextPurchaseService.getCatalogContext(),
+                                                                      order.idGrupo)
                     }
                     load();
                 }

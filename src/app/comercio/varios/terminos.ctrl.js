@@ -15,7 +15,6 @@
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
                 $scope.shortname = response.data.nombreCorto;
-                console.log(response.data);
                 $scope.path = "/#/"+$scope.shortname+"/terminosYcondiciones";
             }
         );

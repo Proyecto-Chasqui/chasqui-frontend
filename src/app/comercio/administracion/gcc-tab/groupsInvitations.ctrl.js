@@ -4,7 +4,7 @@
   angular.module('chasqui').controller('InvitationsGCCController', InvitationsGCCController);
 
   
-  function InvitationsGCCController($scope, gccService, perfilService, us, toastr, contextPurchaseService, $state) {
+  function InvitationsGCCController($scope, gccService, perfilService, us, toastr, contextPurchaseService, $state, $rootScope) {
 
     $scope.aceptarInvitacion = aceptarInvitacion;
     $scope.rechazarInvitacion = rechazarInvitacion;
@@ -13,9 +13,11 @@
     function aceptarInvitacion(notificacion) {
 			function doOk(response) {
 				toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
-        contextPurchaseService.refreshGrupos();
-        callNotificaciones();
-        $state.go('catalog.userGroups.all');
+        contextPurchaseService.refresh().then(function(){
+          callNotificaciones();
+          $rootScope.$emit('new-group');
+          $state.go('catalog.userGroups.all');
+        })
       }
       
 			var params = {

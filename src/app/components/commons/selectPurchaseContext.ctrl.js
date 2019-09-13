@@ -67,11 +67,11 @@
       $scope.canSelectAgrupation = $scope.agrupationSelected.type == agrupationTypeVAL.TYPE_PERSONAL;
       $scope.isSelectedOrderConfirmed = !$scope.canSelectAgrupation;
       if($scope.agrupationSelected.idGrupo != -1 && $scope.agrupationSelected.type != agrupationTypeVAL.TYPE_PERSONAL){
-        contextAgrupationsService.getAgrupation(contextPurchaseService.getCatalogContext(), 
-                                                $scope.agrupationSelected.idGrupo, 
-                                                $scope.agrupationSelected.type).then(function(agrupation){
-          contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), 
-                                            $scope.agrupationSelected.type).then(function(){
+        contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), 
+                                          $scope.agrupationSelected.type).then(function(){
+          contextAgrupationsService.getAgrupation(contextPurchaseService.getCatalogContext(), 
+                                                  $scope.agrupationSelected.idGrupo, 
+                                                  $scope.agrupationSelected.type).then(function(agrupation){
             var orderSelected = contextOrdersService.getOrder(contextPurchaseService.getCatalogContext(), 
                                                               agrupation.idPedidoIndividual, 
                                                               $scope.agrupationSelected.type);

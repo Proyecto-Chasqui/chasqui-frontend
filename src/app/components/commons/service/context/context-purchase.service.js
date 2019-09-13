@@ -223,15 +223,16 @@
         
         
 		function refresh() {
-            //var prevGroupSelected = getGroupSelected();
-			refreshGrupos();
-			refreshPedidos();
-            //setContextoByGrupo(prevGroupSelected.idGrupo);
+      return setPromise(function(defered){
+        refreshGrupos()
+        .then(refreshPedidos)
+        .then(defered.resolve);
+      })
 		}
 
 		function refreshPedidos() {
 			$log.debug("refreshPedidos");
-            contextOrdersService.init(order_context.getCatalogId().toString());
+            contextOrdersService.reset(order_context.getCatalogId().toString());
 			return contextOrdersService.getOrders(order_context.getCatalogId().toString());
 		}
 

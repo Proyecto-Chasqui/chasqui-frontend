@@ -4,9 +4,9 @@
   angular.module('chasqui').controller('GroupsListController', GroupsListController);
 
   
-  function GroupsListController($log, $scope, $rootScope, $state, contextCatalogObserver, $mdDialog,
+  function GroupsListController($log, $scope, $rootScope, $state, contextCatalogObserver, $mdDialog, contextOrdersService,
                     dialogCommons, gccService, URLS, agrupationTypeVAL, productoService, toastr,
-                    us, usuario_dao, contextPurchaseService, vendedorService, perfilService) {
+                    us, usuario_dao, contextPurchaseService, vendedorService, perfilService, contextAgrupationsService) {
 
 
     $scope.urlBase = URLS.be_base;
@@ -40,7 +40,7 @@
     function newGroup(){
 
         function doOk(newGroup){
-          contextPurchaseService.refreshGrupos().then(function(){
+          contextPurchaseService.refresh().then(function(){
             newGroupCreated = true;
             $rootScope.$emit('new-group');
           });
@@ -166,9 +166,18 @@
         $log.debug('callConfirmar', $scope.pedido);
 
         function doOk(response) {
-              $log.debug("--- confirmar pedido response ", response.data);
-              toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'),us.translate('AVISO_TOAST_TITLE'));
-              location.reload();
+          $log.debug("--- confirmar pedido response ", response.data);
+          toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'),us.translate('AVISO_TOAST_TITLE'));
+          contextOrdersService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
+                                                      group.idGrupo,
+                                                      agrupationTypeVAL.TYPE_GROUP)
+          .then(function (){
+            contextAgrupationsService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
+                                                              group.idGrupo,
+                                                              agrupationTypeVAL.TYPE_GROUP);
+            $rootScope.$emit("groups-information-actualized");
+          });
+          toTop();
         }
 
         var params = {
@@ -252,7 +261,6 @@
         callNotificaciones();
         toTop();
         if(newGroupCreated){
-          console.log($scope.groups);
           $state.go('catalog.userGroups.group.members', {groupId: $scope.groups.length - 1});
           toastr.success(us.translate('NUEVO_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
           newGroupCreated = false;
