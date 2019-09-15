@@ -605,6 +605,22 @@ color:#111;
 }
 
 */
+/*
+**********************************************
+        footer
+**********************************************
+*/
+
+.logo-patrocinador{
+    padding-right:30px;
+	display:flex
+}
+.footer-sponsor {
+display: flex ;
+flex-diraction: row;
+justify-content: flex-end;
+aling-items: strech;
+}
 
 
 /*
@@ -840,6 +856,9 @@ padding-left: 40px;
 #menu-sub {display: block;}
 #movil-catalogo {display: none;}
 
+
+
+
 .tarjeta-content {
   display: flex;
   flex-direction: row;
@@ -880,8 +899,43 @@ div.ch-modal-price-per-unit-and-description {display: none;}
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
 
-.ch-dialog.md-toolbar-tools .ch-dialog-modal-title{  font-size: 15px;}
+.ch-dialog.md-toolbar-tools .ch-dialog-modal-title{  
+font-size: 12px;
+font-weight: 300;
+line-height: 1.29;
+color: #111;
+}
 div.ch-modal-price-per-unit-and-description {display: none;}
+.archive-box-catalogo2 {display: none;}
+.logo-patrocinador{
+    padding-bottom:30px;
+	display:flex;
+}
+.contacto-info {
+  margin-top:20px;
+ color: #777979;
+ line-height:20px;
+ font-size: 12px;
+ padding-bottom: 20px;
+}
+.icoch-footer{
+    margin-left: 80px;
+    padding-bottom: 14px;
+    width: 230px;
+}
+.dialogo-medalla-productor {
+width:400px;
+}
+.txt-medalla p font font{
+    font-size: 12px;
+    line-height: 20px;
+    color: #494949;
+    font-weight: 400;
+	font-family: 'Barlow', sans-serif; Roboto,Arial,sans-serif,-apple-system !important;
+}
+
+
+
 }
 
 
@@ -1410,9 +1464,15 @@ display: grid;
 margin-top:20px;
 color: #777979;
 line-height:20px;
-    font-size: 15px;
+font-size: 15px;
 }
 
+.contacto-info a{
+color: #777979;
+line-height:20px;
+font-size: 15px;
+text-decoration:none;
+}
 
 
 /*

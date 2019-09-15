@@ -24,24 +24,26 @@
       <chq-box-container space="space-between">
 
 	  
-	   <div layout="row" layout-xs="column">
+	   <div layout="row" layout-xs="row">
   
        <div flex-xs>  
-		  <chq-stamp
-          ng-repeat="medalla in producto.medallasProductor"
-          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
-          image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-          texto="medalla.nombre">
-          </chq-stamp>
-		
-       </div>
-       <div flex >
-      		<chq-stamp
+      	<chq-stamp
           ng-repeat="medalla in producto.medallasProducto"
           ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
           image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
           texto="medalla.nombre">
         </chq-stamp>
+		
+       </div>
+       <div flex >
+
+	  
+	  		  <chq-stamp
+          ng-repeat="medalla in producto.medallasProductor"
+          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
+          image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+          texto="medalla.nombre">
+          </chq-stamp>
 	  
        </div>
        </div>
@@ -72,13 +74,13 @@
   
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="myDialog">
-          <md-dialog layout-padding style="width:40%;">
+          <md-dialog layout-padding class="dialogo-medalla-productor">
               <modal-window-title-bar 
                 title="{{listaProductosCtrl.medallaSelect.nombre}}"
                 cancel-action="listaProductosCtrl.cerrarDialogoMedalla">
               </modal-window-title-bar>
               <div layout="column" layout-align="center center">
-                  <ch-image src="listaProductosCtrl.medallaSelect.pathImagen" width="200" height="200"></ch-image>
+                  <ch-image src="listaProductosCtrl.medallaSelect.pathImagen" width="200" height="200" class="dialogo-imagen" ></ch-image>
                   <div class="txt-medalla" ng-bind-html="listaProductosCtrl.medallaSelect.descripcion"></div>
               </div>
           </md-dialog>
@@ -88,15 +90,15 @@
   <!-- ********************* dialogo de productor *******************-->
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="productorDialog">
-          <md-dialog layout-padding style="width:40%;">
+          <md-dialog layout-padding class="dialogo-medalla-productor">
               <modal-window-title-bar 
                 title="{{listaProductosCtrl.emprendedorSelect.nombreProductor}}"
                 cancel-action="listaProductosCtrl.cerrarDialogoMedalla">
               </modal-window-title-bar>
               <div layout="column" layout-align="center center">
-                <ch-image src="listaProductosCtrl.emprendedorSelect.pathImagen" width="200" height="200"></ch-image>
+                <ch-image src="listaProductosCtrl.emprendedorSelect.pathImagen" width="200" height="200" class="dialogo-imagen"></ch-image>
               </div>
-              <div ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta"></div>
+              <div class="txt-medalla" ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta"></div>
               <!--<md-button ui-sref="catalog.productor({idProductor: listaProductosCtrl.emprendedorSelect.idProductor})">
                       Más
               </md-button>-->
@@ -105,3 +107,17 @@
       </div>
    </div>
 </div>
+
+
+
+<style>
+.dialogo-medalla-productor {
+width:350px;
+}
+.dialogo-imagen {
+padding-bottom:20px;
+padding-top:10px;
+}
+
+
+</style>

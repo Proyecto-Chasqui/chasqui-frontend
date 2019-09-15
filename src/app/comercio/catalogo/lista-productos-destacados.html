@@ -27,27 +27,22 @@
                     <p>{{producto.nombreFabricante}}</p>
                 </div>             
                 
-                <div class="txt-sellos">Sellos</div>
-                    <picture ng-repeat="medalla in producto.medallasProducto">
-                    <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados"/> <!--ng-click="ctrl.showPrerenderedDialog(medalla)">-->
-                        <md-tooltip md-direction="up">
-                            {{medalla.nombre}}
-                        </md-tooltip>
-                    </picture>
+
+					
                 </div>
                 
 
             </div>
-        </div>
+       
         </slick>
 
-    
+  </div>
  
 
  
  
 
-</div>
+
 
 
 
@@ -57,7 +52,6 @@
         
 <div id="destacados-slider-movil2">
         
-
         <slick  slides-to-show="1"  slides-to-scroll="1" ng-if="ctrl.loaded">
         <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
             
@@ -76,20 +70,14 @@
                     <p>{{producto.nombreFabricante}}</p>
                 </div>             
                 
-                <div class="txt-sellos">Sellos</div>
-                    <picture ng-repeat="medalla in producto.medallasProducto">
-                    <img ng-src="{{ctrl.urlbase}}{{medalla.pathImagen}}" class="medallas-destacados"/> <!--ng-click="ctrl.showPrerenderedDialog(medalla)">-->
-                        <md-tooltip md-direction="up">
-                            {{medalla.nombre}}
-                        </md-tooltip>
-                    </picture>
+
                 </div>
                 
 
             </div>
-        </div>
+       
         </slick>
-
+ </div>
     
  
 
