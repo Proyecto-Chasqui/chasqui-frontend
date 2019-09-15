@@ -1,110 +1,102 @@
 <div ng-controller="ListaProductosDestacadosController as ctrl">
 
-        <div class="destacado">
-              <h5> Productos destacados </h5>
-        </div>
+  <div class="destacado">
+        <h5> Productos destacados </h5>
+  </div>
         
         
         
-<div class="container" id="destacados-slider-movil1">
-  <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded">
-    <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
-      <div  layout="column" layout-align="space-between" class="ch-destacado" >     
-        <div class="img-destacado">
-            <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
-        </div>
-				<div class="precio-variedad">
-          <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
-        </div>
-        <div class="nombre-producto" >
-            <p>{{producto.nombreProducto}}</p>
-        </div>  
-        <div class="nombre-fabricante">
-            <p>{{producto.nombreFabricante}}</p>
-        </div>
-        <div layout="row" layout-xs="row">
-          <chq-stamp
-            ng-repeat="medalla in producto.medallasProducto"
-            ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
-            image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-            texto="medalla.nombre">
-          </chq-stamp>
-          
-          <chq-stamp
-            ng-repeat="medalla in producto.medallasProductor"
-            ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
-            image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-            texto="medalla.nombre">
-           </chq-stamp>
-         </div>
-      </div>
-    </div>
-  </slick>
-</div>
- 
-
- 
- 
-
-
-
-
-
-       <!-- ********************* VERSION RESPONSIVE CELULAR  *******************-->
-
-
-        
-<div id="destacados-slider-movil2">
-        
-        <slick  slides-to-show="1"  slides-to-scroll="1" ng-if="ctrl.loaded">
-        <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
+  <div class="container" id="destacados-slider-movil1">
+    <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded">
+      <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
+        <div  layout="column" layout-align="space-between" class="ch-destacado" >     
+          <div class="img-destacado">
+              <img ng-src="{{ctrl.urlBase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
+          </div>
+          <div class="precio-variedad">
+            <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
+          </div>
+          <div class="nombre-producto" >
+              <p>{{producto.nombreProducto}}</p>
+          </div>  
+          <div class="nombre-fabricante">
+              <p>{{producto.nombreFabricante}}</p>
+          </div>
+          <div layout="row" layout-xs="row" layout-align="start center" style="min-height: 32px;">
+            <chq-stamp
+              ng-repeat="medalla in producto.medallasProducto"
+              ng-click="ctrl.showPrerenderedDialog(medalla)"
+              image="{{ctrl.urlBase}}{{medalla.pathImagen}}"
+              texto="medalla.nombre">
+            </chq-stamp>
             
-            <div  layout="column" layout-align="space-between" class="ch-destacado" >
-                
-                <div class="img-destacado">
-                    <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
-                </div>
-				<div class="precio-variedad">
-                    <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
-                </div>
-                <div class="nombre-producto" >
-                    <p>{{producto.nombreProducto}}</p>
-                </div>  
-                <div class="nombre-fabricante">
-                    <p>{{producto.nombreFabricante}}</p>
-                </div>             
-                
+            <chq-stamp
+              ng-repeat="medalla in producto.medallasProductor"
+              ng-click="ctrl.showPrerenderedDialog(medalla)"
+              image="{{ctrl.urlBase}}{{medalla.pathImagen}}"
+              texto="medalla.nombre">
+            </chq-stamp>
+          </div>
+        </div>
+      </div>
+    </slick>
+  </div>
+ 
 
-                </div>
-                
-
-            </div>
-       
-        </slick>
- </div>
+  <!-- ********************* VERSION RESPONSIVE CELULAR  *******************-->
+        
+  <div id="destacados-slider-movil2">        
+    <slick  slides-to-show="1"  slides-to-scroll="1" ng-if="ctrl.loaded">
+      <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
+        <div  layout="column" layout-align="space-between" class="ch-destacado" >
+          <div class="img-destacado">
+            <img ng-src="{{ctrl.urlBase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
+          </div>
+			  	<div class="precio-variedad">
+            <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
+          </div>
+          <div class="nombre-producto" >
+            <p>{{producto.nombreProducto}}</p>
+          </div>  
+          <div class="nombre-fabricante">
+              <p>{{producto.nombreFabricante}}</p>
+          </div>             
+          <div layout="row" layout-xs="row" layout-align="start center" style="min-height: 32px;">
+            <chq-stamp
+              ng-repeat="medalla in producto.medallasProducto"
+              ng-click="ctrl.showPrerenderedDialog(medalla)"
+              image="{{ctrl.urlBase}}{{medalla.pathImagen}}"
+              texto="medalla.nombre">
+            </chq-stamp>
+            
+            <chq-stamp
+              ng-repeat="medalla in producto.medallasProductor"
+              ng-click="ctrl.showPrerenderedDialog(medalla)"
+              image="{{ctrl.urlBase}}{{medalla.pathImagen}}"
+              texto="medalla.nombre">
+            </chq-stamp>
+          </div>
+        </div>
+      </div>
+    </slick>
+  </div>
     
  
-
- 
- 
-        <!-- ********************* dialogo de medalla *******************-->
-    <div style="visibility: hidden">
-        <div class="md-dialog-container" id="myDialog">
-            <md-dialog layout-padding style="width:40%;">
-                <div class="md-toolbar-tools chq-color-toolbar">
-                    <h2 class="md-headline">{{ctrl.medallaSelect.nombre}}</h2>
-                    <span flex></span>
-                    <div ng-click="ctrl.cerrarDialogoMedalla(1)">
-                        <a href=""><i style="font-size: 18px; color:#cbcbcb" class="material-icons">close</i></a>
-                    </div>
-                </div>
-                <div layout="column" layout-align="center center">
-                    <img ng-src="{{ctrl.urlbase}}{{ctrl.medallaSelect.pathImagen}}" width="200" height="200"/>
-                    <div ng-bind-html="ctrl.medallaSelect.descripcion"></div>
-                </div>
-            </md-dialog>
-        </div>
+  <!-- ********************* dialogo de medalla *******************-->
+  <div style="visibility: hidden">
+    <div class="md-dialog-container" id="myDialog">
+        <md-dialog layout-padding class="dialogo-medalla-productor">
+            <modal-window-title-bar 
+              title="{{ctrl.medallaSelect.nombre}}"
+              cancel-action="ctrl.cerrarDialogoMedalla">
+            </modal-window-title-bar>
+            <div layout="column" layout-align="center center">
+                <ch-image src="ctrl.medallaSelect.pathImagen" width="200" height="200" class="dialogo-imagen" ></ch-image>
+                <div class="txt-medalla" ng-bind-html="ctrl.medallaSelect.descripcion"></div>
+            </div>
+        </md-dialog>
     </div>
+  </div>
 
 </div>
  
