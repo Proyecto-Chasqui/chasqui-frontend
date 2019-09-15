@@ -25,27 +25,19 @@
 
 	  
 	   <div layout="row" layout-xs="row">
-  
-       <div flex-xs>  
       	<chq-stamp
           ng-repeat="medalla in producto.medallasProducto"
           ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
           image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
           texto="medalla.nombre">
         </chq-stamp>
-		
-       </div>
-       <div flex >
-
-	  
-	  		  <chq-stamp
+        
+	  		<chq-stamp
           ng-repeat="medalla in producto.medallasProductor"
           ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
           image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
           texto="medalla.nombre">
-          </chq-stamp>
-	  
-       </div>
+         </chq-stamp>
        </div>
 	  
 	  

@@ -7,36 +7,40 @@
         
         
 <div class="container" id="destacados-slider-movil1">
-        
-
-        <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded">
-        <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
-            
-            <div  layout="column" layout-align="space-between" class="ch-destacado" >
-                
-                <div class="img-destacado">
-                    <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
-                </div>
+  <slick  slides-to-show="3"  slides-to-scroll="1" ng-if="ctrl.loaded">
+    <div layout-wrap ng-repeat="producto in ctrl.productos" flex="20" flex-gt-sm="20"><!-- ng-click="ctrl.ir('catalog.products')">-->
+      <div  layout="column" layout-align="space-between" class="ch-destacado" >     
+        <div class="img-destacado">
+            <img ng-src="{{ctrl.urlbase}}{{producto.imagenPrincipal}}"  alt="" style="width: 100%"/>
+        </div>
 				<div class="precio-variedad">
-                    <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
-                </div>
-                <div class="nombre-producto" >
-                    <p>{{producto.nombreProducto}}</p>
-                </div>  
-                <div class="nombre-fabricante">
-                    <p>{{producto.nombreFabricante}}</p>
-                </div>             
-                
-
-					
-                </div>
-                
-
-            </div>
-       
-        </slick>
-
-  </div>
+          <p>${{producto.precioParteEntera}}.{{ctrl.mostrarDecimales(producto.precioParteDecimal)}}</p>
+        </div>
+        <div class="nombre-producto" >
+            <p>{{producto.nombreProducto}}</p>
+        </div>  
+        <div class="nombre-fabricante">
+            <p>{{producto.nombreFabricante}}</p>
+        </div>
+        <div layout="row" layout-xs="row">
+          <chq-stamp
+            ng-repeat="medalla in producto.medallasProducto"
+            ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
+            image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+            texto="medalla.nombre">
+          </chq-stamp>
+          
+          <chq-stamp
+            ng-repeat="medalla in producto.medallasProductor"
+            ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
+            image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+            texto="medalla.nombre">
+           </chq-stamp>
+         </div>
+      </div>
+    </div>
+  </slick>
+</div>
  
 
  
