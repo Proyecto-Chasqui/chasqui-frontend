@@ -3,7 +3,7 @@
 
   <md-dialog-content layout="column" layout-align="space-between center" style="margin: 15px;">
     <div>
-      Antes de empezar a comprar, tenés que elegir el changuito al que vas a agregar los productos.
+      Antes de empezar a comprar, tenés que elegir el changuito al que vas a agregar los productos
     </div>
 
     <div layout="column" layout-align="space-between center">
@@ -11,9 +11,27 @@
         <label>{{'CAMBIAR_CHANGO' | translate}}</label>
         <md-select ng-model="agrupationSelected.idGrupo">
           <element-wrapper supported-strategies="compraIndividual">
-            <md-option ng-value="0" ng-click="setPersonalAsAgrupationSelected(0)" translate>CONTEXTO_INDIVIDUAL</md-option>
+            <md-option ng-value="0" ng-click="setPersonalAsAgrupationSelected(0)">
+              <div class="ch-agrupation-selection-item">
+                <i class="material-icons ch-agrupation-icon" >
+                  person
+                </i>
+                <span translate class="ch-agrupation-label">
+                  CONTEXTO_INDIVIDUAL
+                </span>
+              </div>
+            </md-option>
           </element-wrapper>
-          <md-option ng-repeat="group in grupos" ng-value="group.idGrupo" ng-click="setGroupAsAgrupationSelected(group.idGrupo)"> {{group.alias}} </md-option>
+          <md-option ng-repeat="group in grupos" ng-value="group.idGrupo" ng-click="setGroupAsAgrupationSelected(group.idGrupo)">
+            <div class="ch-agrupation-selection-item">
+              <i class="material-icons ch-agrupation-icon">
+                group
+              </i>
+              <span class="ch-agrupation-label">
+                {{group.alias}} 
+              </span>
+            </div>
+          </md-option>
         </md-select>
       </md-input-container>
       <span class="ch-error" ng-show="isSelectedOrderConfirmed">
@@ -33,7 +51,7 @@
   </md-dialog-content>
 
   <md-dialog-actions>
-    <md-button ng-show="!isSelectedOrderConfirmed" ng-click="okAction()" class="md-raised md-primary">
+    <md-button ng-show="canSelectAgrupation" ng-click="okAction()" class="md-raised md-primary">
       Confirmar
     </md-button>
   </md-dialog-actions>

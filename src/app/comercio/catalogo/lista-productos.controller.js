@@ -7,7 +7,7 @@
   /**
    * @ngInject Lista de productos.
    */
-  function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES,
+  function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES, StateCommons,
     $state, toastr, productoService, us, contextCatalogsService,
     $mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
         usuario_dao, $stateParams, addProductService, dialogCommons, vendedorService) {
@@ -126,17 +126,11 @@
       if(vm.permitirComprar){
           if (usuario_dao.isLogged()) {
             if(variety.stock > 0){
-              contextPurchaseService.getSelectedOrder().then(function(order){
-                contextPurchaseService.getOrders().then(function(orders){
-                  if(orders.length > 1
-                     && order.productosResponse.length == 0
-                     && contextPurchaseService.isGrupoIndividualSelected() ){
-                    dialogCommons.selectPurchaseContext(variety);
-                  }else{
-                    addProductService(variety);
-                  }
-                })
-              })
+              if(contextPurchaseService.getAgrupationContextType()){
+                addProductService(variety);
+              }else{
+                dialogCommons.selectPurchaseContext(variety);
+              }
             }else{
               dialogCommons.acceptIssue("Producto sin stock",
                                         "Lamentablemente no queda más stock, te recomendamos buscar productos similares",
@@ -193,7 +187,7 @@
     function findProductosPorMultiplesFiltros(pagina, items, params){
       $log.debug('find productos multiples filtros');
       function doOk(response) {
-        $log.debug('findProductos Response ', response);
+        $log.debug('findProductosPorMultiplesFiltros Response ', response);
 
         vm.productos = response.data.productos;
         $log.debug('productos', vm.productos);
@@ -217,7 +211,8 @@
           idCategoria: params.categoria,
           pagina: pagina,
           cantItems: items,
-          precio: 'Down'
+          precio: 'Down',
+          numeroDeOrden: StateCommons.getNextRandom(),
         }
         $log.debug("parametros",params);
 
@@ -225,60 +220,6 @@
       })
 
     }
-        //Posiblemente deprecado por findProductosPorMultiplesFiltros
-    // var findProductos = function(pagina, items, filtro) {
-    //         contextCatalogsService.getCatalogs().then(function(catalogs){
-    //             contextCatalogObserver(function(){
-    //                 $log.debug('findProductos: ' + pagina + " " + items + " " +
-    //                     filtro.tipo + " " + filtro.valor);
-
-    //                 function doOk(response) {
-    //                     $log.debug('findProductos Response ', response);
-
-    //                     vm.productos = response.data.productos;
-
-    //                     vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-    //                     vm.paging.current = response.data.pagina;
-    //                 }
-
-    //                 var params = {
-    //                     idVendedor: contextPurchaseService.getCatalogContext(),
-    //                     pagina: pagina,
-    //                     cantItems: items,
-    //                     precio: 'Down'
-    //                 }
-
-    //                 productoService.getProductosByMultiplesFiltros(params).then(doOk);
-    //             })
-    //         })
-    // }
-
-    var findProductos = function(pagina, items, filtro) {
-      $log.debug('findProductos: ' + pagina + " " + items + " " +
-        filtro.tipo + " " + filtro.valor);
-
-      function doOk(response) {
-        $log.debug('findProductos Response ', response);
-
-        vm.productos = response.data.productos;
-
-        vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-        vm.paging.current = response.data.pagina;
-      }
-
-      contextCatalogObserver.observe(function executeWhenCatalogIsLoaded(){          
-        var params = {
-          idVendedor: contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
-          pagina: pagina,
-          cantItems: items,
-          precio: 'Down'
-        }
-
-        productoService.getProductosByMultiplesFiltros(params).then(doOk);
-      })
-    }
-
-
 
 
     function callEmprendedores() {

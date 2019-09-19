@@ -32,55 +32,279 @@
 <div ng-show="groups.length > 0">
   <div layout="row" layout-align="space-between center">
       <div>
-          <md-button ng-click="newGroup()" class="btn-agregar"> 
-              <label translate="CREAR_GRUPO"></label>    
-              <md-icon style="color:white"> group </md-icon>
-              <md-tooltip md-direction="left">
+          <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="newGroup()"> 
+              <md-icon class="ch-button-content"> group_add </md-icon>
+              <label translate="CREAR_GRUPO" style="cursor: pointer;"></label>    
+              <md-tooltip md-direction="bottom">
                   <label translate="CREAR_GRUPO_MSG"></label>                    
               </md-tooltip>
           </md-button>
+      </div>
+      <div layout="row" layout-align="space-between center">
+        <a class="ch-icon-outlined" ui-sref="catalog.userGroups.invitations">
+            <md-icon class="ch-icon-outlined-content"> email </md-icon>
+            <md-tooltip md-direction="bottom" ng-if="invitaciones == 0">
+                <label translate="GRUPO_SIN_INVITACIONES"></label>
+            </md-tooltip>
+            <md-tooltip md-direction="bottom" ng-if="invitaciones == 1">
+                <label translate="GRUPO_INVITACION"></label>
+            </md-tooltip>
+            <md-tooltip md-direction="bottom" ng-if="invitaciones > 1">
+                <label translate="GRUPO_INVITACIONES_1"></label>
+                <label>{{invitaciones}}</label>
+                <label translate="GRUPO_INVITACIONES_2"></label>
+            </md-tooltip>
+          </a>
+        <notification-icon count="invitaciones" class="ch-count-group-invitations">
+        </notification-icon>
+        <a class="ch-icon-outlined" ui-sref="catalog.userGroups.help">
+            <md-icon class="ch-icon-outlined-content"> help_outline </md-icon>
+            <md-tooltip md-direction="bottom">
+                <label translate="GRUPO_AYUDA"></label>                    
+            </md-tooltip>
+          </a>
       </div>
   </div>
 
   <div layout="column" layout-align="space-between">
       <div ng-repeat="(i, group) in groups" layout="column" layout-align="start">
-          <md-list-item ng-class="getClassForItemGroup(i)" class="md-3-line" ng-click="showOptionsForGroup(i)" flex>
-              <ch-image src="group.miembros[0].avatar" description="group.members[0].nickname + '(Administrador)'" class="md-avatar"></ch-image>
-              <div  class="md-list-item-text" layout="column" flex>
-                  <div layout="row" layout-align="space-between">
-                      <h3>{{group.alias}}</h3>
-                      <h4> ABIERTO </h4>
-                  </div>
-
-                  <h3>{{group.descripcion}}</h3>                            
-
-                  <h3>Hay {{countOrdersConfirmed(group)}} miembros que confirmaron su pedido.</h3>
+        <!--version web-->
+        <div class="ch-group-card ch-responsive-xl">
+          <div class="ch-group-card-data">
+            <div class="ch-group-card-data-information" ng-click="showOptionsForGroup(i)">
+              <ch-image class="ch-group-card-data-avatar" src="group.miembros[0].avatar" description="group.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
+              <div class="ch-group-card-data-information-content">
+                <label class="ch-group-card-data-information-alias">{{group.alias}}</label>
+                <label class="ch-group-card-data-information-description">{{group.descripcion}}</label>
               </div>
               <md-tooltip md-direction="bottom">
-                  <label>Mostrar opciones</label>
+                <div layout="row" layout-align="space-between center">
+                  <i class="material-icons">
+                    expand_more
+                  </i>
+                  <label>Click para ver los pedidos de los integrantes</label>
+                  <i class="material-icons">
+                    expand_more
+                  </i>
+                </div>                  
               </md-tooltip>
-          </md-list-item>
+            </div>
+            <div class="ch-group-card-data-actions">                
+              <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(group) > 0"> 
+                Total: ${{montoTotalGrupo(group)}}
+              </label>                
+              <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(group) > 0"> 
+                Activo
+              </label>
+              <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="goToCatalog(group)" ng-show="getLoggedUser(group).pedido == null || ( getLoggedUser(group).pedido.productosResponse.length >= 0 && getLoggedUser(group).pedido.estado != 'CONFIRMADO')">
+                Comprar
+                <md-tooltip md-direction="bottom">
+                  <label>Ir al catálogo con este grupo seleccionado</label>
+                </md-tooltip>
+              </md-button>
+              <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
+                Historial
+                <md-tooltip md-direction="bottom">
+                  <label>Ver los pedidos realizados por el grupo</label>
+                </md-tooltip>
+              </md-button>
+              <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.members({groupId: i})">
+                Integrantes
+                <md-tooltip md-direction="bottom">
+                  <label>Ver los integrantes del grupo</label>
+                </md-tooltip>
+              </md-button>              
+              <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.admin({groupId: i})" ng-if="isLoggedUserGroupAdmin(group)">
+                Administración
+                <md-tooltip md-direction="bottom">
+                  <label>Configurar datos del grupo</label>
+                </md-tooltip>
+              </md-button>
+            </div>
+          </div>
 
-          <div class="ch-item-options" layout="column" ng-show="showOptions[i]">
-              <div>        
-                  <div layout="row" layout-align="start center">
-                      <div class="ch-avatar-min" ng-repeat="member in group.miembros" >
-                          <ch-image src="member.avatar" description="member.nickname"></ch-image>
-                      </div>
-                  </div>
+          <div class="" layout="column" ng-show="showOptions[i]">
+              <md-tabs>
+                  <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(group)" label="{{::selfPara(miembro)}}">
+                      <md-content class="md-padding" layout="column" layout-align="space-around">
+                          <div layout="column" layout-align="space-sround center" 
+                                ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
+                              <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                  <label translate="USUARIO_SIN_PROD"></label>
+                              </div>
+                              <div ng-show="!isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                  <label translate="MIEMBRO_SIN_PROD"></label>
+                              </div>
+                          </div>
+  
+                          <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0
+                                        && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO')"
+                            style="margin: 10px;"
+                            layout="row" layout-align="space-between center">
+                              <div>Estado:</div>
+                              <div class ="ch-estado-pedido" ng-class="classForState(miembro.pedido.estado)">
+                                  {{miembro.pedido.estado}}
+                              </div>
+                          </div>
+  
+                          <div layout="row" layout-align="space-between center"
+                            ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0
+                                      && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
+                            style="margin: 10px;">
+                              <div>Total:</div>
+                              <div>
+                                <chq-price-product precio="totalForMember(miembro)" tamanho="1"></chq-price-product>
+                              </div>
+                          </div>
+  
+                          <md-list ng-show="miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'" class="md-dense" flex>
+                              <md-list-item class="md-3-line" ng-repeat="item in miembro.pedido.productosResponse">
+                                  <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
+                                  <div class="md-list-item-text" layout="column">
+                                      {{ item.nombre }}
+                                      <div layout="row" layout-align="start center">
+                                        <p>{{item.cantidad}} X $ {{ item.precio }} = </p>
+                                        <chq-price-product precio="item.cantidad * item.precio" tamanho="0.9"></chq-price-product> 
+                                      </div>
+                                  </div>
+                              </md-list-item>
+                          </md-list>
+                      </md-content>
+                  </md-tab>
+              </md-tabs>
+              <md-button class="btn-confirmar" 
+                  ng-click="confirmGCCOrder(group)"
+                  ng-show="group.esAdministrador"
+                  ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(group)">
+                <label translate style="cursor: pointer;">
+                    CONFIRMAR_PEDIDO_GCC
+                </label>
+                <md-icon ng-show="puedeCerrarPedidoGCC(group)" style="color:white; cursor: pointer;">
+                    done
+                </md-icon>
+              </md-button>
+          </div>
+        </div>
+
+        <div class="ch-responsive-s ch-group-card">
+          <div class="ch-group-card-data">
+            <div class="ch-group-card-data-information" ng-click="showOptionsForGroup(i)">
+              <ch-image class="ch-group-card-data-avatar" src="group.miembros[0].avatar" description="group.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
+              <div class="ch-group-card-data-information-content">
+                <label class="ch-group-card-data-information-alias">{{group.alias}}</label>
+                <label class="ch-group-card-data-information-description">{{group.descripcion}}</label>
               </div>
-              <div layout="row" layout-align="space-around center">
-                  <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.membersOrders({groupId: i})">
-                      Ver pedidos de los miembros
-                  </md-button>
-                  <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
-                      Ver historial de pedidos
-                  </md-button>
-                  <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.admin({groupId: i})">
-                      Administrar grupo
-                  </md-button>
+              <md-tooltip md-direction="bottom">
+                <div layout="row" layout-align="space-between center">
+                  <i class="material-icons">
+                    expand_more
+                  </i>
+                  <label>Click para ver los pedidos de los integrantes</label>
+                  <i class="material-icons">
+                    expand_more
+                  </i>
+                </div>                  
+              </md-tooltip>
+            </div>
+            <div class="ch-group-card-data-actions"  ng-show="countOrdersConfirmed(group) > 0">
+              <div class="ch-estado-pedido">                
+                <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado ch-grupo-monto-total"> 
+                  Total: ${{montoTotalGrupo(group)}}
+                </label>
               </div>
+              <div class="ch-estado-pedido">
+                <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(group) > 0"> 
+                  Activo
+                </label>
+              </div>
+            </div>
+            <div class="ch-group-card-data-actions">
+              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ng-click="goToCatalog(group)" ng-show="getLoggedUser(group).pedido == null || ( getLoggedUser(group).pedido.productosResponse.length >= 0 && getLoggedUser(group).pedido.estado != 'CONFIRMADO')">
+                Comprar
+                <md-tooltip md-direction="bottom">
+                  <label>Ir al catálogo con este grupo seleccionado</label>
+                </md-tooltip>
+              </md-button>
+              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
+                Historial
+                <md-tooltip md-direction="bottom">
+                  <label>Ver los pedidos realizados por el grupo</label>
+                </md-tooltip>
+              </md-button>
+              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userGroups.group.members({groupId: i})">
+                Integrantes
+                <md-tooltip md-direction="bottom">
+                  <label>Ver los integrantes del grupo</label>
+                </md-tooltip>
+              </md-button>              
+              <md-button  class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userGroups.group.admin({groupId: i})" ng-if="isLoggedUserGroupAdmin(group)">
+                Administración
+                <md-tooltip md-direction="bottom">
+                  <label>Configurar datos del grupo</label>
+                </md-tooltip>
+              </md-button>
+            </div>
+          </div>
+
+          <div layout="column" ng-show="showOptions[i]">
+            <md-tabs>
+                <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(group)" label="{{::selfPara(miembro)}}">
+                    <md-content class="md-padding" layout="column" layout-align="space-around">
+                        <div layout="column" layout-align="space-sround center" 
+                              ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
+                            <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="USUARIO_SIN_PROD"></label>
+                            </div>
+                            <div ng-show="!isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="MIEMBRO_SIN_PROD"></label>
+                            </div>
+                        </div>
+
+                        <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0
+                                      && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO')"
+                          style="margin: 10px;"
+                          layout="row" layout-align="space-between center">
+                            <div>Estado:</div>
+                            <div class ="ch-estado-pedido" ng-class="classForState(miembro.pedido.estado)">
+                                {{miembro.pedido.estado}}
+                            </div>
+                        </div>
+
+                        <div layout="row" layout-align="space-between center"
+                          ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0
+                                    && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
+                          style="margin: 10px;">
+                            <div>Total:</div>
+                            <div>
+                              <chq-price-product precio="totalForMember(miembro)" tamanho="1"></chq-price-product>
+                            </div>
+                        </div>
+
+                        <md-list ng-show="miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'" class="md-dense" flex>
+                            <md-list-item class="md-3-line" ng-repeat="item in miembro.pedido.productosResponse">
+                                <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
+                                <div class="md-list-item-text" layout="column">
+                                    {{ item.nombre }}
+                                    <p>{{item.cantidad}} X $ {{ item.precio }} = ${{item.cantidad * item.precio }} </p>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+            <md-button class="btn-confirmar" 
+                ng-click="confirmGCCOrder(group)"
+                ng-show="group.esAdministrador"
+                ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(group)">
+              <label translate style="cursor: pointer;">
+                  CONFIRMAR_PEDIDO_GCC
+              </label>
+              <md-icon ng-show="puedeCerrarPedidoGCC(group)" style="color:white; cursor: pointer;">
+                  done
+              </md-icon>
+            </md-button>
           </div>
       </div>
+    </div>
   </div>
 </div>

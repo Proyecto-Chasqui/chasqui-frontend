@@ -3,20 +3,25 @@
 </div>
 <style>
     .producer-name-container{
-        overflow: auto;
-        mix-blend-mode: multiply;
-        margin-right: -12%;
-        padding-right: 12%;
+       overflow: auto;
+    /* mix-blend-mode: multiply; */
+    margin-right: 10%;
+    padding-right: 12%;
+    /* height: 20px; */
+    width: 260px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-bottom: 16px;
+    cursor: pointer;
     }
 
     .producer-name{	
-	    color: #82d2f1;
-        font-size: 12px;
-        font-weight: 400;
+		font-family: 'Barlow', sans-serif; Roboto,Arial,sans-serif,-apple-system;
+		font-size: 14px;
+        font-weight: 300;
         line-height: 1.29;
-        cursor: pointer;
-        transition: all .5s ease;
-		text-transform: uppercase;
+        color: #999;
     }
 
     .producer-name-container > .producer-name:hover{

@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('gccService', gccService);
 
-	function gccService($log, REST_ROUTES, StateCommons, promiseService, ToastCommons, 
+	function gccService($log, REST_ROUTES, promiseService, 
                          $stateParams, contextCatalogsService, setPromise){
 		
         var gccServiceInt = {

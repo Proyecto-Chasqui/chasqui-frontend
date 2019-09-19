@@ -1,7 +1,5 @@
 <md-dialog style="width:960px; height:555px; margin-top: 20px;">
 
-
-
   <div class="boton-cerrar-card" ng-click="cerrarDialogo()" title="Cerrar">
     <i class="material-icons" aria-label="Cancelar">close</i>
   </div>
@@ -20,22 +18,20 @@
         </div>
       </div>
 			
-			<div flex>
-        <div layout="column" class="tarjeta-descripcion-producto">
+			<div flex class="tarjeta-descripcion-producto">
 
-          <div class="md-subhead tarjeta-fabricante">
-              {{producto.nombreFabricante}}
-          </div>
-          <h2 class="tarjeta-nombre"> 
-            {{producto.nombreProducto}} 
-          </h2>
-          <div class="tarjeta-price">
-            $ {{producto.precioParteEntera}}.{{mostrarDecimales(producto.precioParteDecimal)}}
-          </div>
-          <div class="tarjeta-line"></div>
-          <div class="md-subhead tarjeta-descripcion">
-              <div ng-bind-html="producto.descripcion"></div>
-          </div>
+        <div class="md-subhead tarjeta-fabricante">
+            {{producto.nombreFabricante}}
+        </div>
+        <h2 class="tarjeta-nombre"> 
+          {{producto.nombreProducto}} 
+        </h2>
+        <div class="tarjeta-price">
+          $ {{producto.precioParteEntera}}.{{mostrarDecimales(producto.precioParteDecimal)}}
+        </div>
+        <div class="tarjeta-line"></div>
+        <div class="md-subhead tarjeta-descripcion">
+            <div ng-bind-html="producto.descripcion"></div>
         </div>
       </div>		
     </div>    	

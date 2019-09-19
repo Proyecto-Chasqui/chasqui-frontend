@@ -1,5 +1,5 @@
 <md-content ng-cloak >
-
+   
 <div class="homepage" >
 
      <div class="logo-home">
@@ -10,11 +10,15 @@
      </div>
 
 </div>
-   <!--   
-
-    <home-menu class="menu"></home-menu>
-
-    <div class="ch-content">
+  
+  <!--   
+      <div class="nav-sticker-a layout-align-space-between-center layout-row">
+	            <div class="nav-logo">
+	            <img ng-src="assets/images/chasqui_logo.png" src="assets/images/chasqui_logo.png" > 
+	            </div >
+      </div >
+	  
+    <div id="chasqui-content-full">
         <md-grid-list md-cols="3"  md-row-height="120px">
             <md-grid-tile md-colspan="1" md-rowspan="3" ng-repeat="catalog in catalogs" layout-align="space-around center">
                 <md-card class="tarjeta-multicatalogo">
@@ -33,12 +37,303 @@
             </md-grid-tile>
         </md-grid-list>
     </div>
+   <div id="chasqui-content-full">
   
-  -->
+       <div class="home-ui-carousel-offers-title-container">
+            <div class="home-ui-carousel-offers-title">
+                    <div class="home-ui-carousel-offers-lead-text">
+                        Chasqui
+                    </div>
+                    <span class="home-ui-carousel-offers-main-text">
+                        Catalogos de compras,
+                    </span>
+                    <span class="home-ui-carousel-offers-expand-text">
+                        todos para ver 
+                    </span>
+             </div>
+         </div>
   
   
+    <div id="home-card"> 
+	                  <div class="home-card-img-som"></div>
+	                  <div class="home-card-img">
+                      <img style="width: 100%; height:100%" src="app\components\image/colsol.jpg">
+                      </div>
+			  
+			  
+	                  <div class="home-ui-card-content">
+                      <div class="home-ui-card-driver-img">
+                      <span class="ch-driver ch-purple-4 ch-white">
+					  <span class="driver-text -eva-3-bold">cooperativa</span></span>
+                      </div>
+
+                      <p class="home-ui-card-title eva-3-h3">Colectivo Solidario</p>
+
+
+                      <div class="home-ui-card-content-row home-ui-card-rating-and-stars">
+                      <div class="home-ui-card-rating eva-3-rating -sm -eva-3-bc-green-3">
+                      <span class="ch-white rating-text">CABA</span>
+                      </div>
+                      </div>
+
+                      <div class="home-ui-card-content-row home-ui-card-drivers-level2-container">
+                      <div class="home-ui-card-driver-gradients">
+                      <div class="home-ui-card-drivers">
+                            <span class="ch-driver ch-white -border -eva-3-tc-gray-3 home-ui-driver">
+                            <span class="home-ui-card-driver-text driver-text">
+                                comercializadora
+                            </span>
+                            </span>
+                            <span class="ch-driver ch-white -border -eva-3-tc-gray-3 home-ui-driver">
+                            <span class="home-ui-card-driver-text driver-text">
+                                productos
+                            </span>
+                            </span>
+                       </div>
+                       </div>
+                       </div>
+                       </div>
+	 </div> 
+   
+   
+     <div id="home-card"> 
+	                  <div class="home-card-img-som"></div>
+	                  <div class="home-card-img">
+                      <img style="width: 100%; height:100%" src="app\components\image/colsol.jpg">
+                      </div>
+			  
+			  
+	                  <div class="home-ui-card-content">
+                      <div class="home-ui-card-driver-img">
+                      <span class="ch-driver ch-purple-4 ch-white">
+					  <span class="driver-text -eva-3-bold">cooperativa</span></span>
+                      </div>
+
+                      <p class="home-ui-card-title eva-3-h3">Colectivo Solidario</p>
+
+
+                      <div class="home-ui-card-content-row home-ui-card-rating-and-stars">
+                      <div class="home-ui-card-rating eva-3-rating -sm -eva-3-bc-green-3">
+                      <span class="ch-white rating-text">CABA</span>
+                      </div>
+                      </div>
+
+                      <div class="home-ui-card-content-row home-ui-card-drivers-level2-container">
+                      <div class="home-ui-card-driver-gradients">
+                      <div class="home-ui-card-drivers">
+                            <span class="ch-driver ch-white -border -eva-3-tc-gray-3 home-ui-driver">
+                            <span class="home-ui-card-driver-text driver-text">
+                                comercializadora
+                            </span>
+                            </span>
+                            <span class="ch-driver ch-white -border -eva-3-tc-gray-3 home-ui-driver">
+                            <span class="home-ui-card-driver-text driver-text">
+                                productos
+                            </span>
+                            </span>
+                       </div>
+                       </div>
+                       </div>
+                       </div>
+	 </div>
+   -->
+   
+   
+   
+   </div>
 </md-content>
+
+
+
 <style>
+
+#home-card{
+    width: 297px;
+    border-top: 1px solid #cccccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+	box-sizing: border-box;
+    border-radius: 8px;
+	border: 1px solid #CCC;
+	background-color: #FFF;
+	margin-left:50px;
+	margin-bottom:50px;
+	position: relative;
+	z-index: 19;
+}
+
+#home-card .home-card-img-som{
+        width: 295px;
+        z-index: 20;
+        position: absolute;
+        background: #000; /* fallback, para navegadores viejos */
+        background: rgba(0,0,0,0.2); /* negro con 50% de transparencia */
+        padding: 100px;	
+	    border-radius: 8px 8px 0 0;
+}
+
+#home-card .home-card-img{
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+	border-radius: 8px 8px 0 0;
+	border-bottom: 1px solid #EEE;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;	
+}
+
+
+
+#home-card .home-ui-card-content {
+    padding: 24px;
+    box-sizing: border-box;
+    position: relative;	
+}
+
+#home-card .home-ui-card-content .home-ui-card-driver-img {
+    margin-top: -34px;
+    margin-bottom: 12px;
+    text-transform: uppercase;	
+}
+
+
+.ch-purple-4 {
+    background-color: #270570 !important;
+}
+.ch-white {
+    color: #fff !important;
+}
+.ch-driver {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 210px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 4px;
+    overflow: hidden;
+	z-index: 21;	
+}
+
+
+#home-card .home-ui-card-content .home-ui-card-title {
+    font-size: 24px;
+    line-height: 28px;
+    max-height: 58px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-weight: 500;	
+}
+
+
+#home-card .home-ui-card-content .home-ui-card-content-row .home-ui-card-rating {
+    margin-right: 8px;
+}
+.eva-3-rating.-sm {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 210px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+.-eva-3-bc-green-3 {
+    background-color: #03A691 !important;
+}
+
+
+
+
+
+#home-card .home-ui-card-content-row.home-ui-card-drivers-level2-container .home-ui-driver {
+    margin: 0 4px 4px 0;
+}
+.ch-driver.-border {
+    border: 1px solid #CCC;
+}
+.-eva-3-tc-gray-3 {
+    color: #CCC !important;
+}
+
+
+
+
+.ch-driver .driver-text {
+    font-size: 12px;
+    line-height: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.-eva-3-ellipsis, .ch-driver .driver-text {
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+
+#home-card .home-ui-card-content-row {
+    margin: 8px 0 12px;
+}
+
+
+#home-card .home-ui-card-content .home-ui-card-content-row .home-ui-card-driver-text {
+    color: #444444;
+}
+
+
+
+
+
+
+.home-ui-carousel-offers-title-container {
+		padding-left: 50px;
+	    padding-bottom: 50px;
+}
+
+.home-ui-carousel-offers-lead-text {
+    padding-bottom: 12px;
+
+}
+.home-ui-carousel-offers-lead-text {
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1.2px;
+    color: #666666;
+    font-size: 12px;
+    padding-bottom: 8px;
+}
+
+
+.home-ui-carousel-offers-main-text {
+    font-size: 32px;
+}
+.home-ui-carousel-offers-main-text {
+    color: #444444;
+}
+.home-ui-carousel-offers-main-text {
+    font-weight: 500;
+    line-height: 1.13;
+    letter-spacing: -0.7px;
+    color: #444444;
+}
+
+.home-ui-carousel-offers-expand-text {
+    font-size: 32px;
+}
+
+
+
+
+
+
+
+
 
  md-card md-card-title md-card-title-text {
     -webkit-box-flex: 1;

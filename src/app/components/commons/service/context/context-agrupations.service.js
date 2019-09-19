@@ -6,7 +6,7 @@
     
 	function contextAgrupationsService($localStorage, $q, setPromise, getContext, agrupations_dao, moment, gccService, 
                                         ensureContext, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, 
-                                        agrupationTypeVAL, agrupationTypeDispatcher){
+                                        agrupationTypeVAL, agrupationTypeDispatcher, usuario_dao){
      
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -16,7 +16,10 @@
             modifyAgrupation: modifyAgrupation,
             getAgrupation: getAgrupation,
             getAgrupations: getAgrupations,
-            getAgrupationsByType: getAgrupationsByType
+            getAgrupationsByType: getAgrupationsByType,
+            confirmAgrupationOrder: confirmAgrupationOrder,
+            cancelAgrupationOrder: cancelAgrupationOrder,
+            confirmPersonalOrder: confirmPersonalOrder,
         }
         
         
@@ -37,11 +40,12 @@
                 })
             });
         }
-        //David: workaround para que actualice ignorando el tiempo de cache.
-        // donde dice moment().add() originalmente decia vm.ls.lastUpdate;
+
+        
         function getAgrupations(catalogId) {
             return getContext(
-                moment().add(-1.5, 'days'),
+                vm.ls.lastUpdate,
+                //moment().add(-1.5, 'days'),
                 "grupos", 
                 
                 function(){
@@ -69,6 +73,45 @@
             return agrupations_dao.getAgrupationsByType(catalogId, type);
         }
         
+        function confirmAgrupationOrder(catalogId, agrupationId, agrupationType){
+          modifyAgrupation(catalogId, agrupationId, agrupationType, function(group){
+            group.idPedidoIndividual = -agrupationId;
+            group.miembros = group.miembros.map(function(m){
+              if(m.invitacion == "NOTIFICACION_ACEPTADA"){
+                m.estadoPedido = "ABIERTO";
+                m.pedido = null;
+              }
+              return m;
+            })
+            return group;
+          })
+        }
+
+        function cancelAgrupationOrder(catalogId, agrupationId){
+          modifyAgrupation(catalogId, agrupationId, agrupationTypeVAL.TYPE_GROUP, function(group){
+            group.miembros = group.miembros.map(function(m){
+              if(m.email == usuario_dao.getUsuario().email){
+                m.estadoPedido = "ABIERTO";
+                m.pedido = null;
+              }
+              return m;
+            })
+            return group;
+          })
+        }
+        
+        function confirmPersonalOrder(catalogId, agrupationId, agrupationType, personalOrder){
+          modifyAgrupation(catalogId, agrupationId, agrupationType, function(group){
+            group.miembros = group.miembros.map(function(m){
+              if(m.email == usuario_dao.getUsuario().email){
+                m.pedido = personalOrder;
+                m.pedido.estado = "CONFIRMADO";
+              }
+              return m;
+            })
+            return group;
+          })
+        }
         
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         

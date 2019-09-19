@@ -21,6 +21,8 @@
             getOrdersByType: getOrdersByType,
             openPersonalOrder: openAndGetPersonalOrder,
             setVirtualPersonalOrder: setVirtualPersonalOrder,
+            openGroupOrder: openGroupOrder,
+            confirmAgrupationOrder: confirmAgrupationOrder,
             modifyOrder: modifyOrder,            // catalogId -> Order -> Modification -> Null
             setStateConfirmed: setStateConfirmed,// catalogId -> Order -> Null
             setStateCancel: setStateCancel,       // catalogId -> Order -> Null
@@ -106,6 +108,61 @@
 
         function setVirtualPersonalOrder(catalogId){
             replacePersonalOrder(catalogId, pedidoIndividualVirtual);
+        }
+
+        function openGroupOrder(catalogId, group){
+          return setPromise(function(defered){
+            function doOK(response) {
+              $log.debug("callCrearPedidoGrupal", response);
+              var newOrder = response.data;
+              newOrder.idGrupo = group.idGrupo;
+              newOrder.aliasGrupo = group.alias;
+              newOrder.type = agrupationTypeVAL.TYPE_GROUP;
+              contextAgrupationsService.modifyAgrupation(catalogId, group.idGrupo, agrupationTypeVAL.TYPE_GROUP, function(group){
+                  group.idPedidoIndividual = newOrder.id;
+                  return group; 
+              });
+
+              orders_dao.removeOrder(catalogId, -group.idGrupo, agrupationTypeVAL.TYPE_GROUP);
+              orders_dao.newOrder(catalogId, newOrder);
+              defered.resolve(newOrder);
+            }
+
+            function doNoOK(response) {
+                $log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
+            }
+
+            var params = {
+                idGrupo: group.idGrupo,
+                idVendedor: catalogId
+            }
+
+            gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
+          })
+        }
+
+        function confirmAgrupationOrder(catalogId, agrupationId, type){
+          return setPromise(function(defered){
+            contextAgrupationsService.getAgrupation(catalogId, agrupationId, type).then(function(agrupation){
+
+              const newOrder = {
+                id: -agrupation.idGrupo,
+                idGrupo: agrupation.idGrupo,
+                idVendedor: catalogId,
+                estado: "NO_ABIERTO",
+                aliasGrupo: agrupation.alias,
+                type: type,
+                montoMinimo: 600.0,
+                montoActual: 0.0,
+                productosResponse: []
+              }
+
+              orders_dao.removeOrder(catalogId, agrupation.idPedidoIndividual, type);
+              orders_dao.newOrder(catalogId, newOrder);
+
+              defered.resolve();
+            });
+          })
         }
 
         function modifyOrder(catalogId, order, modification){

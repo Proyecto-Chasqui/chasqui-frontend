@@ -84,9 +84,9 @@
             
             order_context.setCatalogId(catalogId);
             
-            // Por el momento se setea por defecto el pedido individual
-            order_context.setAgrupationId(idGrupoPedidoIndividual); 
-            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+            // Ya no se setea más ningun pedido por defecto
+            // order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
             initCatalogData(order_context.getCatalogId().toString());
             contextCatalogObserver.run();
         }
@@ -223,21 +223,22 @@
         
         
 		function refresh() {
-            //var prevGroupSelected = getGroupSelected();
-			refreshGrupos();
-			refreshPedidos();
-            //setContextoByGrupo(prevGroupSelected.idGrupo);
+      return setPromise(function(defered){
+        refreshGrupos()
+        .then(refreshPedidos)
+        .then(defered.resolve);
+      })
 		}
 
 		function refreshPedidos() {
 			$log.debug("refreshPedidos");
-            contextOrdersService.init(order_context.getCatalogId().toString());
+            contextOrdersService.reset(order_context.getCatalogId().toString());
 			return contextOrdersService.getOrders(order_context.getCatalogId().toString());
 		}
 
 		function refreshGrupos() {
 			$log.debug("refreshGrupos");
-            contextAgrupationsService.init();
+            contextAgrupationsService.reset(order_context.getCatalogId().toString());
 			return contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString());
 		}
 

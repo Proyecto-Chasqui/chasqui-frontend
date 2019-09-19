@@ -13,6 +13,11 @@
     
     $scope.groups = [];
 
+    function toTop(){
+      window.scrollTo(0,0);
+    }
+
+
     ///////////////////////////////////////
 
       
@@ -20,11 +25,15 @@
       
     //////////////////////////////////////////
       
-    $rootScope.$on('group-information-actualized', function(event) {
+    $rootScope.$on('groups-information-actualized', function(event) {
         init();
     });
     
     $rootScope.$on('new-group', function(event) {
+        init();
+    });
+    
+    $rootScope.$on('exit-group', function(event) {
         init();
     });
       
@@ -32,10 +41,17 @@
     /////////////////// INIT ////////////////////
 
     function init(){
+        $log.debug("init grupos")
         contextCatalogObserver.observe(function(){
             contextPurchaseService.getAgrupations().then(function(agrupationsInt){
                 $scope.groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
+                $scope.groups = $scope.groups.map(function(g){
+                    g.alias = g.alias.length > 40? g.alias.slice(0,40) + "..." : g.alias;
+                    g.descripcion = g.descripcion && g.descripcion.length > 60? g.descripcion.slice(0,60) + "..." : g.descripcion;
+                    return g;
+                });
                 $rootScope.$broadcast('groups-are-loaded', $scope.group);
+                toTop();
             });
         })
     }

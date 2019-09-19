@@ -18,6 +18,7 @@
             url: '/:catalogShortName',
             templateUrl: 'app/comercio/principal/catalog/catalog.tmpl.html',
             controller: 'CatalogController',
+            params: { mail: null },
             abstract: true
         })
       
@@ -66,10 +67,22 @@
             })
     
                 .state('catalog.userGroups.all', {
-                    url: '/todos',
-                    templateUrl: 'app/comercio/administracion/gcc-tab/groupsList.tmpl.html',
-                    controller: 'GroupsListController',
-                    auth: true
+                  url: '/todos',
+                  templateUrl: 'app/comercio/administracion/gcc-tab/groupsList.tmpl.html',
+                  controller: 'GroupsListController',
+                  auth: true
+                })
+                .state('catalog.userGroups.help', {
+                  url: '/ayuda',
+                  templateUrl: 'app/comercio/administracion/gcc-tab/groupsHelp.tmpl.html',
+                  controller: 'HelpGCCController',
+                  auth: true
+                })
+                .state('catalog.userGroups.invitations', {
+                  url: '/invitaciones',
+                  templateUrl: 'app/comercio/administracion/gcc-tab/groupsInvitations.tmpl.html',
+                  controller: 'InvitationsGCCController',
+                  auth: true
                 })
                 .state('catalog.userGroups.group', {
                     url: '/:groupId',
@@ -88,6 +101,12 @@
                         url: '/historial',
                         templateUrl: 'app/comercio/administracion/gcc-tab/groupOrders.tmpl.html',
                         //controller: 'GroupOrdersController',
+                        auth: true
+                    })
+                    .state('catalog.userGroups.group.members', {
+                        url: '/integrantes',
+                        templateUrl: 'app/comercio/administracion/gcc-tab/groupMembers.tmpl.html',
+                        controller: 'groupMembersController',
                         auth: true
                     })
                     .state('catalog.userGroups.group.admin', {
@@ -125,7 +144,8 @@
                 url: '/login',
                 templateUrl: 'app/comercio/administracion/formularios/login.html',
                 controller: 'LogInController',
-                controllerAs: 'loginCtrl'
+                controllerAs: 'loginCtrl',
+                params: { toPage: null },
             })
             .state('catalog.singUp', {
                 url: '/registro',

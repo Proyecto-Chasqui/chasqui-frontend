@@ -8,10 +8,13 @@
       <chq-principal-product-image
         image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}"
         texto="Explore mas imágenes"
-        ng-click="listaProductosCtrl.verProducto(producto)">
+        ng-click="listaProductosCtrl.agregar(producto)">
       </chq-principal-product-image>
-
-      <chq-product-description description="producto.nombreProducto"></chq-product-description>
+	  
+	<div class="card-chasqui">
+      <chq-price-product precio="producto.precio" tamanho="1.6"></chq-price-product>
+      
+	  <chq-product-description description="producto.nombreProducto"></chq-product-description>
 
       <chq-producer-name
         nombre="producto.nombreFabricante"
@@ -19,28 +22,34 @@
       </chq-producer-name>
 
       <chq-box-container space="space-between">
-        <chq-price-product precio="producto.precio" tamanho="1.6"></chq-price-product>
-        <chq-add-button
-          text="{{'AGREGAR_BTN' | translate}}"
-          ng-click="listaProductosCtrl.agregar(producto)"
-          title="Agregar al pedido">
-        </chq-add-button>
-      </chq-box-container>
 
-      <chq-stamps-container  alto="3rem" space="flex-start">
-        <chq-stamp
-          ng-repeat="medalla in producto.medallasProductor"
-          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
-          image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-          texto="medalla.nombre">
-        </chq-stamp>
-        <chq-stamp
+	  
+	   <div layout="row" layout-xs="row" layout-align="start center">
+      	<chq-stamp
           ng-repeat="medalla in producto.medallasProducto"
           ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
           image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
           texto="medalla.nombre">
         </chq-stamp>
-      </chq-stamps-container>
+        
+	  		<chq-stamp
+          ng-repeat="medalla in producto.medallasProductor"
+          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
+          image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+          texto="medalla.nombre">
+         </chq-stamp>
+       </div>
+	  
+	  
+	  
+        <chq-add-button
+          text="{{'AGREGAR_BTN' | translate}}"
+          ng-click="listaProductosCtrl.agregar(producto)"
+          title="Agregar al changuito">
+        </chq-add-button>
+      </chq-box-container>
+</div>
+
     </chq-product-card>
   </chq-catalog-box>
   
@@ -57,14 +66,14 @@
   
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="myDialog">
-          <md-dialog layout-padding style="width:40%;">
+          <md-dialog layout-padding class="dialogo-medalla-productor">
               <modal-window-title-bar 
                 title="{{listaProductosCtrl.medallaSelect.nombre}}"
                 cancel-action="listaProductosCtrl.cerrarDialogoMedalla">
               </modal-window-title-bar>
               <div layout="column" layout-align="center center">
-                  <ch-image src="listaProductosCtrl.medallaSelect.pathImagen" width="200" height="200"></ch-image>
-                  <div ng-bind-html="listaProductosCtrl.medallaSelect.descripcion"></div>
+                  <ch-image src="listaProductosCtrl.medallaSelect.pathImagen" width="200" height="200" class="dialogo-imagen" ></ch-image>
+                  <div class="txt-medalla" ng-bind-html="listaProductosCtrl.medallaSelect.descripcion"></div>
               </div>
           </md-dialog>
       </div>
@@ -73,15 +82,15 @@
   <!-- ********************* dialogo de productor *******************-->
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="productorDialog">
-          <md-dialog layout-padding style="width:40%;">
+          <md-dialog layout-padding class="dialogo-medalla-productor">
               <modal-window-title-bar 
                 title="{{listaProductosCtrl.emprendedorSelect.nombreProductor}}"
                 cancel-action="listaProductosCtrl.cerrarDialogoMedalla">
               </modal-window-title-bar>
               <div layout="column" layout-align="center center">
-                <ch-image src="listaProductosCtrl.emprendedorSelect.pathImagen" width="200" height="200"></ch-image>
+                <ch-image src="listaProductosCtrl.emprendedorSelect.pathImagen" width="200" height="200" class="dialogo-imagen"></ch-image>
               </div>
-              <div ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta"></div>
+              <div class="txt-medalla" ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta"></div>
               <!--<md-button ui-sref="catalog.productor({idProductor: listaProductosCtrl.emprendedorSelect.idProductor})">
                       Más
               </md-button>-->
@@ -90,3 +99,17 @@
       </div>
    </div>
 </div>
+
+
+
+<style>
+.dialogo-medalla-productor {
+width:350px;
+}
+.dialogo-imagen {
+padding-bottom:20px;
+padding-top:10px;
+}
+
+
+</style>
