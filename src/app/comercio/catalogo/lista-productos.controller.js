@@ -237,7 +237,6 @@
         contextPurchaseService.getSelectedCatalog().then(
               function(catalog){
                   vm.permitirComprar = catalog.few.compraIndividual || catalog.few.gcc || catalog.few.nodos;
-                  console.log("permitir", vm.permitirComprar);
                   callback();
               }
           );
