@@ -141,12 +141,12 @@
         }
         
         function getSelectedCatalog(){
-			var defered = $q.defer();
-			var promise = defered.promise;
+          var defered = $q.defer();
+          var promise = defered.promise;
             
-            contextCatalogsService.getCatalog(order_context.getCatalogId()).then(defered.resolve)
-            
-            return promise;
+          contextCatalogsService.getCatalog(order_context.getCatalogId()).then(defered.resolve)
+          
+          return promise;
         }
         
         /*
