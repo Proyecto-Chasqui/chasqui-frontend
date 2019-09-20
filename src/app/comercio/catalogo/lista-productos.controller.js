@@ -233,13 +233,15 @@
     
 
     function setCatalogState(callback){
-        vendedorService.obtenerConfiguracionVendedor().then(
-            function(response){
-                var few = response.data.few;
-                vm.permitirComprar = few.compraIndividual || few.gcc || few.nodos;
-                callback();
-            }
-        );
+      contextCatalogsService.getCatalogs().then(function(catalogs){
+        contextPurchaseService.getSelectedCatalog().then(
+              function(catalog){
+                  vm.permitirComprar = catalog.few.compraIndividual || catalog.few.gcc || catalog.few.nodos;
+                  console.log("permitir", vm.permitirComprar);
+                  callback();
+              }
+          );
+      })
     }
     
     function init(){
