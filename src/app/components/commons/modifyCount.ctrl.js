@@ -30,9 +30,10 @@
     }
 
     function getTotalOrder(variety){
-        return getTotal(variety) + order.productosResponse
+        return getTotal(variety) + 
+              (order.estado == "ABIERTO"? order.productosResponse
                                             .filter(function(p){return p.idVariante != variety.idVariante})
-                                            .reduce(function(r,p){return r + p.precio*p.cantidad}, 0);
+                                            .reduce(function(r,p){return r + p.precio*p.cantidad}, 0) : 0);
     }
     
     $scope.countPlus = function(howMuch){
