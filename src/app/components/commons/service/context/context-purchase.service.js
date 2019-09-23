@@ -69,8 +69,25 @@
          *              order_context.orderId
          */
         function setContextByCatalog(catalog){
-            // Dadas las estrategias del catalogo depende el contexto inicial. TODO: Dinamizar
-            setContextByCatalogId(catalog.id);
+          // Dadas las estrategias del catalogo depende el contexto inicial.
+          
+          if(catalog.few.compraIndividual && !catalog.few.gcc && !catalog.few.nodos){ 
+            // Solo compra individual
+            order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+          }
+
+          if(!catalog.few.compraIndividual && !catalog.few.gcc && catalog.few.nodos){ 
+            // Solo nodos
+            order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+          }
+
+          // Ya no se setea más ningun pedido por defecto
+          // order_context.setAgrupationId(idGrupoPedidoIndividual); 
+          // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+
+          setContextByCatalogId(catalog.id);
         }
     
         /* Prop: setea el contexto de compra segun el catalogo para el usuario logeado.
@@ -80,13 +97,9 @@
          *              order_context.orderId
          */
         function setContextByCatalogId(catalogId){
-            // Dadas las estrategias del catalogo depende el contexto inicial. TODO: Dinamizar
             
             order_context.setCatalogId(catalogId);
             
-            // Ya no se setea más ningun pedido por defecto
-            // order_context.setAgrupationId(idGrupoPedidoIndividual); 
-            // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
             initCatalogData(order_context.getCatalogId().toString());
             contextCatalogObserver.run();
         }
