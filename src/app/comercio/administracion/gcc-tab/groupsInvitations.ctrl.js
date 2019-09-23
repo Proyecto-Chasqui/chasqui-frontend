@@ -30,7 +30,8 @@
 
 		function rechazarInvitacion(notificacion) {
 			function doOk(response) {
-				toastr.info(us.translate('RECHAZADO'), us.translate('AVISO_TOAST_TITLE') );
+        toastr.info(us.translate('RECHAZADO'), us.translate('AVISO_TOAST_TITLE') );
+        callNotificaciones();
 			}
       
 			var params = {
