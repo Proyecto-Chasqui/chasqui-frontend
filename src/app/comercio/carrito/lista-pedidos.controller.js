@@ -5,7 +5,7 @@
     ListaPedidosController);
 
   /** @ngInject */
-  function ListaPedidosController($log, $state, $scope, StateCommons, contextCatalogObserver,
+  function ListaPedidosController($log, $state, $scope, contextCatalogObserver,
             productoService,ToastCommons, gccService, contextPurchaseService,us, promiseService, REST_ROUTES,
             navigation_state, $rootScope, $stateParams, order_context, contextCatalogsService, dialogCommons) {
 

@@ -4,11 +4,15 @@
 	angular.module('chasqui').controller('LogInController', LogInController);
 
 	/** @ngInject */
-	function LogInController($log, $state, StateCommons, contextCatalogObserver,
-		ToastCommons,toastr, $rootScope, dialogCommons, perfilService, us, contextPurchaseService, usuario_dao) {
+	function LogInController($log, $state, contextCatalogObserver, $stateParams,
+		toastr, $rootScope, dialogCommons, perfilService, us, contextPurchaseService, usuario_dao) {
 
 		var vm = this
 		vm.user = {};
+
+    function toTop(){
+      window.scrollTo(0,0);
+    }
 
 		vm.recuperar = function(ev) {
 			dialogCommons.prompt('Recuperar contraseña',
@@ -37,13 +41,15 @@
 				var tmp = contextPurchaseService.ls.varianteSelected;
 				$rootScope.$broadcast('resetHeader', "");
 				contextPurchaseService.ls.varianteSelected=tmp;
-        contextCatalogObserver.restart();
         $rootScope.$broadcast('resetCatalogInfo', "");
         $rootScope.refrescarNotificacion();
-				if (us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
-				    $state.go("catalog.landingPage");
-				} else {
+
+        if($stateParams.toPage){
+          $state.go($stateParams.toPage);
+        } else if (contextPurchaseService.ls.varianteSelected) {
 					$state.go("catalog.products");
+				} else {
+          $state.go("catalog.landingPage");
 				}
 			}
 
@@ -57,7 +63,14 @@
 			}
 
 			perfilService.resetPass(email).then(doOk)
-		}
+    }
+    
+    function init(){
+      vm.user.email = $stateParams.mail;
+      toTop();
+    }
 
+
+    init();
 	}
 })();

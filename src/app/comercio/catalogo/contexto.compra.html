@@ -1,19 +1,38 @@
 <element-wrapper id="selectorPurchaseContext" supported-strategies="gcc">
     <div ng-controller="ContextoCompraController">
-        <md-card ng-if="showSelector()">
+        <md-card2 ng-if="showSelector()">
             <md-card-content>
                 <div>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>{{'CAMBIAR_CHANGO' | translate}}</label>
                         <md-select ng-change="cambiarContexto()" ng-model="agrupationSelected.idGrupo">
-                            <element-wrapper supported-strategies="compraIndividual">
-                                <md-option ng-value="0" ng-click="setPersonalAsAgrupationSelected()" translate>CONTEXTO_INDIVIDUAL</md-option>
-                            </element-wrapper>
-                            <md-option ng-repeat="group in grupos" ng-value="group.idGrupo" ng-click="setGroupAsAgrupationSelected()"> {{group.alias}} </md-option>
+                          <element-wrapper supported-strategies="compraIndividual">
+                            <md-option ng-value="0" ng-click="setPersonalAsAgrupationSelected()">
+                              <div class="ch-agrupation-selection-item">
+                                <i class="material-icons ch-agrupation-icon" >
+                                  person
+                                </i>
+                                <span translate class="ch-agrupation-label">
+                                  CONTEXTO_INDIVIDUAL
+                                </span>
+                              </div>
+                            </md-option>
+                          </element-wrapper>
+                          <md-option ng-repeat="group in grupos" ng-value="group.idGrupo" ng-click="setGroupAsAgrupationSelected()">
+                            <div class="ch-agrupation-selection-item">
+                              <i class="material-icons ch-agrupation-icon">
+                                group
+                              </i>
+                              <span class="ch-agrupation-label">
+                                {{group.alias}} 
+                              </span>
+                            </div>
+                          </md-option>
                         </md-select>
                     </md-input-container>
                 </div>
             </md-card-content>
-        </md-card>
+        </md-card2>
     </div>
 </element-wrapper>
+

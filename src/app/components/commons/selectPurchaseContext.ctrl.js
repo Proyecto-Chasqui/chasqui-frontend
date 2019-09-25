@@ -15,11 +15,13 @@
     $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
     $scope.setPersonalAsAgrupationSelected = setPersonalAsAgrupationSelected;
     $scope.isSelectedOrderConfirmed = false;
+    $scope.canSelectAgrupation = false;
+    
 
     function init(){
       contextCatalogObserver.observe(function(){
         $scope.agrupationSelected = {
-          idGrupo: contextPurchaseService.getAgrupationContextId(),
+          idGrupo: -1,
           type: agrupationTypeVAL.TYPE_PERSONAL
         }
         vendedorService.obtenerConfiguracionVendedor().then(
@@ -27,14 +29,11 @@
                 var few = response.data.few;
                 if(few.gcc){
                     contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
-                    $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(),agrupationTypeVAL.TYPE_GROUP);
+                      $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(),agrupationTypeVAL.TYPE_GROUP);
                     });
                 }
             }
         );
-
-        
-        checkSelectedOrderConfirmed();
       })
     }
 
@@ -65,14 +64,22 @@
     }
     
     function checkSelectedOrderConfirmed(){
-      contextAgrupationsService.getAgrupation(contextPurchaseService.getCatalogContext(), 
-                                              $scope.agrupationSelected.idGrupo, 
-                                              $scope.agrupationSelected.type).then(function(agrupation){
-        var orderSelected = contextOrdersService.getOrder(contextPurchaseService.getCatalogContext(), 
-                                                          agrupation.idPedidoIndividual, 
-                                                          $scope.agrupationSelected.type);
-        $scope.isSelectedOrderConfirmed = orderSelected.estado == "CONFIRMADO";        
-      })
+      $scope.canSelectAgrupation = $scope.agrupationSelected.type == agrupationTypeVAL.TYPE_PERSONAL;
+      $scope.isSelectedOrderConfirmed = !$scope.canSelectAgrupation;
+      if($scope.agrupationSelected.idGrupo != -1 && $scope.agrupationSelected.type != agrupationTypeVAL.TYPE_PERSONAL){
+        contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), 
+                                          $scope.agrupationSelected.type).then(function(){
+          contextAgrupationsService.getAgrupation(contextPurchaseService.getCatalogContext(), 
+                                                  $scope.agrupationSelected.idGrupo, 
+                                                  $scope.agrupationSelected.type).then(function(agrupation){
+            var orderSelected = contextOrdersService.getOrder(contextPurchaseService.getCatalogContext(), 
+                                                              agrupation.idPedidoIndividual, 
+                                                              $scope.agrupationSelected.type);
+            $scope.isSelectedOrderConfirmed = orderSelected.estado == "CONFIRMADO";
+            $scope.canSelectAgrupation = !$scope.isSelectedOrderConfirmed;
+          })
+        })
+      }
     }
     
     $scope.okAction = function(){

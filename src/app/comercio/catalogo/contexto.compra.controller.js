@@ -9,7 +9,7 @@
    * Lista lateral de productos del pedido seleccionado
    */
   function ContextoCompraController($rootScope, $log, $scope, contextPurchaseService, agrupationTypeVAL,
-                                       usuario_dao, contextAgrupationsService, order_context, contextCatalogObserver) {
+                                       contextCatalogObserver) {
 
     $log.debug("ContextoCompraController ..... ");
 

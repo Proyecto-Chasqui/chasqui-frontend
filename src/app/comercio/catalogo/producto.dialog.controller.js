@@ -8,7 +8,7 @@
 
 	/** @ngInject 
 	 * Es solo un lugar para hacer pruebas*/
-	function ProductoDialogController($scope, $log, StateCommons, productoService, URLS, REST_ROUTES, productSelected, $mdDialog) {
+	function ProductoDialogController($scope, $log, productoService, URLS, REST_ROUTES, productSelected, $mdDialog) {
 		//	$log.debug('ProductoDialogController ..... ') 
 		$log.debug("productSelected", productSelected)
 

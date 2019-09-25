@@ -3,7 +3,7 @@
 
 	angular.module('chasqui').service('productorService', productorService);
 
-	function productorService(restProxy, $q, $log, REST_ROUTES, StateCommons, promiseService, $stateParams, contextCatalogsService) {
+	function productorService(restProxy, $q, $log, REST_ROUTES, promiseService, $stateParams, contextCatalogsService) {
 
 		var vm = this;
 

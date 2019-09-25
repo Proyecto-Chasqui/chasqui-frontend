@@ -13,6 +13,32 @@ $colorBlanco: #FFFFFF;
 }
 
 
+/* clases generales */
+
+// mostrar solo en responsive:
+
+@media (min-width: 767px) {
+  .ch-responsive-xl {
+    display: inherit;
+  }
+
+  .ch-responsive-s {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .ch-responsive-xl {
+    display: none !important;
+  }
+
+  .ch-responsive-s {
+    display: inherit;
+  }
+}
+
+
 /* RESET */
 
 
@@ -56,7 +82,7 @@ md-list-item.md-3-line > .md-no-style::before {
 }
 
 .bg-white {
-	background-color: $colorUno !important;
+	background-color: $colorDos !important;
 }
 
 .btn-compra {
@@ -166,20 +192,28 @@ md-tabs md-ink-bar {
 
 .md-button.md-primary.md-raised{
 	background-color: $colorDos;
-	color: $colorUno;
+  color: white;
+  cursor: pointer;
+  height: 36px !important;
 }
 
 .md-button.md-primary.md-raised:hover:not([disabled]){
-	background-color: $colorUno;
+	background-color: white;
 	color: $colorDos;
-	transition: all 0.4s;
+  transition: all 0.4s;
 }
 .chq-resaltado{
 	color: #fff !important;
 	background-color: gray !important;
 }
 
+.ch-button-content {
+	color: white;
+}
 
+.ch-button-content:hover{
+	color: $colorDos;
+}
 
 .img {
 	width: 100%;
@@ -382,22 +416,22 @@ md-tabs md-ink-bar {
 
 .ch-estado-pedido {
     padding: 8px;
-    border-radius: 2px;
 }
 
 .ch-estado-pedido-abierto {
-    color: #FFFFFF !important;
-    background-color: $colorDos !important;
+    color: $colorDos !important;
 }
 
 .ch-estado-pedido-cancelado {
-    color: #FFFFFF !important;
-    background-color: $colorUno !important;
+    color: $colorUno !important;
 }
 
 .ch-estado-pedido-confirmado {
-    color: #FFFFFF !important;
-    background-color: $colorConfirmar !important;
+    color: $colorConfirmar !important;
+}
+
+.ch-estado-pedido-colectivo {
+  margin: 8px;
 }
 
 /* Paneles laterales del catalogo */
@@ -429,6 +463,25 @@ md-tabs md-ink-bar {
   max-height: 400px;
 }
 
+.ch-agrupation-selection-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ch-agrupation-icon {
+  margin-right: 8px;
+}
+
+.ch-agrupation-label {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px
+}
+
 .ch-contexto-pedido-panel-list{
   max-height: 274px;
   overflow: scroll;
@@ -457,38 +510,156 @@ md-tabs md-ink-bar {
     justify-content: space-between;
 }
 
-.ch-item-selected {
-    background-color: $colorUno;
-    color: $colorDos;
-    margin-inline-start: 0px;
-    margin-block-start: 1em;
-
+.ch-group-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 100%;
+  height: auto;
+  transition: all .5s ease;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 3px;
+  margin-top: 20px;
+}
+.ch-group-card:hover{
+  background-color: rgba(255, 255, 255, 0.548);
+  box-shadow:  1px 1px 6px rgba(0, 0, 0, 0.4);
+  transition: all .5s ease;
 }
 
-.ch-item-no-selected {
+.ch-group-card-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.ch-group-card-data-avatar{
+  height: 40px;
+  width: 40px;
+  margin: 8px;
+}
+
+.ch-group-card-data-information {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.ch-group-card-data-information-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ch-group-card-data-information-alias {
+  margin-top: 8px;
+}
+
+
+.ch-group-card-data-information-description {
+  margin-bottom: 4px;
+  color: #9b9898 !important;  
+  font-style: italic;
+}
+
+
+.ch-group-card-data-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  
+  .ch-group-card-data {
     display: flex;
-    color: white;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #412467 !important;
-    margin-block-start: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;   
+    font-size: 12px !important;
+  }
+
+  .ch-group-card-data-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .ch-estado-pedido {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ch-grupo-monto-total {
+    font-size: 14px !important;
+  }
+
+  .ch-group-action {
+    flex: 1;
+    font-size: 10px !important;
+  }
+
 }
+
+.ch-groups-help {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;  
+}
+
+.ch-groups-help-question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  padding: 10px;
+  max-width: 600px;
+}
+
+.ch-groups-help-question-title {
+  font-size: 16px;
+  color: $colorDos;
+}
+
+.ch-groups-help-question-answer {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
 
 /* Pagina del grupo en particular */
 
-.ch-group-info {
-    
+.ch-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
-.ch-item-options {
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px;
-    background-color: #6a4896;
-    border-top: 1px solid black; 
+.ch-group-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
+
+.ch-group-info-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
 
 
 // Notificaciones
@@ -512,6 +683,12 @@ md-tabs md-ink-bar {
     user-select: none;
     cursor: default;
     font-size: 0.5em;
+}
+
+.ch-count-group-invitations {
+  position: relative;
+  left: 18px;
+  top: 9px;
 }
 
 .listanombremobil .angular-notifications-icon{
@@ -717,4 +894,20 @@ md-tabs md-ink-bar {
 .ch-group-administrator-description-item {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.ch-icon-outlined {
+  cursor: pointer;
+  margin: 15px;
+}
+
+
+.ch-icon-outlined-content {
+  cursor: pointer;
+  color: $colorDos;
+  font-size: 36px;
+}
+
+.ch-icon-outlined-content:hover {
+  color: $colorUno;
 }

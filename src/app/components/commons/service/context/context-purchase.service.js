@@ -69,8 +69,25 @@
          *              order_context.orderId
          */
         function setContextByCatalog(catalog){
-            // Dadas las estrategias del catalogo depende el contexto inicial. TODO: Dinamizar
-            setContextByCatalogId(catalog.id);
+          // Dadas las estrategias del catalogo depende el contexto inicial.
+          
+          if(catalog.few.compraIndividual && !catalog.few.gcc && !catalog.few.nodos){ 
+            // Solo compra individual
+            order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+          }
+
+          if(!catalog.few.compraIndividual && !catalog.few.gcc && catalog.few.nodos){ 
+            // Solo nodos
+            order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+          }
+
+          // Ya no se setea más ningun pedido por defecto
+          // order_context.setAgrupationId(idGrupoPedidoIndividual); 
+          // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+
+          setContextByCatalogId(catalog.id);
         }
     
         /* Prop: setea el contexto de compra segun el catalogo para el usuario logeado.
@@ -80,13 +97,9 @@
          *              order_context.orderId
          */
         function setContextByCatalogId(catalogId){
-            // Dadas las estrategias del catalogo depende el contexto inicial. TODO: Dinamizar
             
             order_context.setCatalogId(catalogId);
             
-            // Por el momento se setea por defecto el pedido individual
-            order_context.setAgrupationId(idGrupoPedidoIndividual); 
-            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
             initCatalogData(order_context.getCatalogId().toString());
             contextCatalogObserver.run();
         }
@@ -141,12 +154,12 @@
         }
         
         function getSelectedCatalog(){
-			var defered = $q.defer();
-			var promise = defered.promise;
+          var defered = $q.defer();
+          var promise = defered.promise;
             
-            contextCatalogsService.getCatalog(order_context.getCatalogId()).then(defered.resolve)
-            
-            return promise;
+          contextCatalogsService.getCatalog(order_context.getCatalogId()).then(defered.resolve)
+          
+          return promise;
         }
         
         /*
@@ -223,21 +236,22 @@
         
         
 		function refresh() {
-            //var prevGroupSelected = getGroupSelected();
-			refreshGrupos();
-			refreshPedidos();
-            //setContextoByGrupo(prevGroupSelected.idGrupo);
+      return setPromise(function(defered){
+        refreshGrupos()
+        .then(refreshPedidos)
+        .then(defered.resolve);
+      })
 		}
 
 		function refreshPedidos() {
 			$log.debug("refreshPedidos");
-            contextOrdersService.init(order_context.getCatalogId().toString());
+            contextOrdersService.reset(order_context.getCatalogId().toString());
 			return contextOrdersService.getOrders(order_context.getCatalogId().toString());
 		}
 
 		function refreshGrupos() {
 			$log.debug("refreshGrupos");
-            contextAgrupationsService.init();
+            contextAgrupationsService.reset(order_context.getCatalogId().toString());
 			return contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString());
 		}
 
