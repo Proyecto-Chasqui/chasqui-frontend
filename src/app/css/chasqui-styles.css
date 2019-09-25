@@ -169,14 +169,14 @@ body{
     background-image: url(../components/image/fondo-box.jpg);
     height: 180px;
 }
-
+/*
 .archive-box-catalogo2 {
     border-bottom: 1px solid;
     border-color: #d6d6d6;
     padding: 50px 0 40px;
     background: #cccccc;
     height: 150px;
-}
+}*/
 
 .archive-box-catalogo h3 {
     text-align: center;
@@ -753,11 +753,24 @@ padding-left: 40px;
     padding-bottom: 10px;
 }
 
+.archive-box-catalogo2 {
+    border-bottom: 1px solid;
+    border-color: #d6d6d6;
+    padding: 50px 0 40px;
+    background: #cccccc;
+    height: 150px;
+}
+.search-input-container {
+    margin-left: 120px;
+    margin-top: 16px;
+}
 /*
 **********************************************
         RESPONISIBE MOBILE / TABLET
 **********************************************
 */
+
+
 
 @media (max-width: 1499px) { 
     .container.full {padding: 0px 15px;}
@@ -782,6 +795,8 @@ padding-left: 40px;
 .navbar.top-nav-collapse .logo {line-height: 70px;}
 .no-sidebar .universal_mas_item.product {width: 33.33333%;}
 .destacados-slider-movil2 {display: none;}
+
+
 }
 
 @media (min-width: 991px) {
@@ -822,7 +837,6 @@ padding-left: 40px;
     position: absolute;
     top: 90px;
     right: 15px;
-
 }
 .nombreseccion {display: none;}	
 #destacados-slider-movil1 {display: none;}
@@ -848,6 +862,10 @@ padding-left: 40px;
 #destacados-slider-movil1 {display: none;}
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
+.search-input-container {
+    margin-left: 120px;
+    margin-top: 16px;
+}
 
 
 }
@@ -855,9 +873,6 @@ padding-left: 40px;
 #menu-sub-mobile {display: none;}
 #menu-sub {display: block;}
 #movil-catalogo {display: none;}
-
-
-
 
 .tarjeta-content {
   display: flex;
@@ -906,7 +921,16 @@ line-height: 1.29;
 color: #111;
 }
 div.ch-modal-price-per-unit-and-description {display: none;}
-.archive-box-catalogo2 {display: none;}
+
+.search-input-container {margin-left: 16px;}
+.archive-box-catalogo2 {
+    border-bottom: 1px solid;
+    border-color: #d6d6d6;
+	padding: 0px 0 0px;
+    background: #cccccc;
+    height: 80px;
+}
+
 .logo-patrocinador{
     padding-bottom:30px;
 	display:flex;
@@ -935,7 +959,10 @@ width:400px;
 }
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 72b55801a3d69417bb913a94ac77d74bdf86f4c4
 }
 
 
@@ -1226,10 +1253,6 @@ background-color: #fff;
     padding-left: 15px;
 }
        
-.search-input-container {
-    margin-left: 120px;
-    margin-top: 16px;
-}
    
 
 .filtros-buscador{
@@ -1442,6 +1465,7 @@ margin: 10px;
 }
 .quienes-titulo h2 {
     margin-bottom: 12px;
+	text-transform: uppercase;
 }
 
 .quienes-titulo img {
