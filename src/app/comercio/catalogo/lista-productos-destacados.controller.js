@@ -10,7 +10,7 @@
 		$log.debug('ListaProductosDestacadosController ..... ');
 
 		var vm = this;
-		vm.urlbase = URLS.be_base;
+		vm.urlBase = URLS.be_base;
 		vm.productos = [];
 		vm.medallaSelect = undefined;
 		vm.loaded = false;
