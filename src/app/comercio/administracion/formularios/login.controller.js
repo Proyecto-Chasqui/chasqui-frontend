@@ -59,7 +59,7 @@
 		vm.callReset = function(email) {
 
 			function doOk(response) {
-				toastr.success("Revisá tu correo","Cuenta creada");
+				toastr.success("Se envió a tu correo la nueva contraseña","Contraseña reestablecida");
 			}
 
 			perfilService.resetPass(email).then(doOk)
