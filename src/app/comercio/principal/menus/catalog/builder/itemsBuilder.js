@@ -25,9 +25,13 @@
           //   itemsMenu.splice(2,1);
           // }
           
-          if(strategy.puntoDeEntrega){
+          if(!strategy.nodos){
             itemsMenu.push(deliveryPoints);
           }
+
+          // if(strategy.puntoDeEntrega){
+          //   itemsMenu.push(deliveryPoints);
+          // }
 
           return itemsMenu;
       }
