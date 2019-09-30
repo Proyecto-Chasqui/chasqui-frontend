@@ -21,9 +21,9 @@
                               //howToBuy
                           ];
         
-          if(strategy.nodos){
-            itemsMenu.splice(2,1);
-          }
+          // if(strategy.nodos){
+          //   itemsMenu.splice(2,1);
+          // }
           
           if(strategy.puntoDeEntrega){
             itemsMenu.push(deliveryPoints);
