@@ -17,12 +17,12 @@
 
           var itemsMenu = [
                               landingPage,
-							  products,
+							                products,
                               howToBuy
                           ];
         
           if(strategy.nodos){
-            itemsMenu.splice(1,1);
+            itemsMenu.splice(2,1);
           }
           
           if(strategy.puntoDeEntrega){
