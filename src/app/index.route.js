@@ -119,8 +119,15 @@
                 url: '/misNodos',
                 templateUrl: 'app/comercio/administracion/nodes-tab/nodes.tmpl.html',
                 controller: 'NodesCtrl',
+                auth: true,
+                abstract: true,
+            })
+              .state('catalog.userNodes.all', {
+                url: '/todos',
+                templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
+                controller: 'NodesListCtrl',
                 auth: true
-            })          
+              })
             .state('catalog.deliveryPoints', {
                 url: '/puntosDeEntrega',
                 templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',

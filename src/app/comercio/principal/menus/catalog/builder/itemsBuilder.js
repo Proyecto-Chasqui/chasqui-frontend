@@ -89,7 +89,7 @@
 
       var userNodes = { 
                           id: 'MY_NODES',
-                          route: 'userOrders', //route: 'userNodes',
+                          route: 'userNodes.all',
                           label: 'MENU_NODES',
                           needLogin: true
                       };
