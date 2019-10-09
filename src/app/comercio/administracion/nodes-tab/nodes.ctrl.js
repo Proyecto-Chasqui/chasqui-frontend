@@ -44,7 +44,13 @@
             g.descripcion = g.descripcion && g.descripcion.length > 60? g.descripcion.slice(0,60) + "..." : g.descripcion;
             return g;
           });
+          $scope.nodes = [{
+            alias: "uno",
+            descripcion: "dos"
+          }]
           $rootScope.$broadcast('nodes-are-loaded', $scope.nodes);
+
+
           toTop();
         });
       });  

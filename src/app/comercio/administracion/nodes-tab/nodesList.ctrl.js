@@ -5,7 +5,6 @@
 
   
   function NodesListCtrl($log, $scope, $rootScope) {
-
     function init(){
         
     }
