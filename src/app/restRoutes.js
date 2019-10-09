@@ -138,46 +138,80 @@
             productosDestacadosByVendedor: function(idVendedor) {
                 return URLS.be_rest + "client/producto/destacados/" + idVendedor;
             },
+            
 
-            groupsByUser: function(idVendedor) {
-                return URLS.be_rest + 'user/gcc/all/' + idVendedor;
-            },
+            /* Groups */
 
-            aceptarInvitacionAGrupo: URLS.be_rest + 'user/gcc/aceptar',
-
-            rechazarInvitacionAGrupo: URLS.be_rest + 'user/gcc/rechazar',
+            groupsByUser: function(idVendedor) {return URLS.be_rest + 'user/gcc/all/' + idVendedor;},
 
             nuevoGrupo: URLS.be_rest + "user/gcc/alta/",
 
-            editarGrupo: function(idGrupo) {
-                return URLS.be_rest + "user/gcc/editarGCC/" + idGrupo;
-            },
+            cerrarGrupo: URLS.be_rest + "user/gcc/eliminarGrupo",
 
-            crearPedidoGrupal: URLS.be_rest + "user/gcc/individual",
-
-            pedidosByUser: function(idVendedor) {
-                return URLS.be_rest + 'user/gcc/pedidos/' + idVendedor;
-            },
+            editarGrupo: function(idGrupo) {return URLS.be_rest + "user/gcc/editarGCC/" + idGrupo;},
 
             invitarUsuarioAGrupo: URLS.be_rest + "user/gcc/invitacion",
 
             getMailInvitacionAlGCC: URLS.be_rest + "client/sso/obtenerMailInvitado",
 
+            aceptarInvitacionAGrupo: URLS.be_rest + 'user/gcc/aceptar',
+
+            rechazarInvitacionAGrupo: URLS.be_rest + 'user/gcc/rechazar',
+
             quitarMiembro: URLS.be_rest + "user/gcc/quitarMiembro",
-            
+
             cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
+
+            crearPedidoGrupal: URLS.be_rest + "user/gcc/individual",
+
+            pedidosByUser: function(idVendedor) {return URLS.be_rest + 'user/gcc/pedidos/' + idVendedor;},
+
+            pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
+
+            confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
 
             confirmarPedidoColectivo: URLS.be_rest + "user/gcc/confirmar",
 
-            confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
+
+            /* Nodos */
+
+            nodosTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/all/' + idVendedor;},
+
+            nuevoNodo: URLS.be_rest + "user/nodo/alta",
+
+            cerrarNodo: URLS.be_rest + "user/nodo/eliminarGrupo",
+
+            editarNodo: URLS.be_rest + "user/nodo/editarNodo",
+
+            // invitarUsuarioAGrupo: URLS.be_rest + "user/gcc/invitacion",
+
+            // getMailInvitacionAlGCC: URLS.be_rest + "client/sso/obtenerMailInvitado",
+
+            // aceptarInvitacionAGrupo: URLS.be_rest + 'user/gcc/aceptar',
+
+            // rechazarInvitacionAGrupo: URLS.be_rest + 'user/gcc/rechazar',
+
+            // quitarMiembro: URLS.be_rest + "user/gcc/quitarMiembro",
+
+            // cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
+
+            // crearPedidoGrupal: URLS.be_rest + "user/gcc/individual",
+
+            // pedidosByUser: function(idVendedor) {return URLS.be_rest + 'user/gcc/pedidos/' + idVendedor;},
+
+            // pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
+
+            // confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
+
+            // confirmarPedidoColectivo: URLS.be_rest + "user/gcc/confirmar",
+
             
-            pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
-            
-            cerrarGrupo: URLS.be_rest + "user/gcc/eliminarGrupo",
-            
+            /* Otros */
+
             puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
 
             datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
+
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 
 
