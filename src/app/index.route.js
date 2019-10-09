@@ -117,8 +117,8 @@
                     })
             .state('catalog.userNodes', {
                 url: '/misNodos',
-                templateUrl: 'app/comercio/administracion/lista-nodos.html',
-                controller: 'ListaNodosCtrl',
+                templateUrl: 'app/comercio/administracion/nodes-tab/nodes.tmpl.html',
+                controller: 'NodesCtrl',
                 auth: true
             })          
             .state('catalog.deliveryPoints', {
