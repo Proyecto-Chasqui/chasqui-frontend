@@ -122,12 +122,18 @@
                 auth: true,
                 abstract: true,
             })
-              .state('catalog.userNodes.all', {
-                url: '/todos',
-                templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
-                controller: 'NodesListCtrl',
-                auth: true
-              })
+                .state('catalog.userNodes.all', {
+                  url: '/todos',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
+                  controller: 'NodesListCtrl',
+                  auth: true
+                })
+                .state('catalog.userNodes.help', {
+                  url: '/ayuda',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesHelp.tmpl.html',
+                  controller: 'NodeHelpCtrl',
+                  auth: true
+                })
             .state('catalog.deliveryPoints', {
                 url: '/puntosDeEntrega',
                 templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',
