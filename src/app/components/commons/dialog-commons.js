@@ -80,6 +80,23 @@
       $mdDialog.show(editGroup);
     }
     
+
+    vm.newNode = function(callback){
+      var newNode = {
+        parent: angular.element(document.body),
+        templateUrl: "app/comercio/administracion/nodes-tab/newNode.tmpl.html",
+        controller: "NewNodeCtrl",
+        clickOutsideToClose: true,
+        locals: {
+          isEdit: false,
+          node: {}, 
+          callback: callback
+        }
+      };
+
+      $mdDialog.show(newNode);
+    }
+    
         
     /* Dialogo para la modificación de la cantidad de productos de una variedad en el changuito */
     vm.modifyVarietyCount = function(variety, order, texts, initCount, actions){

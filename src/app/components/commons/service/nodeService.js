@@ -14,9 +14,9 @@
 
     };
 
-		function nodosTodos(idCatalog, doNoOK){
+		function nodosTodos(idCatalog, doNoOk){
 			$log.debug(" service nodosTodos ");
-			return promiseService.doGetPrivate(REST_ROUTES.nodosTodos(idCatalog), {}, doNoOK);
+			return promiseService.doGetPrivate(REST_ROUTES.nodosTodos(idCatalog), {idCatalog: idCatalog}, doNoOk);
     }
     
     /*
@@ -27,12 +27,11 @@
         "idDomicilio" : 2,
         "tipoNodo" : "NODO_ABIERTO",
         "barrio" : "un barrio",
-        "descripcion":"descripcion
       }
     */
     function nuevoNodo(params, doNoOk){
 			$log.debug(" service nodosTodos ");
-			return promiseService.doPost(REST_ROUTES.nuevoNodo, params, doNoOK);
+			return promiseService.doPost(REST_ROUTES.nuevoNodo, params, doNoOk);
     }
 
     /* 
@@ -43,7 +42,7 @@
     */
     function cerrarNodo(params, doNoOk){
 			$log.debug(" service cerrarNodo ");
-			return promiseService.doPost(REST_ROUTES.cerrarNodo, params, doNoOK);
+			return promiseService.doPost(REST_ROUTES.cerrarNodo, params, doNoOk);
     }
 
     /* 
@@ -60,7 +59,7 @@
     */
     function editarNodo(params, doNoOk){
 			$log.debug(" service editarNodo ");
-			return promiseService.doPost(REST_ROUTES.editarNodo, params, doNoOK);
+			return promiseService.doPost(REST_ROUTES.editarNodo, params, doNoOk);
     }
 
 

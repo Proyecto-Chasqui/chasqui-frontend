@@ -1,0 +1,88 @@
+<md-dialog>
+  <modal-window-title-bar title='{{isEdit? "MOD_GRUPO" : "NUEVO_GRUPO" | translate}}' cancel-action="cancel"></modal-window-title-bar>
+
+  <md-dialog-content>
+      <div layout="column" style="min-width: 50vw; margin: 20px;">
+          <div layout="column" layout-align="space-between center" ng-hide="entendio">
+            <div class="ch-group-administrator-description">
+              <span class="ch-group-administrator-description-item">
+                Al crear un grupo vas a ser su primer administrador
+              </span>
+              <span class="ch-group-administrator-description-item">
+                ¿Cuales son tus responsabilidades como administrador?
+              </span>
+              <span class="ch-group-administrator-description-item">
+                Cuando administras un grupo podes invitar personas a participar de la compra.
+              </span>
+              <span class="ch-group-administrator-description-item">
+                <span style="text-size: 1.2rem; font-weight: bold;">¡Importante!</span> Recordá que tenés que confirmar el pedido colectivo una vez se hayan realizado todas las compras.
+              </span> 
+              <span class="ch-group-administrator-description-item">
+                El pedido lo recibirás o retirarás donde vos decidas para luego repartirlo entre 
+                los participantes del grupo. También puedes ceder la administración a otro participante cuando quieras.
+              </span>
+            </div>
+            
+            <md-button ng-click="entendio = true" class="btn-agregar"> 
+                <label translate="Entendido"></label>
+            </md-button> 
+          </div>
+        
+          <div layout="row" layout-align="space-between center" ng-show="entendio">
+              <div flex="50" layout="column">
+                  <span><label translate>ALIAS</label><strong>*</strong></span>
+                  <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un nombre</span>
+                  <span style="font-style: italic;">Es el nombre identificador del grupo</span>
+              </div>
+              <md-input-container flex="50">
+                  <label translate>ALIAS</label>
+                  <input ng-model="node.alias"/>
+              </md-input-container>
+          </div>
+          <div layout="row" layout-align="space-between center" ng-show="entendio">
+              <div flex="50" layout="column">
+                  <span><label translate>DESC</label></span>
+                  <span style="font-style: italic;">Es la descripción del grupo</span>
+              </div>
+              <md-input-container flex="50">
+                  <label translate>DESC</label>
+                  <input ng-model="node.descripcion"/>
+              </md-input-container>
+          </div>
+          <div layout="row" layout-align="space-between center" ng-show="entendio">
+              <div flex="50" layout="column">
+                  <span><label translate>Tipo de nodo</label></span>
+                  <span style="font-style: italic;">Un nodo abierto se verá en la sección "Busca un nodo". 
+                    Un nodo cerrado solo será visible por invitación.</span>
+              </div>
+              <md-switch ng-model="tipoNodo" class="md-primary" flex="50">
+                {{tipoNodo? "Abierto" : "Cerrado"}}
+              </md-switch>
+          </div>
+          <div layout="row" layout-align="space-between center" ng-show="entendio">
+              <div flex="50" layout="column">
+                  <span><label translate>Domicilio de entrega</label></span>
+                  <span style="font-style: italic;">Es donde se van a enviar los pedidos colectivos</span>
+              </div>
+              <md-input-container flex="50">
+                  <md-select ng-model="node.idDomicilio" placeholder="Domicilio de entrega">
+                    <md-option ng-value="dir.idDireccion" ng-repeat="dir in directions">{{dir.alias}}</md-option>
+                  </md-select>
+              </md-input-container>
+          </div>
+          <div layout="row" layout-align="space-between center" ng-show="entendio">
+              <div flex="50" layout="column">
+                  <span><label translate>Barrio</label></span>
+                  <span style="font-style: italic;">Barrio del domicilio de entrega</span>
+              </div>
+              <md-input-container flex="50">
+                  <label translate>Barrio</label>
+                  <input ng-model="node.barrio"/>
+              </md-input-container>
+          </div>
+      </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row" layout-align="end center">
+      <md-button class="next" ng-click="save()" ng-show="entendio" translate> {{isEdit? "GUARDAR" : "CREAR"}}</md-button>
+  </md-dialog-actions>
+</md-dialog>
