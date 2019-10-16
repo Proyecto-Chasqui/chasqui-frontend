@@ -88,7 +88,7 @@
     }
 
     function isLoggedUserGroupAdmin(group){
-      return group.miembros[0].email == usuario_dao.getUsuario().email;
+      return group.esAdministrador;
     }
 
     function classForState(state){
