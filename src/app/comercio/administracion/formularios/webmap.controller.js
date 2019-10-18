@@ -251,7 +251,7 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
        $rootScope.isSearching = false;
        $rootScope.buscar_direccion = "Buscar";
        $rootScope.auto_localizar = "Marcar";
-       map.setZoom(9);
+       vmap.setZoom(9);
     });
 
     /*
@@ -278,8 +278,8 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
       * y configuraciones.
       */
       //envia la referencia del mapa a los servicios
-      MapDraw.setMap(map);
-      MapUI.setMap(map);
+      MapDraw.setMap(vmap);
+      MapUI.setMap(vmap);
     });
 
     function marcarPuntoManualLimpio(lat,lng){
