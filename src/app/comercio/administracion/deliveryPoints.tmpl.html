@@ -6,34 +6,41 @@
   </div>
 -->
  <div id="chasqui-princiodepagina2"></div> 
-  
-  
-  <div class="ch-content">
-  
-    <div layout=row layout-xs="column" style="padding-bottom: 40px;">
-    
-  
-  <div class="imagen-puntosderetiro" >
-    <iframe ng-src={{zonesMap}} ng-show={{showMap}} width="100%" height="450px"></iframe>
-  </div>
-  
-    <div  class="puntosderetiro">
+ <div ng-controller="MapWebZonaPRController"   >
 
-          <div layout="column" layout-align="center">
-            <md-card ng-repeat="deliveryPoint in deliveryPoints" class="chq-delivery-point selector-delivery" >
-                              <i class="material-icons">store</i>
-                      <label class="fecha-card">{{deliveryPoint.mensaje}}</label>
-                <label class="nombre-card"> {{deliveryPoint.nombre}}</label>
-                              <label class="direccion-card"> {{formatAddress(deliveryPoint.direccion)}}</label>   
+            <md-dialog-content>
+                <leaflet id="mapaZonasPR" width="100%" height="575px"></leaflet>
+            </md-dialog-content>
+        <div>
+          <section flex>
+              <md-sidenav  style=" height:575px; margin-top: 8.5em;" class="md-sidenav-right" md-component-id="right" md-disable-backdrop md-whiteframe="4">
+                  <md-toolbar   style="background-color: grey;">
+                    <div class="md-toolbar-tools">{{nombre}}</div>
+                  </md-toolbar>
+                <md-content layout-margin >
 
+                <!-- Area para la ayuda de las acciones Automaticas -->
+                    <p >                       
+                        <div align="left"><md-icon md-font-set="material-icons"> label_important </md-icon> Nombre: {{nombre}} </div>
+                        <div ><md-icon md-font-set="material-icons"> description </md-icon> Descripción: {{descripcion}}</div>
+                        <div ng-show="mostrarDia"><md-icon  md-font-set="material-icons"> calendar_today </md-icon> Fecha Cierre: {{day}}</div>
+                        <div ng-show="mostrarDireccionPR"><md-icon  md-font-set="material-icons"> home </md-icon> Dirección: {{direccion}}</div>
+                    </p>
+                    
+                  </md-content>
+                  <div align="center">
+                <md-button ng-click="toggleClose()" class="md-raised">
+                      Cerrar
+                    </md-button>
+                  </div>
+              </md-sidenav>
+            </section>
+          </div>
 
-            </md-card>
-            </div>
+       </div>
+ </div>
   
-    </div>
-    </div>
 
-    </div>
 </section-wrapper>
 
 

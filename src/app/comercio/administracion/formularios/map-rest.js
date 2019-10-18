@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('chasqui').service('MapREST', MapREST);
-  function MapREST($log) {
+  function MapREST($log,URLS) {
 
   	$log.debug('INIT MapREST');
 	//var map;
@@ -22,6 +22,17 @@
       }
     }
 
+    this.obtainAllZones=function(aCallback, idVendedor){
+      var aQuery = new HttpClient();
+      var httpquery = URLS.be_base + 'rest/client/vendedor/zonasGeo/' + idVendedor;
+      aQuery.get(httpquery, aCallback);
+    }
+
+    this.obtainAllSellerPoints=function(aCallback, idVendedor){
+      var aQuery = new HttpClient();
+      var httpquery = URLS.be_base + 'rest/client/vendedor/puntosDeRetiro/id/' + idVendedor;
+      aQuery.get(httpquery, aCallback);
+    }
 	      //rest (deprecable)
       this.reverseGeoCoding=function(ev) {
         var lat = marker.getLatLng().lat;
@@ -41,7 +52,7 @@
           } else {
 
             desbloquearBotones();
-            var mensaje = 'No se logro ubicar su posicion';
+            var mensaje = 'No se logro ubicar su posición';
             showAlert(ev, mensaje);
             $log.debug('Error Map.controller.js en la funcion reverseGeoCoding()');
             $log.debug(mensaje);
