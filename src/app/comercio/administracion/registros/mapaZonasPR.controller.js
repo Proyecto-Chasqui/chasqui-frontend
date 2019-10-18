@@ -142,17 +142,26 @@ angular.module('chasqui').controller('MapWebZonaPRController', ['contextPurchase
     function drawZonas(jsonText){
     	var data = JSON.parse(jsonText);
     	var i = 0;
+    	var lastCoordinates=[];
     	for(i; i<data.length; i++){
     		var coordinates =parseCoordinateToLatLngs(data[i].geometry.coordinates);
     		var name = data[i].properties.nombreZona;
 			MapDraw.drawPolygon(coordinates,name);
-			MapUI.setClickeablePopUp(data[i].properties,MapDraw.getPolygon(name),createText,$scope.toggleOpen); 		
+			MapUI.setClickeablePopUp(data[i].properties,MapDraw.getPolygon(name),createText,$scope.toggleOpen); 
+			if(coordinates.length > 0){
+				lastCoordinates = coordinates[0];
+			}
+    	}
+    	if(lastCoordinates.length >0){
+    		vmap.setView(lastCoordinates);
+    		vmap.setZoom(10);
     	}
     }
 
     function drawSP(jsonText){
     	var data = JSON.parse(jsonText).puntosDeRetiro;
     	var i = 0;
+    	var lastCoordinatesSP = [];
     	for(i; i<data.length; i++){
     		var name = data[i].nombre;
     		var latitud = data[i].direccion.latitud; 
@@ -161,8 +170,13 @@ angular.module('chasqui').controller('MapWebZonaPRController', ['contextPurchase
     		if(latitud !== null && longitud !== null && habilitado){
     			MapDraw.setMarkerSPIn(name,latitud,longitud);
     			MapDraw.setMarkerIcon(name,normalIcon);
-				MapUI.setClickeablePopUp(data[i],MapDraw.getMarker(name),createTextSP,$scope.toggleOpen); 
-			}		
+				MapUI.setClickeablePopUp(data[i],MapDraw.getMarker(name),createTextSP,$scope.toggleOpen);
+				lastCoordinatesSP= [latitud,longitud]; 
+			}					
+    	}
+    	if(lastCoordinatesSP.length >0){
+    		vmap.setView(lastCoordinatesSP);
+    		vmap.setZoom(10);
     	}
     }
 
