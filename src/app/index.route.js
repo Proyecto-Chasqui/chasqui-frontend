@@ -91,12 +91,14 @@
                     //abstract: true,
                     auth: true
                 })
-                    .state('catalog.userGroups.group.membersOrders', {
-                        url: '/pedidoActual',
-                        templateUrl: 'app/comercio/administracion/gcc-tab/groupOrder.tmpl.html',
-                        controller: 'GroupOrderController',
-                        auth: true
-                    })
+                    // No se esta usando la sección de pedido actual
+                    //
+                    // .state('catalog.userGroups.group.membersOrders', {
+                    //     url: '/pedidoActual',
+                    //     templateUrl: 'app/comercio/administracion/gcc-tab/groupOrder.tmpl.html',
+                    //     controller: 'GroupOrderController',
+                    //     auth: true
+                    // })
                     .state('catalog.userGroups.group.historicOrders', {
                         url: '/historial',
                         templateUrl: 'app/comercio/administracion/gcc-tab/groupOrders.tmpl.html',
@@ -145,6 +147,18 @@
                       url: '/integrantes',
                       templateUrl: 'app/comercio/administracion/nodes-tab/nodeMembers.tmpl.html',
                       controller: 'NodeMembersController',
+                      auth: true
+                  })
+                  .state('catalog.userNodes.node.historicOrders', {
+                      url: '/historial',
+                      templateUrl: 'app/comercio/administracion/nodes-tab/nodeOrders.tmpl.html',
+                      //controller: 'NodeOrdersController',
+                      auth: true
+                  })
+                  .state('catalog.userNodes.node.admin', {
+                      url: '/administracion',
+                      templateUrl: 'app/comercio/administracion/gcc-tab/nodeAdmin.tmpl.html',
+                      controller: 'NodeAdminController',
                       auth: true
                   })
             .state('catalog.deliveryPoints', {
