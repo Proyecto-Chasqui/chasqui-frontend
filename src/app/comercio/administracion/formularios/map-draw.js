@@ -7,13 +7,39 @@
   	$log.debug('INIT MAP DRAW');
 	var mapa;
 	var direccionlayer = new L.LayerGroup();
+	var zoneLayer = new L.LayerGroup();
+	var sellerPointLayer = new L.LayerGroup();
 	var markers = new Map();
-
+	var polygons = new Map();
+	var overlayMaps = {
+    	"<img src='./assets/images/zone32.png' height=12> Zonas de entrega": zoneLayer,
+    	"<img src='./assets/images/commerce51.png' height=12> Puntos de retiro": sellerPointLayer
+	};
 	var controledMarker;
 
 	this.setMap = function(refmap){
 		mapa = refmap;
 		mapa.addLayer(direccionlayer);
+	}
+
+	this.setMapForZones = function(refmap){
+		mapa = refmap;
+		zoneLayer = new L.LayerGroup();
+		overlayMaps = {
+	    	"<img src='./assets/images/zone32.png' height=12> Zonas de entrega": zoneLayer,
+	    	"<img src='./assets/images/commerce51.png' height=12> Puntos de retiro": sellerPointLayer
+		};
+		mapa.addLayer(zoneLayer);
+	}
+
+	this.sellerPointLayer = function(refmap){
+		mapa = refmap;
+		sellerPointLayer = new L.LayerGroup();
+		overlayMaps = {
+	    	"<img src='./assets/images/zone32.png' height=12> Zonas de entrega": zoneLayer,
+	    	"<img src='./assets/images/commerce51.png' height=12> Puntos de retiro": sellerPointLayer
+		};
+		mapa.addLayer(sellerPointLayer);
 	}
 
 	this.cleanMarkers = function(){
@@ -51,6 +77,13 @@
           }
 	}
 
+	this.setMarkerSPIn = function(name,lat,lng){
+
+        var marker = L.marker([lat, lng]);
+        markers.set(name,marker);
+        sellerPointLayer.addLayer(marker);
+	}
+
 	this.removeAllMarkers = function(){
 		direccionlayer.clearLayers();
 	}
@@ -74,6 +107,38 @@
       //$rootScope.global_marker.setLatLng(e.latlng);
     }
 
+    this.setLayersControl = function (){
+    	L.control.layers(null,overlayMaps,{position: 'topleft',collapsed: false}).addTo(mapa);
+    }
+
+    this.resetAllMarkIconsTo = function (icon){
+    	var i = 0;
+    	var values = Array.from(markers.entries());
+    	for(i;i<values.length;i++){
+    		values[i][1].setIcon(icon);
+    	}
+    }
+
+    //polygon section
+    this.drawPolygon = function(coordinates, name){
+    	var polygon = L.polygon(coordinates)
+    	zoneLayer.addLayer(polygon);
+    	polygons.set(name,polygon);
+    }
+
+    this.resetStyleAllPolygons=function(){
+		polygons.forEach(resetColor);
+	}
+
+	function resetColor(value, key, map) {
+  		value.setStyle({
+			color: 'blue'
+		});
+	};
+
+	this.getPolygon = function(name){
+		return polygons.get(name);
+	}
 
  }
 })(); 

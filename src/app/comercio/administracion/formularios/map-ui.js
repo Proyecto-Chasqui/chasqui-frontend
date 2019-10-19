@@ -23,6 +23,14 @@
 		rmarker.on('mouseout', functclose);
 	}
 
+	this.setClickeablePopUp = function(datarender, rmarker,renderfunction,toggler){
+		var funct = function(e){
+			renderfunction(datarender,rmarker);
+			toggler();
+		}
+		rmarker.on('click',funct);
+	}
+
 	this.closePopUp=function(marker){
 		marker.closePopup();
 	}
