@@ -134,6 +134,19 @@
                   controller: 'NodeHelpCtrl',
                   auth: true
                 })
+                .state('catalog.userNodes.node', {
+                    url: '/:nodeId',
+                    templateUrl: 'app/comercio/administracion/nodes-tab/node.tmpl.html',
+                    controller: 'NodeController',
+                    //abstract: true,
+                    auth: true
+                })
+                  .state('catalog.userNodes.node.members', {
+                      url: '/integrantes',
+                      templateUrl: 'app/comercio/administracion/nodes-tab/nodeMembers.tmpl.html',
+                      controller: 'NodeMembersController',
+                      auth: true
+                  })
             .state('catalog.deliveryPoints', {
                 url: '/puntosDeEntrega',
                 templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',

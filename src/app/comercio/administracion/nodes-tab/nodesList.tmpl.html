@@ -10,7 +10,7 @@
       </md-button>
   </div>
   <div layout="row" layout-align="space-between center">
-    <a class="ch-icon-outlined" ui-sref="catalog.userGroups.invitations">
+    <a class="ch-icon-outlined" ui-sref="catalog.userNodes.invitations">
         <md-icon class="ch-icon-outlined-content"> email </md-icon>
         <md-tooltip md-direction="bottom" ng-if="invitaciones == 0">
             <label translate="GRUPO_SIN_INVITACIONES"></label>
@@ -98,19 +98,19 @@
                   <label>Ir al catálogo con este grupo seleccionado</label>
                 </md-tooltip>
               </md-button>
-              <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.node.historicOrders({nodeId: i})">
+              <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.historicOrders({nodeId: i})">
                 Historial
                 <md-tooltip md-direction="bottom">
                   <label>Ver los pedidos realizados por el grupo</label>
                 </md-tooltip>
               </md-button>
-              <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.node.members({nodeId: i})">
+              <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.members({nodeId: i})">
                 Integrantes
                 <md-tooltip md-direction="bottom">
                   <label>Ver los integrantes del grupo</label>
                 </md-tooltip>
               </md-button>              
-              <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.node.admin({nodeId: i})" ng-if="isLoggedUserNodeAdmin(node)">
+              <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.admin({nodeId: i})" ng-if="isLoggedUserNodeAdmin(node)">
                 Administración
                 <md-tooltip md-direction="bottom">
                   <label>Configurar datos del grupo</label>
@@ -221,19 +221,19 @@
                   <label>Ir al catálogo con este grupo seleccionado</label>
                 </md-tooltip>
               </md-button>
-              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userGroups.node.historicOrders({nodeId: i})">
+              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.historicOrders({nodeId: i})">
                 Historial
                 <md-tooltip md-direction="bottom">
                   <label>Ver los pedidos realizados por el grupo</label>
                 </md-tooltip>
               </md-button>
-              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userGroups.node.members({nodeId: i})">
+              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.members({nodeId: i})">
                 Integrantes
                 <md-tooltip md-direction="bottom">
                   <label>Ver los integrantes del grupo</label>
                 </md-tooltip>
               </md-button>              
-              <md-button  class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userGroups.node.admin({nodeId: i})" ng-if="isLoggedUserGroupAdmin(node)">
+              <md-button  class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.admin({nodeId: i})" ng-if="isLoggedUserGroupAdmin(node)">
                 Administración
                 <md-tooltip md-direction="bottom">
                   <label>Configurar datos del grupo</label>

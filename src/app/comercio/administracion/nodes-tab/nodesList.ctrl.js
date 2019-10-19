@@ -27,7 +27,6 @@
 
     function showOptionsForNode(nodeIndex){
       $scope.showOptions = $scope.showOptions.map(function(o,i){return i == nodeIndex && !o});
-      console.log($scope.showOptions);
     }
 
     function isLoggedUserNodeAdmin(node){
@@ -38,7 +37,6 @@
     // Inicialización
     function init(){
       $scope.showOptions = $scope.nodes.map(function(n){return false});
-      console.log($scope.showOptions);
     }
 
     $rootScope.$on('nodes-are-loaded', init);
