@@ -157,7 +157,7 @@
                   })
                   .state('catalog.userNodes.node.admin', {
                       url: '/administracion',
-                      templateUrl: 'app/comercio/administracion/gcc-tab/nodeAdmin.tmpl.html',
+                      templateUrl: 'app/comercio/administracion/nodes-tab/nodeAdmin.tmpl.html',
                       controller: 'NodeAdminController',
                       auth: true
                   })

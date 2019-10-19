@@ -1,0 +1,50 @@
+<!-- los ng-if="node.esAdministrador" son por seguridad-->
+
+<div layout=column>
+  <md-card>
+    <md-subheader class="md-accent" ng-if="node.esAdministrador">
+      <label translate="GRUPO_ADMIN"></label>
+    </md-subheader>
+    <md-card-content>
+      <div layout="column">
+        <div layout="row" layout-align="space-between start">
+          <div flex="50" layout="column">
+              <span><label translate>ALIAS</label><strong>*</strong></span>
+              <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un nombre</span>
+              <span style="font-style: italic;">Es el nombre identificador del grupo</span>
+          </div>
+          <md-input-container flex="50">
+              <label translate>ALIAS</label>
+              <input ng-model="node.alias"/>
+          </md-input-container>
+        </div>
+        <div layout="row" layout-align="space-between start">
+            <div flex="50" layout="column">
+                <span><label translate>DESC</label></span>
+                <span style="font-style: italic;">Es la descripción del grupo</span>
+            </div>
+            <md-input-container flex="50">
+                <label translate>DESC</label>
+                <input ng-model="node.descripcion"/>
+            </md-input-container>
+        </div>
+      </div>
+    </md-card-content>
+    <md-card-actions layout="row" layout-align="space-between center" ng-if="node.esAdministrador">
+      <md-button ng-if="node.esAdministrador" ng-click="deleteGroup()" style="color: #f00;" layout="row" layout-alig="center center">
+        <md-icon style="color: #f00;"> remove_circle_outline</md-icon>
+        <label translate="ELIMINAR_GRUPO" style="cursor: pointer;"></label>
+        <md-tooltip md-direction="bottom">
+          <label translate="ELIMINAR_GRUPO"></label>
+        </md-tooltip>
+      </md-button>
+      <md-button ng-click="saveEdition()">
+        <md-icon> edit </md-icon>
+        <label translate="SAVE_GROUP_EDITION" style="cursor: pointer;"></label>
+        <md-tooltip md-direction="bottom">
+          <label translate="SAVE_GROUP_EDITION_TT"></label>
+        </md-tooltip>
+      </md-button>
+    </md-card-actions>
+  </md-card> 
+</div>
