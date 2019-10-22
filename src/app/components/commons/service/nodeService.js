@@ -10,8 +10,8 @@
       nodosTodos: nodosTodos,
       nuevoNodo: nuevoNodo,
       cerrarNodo: cerrarNodo,
-      editarNodo: editarNodo,
-
+      editar: editar,
+      invitarUsuario: invitarUsuario,
     };
 
 		function nodosTodos(idCatalog, doNoOk){
@@ -57,15 +57,25 @@
         "barrio": "un barrio"
       }
     */
-    function editarNodo(params, doNoOk){
-			$log.debug(" service editarNodo ");
-			return promiseService.doPost(REST_ROUTES.editarNodo, params, doNoOk);
+    function editar(params, doNoOk){
+			$log.debug(" service editar ");
+			return promiseService.doPut(REST_ROUTES.editarNodo, params, doNoOk);
     }
 
+    /* 
+      {
+        "idGrupo": 1,
+        "emailInvitado": "email@dominio.com"
+      }
+    */
+    function invitarUsuario(params){
+			$log.debug(" service invitarUsuario ");
+			return promiseService.doPost(REST_ROUTES.invitarUsuarioANodo, params);
+		}
 
     
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 
-        return nodeServiceInt;
+    return nodeServiceInt;
 	}
 })();

@@ -183,7 +183,7 @@
 
             editarNodo: URLS.be_rest + "user/nodo/editarNodo",
 
-            // invitarUsuarioAGrupo: URLS.be_rest + "user/gcc/invitacion",
+            invitarUsuarioANodo: URLS.be_rest + "user/nodo/enviarInvitacion",
 
             // getMailInvitacionAlGCC: URLS.be_rest + "client/sso/obtenerMailInvitado",
 
