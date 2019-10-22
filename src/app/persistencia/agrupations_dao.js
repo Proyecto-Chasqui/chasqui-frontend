@@ -1,6 +1,6 @@
 angular.module('chasqui').factory('agrupations_dao', agrupations_dao);
 
-function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log){
+function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log, agrupationTypeVAL){
     
     ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                  
@@ -59,7 +59,15 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log){
     
     function modifyGroup(catalogId, agrupationId, agrupationType, modification){
         modifyAgrupationsInCatalog(catalogId, agrupationType, function(agrupations){
-            var searchedAgrupationIndex = agrupations.map(function(a){return a.idGrupo;}).indexOf(agrupationId);
+            console.log(catalogId, agrupationId, agrupationType, modification);
+            var idAgrupation = "";
+            if(agrupationType == agrupationTypeVAL.TYPE_GROUP){
+              idAgrupation = "idGrupo";
+            }
+            if(agrupationType == agrupationTypeVAL.TYPE_NODE){
+              idAgrupation = "idNodo";
+            }
+            var searchedAgrupationIndex = agrupations.map(function(a){return a[idAgrupation];}).indexOf(agrupationId);
             agrupations[searchedAgrupationIndex] = modification(agrupations[searchedAgrupationIndex]);
             return agrupations;
         })
