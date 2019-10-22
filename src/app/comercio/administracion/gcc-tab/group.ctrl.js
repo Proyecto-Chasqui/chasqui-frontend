@@ -106,8 +106,8 @@
 
     function init(){
         contextCatalogObserver.observe(function(){
-            contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-                var groups = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
+            contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
+                var groups = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_GROUP);
                 $scope.group = groups[$stateParams.groupId];
                 //$scope.montoMinimo = $scope.group.miembros[0].pedido? $scope.group.miembros[0].pedido.montoMinimo : 500; // TODO pedir esta info dsd be
                 runStatusBar();

@@ -31,9 +31,10 @@
 
     function init(){
       contextCatalogObserver.observe(function(){
-        contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-          var nodes = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_NODE);
+        contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
+          var nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_NODE);
           $scope.node = nodes[$stateParams.nodeId];
+          console.log($scope.node);
           $rootScope.$broadcast('node-is-loaded', $scope.node);
           toTop();
         });

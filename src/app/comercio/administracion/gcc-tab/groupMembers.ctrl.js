@@ -123,8 +123,8 @@
             function(result) {
               callQuitarMiembro(usuario_dao.getUsuario(), function(){
                 toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
-                contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-                  agrupationsInt.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
+                contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
+                  agrupations_dao_int.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
                                                   $scope.group.idGrupo,
                                                   agrupationTypeVAL.TYPE_GROUP
                                                   );

@@ -28,8 +28,8 @@
             function(response){
                 var few = response.data.few;
                 if(few.gcc){
-                    contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
-                      $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(),agrupationTypeVAL.TYPE_GROUP);
+                    contextPurchaseService.getAgrupations().then(function(agrupations_dao_int) {
+                      $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),agrupationTypeVAL.TYPE_GROUP);
                     });
                 }
             }

@@ -54,6 +54,7 @@
             //moment().add(-1.5, 'days'),
             "todos", 
             
+            // Si la cache esta actualizada la retorna
             function(){
                 var defered = $q.defer();
                 var promise = defered.promise;
@@ -63,6 +64,7 @@
             
             agrupations_dao.getAgrupations(catalogId).length === 0, 
             
+            // Si la cache esta NO actualizada la actualiza y despues la retorna
             function(defered){
               var agrupations = [grupoIndividualVirtual];
 

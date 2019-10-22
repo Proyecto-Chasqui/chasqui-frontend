@@ -26,8 +26,8 @@
           idGrupo: contextPurchaseService.getAgrupationContextId(),
           type: agrupationTypeVAL.TYPE_GROUP
         }
-        contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
-          $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
+        contextPurchaseService.getAgrupations().then(function(agrupations_dao_int) {
+          $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
                                                               agrupationTypeVAL.TYPE_GROUP);
         });
       })
