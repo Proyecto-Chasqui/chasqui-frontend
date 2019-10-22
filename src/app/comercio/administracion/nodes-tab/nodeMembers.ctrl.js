@@ -4,7 +4,7 @@
   angular.module('chasqui').controller('NodeMembersController', NodeMembersController);
 
   function NodeMembersController($log, $scope, $state, contextCatalogObserver, $rootScope,
-                          dialogCommons, toastr, gccService, URLS, agrupationTypeVAL,
+                          dialogCommons, toastr, nodeService, URLS, agrupationTypeVAL,
                           us, usuario_dao, navigation_state, contextPurchaseService) {
 
 
@@ -20,8 +20,7 @@
 
     $scope.selfPara = function(miembro) {
       if (us.isUndefinedOrNull(miembro.nickname)) return "";
-      return miembro.nickname + tagSelf(miembro.email == $scope.node.emailAdministrador, us.translate('ADMIN')) +
-        tagSelf($scope.isLoggedMember(miembro), us.translate('TU'));
+      return miembro.nickname + tagSelf(miembro.email == $scope.node.emailAdministrador, us.translate('ADMIN'));
     }
 
     function tagSelf(condicion, tag) {
@@ -93,9 +92,9 @@
     function invitarUsuario(node) {
       $log.debug("Invitar miembro al nodo");
 
-      function doOk(response) {
-          $log.debug("Se seleccionó Invitar a usuario con mail", response);
-          callInvitarUsuario(response, node);
+      function doOk(mail) {
+          $log.debug("Se seleccionó Invitar a usuario con mail", mail);
+          callInvitarUsuario(mail, node);
       }
 
       function doNoOk() {
@@ -123,8 +122,8 @@
             function(result) {
               callQuitarMiembro(usuario_dao.getUsuario(), function(){
                 toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
-                contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-                  agrupationsInt.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
+                contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
+                  agrupations_dao_int.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
                                                   $scope.node.idGrupo,
                                                   agrupationTypeVAL.TYPE_GROUP
                                                   );
@@ -181,17 +180,17 @@
           emailCliente: miembro.email
       }
 
-      gccService.quitarMiembro(params).then(callback);
+      nodeService.quitarMiembro(params).then(callback);
     }
     
-    function callInvitarUsuario(emailClienteInvitado, node) {
+    function callInvitarUsuario(email, node) {
 
       var doOk = function(response) {
           toastr.info(us.translate('ENVIARA_MAIL'),us.translate('AVISO_TOAST_TITLE'));
           var recienInvitado = {
               avatar: null, 
               nickname: null, 
-              email: emailClienteInvitado, 
+              email: email, 
               invitacion: "NOTIFICACION_NO_LEIDA", 
               estadoPedido: "INEXISTENTE",
               pedido:null
@@ -201,10 +200,11 @@
       }
 
       var params = {
-          idGrupo: node.idGrupo,
-          emailInvitado: emailClienteInvitado
+        idGrupo: node.idNodo,
+        emailInvitado: email
       }
-      gccService.invitarUsuarioAGrupo(params).then(doOk);
+
+      nodeService.invitarUsuario(params).then(doOk);
     }
     
     
@@ -222,7 +222,7 @@
         emailCliente: miembro.email
       }
 
-      gccService.cederAdministracion(params).then(doOk)   
+      nodeService.cederAdministracion(params).then(doOk)   
     }
         
     
