@@ -15,7 +15,7 @@
           </div>
           <md-input-container flex="50">
               <label translate>ALIAS</label>
-              <input ng-model="node.alias"/>
+              <input ng-model="nodeRepresentation.nombreNodo"/>
           </md-input-container>
         </div>
         <div layout="row" layout-align="space-between start">
@@ -25,7 +25,43 @@
             </div>
             <md-input-container flex="50">
                 <label translate>DESC</label>
-                <input ng-model="node.descripcion"/>
+                <input ng-model="nodeRepresentation.descripcion"/>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span><label translate>Tipo de nodo</label></span>
+                <span style="font-style: italic;">Un nodo abierto se verá en la sección "Busca un nodo". 
+                  Un nodo cerrado solo será visible por invitación.</span>
+            </div>
+            <md-switch ng-model="nodeRepresentation.tipoNodo" class="md-primary" flex="50" 
+                       ng-true-value="'NODO_ABIERTO'" ng-false-value="'NODO_CERRADO'">
+              {{nodeRepresentation.tipoNodo == 'NODO_ABIERTO'? "Abierto" : "Cerrado"}}
+            </md-switch>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span><label translate>Domicilio de entrega</label></span>
+                <span style="font-style: italic;">Es donde se van a enviar los pedidos colectivos</span>
+            </div>
+            <md-input-container flex="50">
+                <md-select ng-model="nodeRepresentation.idDireccion" placeholder="Domicilio de entrega">
+                  <md-option ng-repeat="dir in directions" 
+                             ng-value="dir.idDireccion" 
+                             ng-selected="dir.idDireccion == node.direccionDelNodo.id">
+                    {{dir.alias}}
+                  </md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span><label translate>Barrio</label></span>
+                <span style="font-style: italic;">Barrio del domicilio de entrega</span>
+            </div>
+            <md-input-container flex="50">
+                <label translate>Barrio</label>
+                <input ng-model="nodeRepresentation.barrio"/>
             </md-input-container>
         </div>
       </div>
