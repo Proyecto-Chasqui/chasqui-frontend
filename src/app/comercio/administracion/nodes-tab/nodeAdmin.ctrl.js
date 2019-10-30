@@ -8,7 +8,7 @@
                           us, usuario_dao, navigation_state, contextPurchaseService) {
 
     $scope.saveEdition = saveEdition;
-    $scope.deleteGroup = deleteGroup;
+    $scope.deleteNode = deleteNode;
     
     $scope.isAdmin = false;
     $scope.urlBase = URLS.be_base;
@@ -56,15 +56,15 @@
     }
 
 
-    function deleteGroup(group){
+    function deleteNode(node){
         dialogCommons.confirm(
-            us.translate('ELIMINAR_GRUPO'), 
+            us.translate('ELIMINAR_NODO'), 
             us.translate("SEGURO_ELIMINAR_GCC") + $scope.node.alias + "?" + "\n" +
             "Solo se puede eliminar el grupo si ningún miembro tiene su pedido confirmado o abierto", 
             us.translate('SI_ELIMINAR'), 
             us.translate('CANCELAR'),
             function(result) {
-                callDeleteGroup(group);
+                callDeleteNode(node);
             },
             function() {
                 $log.debug("se quedo");
@@ -74,22 +74,25 @@
 
     /////// REST ////////
 
-    function callDeleteGroup(group){
-        $log.debug("group", $scope.node)
+    function callDeleteNode(node){
+        $log.debug("node", $scope.node)
 
         function doOk(response) {
           toastr.success(us.translate('GRUPO_ELIMINADO'), us.translate('AVISO_TOAST_TITLE'));
           contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
             agrupations_dao_int.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
-                                            $scope.node.idGrupo,
-                                            agrupationTypeVAL.TYPE_GROUP
+                                            $scope.node.idNodo,
+                                            agrupationTypeVAL.TYPE_NODE
                                             );
-            $scope.$emit("exit-group");
-            $state.go('catalog.userGroups.all');
+            $scope.$emit("exit-node");
+            $state.go('catalog.userNodes.all');
           });
         }
 
-        nodeService.cerrarGrupo(contextPurchaseService.getCatalogContext(), $scope.node.idGrupo).then(doOk);
+        nodeService.cerrar({
+          idVendedor: contextPurchaseService.getCatalogContext(), 
+          idGrupo: $scope.node.idNodo
+        }).then(doOk);
         
     }
     

@@ -179,7 +179,7 @@
 
             nuevoNodo: URLS.be_rest + "user/nodo/alta",
 
-            cerrarNodo: URLS.be_rest + "user/nodo/eliminarGrupo",
+            cerrarNodo: URLS.be_rest + "user/nodo/eliminarNodo",
 
             editarNodo: URLS.be_rest + "user/nodo/editarNodo",
 
