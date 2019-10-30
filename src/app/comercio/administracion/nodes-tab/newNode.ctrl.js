@@ -25,11 +25,7 @@
     
     
     function save() {
-        if ($scope.isEdit) {
-            callSaveChangesInGroup();
-        } else {
-            callNewNode();
-        }
+      callNewNode();
     }
 
     function callNewNode() {
@@ -37,16 +33,14 @@
         function doOk(response) {
             $log.debug("respuesta guardar nodo ", response);
             callback($scope.node);
-            $scope.$emit("new-node");
             $mdDialog.hide();
-
         }
 
         $scope.node.idVendedor = contextPurchaseService.getCatalogContext();
         $scope.node.tipoNodo = $scope.tipoNodo? "NODO_ABIERTO" : "NODO_CERRADO";
         console.log("guardar nodo", $scope.node);
         $log.debug("guardar nodo", $scope.node);
-        //nodeService.nuevoNodo($scope.node).then(doOk)
+        nodeService.nuevoNodo($scope.node).then(doOk)
     }
 
     var callSaveChangesInGroup = function() {

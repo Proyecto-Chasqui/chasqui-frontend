@@ -17,7 +17,6 @@
     function newNode(){
       function doOk(newNode){
         contextPurchaseService.refresh().then(function(){
-          newGroupCreated = true;
           $rootScope.$emit('new-node');
         });
       }
@@ -33,10 +32,15 @@
       return node.esAdministrador;
     }
 
+      
+    function toTop(){
+      window.scrollTo(0,0);
+    }
 
     // Inicialización
     function init(){
       $scope.showOptions = $scope.nodes.map(function(n){return false});
+      toTop();
     }
 
     $rootScope.$on('nodes-are-loaded', init);

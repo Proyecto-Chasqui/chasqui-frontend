@@ -9,7 +9,7 @@
     const nodeServiceInt = {
       nodosTodos: nodosTodos,
       nuevoNodo: nuevoNodo,
-      cerrarNodo: cerrarNodo,
+      cerrar: cerrar,
       editar: editar,
       invitarUsuario: invitarUsuario,
     };
@@ -40,7 +40,7 @@
         "idVendedor": 2
       }
     */
-    function cerrarNodo(params, doNoOk){
+    function cerrar(params, doNoOk){
 			$log.debug(" service cerrarNodo ");
 			return promiseService.doPost(REST_ROUTES.cerrarNodo, params, doNoOk);
     }
@@ -58,7 +58,7 @@
       }
     */
     function editar(params, doNoOk){
-			$log.debug(" service editar ");
+			$log.debug(" service editarNodo ");
 			return promiseService.doPut(REST_ROUTES.editarNodo, params, doNoOk);
     }
 
