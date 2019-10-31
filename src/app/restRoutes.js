@@ -197,7 +197,7 @@
 
             // crearPedidoGrupal: URLS.be_rest + "user/gcc/individual",
 
-            // pedidosByUser: function(idVendedor) {return URLS.be_rest + 'user/gcc/pedidos/' + idVendedor;},
+            pedidosDeLosNodos: function(idVendedor) {return URLS.be_rest + 'user/nodo/pedidos/' + idVendedor;},
 
             // pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
 

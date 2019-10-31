@@ -3,8 +3,7 @@
 
 	angular.module('chasqui').service('nodeService', nodeService);
 
-	function nodeService($log, REST_ROUTES, promiseService, 
-                         $stateParams, contextCatalogsService, setPromise){
+	function nodeService($log, REST_ROUTES, promiseService){
 		
     const nodeServiceInt = {
       nodosTodos: nodosTodos,
@@ -12,6 +11,7 @@
       cerrar: cerrar,
       editar: editar,
       invitarUsuario: invitarUsuario,
+      pedidosDeLosNodos: pedidosDeLosNodos
     };
 
 		function nodosTodos(idCatalog, doNoOk){
@@ -73,7 +73,11 @@
 			return promiseService.doPost(REST_ROUTES.invitarUsuarioANodo, params);
 		}
 
-    
+    function pedidosDeLosNodos(idVendedor, doNoOk){
+			$log.debug(" service pedidosDeLosNodos ");
+			return promiseService.doGetPrivate(REST_ROUTES.pedidosDeLosNodos(idVendedor), {}, doNoOk);
+    }
+
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 
     return nodeServiceInt;
