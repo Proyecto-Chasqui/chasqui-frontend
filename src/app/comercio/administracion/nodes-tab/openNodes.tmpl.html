@@ -52,13 +52,6 @@
                     <label>El administrador del nodo...</label>
                   </md-tooltip>
                 </md-button>
-                <md-button class="ch-cancel" ng-click="cancelRequest(node)" ng-show="node.requested">
-                  Cancelar solicitud
-                  <md-icon style="color:white"> cancel </md-icon>
-                  <md-tooltip md-direction="bottom">
-                    <label>El administrador del nodo no verá más tu solicitud.</label>
-                  </md-tooltip>
-                </md-button>
               </div>
             </div>
             <div layout="column" ng-show="showOptions[i]">
@@ -117,7 +110,7 @@
                 </md-tooltip>
               </div>
               <div class="ch-group-card-data-actions">
-                <md-button class="ch-cancel" ng-click="cancelRequest(request.nodo)">
+                <md-button class="ch-cancel" ng-click="cancelRequest(request)">
                   Cancelar solicitud
                   <md-icon style="color:white"> cancel </md-icon>
                   <md-tooltip md-direction="bottom">

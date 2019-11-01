@@ -23,8 +23,8 @@
       .then(init_requests);
     }
 
-    function cancelRequest(node){
-      nodeService.cancelRequest(node.request.id)
+    function cancelRequest(request){
+      nodeService.cancelRequest(request.id)
       .then(init_requests);
     }
 
@@ -49,7 +49,7 @@
       nodeService.userRequests(contextPurchaseService.getCatalogContext())
       .then(function(response_requests){
         console.log(response_requests.data);
-        $scope.requests = response_requests.data.filter(function(r){return r.estado != "solicitud_pertenencia_nodo_cancelado"});
+        $scope.requests = response_requests.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
         $scope.openNodes = $scope.openNodes.map(function(node){
           node.requested = $scope.requests.reduce(function(r,request){
             console.log(node, node.idNodo == request.nodo.idNodo);
