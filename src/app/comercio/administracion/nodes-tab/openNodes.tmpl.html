@@ -1,149 +1,160 @@
-<div layout="column">
-  <md-tabs>
-    <md-tab label="Buscar nodos abiertos">
-      <div ng-repeat="(i, node) in openNodes" layout="column" layout-align="start">
-        <!--version web-->
-        <div class="ch-group-card ch-responsive-xl">
-          <div class="ch-group-card-data">
-            <div class="ch-group-card-data-information" ng-click="showOptionsForNode(i)">
-              <ch-image class="ch-group-card-data-avatar" src="node.miembros[0].avatar" description="node.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
-              <div class="ch-group-card-data-information-content">
-                <label class="ch-group-card-data-information-alias">{{node.nombreDelNodo}}</label>
-                <label class="ch-group-card-data-information-description">
-                  {{getFormatedAdress(node)}}
-                </label>
-              </div>
-              <md-tooltip md-direction="bottom">
-                <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
-                  <i class="material-icons">
-                    expand_more
-                  </i>
-                  <label>Ver más detalles</label>
-                  <i class="material-icons">
-                    expand_more
-                  </i>
-                </div>
-                <div layout="row" layout-align="space-between center" ng-show="showOptions[i]">
-                  <i class="material-icons">
-                    expand_less
-                  </i>
-                  <label>Ocultar detalles</label>
-                  <i class="material-icons">
-                      expand_less
-                  </i>
-                </div>
-              </md-tooltip>
-            </div>
-            <div class="ch-group-card-data-actions">
-              <md-button class="ch-confirm" ng-click="sendRequest(node)" ng-show="!node.requested">
-                Enviar solicitud
-                <md-icon style="color:white"> check </md-icon>
-                <md-tooltip md-direction="bottom">
-                  <label>El administrador del nodo...</label>
-                </md-tooltip>
-              </md-button>
-              <md-button class="ch-cancel" ng-click="cancelRequest(node)" ng-show="node.requested">
-                Cancelar solicitud
-                <md-icon style="color:white"> cancel </md-icon>
-                <md-tooltip md-direction="bottom">
-                  <label>El administrador del nodo no verá más tu solicitud.</label>
-                </md-tooltip>
-              </md-button>
-            </div>
-          </div>
-          <div layout="column" ng-show="showOptions[i]">
-            <div class="ch-group-card-data-information">
-              <div class="ch-group-card-data-avatar"></div>
-              <div class="ch-group-card-data-information-content">
-                <label class="ch-group-card-data-information-description ch-group-card-data-information-primary">
-                  " {{node.descripcion}} "
-                </label>
-                <div layout="row" layout-align="start start">
-                  <label class="ch-group-card-data-information-description ch-group-card-data-information-secondary">
-                    Email de contacto: 
-                  </label>
-                  <label class="ch-group-card-data-information-primary" style="margin-left: 8px;">
-                    {{node.emailAdministrador}}
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-       </div>
-    </md-tab>
+<div class="ch-group">
+  <div class="ch-group-info">
+    <div>
+      <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.all" layout="row" layout-align="center">
+          <md-icon class="ch-button-content"> keyboard_arrow_left </md-icon>  
+          Volver
+        </md-button>
+    </div>
+  </div>
 
-    <md-tab label="{{'Solicitudes hechas ('+requests.length+')'}}">
-      <div ng-repeat="(i, request) in requests" layout="column" layout-align="start">
-        <div class="ch-group-card ch-responsive-xl">
-          <div class="ch-group-card-data">
-            <div class="ch-group-card-data-information" ng-click="showOptionsForNode(i)">
-              <ch-image class="ch-group-card-data-avatar" src="request.nodo.miembros[0].avatar" description="request.nodo.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
-              <div class="ch-group-card-data-information-content">
-                <label class="ch-group-card-data-information-alias">{{request.nodo.nombreDelNodo}}</label>
-                <label class="ch-group-card-data-information-description">
-                  {{getFormatedAdress(request.nodo)}}
-                </label>
-              </div>
-              <md-tooltip md-direction="bottom">
-                <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
-                  <i class="material-icons">
-                    expand_more
-                  </i>
-                  <label>Ver más detalles</label>
-                  <i class="material-icons">
-                    expand_more
-                  </i>
+  <div layout="column">
+    <md-tabs>
+      <md-tab label="Buscar nodos abiertos">
+        <div ng-repeat="(i, node) in openNodes" layout="column" layout-align="start" ng-if="!node.requested">
+          <!--version web-->
+          <div class="ch-group-card ch-responsive-xl">
+            <div class="ch-group-card-data">
+              <div class="ch-group-card-data-information" ng-click="showOptionsForNode(i)">
+                <ch-image class="ch-group-card-data-avatar" src="node.miembros[0].avatar" description="node.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
+                <div class="ch-group-card-data-information-content">
+                  <label class="ch-group-card-data-information-alias">{{node.nombreDelNodo}}</label>
+                  <label class="ch-group-card-data-information-description">
+                    {{getFormatedAdress(node)}}
+                  </label>
                 </div>
-                <div layout="row" layout-align="space-between center" ng-show="showOptions[i]">
-                  <i class="material-icons">
-                    expand_less
-                  </i>
-                  <label>Ocultar detalles</label>
-                  <i class="material-icons">
-                      expand_less
-                  </i>
-                </div>
-              </md-tooltip>
-            </div>
-            <div class="ch-group-card-data-actions">
-              <md-button class="ch-cancel" ng-click="cancelRequest(request.nodo)">
-                Cancelar solicitud
-                <md-icon style="color:white"> cancel </md-icon>
                 <md-tooltip md-direction="bottom">
-                  <label>El administrador del nodo no verá más tu solicitud.</label>
+                  <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
+                    <i class="material-icons">
+                      expand_more
+                    </i>
+                    <label>Ver más detalles</label>
+                    <i class="material-icons">
+                      expand_more
+                    </i>
+                  </div>
+                  <div layout="row" layout-align="space-between center" ng-show="showOptions[i]">
+                    <i class="material-icons">
+                      expand_less
+                    </i>
+                    <label>Ocultar detalles</label>
+                    <i class="material-icons">
+                        expand_less
+                    </i>
+                  </div>
                 </md-tooltip>
-              </md-button>
+              </div>
+              <div class="ch-group-card-data-actions">
+                <md-button class="ch-confirm" ng-click="sendRequest(node)" ng-show="!node.requested">
+                  Enviar solicitud
+                  <md-icon style="color:white"> check </md-icon>
+                  <md-tooltip md-direction="bottom">
+                    <label>El administrador del nodo...</label>
+                  </md-tooltip>
+                </md-button>
+                <md-button class="ch-cancel" ng-click="cancelRequest(node)" ng-show="node.requested">
+                  Cancelar solicitud
+                  <md-icon style="color:white"> cancel </md-icon>
+                  <md-tooltip md-direction="bottom">
+                    <label>El administrador del nodo no verá más tu solicitud.</label>
+                  </md-tooltip>
+                </md-button>
+              </div>
             </div>
-          </div>
-          <div layout="column" ng-show="showOptions[i]">
-            <div class="ch-group-card-data-information">
-              <div class="ch-group-card-data-avatar"></div>
-              <div class="ch-group-card-data-information-content">
-                <label class="ch-group-card-data-information-description ch-group-card-data-information-primary">
-                  " {{request.nodo.descripcion}} "
-                </label>
-                <div layout="row" layout-align="start start">
-                  <label class="ch-group-card-data-information-description ch-group-card-data-information-secondary">
-                    Email de contacto: 
+            <div layout="column" ng-show="showOptions[i]">
+              <div class="ch-group-card-data-information">
+                <div class="ch-group-card-data-avatar"></div>
+                <div class="ch-group-card-data-information-content">
+                  <label class="ch-group-card-data-information-description ch-group-card-data-information-primary">
+                    " {{node.descripcion}} "
                   </label>
-                  <label class="ch-group-card-data-information-primary" style="margin-left: 8px;">
-                    {{request.nodo.emailAdministrador}}
-                  </label>
-                </div>
-                <div layout="row" layout-align="start start">
-                  <label class="ch-group-card-data-information-description ch-group-card-data-information-secondary">
-                    Fecha de creación de la solicitud:
-                  </label>
-                  <label class="ch-group-card-data-information-primary" style="margin-left: 8px;">
-                    {{formatRequestDate(request)}}
-                  </label>
+                  <div layout="row" layout-align="start start">
+                    <label class="ch-group-card-data-information-description ch-group-card-data-information-secondary">
+                      Email de contacto: 
+                    </label>
+                    <label class="ch-group-card-data-information-primary" style="margin-left: 8px;">
+                      {{node.emailAdministrador}}
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </md-tab>
-  </md-tabs>
+      </md-tab>
+
+      <md-tab label="{{'Solicitudes hechas ('+requests.length+')'}}">
+        <div ng-repeat="(i, request) in requests" layout="column" layout-align="start">
+          <div class="ch-group-card ch-responsive-xl">
+            <div class="ch-group-card-data">
+              <div class="ch-group-card-data-information" ng-click="showOptionsForNode(i)">
+                <ch-image class="ch-group-card-data-avatar" src="request.nodo.miembros[0].avatar" description="request.nodo.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
+                <div class="ch-group-card-data-information-content">
+                  <label class="ch-group-card-data-information-alias">{{request.nodo.nombreDelNodo}}</label>
+                  <label class="ch-group-card-data-information-description">
+                    {{getFormatedAdress(request.nodo)}}
+                  </label>
+                </div>
+                <md-tooltip md-direction="bottom">
+                  <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
+                    <i class="material-icons">
+                      expand_more
+                    </i>
+                    <label>Ver más detalles</label>
+                    <i class="material-icons">
+                      expand_more
+                    </i>
+                  </div>
+                  <div layout="row" layout-align="space-between center" ng-show="showOptions[i]">
+                    <i class="material-icons">
+                      expand_less
+                    </i>
+                    <label>Ocultar detalles</label>
+                    <i class="material-icons">
+                        expand_less
+                    </i>
+                  </div>
+                </md-tooltip>
+              </div>
+              <div class="ch-group-card-data-actions">
+                <md-button class="ch-cancel" ng-click="cancelRequest(request.nodo)">
+                  Cancelar solicitud
+                  <md-icon style="color:white"> cancel </md-icon>
+                  <md-tooltip md-direction="bottom">
+                    <label>El administrador del nodo no verá más tu solicitud.</label>
+                  </md-tooltip>
+                </md-button>
+              </div>
+            </div>
+            <div layout="column" ng-show="showOptions[i]">
+              <div class="ch-group-card-data-information">
+                <div class="ch-group-card-data-avatar"></div>
+                <div class="ch-group-card-data-information-content">
+                  <label class="ch-group-card-data-information-description ch-group-card-data-information-primary">
+                    " {{request.nodo.descripcion}} "
+                  </label>
+                  <div layout="row" layout-align="start start">
+                    <label class="ch-group-card-data-information-description ch-group-card-data-information-secondary">
+                      Email de contacto: 
+                    </label>
+                    <label class="ch-group-card-data-information-primary" style="margin-left: 8px;">
+                      {{request.nodo.emailAdministrador}}
+                    </label>
+                  </div>
+                  <div layout="row" layout-align="start start">
+                    <label class="ch-group-card-data-information-description ch-group-card-data-information-secondary">
+                      Fecha de creación de la solicitud:
+                    </label>
+                    <label class="ch-group-card-data-information-primary" style="margin-left: 8px;">
+                      {{formatRequestDate(request)}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </md-tab>
+    </md-tabs>
+  </div>
 </div>

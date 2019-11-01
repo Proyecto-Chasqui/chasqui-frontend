@@ -3,21 +3,22 @@
 
 <div layout="row" layout-align="space-between center">
   <div>
-      <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="newNode()" ng-show="nodes.length > 0"> 
-          <md-icon class="ch-button-content"> group_add </md-icon>
-          <label style="cursor: pointer;">crea tu nodo</label>
-          <md-tooltip md-direction="bottom">
-            <label> Crea tu nodo </label>
-          </md-tooltip>
-      </md-button>
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="newNode()" ng-show="nodes.length > 0"> 
+        <md-icon class="ch-button-content"> group_add </md-icon>
+        <label style="cursor: pointer;">crea tu nodo</label>
+        <md-tooltip md-direction="bottom">
+          <label> Crea tu nodo </label>
+        </md-tooltip>
+    </md-button>
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.openNodes">
+      <md-icon class="ch-button-content"> filter_tilt_shift </md-icon>
+      <label style="cursor: pointer;">Nodos abiertos</label>
+      <md-tooltip md-direction="bottom">
+        <label> Conoce más nodos </label>
+      </md-tooltip>
+    </md-button>
   </div>
   <div layout="row" layout-align="space-between center">
-    <a>
-      <md-icon class="ch-icon-outlined-content"> filter_tilt_shift </md-icon>
-      <md-tooltip md-direction="bottom">
-        <label>Conocer más nodos</label>
-      </md-tooltip>
-    </a>
     <a class="ch-icon-outlined" ui-sref="catalog.userNodes.invitations">
         <md-icon class="ch-icon-outlined-content"> email </md-icon>
         <md-tooltip md-direction="bottom" ng-if="invitaciones == 0">

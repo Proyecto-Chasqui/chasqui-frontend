@@ -33,7 +33,7 @@
     }
 
     function getFormatedAdress(node){
-      // return `${node.direccionDelNodo.calle} ${node.direccionDelNodo.altura}, ${node.barrio}, ${node.direccionDelNodo.localidad}`;
+      return node.direccionDelNodo.calle+" "+node.direccionDelNodo.altura+", "+node.barrio+", "+node.direccionDelNodo.localidad;
     }
 
     function formatRequestDate(request){
@@ -82,6 +82,8 @@
     }
 
     $rootScope.$on('nodes-are-loaded', init);
+
+    init();
 
   }
 

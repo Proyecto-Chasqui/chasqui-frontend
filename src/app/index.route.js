@@ -130,6 +130,12 @@
                   controller: 'NodesListCtrl',
                   auth: true
                 })
+                .state('catalog.userNodes.openNodes', {
+                  url: '/nodosAbiertos',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/openNodes.tmpl.html',
+                  controller: 'OpenNodesController',
+                  auth: true
+                })
                 .state('catalog.userNodes.help', {
                   url: '/ayuda',
                   templateUrl: 'app/comercio/administracion/nodes-tab/nodesHelp.tmpl.html',
