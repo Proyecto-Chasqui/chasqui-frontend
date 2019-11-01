@@ -345,6 +345,26 @@ md-tabs md-ink-bar {
 	}
 }
 
+.ch-cancel {
+  color: #fff;
+  background-color: $colorCancela !important;
+  &:hover{
+    background-color: $colorUno !important;
+    color: $colorDos;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+  }
+}
+
+.ch-confirm {
+  color: #fff;
+  background-color: $colorConfirmar !important;
+  &:hover{
+    background-color: #fff !important;
+    color: $colorConfirmar;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+  }
+}
+
 .md-button.cancel-order.order-button-catalog{
 	color: #fff;
 		background-color: $colorCancela !important;
@@ -553,6 +573,15 @@ md-tabs md-ink-bar {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.ch-group-card-data-information-primary{
+  color: #21B7EE !important;
+}
+
+.ch-group-card-data-information-secondary{
+  color: #9b9898 !important;  
+  font-style: italic;
 }
 
 .ch-group-card-data-information-alias {

@@ -175,6 +175,14 @@
 
             /* Nodos */
 
+            nodosAbiertos: function(idVendedor){return URLS.be_rest + "/client/vendedor/nodosAbiertos/" + idVendedor},
+
+            userRequests: function(idVendedor){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaDeUsuario/" + idVendedor},
+
+            sendRequest: URLS.be_rest + "user/nodo/enviarSolicitudDePertenencia",
+
+            cancelRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/cancelarSolicitudDePertenencia/" + idSolicitud},
+
             nodosTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/all/' + idVendedor;},
 
             nuevoNodo: URLS.be_rest + "user/nodo/alta",

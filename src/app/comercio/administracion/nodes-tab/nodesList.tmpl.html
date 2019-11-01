@@ -1,15 +1,23 @@
 
+<open-nodes nodes="nodes"></open-nodes>
+
 <div layout="row" layout-align="space-between center">
   <div>
       <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="newNode()" ng-show="nodes.length > 0"> 
           <md-icon class="ch-button-content"> group_add </md-icon>
-          <label translate="CREAR_GRUPO" style="cursor: pointer;"></label>    
+          <label style="cursor: pointer;">crea tu nodo</label>
           <md-tooltip md-direction="bottom">
-              <label translate="CREAR_GRUPO_MSG"></label>                    
+            <label> Crea tu nodo </label>
           </md-tooltip>
       </md-button>
   </div>
   <div layout="row" layout-align="space-between center">
+    <a>
+      <md-icon class="ch-icon-outlined-content"> filter_tilt_shift </md-icon>
+      <md-tooltip md-direction="bottom">
+        <label>Conocer más nodos</label>
+      </md-tooltip>
+    </a>
     <a class="ch-icon-outlined" ui-sref="catalog.userNodes.invitations">
         <md-icon class="ch-icon-outlined-content"> email </md-icon>
         <md-tooltip md-direction="bottom" ng-if="invitaciones == 0">
@@ -74,7 +82,7 @@
                 <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
               </div>
               <md-tooltip md-direction="bottom">
-                <div layout="row" layout-align="space-between center">
+                <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
                   <i class="material-icons">
                     expand_more
                   </i>
@@ -82,7 +90,16 @@
                   <i class="material-icons">
                     expand_more
                   </i>
-                </div>                  
+                </div>
+                <div layout="row" layout-align="space-between center" ng-show="showOptions[i]">
+                  <i class="material-icons">
+                    expand_less
+                  </i>
+                  <label>Ocultar los pedidos de los integrantes</label>
+                  <i class="material-icons">
+                      expand_less
+                  </i>
+                </div>
               </md-tooltip>
             </div>
             <div class="ch-group-card-data-actions">                

@@ -6,6 +6,10 @@
 	function nodeService($log, REST_ROUTES, promiseService){
 		
     const nodeServiceInt = {
+      nodosAbiertos: nodosAbiertos,
+      userRequests: userRequests,
+      sendRequest: sendRequest,
+      cancelRequest: cancelRequest,
       nodosTodos: nodosTodos,
       nuevoNodo: nuevoNodo,
       cerrar: cerrar,
@@ -14,9 +18,31 @@
       pedidosDeLosNodos: pedidosDeLosNodos
     };
 
+		function nodosAbiertos(idCatalog, doNoOk){
+			$log.debug(" service nodosAbiertos ");
+			return promiseService.doGet(REST_ROUTES.nodosAbiertos(idCatalog), {},doNoOk);
+    }
+    
+    function userRequests(idCatalog, doNoOk){
+			$log.debug(" service userRequests ");
+			return promiseService.doGetPrivate(REST_ROUTES.userRequests(idCatalog), {idVendedor: idCatalog}, doNoOk);
+    }
+    
+    function sendRequest(idCatalog, idNodo, doNoOk){
+			$log.debug(" service sendRequest ");
+			return promiseService.doPost(REST_ROUTES.sendRequest, {idVendedor: idCatalog, idNodo: idNodo}, doNoOk);
+    }    
+    
+    function cancelRequest(requestId, doNoOk){
+			$log.debug(" service cancelRequest ");
+			return promiseService.doPost(REST_ROUTES.cancelRequest(requestId), {idSolicitud: requestId}, doNoOk);
+    }    
+
+    cancelRequest
+    
 		function nodosTodos(idCatalog, doNoOk){
 			$log.debug(" service nodosTodos ");
-			return promiseService.doGetPrivate(REST_ROUTES.nodosTodos(idCatalog), {idCatalog: idCatalog}, doNoOk);
+			return promiseService.doGetPrivate(REST_ROUTES.nodosTodos(idCatalog), {idVendedor: idCatalog}, doNoOk);
     }
     
     /*
