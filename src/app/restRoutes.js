@@ -211,7 +211,7 @@
 
             // rechazarInvitacionAGrupo: URLS.be_rest + 'user/gcc/rechazar',
 
-            quitarMiembro: URLS.be_rest + "user/nodo/quitarMiembro",
+            quitarMiembroNodo: URLS.be_rest + "user/nodo/quitarMiembro",
 
             // cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
 

@@ -135,7 +135,7 @@
         
     function quitarMiembro(params){
 			$log.debug(" service quitarMiembro ");
-      return promiseService.doPost(REST_ROUTES.quitarMiembro, params);
+      return promiseService.doPost(REST_ROUTES.quitarMiembroNodo, params);
     }
 
     
