@@ -29,7 +29,6 @@
           $state.go('catalog.userNodes.all');
       }
 
-      $scope.node.idVendedor = contextPurchaseService.getCatalogContext();
       $scope.node.tipoNodo = $scope.tipoNodo? "NODO_ABIERTO" : "NODO_CERRADO";
       console.log("guardar nodo", $scope.node);
       $log.debug("guardar nodo", $scope.node);
@@ -55,13 +54,12 @@
         if($scope.openRequests.length > 0){
           $scope.node = {
             idSolicitud : $scope.openRequests[0].id,
-            idVendedor : 2,
+            idVendedor : contextPurchaseService.getCatalogContext(),
             nombreNodo : $scope.openRequests[0].nombreNodo,
             descripcion : $scope.openRequests[0].descripcion,
             idDomicilio : $scope.openRequests[0].domicilio.id,
             barrio : $scope.openRequests[0].barrio,
-            descripcion: $scope.openRequests[0].descripcion,
-          }
+          };
 
           $scope.tipoNodo = $scope.openRequests[0].tipoNodo == "NODO_ABIERTO";
           console.log($scope.node);
