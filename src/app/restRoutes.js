@@ -185,9 +185,13 @@
 
             getNodeRequests: function(idNodo){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaANodo/" + idNodo;},
 
+            openRequests: function(idVendedor){return URLS.be_rest + "user/nodo/solicitudesDeCreacion/" + idVendedor;},
+
             nodosTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/all/' + idVendedor;},
 
             nuevoNodo: URLS.be_rest + "user/nodo/alta",
+
+            editarSolicitud: URLS.be_rest + "user/nodo/editarSolicitudDeCreacion",
 
             cerrarNodo: URLS.be_rest + "user/nodo/eliminarNodo",
 

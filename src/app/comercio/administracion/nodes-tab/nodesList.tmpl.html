@@ -3,9 +3,16 @@
 
 <div layout="row" layout-align="space-between center">
   <div>
-    <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.newNode"> 
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.newNode" ng-if="openRequests.length == 0"> 
         <md-icon class="ch-button-content"> group_add </md-icon>
         <label style="cursor: pointer;">crea tu nodo</label>
+        <md-tooltip md-direction="bottom">
+          <label> Crea tu nodo </label>
+        </md-tooltip>
+    </md-button>
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.editNewNode" ng-if="openRequests.length > 0"> 
+        <md-icon class="ch-button-content"> edit </md-icon>
+        <label style="cursor: pointer;">Editar solicitud de nuevo nodo</label>
         <md-tooltip md-direction="bottom">
           <label> Crea tu nodo </label>
         </md-tooltip>

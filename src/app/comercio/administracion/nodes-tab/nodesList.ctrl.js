@@ -3,11 +3,12 @@
 
   angular.module('chasqui').controller('NodesListCtrl', NodesListCtrl);
 
-  function NodesListCtrl($log, $scope, $rootScope, dialogCommons, contextPurchaseService) {
+  function NodesListCtrl($log, $scope, $rootScope, dialogCommons, contextPurchaseService, nodeService) {
 
     // Interfaz
 
     $scope.showOptions = [];
+    $scope.openRequests = $scope.openRequests;
     $scope.showOptionsForNode = showOptionsForNode;
     $scope.isLoggedUserNodeAdmin = isLoggedUserNodeAdmin;
 
@@ -29,6 +30,12 @@
 
     // Inicialización
     function init(){
+      nodeService.openRequests(contextPurchaseService.getCatalogContext())
+      .then(function(response){
+        $scope.openRequests = response.data.filter(function(r){
+          return r.estado == "solicitud_nodo_en_gestion";
+        });
+      })
       $scope.showOptions = $scope.nodes.map(function(n){return false});
       toTop();
     }

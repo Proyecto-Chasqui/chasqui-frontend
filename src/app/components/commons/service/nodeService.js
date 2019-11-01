@@ -11,8 +11,10 @@
       sendRequest: sendRequest,
       cancelRequest: cancelRequest,
       getNodeRequests: getNodeRequests,
+      openRequests: openRequests,
       nodosTodos: nodosTodos,
       nuevoNodo: nuevoNodo,
+      editarSolicitud: editarSolicitud,
       cerrar: cerrar,
       editar: editar,
       invitarUsuario: invitarUsuario,
@@ -43,6 +45,11 @@
 			$log.debug(" service getNodeRequests ");
 			return promiseService.doGetPrivate(REST_ROUTES.getNodeRequests(nodeId), {idNodo: nodeId}, doNoOk);
     }
+
+    function openRequests(idCatalog, doNoOk){
+			$log.debug(" service openRequests ");
+			return promiseService.doGetPrivate(REST_ROUTES.openRequests(idCatalog), {idVendedor: idCatalog}, doNoOk);
+    }
     
 		function nodosTodos(idCatalog, doNoOk){
 			$log.debug(" service nodosTodos ");
@@ -62,6 +69,11 @@
     function nuevoNodo(params, doNoOk){
 			$log.debug(" service nodosTodos ");
 			return promiseService.doPost(REST_ROUTES.nuevoNodo, params, doNoOk);
+    }
+
+    function editarSolicitud(params, doNoOk){
+			$log.debug(" service editarSolicitud ");
+			return promiseService.doPost(REST_ROUTES.editarSolicitud, params, doNoOk);
     }
 
     /* 

@@ -142,6 +142,12 @@
                   controller: 'NewNodeCtrl',
                   auth: true
                 })
+                .state('catalog.userNodes.editNewNode', {
+                  url: '/editarNuevoNodo',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/editNewNode.tmpl.html',
+                  controller: 'EditNewNodeCtrl',
+                  auth: true
+                })
                 .state('catalog.userNodes.all', {
                   url: '/todos',
                   templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
