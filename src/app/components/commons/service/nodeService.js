@@ -15,6 +15,7 @@
       nodosTodos: nodosTodos,
       nuevoNodo: nuevoNodo,
       editarSolicitud: editarSolicitud,
+      cancelarNuevoNodo: cancelarNuevoNodo,
       cerrar: cerrar,
       editar: editar,
       invitarUsuario: invitarUsuario,
@@ -79,6 +80,10 @@
 			return promiseService.doPost(REST_ROUTES.editarSolicitud, params, doNoOk);
     }
 
+    function cancelarNuevoNodo(params, doNoOk){
+			$log.debug(" service cancelarNuevoNodo ");
+			return promiseService.doPost(REST_ROUTES.cancelarNuevoNodo, params, doNoOk);
+    }
     /* 
       params = {
         "idGrupo": 1,

@@ -10,6 +10,7 @@
       
     $scope.node = {};
     $scope.save = save;
+    $scope.cancel = cancel;
     $scope.directions = [];
     $scope.tipoNodo = false;
 
@@ -33,6 +34,17 @@
       console.log("guardar nodo", $scope.node);
       $log.debug("guardar nodo", $scope.node);
       nodeService.editarSolicitud($scope.node).then(doOk)
+    }
+
+    function cancel(){
+      nodeService.cancelarNuevoNodo({
+        idSolicitud: $scope.node.idSolicitud,
+        idVendedor: contextPurchaseService.getCatalogContext()
+      })
+      .then(function(){
+        toastr.success("","Solicitud cancelada");
+        $state.go('catalog.userNodes.all');
+      })
     }
 
     // Inicialización

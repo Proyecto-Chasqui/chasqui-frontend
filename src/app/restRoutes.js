@@ -193,6 +193,8 @@
 
             editarSolicitud: URLS.be_rest + "user/nodo/editarSolicitudDeCreacion",
 
+            cancelarNuevoNodo: URLS.be_rest + "user/nodo/cancelarSolicitudDeCreacion",
+
             cerrarNodo: URLS.be_rest + "user/nodo/eliminarNodo",
 
             editarNodo: URLS.be_rest + "user/nodo/editarNodo",

@@ -365,6 +365,15 @@ md-tabs md-ink-bar {
   }
 }
 
+.ch-cancel {
+  color: #fff;
+  background-color: $colorCancela !important;
+  &:hover{
+    background-color: $colorHoverCancelar !important;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+	}
+}
+
 .md-button.cancel-order.order-button-catalog{
 	color: #fff;
 		background-color: $colorCancela !important;

@@ -70,7 +70,14 @@
                   <input ng-model="node.barrio"/>
               </md-input-container>
           </div>
-          <div layout="row" layout-align="end center">
+          <div layout="row" layout-align="space-between center">
+            <md-button class="md-raised md-primary md-button md-ink-ripple ch-cancel" ng-click="cancel()"> 
+                <md-icon class="ch-button-content"> close </md-icon>
+                <label style="cursor: pointer;">Cancelar solicitud</label>
+                <md-tooltip md-direction="bottom">
+                  <label> El vendedor no verá más tu solicitud </label>
+                </md-tooltip>
+            </md-button>
             <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="save()"> 
                 <md-icon class="ch-button-content"> group_add </md-icon>
                 <label style="cursor: pointer;">Editar solicitud</label>
