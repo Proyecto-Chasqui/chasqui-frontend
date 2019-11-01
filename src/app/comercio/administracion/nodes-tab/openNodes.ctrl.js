@@ -33,7 +33,7 @@
     }
 
     function getFormatedAdress(node){
-      return node.direccionDelNodo.calle+" "+node.direccionDelNodo.altura+", "+node.barrio+", "+node.direccionDelNodo.localidad;
+      return "Calle "+node.direccionDelNodo.calle+", "+node.barrio+", "+node.direccionDelNodo.localidad;
     }
 
     function formatRequestDate(request){
