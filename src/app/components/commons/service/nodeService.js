@@ -18,6 +18,9 @@
       cerrar: cerrar,
       editar: editar,
       invitarUsuario: invitarUsuario,
+      declineRequest: declineRequest,
+      acceptRequest: acceptRequest,
+      quitarMiembro: quitarMiembro,
       pedidosDeLosNodos: pedidosDeLosNodos
     };
 
@@ -113,7 +116,24 @@
     function invitarUsuario(params){
 			$log.debug(" service invitarUsuario ");
 			return promiseService.doPost(REST_ROUTES.invitarUsuarioANodo, params);
-		}
+    }
+    
+    function declineRequest(requestId){
+			$log.debug(" service declineRequest ");
+			return promiseService.doPost(REST_ROUTES.declineRequest(requestId), {idSolicitud: requestId});
+    }
+        
+    function acceptRequest(requestId){
+			$log.debug(" service acceptRequest ");
+			return promiseService.doPost(REST_ROUTES.acceptRequest(requestId), {idSolicitud: requestId});
+    }
+        
+    function quitarMiembro(params){
+			$log.debug(" service quitarMiembro ");
+      return promiseService.doPost(REST_ROUTES.quitarMiembro, params);
+    }
+
+    
 
     function pedidosDeLosNodos(idVendedor, doNoOk){
 			$log.debug(" service pedidosDeLosNodos ");

@@ -199,13 +199,17 @@
 
             invitarUsuarioANodo: URLS.be_rest + "user/nodo/enviarInvitacion",
 
+            declineRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/rechazarSolicitudDePertenencia/" + idSolicitud;},
+
+            acceptRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/aceptarSolicitudDePertenencia/" + idSolicitud;},
+
             // getMailInvitacionAlGCC: URLS.be_rest + "client/sso/obtenerMailInvitado",
 
             // aceptarInvitacionAGrupo: URLS.be_rest + 'user/gcc/aceptar',
 
             // rechazarInvitacionAGrupo: URLS.be_rest + 'user/gcc/rechazar',
 
-            // quitarMiembro: URLS.be_rest + "user/gcc/quitarMiembro",
+            quitarMiembro: URLS.be_rest + "user/nodo/quitarMiembro",
 
             // cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
 

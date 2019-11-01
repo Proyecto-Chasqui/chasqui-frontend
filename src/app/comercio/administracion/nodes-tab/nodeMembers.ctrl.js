@@ -14,6 +14,8 @@
     $scope.membersOptionsShowed = false;
     $scope.urlBase = URLS.be_base;
     $scope.invitarUsuario = invitarUsuario;
+    $scope.declineRequest = declineRequest;
+    $scope.acceptRequest = acceptRequest;
    
       
     //////////////////////////// Private ///////////////////////////////////////
@@ -169,6 +171,24 @@
         });
     }
 
+
+    function declineRequest(request){
+      nodeService.declineRequest(request.id)
+      .then(function(){
+        init();
+        toastr.success("" , "Solicitud rechazada");
+      })
+    }
+
+    function acceptRequest(request){
+      nodeService.acceptRequest(request.id)
+      .then(function(){
+        init();
+        toastr.success("" , "Solicitud aceptada");
+        $rootScope.$broadcast('node-information-actualized', $scope.node);
+      })
+    }
+
     /////// REST ////////
 
 
@@ -176,7 +196,7 @@
       $log.debug("quitar", miembro)
 
       var params = {
-          idGrupo: $scope.node.idGrupo,
+          idGrupo: $scope.node.id,
           emailCliente: miembro.email
       }
 
@@ -232,7 +252,7 @@
         $scope.isAdmin = $scope.node.esAdministrador;
 
         function doOk(response){
-          $scope.requests = response.data;
+          $scope.requests = response.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
         }
         console.log($scope.node);
 
