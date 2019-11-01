@@ -3,7 +3,7 @@
 
   angular.module('chasqui').controller('NodeMembersController', NodeMembersController);
 
-  function NodeMembersController($log, $scope, $state, contextCatalogObserver, $rootScope,
+  function NodeMembersController($log, $scope, $state, contextCatalogObserver, $rootScope, contextAgrupationsService,
                           dialogCommons, toastr, nodeService, URLS, agrupationTypeVAL,
                           us, usuario_dao, navigation_state, contextPurchaseService) {
 
@@ -183,9 +183,9 @@
     function acceptRequest(request){
       nodeService.acceptRequest(request.id)
       .then(function(){
-        init();
+        contextAgrupationsService.reset(contextPurchaseService.getCatalogContext());
         toastr.success("" , "Solicitud aceptada");
-        $rootScope.$broadcast('node-information-actualized', $scope.node);
+        $scope.$emit('node-information-actualized', $scope.node);
       })
     }
 
