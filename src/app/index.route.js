@@ -152,7 +152,7 @@
                   url: '/todos',
                   templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
                   controller: 'NodesListCtrl',
-                  auth: true
+                  auth: false
                 })
                 .state('catalog.userNodes.node', {
                     url: '/:nodeId',

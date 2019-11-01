@@ -3,7 +3,8 @@
 
   angular.module('chasqui').controller('OpenNodesController', OpenNodesController);
 
-  function OpenNodesController($scope, $rootScope, nodeService, contextCatalogObserver, contextPurchaseService) {
+  function OpenNodesController($scope, $rootScope, nodeService, contextCatalogObserver, contextPurchaseService,
+                               usuario_dao, $state) {
 
     // Interfaz
 
@@ -16,11 +17,16 @@
     $scope.showOptionsForNode = showOptionsForNode;
     $scope.getFormatedAdress = getFormatedAdress;
     $scope.formatRequestDate = formatRequestDate;
+    $scope.userIsLog = usuario_dao.isLogged();
 
 
     function sendRequest(node){
-      nodeService.sendRequest(contextPurchaseService.getCatalogContext(), node.idNodo)
-      .then(init_requests);
+      if(usuario_dao.isLogged()){
+        nodeService.sendRequest(contextPurchaseService.getCatalogContext(), node.idNodo)
+        .then(init_requests);
+      } else {
+        $state.go('catalog.login', {toPage: 'catalog.userNodes.openNodes'});
+      }
     }
 
     function cancelRequest(request){
@@ -46,23 +52,25 @@
       Prec: $scope.openNodes initialized
     */
     function init_requests(){
-      nodeService.userRequests(contextPurchaseService.getCatalogContext())
-      .then(function(response_requests){
-        console.log(response_requests.data);
-        $scope.requests = response_requests.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
-        $scope.openNodes = $scope.openNodes.map(function(node){
-          node.requested = $scope.requests.reduce(function(r,request){
-            console.log(node, node.idNodo == request.nodo.idNodo);
-            if(node.idNodo == request.nodo.idNodo){
-              node.request = request;
-            }
-            return r || (node.idNodo == request.nodo.idNodo);
-          }, false);
-          return node;
-        });
-        console.log($scope.openNodes);
-        console.log($scope.requests);
-      })
+      if(usuario_dao.isLogged()){
+        nodeService.userRequests(contextPurchaseService.getCatalogContext())
+        .then(function(response_requests){
+          console.log(response_requests.data);
+          $scope.requests = response_requests.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
+          $scope.openNodes = $scope.openNodes.map(function(node){
+            node.requested = $scope.requests.reduce(function(r,request){
+              console.log(node, node.idNodo == request.nodo.idNodo);
+              if(node.idNodo == request.nodo.idNodo){
+                node.request = request;
+              }
+              return r || (node.idNodo == request.nodo.idNodo);
+            }, false);
+            return node;
+          });
+          console.log($scope.openNodes);
+          console.log($scope.requests);
+        })
+      }
     }
     
     function init(){

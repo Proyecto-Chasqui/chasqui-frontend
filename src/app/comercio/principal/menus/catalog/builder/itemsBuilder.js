@@ -29,6 +29,10 @@
             itemsMenu.push(deliveryPoints);
           }
 
+          if(strategy.nodos){
+            itemsMenu.push(userNodes);
+          }
+
           // if(strategy.puntoDeEntrega){
           //   itemsMenu.push(deliveryPoints);
           // }
@@ -42,7 +46,7 @@
 
           if(strategy.compraIndividual) itemsMenu.push(userOrders);
           if(strategy.gcc) itemsMenu.push(userGroups);
-          if(strategy.nodos) itemsMenu.push(userNodes);
+          // if(strategy.nodos) itemsMenu.push(userNodes);
 
           return itemsMenu;
       }
@@ -91,7 +95,7 @@
                           id: 'MY_NODES',
                           route: 'userNodes.all',
                           label: 'MENU_NODES',
-                          needLogin: true
+                          needLogin: false
                       };
 
       var deliveryPoints = { 

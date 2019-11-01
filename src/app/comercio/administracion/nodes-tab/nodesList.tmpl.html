@@ -1,6 +1,6 @@
 
 <div layout="row" layout-align="space-between center">
-  <div>
+  <div ng-if="userIsLog">
     <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.newNode" ng-if="openRequests.length == 0"> 
         <md-icon class="ch-button-content"> group_add </md-icon>
         <label style="cursor: pointer;">crea tu nodo</label>
@@ -23,6 +23,7 @@
       </md-tooltip>
     </md-button>
   </div>
+  <div ng-if="!userIsLog"></div>
   <div layout="row" layout-align="space-between center">
     <a class="ch-icon-outlined" ui-sref="catalog.userNodes.invitations">
         <md-icon class="ch-icon-outlined-content"> email </md-icon>
@@ -67,11 +68,20 @@
     </md-card-content>
     
     <md-card-actions layout="row" layout-align="center">
-      <md-button ng-click="newNode()" class="btn-agregar"> 
-          <label translate="CREAR_NUEVO_GRUPO"></label>    
-          <md-icon style="color:white"> group </md-icon>
+      <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.openNodes">
+        <md-icon class="ch-button-content"> filter_tilt_shift </md-icon>
+        <label style="cursor: pointer;">Nodos abiertos</label>
+        <md-tooltip md-direction="bottom">
+          <label> Conoce más nodos </label>
+        </md-tooltip>
       </md-button>
-    </md-card-actions>
+      <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.newNode"> 
+        <md-icon class="ch-button-content"> group_add </md-icon>
+        <label style="cursor: pointer;">crea tu nodo</label>
+        <md-tooltip md-direction="bottom">
+          <label> Crea tu nodo. Requiere que te loguees </label>
+        </md-tooltip>
+      </md-button>
   </md-card>
 </div>
 

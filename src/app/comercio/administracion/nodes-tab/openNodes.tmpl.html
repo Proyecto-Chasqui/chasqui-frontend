@@ -50,6 +50,7 @@
                   <md-icon style="color:white"> check </md-icon>
                   <md-tooltip md-direction="bottom">
                     <label>El administrador del nodo...</label>
+                    <label ng-if="!userIsLog">Debe estar logueado para poder suscribirse</label>
                   </md-tooltip>
                 </md-button>
               </div>
@@ -76,7 +77,7 @@
         </div>
       </md-tab>
 
-      <md-tab label="{{'Solicitudes hechas ('+requests.length+')'}}">
+      <md-tab label="{{'Solicitudes hechas ('+requests.length+')'}}" ng-if="userIsLog">
         <div ng-repeat="(i, request) in requests" layout="column" layout-align="start">
           <div class="ch-group-card ch-responsive-xl">
             <div class="ch-group-card-data">
