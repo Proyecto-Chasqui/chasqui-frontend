@@ -77,8 +77,7 @@
         })
         init_requests();
         $scope.showOptions = $scope.nodes.map(function(n){return false});
-      })
-      
+      })      
     }
 
     $rootScope.$on('nodes-are-loaded', init);

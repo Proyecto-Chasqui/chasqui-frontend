@@ -26,10 +26,7 @@
       function doOk(response) {
           $log.debug("respuesta guardar nodo ", response);
           toastr.success("Cuando el administrador del catalogo lo apruebe se podrá usar para comprar","Nuevo nodo creado!");
-          contextPurchaseService.refresh().then(function(){
-            $rootScope.$emit('new-node');
-            $state.go('catalog.userNodes.all');
-          });
+          $state.go('catalog.userNodes.all');
       }
 
       $scope.node.idVendedor = contextPurchaseService.getCatalogContext();
