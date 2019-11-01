@@ -14,11 +14,14 @@
     $log.debug("ContextoCompraController ..... ");
 
     $scope.grupos = [];
+    $scope.nodes = [];    
     $scope.agrupationSelected = {};
     $scope.cambiarContexto = cambiarContexto;
     $scope.showSelector = showSelector;
-    $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
     $scope.setPersonalAsAgrupationSelected = setPersonalAsAgrupationSelected;
+    $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
+    $scope.setNodeAsAgrupationSelected = setNodeAsAgrupationSelected;
+    
 
     function init(){
       contextCatalogObserver.observe(function(){
@@ -27,8 +30,11 @@
           type: agrupationTypeVAL.TYPE_GROUP
         }
         contextPurchaseService.getAgrupations().then(function(agrupations_dao_int) {
+          console.log("atroden");
           $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
-                                                              agrupationTypeVAL.TYPE_GROUP);
+                                                                   agrupationTypeVAL.TYPE_GROUP);                                                    
+          $scope.nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
+                                                                   agrupationTypeVAL.TYPE_NODE);
         });
       })
     }
@@ -44,18 +50,21 @@
     }
 
     function showSelector(){
-        return $scope.grupos.length > 0;
-    }
-
-    function setGroupAsAgrupationSelected(){
-        $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
+        return ($scope.grupos.length + $scope.nodes.length) > 0;
     }
 
     function setPersonalAsAgrupationSelected(){
         $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_PERSONAL;
     }
 
-    
+    function setGroupAsAgrupationSelected(){
+        $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
+    }
+
+    function setNodeAsAgrupationSelected(){
+        $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_NODE;
+    }
+
     $rootScope.$on('contexto.compra.cambia.grupo', function(event, grupo) {
       init();
     });

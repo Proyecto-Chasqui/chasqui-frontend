@@ -7,7 +7,7 @@
                           dialogCommons, toastr, nodeService, URLS, agrupationTypeVAL,
                           us, usuario_dao, navigation_state, contextPurchaseService) {
 
-
+    $scope.requests = [];
     $scope.exitGroup = exitGroup;    
     $scope.isAdmin = false;
     $scope.allContacts;
@@ -230,6 +230,13 @@
     
     function init(){
         $scope.isAdmin = $scope.node.esAdministrador;
+
+        function doOk(response){
+          $scope.requests = response.data;
+        }
+        console.log($scope.node);
+
+        nodeService.getNodeRequests($scope.node.id).then(doOk);
     }
     
     $rootScope.$on('node-is-loaded', function(event, node) {
@@ -237,8 +244,6 @@
         init();
     });
     
-    
-    init();
     
   }
 })();

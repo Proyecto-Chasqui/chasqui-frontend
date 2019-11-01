@@ -36,47 +36,93 @@
     </md-subheader>
   
     <md-divider> 
-  
-    <md-list class="fixedRows">
-      <md-list-item class="md-2-line contact-item selected" ng-repeat="member in miembrosVisiblesParaUsuarioLogeado()">
-        <div layout="row" layout-align="space-between center"  style="width: 100%"">
-          <img ng-src="{{urlBase}}{{member.avatar}}" class="md-avatar" alt="{{member.nickname}}" />
-          <div class="md-list-item-text compact">
-              <h4>{{selfPara(member)}}</h4>
-              <p>{{member.email}}</p>
-          </div>
-          <div layout="row" layout-align="end center">
-              <div layout="row" layout-align="end" ng-show="membersOptionsShowed">
-                <md-button aria-label="showCederAdministracionGrupo" ng-show="showCederAdministracionGrupo(member)" ng-click="cederAdministracionGrupo(member)">
-                  <ng-md-icon icon="transfer_within_a_station" style="fill: orange"></ng-md-icon>
-                  <md-tooltip md-direction="bottom">
-                    <label translate="TT_SWAP_ADMIN"></label>
-                  </md-tooltip>
-                </md-button>
-                <md-button aria-label="showRemoveGroupsMember" ng-show="showRemoveGroupsMember(member)" ng-click="quitarMiembro(member)">
-                  <ng-md-icon icon="remove_circle_outline" style="fill: red"></ng-md-icon>
-                  <md-tooltip md-direction="bottom">
-                    <label translate="QUITAR_GRUPO_MSG"></label>
-                  </md-tooltip>
-                </md-button>
+
+    <md-tabs>
+      <md-tab label="Integrantes actuales">
+        <md-list class="fixedRows">
+          <md-list-item class="md-2-line contact-item selected" ng-repeat="member in miembrosVisiblesParaUsuarioLogeado()">
+            <div layout="row" layout-align="space-between center"  style="width: 100%">
+              <img ng-src="{{urlBase}}{{member.avatar}}" class="md-avatar" alt="{{member.nickname}}" />
+              <div class="md-list-item-text compact">
+                  <h4>{{selfPara(member)}}</h4>
+                  <p>{{member.email}}</p>
               </div>
-              <div ng-if="member.invitacion == 'NOTIFICACION_NO_LEIDA'" class="md-list-item-text compact">
-                <md-icon> restore </md-icon>
-                <md-tooltip md-direction="bottom">
-                  <label translate="INV_ESP_MSG"></label>
-                </md-tooltip>
+              <div layout="row" layout-align="end center">
+                  <div layout="row" layout-align="end" ng-show="membersOptionsShowed">
+                    <md-button aria-label="showCederAdministracionGrupo" ng-show="showCederAdministracionGrupo(member)" ng-click="cederAdministracionGrupo(member)">
+                      <ng-md-icon icon="transfer_within_a_station" style="fill: orange"></ng-md-icon>
+                      <md-tooltip md-direction="bottom">
+                        <label translate="TT_SWAP_ADMIN"></label>
+                      </md-tooltip>
+                    </md-button>
+                    <md-button aria-label="showRemoveGroupsMember" ng-show="showRemoveGroupsMember(member)" ng-click="quitarMiembro(member)">
+                      <ng-md-icon icon="remove_circle_outline" style="fill: red"></ng-md-icon>
+                      <md-tooltip md-direction="bottom">
+                        <label translate="QUITAR_GRUPO_MSG"></label>
+                      </md-tooltip>
+                    </md-button>
+                  </div>
+                  <div ng-if="member.invitacion == 'NOTIFICACION_NO_LEIDA'" class="md-list-item-text compact">
+                    <md-icon> restore </md-icon>
+                    <md-tooltip md-direction="bottom">
+                      <label translate="INV_ESP_MSG"></label>
+                    </md-tooltip>
+                  </div>
+                  <div ng-if="member.invitacion == 'NOTIFICACION_ACEPTADA'">
+                    <ng-md-icon icon="done" style="fill: green" class="md-list-item-text compact"></ng-md-icon>
+                    <md-tooltip md-direction="bottom">
+                      <label translate="INV_ACEP_MSG"></label>
+                    </md-tooltip>
+                  </div>
+                </div>
               </div>
-              <div ng-if="member.invitacion == 'NOTIFICACION_ACEPTADA'">
-                <ng-md-icon icon="done" style="fill: green" class="md-list-item-text compact"></ng-md-icon>
-                <md-tooltip md-direction="bottom">
-                  <label translate="INV_ACEP_MSG"></label>
-                </md-tooltip>
+            <md-divider md-inset ng-if="!$last">
+          </md-list-item>
+        </md-list>
+      </md-tab>
+      <md-tab label="Solicitudes (0)">
+        <md-list class="fixedRows">
+          <md-list-item class="md-3-line contact-item selected" ng-repeat="request in requests">
+            <div layout="row" layout-align="space-between center"  style="width: 100%">
+              <div class="md-list-item-text compact">
+                <h4>{{request.cliente.apellido+", "+request.cliente.nombre}}</h4>
+                <p>{{request.cliente.email}}</p>
+                <p>{{request.cliente.telefinoFijo}}</p>
               </div>
-            </div>
-          </div>
-        <md-divider md-inset ng-if="!$last">
-      </md-list-item>
-    </md-list>
+              <div layout="row" layout-align="end center">
+                  <div layout="row" layout-align="end" ng-show="membersOptionsShowed">
+                    <md-button aria-label="showCederAdministracionGrupo" ng-show="showCederAdministracionGrupo(member)" ng-click="cederAdministracionGrupo(member)">
+                      <ng-md-icon icon="transfer_within_a_station" style="fill: orange"></ng-md-icon>
+                      <md-tooltip md-direction="bottom">
+                        <label translate="TT_SWAP_ADMIN"></label>
+                      </md-tooltip>
+                    </md-button>
+                    <md-button aria-label="showRemoveGroupsMember" ng-show="showRemoveGroupsMember(member)" ng-click="quitarMiembro(member)">
+                      <ng-md-icon icon="remove_circle_outline" style="fill: red"></ng-md-icon>
+                      <md-tooltip md-direction="bottom">
+                        <label translate="QUITAR_GRUPO_MSG"></label>
+                      </md-tooltip>
+                    </md-button>
+                  </div>
+                  <div ng-if="member.invitacion == 'NOTIFICACION_NO_LEIDA'" class="md-list-item-text compact">
+                    <md-icon> restore </md-icon>
+                    <md-tooltip md-direction="bottom">
+                      <label translate="INV_ESP_MSG"></label>
+                    </md-tooltip>
+                  </div>
+                  <div ng-if="member.invitacion == 'NOTIFICACION_ACEPTADA'">
+                    <ng-md-icon icon="done" style="fill: green" class="md-list-item-text compact"></ng-md-icon>
+                    <md-tooltip md-direction="bottom">
+                      <label translate="INV_ACEP_MSG"></label>
+                    </md-tooltip>
+                  </div>
+                </div>
+              </div>
+            <md-divider md-inset ng-if="!$last">
+          </md-list-item>
+        </md-list>
+      </md-tab>
+    </md-tabs>
   </md-card> 
 </div>
 

@@ -127,10 +127,11 @@
                 },
                 function(group){
                     order_context.setAgrupationId(group.idGrupo);
-                    order_context.setAgrupationType(group.type);            
+                    order_context.setAgrupationType(group.type);
                 },
                 function(node){
-                    // TODO define behavior
+                  order_context.setAgrupationId(node.idGrupo);
+                  order_context.setAgrupationType(node.type);
                 })
         }
         

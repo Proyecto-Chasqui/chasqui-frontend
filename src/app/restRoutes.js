@@ -175,13 +175,15 @@
 
             /* Nodos */
 
-            nodosAbiertos: function(idVendedor){return URLS.be_rest + "/client/vendedor/nodosAbiertos/" + idVendedor},
+            nodosAbiertos: function(idVendedor){return URLS.be_rest + "/client/vendedor/nodosAbiertos/" + idVendedor;},
 
-            userRequests: function(idVendedor){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaDeUsuario/" + idVendedor},
+            userRequests: function(idVendedor){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaDeUsuario/" + idVendedor;},
 
             sendRequest: URLS.be_rest + "user/nodo/enviarSolicitudDePertenencia",
 
-            cancelRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/cancelarSolicitudDePertenencia/" + idSolicitud},
+            cancelRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/cancelarSolicitudDePertenencia/" + idSolicitud;},
+
+            getNodeRequests: function(idNodo){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaANodo/" + idNodo;},
 
             nodosTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/all/' + idVendedor;},
 

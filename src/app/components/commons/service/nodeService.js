@@ -10,6 +10,7 @@
       userRequests: userRequests,
       sendRequest: sendRequest,
       cancelRequest: cancelRequest,
+      getNodeRequests: getNodeRequests,
       nodosTodos: nodosTodos,
       nuevoNodo: nuevoNodo,
       cerrar: cerrar,
@@ -38,7 +39,10 @@
 			return promiseService.doPost(REST_ROUTES.cancelRequest(requestId), {idSolicitud: requestId}, doNoOk);
     }    
 
-    cancelRequest
+    function getNodeRequests(nodeId, doNoOk){
+			$log.debug(" service getNodeRequests ");
+			return promiseService.doGetPrivate(REST_ROUTES.getNodeRequests(nodeId), {idNodo: nodeId}, doNoOk);
+    }
     
 		function nodosTodos(idCatalog, doNoOk){
 			$log.debug(" service nodosTodos ");
