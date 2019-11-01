@@ -126,11 +126,11 @@
                     order_context.setAgrupationType(personal.type);                  
                 },
                 function(group){
-                    order_context.setAgrupationId(group.idGrupo);
+                    order_context.setAgrupationId(group.id);
                     order_context.setAgrupationType(group.type);
                 },
                 function(node){
-                  order_context.setAgrupationId(node.idGrupo);
+                  order_context.setAgrupationId(node.id);
                   order_context.setAgrupationType(node.type);
                 })
         }
