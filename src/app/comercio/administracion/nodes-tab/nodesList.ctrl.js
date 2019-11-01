@@ -7,22 +7,12 @@
 
     // Interfaz
 
-    $scope.newNode = newNode;
     $scope.showOptions = [];
     $scope.showOptionsForNode = showOptionsForNode;
     $scope.isLoggedUserNodeAdmin = isLoggedUserNodeAdmin;
 
     // Implementación
 
-    function newNode(){
-      function doOk(newNode){
-        contextPurchaseService.refresh().then(function(){
-          $rootScope.$emit('new-node');
-        });
-      }
-
-      dialogCommons.newNode(doOk);
-    }
 
     function showOptionsForNode(nodeIndex){
       $scope.showOptions = $scope.showOptions.map(function(o,i){return i == nodeIndex && !o});

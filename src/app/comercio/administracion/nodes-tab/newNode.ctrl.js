@@ -6,22 +6,15 @@
   /**
   * @ngInject
   */
-  function NewNodeCtrl($log, $scope, nodeService, perfilService, isEdit, node, callback, $mdDialog, contextPurchaseService) {
+  function NewNodeCtrl($log, $scope, nodeService, perfilService, contextPurchaseService, toastr, $state) {
       
-    $scope.node = node;
-    $scope.isEdit = isEdit;
+    $scope.node = {};
     $scope.save = save;
-    $scope.cancel = cancel;
     $scope.directions = [];
     $scope.tipoNodo = false;
 
     
     ////////////////////////////////////////////////
-    
-    
-    function cancel(){
-        $mdDialog.hide();
-    }
     
     
     function save() {
@@ -30,36 +23,21 @@
 
     function callNewNode() {
 
-        function doOk(response) {
-            $log.debug("respuesta guardar nodo ", response);
-            callback($scope.node);
-            $mdDialog.hide();
-        }
+      function doOk(response) {
+          $log.debug("respuesta guardar nodo ", response);
+          toastr.success("Cuando el administrador del catalogo lo apruebe se podrá usar para comprar","Nuevo nodo creado!");
+          contextPurchaseService.refresh().then(function(){
+            $rootScope.$emit('new-node');
+            $state.go('catalog.userNodes.all');
+          });
+      }
 
-        $scope.node.idVendedor = contextPurchaseService.getCatalogContext();
-        $scope.node.tipoNodo = $scope.tipoNodo? "NODO_ABIERTO" : "NODO_CERRADO";
-        console.log("guardar nodo", $scope.node);
-        $log.debug("guardar nodo", $scope.node);
-        nodeService.nuevoNodo($scope.node).then(doOk)
+      $scope.node.idVendedor = contextPurchaseService.getCatalogContext();
+      $scope.node.tipoNodo = $scope.tipoNodo? "NODO_ABIERTO" : "NODO_CERRADO";
+      console.log("guardar nodo", $scope.node);
+      $log.debug("guardar nodo", $scope.node);
+      nodeService.nuevoNodo($scope.node).then(doOk)
     }
-
-    var callSaveChangesInGroup = function() {
-        $log.debug("editar grupo", $scope.node);
-
-        function doOk(response) {       
-            $log.debug("editar grupo response", response);
-            callback($scope.node);
-            $mdDialog.hide();
-        }
-        
-        var params = {
-            alias: $scope.node.alias,
-            descripcion: $scope.node.descripcion
-        }
-        
-        nodeService.editarGrupo($scope.node.idGrupo, params).then(doOk)
-    }
-
 
     // Inicialización
 

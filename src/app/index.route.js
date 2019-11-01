@@ -121,25 +121,31 @@
                 url: '/misNodos',
                 templateUrl: 'app/comercio/administracion/nodes-tab/nodes.tmpl.html',
                 controller: 'NodesCtrl',
-                auth: true,
+                auth: false,
                 abstract: true,
             })
-                .state('catalog.userNodes.all', {
-                  url: '/todos',
-                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
-                  controller: 'NodesListCtrl',
-                  auth: true
-                })
                 .state('catalog.userNodes.openNodes', {
                   url: '/nodosAbiertos',
                   templateUrl: 'app/comercio/administracion/nodes-tab/openNodes.tmpl.html',
                   controller: 'OpenNodesController',
-                  auth: true
+                  auth: false
                 })
                 .state('catalog.userNodes.help', {
                   url: '/ayuda',
                   templateUrl: 'app/comercio/administracion/nodes-tab/nodesHelp.tmpl.html',
                   controller: 'NodeHelpCtrl',
+                  auth: false
+                })
+                .state('catalog.userNodes.newNode', {
+                  url: '/nuevoNodo',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/newNode.tmpl.html',
+                  controller: 'NewNodeCtrl',
+                  auth: true
+                })
+                .state('catalog.userNodes.all', {
+                  url: '/todos',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
+                  controller: 'NodesListCtrl',
                   auth: true
                 })
                 .state('catalog.userNodes.node', {
