@@ -66,14 +66,15 @@
         </div>
       </div>
     </md-card-content>
-    <md-card-actions layout="row" layout-align="space-between center" ng-if="node.esAdministrador">
-      <md-button ng-if="node.esAdministrador" ng-click="deleteNode()" style="color: #f00;" layout="row" layout-alig="center center">
+    <md-card-actions layout="row" layout-align="end center" ng-if="node.esAdministrador">
+      <!--  POR AHORA NO SE PUEDE ELIMINAR EL NODO
+        md-button ng-if="node.esAdministrador" ng-click="deleteNode()" style="color: #f00;" layout="row" layout-alig="center center">
         <md-icon style="color: #f00;"> remove_circle_outline</md-icon>
         <label translate="ELIMINAR_NODO" style="cursor: pointer;"></label>
         <md-tooltip md-direction="bottom">
           <label translate="ELIMINAR_NODO"></label>
         </md-tooltip>
-      </md-button>
+      </md-button>-->
       <md-button ng-click="saveEdition()">
         <md-icon> edit </md-icon>
         <label translate="SAVE_GROUP_EDITION" style="cursor: pointer;"></label>
