@@ -46,11 +46,13 @@
               return g;
             });
             $scope.nodes.forEach(function(node) {
-              nodeService.getNodeRequests(node.id)
-              .then(function(response){
-                node.requests = response.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
-                console.log(node.requests);
-              })
+              if(node.esAdministrador){
+                nodeService.getNodeRequests(node.id)
+                .then(function(response){
+                  node.requests = response.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
+                  console.log(node.requests);
+                })
+              }
             });
 
             $rootScope.$broadcast('nodes-are-loaded', $scope.nodes);

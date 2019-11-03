@@ -220,7 +220,7 @@
       }
 
       var params = {
-        idGrupo: node.idNodo,
+        idGrupo: node.id,
         emailInvitado: email
       }
 
@@ -255,8 +255,9 @@
           $scope.requests = response.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
         }
         console.log($scope.node);
-
-        nodeService.getNodeRequests($scope.node.id).then(doOk);
+        if(usuario_dao.isLogged()){
+          nodeService.getNodeRequests($scope.node.id).then(doOk);
+        }
     }
     
     $rootScope.$on('node-is-loaded', function(event, node) {
