@@ -21,7 +21,7 @@
     function init(){
       contextCatalogObserver.observe(function(){
         $scope.agrupationSelected = {
-          idGrupo: -1,
+          id: -1,
           type: agrupationTypeVAL.TYPE_PERSONAL
         }
         vendedorService.obtenerConfiguracionVendedor().then(
@@ -52,13 +52,13 @@
     }
 
     function setGroupAsAgrupationSelected(idGrupo){
-        $scope.agrupationSelected.idGrupo = idGrupo;
+        $scope.agrupationSelected.id = idGrupo;
         $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
         checkSelectedOrderConfirmed();
     }
 
     function setPersonalAsAgrupationSelected(idGrupo){
-        $scope.agrupationSelected.idGrupo = idGrupo;
+        $scope.agrupationSelected.id = idGrupo;
         $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_PERSONAL;
         checkSelectedOrderConfirmed();
     }
@@ -66,11 +66,11 @@
     function checkSelectedOrderConfirmed(){
       $scope.canSelectAgrupation = $scope.agrupationSelected.type == agrupationTypeVAL.TYPE_PERSONAL;
       $scope.isSelectedOrderConfirmed = !$scope.canSelectAgrupation;
-      if($scope.agrupationSelected.idGrupo != -1 && $scope.agrupationSelected.type != agrupationTypeVAL.TYPE_PERSONAL){
+      if($scope.agrupationSelected.id != -1 && $scope.agrupationSelected.type != agrupationTypeVAL.TYPE_PERSONAL){
         contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), 
                                           $scope.agrupationSelected.type).then(function(){
           contextAgrupationsService.getAgrupation(contextPurchaseService.getCatalogContext(), 
-                                                  $scope.agrupationSelected.idGrupo, 
+                                                  $scope.agrupationSelected.id, 
                                                   $scope.agrupationSelected.type).then(function(agrupation){
             var orderSelected = contextOrdersService.getOrder(contextPurchaseService.getCatalogContext(), 
                                                               agrupation.idPedidoIndividual, 

@@ -59,7 +59,6 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log, agrupation
     
     function modifyGroup(catalogId, agrupationId, agrupationType, modification){
         modifyAgrupationsInCatalog(catalogId, agrupationType, function(agrupations){
-            console.log(catalogId, agrupationId, agrupationType, modification);
             var searchedAgrupationIndex = agrupations.map(function(a){return a.id;}).indexOf(agrupationId);
             agrupations[searchedAgrupationIndex] = modification(agrupations[searchedAgrupationIndex]);
             return agrupations;

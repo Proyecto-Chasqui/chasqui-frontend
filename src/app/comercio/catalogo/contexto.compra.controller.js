@@ -26,11 +26,10 @@
     function init(){
       contextCatalogObserver.observe(function(){
         $scope.agrupationSelected = {
-          idGrupo: contextPurchaseService.getAgrupationContextId(),
-          type: agrupationTypeVAL.TYPE_GROUP
+          id: contextPurchaseService.getAgrupationContextId(),
+          type: contextPurchaseService.getAgrupationContextType()
         }
         contextPurchaseService.getAgrupations().then(function(agrupations_dao_int) {
-          console.log("atroden");
           $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 
                                                                    agrupationTypeVAL.TYPE_GROUP);                                                    
           $scope.nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), 

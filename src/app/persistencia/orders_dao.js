@@ -85,7 +85,7 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher, $log){
                 return catalogs_data.getCatalog(catalogId).orders[orderType].filter(function(o){return o.id == orderId})[0];
             },
             function(){
-            
+                return catalogs_data.getCatalog(catalogId).orders[orderType].filter(function(o){return o.id == orderId})[0];
             })();
     }
       

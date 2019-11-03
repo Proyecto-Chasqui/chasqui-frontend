@@ -133,7 +133,7 @@
             }
 
             var params = {
-                idGrupo: group.idGrupo,
+                idGrupo: group.id,
                 idVendedor: catalogId
             }
 
@@ -235,7 +235,8 @@
                         $log.debug("orders", response.data);
                         vm.ls.lastUpdate = moment();
                         resetType(catalogId, agrupationTypeVAL.TYPE_GROUP);
-                        addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data)).then(function(orders){
+                        addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data, agrupationTypeVAL.TYPE_GROUP), agrupationTypeVAL.TYPE_GROUP)
+                        .then(function(orders){
                             $log.debug("Cargando dsd el server:", catalogId, orders);
                             orders_dao.loadOrders(catalogId, orders);
                             defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_GROUP));
@@ -254,7 +255,25 @@
          *  Last modification: 6/4/18
          */
         function ensureNodesOrders(catalogId){
+          return ensureContext(
+            vm.ls.lastUpdate,
+            "group orders",
+            orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_NODE),
+            function(defered){
+                function doOk(response) {
+                    $log.debug("orders", response.data);
+                    vm.ls.lastUpdate = moment();
+                    resetType(catalogId, agrupationTypeVAL.TYPE_NODE);
+                    addOrdersFromGroupsWithoutOrders(catalogId, formatOrders(response.data, agrupationTypeVAL.TYPE_NODE), agrupationTypeVAL.TYPE_NODE)
+                    .then(function(orders){
+                        $log.debug("Cargando dsd el server:", catalogId, orders);
+                        orders_dao.loadOrders(catalogId, orders);
+                        defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_NODE));
+                    });
+                }
 
+                gccService.pedidosByUser(catalogId).then(doOk);
+            });
         }
 
 
@@ -265,9 +284,9 @@
          *  PREC:
          *  RET:
         */
-        function formatOrders(ordersFromServer){
+        function formatOrders(ordersFromServer, type){
             return ordersFromServer.map(function(order){
-                    order.type = agrupationTypeVAL.TYPE_GROUP;
+                    order.type = type;
                     return order;
                 }
             );
@@ -277,28 +296,26 @@
          * Params: orders :: [Order], a list with all user's open orders.
          * Return: [Order], a list with an order for every user's agrupation
          */
-        function addOrdersFromGroupsWithoutOrders(catalogId, orders){
+        function addOrdersFromGroupsWithoutOrders(catalogId, orders, type){
             return setPromise(function(defered){
-                contextAgrupationsService.getAgrupations(catalogId).then(
-                    function(grupos){
-                        var separatedGroupsAndOrders = grupos.getAgrupations(catalogId).reduce(
-                            function(r,g){
-                                if(g.type != agrupationTypeVAL.TYPE_PERSONAL){
-                                    if(!orders.map(function(o){return o.idGrupo}).includes(g.idGrupo)){
-                                        r[0].push(g);
-                                    }else{
-                                        r[1].push(orders.filter(function(o){return o.idGrupo == g.idGrupo})[0]);
-                                    }
-                                }
-                                return r;
-                            }
-                            , [[],[]]);
-                        var groupsWithoutOrders = separatedGroupsAndOrders[0];
-                        var ordersPreviouslyCreated = separatedGroupsAndOrders[1];
+                contextAgrupationsService.getAgrupationsByType(catalogId, type).then(
+                    function(agrupations){
+                      var separatedGroupsAndOrders = agrupations.reduce(
+                        function(r,g){
+                          if(!orders.map(function(o){return o.idGrupo}).includes(g.id)){
+                              r[0].push(g);
+                          }else{
+                              r[1].push(orders.filter(function(o){return o.idGrupo == g.id})[0]);
+                          }
+                          return r;
+                        }, [[],[]]
+                      );
+                      var agrupationsWithoutOrders = separatedGroupsAndOrders[0];
+                      var ordersPreviouslyCreated = separatedGroupsAndOrders[1];
 
-                        $log.debug("groupsWithoutOrders", groupsWithoutOrders);
+                      $log.debug("agrupationsWithoutOrders", agrupationsWithoutOrders);
 
-                        createOrdersForGroupsWithoutOrders(groupsWithoutOrders, ordersPreviouslyCreated).then(defered.resolve);
+                      createOrdersForGroupsWithoutOrders(agrupationsWithoutOrders, ordersPreviouslyCreated, type).then(defered.resolve);
                 })
             })
         }

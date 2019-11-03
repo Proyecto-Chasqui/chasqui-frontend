@@ -75,7 +75,7 @@
                   function doOKNodes(responseNodes){
                     var nodes = formatAgrupations(responseNodes.data, agrupationTypeVAL.TYPE_NODE);
                     agrupations = agrupations.concat(nodes);  
-  
+
                     vm.ls.lastUpdate=moment();	
                     agrupations_dao.loadAgrupations(catalogId, agrupations);
                     defered.resolve(agrupations_dao);
@@ -88,7 +88,9 @@
 		    }
         
         function getAgrupationsByType(catalogId, type){
-            return agrupations_dao.getAgrupationsByType(catalogId, type);
+          return setPromise(function(defered){
+            defered.resolve(agrupations_dao.getAgrupationsByType(catalogId, type));
+          })
         }
         
         function confirmAgrupationOrder(catalogId, agrupationId, agrupationType){
@@ -187,7 +189,19 @@
         }
         
         function ensureNodesAgrupations(catalogId){
-            
+             return ensureContext(
+                vm.ls.lastUpdate, 
+                "nodes agrupations",
+                agrupations_dao.getAgrupationsByType(catalogId, agrupationTypeVAL.TYPE_NODE), 
+                function(defered){
+                    function doOK(response) {					
+                        vm.ls.lastUpdate = moment();	
+                        var agrupations = formatAgrupations(response.data, agrupationTypeVAL.TYPE_NODE);
+                        agrupations_dao.loadAgrupations(catalogId, agrupations);
+                        defered.resolve(agrupations_dao);
+                    }
+                    nodeService.nodosTodos(catalogId).then(doOK);  
+                });
         }
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
