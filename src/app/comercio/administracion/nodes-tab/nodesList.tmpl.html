@@ -128,19 +128,19 @@
               <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="goToCatalog(node)" ng-show="getLoggedUser(node).pedido == null || ( getLoggedUser(node).pedido.productosResponse.length >= 0 && getLoggedUser(node).pedido.estado != 'CONFIRMADO')">
                 Comprar
                 <md-tooltip md-direction="bottom">
-                  <label>Ir al catálogo con este grupo seleccionado</label>
+                  <label>Ir al catálogo con este nodo seleccionado</label>
                 </md-tooltip>
               </md-button>
               <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.historicOrders({nodeId: i})">
                 Historial
                 <md-tooltip md-direction="bottom">
-                  <label>Ver los pedidos realizados por el grupo</label>
+                  <label>Ver los pedidos realizados por el nodo</label>
                 </md-tooltip>
               </md-button>
               <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.members({nodeId: i})">
                 Integrantes
                 <md-tooltip md-direction="bottom">
-                  <label>Ver los integrantes del grupo</label>
+                  <label>Ver los integrantes del nodo</label>
                 </md-tooltip>
               </md-button>
               <notification-icon count="node.requests.length" class="ch-count-group-invitations">
@@ -148,7 +148,7 @@
               <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.admin({nodeId: i})" ng-if="isLoggedUserNodeAdmin(node)">
                 Administración
                 <md-tooltip md-direction="bottom">
-                  <label>Configurar datos del grupo</label>
+                  <label>Configurar datos del nodo</label>
                 </md-tooltip>
               </md-button>
             </div>
@@ -253,25 +253,25 @@
               <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ng-click="goToCatalog(node)" ng-show="getLoggedUser(node).pedido == null || ( getLoggedUser(node).pedido.productosResponse.length >= 0 && getLoggedUser(node).pedido.estado != 'CONFIRMADO')">
                 Comprar
                 <md-tooltip md-direction="bottom">
-                  <label>Ir al catálogo con este grupo seleccionado</label>
+                  <label>Ir al catálogo con este nodo seleccionado</label>
                 </md-tooltip>
               </md-button>
               <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.historicOrders({nodeId: i})">
                 Historial
                 <md-tooltip md-direction="bottom">
-                  <label>Ver los pedidos realizados por el grupo</label>
+                  <label>Ver los pedidos realizados por el nodo</label>
                 </md-tooltip>
               </md-button>
               <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.members({nodeId: i})">
                 Integrantes
                 <md-tooltip md-direction="bottom">
-                  <label>Ver los integrantes del grupo</label>
+                  <label>Ver los integrantes del nodo</label>
                 </md-tooltip>
               </md-button>              
               <md-button  class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.admin({nodeId: i})" ng-if="isLoggedUserGroupAdmin(node)">
                 Administración
                 <md-tooltip md-direction="bottom">
-                  <label>Configurar datos del grupo</label>
+                  <label>Configurar datos del nodo</label>
                 </md-tooltip>
               </md-button>
             </div>

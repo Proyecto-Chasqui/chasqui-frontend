@@ -3,7 +3,7 @@
 
   angular.module('chasqui').controller('NodesListCtrl', NodesListCtrl);
 
-  function NodesListCtrl($log, $scope, $rootScope, dialogCommons, contextPurchaseService, nodeService, 
+  function NodesListCtrl($log, $scope, $rootScope, $state, contextPurchaseService, nodeService, 
                          usuario_dao, perfilService, us) {
 
     // Interfaz
@@ -13,6 +13,7 @@
     $scope.showOptionsForNode = showOptionsForNode;
     $scope.isLoggedUserNodeAdmin = isLoggedUserNodeAdmin;
     $scope.userIsLog = usuario_dao.isLogged();
+    $scope.goToCatalog = goToCatalog;
 
     // Implementación
 
@@ -37,6 +38,11 @@
     
     function isCompraColectiva(notificacion){			
 			return us.contieneCadena(notificacion.mensaje ,'ha invitado al nodo de compras colectivas');
+    }
+
+    function goToCatalog(node){
+      contextPurchaseService.setContextByAgrupation(node);
+      $state.go('catalog.products');
     }
     
       
