@@ -97,6 +97,22 @@
                 <label class="ch-group-card-data-information-alias">{{node.alias}}</label>
                 <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
               </div>
+              <div layout="column" layout-align="center">
+                <div layout="row" layout-align="center">
+                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
+                    Total: ${{montoTotalNodo(node)}}
+                  </label>
+                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0 && node.esAdministrador"> 
+                    Total s/ incentivo: ${{montoSinIncentivo(node)}}
+                  </label>
+                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0 && node.esAdministrador"> 
+                    Incentivo: ${{incentivoNodo(node)}}
+                  </label>
+                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
+                    Activo
+                  </label>
+                </div>
+              </div>
               <md-tooltip md-direction="bottom">
                 <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
                   <i class="material-icons">
@@ -118,13 +134,7 @@
                 </div>
               </md-tooltip>
             </div>
-            <div class="ch-group-card-data-actions">                
-              <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
-                Total: ${{montoTotalGrupo(node)}}
-              </label>                
-              <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
-                Activo
-              </label>
+            <div class="ch-group-card-data-actions">
               <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="goToCatalog(node)" ng-show="getLoggedUser(node).pedido == null || ( getLoggedUser(node).pedido.productosResponse.length >= 0 && getLoggedUser(node).pedido.estado != 'CONFIRMADO')">
                 Comprar
                 <md-tooltip md-direction="bottom">
@@ -156,7 +166,7 @@
 
           <div class="" layout="column" ng-show="showOptions[i]">
               <md-tabs>
-                  <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(node)" label="{{::selfPara(miembro)}}">
+                  <md-tab ng-repeat="miembro in nodeActiveMembers(node)" label="{{miembro.nickname}}">
                       <md-content class="md-padding" layout="column" layout-align="space-around">
                           <div layout="column" layout-align="space-sround center" 
                                 ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
@@ -204,7 +214,7 @@
                   </md-tab>
               </md-tabs>
               <md-button class="btn-confirmar" 
-                  ng-click="confirmGCCOrder(node)"
+                  ng-click="confirmNodeOrder(node)"
                   ng-show="node.esAdministrador"
                   ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(node)">
                 <label translate style="cursor: pointer;">
@@ -225,6 +235,22 @@
                 <label class="ch-group-card-data-information-alias">{{node.alias}}</label>
                 <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
               </div>
+              <div layout="column" layout-align="center">
+                <div layout="row" layout-align="center">
+                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
+                    Total: ${{montoTotalNodo(node)}}
+                  </label>
+                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0 && node.esAdministrador"> 
+                    Total s/ incentivo: ${{montoSinIncentivo(node)}}
+                  </label>
+                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0 && node.esAdministrador"> 
+                    Incentivo: ${{incentivoNodo(node)}}
+                  </label>
+                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
+                    Activo
+                  </label>
+                </div>
+              </div>
               <md-tooltip md-direction="bottom">
                 <div layout="row" layout-align="space-between center">
                   <i class="material-icons">
@@ -236,18 +262,6 @@
                   </i>
                 </div>                  
               </md-tooltip>
-            </div>
-            <div class="ch-group-card-data-actions"  ng-show="countOrdersConfirmed(node) > 0">
-              <div class="ch-estado-pedido">                
-                <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado ch-grupo-monto-total"> 
-                  Total: ${{montoTotalGrupo(node)}}
-                </label>
-              </div>
-              <div class="ch-estado-pedido">
-                <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
-                  Activo
-                </label>
-              </div>
             </div>
             <div class="ch-group-card-data-actions">
               <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ng-click="goToCatalog(node)" ng-show="getLoggedUser(node).pedido == null || ( getLoggedUser(node).pedido.productosResponse.length >= 0 && getLoggedUser(node).pedido.estado != 'CONFIRMADO')">
@@ -279,7 +293,7 @@
 
           <div layout="column" ng-show="showOptions[i]">
             <md-tabs>
-                <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(node)" label="{{::selfPara(miembro)}}">
+                <md-tab ng-repeat="miembro in nodeActiveMembers(node)" label="{{miembro.nickname}}">
                     <md-content class="md-padding" layout="column" layout-align="space-around">
                         <div layout="column" layout-align="space-sround center" 
                               ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
@@ -324,7 +338,7 @@
                 </md-tab>
             </md-tabs>
             <md-button class="btn-confirmar" 
-                ng-click="confirmGCCOrder(node)"
+                ng-click="confirmNodeOrder(node)"
                 ng-show="node.esAdministrador"
                 ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(node)">
               <label translate style="cursor: pointer;">
