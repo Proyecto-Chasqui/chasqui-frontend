@@ -36,6 +36,7 @@
 
     function showOptionsForNode(nodeIndex){
       $scope.showOptions = $scope.showOptions.map(function(o,i){return i == nodeIndex && !o});
+      console.log($scope.showOptions);
     }
 
     function getFormatedAdress(node){
@@ -84,7 +85,7 @@
           }, true);
         })
         init_requests();
-        $scope.showOptions = $scope.nodes.map(function(n){return false});
+        $scope.showOptions = $scope.openNodes.map(function(n){return false});
       })      
     }
 

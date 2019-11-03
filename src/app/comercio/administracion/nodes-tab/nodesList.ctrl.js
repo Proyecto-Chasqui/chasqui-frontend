@@ -54,8 +54,8 @@
           });
         })
         $scope.showOptions = $scope.nodes.map(function(n){return false});
+        callNotificaciones();
       }
-      callNotificaciones();
       toTop();
     }
 
