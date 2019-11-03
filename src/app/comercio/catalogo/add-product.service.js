@@ -23,15 +23,19 @@
                 function(personal){
                     addProductPersonalOrderService(variety);
                 },
-                  function(group){
+                function(group){
                   if(selectedOrder.estado == 'CONFIRMADO'){
-                    rememberConfirm(selectedOrder)
+                    rememberConfirm(selectedOrder, "grupo");
                   }else{
                     modifyVarietyCount.modifyDialog(variety, selectedOrder);
                   }
                 },
                 function(node){
-                    // TODO define behavior
+                  if(selectedOrder.estado == 'CONFIRMADO'){
+                    rememberConfirm(selectedOrder, "nodo");
+                  }else{
+                    modifyVarietyCount.modifyDialog(variety, selectedOrder);
+                  }
                 });   
             })
         })
@@ -41,9 +45,9 @@
 
     /////// GCC order confirm
   
-    function rememberConfirm(order) {
-      dialogCommons.acceptIssue("Su pedido individual dentro del grupo está confirmado", 
-                            "Cuando el/la administrador/a del grupo "+ order.aliasGrupo +" confirme el pedido grupal actual se va a abrir un nuevo pedido grupal.", 
+    function rememberConfirm(order, label) {
+      dialogCommons.acceptIssue("Su pedido individual dentro del "+label+" está confirmado", 
+                            "Cuando el/la administrador/a del "+label+" "+ order.aliasGrupo +" confirme el pedido grupal actual se va a abrir un nuevo pedido grupal.", 
                             "Gracias por recordármelo!",
                             $mdDialog.hide, 
                             $mdDialog.hide);

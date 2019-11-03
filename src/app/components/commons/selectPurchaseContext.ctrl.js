@@ -12,8 +12,9 @@
     $scope.grupos = [];
     $scope.agrupationSelected = {};
     $scope.showSelector = showSelector;
-    $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
     $scope.setPersonalAsAgrupationSelected = setPersonalAsAgrupationSelected;
+    $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
+    $scope.setNodeAsAgrupationSelected = setNodeAsAgrupationSelected;    
     $scope.isSelectedOrderConfirmed = false;
     $scope.canSelectAgrupation = false;
     
@@ -28,8 +29,17 @@
             function(response){
                 var few = response.data.few;
                 if(few.gcc){
-                    contextPurchaseService.getAgrupations().then(function(agrupations_dao_int) {
-                      $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),agrupationTypeVAL.TYPE_GROUP);
+                    contextPurchaseService.getAgrupations()
+                    .then(function(agrupations_dao_int) {
+                      $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),
+                                                                               agrupationTypeVAL.TYPE_GROUP);
+                    });
+                }
+                if(few.nodos){
+                    contextPurchaseService.getAgrupations()
+                    .then(function(agrupations_dao_int) {
+                      $scope.nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),
+                                                                               agrupationTypeVAL.TYPE_NODE);
                     });
                 }
             }
@@ -51,18 +61,25 @@
         return $scope.grupos.length > 0;
     }
 
-    function setGroupAsAgrupationSelected(idGrupo){
-        $scope.agrupationSelected.id = idGrupo;
-        $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
-        checkSelectedOrderConfirmed();
-    }
-
     function setPersonalAsAgrupationSelected(idGrupo){
         $scope.agrupationSelected.id = idGrupo;
         $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_PERSONAL;
         checkSelectedOrderConfirmed();
     }
+
+    function setGroupAsAgrupationSelected(idGrupo){
+        $scope.agrupationSelected.id = idGrupo;
+        $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
+        checkSelectedOrderConfirmed();
+    }
     
+
+    function setNodeAsAgrupationSelected(idGrupo){
+      $scope.agrupationSelected.id = idGrupo;
+      $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_NODE;
+      checkSelectedOrderConfirmed();
+  }
+  
     function checkSelectedOrderConfirmed(){
       $scope.canSelectAgrupation = $scope.agrupationSelected.type == agrupationTypeVAL.TYPE_PERSONAL;
       $scope.isSelectedOrderConfirmed = !$scope.canSelectAgrupation;
