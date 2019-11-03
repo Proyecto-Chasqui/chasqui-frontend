@@ -142,7 +142,9 @@
                 <md-tooltip md-direction="bottom">
                   <label>Ver los integrantes del grupo</label>
                 </md-tooltip>
-              </md-button>              
+              </md-button>
+              <notification-icon count="node.requests.length" class="ch-count-group-invitations">
+              </notification-icon>
               <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.admin({nodeId: i})" ng-if="isLoggedUserNodeAdmin(node)">
                 Administración
                 <md-tooltip md-direction="bottom">
