@@ -50,7 +50,8 @@
                         contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
                     } else {
                       contextAgrupationsService.cancelAgrupationOrder(contextPurchaseService.getCatalogContext(),
-                                                                      order.idGrupo)
+                                                                      order.idGrupo,
+                                                                      order.type)
                     }
                     load();
                 }

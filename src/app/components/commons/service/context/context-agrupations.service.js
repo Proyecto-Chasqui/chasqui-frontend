@@ -107,16 +107,16 @@
           })
         }
 
-        function cancelAgrupationOrder(catalogId, agrupationId){
-          modifyAgrupation(catalogId, agrupationId, agrupationTypeVAL.TYPE_GROUP, function(group){
-            group.miembros = group.miembros.map(function(m){
+        function cancelAgrupationOrder(catalogId, agrupationId, agrupationType){
+          modifyAgrupation(catalogId, agrupationId, agrupationType, function(agrupation){
+            agrupation.miembros = agrupation.miembros.map(function(m){
               if(m.email == usuario_dao.getUsuario().email){
                 m.estadoPedido = "ABIERTO";
                 m.pedido = null;
               }
               return m;
             })
-            return group;
+            return agrupation;
           })
         }
         
@@ -211,12 +211,12 @@
 		vm.ls = $localStorage;
         
         
-        // Representa el concepto de grupo indivial para el caso de que no tiene un pedido abierto
+    // Representa el concepto de grupo indivial para el caso de que no tiene un pedido abierto
 		var grupoIndividualVirtual = {
             type: agrupationTypeVAL.TYPE_PERSONAL,
             alias: "Personal",
             esAdministrador: true,
-            idGrupo: idGrupoPedidoIndividual,
+            id: idGrupoPedidoIndividual,
             idPedidoIndividual: idPedidoIndividualGrupoPersonal
         }
         
