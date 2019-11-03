@@ -31,7 +31,6 @@
       }
 
       $scope.node.tipoNodo = $scope.tipoNodo? "NODO_ABIERTO" : "NODO_CERRADO";
-      console.log("guardar nodo", $scope.node);
       $log.debug("guardar nodo", $scope.node);
       nodeService.editarSolicitud($scope.node).then(doOk)
     }
@@ -74,7 +73,6 @@
           };
 
           $scope.tipoNodo = $scope.openRequests[0].tipoNodo == "NODO_ABIERTO";
-          console.log($scope.node);
         }
       })
     }

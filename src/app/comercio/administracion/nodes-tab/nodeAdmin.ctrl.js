@@ -30,12 +30,10 @@
                                      $scope.node.id,
                                      agrupationTypeVAL.TYPE_NODE,
                                      function(node){
-                                       console.log(node);
                                         node.alias = $scope.nodeRepresentation.nombreNodo;
                                         node.descripcion = $scope.nodeRepresentation.descripcion;
                                         node.tipo = $scope.nodeRepresentation.tipoNodo;
                                         node.barrio = $scope.nodeRepresentation.barrio;
-                                        console.log(node);
                                       
                                         return node;
                                      });
@@ -99,7 +97,6 @@
         $scope.isAdmin = $scope.node.esAdministrador;
         function doOk(response) {
           $log.debug('call addresses response ', response);
-          console.log(response.data, $scope.node);
           $scope.directions = response.data;
         }
   

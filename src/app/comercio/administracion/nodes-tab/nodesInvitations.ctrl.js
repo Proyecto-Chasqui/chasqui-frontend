@@ -49,8 +49,6 @@
 				$scope.invitations = response.data.filter(function(notificacion){
           return notificacion.estado == 'NOTIFICACION_NO_LEIDA' && isNodeInvitation(notificacion);
         });
-
-        console.log($scope.invitations);
 			}
 			perfilService.notificacionesNoLeidas().then(doOk);
     }

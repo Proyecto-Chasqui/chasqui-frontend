@@ -254,7 +254,6 @@
         function doOk(response){
           $scope.requests = response.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
         }
-        console.log($scope.node);
         if(usuario_dao.isLogged()){
           nodeService.getNodeRequests($scope.node.id).then(doOk);
         }

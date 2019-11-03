@@ -36,7 +36,6 @@
 
     function showOptionsForNode(nodeIndex){
       $scope.showOptions = $scope.showOptions.map(function(o,i){return i == nodeIndex && !o});
-      console.log($scope.showOptions);
     }
 
     function getFormatedAdress(node){
@@ -56,11 +55,9 @@
       if(usuario_dao.isLogged()){
         nodeService.userRequests(contextPurchaseService.getCatalogContext())
         .then(function(response_requests){
-          console.log(response_requests.data);
           $scope.requests = response_requests.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
           $scope.openNodes = $scope.openNodes.map(function(node){
             node.requested = $scope.requests.reduce(function(r,request){
-              console.log(node, node.idNodo == request.nodo.idNodo);
               if(node.idNodo == request.nodo.idNodo){
                 node.request = request;
               }
@@ -68,8 +65,6 @@
             }, false);
             return node;
           });
-          console.log($scope.openNodes);
-          console.log($scope.requests);
         })
       }
     }
@@ -77,10 +72,8 @@
     function init(){
       nodeService.nodosAbiertos(contextPurchaseService.getCatalogContext())
       .then(function(response_nodes){
-        console.log($scope.nodes);
         $scope.openNodes = response_nodes.data.filter(function(nodeList){
           return $scope.nodes.reduce(function(r, node){
-            console.log(node.id, nodeList.idNodo, (node.id != nodeList.idNodo));
             return r && (node.id != nodeList.idNodo);
           }, true);
         })

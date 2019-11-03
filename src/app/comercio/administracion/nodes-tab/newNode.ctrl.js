@@ -31,7 +31,6 @@
 
       $scope.node.idVendedor = contextPurchaseService.getCatalogContext();
       $scope.node.tipoNodo = $scope.tipoNodo? "NODO_ABIERTO" : "NODO_CERRADO";
-      console.log("guardar nodo", $scope.node);
       $log.debug("guardar nodo", $scope.node);
       nodeService.nuevoNodo($scope.node).then(doOk)
     }
