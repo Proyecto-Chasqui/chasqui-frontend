@@ -5,7 +5,7 @@
 
 	function contextOrdersService(getContext, orders_dao, $localStorage, gccService, moment, contextAgrupationsService,
                                   createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal,
-                                  agrupationTypeVAL, order_context, agrupationTypeDispatcher, productoService, ensureContext,
+                                  agrupationTypeVAL, nodeService, agrupationTypeDispatcher, productoService, ensureContext,
                                   setPromise, $log){
 
 
@@ -252,12 +252,12 @@
          *  PROP:   Ensure nodes orders are cached
          *  PREC:   None
          *  RET:    Null
-         *  Last modification: 6/4/18
+         *  Last modification: 3/11/19
          */
         function ensureNodesOrders(catalogId){
           return ensureContext(
             vm.ls.lastUpdate,
-            "group orders",
+            "node orders",
             orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_NODE),
             function(defered){
                 function doOk(response) {
@@ -272,7 +272,7 @@
                     });
                 }
 
-                gccService.pedidosByUser(catalogId).then(doOk);
+                nodeService.pedidosDeLosNodos(catalogId).then(doOk);
             });
         }
 
