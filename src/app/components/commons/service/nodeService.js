@@ -24,7 +24,8 @@
       acceptInvitation: acceptInvitation,
       declineInvitation: declineInvitation,
       quitarMiembro: quitarMiembro,
-      pedidosDeLosNodos: pedidosDeLosNodos
+      pedidosDeLosNodos: pedidosDeLosNodos,
+      createPersonalOrder: createPersonalOrder
     };
 
 		function nodosAbiertos(idCatalog, doNoOk){
@@ -150,12 +151,19 @@
       return promiseService.doPost(REST_ROUTES.quitarMiembroNodo, params);
     }
 
-    
+    // Orders
 
     function pedidosDeLosNodos(idVendedor, doNoOk){
 			$log.debug(" service pedidosDeLosNodos ");
 			return promiseService.doGetPrivate(REST_ROUTES.pedidosDeLosNodos(idVendedor), {}, doNoOk);
     }
+
+    function createPersonalOrder(params, doNoOk){
+			$log.debug(" service createPersonalOrder ");
+			return promiseService.doPost(REST_ROUTES.createNodePersonalOrder, params, doNoOk);
+    }
+
+    
 
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 

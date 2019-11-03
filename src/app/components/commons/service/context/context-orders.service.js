@@ -21,7 +21,7 @@
             getOrdersByType: getOrdersByType,
             openPersonalOrder: openAndGetPersonalOrder,
             setVirtualPersonalOrder: setVirtualPersonalOrder,
-            openGroupOrder: openGroupOrder,
+            openAgrupationOrder: openAgrupationOrder,
             confirmAgrupationOrder: confirmAgrupationOrder,
             modifyOrder: modifyOrder,            // catalogId -> Order -> Modification -> Null
             setStateConfirmed: setStateConfirmed,// catalogId -> Order -> Null
@@ -110,34 +110,41 @@
             replacePersonalOrder(catalogId, pedidoIndividualVirtual);
         }
 
-        function openGroupOrder(catalogId, group){
+        function openAgrupationOrder(catalogId, agrupation){
           return setPromise(function(defered){
             function doOK(response) {
               $log.debug("callCrearPedidoGrupal", response);
               var newOrder = response.data;
-              newOrder.idGrupo = group.idGrupo;
-              newOrder.aliasGrupo = group.alias;
-              newOrder.type = agrupationTypeVAL.TYPE_GROUP;
-              contextAgrupationsService.modifyAgrupation(catalogId, group.idGrupo, agrupationTypeVAL.TYPE_GROUP, function(group){
-                  group.idPedidoIndividual = newOrder.id;
-                  return group; 
-              });
+              newOrder.idGrupo = agrupation.id;
+              newOrder.aliasGrupo = agrupation.alias;
+              newOrder.type = agrupation.type;
+              contextAgrupationsService.modifyAgrupation(catalogId, agrupation.id, agrupation.type, 
+                function(agrupation){
+                  agrupation.idPedidoIndividual = newOrder.id;
+                  return agrupation; 
+                }
+              );
 
-              orders_dao.removeOrder(catalogId, -group.idGrupo, agrupationTypeVAL.TYPE_GROUP);
+              orders_dao.removeOrder(catalogId, -agrupation.id, agrupation.type);
               orders_dao.newOrder(catalogId, newOrder);
               defered.resolve(newOrder);
             }
 
             function doNoOK(response) {
-                $log.debug("error crear gcc individual, seguramente ya tenia pedido",response);
+                $log.debug("error crear el pedido individual, seguramente ya tenia pedido",response);
             }
 
             var params = {
-                idGrupo: group.id,
+                idGrupo: agrupation.id,
                 idVendedor: catalogId
             }
 
-            gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
+            if(agrupation.type == agrupationTypeVAL.TYPE_GROUP){
+              gccService.crearPedidoGrupal(params, doNoOK).then(doOK);
+            }
+            if(agrupation.type == agrupationTypeVAL.TYPE_NODE){
+              nodeService.createPersonalOrder(params, doNoOK).then(doOK);
+            }
           })
         }
 
@@ -146,8 +153,8 @@
             contextAgrupationsService.getAgrupation(catalogId, agrupationId, type).then(function(agrupation){
 
               const newOrder = {
-                id: -agrupation.idGrupo,
-                idGrupo: agrupation.idGrupo,
+                id: -agrupation.id,
+                idGrupo: agrupation.id,
                 idVendedor: catalogId,
                 estado: "NO_ABIERTO",
                 aliasGrupo: agrupation.alias,

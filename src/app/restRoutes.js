@@ -219,6 +219,8 @@
 
             pedidosDeLosNodos: function(idVendedor) {return URLS.be_rest + 'user/nodo/pedidos/' + idVendedor;},
 
+            createNodePersonalOrder: URLS.be_rest + "user/nodo/individual",
+
             // pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
 
             // confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
