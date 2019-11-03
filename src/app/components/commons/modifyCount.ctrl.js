@@ -87,7 +87,7 @@
           return "El total de tu pedido personal dentro del grupo "+groupOrder.aliasGrupo+" es:";
         },
         function(nodeOrder){
-          return "TODO";
+          return "El total de tu pedido personal dentro del grupo "+nodeOrder.aliasGrupo+" es:";
         }
       )
     }
