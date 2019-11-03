@@ -126,7 +126,7 @@
                 toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
                 contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
                   agrupations_dao_int.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
-                                                  $scope.node.idGrupo,
+                                                  $scope.node.id,
                                                   agrupationTypeVAL.TYPE_GROUP
                                                   );
                   $scope.$emit("exit-group");
@@ -238,7 +238,7 @@
       }
       
       var params = {
-        idGrupo: $scope.node.idGrupo,
+        idGrupo: $scope.node.id,
         emailCliente: miembro.email
       }
 

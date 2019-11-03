@@ -136,7 +136,7 @@
                 contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
                   $log.debug("selectedAgrupation", selectedAgrupation);
                   contextAgrupationsService.confirmPersonalOrder(contextPurchaseService.getCatalogContext(), 
-                                                                 selectedAgrupation.idGrupo, 
+                                                                 selectedAgrupation.id, 
                                                                  selectedAgrupation.type, 
                                                                  order)
                   if(selectedAgrupation.esAdministrador){

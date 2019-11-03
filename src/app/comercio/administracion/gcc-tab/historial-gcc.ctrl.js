@@ -22,7 +22,7 @@
                 $log.debug($scope.pedidosFiltrados);
             }
 
-            gccService.pedidosColectivosConEstado($scope.group.idGrupo, states).then(doOk);
+            gccService.pedidosColectivosConEstado($scope.group.id, states).then(doOk);
         })
     }     
       
@@ -54,7 +54,7 @@
     }
     
     function adaptOrder(order){
-      order.idGrupo = $scope.group.idGrupo;
+      order.idGrupo = $scope.group.id;
       return order;
     }
       

@@ -69,7 +69,7 @@
         locals: {
           isEdit: true,
           group: {
-            idGrupo: group.idGrupo,
+            idGrupo: group.id,
             alias: group.alias,
             descripcion: group.descripcion
           }, 
