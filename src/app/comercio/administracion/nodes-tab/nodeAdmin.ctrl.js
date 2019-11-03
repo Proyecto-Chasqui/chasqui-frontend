@@ -27,30 +27,20 @@
         toastr.success(us.translate('GROUP_EDITION_SAVED_CONTENT'),us.translate('GROUP_EDITION_SAVED_TITLE'));
         contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
           agrupations_dao_int.modifyGroup(contextPurchaseService.getCatalogContext(), 
-                                     $scope.node.idNodo,
+                                     $scope.node.id,
                                      agrupationTypeVAL.TYPE_NODE,
                                      function(node){
                                        console.log(node);
-                                      node.alias = $scope.nodeRepresentation.nombreNodo;
-                                      node.descripcion = $scope.nodeRepresentation.descripcion;
-                                      node.tipo = $scope.nodeRepresentation.tipoNodo;
-                                      node.barrio = $scope.nodeRepresentation.barrio;
-                                      console.log(node);
+                                        node.alias = $scope.nodeRepresentation.nombreNodo;
+                                        node.descripcion = $scope.nodeRepresentation.descripcion;
+                                        node.tipo = $scope.nodeRepresentation.tipoNodo;
+                                        node.barrio = $scope.nodeRepresentation.barrio;
+                                        console.log(node);
                                       
-                                      return node;
+                                        return node;
                                      });
         })
       }
-
-      // $scope.nodeRepresentation = {
-      //   idVendedor: contextPurchaseService.getCatalogContext(),
-      //   idNodo: $scope.node.idNodo,
-      //   nombreNodo: $scope.node.alias,
-      //   descripcion: $scope.node.descripcion,
-      //   idDireccion: $scope.node.direccionDelNodo.id,
-      //   tipoNodo: $scope.node.tipo,
-      //   barrio: $scope.node.barrio
-      // }
       
       nodeService.editar($scope.nodeRepresentation).then(doOk);      
     }
@@ -81,7 +71,7 @@
           toastr.success(us.translate('GRUPO_ELIMINADO'), us.translate('AVISO_TOAST_TITLE'));
           contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
             agrupations_dao_int.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
-                                            $scope.node.idNodo,
+                                            $scope.node.id,
                                             agrupationTypeVAL.TYPE_NODE
                                             );
             $scope.$emit("exit-node");
@@ -91,7 +81,7 @@
 
         nodeService.cerrar({
           idVendedor: contextPurchaseService.getCatalogContext(), 
-          idGrupo: $scope.node.idNodo
+          idGrupo: $scope.node.id
         }).then(doOk);
         
     }
@@ -120,7 +110,7 @@
         $log.debug("node", node);
         $scope.nodeRepresentation = {
           idVendedor: contextPurchaseService.getCatalogContext(),
-          idNodo: $scope.node.idNodo,
+          idNodo: $scope.node.id,
           nombreNodo: $scope.node.alias,
           descripcion: $scope.node.descripcion,
           idDireccion: $scope.node.direccionDelNodo.id,
