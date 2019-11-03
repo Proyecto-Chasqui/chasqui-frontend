@@ -21,6 +21,8 @@
       invitarUsuario: invitarUsuario,
       declineRequest: declineRequest,
       acceptRequest: acceptRequest,
+      acceptInvitation: acceptInvitation,
+      declineInvitation: declineInvitation,
       quitarMiembro: quitarMiembro,
       pedidosDeLosNodos: pedidosDeLosNodos
     };
@@ -131,6 +133,16 @@
     function acceptRequest(requestId){
 			$log.debug(" service acceptRequest ");
 			return promiseService.doPost(REST_ROUTES.acceptRequest(requestId), {idSolicitud: requestId});
+    }
+    
+    function declineInvitation(params){
+			$log.debug(" service declineInvitation ");
+			return promiseService.doPost(REST_ROUTES.declineNodeInvitation, params);
+    }
+        
+    function acceptInvitation(params){
+			$log.debug(" service acceptInvitation ");
+			return promiseService.doPost(REST_ROUTES.acceptNodeInvitation, params);
     }
         
     function quitarMiembro(params){

@@ -205,11 +205,11 @@
 
             acceptRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/aceptarSolicitudDePertenencia/" + idSolicitud;},
 
+            declineNodeInvitation: URLS.be_rest + 'user/nodo/rechazarInvitacion',
+
+            acceptNodeInvitation: URLS.be_rest + 'user/nodo/aceptarInvitacion',
+
             // getMailInvitacionAlGCC: URLS.be_rest + "client/sso/obtenerMailInvitado",
-
-            // aceptarInvitacionAGrupo: URLS.be_rest + 'user/gcc/aceptar',
-
-            // rechazarInvitacionAGrupo: URLS.be_rest + 'user/gcc/rechazar',
 
             quitarMiembroNodo: URLS.be_rest + "user/nodo/quitarMiembro",
 

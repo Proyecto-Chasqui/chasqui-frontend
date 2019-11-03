@@ -130,6 +130,12 @@
                   controller: 'OpenNodesController',
                   auth: false
                 })
+                .state('catalog.userNodes.invitations', {
+                  url: '/invitaciones',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesInvitations.tmpl.html',
+                  controller: 'NodesInvitationsController',
+                  auth: true
+                })
                 .state('catalog.userNodes.help', {
                   url: '/ayuda',
                   templateUrl: 'app/comercio/administracion/nodes-tab/nodesHelp.tmpl.html',

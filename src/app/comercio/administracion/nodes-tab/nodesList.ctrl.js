@@ -3,7 +3,8 @@
 
   angular.module('chasqui').controller('NodesListCtrl', NodesListCtrl);
 
-  function NodesListCtrl($log, $scope, $rootScope, dialogCommons, contextPurchaseService, nodeService, usuario_dao) {
+  function NodesListCtrl($log, $scope, $rootScope, dialogCommons, contextPurchaseService, nodeService, 
+                         usuario_dao, perfilService, us) {
 
     // Interfaz
 
@@ -24,6 +25,20 @@
       return node.esAdministrador;
     }
 
+    function callNotificaciones() {
+
+			function doOk(response) {
+				$scope.invitaciones = response.data.filter(function(notificacion){
+          return notificacion.estado == 'NOTIFICACION_NO_LEIDA' && isCompraColectiva(notificacion);
+        }).length;
+			}
+			perfilService.notificacionesNoLeidas().then(doOk);
+    }
+    
+    function isCompraColectiva(notificacion){			
+			return us.contieneCadena(notificacion.mensaje ,'ha invitado al nodo de compras colectivas');
+    }
+    
       
     function toTop(){
       window.scrollTo(0,0);
@@ -40,6 +55,7 @@
         })
         $scope.showOptions = $scope.nodes.map(function(n){return false});
       }
+      callNotificaciones();
       toTop();
     }
 
