@@ -215,15 +215,13 @@
 
             // cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
 
-            // crearPedidoGrupal: URLS.be_rest + "user/gcc/individual",
-
             pedidosDeLosNodos: function(idVendedor) {return URLS.be_rest + 'user/nodo/pedidos/' + idVendedor;},
 
             createNodePersonalOrder: URLS.be_rest + "user/nodo/individual",
 
-            // pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
+            confirmNodePersonalOrder: URLS.be_rest + "user/nodo/confirmarIndividualEnNodo",            
 
-            // confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
+            // pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
 
             // confirmarPedidoColectivo: URLS.be_rest + "user/gcc/confirmar",
 

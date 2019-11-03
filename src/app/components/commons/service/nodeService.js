@@ -25,7 +25,8 @@
       declineInvitation: declineInvitation,
       quitarMiembro: quitarMiembro,
       pedidosDeLosNodos: pedidosDeLosNodos,
-      createPersonalOrder: createPersonalOrder
+      createPersonalOrder: createPersonalOrder,
+      confirmPersonalOrder: confirmPersonalOrder,
     };
 
 		function nodosAbiertos(idCatalog, doNoOk){
@@ -159,11 +160,14 @@
     }
 
     function createPersonalOrder(params, doNoOk){
-			$log.debug(" service createPersonalOrder ");
+			$log.debug(" service createNodePersonalOrder ");
 			return promiseService.doPost(REST_ROUTES.createNodePersonalOrder, params, doNoOk);
     }
 
-    
+    function confirmPersonalOrder(orderId, doNoOk){
+			$log.debug(" service confirmNodePersonalOrder ");
+			return promiseService.doPost(REST_ROUTES.confirmNodePersonalOrder, {idPedido: orderId}, doNoOk);
+    }
 
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 

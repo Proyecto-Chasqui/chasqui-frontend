@@ -4,9 +4,10 @@
 	angular.module('chasqui').service('confirmOrder', confirmOrder);
 
 	function confirmOrder(dialogCommons, gccService, contextOrdersService, $rootScope, toastr, contextAgrupationsService,
-                        $mdDialog, $log, productoService, us, contextPurchaseService, vendedorService) {
+                        $mdDialog, $log, productoService, us, contextPurchaseService, vendedorService, nodeService) {
     
     function confirmOrderImpl(order){
+      console.log(order);
         var confirm = {
           PERSONAL: confirmPersonalOrder,
           GROUP: confirmGCCOrder,
@@ -157,8 +158,41 @@
     
     //////// Node order confirm
     
-    function confirmNodeOrder(){
-      
+    function confirmNodeOrder(order){
+      dialogCommons.confirm("¿Confirmar el pedido?", 
+                            "Una vez confirmado su pedido individual, tiene que esperar que el administrador del nodo lo confirme para que sea preparado y entregado.", 
+                            "Confirmar", 
+                            "No", 
+                            doConfirmNodeOrder(order), 
+                            ignoreAction);
+    }
+
+    function doConfirmNodeOrder(order){
+      return function(){
+        function doOk(response){
+            toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'), us.translate('AVISO_TOAST_TITLE'));
+            contextOrdersService.setStateConfirmed(contextPurchaseService.getCatalogContext(), order);
+            $rootScope.$emit('order-confirmed');
+            $rootScope.refrescarNotificacion();
+            contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
+              $log.debug("selectedAgrupation", selectedAgrupation);
+              contextAgrupationsService.confirmPersonalOrder(contextPurchaseService.getCatalogContext(), 
+                                                             selectedAgrupation.id, 
+                                                             selectedAgrupation.type, 
+                                                             order)
+              if(selectedAgrupation.esAdministrador){
+                dialogCommons.acceptIssue(
+                  "Es administrador del nodo " + selectedAgrupation.alias, 
+                  'Como administrador del nodo, no se olvide de confirmar el pedido colectivo en la sección "Mis nodos"',
+                  "Gracias por recordarmelo!", 
+                  dialogCommons.askToCollaborate, //ok
+                  dialogCommons.askToCollaborate  // no ok
+                );
+              }
+            });
+        }
+        nodeService.confirmPersonalOrder(order.id).then(doOk);          
+      }
     }
     
     /////// Common
