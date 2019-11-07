@@ -39,7 +39,7 @@
     function montoTotalNodo(node){
       return node.miembros != undefined? node.miembros.reduce(function(r,m){
         if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
-            return r + m.pedido.montoActual;
+            return r + m.pedido.montoActual + m.pedido.incentivoActual;
         }else{
             return r;
         }
@@ -49,7 +49,7 @@
     function montoSinIncentivo(node){
       return node.miembros != undefined? node.miembros.reduce(function(r,m){
         if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
-            return r + m.pedido.montoActual - m.pedido.incentivoActual;
+            return r + m.pedido.montoActual;
         }else{
             return r;
         }
