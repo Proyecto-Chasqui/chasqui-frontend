@@ -4,7 +4,7 @@
   angular.module('chasqui').controller('NodesListCtrl', NodesListCtrl);
 
   function NodesListCtrl(URLS, $scope, $rootScope, $state, contextPurchaseService, nodeService, 
-                         usuario_dao, perfilService, us) {
+                         usuario_dao, perfilService, us, dialogCommons, $mdDialog, agrupationTypeVAL) {
 
     // Interfaz
 
@@ -79,7 +79,7 @@
     }
 
     function puedeCerrarPedidoGCC(node){
-      return !hayAlgunPedidoAbierto(node) && hayAlgunPedidoConfirmado(node) && montoTotalGrupo(node) >= $scope.montoMinimo;
+      return !hayAlgunPedidoAbierto(node) && hayAlgunPedidoConfirmado(node) && montoTotalNodo(node) >= $scope.montoMinimo;
     }
 
     function puedeCerrarPedidoGCCSegunEstrategias(node){
@@ -99,7 +99,71 @@
     }
 
     function confirmNodeOrder(node){
+      var actions = {
+          doOk: doConfirmOrder(node),
+          doNotOk: ignoreAction
+      };
 
+      var activeMembers = node.miembros.filter(function(m){return m.pedido != null && m.pedido.estado == "CONFIRMADO"});
+
+      var adHocOrder = {
+          montoActual: activeMembers.reduce(function(r,m){return r + m.pedido.montoActual}, 0),
+          nombresDeMiembros: activeMembers.map(function(m){return m.nickname}),
+          montoActualPorMiembro: activeMembers.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual; return r}, {}),
+          type: agrupationTypeVAL.TYPE_NODE,
+          idDireccion: node.direccionDelNodo.id
+      }
+
+      dialogCommons.selectDeliveryAddress(actions, adHocOrder);
+
+    }
+
+    function doConfirmOrder(node){
+      return function(selectedAddress, answers) {
+        $log.debug('callConfirmar', $scope.pedido);
+
+        function doOk(response) {
+          $log.debug("--- confirmar pedido response ", response.data);
+          toastr.success(us.translate('PEDIDO_CONFIRMADO_MSG'),us.translate('AVISO_TOAST_TITLE'));
+          contextOrdersService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
+                                                      node.id,
+                                                      agrupationTypeVAL.TYPE_NODE)
+          .then(function (){
+            contextAgrupationsService.confirmAgrupationOrder(contextPurchaseService.getCatalogContext(),
+                                                              node.id,
+                                                              agrupationTypeVAL.TYPE_NODE);
+            $rootScope.$emit("nodes-information-actualized");
+          });
+          toTop();
+        }
+
+        var params = {
+            idGrupo: node.id,
+            idDireccion: "",
+            idPuntoDeRetiro: "",
+            idZona: "",
+            comentario: "",
+            opcionesSeleccionadas: answers.map(function(a){
+                return {
+                    nombre: a.nombre,
+                    opcionSeleccionada: a.answer
+                }
+            })
+        }
+
+        nodeService.confirmarPedidoColectivo(completeConfirmColectiveOrderParams(params, selectedAddress)).then(doOk);
+      }
+    }
+
+    function completeConfirmColectiveOrderParams(params, selectedAddress){
+      params.idDireccion = selectedAddress.selected.idDireccion;
+      params.idZona = selectedAddress.zone.id;
+      params.comentario = selectedAddress.particularities;
+      return params;
+    }
+
+    function ignoreAction(){
+      $mdDialog.hide();
     }
 
     function callNotificaciones() {

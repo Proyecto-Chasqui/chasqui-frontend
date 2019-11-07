@@ -22,6 +22,9 @@
                 },
                 GROUP: function(){
                     sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
+                },
+                NODE: function(){
+                    sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
                 }
             }[$scope.order.type]();
         }
