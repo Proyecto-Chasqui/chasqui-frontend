@@ -176,6 +176,9 @@
         }else{
             order.productosResponse.push(formatLikeServerVariety(variety, countModification));
         }
+        order.incentivoActual = order.productosResponse.reduce(function(r,p){
+          return r + p.incentivo * p.cantidad;
+        },0)
 
         return order;
     }
@@ -186,6 +189,7 @@
             nombre: variety.nombreProducto,
             idVariante: variety.idVariante,
             precio: variety.precio,
+            incentivo: variety.incentivo,
             cantidad: count,
             imagen: variety.imagenPrincipal
         }

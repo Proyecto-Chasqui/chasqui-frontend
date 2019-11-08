@@ -12,11 +12,11 @@
                       <label>
                         {{variety.cantidad}} x 
                       </label>
-                      <chq-price-product precio="variety.precio" tamanho="1"></chq-price-product>
+                      <chq-price-product precio="variety.precio + variety.incentivo" tamanho="1"></chq-price-product>
                       <label style="margin-left: 3px; margin-right: 3px;">
                         = 
                       </label>
-                      <chq-price-product precio="variety.cantidad * variety.precio" tamanho="1.1"></chq-price-product>
+                      <chq-price-product precio="variety.cantidad * (variety.precio + variety.incentivo)" tamanho="1.1"></chq-price-product>
                     </p>
                 </div>
             </div>
