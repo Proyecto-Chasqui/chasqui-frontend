@@ -165,7 +165,7 @@
           </div>
 
           <div class="" layout="column" ng-show="showOptions[i]">
-              <md-tabs>
+              <md-tabs md-dynamic-height>
                   <md-tab ng-repeat="miembro in nodeActiveMembers(node)" label="{{miembro.nickname}}">
                       <md-content class="md-padding" layout="column" layout-align="space-around">
                           <div layout="column" layout-align="space-sround center" 
@@ -292,7 +292,7 @@
           </div>
 
           <div layout="column" ng-show="showOptions[i]">
-            <md-tabs>
+            <md-tabs md-dynamic-height>
                 <md-tab ng-repeat="miembro in nodeActiveMembers(node)" label="{{miembro.nickname}}">
                     <md-content class="md-padding" layout="column" layout-align="space-around">
                         <div layout="column" layout-align="space-sround center" 
