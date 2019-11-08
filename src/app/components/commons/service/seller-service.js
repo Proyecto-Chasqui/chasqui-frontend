@@ -14,17 +14,21 @@
 			return promiseService.doGet(REST_ROUTES.seller(sellerId), {});
 		}
         
-        vm.getSellerIndividualQuestions = function(sellerId){
-            return promiseService.doGet(REST_ROUTES.sellerIndividualQuestions(sellerId), {});
-        }
-        
-        vm.getSellerColectiveQuestions = function(sellerId){
-            return promiseService.doGet(REST_ROUTES.sellerColectiveQuestions(sellerId), {});
-        }
-        
-        vm.getSellerZones = function(sellerId){
-            return promiseService.doGet(REST_ROUTES.sellerZones(sellerId), {});
-        }
+    vm.getSellerIndividualQuestions = function(sellerId){
+        return promiseService.doGet(REST_ROUTES.sellerIndividualQuestions(sellerId), {});
+    }
+    
+    vm.getSellerColectiveQuestions = function(sellerId){
+        return promiseService.doGet(REST_ROUTES.sellerColectiveQuestions(sellerId), {});
+    }
+    
+    vm.getSellerZones = function(sellerId){
+        return promiseService.doGet(REST_ROUTES.sellerZones(sellerId), {});
+    }
+
+    vm.getAddressZone = function(sellerId, addresId, doNoOk){
+        return promiseService.doPost(REST_ROUTES.getAddressZone, {idVendedor: sellerId, idDireccion: addresId}, doNoOk);
+    }
 
 	}
 })();

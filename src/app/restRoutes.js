@@ -25,6 +25,8 @@
             
             sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
 
+            getAddressZone: URLS.be_rest + "client/vendedor/obtenerZonaDeDireccion",
+
             catalogo: URLS.be_rest + "client/catalogo", //Para que se deduzca de la URL
 
             login: URLS.be_rest + "client/sso/singIn",
@@ -219,11 +221,11 @@
 
             createNodePersonalOrder: URLS.be_rest + "user/nodo/individual",
 
-            confirmNodePersonalOrder: URLS.be_rest + "user/nodo/confirmarIndividualEnNodo",            
+            confirmNodePersonalOrder: URLS.be_rest + "user/nodo/confirmarIndividualEnNodo",
+
+            confirmNodeOrder: URLS.be_rest + "user/nodo/confirmar",   
 
             // pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
-
-            // confirmarPedidoColectivo: URLS.be_rest + "user/gcc/confirmar",
 
             
             /* Otros */
