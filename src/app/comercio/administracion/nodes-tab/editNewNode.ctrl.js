@@ -26,7 +26,7 @@
 
       function doOk(response) {
           $log.debug("respuesta guardar nodo ", response);
-          toastr.success("Cuando el administrador del catalogo lo apruebe se podrá usar para comprar","Solicitud modificada");
+          toastr.success("El administrador del catálogo se comunicará con vos para gestionar los detalles de su aprobación para que puedas empesar a comprar.","Solicitud modificada!");
           $state.go('catalog.userNodes.all');
       }
 
