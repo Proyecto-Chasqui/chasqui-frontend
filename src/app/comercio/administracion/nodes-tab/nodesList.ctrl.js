@@ -3,7 +3,7 @@
 
   angular.module('chasqui').controller('NodesListCtrl', NodesListCtrl);
 
-  function NodesListCtrl(URLS, $scope, $rootScope, $state, contextPurchaseService, nodeService, 
+  function NodesListCtrl(URLS, $scope, $rootScope, $state, contextPurchaseService, nodeService, $log,
                          usuario_dao, perfilService, us, dialogCommons, $mdDialog, agrupationTypeVAL) {
 
     // Interfaz
@@ -151,13 +151,12 @@
             })
         }
 
-        nodeService.confirmarPedidoColectivo(completeConfirmColectiveOrderParams(params, selectedAddress)).then(doOk);
+        nodeService.confirmNodeOrder(completeConfirmColectiveOrderParams(params, selectedAddress)).then(doOk);
       }
     }
 
     function completeConfirmColectiveOrderParams(params, selectedAddress){
       params.idDireccion = selectedAddress.selected.idDireccion;
-      params.idZona = selectedAddress.zone.id;
       params.comentario = selectedAddress.particularities;
       return params;
     }

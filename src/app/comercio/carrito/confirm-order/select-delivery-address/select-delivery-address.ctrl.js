@@ -26,7 +26,7 @@
     $scope.setSelectedZone = setSelectedZone;
     $scope.setAddressParticularities = setAddressParticularities;
     $scope.setSelectedDeliveryPoint = setSelectedDeliveryPoint;
-            
+    $scope.getAddressZone = getAddressZone;
     $scope.validated = false;
     $scope.modeDefined = false;
     $scope.addressDefined = false;
@@ -91,6 +91,21 @@
     }
     
     
+    function getAddressZone(address){
+
+      function doOk(response){
+        $scope.addressZone = response.data;
+      }
+
+      function doNoOk(response){
+        $scope.addressZone = {
+          descripcion: "La dirección del domicilio no está asociada con ninguna zona de entrega del vendedor. Por favor comuniquese con el adminsitrador del catálogo para confirmar los detalles de la compra."
+        }
+      }
+
+      sellerService.getAddressZone(contextPurchaseService.getCatalogContext(), address.idDireccion, doNoOk).then(doOk);
+    }
+
     
     function loadZones(catalogId){
             
@@ -113,6 +128,7 @@
         $scope.addresses = response.data;
         if($scope.order.idDireccion){
           $scope.address.selected = $scope.addresses.filter(function(address){return address.idDireccion == $scope.order.idDireccion})[0];
+          getAddressZone($scope.address.selected);
         }
         showMultipleSelection(catalog);
 			}
@@ -162,9 +178,11 @@
         
         
     function validInformation(){
-        return $scope.address.selected != null &&
+        return ($scope.address.selected != null &&
                 (($scope.deliveryTypes[0].show && $scope.address.zone != null) || 
-                $scope.deliveryTypes[1].show);
+                $scope.deliveryTypes[1].show)) || (
+                  $scope.order.type == "NODE" && $scope.address.selected != null
+                );
     }
     
     function riseErrors(){

@@ -30,10 +30,16 @@
                 <md-input-container flex="50">
                     <label>Domicilio seleccionado</label>
                     <md-select name="selectedAddress" ng-model="address.selected">
-                        <md-option ng-repeat="address in addresses" ng-value="address">{{address.alias}}</md-option>
+                        <md-option ng-repeat="address in addresses" ng-value="address" ng-click="getAddressZone(address)">
+                          {{address.alias}}
+                        </md-option>
                     </md-select>
                 </md-input-container>
             </div>
+
+            <element-wrapper supported-strategies="nodos">
+              <span>{{addressZone.descripcion}}</span>
+            </element-wrapper>
           
             <div layout="row" layout-align="space-between start">
                 <div layout="column" layout-align="space-around start" flex="50">
