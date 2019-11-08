@@ -3,16 +3,16 @@
   <div ng-if="userIsLog">
     <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.newNode" ng-if="openRequests.length == 0"> 
         <md-icon class="ch-button-content"> group_add </md-icon>
-        <label style="cursor: pointer;">crea tu nodo</label>
+        <label style="cursor: pointer;">Solicitá tu nodo</label>
         <md-tooltip md-direction="bottom">
-          <label> Crea tu nodo </label>
+          <label> Solicitá tu nodo </label>
         </md-tooltip>
     </md-button>
     <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.editNewNode" ng-if="openRequests.length > 0"> 
         <md-icon class="ch-button-content"> edit </md-icon>
         <label style="cursor: pointer;">Editar solicitud de nuevo nodo</label>
         <md-tooltip md-direction="bottom">
-          <label> Crea tu nodo </label>
+          <label> Editar solicitud </label>
         </md-tooltip>
     </md-button>
     <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.openNodes">
@@ -28,15 +28,15 @@
     <a class="ch-icon-outlined" ui-sref="catalog.userNodes.invitations">
         <md-icon class="ch-icon-outlined-content"> email </md-icon>
         <md-tooltip md-direction="bottom" ng-if="invitaciones == 0">
-            <label translate="GRUPO_SIN_INVITACIONES"></label>
+            <label translate="NODO_SIN_INVITACIONES"></label>
         </md-tooltip>
         <md-tooltip md-direction="bottom" ng-if="invitaciones == 1">
-            <label translate="GRUPO_INVITACION"></label>
+            <label translate="NODO_INVITACION"></label>
         </md-tooltip>
         <md-tooltip md-direction="bottom" ng-if="invitaciones > 1">
-            <label translate="GRUPO_INVITACIONES_1"></label>
+            <label translate="NODO_INVITACIONES_1"></label>
             <label>{{invitaciones}}</label>
-            <label translate="GRUPO_INVITACIONES_2"></label>
+            <label translate="NODO_INVITACIONES_2"></label>
         </md-tooltip>
       </a>
     <notification-icon count="invitaciones" class="ch-count-group-invitations">
@@ -44,7 +44,7 @@
     <a class="ch-icon-outlined" ui-sref="catalog.userNodes.help">
         <md-icon class="ch-icon-outlined-content"> help_outline </md-icon>
         <md-tooltip md-direction="bottom">
-            <label translate="GRUPO_AYUDA"></label>                    
+            <label translate="NODO_AYUDA"></label>                    
         </md-tooltip>
       </a>
   </div>
