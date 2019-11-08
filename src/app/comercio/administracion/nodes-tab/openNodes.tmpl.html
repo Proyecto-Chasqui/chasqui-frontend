@@ -9,7 +9,7 @@
   </div>
 
   <div layout="column">
-    <md-tabs>
+    <md-tabs md-dynamic-height>
       <md-tab label="Buscar nodos abiertos">
         <div ng-repeat="(i, node) in openNodes" layout="column" layout-align="start" ng-if="!node.requested">
           <!--version web-->
