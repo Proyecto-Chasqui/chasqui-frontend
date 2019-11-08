@@ -27,6 +27,7 @@
       pedidosDeLosNodos: pedidosDeLosNodos,
       createPersonalOrder: createPersonalOrder,
       confirmPersonalOrder: confirmPersonalOrder,
+      confirmNodeOrder: confirmNodeOrder,
     };
 
 		function nodosAbiertos(idCatalog, doNoOk){
@@ -167,6 +168,11 @@
     function confirmPersonalOrder(orderId, doNoOk){
 			$log.debug(" service confirmNodePersonalOrder ");
 			return promiseService.doPost(REST_ROUTES.confirmNodePersonalOrder, {idPedido: orderId}, doNoOk);
+    }
+
+    function confirmNodeOrder(params, doNoOk){
+			$log.debug(" service confirmNodePersonalOrder ");
+			return promiseService.doPost(REST_ROUTES.confirmNodeOrder, params, doNoOk);
     }
 
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
