@@ -2,7 +2,8 @@
     <div flex="50">
         <div>
             <span ng-show="order.type == 'PERSONAL'">Productos del pedido: </span>
-            <span ng-show="order.type == 'GROUP'">Pago por miembro del grupo: </span>
+            <span ng-show="order.type == 'GROUP'">Pago por integrante del grupo: </span>
+            <span ng-show="order.type == 'NODE'">Pago por integrante del nodo: </span>
         </div>
         <md-list class="fixedRows">
             <md-list-item ng-show="order.type == 'PERSONAL'" ng-repeat="product in order.productosResponse">
