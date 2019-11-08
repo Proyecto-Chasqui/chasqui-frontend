@@ -75,7 +75,7 @@
     }
 
     function totalForMember(member){
-      return member.pedido != null? member.pedido.productosResponse.reduce(function(r,p){return r + (p.precio * p.cantidad)}, 0): 0;
+      return member.pedido != null? member.pedido.productosResponse.reduce(function(r,p){return r + ((p.precio + p.incentivo) * p.cantidad)}, 0): 0;
     }
 
     function puedeCerrarPedidoGCC(node){
@@ -107,9 +107,9 @@
       var activeMembers = node.miembros.filter(function(m){return m.pedido != null && m.pedido.estado == "CONFIRMADO"});
 
       var adHocOrder = {
-          montoActual: activeMembers.reduce(function(r,m){return r + m.pedido.montoActual}, 0),
+          montoActual: activeMembers.reduce(function(r,m){return r + m.pedido.montoActual + m.pedido.incentivoActual}, 0),
           nombresDeMiembros: activeMembers.map(function(m){return m.nickname}),
-          montoActualPorMiembro: activeMembers.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual; return r}, {}),
+          montoActualPorMiembro: activeMembers.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual + m.pedido.incentivoActual; return r}, {}),
           type: agrupationTypeVAL.TYPE_NODE,
           idDireccion: node.direccionDelNodo.id
       }
