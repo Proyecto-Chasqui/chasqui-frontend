@@ -263,7 +263,8 @@ md-tabs md-ink-bar {
 }
 
 
-.confirm-order{
+.ch-confirm-order{
+  width: 900px; 
 	color: $colorUno;
 	.md-title{
 		background-color: $colorDos !important;
@@ -317,6 +318,18 @@ md-tabs md-ink-bar {
     .label.ch-errors{
         color: $colorCancela !important;
     }
+}
+
+.ch-select-address{
+  flex: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-select-address-item{
+  flex: 1;
 }
 
 .ask-to-collaborate{

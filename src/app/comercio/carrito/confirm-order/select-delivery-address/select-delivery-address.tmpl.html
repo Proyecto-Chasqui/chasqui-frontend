@@ -27,19 +27,21 @@
                     <span>Domicilio de envio: <strong>*</strong></span>
                     <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un domicilio</span>
                 </div>
-                <md-input-container flex="50">
-                    <label>Domicilio seleccionado</label>
-                    <md-select name="selectedAddress" ng-model="address.selected">
-                        <md-option ng-repeat="address in addresses" ng-value="address" ng-click="getAddressZone(address)">
-                          {{address.alias}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
-            </div>
+                <div class="ch-select-address">
+                  <md-input-container class="ch-select-address-item">
+                      <label>Domicilio seleccionado</label>
+                      <md-select name="selectedAddress" ng-model="address.selected">
+                          <md-option ng-repeat="address in addresses" ng-value="address" ng-click="getAddressZone(address)">
+                            {{address.alias}}
+                          </md-option>
+                      </md-select>
+                  </md-input-container>
 
-            <element-wrapper supported-strategies="nodos">
-              <span>{{addressZone.descripcion}}</span>
-            </element-wrapper>
+                  <element-wrapper supported-strategies="nodos" class="ch-select-address-item">
+                    <span class="">{{addressZone.descripcion}}</span>
+                  </element-wrapper>
+                </div>
+            </div>
           
             <div layout="row" layout-align="space-between start">
                 <div layout="column" layout-align="space-around start" flex="50">
