@@ -64,7 +64,7 @@
         getOrdersWithStates($scope.states.map(mapToBEStates))
     }
 
-    //init();
+    init();
 
     $rootScope.$on('group-is-loaded', function(event, group) {
         $scope.group = group;      
