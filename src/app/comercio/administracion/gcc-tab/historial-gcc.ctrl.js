@@ -19,9 +19,10 @@
             function doOk(response) {
                 $scope.pedidosFiltrados = response.data;
                 $scope.pedidosFiltrados.reverse();
-                $log.debug($scope.pedidosFiltrados);
+                console.log($scope.pedidosFiltrados);
             }
-
+            
+            console.log($scope.group.id, states);
             gccService.pedidosColectivosConEstado($scope.group.id, states).then(doOk);
         })
     }     
@@ -61,16 +62,23 @@
     /////////////////// INIT ////////////////////
 
     function init(){
-        getOrdersWithStates($scope.states.map(mapToBEStates))
+      console.log("init");
+      getOrdersWithStates($scope.states.map(mapToBEStates))
     }
 
     //init();
 
     $rootScope.$on('group-is-loaded', function(event, group) {
-        $scope.group = group;      
-        init();
+      $scope.group = group;
+      init();
     });
     
+    $rootScope.$on('node-is-loaded', function(event, node) {
+      $scope.group = node;
+      init();
+    });
+
+
   }
 
 })();
