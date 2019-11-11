@@ -19,6 +19,7 @@
                               landingPage,
 							                products,
                               //howToBuy
+                              userOrders,
                           ];
         
           // if(strategy.nodos){
@@ -33,18 +34,12 @@
             itemsMenu.push(userNodes);
           }
 
-          // if(strategy.puntoDeEntrega){
-          //   itemsMenu.push(deliveryPoints);
-          // }
-
           return itemsMenu;
       }
     
       function catalog(strategy){
 
           var itemsMenu = [];
-
-          if(strategy.compraIndividual) itemsMenu.push(userOrders);
           if(strategy.gcc) itemsMenu.push(userGroups);
           // if(strategy.nodos) itemsMenu.push(userNodes);
 
