@@ -8,6 +8,7 @@
 	"MENU_PEDIDO" : "Mis pedidos",
 	"MENU_GRUPO" : "Mis grupos",
   "MENU_NODES" : "Mis nodos",
+  "MENU_OPEN_NODES" : "Nodos",
   "MENU_DELIVERY_POINTS": "Entregas",
 	"MENU_PERFIL" : "Perfil",
 	"CERRAR_GRUPAL" : "Cerrar pedido grupal",
