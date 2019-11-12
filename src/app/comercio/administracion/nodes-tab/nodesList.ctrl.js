@@ -20,6 +20,7 @@
     $scope.montoSinIncentivo = montoSinIncentivo;
     $scope.incentivoNodo = incentivoNodo;
     $scope.countOrdersConfirmed = countOrdersConfirmed;
+    $scope.showGoToCatalog = showGoToCatalog;
     $scope.nodeActiveMembers = nodeActiveMembers;
     $scope.totalForMember = totalForMember;
     $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
@@ -97,6 +98,14 @@
 
     function algunPedidoTieneEstado(miembros, estado){
         return any(miembros, function(m){return m.pedido != null && m.pedido.estado == estado})
+    }
+
+    function showGoToCatalog(node){
+      const pedido = node.miembros.filter(function(m){
+        return m.email == usuario_dao.getUsuario().email;
+      })[0].pedido;
+
+      return pedido == null || ( pedido.productosResponse.length >= 0 && pedido.estado != 'CONFIRMADO');
     }
 
     function confirmNodeOrder(node){
