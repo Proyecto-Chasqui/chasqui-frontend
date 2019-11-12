@@ -177,7 +177,7 @@
 
             /* Nodos */
 
-            nodosAbiertos: function(idVendedor){return URLS.be_rest + "/client/vendedor/nodosAbiertos/" + idVendedor;},
+            nodosAbiertos: function(idVendedor){return URLS.be_rest + "client/vendedor/nodosAbiertos/" + idVendedor;},
 
             userRequests: function(idVendedor){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaDeUsuario/" + idVendedor;},
 
