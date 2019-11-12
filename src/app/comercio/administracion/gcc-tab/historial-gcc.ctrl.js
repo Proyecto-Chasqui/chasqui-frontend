@@ -12,6 +12,7 @@
     $scope.direccionDeEntrega = direccionDeEntrega;
     $scope.viewOrderDetail = dialogCommons.viewOrderDetail;
     $scope.adaptOrder = adaptOrder;
+    $scope.montoTotal = montoTotal;
       
     function getOrdersWithStates(states){
         contextCatalogObserver.observe(function(){
@@ -26,6 +27,12 @@
         })
     }     
       
+    function montoTotal(pedido){
+      return pedido.pedidos.reduce(function(r,pedido){
+        return r + pedido.montoActual + pedido.incentivoActual;
+      }, 0)
+    }
+
     function direccionDeEntrega(pedido){
       if(pedido.direccion != null){
         return formatDireccion(pedido.direccion) +" ("+pedido.direccion.alias + ")";
