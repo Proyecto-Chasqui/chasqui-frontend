@@ -28,9 +28,7 @@
                 <md-divider></md-divider>
                 <div layout="row" layout-align="space-between center">
                     <div><strong>{{nombre}}</strong></div>
-                    <div>
-                      <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
-                    </strong></div>
+                    <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
                 </div>
                 <md-divider ng-if="$last"></md-divider>
             </md-list-item>
@@ -69,6 +67,8 @@
                 </span>
                 <span style="font-style: italic;">{{selectedAddress.selected.mensaje}}</span>
             </div>
+
+            <discriminacion-incentivo node="order.node"></discriminacion-incentivo>
         </div>
         <div flex="10">
         </div>

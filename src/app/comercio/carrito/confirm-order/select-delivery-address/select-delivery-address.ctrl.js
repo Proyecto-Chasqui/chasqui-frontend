@@ -95,7 +95,7 @@
     function formatDate(date){
       return date.slice(0,2) + "/" + date.slice(3,5) + "/" + date.slice(6,10);
     }
-
+    
     function getAddressZone(address){
 
       function doOk(response){
@@ -111,8 +111,8 @@
 
       sellerService.getAddressZone(contextPurchaseService.getCatalogContext(), address.idDireccion, doNoOk).then(doOk);
     }
-
     
+
     function loadZones(catalogId){
         
         function doOk(response){

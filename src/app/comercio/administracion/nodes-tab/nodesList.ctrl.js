@@ -112,7 +112,8 @@
           nombresDeMiembros: activeMembers.map(function(m){return m.nickname}),
           montoActualPorMiembro: activeMembers.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual + m.pedido.incentivoActual; return r}, {}),
           type: agrupationTypeVAL.TYPE_NODE,
-          idDireccion: node.direccionDelNodo.id
+          idDireccion: node.direccionDelNodo.id,
+          node: node
       }
 
       dialogCommons.selectDeliveryAddress(actions, adHocOrder);

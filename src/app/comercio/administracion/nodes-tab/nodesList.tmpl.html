@@ -98,20 +98,7 @@
                 <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
               </div>
               <div layout="column" layout-align="center">
-                <div layout="row" layout-align="center">
-                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
-                    Total: ${{montoTotalNodo(node)}}
-                  </label>
-                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0 && node.esAdministrador"> 
-                    Total s/ incentivo: ${{montoSinIncentivo(node)}}
-                  </label>
-                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0 && node.esAdministrador"> 
-                    Incentivo: ${{incentivoNodo(node)}}
-                  </label>
-                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
-                    Activo
-                  </label>
-                </div>
+                <discriminacion-incentivo node="node" active ng-show="countOrdersConfirmed(node) > 0"></discriminacion-incentivo>
               </div>
               <md-tooltip md-direction="bottom">
                 <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
@@ -235,22 +222,11 @@
                 <label class="ch-group-card-data-information-alias">{{node.alias}}</label>
                 <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
               </div>
+              
               <div layout="column" layout-align="center">
-                <div layout="row" layout-align="center">
-                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
-                    Total: ${{montoTotalNodo(node)}}
-                  </label>
-                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0 && node.esAdministrador"> 
-                    Total s/ incentivo: ${{montoSinIncentivo(node)}}
-                  </label>
-                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0 && node.esAdministrador"> 
-                    Incentivo: ${{incentivoNodo(node)}}
-                  </label>
-                  <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(node) > 0"> 
-                    Activo
-                  </label>
-                </div>
+                <discriminacion-incentivo node="node" active></discriminacion-incentivo>
               </div>
+  
               <md-tooltip md-direction="bottom">
                 <div layout="row" layout-align="space-between center">
                   <i class="material-icons">
