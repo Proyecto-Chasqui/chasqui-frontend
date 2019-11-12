@@ -82,12 +82,13 @@
       </md-tab>
       <md-tab label="{{'Solicitudes ('+requests.length+')'}}" ng-if="isAdmin">
         <md-list class="fixedRows">
-          <md-list-item class="md-3-line contact-item selected" ng-repeat="request in requests">
+          <md-list-item class="md-3-line contact-item selected" ng-repeat="request in requests" style="padding: 10px;">
             <div layout="row" layout-align="space-between center"  style="width: 100%">
               <div class="md-list-item-text compact">
                 <h4>{{request.cliente.apellido+", "+request.cliente.nombre}}</h4>
-                <p>{{request.cliente.email}}</p>
-                <p>{{request.cliente.telefinoFijo}}</p>
+                <p style="font-style: italic;">{{request.cliente.email}}</p>
+                <p>{{request.cliente.telefonoFijo}}</p>
+                <p>{{request.cliente.telefonoMovil}}</p>
               </div>
               <div layout="row" layout-align="end center">
                   <div layout="row" layout-align="end">
