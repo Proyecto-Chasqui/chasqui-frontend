@@ -20,15 +20,18 @@
     //////////////////////////////////////////
       
     $rootScope.$on('nodes-information-actualized', function(event) {
-        init();
+      $log.debug("nodes-information-actualized");
+      init();
     });
     
     $rootScope.$on('new-node', function(event) {
-        init();
+      $log.debug("new-node");
+      init();
     });
     
     $rootScope.$on('exit-node', function(event) {
-        init();
+      $log.debug("exit-node");
+      init();
     });
       
       
@@ -40,6 +43,7 @@
         contextCatalogObserver.observe(function(){
           contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
             $scope.nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_NODE);
+            console.log($scope.nodes);
             $scope.nodes = $scope.nodes.map(function(g){
               g.alias = g.alias.length > 40? g.alias.slice(0,40) + "..." : g.alias;
               g.descripcion = g.descripcion && g.descripcion.length > 60? g.descripcion.slice(0,60) + "..." : g.descripcion;

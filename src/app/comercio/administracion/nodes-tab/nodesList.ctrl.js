@@ -3,8 +3,9 @@
 
   angular.module('chasqui').controller('NodesListCtrl', NodesListCtrl);
 
-  function NodesListCtrl(URLS, $scope, $rootScope, $state, contextPurchaseService, nodeService, $log,
-                         usuario_dao, perfilService, us, dialogCommons, $mdDialog, agrupationTypeVAL) {
+  function NodesListCtrl(URLS, $scope, $rootScope, $state, contextPurchaseService, nodeService, $log, toastr,
+                         usuario_dao, perfilService, us, dialogCommons, $mdDialog, agrupationTypeVAL,
+                         contextOrdersService, contextAgrupationsService) {
 
     // Interfaz
 
@@ -120,7 +121,7 @@
 
     function doConfirmOrder(node){
       return function(selectedAddress, answers) {
-        $log.debug('callConfirmar', $scope.pedido);
+        $log.debug('callConfirmar', node);
 
         function doOk(response) {
           $log.debug("--- confirmar pedido response ", response.data);
