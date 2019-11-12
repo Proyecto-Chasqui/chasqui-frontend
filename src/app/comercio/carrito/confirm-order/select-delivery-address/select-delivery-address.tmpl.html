@@ -38,7 +38,15 @@
                   </md-input-container>
 
                   <element-wrapper supported-strategies="nodos" class="ch-select-address-item">
-                    <span class="">{{addressZone.descripcion}}</span>
+                    <span><strong>Nombre:</strong> {{addressZone.nombre}}</span>
+                  </element-wrapper>
+
+                  <element-wrapper supported-strategies="nodos" class="ch-select-address-item">
+                    <span><strong>Cierre de pedidos:</strong> {{addressZone.fechaCierrePedidos}}</span>
+                  </element-wrapper>
+
+                  <element-wrapper supported-strategies="nodos" class="ch-select-address-item">
+                    <span style="font-style: italic;">{{addressZone.descripcion}}</span>
                   </element-wrapper>
                 </div>
             </div>

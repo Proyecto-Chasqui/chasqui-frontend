@@ -91,10 +91,16 @@
     }
     
     
+            
+    function formatDate(date){
+      return date.slice(0,2) + "/" + date.slice(3,5) + "/" + date.slice(6,10);
+    }
+
     function getAddressZone(address){
 
       function doOk(response){
         $scope.addressZone = response.data;
+        $scope.addressZone.fechaCierrePedidos = formatDate($scope.addressZone.fechaCierrePedidos);
       }
 
       function doNoOk(response){
@@ -108,10 +114,6 @@
 
     
     function loadZones(catalogId){
-            
-        function formatDate(date){
-            return date.slice(0,2) + "/" + date.slice(3,5) + "/" + date.slice(6,10);
-        }
         
         function doOk(response){
             $scope.zones = response.data.map(function(z){z.fechaCierrePedidos = formatDate(z.fechaCierrePedidos); return z;});
