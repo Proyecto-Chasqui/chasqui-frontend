@@ -10,6 +10,7 @@
             scope: {
                 node: "=",
                 active: "=",
+                isAdmin: "=",
             },
             controller: 'discriminacionIncentivoController',
             templateUrl: 'app/components/commons/discriminacion-incentivo/discriminacion-incentivo.tmpl.html'

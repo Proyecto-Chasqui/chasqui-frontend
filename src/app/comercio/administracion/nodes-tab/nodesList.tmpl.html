@@ -98,7 +98,7 @@
                 <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
               </div>
               <div layout="column" layout-align="center">
-                <discriminacion-incentivo node="node" active ng-show="countOrdersConfirmed(node) > 0"></discriminacion-incentivo>
+                <discriminacion-incentivo node="node" active ng-show="countOrdersConfirmed(node) > 0" is-admin="isLoggedUserNodeAdmin(node)"></discriminacion-incentivo>
               </div>
               <md-tooltip md-direction="bottom">
                 <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
