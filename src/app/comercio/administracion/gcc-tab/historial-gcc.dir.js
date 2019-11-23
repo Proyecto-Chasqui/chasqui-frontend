@@ -6,7 +6,8 @@ angular.module('chasqui').directive('historialGcc', [
         restrict: 'E',
         controller: 'HistorialGCCController',
         scope: {
-            group: '=group'
+            group: '=group',
+            nombre: '=nombre',
         },
         templateUrl: 'app/comercio/administracion/gcc-tab/historial-gcc.html'
       };
