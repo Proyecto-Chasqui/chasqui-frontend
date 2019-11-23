@@ -246,7 +246,22 @@ md-tabs md-ink-bar {
 
 .ch-error{
     color: $colorCancela !important;
-    text-align: center;
+    text-align: start;
+}
+
+.ch-error-input{
+  animation-duration: 2s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    box-shadow: 0px 0px 15px 3px rgba(252,0,0,1);    
+  }
+
+  to {
+    box-shadow: 0px 0px 15px 3px rgba(252,0,0,0);
+  }
 }
 
 .ch-warn{

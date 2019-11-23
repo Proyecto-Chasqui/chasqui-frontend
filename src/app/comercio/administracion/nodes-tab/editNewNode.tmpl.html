@@ -21,10 +21,10 @@
           <div layout="row" layout-align="space-between center">
               <div flex="50" layout="column">
                   <span><label translate>ALIAS</label><strong>*</strong></span>
-                  <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un nombre</span>
                   <span style="font-style: italic;">Es el nombre identificador del nodo</span>
+                  <span class="ch-error" ng-show="validated && !node.nombreNodo.length > 0">Se debe elegir un nombre</span>
               </div>
-              <md-input-container flex="50">
+              <md-input-container flex="50" ng-class="validateInput('nombreNodo')">
                   <label translate>ALIAS</label>
                   <input ng-model="node.nombreNodo"/>
               </md-input-container>
@@ -53,8 +53,9 @@
               <div flex="50" layout="column">
                   <span><label translate>Domicilio de entrega</label></span>
                   <span style="font-style: italic;">Es donde se van a enviar los pedidos colectivos</span>
+                  <span class="ch-error" ng-show="validated && !node.idDomicilio">Se debe elegir un domicilio propio</span>
               </div>
-              <md-input-container flex="50">
+              <md-input-container flex="50" ng-class="validateInput('idDomicilio')">
                   <md-select ng-model="node.idDomicilio" placeholder="Domicilio de entrega">
                     <md-option ng-value="dir.idDireccion" ng-repeat="dir in directions">{{dir.alias}}</md-option>
                   </md-select>
@@ -64,8 +65,9 @@
               <div flex="50" layout="column">
                   <span><label translate>Barrio</label></span>
                   <span style="font-style: italic;">Barrio del domicilio de entrega</span>
+                  <span class="ch-error" ng-show="validated && !node.barrio.length > 0">Se debe elegir un barrio</span>
               </div>
-              <md-input-container flex="50">
+              <md-input-container flex="50" ng-class="validateInput('barrio')">
                   <label translate>Barrio</label>
                   <input ng-model="node.barrio"/>
               </md-input-container>

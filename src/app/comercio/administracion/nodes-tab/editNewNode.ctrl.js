@@ -13,6 +13,7 @@
     $scope.cancel = cancel;
     $scope.directions = [];
     $scope.tipoNodo = false;
+    $scope.validateInput = validateInput;
 
     
     ////////////////////////////////////////////////
@@ -26,13 +27,15 @@
 
       function doOk(response) {
           $log.debug("respuesta guardar nodo ", response);
-          toastr.success("El administrador del catálogo se comunicará con vos para gestionar los detalles de su aprobación para que puedas empesar a comprar.","Solicitud modificada!");
+          toastr.success("El administrador del catálogo se comunicará con vos para gestionar los detalles de su aprobación para que puedas empezar a comprar.","Solicitud modificada!");
           $state.go('catalog.userNodes.all');
       }
 
-      $scope.node.tipoNodo = $scope.tipoNodo? "NODO_ABIERTO" : "NODO_CERRADO";
-      $log.debug("guardar nodo", $scope.node);
-      nodeService.editarSolicitud($scope.node).then(doOk)
+      if(formValidated()){
+        $scope.node.tipoNodo = $scope.tipoNodo? "NODO_ABIERTO" : "NODO_CERRADO";
+        $log.debug("guardar nodo", $scope.node);
+        nodeService.editarSolicitud($scope.node).then(doOk);
+      }
     }
 
     function cancel(){
@@ -45,6 +48,27 @@
         $state.go('catalog.userNodes.all');
       })
     }
+
+
+
+    function validateInput(input){
+      console.log($scope.node[input]);
+      if($scope.validated  && !($scope.node[input])){
+        return "ch-error-input";
+      } else {
+        return "";
+      }
+    }
+
+    function formValidated(){
+      $scope.validated = true;
+      const addressDefined = $scope.node.nombreNodo && $scope.node.nombreNodo.length > 0;
+      const barrioDefined = $scope.node.barrio && $scope.node.barrio.length > 0;
+      const domicilioDefined = $scope.node.idDomicilio;
+
+      return addressDefined && barrioDefined && domicilioDefined;
+    }
+
 
     // Inicialización
 
