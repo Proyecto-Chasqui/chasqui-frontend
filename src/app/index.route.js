@@ -219,7 +219,14 @@
             .state('catalog.singUpGCCMailInvitation', {
                 url: '/registro/gcc/:idInvitacion',
                 templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
-                controller: 'RegistroInvitacionGCCController'
+                controller: 'RegistroInvitacionGCCController',
+                params: { toPage: 'userGroups' },
+            })
+            .state('catalog.singUpNodeMailInvitation', {
+                url: '/registro/nodos/:idInvitacion',
+                templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
+                controller: 'RegistroInvitacionGCCController',
+                params: { toPage: 'userNodes' },
             })
             .state('catalog.urlError', { // This is similar as landing page
                 url: '/:urlError',

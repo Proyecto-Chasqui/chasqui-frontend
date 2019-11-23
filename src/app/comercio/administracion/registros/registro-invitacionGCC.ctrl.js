@@ -23,7 +23,7 @@
               usuario_dao.logOut();
             }
             if(response.data.existeUsuario){
-              $state.go('catalog.userGroups.invitations', {mail: response.data.mail});
+              $state.go('catalog.'+$stateParams.toPage+'.invitations', {mail: response.data.mail});
             }
         })
       })
@@ -80,7 +80,7 @@
             $rootScope.$broadcast('resetCatalogInfo', "");
             
             toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
-            $state.go('catalog.userGroups.all');
+            $state.go('catalog.'+$stateParams.toPage+'.all');
         }
 
 
