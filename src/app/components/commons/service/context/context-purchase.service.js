@@ -79,8 +79,8 @@
 
           if(!catalog.few.compraIndividual && !catalog.few.gcc && catalog.few.nodos){ 
             // Solo nodos
-            order_context.setAgrupationId(idGrupoPedidoIndividual); 
-            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+            // order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
           }
 
           // Ya no se setea más ningun pedido por defecto
