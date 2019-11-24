@@ -144,6 +144,7 @@
                                                               node.id,
                                                               agrupationTypeVAL.TYPE_NODE);
             $rootScope.$emit("nodes-information-actualized");
+            dialogCommons.askToCollaborate();
           });
           toTop();
         }

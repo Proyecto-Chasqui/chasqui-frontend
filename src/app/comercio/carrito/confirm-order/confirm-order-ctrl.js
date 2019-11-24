@@ -60,6 +60,7 @@
             [
                 function(){
                     $scope.$broadcast('check-direccion');
+                    $scope.$broadcast('check-answers-length');
                 },
                 function(){
                     $scope.$broadcast('check-answers');
@@ -67,7 +68,6 @@
                 function(){
                     actions.doOk($scope.selectedAddress, $scope.answers);
                     $mdDialog.hide();
-                    dialogCommons.askToCollaborate();
                 }
             ][$scope.currentNavItem]();
         }
