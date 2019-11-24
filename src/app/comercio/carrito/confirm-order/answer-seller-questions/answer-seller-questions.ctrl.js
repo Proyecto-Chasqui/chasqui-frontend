@@ -47,11 +47,19 @@
             if(validInformation()){
                 $log.debug($scope.questions);
                 $scope.validated = false;
-                $scope.okAction($scope.questions);              
+                $scope.okAction($scope.questions);
             }else{
                 riseErrors();
             }
         })
+        
+        $scope.$on("check-answers-length", function(){
+          if($scope.questions.length == 0){
+            $scope.okAction($scope.questions);
+          }
+        })
+
+        
         
 	}
 
