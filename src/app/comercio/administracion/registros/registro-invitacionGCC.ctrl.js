@@ -22,7 +22,7 @@
             if(usuario_dao.isLogged() && response.data.mail != usuario_dao.getUsuario().email){
               usuario_dao.logOut();
             }
-            if(response.data.existeUsuario){
+            if(usuario_dao.isLogged() && response.data.existeUsuario){
               $state.go('catalog.'+$stateParams.toPage+'.invitations', {mail: response.data.mail});
             }
         })
