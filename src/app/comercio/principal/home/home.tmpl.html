@@ -1,147 +1,31 @@
-<md-content ng-cloak >
-   
-<div class="homepage" >
-
-     <div class="logo-home">
-     <a href="http://proyectochasqui.org" target="_blank">
-     <img ng-src="app/components/image/chasqui-footer.png" alt="chasqui">
-     </a>  
-   <h2>Proyectochasqui.org</h2> 
-     </div>
-
-</div>
-  
-  <!--   
-      <div class="nav-sticker-a layout-align-space-between-center layout-row">
-	            <div class="nav-logo">
-	            <img ng-src="assets/images/chasqui_logo.png" src="assets/images/chasqui_logo.png" > 
-	            </div >
-      </div >
+<div ng-cloak >
+  <home-menu class="menu"></home-menu>
 	  
-    <div id="chasqui-content-full">
-        <md-grid-list md-cols="3"  md-row-height="120px">
-            <md-grid-tile md-colspan="1" md-rowspan="3" ng-repeat="catalog in catalogs" layout-align="space-around center">
-                <md-card class="tarjeta-multicatalogo">
-                    <a ng-click="goToCatalog(catalog.nombreCorto)" class="selector-catalogo">
-              <md-card-actions layout="row" layout-align="center">
-                            <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 0px;">
-                        </md-card-actions>
-                        <md-card-title class="red">
-                            <md-card-title-text>
-                                <span class="md-headline catalogo-nombre">{{catalog.nombre}}</span>
-                            </md-card-title-text>
-                        </md-card-title>
-
-                    </a>
-                </md-card>
-            </md-grid-tile>
-        </md-grid-list>
+  <div id="chasqui-content-full">
+    <div class="ch-home-header">
+      <div class="ch-home-header-name">
+        <label style="font-size: 12px; text-transform: uppercase"></label>
+      </div>
     </div>
-   <div id="chasqui-content-full">
-  
-       <div class="home-ui-carousel-offers-title-container">
-            <div class="home-ui-carousel-offers-title">
-                    <div class="home-ui-carousel-offers-lead-text">
-                        Chasqui
-                    </div>
-                    <span class="home-ui-carousel-offers-main-text">
-                        Catalogos de compras,
-                    </span>
-                    <span class="home-ui-carousel-offers-expand-text">
-                        todos para ver 
-                    </span>
-             </div>
-         </div>
-  
-  
-    <div id="home-card"> 
-	                  <div class="home-card-img-som"></div>
-	                  <div class="home-card-img">
-                      <img style="width: 100%; height:100%" src="app\components\image/colsol.jpg">
-                      </div>
-			  
-			  
-	                  <div class="home-ui-card-content">
-                      <div class="home-ui-card-driver-img">
-                      <span class="ch-driver ch-purple-4 ch-white">
-					  <span class="driver-text -eva-3-bold">cooperativa</span></span>
-                      </div>
-
-                      <p class="home-ui-card-title eva-3-h3">Colectivo Solidario</p>
-
-
-                      <div class="home-ui-card-content-row home-ui-card-rating-and-stars">
-                      <div class="home-ui-card-rating eva-3-rating -sm -eva-3-bc-green-3">
-                      <span class="ch-white rating-text">CABA</span>
-                      </div>
-                      </div>
-
-                      <div class="home-ui-card-content-row home-ui-card-drivers-level2-container">
-                      <div class="home-ui-card-driver-gradients">
-                      <div class="home-ui-card-drivers">
-                            <span class="ch-driver ch-white -border -eva-3-tc-gray-3 home-ui-driver">
-                            <span class="home-ui-card-driver-text driver-text">
-                                comercializadora
-                            </span>
-                            </span>
-                            <span class="ch-driver ch-white -border -eva-3-tc-gray-3 home-ui-driver">
-                            <span class="home-ui-card-driver-text driver-text">
-                                productos
-                            </span>
-                            </span>
-                       </div>
-                       </div>
-                       </div>
-                       </div>
-	 </div> 
-   
-   
-     <div id="home-card"> 
-	                  <div class="home-card-img-som"></div>
-	                  <div class="home-card-img">
-                      <img style="width: 100%; height:100%" src="app\components\image/colsol.jpg">
-                      </div>
-			  
-			  
-	                  <div class="home-ui-card-content">
-                      <div class="home-ui-card-driver-img">
-                      <span class="ch-driver ch-purple-4 ch-white">
-					  <span class="driver-text -eva-3-bold">cooperativa</span></span>
-                      </div>
-
-                      <p class="home-ui-card-title eva-3-h3">Colectivo Solidario</p>
-
-
-                      <div class="home-ui-card-content-row home-ui-card-rating-and-stars">
-                      <div class="home-ui-card-rating eva-3-rating -sm -eva-3-bc-green-3">
-                      <span class="ch-white rating-text">CABA</span>
-                      </div>
-                      </div>
-
-                      <div class="home-ui-card-content-row home-ui-card-drivers-level2-container">
-                      <div class="home-ui-card-driver-gradients">
-                      <div class="home-ui-card-drivers">
-                            <span class="ch-driver ch-white -border -eva-3-tc-gray-3 home-ui-driver">
-                            <span class="home-ui-card-driver-text driver-text">
-                                comercializadora
-                            </span>
-                            </span>
-                            <span class="ch-driver ch-white -border -eva-3-tc-gray-3 home-ui-driver">
-                            <span class="home-ui-card-driver-text driver-text">
-                                productos
-                            </span>
-                            </span>
-                       </div>
-                       </div>
-                       </div>
-                       </div>
-	 </div>
-   -->
-   
-   
-   
-   </div>
-</md-content>
+    <md-grid-list md-cols="4"  md-row-height="120px">
+      <md-grid-tile md-colspan="1" md-rowspan="4" ng-repeat="catalog in catalogs" layout-align="space-around center">
+        <md-card class="tarjeta-multicatalogo">
+          <a ng-click="goToCatalog(catalog.nombreCorto)" class="selector-catalogo">
+            <md-card-actions layout="row" layout-align="center">
+              <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 0px;">
+            </md-card-actions>
+            <md-card-title>
+              <md-card-title-text>
+                <span class="md-headline catalogo-nombre">{{catalog.nombre}}</span>
+              </md-card-title-text>
+            </md-card-title>
+          </a>
+        </md-card>
+      </md-grid-tile>
+    </md-grid-list>
+  </div>
+  <section ng-include="'app/comercio/varios/footer.html'"></section>
+</div>
 
 
 
