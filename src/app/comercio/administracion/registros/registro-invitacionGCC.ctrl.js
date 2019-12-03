@@ -22,8 +22,16 @@
             if(usuario_dao.isLogged() && response.data.mail != usuario_dao.getUsuario().email){
               usuario_dao.logOut();
             }
-            if(usuario_dao.isLogged() && response.data.existeUsuario){
-              $state.go('catalog.'+$stateParams.toPage+'.invitations', {mail: response.data.mail});
+            if(response.data.existeUsuario){
+              if(usuario_dao.isLogged()){
+                $state.go('catalog.'+$stateParams.toPage+'.invitations', {mail: response.data.mail});
+                toastr.success(us.translate('Puede elegir si acepta o no la invitación'), "Error");
+              } else {
+                $state.go('catalog.login', { toPage : 'catalog.'+$stateParams.toPage+'.invitations' });
+                toastr.error(us.translate('Debe ingresar con el mismo mail de su invitación'), "Error");
+              }
+            } else {
+              toastr.success(us.translate('Al crear la cuenta de esta manera, estará aceptando pertenecer al grupo de compras colectivas'), "Creación de cuenta por invitación");
             }
         })
       })
