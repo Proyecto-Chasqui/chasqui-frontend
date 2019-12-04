@@ -17,6 +17,10 @@
 
             sellers: URLS.be_rest + "client/vendedor/all",
 
+            sellersTags: URLS.be_rest + "client/vendedor/obtenerTags",
+
+            sellersWithTags: URLS.be_rest + "client/vendedor/obtenerVendedoresConTags",
+
             seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
             
             sellerIndividualQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
