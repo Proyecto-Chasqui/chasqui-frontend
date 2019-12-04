@@ -138,6 +138,13 @@ body{
     background-color: #f7f7f7;
 }
 
+.chasqui-content-full-home{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
 #chasqui-content {
     width: 80%;
     margin: 0px auto;
