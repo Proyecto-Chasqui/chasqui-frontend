@@ -15,7 +15,7 @@
     }
     
 		vm.getSellersWithTags = function(selectedTags) {
-      return promiseService.doGet(REST_ROUTES.sellersWithTags, selectedTags);
+      return promiseService.doPost(REST_ROUTES.sellersWithTags, selectedTags);
     }
 
 		vm.getSeller = function(sellerId) {
