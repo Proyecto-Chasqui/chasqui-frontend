@@ -1,28 +1,70 @@
 <div ng-cloak >
   <home-menu class="menu"></home-menu>
 	  
-  <div id="chasqui-content-full">
+  <div id="chasqui-content-full" class="chasqui-content-full-home">
     <div class="ch-home-header">
-      <div class="ch-home-header-name">
-        <label style="font-size: 12px; text-transform: uppercase"></label>
-      </div>
+        <div class="ch-home-header-name">
+          <label class="ch-home-header-name-label">CHASQUI</label>
+          <label class="ch-home-header-name-label-2">Comunidad de consumo solidario</label>
+        </div>
+        <div class="ch-home-header-filter">
+          <div class="ch-home-header-filter-input">
+            <div class="">
+              <md-input-container>
+                <label>Nombre</label>
+                <input ng-model="selectedTags.nombre">
+              </md-input-container>            
+            </div>
+            <div class="ch-home-header-filter-input-selections">
+              <md-input-container>
+                <label>Zona de entregas</label>
+                <md-select ng-model="selectedTags.idTagZonaDeCobertura">
+                  <md-option ng-repeat="zona in tags.tagsZonaDeCobertura" ng-value="zona.id"> 
+                    {{ zona.nombre }} 
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container>
+                <label>Tipo de organización</label>
+                <md-select ng-model="selectedTags.idTagTipoOrganizacion">
+                  <md-option ng-repeat="tipoDeOrganizacion in tags.tagsTipoOrganizacion" ng-value="tipoDeOrganizacion.id"> 
+                    {{ tipoDeOrganizacion.nombre }} 
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container>
+                <label>Tipo de producto</label>
+                <md-select ng-model="selectedTags.idTagTipoProducto">
+                  <md-option ng-repeat="tipoDeProducto in tags.tagsTipoProducto" ng-value="tipoDeProducto.id"> 
+                    {{ tipoDeProducto.nombre }} 
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </div>
+          <div class="ch-home-header-filter-confirm">
+            <md-button class="btn-confirmar" ng-click="confirmSearch()">BUSCAR</md-button>
+          </div>
+        </div>
     </div>
-    <md-grid-list md-cols="4"  md-row-height="120px">
-      <md-grid-tile md-colspan="1" md-rowspan="4" ng-repeat="catalog in catalogs" layout-align="space-around center">
-        <md-card class="tarjeta-multicatalogo">
-          <a ng-click="goToCatalog(catalog.nombreCorto)" class="selector-catalogo">
-            <md-card-actions layout="row" layout-align="center">
-              <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 0px;">
-            </md-card-actions>
-            <md-card-title>
-              <md-card-title-text>
-                <span class="md-headline catalogo-nombre">{{catalog.nombre}}</span>
-              </md-card-title-text>
-            </md-card-title>
-          </a>
-        </md-card>
-      </md-grid-tile>
-    </md-grid-list>
+    <div class="ch-home-catalogs">
+      <md-grid-list md-cols="4"  md-row-height="120px">
+        <md-grid-tile md-colspan="1" md-rowspan="4" ng-repeat="catalog in catalogs" layout-align="space-around center">
+          <md-card class="tarjeta-multicatalogo">
+            <a ng-click="goToCatalog(catalog.nombreCorto)" class="selector-catalogo">
+              <md-card-actions layout="row" layout-align="center">
+                <img ng-src="{{url(catalog.imagen)}}" style="padding-top: 0px;">
+              </md-card-actions>
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline catalogo-nombre">{{catalog.nombre}}</span>
+                </md-card-title-text>
+              </md-card-title>
+            </a>
+          </md-card>
+        </md-grid-tile>
+      </md-grid-list>
+    </div>
   </div>
   <section ng-include="'app/comercio/varios/footer.html'"></section>
 </div>
