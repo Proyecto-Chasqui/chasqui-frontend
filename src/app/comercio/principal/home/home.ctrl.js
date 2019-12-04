@@ -11,9 +11,14 @@
     $scope.catalogs = [];
     $scope.url = url;
     $scope.goToCatalog = goToCatalog;
+    $scope.catalogOrganizationType = catalogOrganizationType;
         
 
     ////////////////////////////////////
+
+    function catalogOrganizationType(catalog){
+      return catalog.tagsTipoOrganizacion.length > 0? catalog.tagsTipoOrganizacion[0].nombre : "";
+    }
 
     // busqueda de catalogos
 
@@ -48,8 +53,8 @@
       console.log(selectedTags);
 
       sellerService.getSellersWithTags(selectedTags).then(function(response){
-        $scope.tags = response.data;
-        console.log($scope.tags);
+        $scope.catalogs = response.data;
+        console.log($scope.catalogs);
       })
 
     }
