@@ -73,16 +73,24 @@
                     </div>
                   </div>
                   <div class="ch-home-catalogs-catalog-details-agrupations">
-                      <div class="ch-home-catalogs-catalog-details-agrupations-agrupation ch-home-catalogs-catalog-tag-container" ng-repeat="agrupation in catalog.few">
+                      <div class="ch-home-catalogs-catalog-details-agrupations-agrupation ch-home-catalogs-catalog-tag-container" ng-repeat="agrupation in catalog.few" ng-show="agrupation">
                         <label>{{ agrupation }}</label>
                       </div>                    
                   </div>
               </div>
               <div class="ch-home-catalogs-catalog-details-sells">
-                
+                <div class="ch-home-catalogs-catalog-details-sells-sell" ng-repeat="productSell in catalog.tagsTipoProductos">
+                  <label>{{ productSell.nombre }}</label>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="ch-home-chasqui-banner">
+        <div class="ch-home-chasqui-banner-content">
+          <label>CHASQUI, Tecnología para la comercialización de la economía social y solidaria</label>
         </div>
       </div>
     </div>

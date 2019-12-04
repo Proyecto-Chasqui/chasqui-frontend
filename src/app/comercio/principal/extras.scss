@@ -922,6 +922,9 @@ md-tabs md-ink-bar {
   justify-content: space-between;
   align-items: stretch;
   background-color: rgb(229, 229, 229);
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-bottom: 50px;
 }
 
 .ch-home-header{
@@ -998,7 +1001,7 @@ md-tabs md-ink-bar {
 
 .ch-home-catalogs-catalog{
   flex: 1;
-  max-width: 300px;
+  max-width: 280px;
   background-color: white;
   border-radius: 5px;
   margin: 15px;
@@ -1019,7 +1022,7 @@ md-tabs md-ink-bar {
 .ch-home-catalogs-catalog-img{
   flex: 1;
   border-radius: 5px;
-  max-width: 300px;
+  max-width: 280px;
   max-height: 178px;
 }
 
@@ -1078,6 +1081,7 @@ md-tabs md-ink-bar {
   border-radius: 5px;
   background-color: rgb(229, 229, 229);
   color: rgb(255, 145, 28);
+  margin: 5px;
 }
 
 
@@ -1104,23 +1108,58 @@ md-tabs md-ink-bar {
 }
 
 .ch-home-catalogs-catalog-details-zones-zone{
-  flex: 1;
+  flex: 0 1 auto;
   background-color: rgb(3, 252, 165);
   margin: 5px;
   max-height: 20px;
+  font-size: 14px;
 }
 
 .ch-home-catalogs-catalog-details-agrupations{
   flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.ch-home-catalogs-catalog-details-agrupations-agrupation{
+  flex: 0 1 auto;
+}
+
+.ch-home-catalogs-catalog-details-sells{
+  flex: 1;
+  display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-.ch-home-catalogs-catalog-details-agrupations-agrupation{
-  flex: 1;
+.ch-home-catalogs-catalog-details-sells-sell{
+  flex: 0 1 auto;
+  border-radius: 5px;
+  padding: 2px;
+  border: 1px solid rgb(229, 229, 229);
+  margin: 5px;
 }
 
-.ch-home-catalogs-catalog-details-sells{
+.ch-home-chasqui-banner{
   flex: 1;
+  background: rgb(15, 175, 3);
+  height: 116px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.ch-home-chasqui-banner-content{
+  flex: 1;
+  margin: 10px;
+  text-align: center;
+  border: 8px solid white;
+  color: white;
+  padding: 20px;
+  font-size: 24px;
 }
