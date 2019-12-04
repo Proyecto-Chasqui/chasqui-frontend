@@ -911,3 +911,69 @@ md-tabs md-ink-bar {
 .ch-icon-outlined-content:hover {
   color: $colorUno;
 }
+
+
+/* HOME */
+
+.ch-home-header{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
+.ch-home-header-name{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
+.ch-home-header-name-label{
+  flex: 1;
+  font-size: 12px; 
+  text-transform: uppercase
+}
+
+.ch-home-header-name-label-2{
+  flex: 1;
+  font-size: 28px;
+}
+
+.ch-home-header-filter{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
+.ch-home-header-filter-input{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
+.ch-home-header-filter-input-selections{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
+.ch-home-header-filter-confirm{
+  flex: 1;
+}
+
+.ch-home-catalogs{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: stretch;
+}
