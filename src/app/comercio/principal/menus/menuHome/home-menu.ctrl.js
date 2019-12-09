@@ -20,7 +20,11 @@
 
       init();
       $scope.$broadcast('logout');
-      $state.go('catalog.landingPage');
+      $state.go('home');
+    }
+
+    $scope.login = function(){
+      $state.go('login', {toPage: "home"});
     }
 
     function init() {
