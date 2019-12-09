@@ -53,9 +53,11 @@
           <div class="ch-home-catalogs-catalog-details">
             <div class="ch-home-catalogs-catalog-details-type-delivery">
               <div class="ch-home-catalogs-catalog-details-type-delivery-contents">
-                <label class="ch-home-catalogs-catalog-details-type ch-home-catalog-tag" ng-show="catalogOrganizationType(catalog) != ''">
-                  {{ catalogOrganizationType(catalog) }}
-                </label>
+                <div class="ch-home-catalogs-catalog-details-type">
+                  <label class="ch-home-catalogs-catalog-details-type-label ch-home-catalog-tag" ng-show="catalogOrganizationType(catalog) != ''">
+                    {{ catalogOrganizationType(catalog) }}
+                  </label>
+                </div>
                 <div class="ch-home-catalogs-catalog-details-delivery">
                   <div class="ch-home-catalogs-catalog-tag-container">
                     1
@@ -67,7 +69,7 @@
             <div class="ch-home-catalogs-catalog-details-zones-agrupations">
                 <div class="ch-home-catalogs-catalog-details-zones">
                   <div class="ch-home-catalogs-catalog-details-zones-zone ch-home-catalog-tag" ng-repeat="zone in catalog.tagsZonaDeCobertura">
-                    <label>{{ zone.nombre }}</label>
+                    <label class="ch-home-catalogs-catalog-details-zones-zone-label">{{ zone.nombre }}</label>
                   </div>
                 </div>
                 <div class="ch-home-catalogs-catalog-details-agrupations">
@@ -78,7 +80,9 @@
             </div>
             <div class="ch-home-catalogs-catalog-details-sells">
               <div class="ch-home-catalogs-catalog-details-sells-sell" ng-repeat="productSell in catalog.tagsTipoProductos">
-                <label>{{ productSell.nombre }}</label>
+                <label class="ch-home-catalogs-catalog-details-sells-sell-label">
+                  {{ productSell.nombre }}
+                </label>
               </div>
             </div>
           </div>

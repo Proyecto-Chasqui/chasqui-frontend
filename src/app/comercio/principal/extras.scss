@@ -1031,8 +1031,8 @@ md-tabs md-ink-bar {
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .ch-home-catalogs-catalog-details-type-delivery{
@@ -1045,7 +1045,7 @@ md-tabs md-ink-bar {
 }
 
 .ch-home-catalogs-catalog-details-type-delivery-contents{
-  flex: 1;
+  width: 260px;
   position: absolute;
   top: -15px;
   display: flex;
@@ -1055,7 +1055,14 @@ md-tabs md-ink-bar {
 }
 
 .ch-home-catalogs-catalog-details-type{
-  flex: 1;
+  width: 190px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.ch-home-catalogs-catalog-details-type-label{
   background-color: rgb(65, 36, 103);
 }
 
@@ -1080,13 +1087,16 @@ md-tabs md-ink-bar {
   border-radius: 5px;
   background-color: rgb(229, 229, 229);
   color: rgb(255, 145, 28);
-  margin: 5px;
+  margin-left: 5px;
 }
 
 
 .ch-home-catalogs-catalog-details-name{
   flex: 1;
   font-size: 20px;
+  font-weight: 550;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .ch-home-catalogs-catalog-details-zones-agrupations{
@@ -1098,7 +1108,7 @@ md-tabs md-ink-bar {
 }
 
 .ch-home-catalogs-catalog-details-zones{
-  flex: 1;
+  width: 190px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -1108,10 +1118,17 @@ md-tabs md-ink-bar {
 
 .ch-home-catalogs-catalog-details-zones-zone{
   flex: 0 1 auto;
-  background-color: rgb(3, 252, 107);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(72, 187, 120);
   margin: 5px;
   max-height: 20px;
-  font-size: 14px;
+}
+
+.ch-home-catalogs-catalog-details-zones-zone-label{
+  font-size: 12px;
 }
 
 .ch-home-catalogs-catalog-details-agrupations{
@@ -1133,6 +1150,7 @@ md-tabs md-ink-bar {
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .ch-home-catalogs-catalog-details-sells-sell{
@@ -1141,6 +1159,10 @@ md-tabs md-ink-bar {
   padding: 2px;
   border: 1px solid rgb(229, 229, 229);
   margin: 5px;
+}
+
+.ch-home-catalogs-catalog-details-sells-sell-label{
+
 }
 
 .ch-home-chasqui-banner{
@@ -1157,7 +1179,7 @@ md-tabs md-ink-bar {
   flex: 1;
   margin: 10px;
   text-align: center;
-  border: 8px solid white;
+  border: 5px solid white;
   color: white;
   padding: 20px;
   font-size: 24px;
