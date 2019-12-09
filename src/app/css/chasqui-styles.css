@@ -270,7 +270,7 @@ body{
 }
 
 #menu-chasqui {
-    height: 88px;
+    height: 120px;
     /* padding: 0 16px; */
     display: flex;
     -ms-flex-direction: row;
@@ -290,6 +290,11 @@ body{
     -o-transition: all .1s ease;
     -ms-transition: all .1s ease;
     -moz-transition: all .1s ease;*/
+}
+
+#menu-chasqui-multicatalog {
+  height: 88px;
+  display: flex;
 }
 
 
