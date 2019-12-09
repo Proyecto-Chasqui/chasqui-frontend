@@ -1,7 +1,107 @@
-<md-toolbar class="md-medium-tall bg-white">
-    <div class="md-toolbar-tools">
-        <span flex></span>
-          <img ng-src="app/components/image/logo_cha.png" style="padding-top: 50px;">
-        <span flex></span>
+<div id="menu-chasqui" layout="column" layout-align="start">
+  <div class="nav-sticker-a" layout="row" layout-align="space-between center">
+    
+    <div id="menu-sub-mobile">
+      <md-menu md-position-mode="target-left target" >
+        <md-button aria-label="Open menu with custom trigger" class="md-icon-button" ng-mouseenter="$mdMenu.open()">
+          <md-icon style="color:#111">menu</md-icon>
+        </md-button>
+        <md-menu-content width="6" ng-mouseleave="$mdMenu.close()">
+      
+        <div ng-show="isLogued" >
+          <div class="menumobil-nombre"> 
+
+          <i class="material-icons icomobil">account_circle</i>Hola {{usuario.nickname}}
+          </div>
+          <md-divider></md-divider>
+        </div>
+        <catalog-menu-items general="true"></catalog-menu-items>
+        
+        <catalog-menu-items general="false"></catalog-menu-items>
+                  
+        <div ng-show="isLogued"> 
+                  <md-divider></md-divider>					   
+                  <md-list-item ng-click="toTop()" ui-sref="catalog.profile">
+                    <i class="material-icons icomobil-byn">person_outline</i> <div class="listanombremobil">Mi perfil </div>
+                  </md-list-item>                   
+      
+                  <md-list-item ui-sref="catalog.notifications">
+          <i class="material-icons icomobil-byn">notification_important</i> <div class="listanombremobil"><notification-icon  count="nroNoLeidas" >Notificaciones</notification-icon></div>	
+                    </md-list-item>    		
+          
+          <md-divider></md-divider>
+
+                  <md-list-item ng-click="logOut()">
+                  <i class="material-icons icomobil-byn">input</i> <div class="listanombremobil">Salir</div>
+                  </md-list-item>  					
+                  
+          </div>	
+          
+          <md-list-item ui-sref="catalog.login" ng-show="!isLogued">
+                      <div class="listanombremobil"> {{'INGRESA' | translate}}</div>
+          </md-list-item>
+          
+        </md-menu-content>
+      </md-menu>	
+    </div>	
+  
+    <div class="nav-logo">
+      <a ui-sref="catalog.landingPage">
+        <img ng-src="{{urlLogo}}">
+      </a>
     </div>
-</md-toolbar>
+    
+    <div id="menuusuario" class="usuario" layout="row" layout-align="space-between center">
+      <div ng-show="isLogued" id="menu_list_usuario" layout="row" layout-align="space-between center">
+        <md-button layout="row" layout-align="space-between center" style="cursor: pointer;" ng-click="toTop()" ui-sref="catalog.profile" >
+        
+          <img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">           
+          
+          <h4 class="menu-element">
+            {{usuario.nickname}}
+          </h4>
+          
+          <md-tooltip style="color:#fff" md-direction="bottom">
+              Mi perfil
+          </md-tooltip>
+        </md-button>
+        
+        <md-button class="md-secondary menu-icon menu-element" ng-click="logOut()">
+            <md-icon style="color:white;"> exit_to_app </md-icon>
+            
+            <md-tooltip style="color:#fff" md-direction="bottom">
+                Salir
+            </md-tooltip>
+        </md-button>
+      </div>
+
+      <md-button class="md-raised btn-chq-ingresa" ui-sref="catalog.login" ng-show="!isLogued"> {{'INGRESA' | translate}} </md-button>
+    </div>
+  </div>
+</div>
+
+
+<style>
+    .avatar figure{
+        border-radius: 0 !important;
+        margin-left: 0.5rem;
+        padding-right: 0.2rem;
+        min-width: 80px !important;
+    }
+  
+  .menu-element {
+    margin-left: 15px !important;
+    margin-right: 15px !important;
+  }
+  
+  .menu-icon {
+    height: 40px !important;
+    width: 40px !important;
+    min-width: 40px !important;
+  }
+  
+  .menu .material-icons {
+    background-color: #41246700 !important;
+    color: #111!important;
+}
+</style>
