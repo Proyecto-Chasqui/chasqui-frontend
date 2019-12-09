@@ -6,7 +6,7 @@
 		.controller('HomeMenuController', HomeMenuController);
 
     
-	function HomeMenuController(URLS, $scope, usuario_dao) {
+	function HomeMenuController(URLS, $scope, usuario_dao, $state, $log, contextPurchaseService) {
 
     $scope.urlBase = URLS.be_base;
     $scope.urlLogo = "assets/images/chasqui_logo.png";
@@ -17,8 +17,6 @@
 
       usuario_dao.logOut();
       contextPurchaseService.clean();
-
-      $interval.cancel(llamadoPeriodico);
 
       init();
       $scope.$broadcast('logout');

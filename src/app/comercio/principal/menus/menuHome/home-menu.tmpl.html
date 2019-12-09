@@ -15,19 +15,12 @@
           </div>
           <md-divider></md-divider>
         </div>
-        <catalog-menu-items general="true"></catalog-menu-items>
-        
-        <catalog-menu-items general="false"></catalog-menu-items>
                   
         <div ng-show="isLogued"> 
                   <md-divider></md-divider>					   
-                  <md-list-item ng-click="toTop()" ui-sref="catalog.profile">
+                  <md-list-item ng-click="toTop()" ui-sref="profile">
                     <i class="material-icons icomobil-byn">person_outline</i> <div class="listanombremobil">Mi perfil </div>
-                  </md-list-item>                   
-      
-                  <md-list-item ui-sref="catalog.notifications">
-          <i class="material-icons icomobil-byn">notification_important</i> <div class="listanombremobil"><notification-icon  count="nroNoLeidas" >Notificaciones</notification-icon></div>	
-                    </md-list-item>    		
+                  </md-list-item>
           
           <md-divider></md-divider>
 
@@ -37,7 +30,7 @@
                   
           </div>	
           
-          <md-list-item ui-sref="catalog.login" ng-show="!isLogued">
+          <md-list-item ui-sref="login" ng-show="!isLogued">
                       <div class="listanombremobil"> {{'INGRESA' | translate}}</div>
           </md-list-item>
           
@@ -46,14 +39,14 @@
     </div>	
   
     <div class="nav-logo">
-      <a ui-sref="catalog.landingPage">
+      <a ui-sref="home">
         <img ng-src="{{urlLogo}}">
       </a>
     </div>
     
     <div id="menuusuario" class="usuario" layout="row" layout-align="space-between center">
       <div ng-show="isLogued" id="menu_list_usuario" layout="row" layout-align="space-between center">
-        <md-button layout="row" layout-align="space-between center" style="cursor: pointer;" ng-click="toTop()" ui-sref="catalog.profile" >
+        <md-button layout="row" layout-align="space-between center" style="cursor: pointer;" ng-click="toTop()" ui-sref="profile" >
         
           <img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">           
           
@@ -75,7 +68,7 @@
         </md-button>
       </div>
 
-      <md-button class="md-raised btn-chq-ingresa" ui-sref="catalog.login" ng-show="!isLogued"> {{'INGRESA' | translate}} </md-button>
+      <md-button class="md-raised btn-chq-ingresa" ui-sref="login" ng-show="!isLogued"> {{'INGRESA' | translate}} </md-button>
     </div>
   </div>
 </div>

@@ -13,6 +13,22 @@
             templateUrl: 'app/comercio/principal/home/home.tmpl.html',
             controller: 'HomeController'
         })
+      
+        .state('profile', {
+            url: '/perfil',
+            templateUrl: 'app/comercio/administracion/perfil.html',
+            controller: 'PerfilController',
+            controllerAs: 'perfilCtrl',
+            params: { index: null },
+            auth: true
+        })
+        .state('login', {
+            url: '/login',
+            templateUrl: 'app/comercio/administracion/formularios/login.html',
+            controller: 'LogInController',
+            controllerAs: 'loginCtrl',
+            params: { toPage: null },
+        })
     
         .state('catalog', {
             url: '/:catalogShortName',
