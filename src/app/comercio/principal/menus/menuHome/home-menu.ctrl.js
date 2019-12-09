@@ -20,11 +20,11 @@
 
       init();
       $scope.$broadcast('logout');
-      $state.go('home');
+      $state.go('home.multicatalogo');
     }
 
     $scope.login = function(){
-      $state.go('login', {toPage: "home"});
+      $state.go('home.login', {toPage: "home.multicatalogo"});
     }
 
     function init() {

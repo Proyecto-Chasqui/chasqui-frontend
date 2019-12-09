@@ -18,7 +18,7 @@
                   
         <div ng-show="isLogued"> 
                   <md-divider></md-divider>					   
-                  <md-list-item ng-click="toTop()" ui-sref="profile">
+                  <md-list-item ng-click="toTop()" ui-sref="home.profile">
                     <i class="material-icons icomobil-byn">person_outline</i> <div class="listanombremobil">Mi perfil </div>
                   </md-list-item>
           
@@ -30,7 +30,7 @@
                   
           </div>	
           
-          <md-list-item ui-sref="login" ng-show="!isLogued">
+          <md-list-item ui-sref="home.login" ng-show="!isLogued">
                       <div class="listanombremobil"> {{'INGRESA' | translate}}</div>
           </md-list-item>
           
@@ -39,14 +39,14 @@
     </div>	
   
     <div class="nav-logo">
-      <a ui-sref="home">
+      <a ui-sref="home.multicatalogo">
         <img ng-src="{{urlLogo}}">
       </a>
     </div>
     
     <div id="menuusuario" class="usuario" layout="row" layout-align="space-between center">
       <div ng-show="isLogued" id="menu_list_usuario" layout="row" layout-align="space-between center">
-        <md-button layout="row" layout-align="space-between center" style="cursor: pointer;" ng-click="toTop()" ui-sref="profile" >
+        <md-button layout="row" layout-align="space-between center" style="cursor: pointer;" ng-click="toTop()" ui-sref="home.profile" >
         
           <img class="menu-element" ng-src="{{urlBase}}{{usuario.avatar}}" stye="max-height: 40px; max-width: 40px;">           
           
