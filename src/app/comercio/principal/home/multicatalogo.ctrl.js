@@ -12,12 +12,34 @@
     $scope.url = url;
     $scope.goToCatalog = goToCatalog;
     $scope.catalogOrganizationType = catalogOrganizationType;
+    
         
 
     ////////////////////////////////////
 
     function catalogOrganizationType(catalog){
       return catalog.tagsTipoOrganizacion.length > 0? catalog.tagsTipoOrganizacion[0].nombre : "";
+    }
+
+    function agrupationsTypes(catalog){
+      const res = [];
+      if(catalog.few.compraIndividual){
+        res.push({
+          label: 0,
+        });
+      }
+      if(catalog.few.gcc){
+        res.push({
+          label: 1,
+        });
+      }
+      if(catalog.few.nodos){
+        res.push({
+          label: 2,
+        });
+      }
+
+      return res;
     }
 
     // busqueda de catalogos
@@ -72,7 +94,10 @@
     
     function init(){
       contextCatalogsService.getCatalogs().then(function(catalogs){
-          $scope.catalogs = catalogs;
+          $scope.catalogs = catalogs.map(function(c){
+            c.agrupationsTypes = agrupationsTypes(c);
+            return c;
+          });
       })
       sellerService.getSellersTags().then(function(response){
         $scope.tags = response.data;

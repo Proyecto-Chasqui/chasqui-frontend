@@ -71,8 +71,8 @@
                   </div>
                 </div>
                 <div class="ch-home-catalogs-catalog-details-agrupations">
-                    <div class="ch-home-catalogs-catalog-details-agrupations-agrupation ch-home-catalogs-catalog-tag-container" ng-repeat="agrupation in catalog.few" ng-show="agrupation">
-                      <label>{{ agrupation }}</label>
+                    <div class="ch-home-catalogs-catalog-details-agrupations-agrupation ch-home-catalogs-catalog-tag-container" ng-repeat="agrupationType in catalog.agrupationsTypes">
+                      <label>{{ ::agrupationType.label }}</label>
                     </div>
                 </div>
             </div>
