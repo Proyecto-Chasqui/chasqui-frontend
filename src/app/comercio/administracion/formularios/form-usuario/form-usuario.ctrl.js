@@ -180,16 +180,21 @@
 		}
 
         function validateProfile(profile){
-            var tieneApellido = profile.apellido !== undefined && profile.apellido !== "";
-            var tieneNick = profile.nickName !== undefined && profile.nickName !== "";
-            var tieneNombre = profile.nombre !== undefined && profile.nombre !== "";
-            var tieneEmail = profile.email !== undefined && profile.email !== "";
-            var tieneEmailVerification = profile.emailVerification !== undefined && profile.emailVerification !== "";
-            var tienePassword = profile.password !== undefined && profile.password !== "";
-            var tienePassver = profile.passVerification !== undefined && profile.passVerification !== "";
-            var tieneTelefonoMovil = profile.telefonoMovil !== undefined && profile.telefonoMovil != "";
-            var tieneTelefono = profile.telefono !== undefined && profile.telefono != "";
-            return tieneApellido && tieneNick && tieneNombre && tieneEmail && tieneEmailVerification && tienePassword && tienePassver && (tieneTelefono || tieneTelefonoMovil);
+          return Object.keys(profile).filter(function(k){
+            return !$scope.hideField(k);
+          }).reduce(function(r,k){
+            return r && profile[k] !== undefined && profile[k] !== "";
+          }, true);
+            // var tieneApellido = profile.apellido !== undefined && profile.apellido !== "";
+            // var tieneNick = profile.nickName !== undefined && profile.nickName !== "";
+            // var tieneNombre = profile.nombre !== undefined && profile.nombre !== "";
+            // var tieneEmail = profile.email !== undefined && profile.email !== "";
+            // var tieneEmailVerification = profile.emailVerification !== undefined && profile.emailVerification !== "";
+            // var tienePassword = profile.password !== undefined && profile.password !== "";
+            // var tienePassver = profile.passVerification !== undefined && profile.passVerification !== "";
+            // var tieneTelefonoMovil = profile.telefonoMovil !== undefined && profile.telefonoMovil != "";
+            // var tieneTelefono = profile.telefono !== undefined && profile.telefono != "";
+            // return tieneApellido && tieneNick && tieneNombre && tieneEmail && tieneEmailVerification && tienePassword && tienePassver && (tieneTelefono || tieneTelefonoMovil);
         }
         
         $scope.labelButtonSave = function(profile){
