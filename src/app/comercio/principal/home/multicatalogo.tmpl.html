@@ -59,8 +59,8 @@
                   </label>
                 </div>
                 <div class="ch-home-catalogs-catalog-details-delivery">
-                  <div class="ch-home-catalogs-catalog-tag-container">
-                    1
+                  <div class="ch-home-catalogs-catalog-tag-container" ng-repeat="deliveryType in catalog.deliveryTypes">
+                    <img ng-src="{{deliveryTypeImg(deliveryType.id)}}">
                   </div>
                 </div>
               </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="ch-home-catalogs-catalog-details-agrupations">
                     <div class="ch-home-catalogs-catalog-details-agrupations-agrupation ch-home-catalogs-catalog-tag-container" ng-repeat="agrupationType in catalog.agrupationsTypes">
-                      <label>{{ ::agrupationType.label }}</label>
+                      <img ng-src="{{agrupationTypeImg(agrupationType.id)}}">
                     </div>
                 </div>
             </div>

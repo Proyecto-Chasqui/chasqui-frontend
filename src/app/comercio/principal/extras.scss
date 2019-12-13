@@ -1028,19 +1028,18 @@ md-tabs md-ink-bar {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: stretch;
   margin-left: 10px;
   margin-right: 10px;
 }
 
 .ch-home-catalogs-catalog-details-type-delivery{
-  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
   position: relative;
-  min-height: 24px;
+  height: 24px;
 }
 
 .ch-home-catalogs-catalog-details-type-delivery-contents{
@@ -1091,11 +1090,11 @@ md-tabs md-ink-bar {
 
 
 .ch-home-catalogs-catalog-details-name{
-  flex: 1;
   font-size: 20px;
   font-weight: 550;
   margin-top: 10px;
   margin-bottom: 20px;
+  height: 20px;
 }
 
 .ch-home-catalogs-catalog-details-zones-agrupations{

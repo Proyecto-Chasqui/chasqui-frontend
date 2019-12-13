@@ -12,6 +12,8 @@
     $scope.url = url;
     $scope.goToCatalog = goToCatalog;
     $scope.catalogOrganizationType = catalogOrganizationType;
+    $scope.deliveryTypeImg = deliveryTypeImg;
+    $scope.agrupationTypeImg = agrupationTypeImg;
     
         
 
@@ -25,23 +27,67 @@
       const res = [];
       if(catalog.few.compraIndividual){
         res.push({
-          label: 0,
+          id: 0,
         });
       }
       if(catalog.few.gcc){
         res.push({
-          label: 1,
+          id: 1,
         });
       }
       if(catalog.few.nodos){
         res.push({
-          label: 2,
+          id: 2,
         });
       }
 
       return res;
     }
 
+    function deliveryTypes(catalog){
+      const res = [];
+      if(catalog.few.seleccionDeDireccionDelUsuario){
+        res.push({
+          id: 0,
+        });
+      }
+      if(catalog.few.puntoDeEntrega){
+        res.push({
+          id: 1,
+        });
+      }
+
+      return res;
+    }
+
+    function deliveryTypeImg(id){
+      var res = "../../../../assets/images/";
+      if ( id == 0 ){
+        res += "estrategias/entrega_domicilio.svg";
+      }
+
+      if ( id == 1 ){
+        res += "estrategias/entrega_lugar.svg";
+      }
+      
+      return res;
+    }
+
+    function agrupationTypeImg(id){
+      var res = "../../../../assets/images/";
+      if ( id == 0 ){
+        res += "estrategias/compra_individual.svg";
+      }
+      if ( id == 1 ){
+        res += "estrategias/compra_grupal.svg";
+      }
+      if ( id == 2 ){
+        res += "estrategias/compra_nodos.svg";
+      }
+      
+      return res;
+    }
+    
     // busqueda de catalogos
 
     $scope.tags = {};
@@ -95,6 +141,7 @@
     function init(){
       contextCatalogsService.getCatalogs().then(function(catalogs){
           $scope.catalogs = catalogs.map(function(c){
+            c.deliveryTypes = deliveryTypes(c);
             c.agrupationsTypes = agrupationsTypes(c);
             return c;
           });
