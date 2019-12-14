@@ -116,9 +116,10 @@
     </div>
 
     <div class="ch-home-apoyan">
+      <label class="ch-home-apoyan-label">Apoyan esta iniciativa</label>
       <div class="ch-home-apoyan-logos">
-        <div class="ch-home-apoyan-logos-logo" ng-repeat="id in apoyos">
-          <img src='./assets/images/'>
+        <div class="ch-home-apoyan-logos-logo" ng-repeat="id in apoyos_id">
+          <img src='{{getSupportLogo(id)}}' class="ch-home-apoyan-logos-logo-img">
         </div>
       </div>
     </div>

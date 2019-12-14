@@ -14,6 +14,8 @@
     $scope.catalogOrganizationType = catalogOrganizationType;
     $scope.deliveryTypeImg = deliveryTypeImg;
     $scope.agrupationTypeImg = agrupationTypeImg;
+    $scope.apoyos_id = [];
+    $scope.getSupportLogo = getSupportLogo;
     
         
 
@@ -88,6 +90,11 @@
       return res;
     }
     
+    function getSupportLogo(id){
+      return "../../../../assets/images/apoyos/apoyo_"+id+".jpg";
+    }
+    
+
     // busqueda de catalogos
 
     $scope.tags = {};
@@ -150,6 +157,8 @@
         $scope.tags = response.data;
         console.log($scope.tags);
       })
+
+      $scope.apoyos_id = Array.from(Array(9), function(e,i){ return i;});
     }
     
     init();
