@@ -938,18 +938,17 @@ md-tabs md-ink-bar {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: stretch;
 }
 
 .ch-home-header-name-label{
-  flex: 1;
-  font-size: 12px; 
-  text-transform: uppercase
+  font-size: 18px; 
+  text-transform: uppercase;
+  margin-bottom: 15px;
 }
 
-.ch-home-header-name-label-2{
-  flex: 1;
+.ch-home-header-name-label-2{  
   font-size: 28px;
 }
 
@@ -969,12 +968,21 @@ md-tabs md-ink-bar {
   align-items: stretch;
 }
 
+.ch-home-header-filter-input-string{
+  flex: 1;
+  margin-bottom: 0px !important;
+}
+
 .ch-home-header-filter-input-selections{
   flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: stretch;
+}
+
+.ch-home-header-filter-input-selections-options{
+  flex: 1;
 }
 
 .ch-home-header-filter-confirm{
@@ -987,6 +995,14 @@ md-tabs md-ink-bar {
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
+}
+
+.ch-home-catalogs-unavailable{
+  font-size: 18px;
+  color: #9b9898;
+  font-style: italic;
+  margin: 40px;
+  text-align: center;
 }
 
 .ch-home-catalogs-container{
@@ -1169,6 +1185,66 @@ md-tabs md-ink-bar {
 
 }
 
+.ch-home-ayudas{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.ch-home-ayudas-ayuda{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ch-home-ayudas-label{
+  font-size: 20px;
+  font-weight: 500;
+  color: #6b6969;
+  margin-bottom: 15px;
+}
+
+.ch-home-ayudas-ayuda-icons{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ch-home-ayudas-ayuda-icons-icon{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.ch-home-ayudas-ayuda-icons-icon-container{
+  border-radius: 5px;
+  padding: 2px;
+  border: 1px solid rgb(184, 184, 184);
+  height: 30px;
+  width: 30px;
+}
+
+.ch-home-ayudas-ayuda-icons-icon-label{
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6b6969;
+  margin-right: 15px;
+  margin-left: 5px; 
+  white-space: nowrap;
+}
+
 .ch-home-chasqui-banner{
   flex: 1;
   background: rgb(15, 175, 3);
@@ -1177,6 +1253,8 @@ md-tabs md-ink-bar {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .ch-home-chasqui-banner-content{
@@ -1194,7 +1272,8 @@ md-tabs md-ink-bar {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 30px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 

@@ -121,9 +121,9 @@
         entregaADomicilio: $scope.selectedTags.entregaADomicilio,
         usaPuntoDeRetiro: $scope.selectedTags.usaPuntoDeRetiro,
       }
-      selectedTags.idsTagsTipoOrganizacion = $scope.selectedTags.idTagTipoOrganizacion == 0? [] : [$scope.selectedTags.idTagTipoOrganizacion];
-      selectedTags.idsTagsTipoProducto = $scope.selectedTags.idTagTipoProducto == 0? [] : [$scope.selectedTags.idTagTipoProducto];
-      selectedTags.idsTagsZonaDeCobertura = $scope.selectedTags.idTagZonaDeCobertura == 0? [] : [$scope.selectedTags.idTagZonaDeCobertura];
+      selectedTags.idsTagsTipoOrganizacion = $scope.selectedTags.idTagTipoOrganizacion == 0 || $scope.selectedTags.idTagTipoOrganizacion == -1? [] : [$scope.selectedTags.idTagTipoOrganizacion];
+      selectedTags.idsTagsTipoProducto = $scope.selectedTags.idTagTipoProducto == 0 || $scope.selectedTags.idTagTipoProducto == -1? [] : [$scope.selectedTags.idTagTipoProducto];
+      selectedTags.idsTagsZonaDeCobertura = $scope.selectedTags.idTagZonaDeCobertura == 0 || $scope.selectedTags.idTagZonaDeCobertura == -1? [] : [$scope.selectedTags.idTagZonaDeCobertura];
 
       console.log(selectedTags);
 

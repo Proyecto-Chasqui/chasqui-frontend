@@ -8,41 +8,45 @@
         </div>
         <div class="ch-home-header-filter">
           <div class="ch-home-header-filter-input">
-            <div class="">
-              <md-input-container>
-                <label>Nombre</label>
-                <input ng-model="selectedTags.nombre">
-              </md-input-container>            
-            </div>
+            <md-input-container class="ch-home-header-filter-input-string">
+              <label>Buscar por nombre</label>
+              <input ng-model="selectedTags.nombre" ng-change="confirmSearch()">
+            </md-input-container>            
             <div class="ch-home-header-filter-input-selections">
-              <md-input-container>
+              <md-input-container class="ch-home-header-filter-input-selections-options">
                 <label>Zona de entregas</label>
-                <md-select ng-model="selectedTags.idTagZonaDeCobertura">
+                <md-select ng-model="selectedTags.idTagZonaDeCobertura" ng-change="confirmSearch()">
+                  <md-option ng-value="-1"> 
+                    - - -
+                  </md-option>
                   <md-option ng-repeat="zona in tags.tagsZonaDeCobertura" ng-value="zona.id"> 
                     {{ zona.nombre }} 
                   </md-option>
                 </md-select>
               </md-input-container>
-              <md-input-container>
+              <md-input-container class="ch-home-header-filter-input-selections-options">
                 <label>Tipo de organización</label>
-                <md-select ng-model="selectedTags.idTagTipoOrganizacion">
+                <md-select ng-model="selectedTags.idTagTipoOrganizacion" ng-change="confirmSearch()">
+                  <md-option ng-value="-1"> 
+                    - - -
+                  </md-option>
                   <md-option ng-repeat="tipoDeOrganizacion in tags.tagsTipoOrganizacion" ng-value="tipoDeOrganizacion.id"> 
                     {{ tipoDeOrganizacion.nombre }} 
                   </md-option>
                 </md-select>
               </md-input-container>
-              <md-input-container>
+              <md-input-container class="ch-home-header-filter-input-selections-options">
                 <label>Tipo de producto</label>
-                <md-select ng-model="selectedTags.idTagTipoProducto">
+                <md-select ng-model="selectedTags.idTagTipoProducto" ng-change="confirmSearch()">
+                  <md-option ng-value="-1"> 
+                    - - -
+                  </md-option>
                   <md-option ng-repeat="tipoDeProducto in tags.tagsTipoProducto" ng-value="tipoDeProducto.id"> 
                     {{ tipoDeProducto.nombre }} 
                   </md-option>
                 </md-select>
               </md-input-container>
             </div>
-          </div>
-          <div class="ch-home-header-filter-confirm">
-            <md-button class="btn-confirmar" ng-click="confirmSearch()">BUSCAR</md-button>
           </div>
         </div>
     </div>
@@ -88,6 +92,63 @@
           </div>
         </div>
       </div>
+      <div class="ch-home-catalogs-unavailable" ng-show="catalogs.length == 0">
+        <label>No hay catálogos disponibles para la búsqueda seleccionada</label>
+      </div>
+    </div>
+
+    <div class="ch-home-ayudas">
+      <div class="ch-home-ayudas-ayuda">
+        <label class="ch-home-ayudas-label">
+          Formas de compra
+        </label>
+        <div class="ch-home-ayudas-ayuda-icons">
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/compra_individual.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              Individual
+            </label>            
+          </div>
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/compra_grupal.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              Grupal
+            </label>            
+          </div>
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/compra_nodos.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              Nodos
+            </label>            
+          </div>
+        </div>
+      </div>
+      <div class="ch-home-ayudas-ayuda">
+        <label class="ch-home-ayudas-label">
+          Tipos de entrega
+        </label>
+        <div class="ch-home-ayudas-ayuda-icons">
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/entrega_domicilio.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              A domicilio
+            </label>            
+          </div>
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/entrega_lugar.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              Retiro en el lugar
+            </label>            
+          </div>
+        </div>
+      </div>
+      <!--
+      <div class="ch-home-ayudas-ayuda">
+        <label class="ch-home-ayudas-label">
+          Comunidad
+        </label>
+
+      </div>-->
     </div>
 
     <div class="ch-home-chasqui-banner">
