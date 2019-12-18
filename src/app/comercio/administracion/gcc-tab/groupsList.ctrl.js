@@ -202,7 +202,7 @@
       return {
           address: function(){
               params.idDireccion = selectedAddress.selected.idDireccion;
-              params.idZona = selectedAddress.zone.id;
+              //params.idZona = selectedAddress.zone.id;
               params.comentario = selectedAddress.particularities;
               return params;
           },

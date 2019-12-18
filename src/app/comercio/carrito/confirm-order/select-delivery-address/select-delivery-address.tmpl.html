@@ -37,72 +37,30 @@
                       </md-select>
                   </md-input-container>
 
-                  <element-wrapper supported-strategies="nodos" class="ch-select-address-item">
+                  <div class="ch-select-address-item">
                     <span><strong>Zona de entrega:</strong> {{addressZone.nombre}}</span>
-                  </element-wrapper>
+                  </div>
 
-                  <element-wrapper supported-strategies="nodos" class="ch-select-address-item">
+                  <div class="ch-select-address-item">
                     <span><strong>Cierre de pedidos:</strong> {{addressZone.fechaCierrePedidos}}</span>
-                  </element-wrapper>
+                  </div>
 
-                  <element-wrapper supported-strategies="nodos" class="ch-select-address-item">
+                  <div class="ch-select-address-item">
                     <span style="font-style: italic;">{{addressZone.descripcion}}</span>
-                  </element-wrapper>
+                  </div>
                 </div>
             </div>
           
             <div layout="row" layout-align="space-between start">
-                <div layout="column" layout-align="space-around start" flex="50">
-                    <span>Particularidades del domicilio:</span>
-                    <span style="font-style: italic;">Por ejemplo, el timbre no funciona o llame al celular para atenderlo</span>
-                </div>
-                <md-input-container flex="50">
-                    <label>Particularidades</label>
-                    <textarea ng-model="address.particularities"></textarea>
-                </md-input-container>
+              <div layout="column" layout-align="space-around start" flex="50">
+                  <span>Particularidades del domicilio:</span>
+                  <span style="font-style: italic;">Por ejemplo, el timbre no funciona o llame al celular para atenderlo</span>
+              </div>
+              <md-input-container flex="50">
+                  <label>Particularidades</label>
+                  <textarea ng-model="address.particularities"></textarea>
+              </md-input-container>
             </div>
-
-            <element-wrapper not-supported-strategies="nodos" supported-strategies="gcc personal">
-              <div layout="row" layout-align="space-between start">
-                  <div flex="50" layout="column">
-                      <span>Selecciona una zona de entrega: <strong>*</strong></span>
-                      <span class="ch-error" ng-show="validated && !zoneDefined">Se debe elegir una zona para el domicilio</span>
-                  </div>
-                  <md-input-container flex="50">
-                    <label>Zona seleccionada</label>
-                    <md-select name="selectedZone" ng-model="address.zone">
-                        <md-option ng-repeat="zone in zones" ng-value="zone" 
-                                  style="padding-bottom: 40px;
-                                        padding-top: 40px;
-                                        max-width: 900px;">
-                          <div layout="column" layout-align="end start">
-                              <span><strong>{{zone.nombre}}</strong></span>
-                              <span>Cierre de pedidos: <strong>{{zone.fechaCierrePedidos}}</strong></span>
-                              <span style="font-style: italic;">{{zone.descripcion}}</span>
-                          </div>
-                        </md-option>
-                    </md-select>
-                  </md-input-container>
-                      <!--md-radio-group name="selectedZone" ng-model="address.zone">
-                          <md-radio-button ng-repeat="zone in zones" ng-value="zone">
-                              <div layout="column" layout-align="end start">
-                                  <span><strong>{{zone.nombre}}</strong></span>
-                                  <span>Cierre de pedidos: <strong>{{zone.fechaCierrePedidos}}</strong></span>
-                                  <span style="font-style: italic;">{{zone.descripcion}}</span>
-                              </div>
-                          </md-radio-button>
-                      </md-radio-group-->
-              </div>
-
-              <div layout="row" layout-align="space-between start">
-                  <div flex="50" layout="column">
-                      <span> Mapa de zonas de entrega: </span>
-                  </div>
-                  <div flex="50">
-                      <iframe ng-src="{{zonesMap}}" width="520" height="480"></iframe>
-                  </div>
-              </div>
-            </element-wrapper>
         </div>
     </div>
 </element-wrapper>
