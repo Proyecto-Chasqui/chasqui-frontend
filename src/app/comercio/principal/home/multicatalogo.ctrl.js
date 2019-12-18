@@ -127,8 +127,14 @@
 
       console.log(selectedTags);
 
+      $scope.catalogs = [];
+      
       sellerService.getSellersWithTags(selectedTags).then(function(response){
-        $scope.catalogs = response.data;
+        $scope.catalogs = response.data.map(function(c){
+          c.deliveryTypes = deliveryTypes(c);
+          c.agrupationsTypes = agrupationsTypes(c);
+          return c;
+        });
         console.log($scope.catalogs);
       })
 
