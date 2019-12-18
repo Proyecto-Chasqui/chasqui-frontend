@@ -25,15 +25,15 @@
 
     /// Private
     function getTotal(variety){
-        var decimal = Math.floor((variety.precio - Math.floor(variety.precio))*100);
-        return $scope._count * (Math.floor(variety.precio) + (decimal/100));
+        var decimal = Math.floor(((variety.precio + variety.incentivo) - Math.floor(variety.precio + variety.incentivo))*100);
+        return $scope._count * (Math.floor(variety.precio + variety.incentivo) + (decimal/100));
     }
 
     function getTotalOrder(variety){
         return getTotal(variety) + 
               (order.estado == "ABIERTO"? order.productosResponse
                                             .filter(function(p){return p.idVariante != variety.idVariante})
-                                            .reduce(function(r,p){return r + p.precio*p.cantidad}, 0) : 0);
+                                            .reduce(function(r,p){return r + (p.precio + p.incentivo)*p.cantidad}, 0) : 0);
     }
     
     $scope.countPlus = function(howMuch){
@@ -87,7 +87,7 @@
           return "El total de tu pedido personal dentro del grupo "+groupOrder.aliasGrupo+" es:";
         },
         function(nodeOrder){
-          return "TODO";
+          return "El total de tu pedido personal dentro del grupo "+nodeOrder.aliasGrupo+" es:";
         }
       )
     }

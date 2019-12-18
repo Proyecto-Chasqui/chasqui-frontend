@@ -1,11 +1,11 @@
-<element-wrapper id="selectorPurchaseContext" supported-strategies="gcc">
+<element-wrapper id="selectorPurchaseContext" supported-strategies="gcc nodos">
     <div ng-controller="ContextoCompraController">
         <md-card2 ng-if="showSelector()">
             <md-card-content>
                 <div>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>{{'CAMBIAR_CHANGO' | translate}}</label>
-                        <md-select ng-change="cambiarContexto()" ng-model="agrupationSelected.idGrupo">
+                        <md-select ng-change="cambiarContexto()" ng-model="agrupationSelected.id">
                           <element-wrapper supported-strategies="compraIndividual">
                             <md-option ng-value="0" ng-click="setPersonalAsAgrupationSelected()">
                               <div class="ch-agrupation-selection-item">
@@ -18,16 +18,30 @@
                               </div>
                             </md-option>
                           </element-wrapper>
-                          <md-option ng-repeat="group in grupos" ng-value="group.idGrupo" ng-click="setGroupAsAgrupationSelected()">
-                            <div class="ch-agrupation-selection-item">
-                              <i class="material-icons ch-agrupation-icon">
-                                group
-                              </i>
-                              <span class="ch-agrupation-label">
-                                {{group.alias}} 
-                              </span>
-                            </div>
-                          </md-option>
+                          <element-wrapper supported-strategies="gcc">
+                            <md-option ng-repeat="group in grupos" ng-value="group.id" ng-click="setGroupAsAgrupationSelected()">
+                              <div class="ch-agrupation-selection-item">
+                                <i class="material-icons ch-agrupation-icon">
+                                  group
+                                </i>
+                                <span class="ch-agrupation-label">
+                                  {{group.alias}} 
+                                </span>
+                              </div>
+                            </md-option>
+                          </element-wrapper>
+                          <element-wrapper supported-strategies="nodos">
+                            <md-option ng-repeat="node in nodes" ng-value="node.id" ng-click="setNodeAsAgrupationSelected()">
+                              <div class="ch-agrupation-selection-item">
+                                <i class="material-icons ch-agrupation-icon">
+                                  filter_tilt_shift
+                                </i>
+                                <span class="ch-agrupation-label">
+                                  {{node.alias}} 
+                                </span>
+                              </div>
+                            </md-option>
+                          </element-wrapper>
                         </md-select>
                     </md-input-container>
                 </div>

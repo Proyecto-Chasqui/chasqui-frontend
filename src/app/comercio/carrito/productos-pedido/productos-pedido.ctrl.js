@@ -35,7 +35,7 @@
                 contextOrdersService.modifyOrder(contextPurchaseService.getCatalogContext(), $scope.pedido, function(order){
                     var index = order.productosResponse.map(function(p){return p.idVariante}).indexOf($scope.productoEliminar.idVariante);                    
                     order.productosResponse.splice(index, 1);
-                    order.montoActual -= $scope.productoEliminar.cantidad * $scope.productoEliminar.precio
+                    order.montoActual -= $scope.productoEliminar.cantidad * ($scope.productoEliminar.precio + $scope.productoEliminar.inventivo)
                     return order;
                 });
 				

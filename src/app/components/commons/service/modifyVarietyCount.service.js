@@ -89,7 +89,7 @@
     contextPurchaseService.getSelectedOrder().then(function(selectedOrder){
       if(selectedOrder.estado == "NO_ABIERTO"){
         contextPurchaseService.getSelectedAgrupation().then(function(selectedAgrupation){
-          contextOrdersService.openGroupOrder(contextPurchaseService.getCatalogContext(), selectedAgrupation).then(function(createdOrder){
+          contextOrdersService.openAgrupationOrder(contextPurchaseService.getCatalogContext(), selectedAgrupation).then(function(createdOrder){
 
             var params = {
                 idPedido: createdOrder.id,
@@ -151,7 +151,17 @@
                 return groupOrder;
             },
             function(nodeOrder){
+              contextCatalogObserver.observe(function(){
+                contextAgrupationsService.modifyAgrupation(contextPurchaseService.getCatalogContext(),
+                                                           nodeOrder.idGrupo,
+                                                           nodeOrder.type,
+                  function(node){
+                    node.estado = "ABIERTO";
+                    return node;
+                });
+              })
 
+              return nodeOrder;
             });
     }
 
@@ -166,6 +176,9 @@
         }else{
             order.productosResponse.push(formatLikeServerVariety(variety, countModification));
         }
+        order.incentivoActual = order.productosResponse.reduce(function(r,p){
+          return r + p.incentivo * p.cantidad;
+        },0)
 
         return order;
     }
@@ -176,6 +189,7 @@
             nombre: variety.nombreProducto,
             idVariante: variety.idVariante,
             precio: variety.precio,
+            incentivo: variety.incentivo,
             cantidad: count,
             imagen: variety.imagenPrincipal
         }

@@ -246,7 +246,22 @@ md-tabs md-ink-bar {
 
 .ch-error{
     color: $colorCancela !important;
-    text-align: center;
+    text-align: start;
+}
+
+.ch-error-input{
+  animation-duration: 2s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    box-shadow: 0px 0px 15px 3px rgba(252,0,0,1);    
+  }
+
+  to {
+    box-shadow: 0px 0px 15px 3px rgba(252,0,0,0);
+  }
 }
 
 .ch-warn{
@@ -263,7 +278,8 @@ md-tabs md-ink-bar {
 }
 
 
-.confirm-order{
+.ch-confirm-order{
+  width: 900px; 
 	color: $colorUno;
 	.md-title{
 		background-color: $colorDos !important;
@@ -319,6 +335,18 @@ md-tabs md-ink-bar {
     }
 }
 
+.ch-select-address{
+  flex: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-select-address-item{
+  flex: 1;
+}
+
 .ask-to-collaborate{
 	color: $colorUno;
 	.md-title{
@@ -342,6 +370,35 @@ md-tabs md-ink-bar {
 			color: $colorConfirmar;
 			box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
 		}
+	}
+}
+
+.ch-cancel {
+  color: #fff;
+  background-color: $colorCancela !important;
+  &:hover{
+    background-color: $colorUno !important;
+    color: $colorDos;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+  }
+}
+
+.ch-confirm {
+  color: #fff;
+  background-color: $colorConfirmar !important;
+  &:hover{
+    background-color: #fff !important;
+    color: $colorConfirmar;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+  }
+}
+
+.ch-cancel {
+  color: #fff;
+  background-color: $colorCancela !important;
+  &:hover{
+    background-color: $colorHoverCancelar !important;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
 	}
 }
 
@@ -553,6 +610,15 @@ md-tabs md-ink-bar {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.ch-group-card-data-information-primary{
+  color: #21B7EE !important;
+}
+
+.ch-group-card-data-information-secondary{
+  color: #9b9898 !important;  
+  font-style: italic;
 }
 
 .ch-group-card-data-information-alias {

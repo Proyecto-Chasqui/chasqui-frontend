@@ -2,7 +2,8 @@
     <div flex="50">
         <div>
             <span ng-show="order.type == 'PERSONAL'">Productos del pedido: </span>
-            <span ng-show="order.type == 'GROUP'">Pago por miembro del grupo: </span>
+            <span ng-show="order.type == 'GROUP'">Pago por integrante del grupo: </span>
+            <span ng-show="order.type == 'NODE'">Pago por integrante del nodo: </span>
         </div>
         <md-list class="fixedRows">
             <md-list-item ng-show="order.type == 'PERSONAL'" ng-repeat="product in order.productosResponse">
@@ -23,13 +24,11 @@
                 <md-divider ng-if="$last"></md-divider>
             </md-list-item>
             
-            <md-list-item ng-show="order.type == 'GROUP'" ng-repeat="nombre in order.nombresDeMiembros" layout="column" layout-align="space-around">
+            <md-list-item ng-show="order.type == 'GROUP' || order.type == 'NODE'" ng-repeat="nombre in order.nombresDeMiembros" layout="column" layout-align="space-around">
                 <md-divider></md-divider>
                 <div layout="row" layout-align="space-between center">
                     <div><strong>{{nombre}}</strong></div>
-                    <div>
-                      <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
-                    </strong></div>
+                    <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
                 </div>
                 <md-divider ng-if="$last"></md-divider>
             </md-list-item>
@@ -68,6 +67,8 @@
                 </span>
                 <span style="font-style: italic;">{{selectedAddress.selected.mensaje}}</span>
             </div>
+
+            <discriminacion-incentivo node="order.node" is-admin="true"></discriminacion-incentivo>
         </div>
         <div flex="10">
         </div>

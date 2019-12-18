@@ -12,8 +12,9 @@
     $scope.grupos = [];
     $scope.agrupationSelected = {};
     $scope.showSelector = showSelector;
-    $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
     $scope.setPersonalAsAgrupationSelected = setPersonalAsAgrupationSelected;
+    $scope.setGroupAsAgrupationSelected = setGroupAsAgrupationSelected;
+    $scope.setNodeAsAgrupationSelected = setNodeAsAgrupationSelected;    
     $scope.isSelectedOrderConfirmed = false;
     $scope.canSelectAgrupation = false;
     
@@ -21,15 +22,24 @@
     function init(){
       contextCatalogObserver.observe(function(){
         $scope.agrupationSelected = {
-          idGrupo: -1,
+          id: -1,
           type: agrupationTypeVAL.TYPE_PERSONAL
         }
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
                 var few = response.data.few;
                 if(few.gcc){
-                    contextPurchaseService.getAgrupations().then(function(agrupationsInt) {
-                      $scope.grupos = agrupationsInt.getAgrupationsByType(contextPurchaseService.getCatalogContext(),agrupationTypeVAL.TYPE_GROUP);
+                    contextPurchaseService.getAgrupations()
+                    .then(function(agrupations_dao_int) {
+                      $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),
+                                                                               agrupationTypeVAL.TYPE_GROUP);
+                    });
+                }
+                if(few.nodos){
+                    contextPurchaseService.getAgrupations()
+                    .then(function(agrupations_dao_int) {
+                      $scope.nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),
+                                                                               agrupationTypeVAL.TYPE_NODE);
                     });
                 }
             }
@@ -51,26 +61,33 @@
         return $scope.grupos.length > 0;
     }
 
-    function setGroupAsAgrupationSelected(idGrupo){
-        $scope.agrupationSelected.idGrupo = idGrupo;
-        $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
-        checkSelectedOrderConfirmed();
-    }
-
     function setPersonalAsAgrupationSelected(idGrupo){
-        $scope.agrupationSelected.idGrupo = idGrupo;
+        $scope.agrupationSelected.id = idGrupo;
         $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_PERSONAL;
         checkSelectedOrderConfirmed();
     }
+
+    function setGroupAsAgrupationSelected(idGrupo){
+        $scope.agrupationSelected.id = idGrupo;
+        $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_GROUP;
+        checkSelectedOrderConfirmed();
+    }
     
+
+    function setNodeAsAgrupationSelected(idGrupo){
+      $scope.agrupationSelected.id = idGrupo;
+      $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_NODE;
+      checkSelectedOrderConfirmed();
+  }
+  
     function checkSelectedOrderConfirmed(){
       $scope.canSelectAgrupation = $scope.agrupationSelected.type == agrupationTypeVAL.TYPE_PERSONAL;
       $scope.isSelectedOrderConfirmed = !$scope.canSelectAgrupation;
-      if($scope.agrupationSelected.idGrupo != -1 && $scope.agrupationSelected.type != agrupationTypeVAL.TYPE_PERSONAL){
+      if($scope.agrupationSelected.id != -1 && $scope.agrupationSelected.type != agrupationTypeVAL.TYPE_PERSONAL){
         contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), 
                                           $scope.agrupationSelected.type).then(function(){
           contextAgrupationsService.getAgrupation(contextPurchaseService.getCatalogContext(), 
-                                                  $scope.agrupationSelected.idGrupo, 
+                                                  $scope.agrupationSelected.id, 
                                                   $scope.agrupationSelected.type).then(function(agrupation){
             var orderSelected = contextOrdersService.getOrder(contextPurchaseService.getCatalogContext(), 
                                                               agrupation.idPedidoIndividual, 

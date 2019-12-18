@@ -25,6 +25,8 @@
             
             sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
 
+            getAddressZone: URLS.be_rest + "client/vendedor/obtenerZonaDeDireccion",
+
             catalogo: URLS.be_rest + "client/catalogo", //Para que se deduzca de la URL
 
             login: URLS.be_rest + "client/sso/singIn",
@@ -138,46 +140,100 @@
             productosDestacadosByVendedor: function(idVendedor) {
                 return URLS.be_rest + "client/producto/destacados/" + idVendedor;
             },
+            
 
-            groupsByUser: function(idVendedor) {
-                return URLS.be_rest + 'user/gcc/all/' + idVendedor;
-            },
+            /* Groups */
 
-            aceptarInvitacionAGrupo: URLS.be_rest + 'user/gcc/aceptar',
-
-            rechazarInvitacionAGrupo: URLS.be_rest + 'user/gcc/rechazar',
+            groupsByUser: function(idVendedor) {return URLS.be_rest + 'user/gcc/all/' + idVendedor;},
 
             nuevoGrupo: URLS.be_rest + "user/gcc/alta/",
 
-            editarGrupo: function(idGrupo) {
-                return URLS.be_rest + "user/gcc/editarGCC/" + idGrupo;
-            },
+            cerrarGrupo: URLS.be_rest + "user/gcc/eliminarGrupo",
 
-            crearPedidoGrupal: URLS.be_rest + "user/gcc/individual",
-
-            pedidosByUser: function(idVendedor) {
-                return URLS.be_rest + 'user/gcc/pedidos/' + idVendedor;
-            },
+            editarGrupo: function(idGrupo) {return URLS.be_rest + "user/gcc/editarGCC/" + idGrupo;},
 
             invitarUsuarioAGrupo: URLS.be_rest + "user/gcc/invitacion",
 
             getMailInvitacionAlGCC: URLS.be_rest + "client/sso/obtenerMailInvitado",
 
+            aceptarInvitacionAGrupo: URLS.be_rest + 'user/gcc/aceptar',
+
+            rechazarInvitacionAGrupo: URLS.be_rest + 'user/gcc/rechazar',
+
             quitarMiembro: URLS.be_rest + "user/gcc/quitarMiembro",
-            
+
             cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
+
+            crearPedidoGrupal: URLS.be_rest + "user/gcc/individual",
+
+            pedidosByUser: function(idVendedor) {return URLS.be_rest + 'user/gcc/pedidos/' + idVendedor;},
+
+            pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
+
+            confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
 
             confirmarPedidoColectivo: URLS.be_rest + "user/gcc/confirmar",
 
-            confirmarPedidoIndividualGcc: URLS.be_rest + "user/pedido/individualEnGrupo/confirmar",
+
+            /* Nodos */
+
+            nodosAbiertos: function(idVendedor){return URLS.be_rest + "client/vendedor/nodosAbiertos/" + idVendedor;},
+
+            userRequests: function(idVendedor){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaDeUsuario/" + idVendedor;},
+
+            sendRequest: URLS.be_rest + "user/nodo/enviarSolicitudDePertenencia",
+
+            cancelRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/cancelarSolicitudDePertenencia/" + idSolicitud;},
+
+            getNodeRequests: function(idNodo){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaANodo/" + idNodo;},
+
+            openRequests: function(idVendedor){return URLS.be_rest + "user/nodo/solicitudesDeCreacion/" + idVendedor;},
+
+            nodosTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/all/' + idVendedor;},
+
+            nuevoNodo: URLS.be_rest + "user/nodo/alta",
+
+            editarSolicitud: URLS.be_rest + "user/nodo/editarSolicitudDeCreacion",
+
+            cancelarNuevoNodo: URLS.be_rest + "user/nodo/cancelarSolicitudDeCreacion",
+
+            cerrarNodo: URLS.be_rest + "user/nodo/eliminarNodo",
+
+            editarNodo: URLS.be_rest + "user/nodo/editarNodo",
+
+            invitarUsuarioANodo: URLS.be_rest + "user/nodo/enviarInvitacion",
+
+            declineRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/rechazarSolicitudDePertenencia/" + idSolicitud;},
+
+            acceptRequest: function(idSolicitud){return URLS.be_rest + "user/nodo/aceptarSolicitudDePertenencia/" + idSolicitud;},
+
+            declineNodeInvitation: URLS.be_rest + 'user/nodo/rechazarInvitacion',
+
+            acceptNodeInvitation: URLS.be_rest + 'user/nodo/aceptarInvitacion',
+
+            // getMailInvitacionAlGCC: URLS.be_rest + "client/sso/obtenerMailInvitado",
+
+            quitarMiembroNodo: URLS.be_rest + "user/nodo/quitarMiembro",
+
+            // cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
+
+            pedidosDeLosNodos: function(idVendedor) {return URLS.be_rest + 'user/nodo/pedidos/' + idVendedor;},
+
+            createNodePersonalOrder: URLS.be_rest + "user/nodo/individual",
+
+            confirmNodePersonalOrder: URLS.be_rest + "user/nodo/confirmarIndividualEnNodo",
+
+            confirmNodeOrder: URLS.be_rest + "user/nodo/confirmar",   
+
+            // pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
+
             
-            pedidosColectivosConEstado: URLS.be_rest + "user/pedido/pedidosColectivosConEstados",
-            
-            cerrarGrupo: URLS.be_rest + "user/gcc/eliminarGrupo",
-            
+            /* Otros */
+
             puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
 
             datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
+
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 
 

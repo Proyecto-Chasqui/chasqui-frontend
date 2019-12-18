@@ -6,7 +6,7 @@
     
 	function contextAgrupationsService($localStorage, $q, setPromise, getContext, agrupations_dao, moment, gccService, 
                                         ensureContext, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, 
-                                        agrupationTypeVAL, agrupationTypeDispatcher, usuario_dao){
+                                        agrupationTypeVAL, agrupationTypeDispatcher, usuario_dao, nodeService){
      
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -43,34 +43,54 @@
 
         
         function getAgrupations(catalogId) {
-            return getContext(
-                vm.ls.lastUpdate,
-                //moment().add(-1.5, 'days'),
-                "grupos", 
-                
-                function(){
-                    var defered = $q.defer();
-                    var promise = defered.promise;
+          // return setPromise(function(defered){
+          //   ensureAgrupations(catalogId, agrupationType).then(function(agrupations){
+          //     defered.resolve(agrupations);
+          //   });
+          // });
+
+          return getContext(
+            vm.ls.lastUpdate,
+            //moment().add(-1.5, 'days'),
+            "todos", 
+            
+            // Si la cache esta actualizada la retorna
+            function(){
+                var defered = $q.defer();
+                var promise = defered.promise;
+                defered.resolve(agrupations_dao);
+                return promise;                
+            },                
+            
+            agrupations_dao.getAgrupations(catalogId).length === 0, 
+            
+            // Si la cache esta NO actualizada la actualiza y despues la retorna
+            function(defered){
+              var agrupations = [grupoIndividualVirtual];
+
+                function doOKGroups(responseGroups) {
+                  var groups = formatAgrupations(responseGroups.data, agrupationTypeVAL.TYPE_GROUP);
+                  agrupations = agrupations.concat(groups);
+
+                  function doOKNodes(responseNodes){
+                    var nodes = formatAgrupations(responseNodes.data, agrupationTypeVAL.TYPE_NODE);
+                    agrupations = agrupations.concat(nodes);  
+
+                    vm.ls.lastUpdate=moment();	
+                    agrupations_dao.loadAgrupations(catalogId, agrupations);
                     defered.resolve(agrupations_dao);
-                    return promise;                
-                },                
-                
-                agrupations_dao.getAgrupations(catalogId).length === 0, 
-                
-                function(defered){
-                    function doOK(response) {					
-                        vm.ls.lastUpdate=moment();	
-                        var agrupations = formatAgrupations(response.data);
-                        agrupations.push(grupoIndividualVirtual);
-                        agrupations_dao.loadAgrupations(catalogId, agrupations);
-                        defered.resolve(agrupations_dao);
-                    }
-                    gccService.groupsByUser().then(doOK);    
-                });
-		}
+                  }
+
+                  nodeService.nodosTodos(catalogId).then(doOKNodes);
+                }
+                gccService.groupsByUser().then(doOKGroups);
+            });
+		    }
         
         function getAgrupationsByType(catalogId, type){
-            return agrupations_dao.getAgrupationsByType(catalogId, type);
+          return setPromise(function(defered){
+            defered.resolve(agrupations_dao.getAgrupationsByType(catalogId, type));
+          })
         }
         
         function confirmAgrupationOrder(catalogId, agrupationId, agrupationType){
@@ -87,16 +107,16 @@
           })
         }
 
-        function cancelAgrupationOrder(catalogId, agrupationId){
-          modifyAgrupation(catalogId, agrupationId, agrupationTypeVAL.TYPE_GROUP, function(group){
-            group.miembros = group.miembros.map(function(m){
+        function cancelAgrupationOrder(catalogId, agrupationId, agrupationType){
+          modifyAgrupation(catalogId, agrupationId, agrupationType, function(agrupation){
+            agrupation.miembros = agrupation.miembros.map(function(m){
               if(m.email == usuario_dao.getUsuario().email){
                 m.estadoPedido = "ABIERTO";
                 m.pedido = null;
               }
               return m;
             })
-            return group;
+            return agrupation;
           })
         }
         
@@ -115,8 +135,8 @@
         
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
         
-        function formatAgrupations(agrupationsFromServer){
-            return agrupationsFromServer.map(function(g){g.type = agrupationTypeVAL.TYPE_GROUP; return g;});
+        function formatAgrupations(agrupationsFromServer, type){
+            return agrupationsFromServer.map(function(g){g.type = type; return g;});
         }
         
         
@@ -160,7 +180,7 @@
                 function(defered){
                     function doOK(response) {					
                         vm.ls.lastUpdate = moment();	
-                        var agrupations = formatAgrupations(response.data);
+                        var agrupations = formatAgrupations(response.data, agrupationTypeVAL.TYPE_GROUP);
                         agrupations_dao.loadAgrupations(catalogId, agrupations);
                         defered.resolve(agrupations_dao);
                     }
@@ -169,7 +189,19 @@
         }
         
         function ensureNodesAgrupations(catalogId){
-            
+             return ensureContext(
+                vm.ls.lastUpdate, 
+                "nodes agrupations",
+                agrupations_dao.getAgrupationsByType(catalogId, agrupationTypeVAL.TYPE_NODE), 
+                function(defered){
+                    function doOK(response) {					
+                        vm.ls.lastUpdate = moment();	
+                        var agrupations = formatAgrupations(response.data, agrupationTypeVAL.TYPE_NODE);
+                        agrupations_dao.loadAgrupations(catalogId, agrupations);
+                        defered.resolve(agrupations_dao);
+                    }
+                    nodeService.nodosTodos(catalogId).then(doOK);  
+                });
         }
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -179,12 +211,12 @@
 		vm.ls = $localStorage;
         
         
-        // Representa el concepto de grupo indivial para el caso de que no tiene un pedido abierto
+    // Representa el concepto de grupo indivial para el caso de que no tiene un pedido abierto
 		var grupoIndividualVirtual = {
             type: agrupationTypeVAL.TYPE_PERSONAL,
             alias: "Personal",
             esAdministrador: true,
-            idGrupo: idGrupoPedidoIndividual,
+            id: idGrupoPedidoIndividual,
             idPedidoIndividual: idPedidoIndividualGrupoPersonal
         }
         

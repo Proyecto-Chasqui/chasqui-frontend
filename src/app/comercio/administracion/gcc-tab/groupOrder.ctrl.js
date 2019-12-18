@@ -107,7 +107,7 @@
        }
 
        var params = {
-            idGrupo: $scope.group.idGrupo,
+            idGrupo: $scope.group.id,
             idDireccion: "",
             idPuntoDeRetiro: "",
             idZona: "",

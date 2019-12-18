@@ -1,0 +1,15 @@
+<div class="ch-group">
+  <div class="ch-group-info">
+    <div>
+      <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.all" layout="row" layout-align="center">
+          <md-icon class="ch-button-content"> keyboard_arrow_left </md-icon>  
+          Volver
+        </md-button>
+    </div>
+    <div class="ch-group-info-name">
+        <label class="ch-group-card-data-information-alias">{{node.alias}}</label>
+        <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
+    </div>
+  </div>
+  <div ui-view></div>
+</div>

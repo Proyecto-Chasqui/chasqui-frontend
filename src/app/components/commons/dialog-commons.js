@@ -42,10 +42,11 @@
       $mdDialog.show(accept).then(doOk, doNoOk);
     }
     
+
     vm.newGroup = function(callback){
       var newGroup = {
         parent: angular.element(document.body),
-        templateUrl: "app/comercio/administracion/new-group/new-group.tmpl.html",
+        templateUrl: "app/comercio/administracion/gcc-tab/new-group.tmpl.html",
         controller: "NewGroupCtrl",
         clickOutsideToClose: true,
         locals: {
@@ -62,13 +63,13 @@
     vm.editGroup = function(group, callback){
       var editGroup = {
         parent: angular.element(document.body),
-        templateUrl: "app/comercio/administracion/new-group/new-group.tmpl.html",
+        templateUrl: "app/comercio/administracion/gcc-tab/new-group.tmpl.html",
         controller: "NewGroupCtrl",
         clickOutsideToClose: true,
         locals: {
           isEdit: true,
           group: {
-            idGrupo: group.idGrupo,
+            idGrupo: group.id,
             alias: group.alias,
             descripcion: group.descripcion
           }, 
@@ -77,6 +78,23 @@
       };
 
       $mdDialog.show(editGroup);
+    }
+    
+
+    vm.newNode = function(callback){
+      var newNode = {
+        parent: angular.element(document.body),
+        templateUrl: "app/comercio/administracion/nodes-tab/newNode.tmpl.html",
+        controller: "NewNodeCtrl",
+        clickOutsideToClose: true,
+        locals: {
+          isEdit: false,
+          node: {}, 
+          callback: callback
+        }
+      };
+
+      $mdDialog.show(newNode);
     }
     
         

@@ -19,19 +19,13 @@
                               landingPage,
 							                products,
                               //howToBuy
+                              deliveryPoints,
+                              userOrders,
                           ];
         
-          // if(strategy.nodos){
-          //   itemsMenu.splice(2,1);
-          // }
-          
-          if(!strategy.nodos){
-            itemsMenu.push(deliveryPoints);
+          if(strategy.nodos){
+            itemsMenu.push(openNodes);
           }
-
-          // if(strategy.puntoDeEntrega){
-          //   itemsMenu.push(deliveryPoints);
-          // }
 
           return itemsMenu;
       }
@@ -40,7 +34,6 @@
 
           var itemsMenu = [];
 
-          if(strategy.compraIndividual) itemsMenu.push(userOrders);
           if(strategy.gcc) itemsMenu.push(userGroups);
           if(strategy.nodos) itemsMenu.push(userNodes);
 
@@ -88,10 +81,18 @@
                       };
 
       var userNodes = { 
+                        id: 'MY_NODES',
+                        route: 'userNodes.all',
+                        label: 'MENU_NODES',
+                        needLogin: true
+                      };
+
+      var openNodes = { 
                           id: 'MY_NODES',
-                          route: 'userOrders', //route: 'userNodes',
-                          label: 'MENU_NODES',
-                          needLogin: true
+                          route: 'userNodes.all',
+                          label: 'MENU_OPEN_NODES',
+                          needLogin: false,
+                          hideOnLogin: true
                       };
 
       var deliveryPoints = { 

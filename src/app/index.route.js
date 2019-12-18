@@ -91,12 +91,14 @@
                     //abstract: true,
                     auth: true
                 })
-                    .state('catalog.userGroups.group.membersOrders', {
-                        url: '/pedidoActual',
-                        templateUrl: 'app/comercio/administracion/gcc-tab/groupOrder.tmpl.html',
-                        controller: 'GroupOrderController',
-                        auth: true
-                    })
+                    // No se esta usando la sección de pedido actual
+                    //
+                    // .state('catalog.userGroups.group.membersOrders', {
+                    //     url: '/pedidoActual',
+                    //     templateUrl: 'app/comercio/administracion/gcc-tab/groupOrder.tmpl.html',
+                    //     controller: 'GroupOrderController',
+                    //     auth: true
+                    // })
                     .state('catalog.userGroups.group.historicOrders', {
                         url: '/historial',
                         templateUrl: 'app/comercio/administracion/gcc-tab/groupOrders.tmpl.html',
@@ -117,10 +119,72 @@
                     })
             .state('catalog.userNodes', {
                 url: '/misNodos',
-                templateUrl: 'app/comercio/administracion/lista-nodos.html',
-                controller: 'ListaNodosCtrl',
-                auth: true
-            })          
+                templateUrl: 'app/comercio/administracion/nodes-tab/nodes.tmpl.html',
+                controller: 'NodesCtrl',
+                auth: false,
+                abstract: true,
+            })
+                .state('catalog.userNodes.openNodes', {
+                  url: '/nodosAbiertos',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/openNodes.tmpl.html',
+                  controller: 'OpenNodesController',
+                  auth: false
+                })
+                .state('catalog.userNodes.invitations', {
+                  url: '/invitaciones',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesInvitations.tmpl.html',
+                  controller: 'NodesInvitationsController',
+                  auth: true
+                })
+                .state('catalog.userNodes.help', {
+                  url: '/ayuda',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesHelp.tmpl.html',
+                  controller: 'NodeHelpCtrl',
+                  auth: false
+                })
+                .state('catalog.userNodes.newNode', {
+                  url: '/nuevoNodo',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/newNode.tmpl.html',
+                  controller: 'NewNodeCtrl',
+                  auth: true
+                })
+                .state('catalog.userNodes.editNewNode', {
+                  url: '/editarNuevoNodo',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/editNewNode.tmpl.html',
+                  controller: 'EditNewNodeCtrl',
+                  auth: true
+                })
+                .state('catalog.userNodes.all', {
+                  url: '/todos',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
+                  controller: 'NodesListCtrl',
+                  auth: false
+                })
+                .state('catalog.userNodes.node', {
+                    url: '/:nodeId',
+                    templateUrl: 'app/comercio/administracion/nodes-tab/node.tmpl.html',
+                    controller: 'NodeController',
+                    //abstract: true,
+                    auth: true
+                })
+                  .state('catalog.userNodes.node.members', {
+                      url: '/integrantes',
+                      templateUrl: 'app/comercio/administracion/nodes-tab/nodeMembers.tmpl.html',
+                      controller: 'NodeMembersController',
+                      auth: true
+                  })
+                  .state('catalog.userNodes.node.historicOrders', {
+                      url: '/historial',
+                      templateUrl: 'app/comercio/administracion/nodes-tab/nodeOrders.tmpl.html',
+                      //controller: 'NodeOrdersController',
+                      auth: true
+                  })
+                  .state('catalog.userNodes.node.admin', {
+                      url: '/administracion',
+                      templateUrl: 'app/comercio/administracion/nodes-tab/nodeAdmin.tmpl.html',
+                      controller: 'NodeAdminController',
+                      auth: true
+                  })
             .state('catalog.deliveryPoints', {
                 url: '/puntosDeEntrega',
                 templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',
@@ -155,7 +219,14 @@
             .state('catalog.singUpGCCMailInvitation', {
                 url: '/registro/gcc/:idInvitacion',
                 templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
-                controller: 'RegistroInvitacionGCCController'
+                controller: 'RegistroInvitacionGCCController',
+                params: { toPage: 'userGroups' },
+            })
+            .state('catalog.singUpNodeMailInvitation', {
+                url: '/registro/nodos/:idInvitacion',
+                templateUrl: 'app/comercio/administracion/registros/registro-invitacionGCC.tmpl.html',
+                controller: 'RegistroInvitacionGCCController',
+                params: { toPage: 'userNodes' },
             })
             .state('catalog.urlError', { // This is similar as landing page
                 url: '/:urlError',

@@ -23,16 +23,20 @@
 
       function doOk(response) {       
         toastr.success(us.translate('GROUP_EDITION_SAVED_CONTENT'),us.translate('GROUP_EDITION_SAVED_TITLE'));
-        contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-          agrupationsInt.modifyGroup(contextPurchaseService.getCatalogContext(), 
-                                     $scope.group.idGrupo,
-                                     agrupationTypeVAL.TYPE_GROUP,
-                                     function(group){
-                                      group.alias = $scope.group.alias;
-                                      group.descripcion = $scope.group.descripcion;
-                                      return group;
-                                     });
-        })
+        contextPurchaseService.getAgrupations()
+          .then(function(agrupations_dao_int){
+            agrupations_dao_int.modifyGroup(contextPurchaseService.getCatalogContext(), 
+                                      $scope.group.id,
+                                      agrupationTypeVAL.TYPE_GROUP,
+                                      function(group){
+                                        group.alias = $scope.group.alias;
+                                        group.descripcion = $scope.group.descripcion;
+                                        return group;
+                                      });
+          })
+          .then(function(){
+
+          })
       }
       
       var params = {
@@ -40,7 +44,7 @@
           descripcion: $scope.group.descripcion
       }
       
-      gccService.editarGrupo($scope.group.idGrupo, params).then(doOk);      
+      gccService.editarGrupo($scope.group.id, params).then(doOk);      
     }
 
 
@@ -67,9 +71,9 @@
 
         function doOk(response) {
           toastr.success(us.translate('GRUPO_ELIMINADO'), us.translate('AVISO_TOAST_TITLE'));
-          contextPurchaseService.getAgrupations().then(function(agrupationsInt){
-            agrupationsInt.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
-                                            $scope.group.idGrupo,
+          contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
+            agrupations_dao_int.deleteAgrupation(contextPurchaseService.getCatalogContext(), 
+                                            $scope.group.id,
                                             agrupationTypeVAL.TYPE_GROUP
                                             );
             $scope.$emit("exit-group");
@@ -77,7 +81,7 @@
           });
         }
 
-        gccService.cerrarGrupo(contextPurchaseService.getCatalogContext(), $scope.group.idGrupo).then(doOk);
+        gccService.cerrarGrupo(contextPurchaseService.getCatalogContext(), $scope.group.id).then(doOk);
         
     }
     

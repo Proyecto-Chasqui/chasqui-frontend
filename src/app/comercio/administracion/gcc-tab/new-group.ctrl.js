@@ -59,7 +59,7 @@
                 descripcion: $scope.group.descripcion
             }
             
-            gccService.editarGrupo($scope.group.idGrupo, params).then(doOk)
+            gccService.editarGrupo($scope.group.id, params).then(doOk)
         }
     }
 

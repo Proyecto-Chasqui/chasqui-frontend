@@ -23,7 +23,15 @@
               usuario_dao.logOut();
             }
             if(response.data.existeUsuario){
-              $state.go('catalog.userGroups.invitations', {mail: response.data.mail});
+              if(usuario_dao.isLogged()){
+                $state.go('catalog.'+$stateParams.toPage+'.invitations', {mail: response.data.mail});
+                toastr.success(us.translate('Puede elegir si acepta o no la invitación'), "Error");
+              } else {
+                $state.go('catalog.login', { toPage : 'catalog.'+$stateParams.toPage+'.invitations' });
+                toastr.error(us.translate('Debe ingresar con el mismo mail de su invitación'), "Error");
+              }
+            } else {
+              toastr.success(us.translate('Al crear la cuenta de esta manera, estará aceptando pertenecer al grupo de compras colectivas'), "Creación de cuenta por invitación");
             }
         })
       })
@@ -80,7 +88,7 @@
             $rootScope.$broadcast('resetCatalogInfo', "");
             
             toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
-            $state.go('catalog.userGroups.all');
+            $state.go('catalog.'+$stateParams.toPage+'.all');
         }
 
 

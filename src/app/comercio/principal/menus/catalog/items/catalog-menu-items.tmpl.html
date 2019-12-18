@@ -16,7 +16,7 @@
   <a class="menu-button {{classFor(item.id)}}" 
             ui-sref="{{'catalog.' + item.route}}" 
             ng-click="toTop()"
-            ng-repeat="(i, item) in menuItems" ng-if="!item.needLogin || isLogued">
+            ng-repeat="(i, item) in menuItems" ng-if="(!isLogued && !item.needLogin) || (isLogued && !item.hideOnLogin)">
     <b > {{item.label | translate}}</b> 
   </a>
 </div>

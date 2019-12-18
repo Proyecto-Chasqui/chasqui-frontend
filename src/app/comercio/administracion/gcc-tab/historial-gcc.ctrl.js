@@ -12,6 +12,7 @@
     $scope.direccionDeEntrega = direccionDeEntrega;
     $scope.viewOrderDetail = dialogCommons.viewOrderDetail;
     $scope.adaptOrder = adaptOrder;
+    $scope.montoTotal = montoTotal;
       
     function getOrdersWithStates(states){
         contextCatalogObserver.observe(function(){
@@ -19,13 +20,19 @@
             function doOk(response) {
                 $scope.pedidosFiltrados = response.data;
                 $scope.pedidosFiltrados.reverse();
-                $log.debug($scope.pedidosFiltrados);
+                console.log($scope.pedidosFiltrados);
             }
-
-            gccService.pedidosColectivosConEstado($scope.group.idGrupo, states).then(doOk);
+            
+            gccService.pedidosColectivosConEstado($scope.group.id, states).then(doOk);
         })
     }     
       
+    function montoTotal(pedido){
+      return pedido.pedidos.reduce(function(r,pedido){
+        return r + pedido.montoActual + pedido.incentivoActual;
+      }, 0)
+    }
+
     function direccionDeEntrega(pedido){
       if(pedido.direccion != null){
         return formatDireccion(pedido.direccion) +" ("+pedido.direccion.alias + ")";
@@ -54,23 +61,32 @@
     }
     
     function adaptOrder(order){
-      order.idGrupo = $scope.group.idGrupo;
+      order.idGrupo = $scope.group.id;
       return order;
     }
       
     /////////////////// INIT ////////////////////
 
     function init(){
-        getOrdersWithStates($scope.states.map(mapToBEStates))
+      console.log("init");
+      getOrdersWithStates($scope.states.map(mapToBEStates))
     }
+
 
     init();
 
     $rootScope.$on('group-is-loaded', function(event, group) {
-        $scope.group = group;      
-        init();
+      $scope.group = group;
+      init();
     });
     
+    $rootScope.$on('node-is-loaded', function(event, node) {
+      $scope.group = node;
+      init();
+    });
+
+    init();
+
   }
 
 })();

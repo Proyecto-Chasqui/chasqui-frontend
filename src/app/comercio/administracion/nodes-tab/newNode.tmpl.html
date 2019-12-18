@@ -1,0 +1,87 @@
+<div class="ch-group">
+  <div class="ch-group-info">
+    <div>
+      <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.all" layout="row" layout-align="center">
+        <md-icon class="ch-button-content"> keyboard_arrow_left </md-icon>  
+        Volver
+      </md-button>
+    </div>
+  </div>
+
+  <div layout="row" style="min-width: 50vw; margin: 20px;">
+    <div layout="column" layout-align="space-between center" ng-hide="entendio">
+      <div class="ch-group-administrator-description">
+        <span class="ch-group-administrator-description-item">
+          Texto de ayuda al creador del nodo...
+        </span>
+      </div>
+    </div>
+    <div class="ch-group-card">
+      <div style="margin: 20px;">
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span><label translate>ALIAS</label><strong>*</strong></span>
+                <span style="font-style: italic;">Es el nombre identificador del nodo</span>
+                <span class="ch-error" ng-show="validated && !node.nombreNodo.length > 0">Se debe elegir un nombre</span>
+            </div>
+            <md-input-container flex="50" ng-class="validateInput('nombreNodo')">
+                <label translate>ALIAS</label>
+                <input ng-model="node.nombreNodo"/>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span><label translate>DESC</label></span>
+                <span style="font-style: italic;">Es la descripción del nodo</span>
+            </div>
+            <md-input-container flex="50">
+                <label translate>DESC</label>
+                <input ng-model="node.descripcion"/>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span><label translate>Tipo de nodo</label></span>
+                <span style="font-style: italic;">Un nodo abierto se verá en la sección "Busca un nodo". 
+                  Un nodo cerrado solo será visible por invitación.</span>
+            </div>
+            <md-switch ng-model="tipoNodo" class="md-primary" flex="50">
+              {{tipoNodo? "Abierto" : "Cerrado"}}
+            </md-switch>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span><label translate>Domicilio de entrega</label></span>
+                <span style="font-style: italic;">Es donde se van a enviar los pedidos colectivos</span>
+                <span class="ch-error" ng-show="validated && !node.idDomicilio">Se debe elegir un domicilio propio</span>
+            </div>
+            <md-input-container flex="50" ng-class="validateInput('idDomicilio')">
+                <md-select ng-model="node.idDomicilio" placeholder="Domicilio de entrega">
+                  <md-option ng-value="dir.idDireccion" ng-repeat="dir in directions">{{dir.alias}}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <div flex="50" layout="column">
+                <span><label translate>Barrio</label></span>
+                <span style="font-style: italic;">Barrio del domicilio de entrega</span>
+                <span class="ch-error" ng-show="validated && !node.barrio.length > 0">Se debe elegir un barrio</span>
+            </div>
+            <md-input-container flex="50" ng-class="validateInput('barrio')">
+                <label translate>Barrio</label>
+                <input ng-model="node.barrio"/>
+            </md-input-container>
+        </div>
+        <div layout="row" layout-align="end center">
+          <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="save()"> 
+              <md-icon class="ch-button-content"> group_add </md-icon>
+              <label style="cursor: pointer;">Solicitar creacion de nodo</label>
+              <md-tooltip md-direction="bottom">
+                <label> El administrador del catalogo tiene que confirmar la solicitud </label>
+              </md-tooltip>
+          </md-button>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

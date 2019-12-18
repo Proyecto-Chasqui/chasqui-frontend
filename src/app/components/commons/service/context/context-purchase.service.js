@@ -79,8 +79,8 @@
 
           if(!catalog.few.compraIndividual && !catalog.few.gcc && catalog.few.nodos){ 
             // Solo nodos
-            order_context.setAgrupationId(idGrupoPedidoIndividual); 
-            order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+            // order_context.setAgrupationId(idGrupoPedidoIndividual); 
+            // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
           }
 
           // Ya no se setea más ningun pedido por defecto
@@ -122,15 +122,16 @@
         function setContextByAgrupation(agrupation){
             agrupationTypeDispatcher.byElem(agrupation, 
                 function(personal){
-                    order_context.setAgrupationId(personal.idGrupo);
+                    order_context.setAgrupationId(personal.id);
                     order_context.setAgrupationType(personal.type);                  
                 },
                 function(group){
-                    order_context.setAgrupationId(group.idGrupo);
-                    order_context.setAgrupationType(group.type);            
+                    order_context.setAgrupationId(group.id);
+                    order_context.setAgrupationType(group.type);
                 },
                 function(node){
-                    // TODO define behavior
+                  order_context.setAgrupationId(node.id);
+                  order_context.setAgrupationType(node.type);
                 })
         }
         
@@ -300,7 +301,7 @@
 		}
 
 		function getOrderByAgrupation(agrupation) {
-       return contextAgrupationsService.getAgrupation(getCatalogContext(), agrupation.idGrupo, agrupation.type).idPedidoIndividual;
+       return contextAgrupationsService.getAgrupation(getCatalogContext(), agrupation.id, agrupation.type).idPedidoIndividual;
 		}
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     

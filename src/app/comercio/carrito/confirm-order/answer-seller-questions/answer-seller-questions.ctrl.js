@@ -22,6 +22,9 @@
                 },
                 GROUP: function(){
                     sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
+                },
+                NODE: function(){
+                    sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
                 }
             }[$scope.order.type]();
         }
@@ -39,22 +42,24 @@
             $scope.questions = $scope.questions.map(function(q){q.answered = q.answer != null || q.answer != undefined; return q});
             $log.debug($scope.questions);
         }
-    
-        $scope.$on("check-direccion", function(){
-          if($scope.questions.length == 0){
-              $scope.okAction([]);              
-          }
-        })
         
         $scope.$on("check-answers", function(){
             if(validInformation()){
                 $log.debug($scope.questions);
                 $scope.validated = false;
-                $scope.okAction($scope.questions);              
+                $scope.okAction($scope.questions);
             }else{
                 riseErrors();
             }
         })
+        
+        $scope.$on("check-answers-length", function(){
+          if($scope.questions.length == 0){
+            $scope.okAction($scope.questions);
+          }
+        })
+
+        
         
 	}
 

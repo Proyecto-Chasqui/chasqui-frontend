@@ -7,10 +7,10 @@
                                                  agrupationTypeVAL, contextAgrupationsService){
          
         
-    /* Prop: Creates an order for param group
+    /* Prop: Creates an order for param agrupation
       *
       */
-    function createOrderForGroup(group){
+    function createOrderForGroup(agrupation){
 			var defered = $q.defer();
 			var promise = defered.promise;
             
@@ -18,22 +18,24 @@
           // nueva implementacion
 
           const newOrder = {
-            id: -group.idGrupo,
-            idGrupo: group.idGrupo,
+            id: -agrupation.id,
+            idGrupo: agrupation.id,
             idVendedor: catalog.id,
             estado: "NO_ABIERTO",
-            aliasGrupo: group.alias,
-            type: agrupationTypeVAL.TYPE_GROUP,
+            aliasGrupo: agrupation.alias,
+            type: agrupation.type,
             montoMinimo: 600.0,
             montoActual: 0.0,
             productosResponse: []
           }
 
-          contextAgrupationsService.modifyAgrupation(catalog.id, group.idGrupo, agrupationTypeVAL.TYPE_GROUP, function(group){
-            group.idPedidoIndividual = newOrder.id;
+          contextAgrupationsService.modifyAgrupation(catalog.id, 
+                                                     agrupation.id, 
+                                                     agrupation.type, function(agrupation){
+            agrupation.idPedidoIndividual = newOrder.id;
 
             defered.resolve(newOrder);
-            return group; 
+            return agrupation; 
           });
       })
       
@@ -41,14 +43,14 @@
     }
         
     // Interfaz 
-    return function (groupsWithoutOrders, orders){
+    return function (agrupationsWithoutOrders, orders){
       var defered = $q.defer();
 			var promise = defered.promise;
-			$log.debug("Groups wo order:", groupsWithoutOrders);
+			$log.debug("Groups wo order:", agrupationsWithoutOrders);
             
-            async.each(groupsWithoutOrders, function(group, callback) {  
+            async.each(agrupationsWithoutOrders, function(agrupation, callback) {  
                 $log.debug("Inside");
-                createOrderForGroup(group).then(function(newOrder){
+                createOrderForGroup(agrupation).then(function(newOrder){
                     orders.push(newOrder);
                     $log.debug('Pedido agregado', newOrder, orders);
                     callback();

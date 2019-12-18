@@ -14,7 +14,7 @@
             <label>
               {{'TOTAL' | translate}}
             </label>
-            <chq-price-product precio="pedidoSelected.montoActual" tamanho="1"></chq-price-product>
+            <chq-price-product precio="pedidoSelected.montoActual + pedidoSelected.incentivoActual" tamanho="1"></chq-price-product>
           </div>
         </md-subheader>
         <div layout="row" layout-align="space-between">
@@ -36,11 +36,11 @@
                               <label>
                                 {{variety.cantidad}} x 
                               </label>
-                              <chq-price-product precio="variety.precio" tamanho="0.7"></chq-price-product>
+                              <chq-price-product precio="variety.precio + variety.incentivo" tamanho="0.7"></chq-price-product>
                               <label style="margin-left: 3px; margin-right: 3px;">
                                 = 
                               </label>
-                              <chq-price-product precio="variety.cantidad * variety.precio" tamanho="0.8"></chq-price-product>
+                              <chq-price-product precio="variety.cantidad * (variety.precio + variety.incentivo)" tamanho="0.8"></chq-price-product>
                             </p>
                         </div>
                     </div>

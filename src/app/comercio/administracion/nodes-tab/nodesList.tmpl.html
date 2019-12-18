@@ -1,0 +1,334 @@
+
+<div layout="row" layout-align="space-between center">
+  <div ng-if="userIsLog">
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.newNode" ng-if="openRequests.length == 0"> 
+        <md-icon class="ch-button-content"> group_add </md-icon>
+        <label style="cursor: pointer;">Solicitá tu nodo</label>
+        <md-tooltip md-direction="bottom">
+          <label> Solicitá tu nodo </label>
+        </md-tooltip>
+    </md-button>
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.editNewNode" ng-if="openRequests.length > 0"> 
+        <md-icon class="ch-button-content"> edit </md-icon>
+        <label style="cursor: pointer;">Editar solicitud de nuevo nodo</label>
+        <md-tooltip md-direction="bottom">
+          <label> Editar solicitud </label>
+        </md-tooltip>
+    </md-button>
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.openNodes">
+      <md-icon class="ch-button-content"> filter_tilt_shift </md-icon>
+      <label style="cursor: pointer;">Nodos abiertos</label>
+      <md-tooltip md-direction="bottom">
+        <label> Conoce más nodos </label>
+      </md-tooltip>
+    </md-button>
+  </div>
+  <div ng-if="!userIsLog"></div>
+  <div layout="row" layout-align="space-between center">
+    <a class="ch-icon-outlined" ui-sref="catalog.userNodes.invitations">
+        <md-icon class="ch-icon-outlined-content"> email </md-icon>
+        <md-tooltip md-direction="bottom" ng-if="invitaciones == 0">
+            <label translate="NODO_SIN_INVITACIONES"></label>
+        </md-tooltip>
+        <md-tooltip md-direction="bottom" ng-if="invitaciones == 1">
+            <label translate="NODO_INVITACION"></label>
+        </md-tooltip>
+        <md-tooltip md-direction="bottom" ng-if="invitaciones > 1">
+            <label translate="NODO_INVITACIONES_1"></label>
+            <label>{{invitaciones}}</label>
+            <label translate="NODO_INVITACIONES_2"></label>
+        </md-tooltip>
+      </a>
+    <notification-icon count="invitaciones" class="ch-count-group-invitations">
+    </notification-icon>
+    <a class="ch-icon-outlined" ui-sref="catalog.userNodes.help">
+        <md-icon class="ch-icon-outlined-content"> help_outline </md-icon>
+        <md-tooltip md-direction="bottom">
+            <label translate="NODO_AYUDA"></label>                    
+        </md-tooltip>
+      </a>
+  </div>
+</div>
+
+<div ng-show="nodes.length == 0" layout="column" layout-align="center center">
+  <md-card style="width: 400px; margin-top: 50px; ">
+    <md-card-content layout="column" layout-align="space-between">
+      <label>
+        Un nodo es...
+        <label style="text-size: 1.2rem; font-weight: bold; font-style: italic;"> Chasqui </label>.
+      </label>
+      <div style="height: 30px;">
+      </div>
+      <label style="text-size: 1.2rem; font-style: italic;">
+        ¿Por qué hacer compras en nodos?
+      </label>
+      <label style="margin-top: 10px;">
+        ...
+      </label>
+    </md-card-content>
+    
+    <md-card-actions layout="row" layout-align="center">
+      <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.openNodes">
+        <md-icon class="ch-button-content"> filter_tilt_shift </md-icon>
+        <label style="cursor: pointer;">Quiero conocer los nodos abiertos</label>
+        <md-tooltip md-direction="bottom">
+          <label> Ver todos los nodos abiertos </label>
+        </md-tooltip>
+      </md-button>
+      <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.newNode"> 
+        <md-icon class="ch-button-content"> group_add </md-icon>
+        <label style="cursor: pointer;">Quiero armar mi nodo</label>
+        <md-tooltip md-direction="bottom">
+          <label> Crea tu nodo. Requiere que te loguees </label>
+        </md-tooltip>
+      </md-button>
+  </md-card>
+</div>
+
+<div ng-show="nodes.length > 0">
+  <div layout="column" layout-align="space-between">
+      <div ng-repeat="(i, node) in nodes" layout="column" layout-align="start">
+        <!--version web-->
+        <div class="ch-group-card ch-responsive-xl">
+          <div class="ch-group-card-data">
+            <div class="ch-group-card-data-information" ng-click="showOptionsForNode(i)">
+              <ch-image class="ch-group-card-data-avatar" src="node.miembros[0].avatar" description="node.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
+              <div class="ch-group-card-data-information-content">
+                <label class="ch-group-card-data-information-alias">{{node.alias}}</label>
+                <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
+              </div>
+              <div layout="column" layout-align="center">
+                <discriminacion-incentivo node="node" active ng-show="countOrdersConfirmed(node) > 0" is-admin="isLoggedUserNodeAdmin(node)"></discriminacion-incentivo>
+              </div>
+              <md-tooltip md-direction="bottom">
+                <div layout="row" layout-align="space-between center" ng-show="!showOptions[i]">
+                  <i class="material-icons">
+                    expand_more
+                  </i>
+                  <label>Click para ver los pedidos de los integrantes</label>
+                  <i class="material-icons">
+                    expand_more
+                  </i>
+                </div>
+                <div layout="row" layout-align="space-between center" ng-show="showOptions[i]">
+                  <i class="material-icons">
+                    expand_less
+                  </i>
+                  <label>Ocultar los pedidos de los integrantes</label>
+                  <i class="material-icons">
+                      expand_less
+                  </i>
+                </div>
+              </md-tooltip>
+            </div>
+            <div class="ch-group-card-data-actions">
+              <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="goToCatalog(node)" ng-show="showGoToCatalog(node)">
+                Comprar
+                <md-tooltip md-direction="bottom">
+                  <label>Ir al catálogo con este nodo seleccionado</label>
+                </md-tooltip>
+              </md-button>
+              <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.historicOrders({nodeId: i})">
+                Historial
+                <md-tooltip md-direction="bottom">
+                  <label>Ver los pedidos realizados por el nodo</label>
+                </md-tooltip>
+              </md-button>
+              <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.members({nodeId: i})">
+                Integrantes
+                <md-tooltip md-direction="bottom">
+                  <label>Ver los integrantes del nodo</label>
+                </md-tooltip>
+              </md-button>
+              <notification-icon count="node.requests.length" class="ch-count-group-invitations">
+              </notification-icon>
+              <md-button  class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.admin({nodeId: i})" ng-if="isLoggedUserNodeAdmin(node)">
+                Administración
+                <md-tooltip md-direction="bottom">
+                  <label>Configurar datos del nodo</label>
+                </md-tooltip>
+              </md-button>
+            </div>
+          </div>
+
+          <div class="" layout="column" ng-show="showOptions[i]">
+              <md-tabs md-dynamic-height>
+                  <md-tab ng-repeat="miembro in nodeActiveMembers(node)" label="{{miembro.nickname}}">
+                      <md-content class="md-padding" layout="column" layout-align="space-around">
+                          <div layout="column" layout-align="space-sround center" 
+                                ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
+                              <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                  <label translate="USUARIO_SIN_PROD"></label>
+                              </div>
+                              <div ng-show="!isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                  <label translate="MIEMBRO_SIN_PROD"></label>
+                              </div>
+                          </div>
+  
+                          <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0
+                                        && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO')"
+                            style="margin: 10px;"
+                            layout="row" layout-align="space-between center">
+                              <div>Estado:</div>
+                              <div class ="ch-estado-pedido" ng-class="classForState(miembro.pedido.estado)">
+                                  {{miembro.pedido.estado}}
+                              </div>
+                          </div>
+  
+                          <div layout="row" layout-align="space-between center"
+                            ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0
+                                      && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
+                            style="margin: 10px;">
+                              <div>Total:</div>
+                              <div>
+                                <chq-price-product precio="totalForMember(miembro)" tamanho="1"></chq-price-product>
+                              </div>
+                          </div>
+  
+                          <md-list ng-show="miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'" class="md-dense" flex>
+                              <md-list-item class="md-3-line" ng-repeat="item in miembro.pedido.productosResponse">
+                                  <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
+                                  <div class="md-list-item-text" layout="column">
+                                    {{ item.nombre }}
+                                    <div layout="row" layout-align="start center">
+                                      <p>{{item.cantidad}} X $ {{ item.precio + item.incentivo }} = </p>
+                                      <chq-price-product precio="item.cantidad * (item.precio + item.incentivo)" tamanho="0.9"></chq-price-product>
+                                    </div>
+                                  </div>
+                              </md-list-item>
+                          </md-list>
+                      </md-content>
+                  </md-tab>
+              </md-tabs>
+              <md-button class="btn-confirmar" 
+                  ng-click="confirmNodeOrder(node)"
+                  ng-show="node.esAdministrador"
+                  ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(node)">
+                <label translate style="cursor: pointer;">
+                    CONFIRMAR_PEDIDO_GCC
+                </label>
+                <md-icon ng-show="puedeCerrarPedidoGCC(node)" style="color:white; cursor: pointer;">
+                    done
+                </md-icon>
+              </md-button>
+          </div>
+        </div>
+
+        <div class="ch-responsive-s ch-group-card">
+          <div class="ch-group-card-data">
+            <div class="ch-group-card-data-information" ng-click="showOptionsForGroup(i)">
+              <ch-image class="ch-group-card-data-avatar" src="node.miembros[0].avatar" description="node.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
+              <div class="ch-group-card-data-information-content">
+                <label class="ch-group-card-data-information-alias">{{node.alias}}</label>
+                <label class="ch-group-card-data-information-description">{{node.descripcion}}</label>
+              </div>
+              
+              <div layout="column" layout-align="center">
+                <discriminacion-incentivo node="node" active></discriminacion-incentivo>
+              </div>
+  
+              <md-tooltip md-direction="bottom">
+                <div layout="row" layout-align="space-between center">
+                  <i class="material-icons">
+                    expand_more
+                  </i>
+                  <label>Click para ver los pedidos de los integrantes</label>
+                  <i class="material-icons">
+                    expand_more
+                  </i>
+                </div>                  
+              </md-tooltip>
+            </div>
+            <div class="ch-group-card-data-actions">
+              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ng-click="goToCatalog(node)" ng-show="getLoggedUser(node).pedido == null || ( getLoggedUser(node).pedido.productosResponse.length >= 0 && getLoggedUser(node).pedido.estado != 'CONFIRMADO')">
+                Comprar
+                <md-tooltip md-direction="bottom">
+                  <label>Ir al catálogo con este nodo seleccionado</label>
+                </md-tooltip>
+              </md-button>
+              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.historicOrders({nodeId: i})">
+                Historial
+                <md-tooltip md-direction="bottom">
+                  <label>Ver los pedidos realizados por el nodo</label>
+                </md-tooltip>
+              </md-button>
+              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.members({nodeId: i})">
+                Integrantes
+                <md-tooltip md-direction="bottom">
+                  <label>Ver los integrantes del nodo</label>
+                </md-tooltip>
+              </md-button>              
+              <md-button  class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.admin({nodeId: i})" ng-if="isLoggedUserGroupAdmin(node)">
+                Administración
+                <md-tooltip md-direction="bottom">
+                  <label>Configurar datos del nodo</label>
+                </md-tooltip>
+              </md-button>
+            </div>
+          </div>
+
+          <div layout="column" ng-show="showOptions[i]">
+            <md-tabs md-dynamic-height>
+                <md-tab ng-repeat="miembro in nodeActiveMembers(node)" label="{{miembro.nickname}}">
+                    <md-content class="md-padding" layout="column" layout-align="space-around">
+                        <div layout="column" layout-align="space-sround center" 
+                              ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
+                            <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="USUARIO_SIN_PROD"></label>
+                            </div>
+                            <div ng-show="!isLoggedUser(miembro)" layout="column" layout-align="space-between center">
+                                <label translate="MIEMBRO_SIN_PROD"></label>
+                            </div>
+                        </div>
+
+                        <div ng-show="miembro.pedido != null && miembro.pedido.productosResponse.length > 0
+                                      && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO')"
+                          style="margin: 10px;"
+                          layout="row" layout-align="space-between center">
+                            <div>Estado:</div>
+                            <div class ="ch-estado-pedido" ng-class="classForState(miembro.pedido.estado)">
+                                {{miembro.pedido.estado}}
+                            </div>
+                        </div>
+
+                        <div layout="row" layout-align="space-between center"
+                          ng-show="miembro.pedido != null && (miembro.pedido.productosResponse.length > 0
+                                    && (miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'))"
+                          style="margin: 10px;">
+                            <div>Total:</div>
+                            <div>
+                              <chq-price-product precio="totalForMember(miembro)" tamanho="1"></chq-price-product>
+                            </div>
+                        </div>
+
+                        <md-list ng-show="miembro.pedido.estado == 'CONFIRMADO' || miembro.pedido.estado == 'ABIERTO'" class="md-dense" flex>
+                            <md-list-item class="md-3-line" ng-repeat="item in miembro.pedido.productosResponse">
+                                <img ng-src="{{urlBase}}{{item.imagen}}" class="md-avatar" alt="{{item.nombre}}" />
+                                <div class="md-list-item-text" layout="column">
+                                    {{ item.nombre }}
+                                    <div layout="row" layout-align="start center">
+                                      <p>{{item.cantidad}} X $ {{ item.precio + item.incentivo }} = </p>
+                                      <chq-price-product precio="item.cantidad * (item.precio + item.incentivo)" tamanho="0.9"></chq-price-product>
+                                    </div>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+            <md-button class="btn-confirmar" 
+                ng-click="confirmNodeOrder(node)"
+                ng-show="node.esAdministrador"
+                ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(node)">
+              <label translate style="cursor: pointer;">
+                  CONFIRMAR_PEDIDO_GCC
+              </label>
+              <md-icon ng-show="puedeCerrarPedidoGCC(node)" style="color:white; cursor: pointer;">
+                  done
+              </md-icon>
+            </md-button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

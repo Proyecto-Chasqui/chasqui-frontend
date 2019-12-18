@@ -1,6 +1,6 @@
 angular.module('chasqui').factory('agrupations_dao', agrupations_dao);
 
-function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log){
+function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log, agrupationTypeVAL){
     
     ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                  
@@ -40,7 +40,7 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log){
     
     
     function getAgrupation(catalogId, agrupationId, agrupationType){
-        return agrupations(catalogId)[agrupationType].filter(function(g){return g.idGrupo == agrupationId})[0];
+        return agrupations(catalogId)[agrupationType].filter(function(g){return g.id == agrupationId})[0];
     }
     
     function getAgrupationsByType(catalogId, agrupationsType){
@@ -50,7 +50,7 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log){
     function deleteAgrupation(catalogId, agrupationId, agrupationType){
         catalogs_data.modifyCatalogData(catalogId, function(catalog){
             catalog.agrupations[agrupationType].splice(
-                catalog.agrupations[agrupationType].map(function(g){return g.idGrupo}).indexOf(agrupationId), 
+                catalog.agrupations[agrupationType].map(function(g){return g.id}).indexOf(agrupationId), 
                 1);
             return catalog;
         });
@@ -59,7 +59,7 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log){
     
     function modifyGroup(catalogId, agrupationId, agrupationType, modification){
         modifyAgrupationsInCatalog(catalogId, agrupationType, function(agrupations){
-            var searchedAgrupationIndex = agrupations.map(function(a){return a.idGrupo;}).indexOf(agrupationId);
+            var searchedAgrupationIndex = agrupations.map(function(a){return a.id;}).indexOf(agrupationId);
             agrupations[searchedAgrupationIndex] = modification(agrupations[searchedAgrupationIndex]);
             return agrupations;
         })
@@ -79,8 +79,8 @@ function agrupations_dao(catalogs_data, ls_connection, fn_snoc, $log){
     function newAgrupationCurrified(catalogId){
         return function (newAgrupation){
             modifyAgrupationsInCatalog(catalogId, newAgrupation.type, function(agrupations){
-                if(agrupations.map(function(a){return a.idGrupo}).includes(newAgrupation.idGrupo)){
-                    agrupations[agrupations.map(function(a){return a.idGrupo}).indexOf(newAgrupation.idGrupo)] = newAgrupation;
+                if(agrupations.map(function(a){return a.id}).includes(newAgrupation.id)){
+                    agrupations[agrupations.map(function(a){return a.id}).indexOf(newAgrupation.id)] = newAgrupation;
                     return agrupations;
                 }else{
                     return fn_snoc(agrupations, newAgrupation);

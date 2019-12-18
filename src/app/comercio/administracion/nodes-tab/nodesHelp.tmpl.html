@@ -1,0 +1,33 @@
+<div  layout="row" layout-align="start">
+    <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.all" layout="row" layout-align="center">
+      <md-icon class="ch-button-content"> keyboard_arrow_left </md-icon>  
+      Volver
+    </md-button>
+  </div>
+  
+  <div class="ch-groups-help">
+    <div class="ch-group-card ch-groups-help-question">
+      <span class="ch-groups-help-question-title">
+          ¿Qué es un nodo de compras?
+      </span>
+      <span class="ch-groups-help-question-answer">
+          Un nodo de compras colectivas es...
+      </span>
+    </div>
+    <div ng-repeat="(i, pregunta) in preguntas" class="ch-group-card ch-groups-help-question" ng-click="showHelpsAnswer(i)" style="cursor: pointer;">
+      <div layout="row" layout-align="space-between center" class="ch-groups-help-question-title">
+        <span>
+          {{pregunta.titulo}}
+        </span>
+        <i class="material-icons" ng-show="!showHelp[i]">
+          expand_more
+        </i>
+        <i class="material-icons" ng-show="showHelp[i]">
+          expand_less
+        </i>
+      </div>
+      <span ng-show="showHelp[i]" class="ch-groups-help-question-answer">
+        {{pregunta.respuesta}}
+      </span>
+    </div>
+  </div>

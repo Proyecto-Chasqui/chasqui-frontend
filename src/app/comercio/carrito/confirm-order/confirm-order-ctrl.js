@@ -4,7 +4,7 @@
 	angular.module('chasqui').controller('ConfirmOrderCtrl', ConfirmOrderCtrl);
 
 	/** @ngInject */
-	function ConfirmOrderCtrl($scope, contextPurchaseService, $log, vendedorService, perfilService,
+	function ConfirmOrderCtrl($scope, contextPurchaseService, $log, sellerService, perfilService,
                               actions, order, $mdDialog, $state, dialogCommons) {
         
         $scope.catalog = null;
@@ -28,7 +28,6 @@
         $scope.goProfile = goProfile;
         
         $scope.showGoProfileButton = false;
-        
         ////////////////// Data //////////////////
         
         $scope.selectedAddress = null;
@@ -61,6 +60,7 @@
             [
                 function(){
                     $scope.$broadcast('check-direccion');
+                    $scope.$broadcast('check-answers-length');
                 },
                 function(){
                     $scope.$broadcast('check-answers');
@@ -68,11 +68,32 @@
                 function(){
                     actions.doOk($scope.selectedAddress, $scope.answers);
                     $mdDialog.hide();
-                    dialogCommons.askToCollaborate();
                 }
             ][$scope.currentNavItem]();
         }
         
+    function formatDate(date){
+      return date.slice(0,2) + "/" + date.slice(3,5) + "/" + date.slice(6,10);
+    }
+
+    function getAddressZone(address){
+
+      function doOk(response){
+        $scope.addressZone = response.data;
+        $scope.addressZone.fechaCierrePedidos = formatDate($scope.addressZone.fechaCierrePedidos);
+      }
+
+      function doNoOk(response){
+        $scope.addressZone = {
+          descripcion: "La dirección del domicilio no está asociada con ninguna zona de entrega del vendedor. Por favor comuniquese con el adminsitrador del catálogo para confirmar los detalles de la compra."
+        }
+      }
+
+      sellerService.getAddressZone(contextPurchaseService.getCatalogContext(), address.idDireccion, doNoOk).then(doOk);
+    }
+    
+
+
 		function goProfile(){
 			  $mdDialog.hide();
         $state.go('catalog.profile', {
