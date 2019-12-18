@@ -63,7 +63,7 @@
     }
 
     function deliveryTypeImg(id){
-      var res = "../../../../assets/images/";
+      var res = "./assets/images/";
       if ( id == 0 ){
         res += "estrategias/entrega_domicilio.svg";
       }
@@ -76,7 +76,7 @@
     }
 
     function agrupationTypeImg(id){
-      var res = "../../../../assets/images/";
+      var res = "./assets/images/";
       if ( id == 0 ){
         res += "estrategias/compra_individual.svg";
       }
@@ -91,7 +91,7 @@
     }
     
     function getSupportLogo(id){
-      return "../../../../assets/images/apoyos/apoyo_"+id+".jpg";
+      return "./assets/images/apoyos/apoyo_"+id+".jpg";
     }
     
 
