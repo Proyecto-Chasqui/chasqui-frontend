@@ -17,8 +17,10 @@
           
             contextCatalogsService.getCatalogs().then(function(catalogs){
                 contextPurchaseService.getSelectedCatalog().then(function(catalog){
+                  if(catalog != undefined){
                     $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies) ||
                                          catalogNotSupportStrategies(catalog, $scope.notSupportedStrategies);
+                  }
                 });
             });
         }

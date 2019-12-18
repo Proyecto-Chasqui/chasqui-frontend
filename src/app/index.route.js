@@ -9,9 +9,32 @@
   function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('home', {
-            url: '/',
+            url: '',
             templateUrl: 'app/comercio/principal/home/home.tmpl.html',
-            controller: 'HomeController'
+            controller: 'HomeController',
+            abstract: true,
+        })
+
+        .state('home.multicatalogo', {
+            url: '/',
+            templateUrl: 'app/comercio/principal/home/multicatalogo.tmpl.html',
+            controller: 'MulticatalogoCtrl'
+        })
+      
+        .state('home.profile', {
+            url: '/perfil',
+            templateUrl: 'app/comercio/administracion/perfil.html',
+            controller: 'PerfilController',
+            controllerAs: 'perfilCtrl',
+            params: { index: null },
+            auth: true
+        })
+        .state('home.login', {
+            url: '/login',
+            templateUrl: 'app/comercio/administracion/formularios/login.html',
+            controller: 'LogInController',
+            controllerAs: 'loginCtrl',
+            params: { toPage: null },
         })
     
         .state('catalog', {

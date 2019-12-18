@@ -138,6 +138,13 @@ body{
     background-color: #f7f7f7;
 }
 
+.chasqui-content-full-home{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: stretch;
+}
+
 #chasqui-content {
     width: 80%;
     margin: 0px auto;
@@ -285,12 +292,17 @@ body{
     -moz-transition: all .1s ease;*/
 }
 
+#menu-chasqui-multicatalog {
+  height: 88px;
+  display: flex;
+}
+
 
 .nav-sticker-a {
   display: block;
   width: 100%;
 
-  height: 80px;
+  height: 88px;
   background: rgba(250,250,250,1);
 background: -moz-linear-gradient(left, rgba(250,250,250,1) 0%, rgba(219,219,219,1) 65%, rgba(209,209,209,1) 100%);
 background: -webkit-gradient(left top, right top, color-stop(0%, rgba(250,250,250,1)), color-stop(65%, rgba(219,219,219,1)), color-stop(100%, rgba(209,209,209,1)));

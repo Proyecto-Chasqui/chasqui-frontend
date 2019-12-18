@@ -42,7 +42,9 @@
 				$rootScope.$broadcast('resetHeader', "");
 				contextPurchaseService.ls.varianteSelected=tmp;
         $rootScope.$broadcast('resetCatalogInfo', "");
-        $rootScope.refrescarNotificacion();
+        if($stateParams.toPage != "home.multicatalogo"){
+          $rootScope.refrescarNotificacion();
+        }
 
         if($stateParams.toPage){
           $state.go($stateParams.toPage);

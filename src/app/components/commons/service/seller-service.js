@@ -7,8 +7,16 @@
 		var vm = this;
 
 		vm.getSellers = function() {
-            return promiseService.doGet(REST_ROUTES.sellers, {});
-		}
+      return promiseService.doGet(REST_ROUTES.sellers, {});
+    }
+    
+		vm.getSellersTags = function() {
+      return promiseService.doGet(REST_ROUTES.sellersTags, {});
+    }
+    
+		vm.getSellersWithTags = function(selectedTags) {
+      return promiseService.doPost(REST_ROUTES.sellersWithTags, selectedTags);
+    }
 
 		vm.getSeller = function(sellerId) {
 			return promiseService.doGet(REST_ROUTES.seller(sellerId), {});

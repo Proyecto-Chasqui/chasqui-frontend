@@ -56,7 +56,6 @@ md-list-item.md-3-line > .md-no-style::before {
 
 .menu {
 	//background: linear-gradient(#F7F7F7, #D7D7D7) !important;
-	background-color: $colorUno;
 	box-shadow: 0px 2px 2px rgba(0, 0, 0, .3);
 	color: #ffffff !important;
     margin-top: 0;
@@ -67,8 +66,8 @@ md-list-item.md-3-line > .md-no-style::before {
     width: 100%;
 
     .material-icons{
-		background-color: $colorUno !important;
-	}
+      background-color: $colorUno !important;
+    }
 }
 
 // Barra de titulo de las ventanas modales
@@ -976,4 +975,424 @@ md-tabs md-ink-bar {
 
 .ch-icon-outlined-content:hover {
   color: $colorUno;
+}
+
+
+/* HOME */
+
+.chasqui-content-full-home-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: rgb(229, 229, 229);
+  padding-right: 50px;
+  padding-left: 50px;
+  padding-bottom: 50px;
+}
+
+.ch-home-header{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-home-header-name{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.ch-home-header-name-label{
+  font-size: 18px; 
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.ch-home-header-name-label-2{  
+  font-size: 28px;
+}
+
+.ch-home-header-filter{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-home-header-filter-input{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-home-header-filter-input-string{
+  flex: 1;
+  margin-bottom: 0px !important;
+}
+
+.ch-home-header-filter-input-selections{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-home-header-filter-input-selections-options{
+  flex: 1;
+}
+
+.ch-home-header-filter-confirm{
+  flex: 1;
+}
+
+.ch-home-catalogs{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-home-catalogs-unavailable{
+  font-size: 18px;
+  color: #9b9898;
+  font-style: italic;
+  margin: 40px;
+  text-align: center;
+}
+
+.ch-home-catalogs-container{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.ch-home-catalogs-catalog{
+  flex: 1;
+  max-width: 280px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 15px;
+  background: #F1F1F1;
+  transition: all 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-home-catalogs-catalog:hover{
+  background: rgb(222, 212, 255);
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+
+.ch-home-catalogs-catalog-img{
+  border-radius: 10px 10px 0px 0px;
+  width: 280px;
+  height: 180px !important;
+}
+
+.ch-home-catalogs-catalog-details{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px; // es solo 5 porque los elementos tienen 5px de margin-bottom
+}
+
+.ch-home-catalogs-catalog-details-type-delivery{
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  position: relative;
+  height: 24px;
+}
+
+.ch-home-catalogs-catalog-details-type-delivery-contents{
+  width: 260px;
+  position: absolute;
+  top: -15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ch-home-catalogs-catalog-details-type{
+  width: 190px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.ch-home-catalogs-catalog-details-type-label{
+  background-color: rgb(65, 36, 103);
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.ch-home-catalog-tag{
+  padding: 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  color: white;
+}
+
+.ch-home-catalogs-catalog-details-delivery{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.ch-home-catalogs-catalog-tag-container{
+  height: 30px !important;
+  width: 30px !important;
+  border-radius: 5px;
+  background-color: rgb(229, 229, 229);
+  color: rgb(255, 145, 28);
+  margin-left: 5px;
+}
+
+
+.ch-home-catalogs-catalog-details-name{
+  font-size: 20px;
+  font-weight: 550;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  height: 20px;
+}
+
+.ch-home-catalogs-catalog-details-zones-agrupations{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.ch-home-catalogs-catalog-details-zones{
+  width: 190px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.ch-home-catalogs-catalog-details-zones-zone{
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(72, 187, 120);
+  margin-bottom: 5px;
+  margin-right: 5px;
+  max-height: 20px;
+}
+
+.ch-home-catalogs-catalog-details-zones-zone-label{
+  font-size: 12px;
+}
+
+.ch-home-catalogs-catalog-details-agrupations{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.ch-home-catalogs-catalog-details-agrupations-agrupation{
+  flex: 0 1 auto;
+}
+
+.ch-home-catalogs-catalog-details-sells{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.ch-home-catalogs-catalog-details-sells-sell{
+  flex: 0 1 auto;
+  border-radius: 5px;
+  padding: 2px;
+  border: 1px solid rgb(229, 229, 229);
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+
+.ch-home-catalogs-catalog-details-sells-sell-label{
+
+}
+
+.ch-home-ayudas{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+.ch-home-ayudas-ayuda{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ch-home-ayudas-label{
+  font-size: 20px;
+  font-weight: 500;
+  color: #6b6969;
+  margin-bottom: 15px;
+}
+
+.ch-home-ayudas-ayuda-icons{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ch-home-ayudas-ayuda-icons-icon{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.ch-home-ayudas-ayuda-icons-icon-container{
+  border-radius: 5px;
+  padding: 2px;
+  border: 1px solid rgb(184, 184, 184);
+  height: 30px;
+  width: 30px;
+}
+
+.ch-home-ayudas-ayuda-icons-icon-label{
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6b6969;
+  margin-right: 15px;
+  margin-left: 5px; 
+  white-space: nowrap;
+}
+
+.ch-home-chasqui-banner{
+  flex: 1;
+  background: rgb(15, 175, 3);
+  height: 116px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.ch-home-chasqui-banner-content{
+  flex: 1;
+  margin: 10px;
+  text-align: center;
+  border: 5px solid white;
+  color: white;
+  padding: 20px;
+  font-size: 24px;
+}
+
+.ch-home-chasqui-diferente{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+
+.ch-home-chasqui-diferente-descripcion{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+
+.ch-home-chasqui-diferente-descripcion-titulo{
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.ch-home-chasqui-diferente-descripcion-contenido{
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.ch-home-chasqui-diferente-logo{
+  margin-left: 130px;
+  margin-right: 65px;
+}
+
+.ch-home-apoyan{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.ch-home-apoyan-label{
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.ch-home-apoyan-logos{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.ch-home-apoyan-logos-logo{
+  flex: 1;
+  //margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.ch-home-apoyan-logos-logo-img{
+  width: 300px;
+  height: 177.2PX;
 }

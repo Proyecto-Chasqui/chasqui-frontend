@@ -1,0 +1,188 @@
+
+<div id="chasqui-content-full" class="chasqui-content-full-home">
+  <div class="chasqui-content-full-home-container">
+    <div class="ch-home-header">
+        <div class="ch-home-header-name">
+          <label class="ch-home-header-name-label">CHASQUI</label>
+          <label class="ch-home-header-name-label-2">Comunidad de consumo solidario</label>
+        </div>
+        <div class="ch-home-header-filter">
+          <div class="ch-home-header-filter-input">
+            <md-input-container class="ch-home-header-filter-input-string">
+              <label>Buscar por nombre</label>
+              <input ng-model="selectedTags.nombre" ng-change="confirmSearch()">
+            </md-input-container>            
+            <div class="ch-home-header-filter-input-selections">
+              <md-input-container class="ch-home-header-filter-input-selections-options">
+                <label>Zona de entregas</label>
+                <md-select ng-model="selectedTags.idTagZonaDeCobertura" ng-change="confirmSearch()">
+                  <md-option ng-value="-1"> 
+                    - - -
+                  </md-option>
+                  <md-option ng-repeat="zona in tags.tagsZonaDeCobertura" ng-value="zona.id"> 
+                    {{ zona.nombre }} 
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container class="ch-home-header-filter-input-selections-options">
+                <label>Tipo de organización</label>
+                <md-select ng-model="selectedTags.idTagTipoOrganizacion" ng-change="confirmSearch()">
+                  <md-option ng-value="-1"> 
+                    - - -
+                  </md-option>
+                  <md-option ng-repeat="tipoDeOrganizacion in tags.tagsTipoOrganizacion" ng-value="tipoDeOrganizacion.id"> 
+                    {{ tipoDeOrganizacion.nombre }} 
+                  </md-option>
+                </md-select>
+              </md-input-container>
+              <md-input-container class="ch-home-header-filter-input-selections-options">
+                <label>Tipo de producto</label>
+                <md-select ng-model="selectedTags.idTagTipoProducto" ng-change="confirmSearch()">
+                  <md-option ng-value="-1"> 
+                    - - -
+                  </md-option>
+                  <md-option ng-repeat="tipoDeProducto in tags.tagsTipoProducto" ng-value="tipoDeProducto.id"> 
+                    {{ tipoDeProducto.nombre }} 
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="ch-home-catalogs">
+      <div class="ch-home-catalogs-container">
+        <div class="ch-home-catalogs-catalog" ng-repeat="catalog in catalogs" ng-click="goToCatalog(catalog.nombreCorto)">
+          <img class="ch-home-catalogs-catalog-img" ng-src="{{url(catalog.imagen)}}">
+          <div class="ch-home-catalogs-catalog-details">
+            <div class="ch-home-catalogs-catalog-details-type-delivery">
+              <div class="ch-home-catalogs-catalog-details-type-delivery-contents">
+                <div class="ch-home-catalogs-catalog-details-type">
+                  <label class="ch-home-catalog-tag ch-home-catalogs-catalog-details-type-label" ng-show="catalogOrganizationType(catalog) != ''">
+                    {{ catalogOrganizationType(catalog) }}
+                  </label>
+                </div>
+                <div class="ch-home-catalogs-catalog-details-delivery">
+                  <div class="ch-home-catalogs-catalog-tag-container" ng-repeat="deliveryType in catalog.deliveryTypes">
+                    <img ng-src="{{deliveryTypeImg(deliveryType.id)}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="ch-home-catalogs-catalog-details-name">{{catalog.nombre}}</span>
+            <div class="ch-home-catalogs-catalog-details-zones-agrupations">
+                <div class="ch-home-catalogs-catalog-details-zones">
+                  <div class="ch-home-catalogs-catalog-details-zones-zone ch-home-catalog-tag" ng-repeat="zone in catalog.tagsZonaDeCobertura">
+                    <label class="ch-home-catalogs-catalog-details-zones-zone-label">{{ zone.nombre }}</label>
+                  </div>
+                </div>
+                <div class="ch-home-catalogs-catalog-details-agrupations">
+                    <div class="ch-home-catalogs-catalog-details-agrupations-agrupation ch-home-catalogs-catalog-tag-container" ng-repeat="agrupationType in catalog.agrupationsTypes">
+                      <img ng-src="{{agrupationTypeImg(agrupationType.id)}}">
+                    </div>
+                </div>
+            </div>
+            <div class="ch-home-catalogs-catalog-details-sells">
+              <div class="ch-home-catalogs-catalog-details-sells-sell" ng-repeat="productSell in catalog.tagsTipoProductos">
+                <label class="ch-home-catalogs-catalog-details-sells-sell-label">
+                  {{ productSell.nombre }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ch-home-catalogs-unavailable" ng-show="catalogs.length == 0">
+        <label>No hay catálogos disponibles para la búsqueda seleccionada</label>
+      </div>
+    </div>
+
+    <div class="ch-home-ayudas">
+      <div class="ch-home-ayudas-ayuda">
+        <label class="ch-home-ayudas-label">
+          Formas de compra
+        </label>
+        <div class="ch-home-ayudas-ayuda-icons">
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/compra_individual.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              Individual
+            </label>            
+          </div>
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/compra_grupal.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              Grupal
+            </label>            
+          </div>
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/compra_nodos.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              Nodos
+            </label>            
+          </div>
+        </div>
+      </div>
+      <div class="ch-home-ayudas-ayuda">
+        <label class="ch-home-ayudas-label">
+          Tipos de entrega
+        </label>
+        <div class="ch-home-ayudas-ayuda-icons">
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/entrega_domicilio.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              A domicilio
+            </label>            
+          </div>
+          <div class="ch-home-ayudas-ayuda-icons-icon">
+            <img src="../../../../assets/images/estrategias/entrega_lugar.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
+            <label class="ch-home-ayudas-ayuda-icons-icon-label">
+              Retiro en el lugar
+            </label>            
+          </div>
+        </div>
+      </div>
+      <!--
+      <div class="ch-home-ayudas-ayuda">
+        <label class="ch-home-ayudas-label">
+          Comunidad
+        </label>
+
+      </div>-->
+    </div>
+
+    <div class="ch-home-chasqui-banner">
+      <div class="ch-home-chasqui-banner-content">
+        <label>CHASQUI, Tecnología para la comercialización de la economía social y solidaria</label>
+      </div>
+    </div>
+
+    <div class="ch-home-chasqui-diferente">
+      <div class="ch-home-chasqui-diferente-descripcion">
+        <label class="ch-home-chasqui-diferente-descripcion-titulo">
+          ¿Por qué Chasqui es diferente?
+        </label>
+        <label class="ch-home-chasqui-diferente-descripcion-contenido">
+          Chasqui visibiliza y promueve las características y los valores de la ESS, el consumo organizado y responsable.
+          Además, contribuir a mejorar la gestión interna y la operatoria de las organizaciones y su comunicación y presentación frente a los consumidores.
+        </label>
+        <label class="ch-home-chasqui-diferente-descripcion-contenido">
+          A diferencia de otras aplicaciones de comercio electrónico, Chasqui permite realizar compras y también compras colectivas y por nodos.
+          Fomenta prácticas de consumo organizado que dan identidad  pero tambien sutentabilidad al campo de la Economía Social y Solidaria.
+        </label>
+      </div>
+      <div class="ch-home-chasqui-diferente-logo">
+        <img src ="../../../../assets/images/logo_chasqui_diferente.png">
+      </div>
+    </div>
+
+    <div class="ch-home-apoyan">
+      <label class="ch-home-apoyan-label">Apoyan esta iniciativa</label>
+      <div class="ch-home-apoyan-logos">
+        <div class="ch-home-apoyan-logos-logo" ng-repeat="id in apoyos_id">
+          <img src='{{getSupportLogo(id)}}' class="ch-home-apoyan-logos-logo-img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
