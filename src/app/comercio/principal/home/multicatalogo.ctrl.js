@@ -134,6 +134,8 @@
           c.deliveryTypes = deliveryTypes(c);
           c.agrupationsTypes = agrupationsTypes(c);
           return c;
+        }).filter(function(c){
+          return c.visibleEnMulticatalogo;
         });
         console.log($scope.catalogs);
       })
@@ -157,6 +159,8 @@
             c.deliveryTypes = deliveryTypes(c);
             c.agrupationsTypes = agrupationsTypes(c);
             return c;
+          }).filter(function(c){
+            return c.visibleEnMulticatalogo;
           });
       })
       sellerService.getSellersTags().then(function(response){
