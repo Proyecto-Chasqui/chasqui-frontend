@@ -7,7 +7,7 @@
 	/**
 	 * Formulario para crear un grupo
 	 */
-	function FormUsuarioController($log, $state, $scope, $timeout, perfilService, us, usuario_dao, REST_ROUTES, URLS) {
+	function FormUsuarioController($log, $state, toastr, $scope, $timeout, perfilService, us, usuario_dao, REST_ROUTES, URLS) {
         
         
         var fields = ["nombre", "apellido", "nickName", 
@@ -178,10 +178,33 @@
             
             $log.debug("controler FormUsuarioController", $scope.profile);
 		}
+
+        function validateProfile(profile){
+          return Object.keys(profile).filter(function(k){
+            return !$scope.hideField(k);
+          }).reduce(function(r,k){
+            return r && profile[k] !== undefined && profile[k] !== "";
+          }, true);
+            // var tieneApellido = profile.apellido !== undefined && profile.apellido !== "";
+            // var tieneNick = profile.nickName !== undefined && profile.nickName !== "";
+            // var tieneNombre = profile.nombre !== undefined && profile.nombre !== "";
+            // var tieneEmail = profile.email !== undefined && profile.email !== "";
+            // var tieneEmailVerification = profile.emailVerification !== undefined && profile.emailVerification !== "";
+            // var tienePassword = profile.password !== undefined && profile.password !== "";
+            // var tienePassver = profile.passVerification !== undefined && profile.passVerification !== "";
+            // var tieneTelefonoMovil = profile.telefonoMovil !== undefined && profile.telefonoMovil != "";
+            // var tieneTelefono = profile.telefono !== undefined && profile.telefono != "";
+            // return tieneApellido && tieneNick && tieneNombre && tieneEmail && tieneEmailVerification && tienePassword && tienePassver && (tieneTelefono || tieneTelefonoMovil);
+        }
         
         $scope.labelButtonSave = function(profile){
-            setUserAvatar($scope.avatarSelected);
-            $scope.labelButtonAction(profile)
+            if(validateProfile(profile)){
+                setUserAvatar($scope.avatarSelected);
+                $scope.labelButtonAction(profile)
+            }else{
+                toastr.warning("Por favor, complete todos los campos marcados con * .", "Faltan datos por completar");
+            }
+
         }
         
         $scope.buttonNextSave = function(profile){
