@@ -122,10 +122,10 @@
               </md-tooltip>
             </div>
             <div class="ch-group-card-data-actions">
-              <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="goToCatalog(node)" ng-show="showGoToCatalog(node)">
+              <md-button ng-class="ventasHabilitadas? 'md-raised md-primary md-button md-ink-ripple' : 'md-primary'" ng-click="goToCatalog(node)" ng-show="showGoToCatalog(node)" ng-disabled="!ventasHabilitadas">
                 Comprar
                 <md-tooltip md-direction="bottom">
-                  <label>Ir al catálogo con este nodo seleccionado</label>
+                  <label>{{ventasHabilitadas? "Ir al catálogo con este nodo seleccionado" : "Ventas deshabilitadas"}}</label>
                 </md-tooltip>
               </md-button>
               <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.node.historicOrders({nodeId: i})">
@@ -240,10 +240,10 @@
               </md-tooltip>
             </div>
             <div class="ch-group-card-data-actions">
-              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ng-click="goToCatalog(node)" ng-show="getLoggedUser(node).pedido == null || ( getLoggedUser(node).pedido.productosResponse.length >= 0 && getLoggedUser(node).pedido.estado != 'CONFIRMADO')">
+              <md-button ng-class="ventasHabilitadas? 'md-raised md-primary md-button md-ink-ripple' : 'md-primary'" ng-click="goToCatalog(node)" ng-show="showGoToCatalog(node)" ng-disabled="!ventasHabilitadas">
                 Comprar
                 <md-tooltip md-direction="bottom">
-                  <label>Ir al catálogo con este nodo seleccionado</label>
+                  <label>{{ventasHabilitadas? "Ir al catálogo con este nodo seleccionado" : "Ventas deshabilitadas"}}</label>
                 </md-tooltip>
               </md-button>
               <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userNodes.node.historicOrders({nodeId: i})">

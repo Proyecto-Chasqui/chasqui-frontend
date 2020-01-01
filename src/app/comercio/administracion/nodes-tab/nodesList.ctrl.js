@@ -219,6 +219,17 @@
         })
         $scope.showOptions = $scope.nodes.map(function(n){return false});
         callNotificaciones();
+        contextPurchaseService.getSelectedCatalog()
+        .then(function(catalog){
+          $scope.ventasHabilitadas = catalog.ventasHabilitadas;
+          if(!catalog.ventasHabilitadas){
+            var text = catalog.mensajeVentasDeshabilitadas? 
+              catalog.mensajeVentasDeshabilitadas :
+              "Por el momento este catálogo no permite compras, sin embargo podes navegar los productos y gestionar los pedidos que tenias pendientes";
+
+            toastr.error(text,"Ventas deshabilitadas");
+          }        
+        })
       }
       toTop();
     }
