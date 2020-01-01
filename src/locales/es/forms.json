@@ -54,5 +54,6 @@
 	"NO_MOD_MSG" : "Dejar como estaba",
 	"FORM_REGISTER" : "Registrarme",
 	"ACT" : "Actualizar",
-  "CONFIRMAR_PEDIDO_GCC" : "Confirmar pedido del grupo"
+  "CONFIRMAR_PEDIDO_GCC" : "Confirmar pedido del grupo",
+  "CONFIRMAR_PEDIDO_NODE" : "Confirmar pedido del nodo"
 }
