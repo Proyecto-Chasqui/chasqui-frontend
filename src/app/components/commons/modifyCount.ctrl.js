@@ -5,7 +5,8 @@
 		.module('chasqui')
 		.controller('ModifyCountCtrl', ModifyCountCtrl);
     
-	function ModifyCountCtrl($log, $scope, $mdDialog, URLS, variety, order, texts, initCount, actions, agrupationTypeDispatcher) {
+  function ModifyCountCtrl($log, $scope, $mdDialog, URLS, variety, order, texts, initCount, actions, 
+                           agrupationTypeDispatcher, contextPurchaseService, toastr) {
     $scope.urlBase = URLS.be_base;
   
     $scope.title = texts.title;
@@ -91,7 +92,19 @@
         }
       )
     }
-        
+
+    function init(){
+
+      contextPurchaseService.getSelectedCatalog()
+      .then(function(catalog){
+        $scope.ventasHabilitadas = catalog.ventasHabilitadas;
+        if(!catalog.ventasHabilitadas){
+          toastr.warning("Solo se pueden eliminar unidades del pedido","Ventas deshabilitadas");
+        }        
+      })
+    }
+
+    init();
 	} 
     
 })();         

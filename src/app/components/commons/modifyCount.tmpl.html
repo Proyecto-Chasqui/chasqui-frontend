@@ -26,11 +26,19 @@
                             ¿Cuántos querés?
                         </div>
                         <div layout="row" layout-align="space-between center" flex="30">
-                            <a href="" ng-disabled="count() <= 0"><i class="material-icons" ng-click="countPlus(-1)">remove</i></a>
-                            <md-input-container style="font-size: 18; margin: 0px;">
-                                <input style="width: 35px" ng-model="count" ng-model-options="{ getterSetter: true }">
-                            </md-input-container>
-                            <a href=""><i class="material-icons" ng-click="countPlus(1)">add</i></a>
+                          <a href="" ng-disabled="count() <= 0">
+                            <i class="material-icons" ng-click="countPlus(-1)">
+                              remove
+                            </i>
+                          </a>
+                          <md-input-container style="font-size: 18; margin: 0px;">
+                            <input style="width: 35px" ng-model="count" ng-model-options="{ getterSetter: true }">
+                          </md-input-container>
+                          <a href="">
+                            <i class="material-icons" ng-click="countPlus(1)" ng-show="ventasHabilitadas">
+                              add
+                            </i>
+                          </a>
                         </div>
                     </div>
                     <div layout="row" layout-align="space-between center" flex="100">
