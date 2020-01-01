@@ -37,11 +37,11 @@
                       </md-select>
                   </md-input-container>
 
-                  <div class="ch-select-address-item">
+                  <div class="ch-select-address-item" ng-show="addressZone.nombre">
                     <span><strong>Zona de entrega:</strong> {{addressZone.nombre}}</span>
                   </div>
 
-                  <div class="ch-select-address-item">
+                  <div class="ch-select-address-item" ng-show="addressZone.fechaCierrePedidos">
                     <span><strong>Cierre de pedidos:</strong> {{addressZone.fechaCierrePedidos}}</span>
                   </div>
 
