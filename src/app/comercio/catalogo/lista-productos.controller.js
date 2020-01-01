@@ -145,7 +145,7 @@
             $state.go('catalog.login');
           }       
       }else{
-        toastr.warning("Por el momento las ventas estan deshabilitadas, vuelva a intentar mas tarde.","Advertencia");
+        showCatalogText();
       }
     }
 
@@ -236,10 +236,24 @@
       contextCatalogsService.getCatalogs().then(function(catalogs){
         contextPurchaseService.getSelectedCatalog().then(
               function(catalog){
-                  vm.permitirComprar = catalog.few.compraIndividual || catalog.few.gcc || catalog.few.nodos;
+                  vm.permitirComprar = catalog.ventasHabilitadas;
+                  if(!vm.permitirComprar){
+                    showCatalogText();
+                  }
                   callback();
               }
           );
+      })
+    }
+
+    function showCatalogText(){
+      contextPurchaseService.getSelectedCatalog()
+      .then(function(catalog){
+        var text = catalog.mensajeVentasDeshabilitadas? 
+          catalog.mensajeVentasDeshabilitadas :
+          "Por el momento este catálogo no permite compras, sin embargo podes navegar los productos y gestionar los pedidos que tenias pendientes";
+
+        toastr.error(text,"Ventas deshabilitadas");
       })
     }
     
