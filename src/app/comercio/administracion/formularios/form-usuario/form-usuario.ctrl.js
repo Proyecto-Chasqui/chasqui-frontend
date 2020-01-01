@@ -180,11 +180,18 @@
 		}
 
         function validateProfile(profile){
+
+          var unTelefono = false;
+
           return Object.keys(profile).filter(function(k){
             return !$scope.hideField(k);
           }).reduce(function(r,k){
-            return r && profile[k] !== undefined && profile[k] !== "";
-          }, true);
+            var fieldIsDefined = profile[k] !== undefined && profile[k] !== "";
+            if( k == "telefono" || k == "telefonoMovil"){
+              unTelefono = unTelefono || fieldIsDefined;
+            }
+            return r && fieldIsDefined;
+          }, true) && unTelefono;
             // var tieneApellido = profile.apellido !== undefined && profile.apellido !== "";
             // var tieneNick = profile.nickName !== undefined && profile.nickName !== "";
             // var tieneNombre = profile.nombre !== undefined && profile.nombre !== "";
