@@ -2,16 +2,16 @@
     <div layout="column" layout-align="center">
       <div layout="row" layout-align="center">
         <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="isAdmin"> 
-          Incentivo: ${{incentivoNodo(node)}}
+          Ingreso nodo: ${{incentivoNodo(node)}}
         </label>
         <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="isAdmin"> 
-          Total a pagar: ${{montoSinIncentivo(node)}}
+          Costo al nodo: ${{montoSinIncentivo(node)}}
         </label>
         <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="active"> 
           Activo
         </label>
         <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado"> 
-          Total: ${{montoTotalNodo(node)}}
+          Precio final: ${{montoTotalNodo(node)}}
         </label>
       </div>
     </div>
