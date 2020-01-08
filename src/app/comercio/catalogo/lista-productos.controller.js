@@ -203,18 +203,29 @@
 
       contextCatalogObserver.observe(function executeWhenCatalogIsLoaded(){          
         var query = {
-          query : params.query,
-          idVendedor : contextPurchaseService.getCatalogContext(), //StateCommons.vendedor().id,
-          idMedalla : params.sello,
-          idProductor: params.productor,
-          idMedallaProductor: params.selloProductor,
+          idVendedor: contextPurchaseService.getCatalogContext(),
           idCategoria: params.categoria,
+          idsSellosProducto: [params.sello],
+          idProductor: params.productor,
+          idsSellosProductor: [params.selloProductor],
+          numeroDeOrden: StateCommons.getNextRandom(),
+          query: params.query,
           pagina: pagina,
           cantItems: items,
-          precio: 'Down',
-          numeroDeOrden: StateCommons.getNextRandom(),
+          precio: 'Down'
+          // 
+          // idVendedor : contextPurchaseService.getCatalogContext(), 
+          // idCategoria: params.categoria,
+          // idMedalla : params.sello,
+          // idProductor: params.productor,
+          // idMedallaProductor: params.selloProductor,
+          // numeroDeOrden: StateCommons.getNextRandom(),
+          // query : params.query,
+          // pagina: pagina,
+          // cantItems: items,
+          // precio: 'Down',
         }
-        $log.debug("parametros",params);
+        $log.debug("parametros",params, query);
 
         productoService.getProductosByMultiplesFiltros(query).then(doOk);      
       })
