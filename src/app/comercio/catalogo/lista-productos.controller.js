@@ -205,25 +205,14 @@
         var query = {
           idVendedor: contextPurchaseService.getCatalogContext(),
           idCategoria: params.categoria,
-          idsSellosProducto: [params.sello],
+          idsSellosProducto: params.sello == undefined? [] : [params.sello],
           idProductor: params.productor,
-          idsSellosProductor: [params.selloProductor],
+          idsSellosProductor: params.selloProductor == undefined? [] : [params.selloProductor],
           numeroDeOrden: StateCommons.getNextRandom(),
           query: params.query,
           pagina: pagina,
           cantItems: items,
           precio: 'Down'
-          // 
-          // idVendedor : contextPurchaseService.getCatalogContext(), 
-          // idCategoria: params.categoria,
-          // idMedalla : params.sello,
-          // idProductor: params.productor,
-          // idMedallaProductor: params.selloProductor,
-          // numeroDeOrden: StateCommons.getNextRandom(),
-          // query : params.query,
-          // pagina: pagina,
-          // cantItems: items,
-          // precio: 'Down',
         }
         $log.debug("parametros",params, query);
 
