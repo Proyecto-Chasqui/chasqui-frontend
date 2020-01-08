@@ -25,6 +25,10 @@ $colorBlanco: #FFFFFF;
   .ch-responsive-s {
     display: none !important;
   }
+
+  .ch-responsive-layout {
+    flex-direction: row !important;
+  }
 }
 
 @media (max-width: 767px) {
@@ -35,6 +39,10 @@ $colorBlanco: #FFFFFF;
 
   .ch-responsive-s {
     display: inherit;
+  }
+
+  .ch-responsive-layout {
+    flex-direction: column !important;
   }
 }
 
@@ -1395,4 +1403,55 @@ md-tabs md-ink-bar {
 .ch-home-apoyan-logos-logo-img{
   width: 300px;
   height: 177.2PX;
+}
+
+// Notificaciones
+
+.ch-notifications-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-bottom: 20px;
+}
+
+.ch-notification{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;  
+  transition: all .5s ease;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 3px;
+  margin-top: 10px;
+  min-height: 48px;
+  padding: 5px;
+}
+
+.ch-notification:hover{
+  background-color: rgba(255, 255, 255, 0.548);
+  box-shadow:  1px 1px 6px rgba(0, 0, 0, 0.4);
+  transition: all .5s ease;
+}
+
+.ch-notification-info{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-self: flex-start; 
+}
+
+.ch-notification-info-icon{
+  height: 40px;
+  width: 40px;
+  font-size: 40px;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.ch-notification-info-text{
+  align-self: flex-start; 
 }
