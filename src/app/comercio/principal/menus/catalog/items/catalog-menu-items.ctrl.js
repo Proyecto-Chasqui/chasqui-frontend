@@ -22,8 +22,8 @@
             $scope.catalog = catalog;
             $log.debug("general items: ", $scope.general);
             $scope.menuItems = $scope.general? 
-                                    itemsBuilder.general($scope.catalog.few):
-                                    itemsBuilder.catalog($scope.catalog.few);          
+                                    itemsBuilder.general($scope.catalog.few, $scope.catalog.portadaVisible):
+                                    itemsBuilder.catalog($scope.catalog.few);
         })
     }
 

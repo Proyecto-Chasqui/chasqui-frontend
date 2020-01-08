@@ -13,21 +13,23 @@
         catalog: catalog
       }
                 
-      function general(strategy){
+      function general(strategy, portadaVisible){
 
-          var itemsMenu = [
-                              landingPage,
-							                products,
-                              //howToBuy
-                              deliveryPoints,
-                              userOrders,
-                          ];
+        var itemsMenu = [];
+
+        if(portadaVisible){
+          itemsMenu.push(landingPage);
+        }
         
-          if(strategy.nodos){
-            itemsMenu.push(openNodes);
-          }
+        itemsMenu.push(products);
+        itemsMenu.push(deliveryPoints);
+        itemsMenu.push(userOrders);
 
-          return itemsMenu;
+        if(strategy.nodos){
+          itemsMenu.push(openNodes);
+        }
+
+        return itemsMenu;
       }
     
       function catalog(strategy){

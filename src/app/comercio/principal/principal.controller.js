@@ -6,7 +6,7 @@
     .controller('PrincipalController', PrincipalController);
 
   /** @ngInject */
-  function PrincipalController($scope, $log, navigation_state,vendedorService,URLS,$state) {
+  function PrincipalController($scope, $log, navigation_state,vendedorService,URLS,$state, contextPurchaseService) {
     $log.debug("PrincipalController ..... ");
     navigation_state.goWelcomeTab();
     var vm = this;
@@ -77,6 +77,11 @@
     }
 
     function init(){
+      contextPurchaseService.getSelectedCatalog().then(function(catalog){
+        if(!catalog.portadaVisible){
+          $state.go("catalog.products");
+        }
+      })
       vendedorService.verDatosDePortada().then(function(response){
         completarDatosDeContacto(response.data.dataContacto);
         var i;

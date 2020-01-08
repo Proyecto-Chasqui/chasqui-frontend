@@ -150,7 +150,7 @@
     }
     
     function goToCatalog(catalogShortName){
-        $state.go('catalog.landingPage', {catalogShortName: catalogShortName});
+        $state.go('catalog.products', {catalogShortName: catalogShortName});
     }
     
     function init(){
