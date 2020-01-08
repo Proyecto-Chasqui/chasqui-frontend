@@ -62,11 +62,22 @@
     <h2><b>Contacto</b></h2>
     <div class="contacto-info">
     <ul>
-        <li> <i class="material-icons" style="width:30px;font-size: 15px;">location_on</i> {{direccion}} </li>
-        <li> <i class="material-icons" style="width:30px;font-size: 15px;">call</i> Tel: {{telefono}} </li>
-        <li> <i class="material-icons" style="width:30px;font-size: 15px;">phone_android</i> Cel: {{celular}} </li>     
-        <li> <i class="material-icons" style="width:30px;font-size: 15px;">email</i> {{email}} </li>  
-        <li> <i class="material-icons" style="width:30px;font-size: 15px;">link</i> <a href="{{url}}">{{url}}</a> </li>
+        <li ng-show="show(direccion)"> 
+          <i class="material-icons" style="width:30px;font-size: 15px;">location_on</i> {{direccion}} 
+        </li>
+        <li ng-show="show(telefono)"> 
+          <i class="material-icons" style="width:30px;font-size: 15px;">call</i> Tel: {{telefono}} 
+        </li>
+        <li ng-show="show(celular)"> 
+          <i class="material-icons" style="width:30px;font-size: 15px;">phone_android</i> Cel: {{celular}} 
+        </li>     
+        <li ng-show="show(email)"> 
+          <i class="material-icons" style="width:30px;font-size: 15px;">email</i> {{email}} 
+        </li>
+        <li ng-show="show(url)"> 
+          <i class="material-icons" style="width:30px;font-size: 15px;">link</i> 
+          <span style="cursor: pointer; text-decoration: underline;" ng-click="goToLink(url)">{{url}}</span> 
+        </li>
     </ul>  
     </div>
     </div>

@@ -6,7 +6,7 @@
     .controller('PrincipalController', PrincipalController);
 
   /** @ngInject */
-  function PrincipalController($scope, $log, navigation_state,vendedorService,URLS,$state, contextPurchaseService) {
+  function PrincipalController($scope, $log, navigation_state,vendedorService,URLS,$state, contextPurchaseService, contextCatalogObserver) {
     $log.debug("PrincipalController ..... ");
     navigation_state.goWelcomeTab();
     var vm = this;
@@ -18,11 +18,8 @@
     $scope.imagenUrlPortada = "app/components/image/imagenNoDisponiblePortada.jpg";
     $scope.nombreOrganizacion = "";
     $scope.imagesurls = ["app/components/image/banner-chasqui2.jpg","app/components/image/banner-chasqui.jpg","app/components/image/banner-chasqui3.jpg"];
-    $scope.direccion = "---";
-    $scope.celular = "---";
-    $scope.telefono = "---";
-    $scope.email = "---";
-    $scope.url= "---";
+    $scope.goToLink = goToLink;
+    $scope.show = show;
 
     $scope.show_contacto = true;
     vm.ir = function(page) {
@@ -37,7 +34,7 @@
 
     function validateForNullDir(data){
       var value = data + " "
-      if(data === null || data === undefined){
+      if(data === null || data === undefined || data === ""){
         value = "";
       }
       return value;
@@ -46,7 +43,7 @@
     function validateForNull(data){
       var value = data + " "
       if(data === null || data === undefined || data === ""){
-        value = "---";
+        value = "";
       }
       return value;
     }
@@ -60,10 +57,7 @@
           var provincia = validateForNullDir(direccion.provincia);
           var pais = validateForNullDir(direccion.pais);
           var codigo_postal = validateForNullDir(direccion.codigo_postal);
-          var direccionFormada = calle + altura + localidad + provincia + pais + codigo_postal;
-          if(direccionFormada === null || direccionFormada === undefined || direccionFormada === "" || direccionFormada.trim().length === 0){
-            direccionFormada = "---";
-          }
+          direccionFormada = calle + altura + localidad + provincia + pais + codigo_postal;
       }      
       return direccionFormada
     }
@@ -76,45 +70,60 @@
       $scope.url= validateForNull(data.url);
     }
 
+    function show(field){
+      return field != undefined && field != "";
+    }
+
+    function goToLink(url){
+      if(!url.slice(0,4).includes("http")){
+        url = "http://" + url;
+      }
+
+      window.open(url);
+    }
+
     function init(){
-      contextPurchaseService.getSelectedCatalog().then(function(catalog){
-        if(!catalog.portadaVisible){
-          $state.go("catalog.products");
-        }
-      })
-      vendedorService.verDatosDePortada().then(function(response){
-        completarDatosDeContacto(response.data.dataContacto);
-        var i;
-        var text = response.data.textoPortada;
-        var urlportada = response.data.urlImagenesPortada;
-        if(text !== null){
-          if(text.length > 1){
-            $scope.texto = text;
-          }
-        }
-        if(urlportada != null){
-          if(urlportada.length >0){
-            $scope.imagenUrlPortada = URLS.be_base + urlportada[0];
-          }
-        }
-        if(response.data.urlImagenesBanner !== null){
-          for (i = 0; i < response.data.urlImagenesBanner.length; i++) { 
-            if(i===0){
-              $scope.imageurl1 = URLS.be_base + response.data.urlImagenesBanner[i];
-            }
-            if(i===1){
-              $scope.imageurl2 = URLS.be_base + response.data.urlImagenesBanner[i];
-            }
+      contextCatalogObserver.observe(function(){
+        contextPurchaseService.getSelectedCatalog().then(function(catalog){
+          if(catalog.portadaVisible){
+            vendedorService.verDatosDePortada().then(function(response){
+              completarDatosDeContacto(response.data.dataContacto);
+              var i;
+              var text = response.data.textoPortada;
+              var urlportada = response.data.urlImagenesPortada;
+              if(text !== null){
+                if(text.length > 1){
+                  $scope.texto = text;
+                }
+              }
+              if(urlportada != null){
+                if(urlportada.length >0){
+                  $scope.imagenUrlPortada = URLS.be_base + urlportada[0];
+                }
+              }
+              if(response.data.urlImagenesBanner !== null){
+                for (i = 0; i < response.data.urlImagenesBanner.length; i++) { 
+                  if(i===0){
+                    $scope.imageurl1 = URLS.be_base + response.data.urlImagenesBanner[i];
+                  }
+                  if(i===1){
+                    $scope.imageurl2 = URLS.be_base + response.data.urlImagenesBanner[i];
+                  }
+      
+                  if(i===2){
+                    $scope.imageurl3 = URLS.be_base + response.data.urlImagenesBanner[i];
+                  }
+                }
+              }
+            });
 
-            if(i===2){
-              $scope.imageurl3 = URLS.be_base + response.data.urlImagenesBanner[i];
-            }
+            vendedorService.obtenerConfiguracionVendedor().then(function(response){
+              $scope.nombreOrganizacion = response.data.nombre;
+            });
+          } else {
+            $state.go("catalog.products");
           }
-        }
-
-     });
-      vendedorService.obtenerConfiguracionVendedor().then(function(response){
-        $scope.nombreOrganizacion = response.data.nombre;
+        })
       });
     }
 
