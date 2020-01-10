@@ -260,6 +260,17 @@
         );
         callNotificaciones();
         toTop();
+        contextPurchaseService.getSelectedCatalog()
+        .then(function(catalog){
+          $scope.ventasHabilitadas = catalog.ventasHabilitadas;
+          if(!catalog.ventasHabilitadas){
+            var text = catalog.mensajeVentasDeshabilitadas? 
+              catalog.mensajeVentasDeshabilitadas :
+              "Por el momento este catálogo no permite compras, sin embargo podes navegar los productos y gestionar los pedidos que tenias pendientes";
+
+            toastr.error(text,"Ventas deshabilitadas");
+          }        
+        })
         if(newGroupCreated){
           $state.go('catalog.userGroups.group.members', {groupId: $scope.groups.length - 1});
           toastr.success(us.translate('NUEVO_GRUPO'), us.translate('AVISO_TOAST_TITLE'));

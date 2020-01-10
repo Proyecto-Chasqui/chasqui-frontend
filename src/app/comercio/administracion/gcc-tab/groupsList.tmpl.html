@@ -97,10 +97,10 @@
               <label class="ch-estado-pedido-colectivo ch-estado-pedido-confirmado" ng-show="countOrdersConfirmed(group) > 0"> 
                 Activo
               </label>
-              <md-button class="md-raised md-primary md-button md-ink-ripple" ng-click="goToCatalog(group)" ng-show="getLoggedUser(group).pedido == null || ( getLoggedUser(group).pedido.productosResponse.length >= 0 && getLoggedUser(group).pedido.estado != 'CONFIRMADO')">
+              <md-button ng-class="ventasHabilitadas? 'md-raised md-primary md-button md-ink-ripple' : 'md-primary'" ng-click="goToCatalog(group)" ng-show="getLoggedUser(group).pedido == null || ( getLoggedUser(group).pedido.productosResponse.length >= 0 && getLoggedUser(group).pedido.estado != 'CONFIRMADO')" ng-disabled="!ventasHabilitadas">
                 Comprar
                 <md-tooltip md-direction="bottom">
-                  <label>Ir al catálogo con este grupo seleccionado</label>
+                  <label>{{ventasHabilitadas? "Ir al catálogo con este grupo seleccionado" : "Ventas deshabilitadas"}}</label>
                 </md-tooltip>
               </md-button>
               <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
@@ -220,10 +220,10 @@
               </div>
             </div>
             <div class="ch-group-card-data-actions">
-              <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ng-click="goToCatalog(group)" ng-show="getLoggedUser(group).pedido == null || ( getLoggedUser(group).pedido.productosResponse.length >= 0 && getLoggedUser(group).pedido.estado != 'CONFIRMADO')">
+              <md-button ng-class="ventasHabilitadas? 'md-raised md-primary md-button md-ink-ripple' : 'md-primary'" ng-click="goToCatalog(group)" ng-show="getLoggedUser(group).pedido == null || ( getLoggedUser(group).pedido.productosResponse.length >= 0 && getLoggedUser(group).pedido.estado != 'CONFIRMADO')" ng-disabled="!ventasHabilitadas">
                 Comprar
                 <md-tooltip md-direction="bottom">
-                  <label>Ir al catálogo con este grupo seleccionado</label>
+                  <label>{{ventasHabilitadas? "Ir al catálogo con este grupo seleccionado" : "Ventas deshabilitadas"}}</label>
                 </md-tooltip>
               </md-button>
               <md-button class="md-raised md-primary md-button md-ink-ripple ch-group-action" ui-sref="catalog.userGroups.group.historicOrders({groupId: i})">
