@@ -19,7 +19,6 @@
     $scope.longitudValida = false;
 
     $rootScope.$on('guardarDireccion', function(event, args) {
-      console.log("save escuchado por form address");
       $rootScope.guardarDireccion($scope.address);
     });
     //Muestra un alert simple, puede cambiarse para levantar
