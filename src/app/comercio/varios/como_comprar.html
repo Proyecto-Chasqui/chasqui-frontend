@@ -5,13 +5,13 @@
 
 <div id="chasqui-princiodepagina2"></div>
 
-<div class="ch-content" layout="column" layout-align="center">
-  <div class="imagenes-comocomprar">
+<div class="ch-content">
+  <!--div class="imagenes-comocomprar">
     <md-grid-list md-cols="3" md-row-height="1:1" >
       <md-grid-tile layout="row" md-colspan="1" md-rowspan="1" ng-repeat="(i,instruccion) in instruccionesCards">
         <md-card style="width:250px; padding:20px; margin-top:20px;">
           <div>
-            <!-- i+1 porque la primer imagen es de elegir el catalogo-->
+            
             <img src="{{'assets/images/help/purchaseHelp_' + (i+1) + '.jpg'}}">
             <div class="txt-comocomprar">
               <h3><b>{{instruccion.titulo}}</b></h3>
@@ -21,29 +21,68 @@
         </md-card>
       </md-grid-tile>
     </md-grid-list>
+  </div>-->
+
+  <div class="ch-help-selection">
+    <div class="ch-help-selection-item" ng-click="showHelpQuestions(0)">
+      <div class="ch-help-selection-item-content">
+        <img src="./assets/images/estrategias/compra_individual.svg" class="ch-help-selection-item-content-icon">
+        <label class="ch-help-selection-item-content-label">
+          Ayuda general
+        </label>
+      </div>
+    </div>
+    <div ng-if="catalog.few.compraIndividual" class="ch-help-selection-item" ng-click="showHelpQuestions(1)">
+      <div class="ch-help-selection-item-content">
+        <img src="./assets/images/estrategias/compra_individual.svg" class="ch-help-selection-item-content-icon">
+        <label class="ch-help-selection-item-content-label">
+          Compra individual
+        </label>
+      </div>
+    </div>
+    <div ng-if="catalog.few.gcc" class="ch-help-selection-item" ng-click="showHelpQuestions(2)">
+      <div class="ch-help-selection-item-content">
+        <img src="./assets/images/estrategias/compra_grupal.svg" class="ch-help-selection-item-content-icon">
+        <label class="ch-help-selection-item-content-label">
+          Compra grupal
+        </label>
+      </div>
+    </div>
+    <div ng-if="catalog.few.nodos" class="ch-help-selection-item" ng-click="showHelpQuestions(3)">
+      <div class="ch-help-selection-item-content">
+        <img src="./assets/images/estrategias/compra_nodos.svg" class="ch-help-selection-item-content-icon">
+        <label class="ch-help-selection-item-content-label">
+          Compra por nodos
+        </label>
+      </div>
+    </div>
   </div>
+
+
   
   <div class="ch-groups-help">
-    <div ng-repeat="(i, pregunta) in instrucciones" class="ch-group-card ch-groups-help-question" ng-click="showHelpsAnswer(i)" style="cursor: pointer;">
-      <div layout="row" layout-align="space-between center" class="ch-groups-help-question-title">
-        <span>
-          {{pregunta.titulo}}
-        </span>
-        <i class="material-icons" ng-show="!showHelp[i]">
-          expand_more
-        </i>
-        <i class="material-icons" ng-show="showHelp[i]">
-          expand_less
-        </i>
-      </div>
-      <span ng-show="showHelp[i]" class="ch-groups-help-question-answer">
-        <div ng-repeat="paso in pregunta.pasos">
-          <li>{{paso.principal}}</li>
-          <ol type="a">
-            <li ng-repeat="subpaso in paso.subPasos"> {{subpaso}}</li>
-          </ol>
+    <div ng-repeat="(i,questionsGroup) in questionsGroups" ng-show="i == selectedQuestions">
+      <div ng-repeat="(j, pregunta) in questionsGroup.questions" class="ch-group-card ch-groups-help-question" ng-click="showHelpsAnswer(i,j)" style="cursor: pointer;">
+        <div layout="row" layout-align="space-between center" class="ch-groups-help-question-title">
+          <span>
+            {{pregunta.titulo}}
+          </span>
+          <i class="material-icons" ng-show="!showHelp[i][j]">
+            expand_more
+          </i>
+          <i class="material-icons" ng-show="showHelp[i][j]">
+            expand_less
+          </i>
         </div>
-      </span>
+        <span ng-show="showHelp[i][j]" class="ch-groups-help-question-answer">
+          <div ng-repeat="paso in pregunta.pasos">
+            <li>{{paso.principal}}</li>
+            <ol type="a">
+              <li ng-repeat="subpaso in paso.subPasos"> {{subpaso}}</li>
+            </ol>
+          </div>
+        </span>
+      </div>
     </div>
   </div>
 </div>

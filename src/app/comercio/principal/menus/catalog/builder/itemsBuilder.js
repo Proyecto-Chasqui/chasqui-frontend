@@ -22,6 +22,7 @@
         }
         
         itemsMenu.push(products);
+        itemsMenu.push(howToBuy);
         itemsMenu.push(deliveryPoints);
         itemsMenu.push(userOrders);
 

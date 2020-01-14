@@ -6,12 +6,17 @@
     .controller('ComoComprarController', ComoComprarController);
 
   /** @ngInject */
-  function ComoComprarController($log, navigation_state, $scope) {
+  function ComoComprarController($log, navigation_state, $scope, contextPurchaseService, contextCatalogObserver) {
     $log.debug('ComoComprarController ..... ')
     navigation_state.goHowToBuyTab();
       
-
+    $scope.showHelpQuestions = showHelpQuestions;
+    $scope.selectedQuestions = 0;
     $scope.showHelpsAnswer = showHelpsAnswer;
+
+    function showHelpQuestions(index){
+      $scope.selectedQuestions = index;
+    }
 
     $scope.instruccionesCards = [
         /*{
@@ -29,127 +34,367 @@
         }
     ];
       
-    $scope.instrucciones = [
-        {
+    $scope.questionsGroups = [
+      {
+        // General
+        questions: [
+          {
             titulo: "¿Cómo me registro?",
-            id: "registracion",
-            pasos: [{
-                        principal: "Haga click en [INGRESA].",
-                        subPasos:[]
-                     },{
-                        principal: "Haga click en [SOY NUEVO!].",
-                        subPasos:[]
-                     },{
-                        principal: "Complete el formulario (todos los campos son obligatorios):",
-                        subPasos:[
-                            "El email debe ser uno valido, para validar que llegan los emails para futuras invitaciones.",
-                            "La contraseña debe tener más de 10 caracteres. Recomendamos no usar la misma contraseña del email."
-                        ]
-                     },{
-                        principal: "Haga click [REGISTRARME].",
-                        subPasos:[]
-                     },{
-                        principal: "Inicie sesión con el usuario registrado.",
-                        subPasos:[]
-                     }
-                    ]
-        }, {
+            pasos: [
+              {
+                principal: 'Haga click en "Ingresa". ',
+                subpasos: []
+              }, {
+                principal: 'Haga click en "Registrarme".',
+                subpasos: []
+              }, {
+                principal: 'Complete el formulario (todos los campos son obligatorios):',
+                subpasos: [
+                  'El email debe ser uno valido, para validar que llegan los emails para futuras invitaciones.,',
+                  'La contraseña debe tener más de 10 carácteres. Recomendamos no usar la misma contraseña del email.',
+                ]
+              }, {
+                principal: 'Haga click "Registrarme".',
+                subpasos: []
+              }
+            ]
+          }, {
             titulo: "¿Cómo agrego un domicilio?",
-            id: "agregarDomicilio",
-            pasos: [{
-                        principal: "Vaya a Perfil.",
-                        subPasos:[]
-                     },{
-                        principal: "Desplacese hasta abajo y haga clic en [NUEVA].",
-                        subPasos:[]
-                     },{
-                        principal: "Complete todos los campos (piso/dpto es opcional); debe ser una dirección real.",
-                        subPasos:[
-                            "Luego de completar todos los campos, haga clic en [BUSCAR] y espere que aparezca un mapa.",
-                            "Confirme la posición haciendo click en [Es Correcta]."
-                        ]
-                     },{
-                        principal: "Haga click en [GUARDAR].",
-                        subPasos:[]
-                     }
-                    ]
-        }, {
+            pasos: [
+              {
+                principal: 'Estando logeado, haga clic sobre su nombre de usuario arriba a la derecha para acceder al perfil.',
+                subpasos: []
+              }, {
+                principal: 'Seleccione el tab "Direcciones de envio".',
+                subpasos: []
+              }, {
+                principal: 'Haga clic en "Nueva dirección".',
+                subpasos: []
+              }, {
+                principal: 'Cambie el apodo de "nueva dirección" a otra que le permita idenficar de manera agíl a que dirección se refiere, por ejemplo "casa" o "trabajo"',
+                subpasos: []
+              }, {
+                principal: 'Complete los campos con *.',
+                subpasos: []
+              }, {
+                principal: 'Haga clic en "Siguiente".',
+                subpasos: []
+              }, {
+                principal: 'Confirme si es correcta la ubicación de la dirección.',
+                subpasos: []
+              }, {
+                principal: 'Haga clic en "Guardar".',
+                subpasos: []
+              }, {
+                principal: 'Si todo esta correcto, deberá ver un aviso de que la dirección fue guardada correctamente.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo edito un domicilio?",
+            pasos: [
+              {
+                principal: 'Estando logeado, haga clic sobre su nombre de usuario arriba a la derecha para acceder al perfil.',
+                subpasos: []
+              },{
+                principal: 'Seleccione el tab "Direcciones de envio".',
+                subpasos: []
+              },{
+                principal: 'Seleccione el tab de la dirección que desea editar.',
+                subpasos: []
+              },{
+                principal: 'Cambie los campos que desee.',
+                subpasos: []
+              },{
+                principal: 'Haga clic en "Siguiente".',
+                subpasos: []
+              },{
+                principal: 'Confirme si es correcta la ubicación de la dirección.',
+                subpasos: []
+              },{
+                principal: 'Haga clic en "Guardar".',
+                subpasos: []
+              },{
+                principal: 'Si todo esta correcto, deberá ver un aviso de que la dirección fue guardada correctamente.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo edito los datos de mi usuario?",
+            pasos: [
+              {
+                principal: 'Estando logeado, haga clic sobre su nombre de usuario arriba a la derecha para acceder al perfil.',
+                subpasos: []
+              }, {
+                principal: 'En la sección datos personales haga clic en el "lapiz" abajo a la derecha para editar.',
+                subpasos: []
+              }, {
+                principal: 'Edite los datos que desee.',
+                subpasos: []
+              }, {
+                principal: 'Haga clic en la ""tilde"" para confirmar los cambios.',
+                subpasos: []
+              }, 
+            ]
+          }, {
+            titulo: "¿Cómo cambio la contraseña?",
+            pasos: [
+              {
+                principal: 'Estando logeado, haga clic sobre su nombre de usuario arriba a la derecha para acceder al perfil.',
+                subpasos: []
+              }, {
+                principal: 'Seleccione el tab "cambio de contraseña"',
+                subpasos: []
+              }, {
+                principal: 'Complete los campos correspondientes.',
+                subpasos: []
+              }, {
+                principal: 'Haga clic en "guardar contraseña".',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo puedo saber si entregan en mi domicilio?",
+            pasos: [
+              {
+                principal: 'Para ver si el catálogo entrega en su domicilio, vaya a la sección entregas".',
+                subpasos: []
+              }, {
+                principal: 'Si el cátalogo tiene entrega a domicilio, verá zonas marcadas en el mapa.',
+                subpasos: []
+              }, {
+                principal: 'Ahi podrá verificar si hay una zona que tenga alcance sobre su domicilio.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo puedo saber las fechas de entrega?",
+            pasos: [
+              {
+                principal: 'En la sección "Entregas", haga clic en las zonas definidas y podrá ver la información de entrega para esa zona.',
+                subpasos: []
+              }, {
+                principal: 'Si el vendedor hace entregas en el local o en ferias, podrá ver los datos correspondientes haciendo clic en los puntos de retiro.',
+                subpasos: []
+              }, 
+            ]
+          }, {
+            titulo: "Estoy muy cerca de una zona pero estoy fuera de su alcance, ¿esto no me permite comprar?",
+            pasos: [
+              {
+                principal: 'El sistema permite comprar aún estando fuera de alcance, pero tenga en cuenta que deberá contactarse con el vendedor antes de hacer un pedido para evaluar si es posible su entrega, o corre el riesgo de que cancele su pedido.',
+                subpasos: []
+              }, {
+                principal: 'Los datos para comunicarse con el vendedor estan en la sección Bienvenida.',
+                subpasos: []
+              }
+            ]
+          }
+        ]
+      },{
+        // Individual
+        questions: [
+          {
             titulo: "¿Cómo realizo una compra individual?",
-            id: "realizarCompraIndividual",
-            pasos: [{
-                        principal: "Vaya a Catálogo.",
-                        subPasos:[]
-                     },{
-                        principal: "Seleccione el changuito donde va a cargar los productos. Le van a aparecer diferentes opciones:",
-                        subPasos:[
-                            "El changuito 'Personal' es para compras individuales.",
-                            "Además, le van a figurar todos los grupos de compra colectiva en los que esté."
-                        ]
-                     },{
-                        principal: "Seleccione los productos que desee comprar.",
-                        subPasos:[
-                            "Haga click en [AGREGAR] del producto que desee.",
-                            "Elija la cantidad que desee."
-                        ]
-                     },{
-                        principal: "Una vez finalizada la compra, vaya a Mis Pedidos.",
-                        subPasos:[]
-                     },{
-                        principal: "Haga click en [CONFIRMAR].",
-                        subPasos:[]
-                     },{
-                        principal: "Seleccione un domicilio y haga click [CONFIRMAR].",
-                        subPasos:[]
-                     }
-                    ]
-        }, {
-            titulo: "¿Cómo realizo una compra colectiva?",
-            id: "realizarCompraColectiva",
-            pasos: [{
-                        principal: "Cree un grupo:",
-                        subPasos:[
-                            "Vaya a Mis Grupos.",
-                            "Haga click en [CREAR GRUPO].",
-                            "Elija un nombre para el grupo y una descripción."
-                        ]
-                     },{
-                        principal: "Si usted es administrador de un grupo, puede invitar amigos a su grupo:",
-                        subPasos:[
-                            "Vaya a Mis Grupos.",
-                            "Seleccione el grupo al que desee invitar amigos.",
-                            "Haga click en el ícono +.",
-                            "Escriba el mail de su amigo. Le llegará un mail y, si ya tiene una cuenta en Chasqui, una notificación con la invitación al grupo."
-                        ]
-                     },{
-                        principal: "Vaya a Catálogo y en vez de compra individual seleccione el grupo de compra colectiva que desee. El funcionamiento es el mismo que en el caso de compra individual.",
-                        subPasos:[
-                            "Recuerde confirmar su pedido en Mis Pedidos."
-                        ]
-                     },{
-                        principal: "Si usted es administrador del grupo, es NECESARIO que cierre el pedido antes de la fecha de entrega. De otra forma el pedido no será entregado.",
-                        subPasos:[
-                            "Vaya a Mis Grupos.",
-                            "Seleccione el grupo al que le desee cerrar el pedido.",
-                            "Haga click en [CONFIRMAR PEDIDO].",
-                            "Seleccione el domicilio de entrega."
-                        ]
-                     },{
-                        principal: "Tenga en cuenta que una vez cerrado el pedido, ningún miembro del grupo podrá modificar o agregar pedidos.",
-                        subPasos:[]
-                     }
-                    ]
-        }
+            pasos: [
+              {
+                principal: 'Vaya a Catálogo.',
+                subpasos: []
+              }, {
+                principal: 'Elija el producto que desea agregar, es posible que se le pida seleccionar un carrito, seleccione "Pedido individual"',
+                subpasos: []
+              }, {
+                principal: 'Agregue los productos que desee.',
+                subpasos: []
+              }, {
+                principal: 'Tenga en cuenta que algunos catálogos poseen vencimiento en sus pedidos, generalmente de 30 min. Si el vencimiento ocurre perderá el pedido y tendrá que rehacerlo.',
+                subpasos: []
+              }, {
+                principal: 'Luego de agregar los productos, en la parte superior derecha haga clic en "Confirmar" y proceda a completar los campos.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Qué es el monto mínimo?",
+            pasos: [
+              {
+                principal: 'Para que el pedido sea enviado a domicilio, es necesario alcanzar un monto mínimo de compra.',
+                subpasos: []
+              }, {
+                principal: 'Si el catálogo tiene entrega en local o ferias, solo le permitirá elegir pasar a retirar, caso contrario deberá alcanzar el monto mínimo para finalizar la compra.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Dónde puedo ver mis pedidos confirmados?",
+            pasos: [
+              {
+                principal: 'Desde el catálogo en la sección "mis pedidos" podra ver los pedidos realizados, asi como filtrarlos por estado, Confirmado, Preparado o Entregado.',
+                subpasos: []
+              }, {
+                principal: 'También podra ver un breve resumen del pedido y sus productos haciendo clic en la fila del pedido.',
+                subpasos: []
+              }, {
+                principal: 'Además si confirmo el pedido el sistema le enviará un email con el resumen de la compra y los detalles de la misma.',
+                subpasos: []
+              }, 
+            ]
+          }
+        ]
+      },{
+        // Groups
+        questions: [
+          {
+            titulo: "¿Qué es un grupo de compras colectivas?",
+            pasos: [
+              {
+                principal: 'Un grupo de compras colectivas está conformado por varias personas que se ponen de acuerdo para comprar conjuntamente a través de la comunidad de consumo solidarioChasqui.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Por qué hacer compras colectivas?",
+            pasos: [
+              {
+                principal: "Quienes participamos en un grupo de compras colectivas nos coordinamos para que sea más fácil hacer y recibir los pedidos. Haciendo compras colectivas, también reducimos los tiempos y costos de logística y contribuimos a la sustentabilidad de las iniciativas de la Economía Social y Solidaria.",
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Qué es el monto mínimo?",
+            pasos: [
+              {
+                principal: "Para que el pedido sea enviado a domicilio, es necesario alcanzar un monto mínimo de compra.",
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "Soy administrador de un grupo, ¿qué debo hacer?",
+            pasos: [
+              {
+                principal: 'La persona que crea el grupo es quien lo administra. Debe invitar al resto de integrantes del grupo, que tienen que aceptar la invitación siguiendo el enlace que les llega por correo. Luego, cada integrante carga su changuito del grupo y confirma su compra. Cuando nadie más del grupo quiere comprar, quien administra el grupo debe cerrar el pedido grupal (además de su pedido individual).',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo confirmo la compra colectiva?",
+            pasos: [
+              {
+                principal: 'Para confirmar la compra colectiva, la persona que administra el grupo debe entrar a Mis grupos, hacer clic sobre el grupo indicado y hacer clic en el botón "Confirmar el pedido grupal" situado debajo. Luego de responder algunas preguntas como el lugar y la fecha de entrega, el pedido queda confirmado. Cada integrante del grupo que realizó una compra recibirá un correo con el detalle de la compra colectiva.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo abro una compra colectiva?",
+            pasos: [
+              {
+                principal: 'Para comenzar una compra colectiva, es suficiente con que alguien que integra el grupo realice una compra en el changuito correspondiente al mismo.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo hago un pedido en el grupo?",
+            pasos: [
+              {
+                principal: 'Cargando tu compra en el changuito del grupo. Podés hacerlo eligiendo ese changuito en el catálogo o haciendo clic en "Comprar" en "Mis grupos".',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: '¿Qué significa que un grupo este "activo"?',
+            pasos: [
+              {
+                principal: 'Significa que alguien que integra el grupo ya realizó una compra.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo me uno a un grupo?",
+            pasos: [
+              {
+                principal: 'Para poder unirte a un grupo tenés que recibir una invitación de quien administra el mismo, hacer clic sobre el enlace que incluye el correo y aceptar la invitación.',
+                subpasos: []
+              }
+            ]
+          }, {
+            titulo: "¿Cómo agrego integrantes a un grupo?",
+            pasos: [
+              {
+                principal: 'Para agregar integrantes al grupo tenés que ser quien lo administra. ',
+                subpasos: []
+              },{
+                principal: 'Podés hacerlo al crear el grupo o después, entrando a "Mis grupos" y haciendo clic en "Integrantes" y luego en "Agregar integrantes".',
+                subpasos: []
+              },
+            ]
+          }, {
+            titulo: "No puedo confirmar el pedido del grupo, ¿Qué debo hacer?",
+            pasos: [
+              {
+                principal: 'El pedido colectivo no se puede confirmar si hay al menos 1 pedidos ABIERTO de algún integrande del grupo, deberan confirmar o cancelar sus respectivos pedidos para permitir confirmar el pedido colectivo.',
+                subpasos: []
+              }, {
+                principal: 'Si esta seguro de que esta condición se cumple, por favor intente refrescar la página y reintente confirmar el pedido, si el problema persiste, comuniquese con el vendedor para resolver el inconveniente.',
+                subpasos: []
+              }, 
+            ]
+          }, {
+            titulo: "¿Dónde puedo ver mis pedidos confirmados?",
+            pasos: [
+              {
+                principal: 'Desde el catálogo en la sección ""mis pedidos"" podra ver los pedidos realizados, asi como filtrarlos por estado, Confirmado, Preparado o Entregado.',
+                subpasos: []
+              }, {
+                principal: 'También podra ver un breve resumen del pedido y sus productos haciendo clic en la fila del pedido.',
+                subpasos: []
+              }, {
+                principal: 'Además si confirmo el pedido el sistema le enviará un email con el resumen de la compra y los detalles de la misma.',
+                subpasos: []
+              }, {
+                principal: 'Para distiguir a que grupo pertenece el pedido en la columna ""grupo del pedido"" podrá ver el nombre en el cual fue solicitado.',
+                subpasos: []
+              }, 
+            ]
+          }
+        ]
+      },{
+        //Nodos
+        questions: [
+          {
+            titulo: "",
+            pasos: [
+              
+            ]
+          }
+        ]
+      }
     ];
       
 
-    function showHelpsAnswer(groupIndex){
-      $scope.showHelp = $scope.showHelp.map(function(o,i){return i == groupIndex && !o});
+    function showHelpsAnswer(indexI,indexJ){
+      console.log(indexI,indexJ,$scope.showHelp);
+      $scope.showHelp[indexI] = $scope.showHelp[indexI].map(function(qs,j){
+        return j == indexJ && !$scope.showHelp[indexI][indexJ];
+      });
     }
     
 
 
     function init(){
-      $scope.showHelp = $scope.instrucciones.map(function(i){return false});
+      $scope.showHelp = $scope.questionsGroups.map(function(groups){
+        return groups.questions.map(function(){
+          return false;
+        })
+      });
+
+      console.log($scope.showHelp);
+
+      contextCatalogObserver.observe(function(){
+        contextPurchaseService.getSelectedCatalog().then(function(catalog){
+          $scope.catalog = catalog;
+          console.log(catalog);
+        })
+      });
     }
 
     init();

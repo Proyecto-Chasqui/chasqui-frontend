@@ -683,6 +683,52 @@ md-tabs md-ink-bar {
 
 }
 
+// Ayudas
+
+.ch-help-selection{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.ch-help-selection-item{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  margin-left: 15px;
+  margin-right: 15px;
+  max-width: 300px;
+}
+
+.ch-help-selection-item-content{
+  flex: 1;
+  background-color: $colorDos;
+  color: white;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.ch-help-selection-item-content-icon{
+  border-radius: 5px;
+  padding: 2px;
+  height: 30px;
+  width: 30px;
+  background-color: white;
+}
+
+.ch-help-selection-item-content-label{
+  font-size: 22px;
+  margin-left: 5px;
+}
+
 .ch-groups-help {
   display: flex;
   flex-direction: column;
@@ -1455,3 +1501,4 @@ md-tabs md-ink-bar {
 .ch-notification-info-text{
   align-self: flex-start; 
 }
+
