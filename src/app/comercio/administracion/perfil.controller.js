@@ -282,8 +282,16 @@
     ///////////////////////////////////////////
     /////////// Addresses functions ///////////
     ///////////////////////////////////////////
-
-
+    $rootScope.guardarDireccion = function(address) {
+        $log.debug("Guardar Domicilio , nuevo? ", address.isNew);
+        if (address.isNew) {
+            callNuevaDireccion(filterFields(address, ["isNew"]));
+        } else {
+            callUpdateDireccion(filterFields(address, ["isNew"]));
+        }
+        $scope.$emit('cambioANuevaDireccion');
+    }
+    
     $scope.save = function(address) {
         $log.debug("Guardar Domicilio , nuevo? ", address.isNew);
         if (address.isNew) {
