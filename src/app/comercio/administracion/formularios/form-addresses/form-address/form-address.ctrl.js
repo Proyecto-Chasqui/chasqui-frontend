@@ -6,7 +6,7 @@
 
   /*
    *  Formulario para direccion */
-  function FormAddressController($log, $scope, $mdDialog) {
+  function FormAddressController($log, $scope, $mdDialog, $rootScope) {
 
     $log.debug("FormAddressController", $scope.address);
 
@@ -18,7 +18,9 @@
     $scope.latitudValida = false;
     $scope.longitudValida = false;
 
-    
+    $rootScope.$on('guardarDireccion', function(event, args) {
+      $rootScope.guardarDireccion($scope.address);
+    });
     //Muestra un alert simple, puede cambiarse para levantar
     //mensaje mas complejo y amigable definiendo una pagina HTML.
     function showAlert(ev, mensaje) {

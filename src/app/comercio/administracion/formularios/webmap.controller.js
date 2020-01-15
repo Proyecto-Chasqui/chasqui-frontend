@@ -15,7 +15,7 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
     $rootScope.auto_localizar = "Marcar";
     $rootScope.global_marker;
     $rootScope.vmGlobal;
-    $rootScope.nameMarker;
+    $rootScope.nameMarker;    
     var posicionMapaPredeterminado = [-34.7739, -58.5520];
 
     var blueIcon = L.icon({
@@ -172,7 +172,7 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
     };
 
     $scope.formIsValidForSave = function() {
-      return formValidoParaGuardar();
+       return formValidoParaGuardar();
     };
 
     $scope.isSearching = function() {
@@ -240,6 +240,7 @@ angular.module('chasqui').controller('MapWebController', ['MapDraw','MapUI', 'Ma
     $scope.$on('posicionValida', function(event, args) {
        $log.debug(args);
        loadGlobalCoordinatesInProfile(args.lat, args.lng);
+       $rootScope.$emit('guardarDireccion', null );
     });
 
     $rootScope.$on('cambioANuevaDireccion', function(event, args) {
