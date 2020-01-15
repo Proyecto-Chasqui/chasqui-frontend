@@ -25,7 +25,7 @@
 
   <div class="ch-help-selection">
     <div class="ch-help-selection-item" ng-click="showHelpQuestions(0)">
-      <div class="ch-help-selection-item-content">
+      <div ng-class="0 == selectedQuestions? 'ch-help-selection-item-content ch-help-selection-item-content-selected' : 'ch-help-selection-item-content'">
         <img src="./assets/images/estrategias/compra_individual.svg" class="ch-help-selection-item-content-icon">
         <label class="ch-help-selection-item-content-label">
           Ayuda general
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div ng-if="catalog.few.compraIndividual" class="ch-help-selection-item" ng-click="showHelpQuestions(1)">
-      <div class="ch-help-selection-item-content">
+      <div ng-class="1 == selectedQuestions? 'ch-help-selection-item-content ch-help-selection-item-content-selected' : 'ch-help-selection-item-content'">
         <img src="./assets/images/estrategias/compra_individual.svg" class="ch-help-selection-item-content-icon">
         <label class="ch-help-selection-item-content-label">
           Compra individual
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div ng-if="catalog.few.gcc" class="ch-help-selection-item" ng-click="showHelpQuestions(2)">
-      <div class="ch-help-selection-item-content">
+      <div ng-class="2 == selectedQuestions? 'ch-help-selection-item-content ch-help-selection-item-content-selected' : 'ch-help-selection-item-content'">
         <img src="./assets/images/estrategias/compra_grupal.svg" class="ch-help-selection-item-content-icon">
         <label class="ch-help-selection-item-content-label">
           Compra grupal
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div ng-if="catalog.few.nodos" class="ch-help-selection-item" ng-click="showHelpQuestions(3)">
-      <div class="ch-help-selection-item-content">
+      <div ng-class="3 == selectedQuestions? 'ch-help-selection-item-content ch-help-selection-item-content-selected' : 'ch-help-selection-item-content'">
         <img src="./assets/images/estrategias/compra_nodos.svg" class="ch-help-selection-item-content-icon">
         <label class="ch-help-selection-item-content-label">
           Compra por nodos
@@ -60,8 +60,8 @@
 
 
   
-  <div class="ch-groups-help">
-    <div ng-repeat="(i,questionsGroup) in questionsGroups" ng-show="i == selectedQuestions">
+  <div class="ch-groups-help ch-help-questions">
+    <div ng-repeat="(i,questionsGroup) in questionsGroups" ng-show="i == selectedQuestions" ng-class="i == selectedQuestions? 'fade-in-left' : ''">
       <div ng-repeat="(j, pregunta) in questionsGroup.questions" class="ch-group-card ch-groups-help-question" ng-click="showHelpsAnswer(i,j)" style="cursor: pointer;">
         <div layout="row" layout-align="space-between center" class="ch-groups-help-question-title">
           <span>
@@ -74,7 +74,7 @@
             expand_less
           </i>
         </div>
-        <span ng-show="showHelp[i][j]" class="ch-groups-help-question-answer">
+        <span ng-show="showHelp[i][j]" class="ch-groups-help-question-answer" ng-class="showHelp[i][j]? 'extend-top' : ''">
           <div ng-repeat="paso in pregunta.pasos">
             <li>{{paso.principal}}</li>
             <ol type="a">
