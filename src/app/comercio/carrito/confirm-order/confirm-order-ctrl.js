@@ -5,7 +5,7 @@
 
 	/** @ngInject */
 	function ConfirmOrderCtrl($scope, contextPurchaseService, $log, sellerService, perfilService,
-                              actions, order, $mdDialog, $state, dialogCommons) {
+                              $stateParams, $mdDialog, $state) {
         
         $scope.catalog = null;
         $scope.currentNavItem = 0;
@@ -37,7 +37,7 @@
         
         function init(){
             $scope.sections["selectAddress"] = true;
-            $scope.order = order;
+            $scope.order = $stateParams.order;
         }
         
         ////////////////// Public ///////////////////
@@ -48,7 +48,7 @@
         }
         
         function cancelAction(){
-            actions.doNotOk();
+            $stateParams.actions.doNotOk();
             $mdDialog.hide();
         }
         
@@ -66,7 +66,7 @@
                     $scope.$broadcast('check-answers');
                 },
                 function(){
-                    actions.doOk($scope.selectedAddress, $scope.answers);
+                    $stateParams.actions.doOk($scope.selectedAddress, $scope.answers);
                     $mdDialog.hide();
                 }
             ][$scope.currentNavItem]();

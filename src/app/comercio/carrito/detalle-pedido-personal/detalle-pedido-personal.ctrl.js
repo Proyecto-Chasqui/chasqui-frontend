@@ -18,13 +18,18 @@
     ///////////////////////////////////////
         
     function confirmOrder() {  
-            var actions = {
-                doOk: doConfirmOrder,
-                doNotOk: ignoreAction
-            };
-            
-            dialogCommons.selectDeliveryAddress(actions, $scope.pedido);
-    };
+      var actions = {
+          doOk: doConfirmOrder,
+          doNotOk: ignoreAction
+      };
+      
+      // dialogCommons.selectDeliveryAddress(actions, $scope.pedido);
+
+      $state.go('catalog.confirmOrder', { 
+        actions: actions, 
+        order: $scope.pedido
+      });
+    }
         
     function doConfirmOrder(selectedAddress, answers) {
         $log.debug('callConfirmar', $scope.pedido);

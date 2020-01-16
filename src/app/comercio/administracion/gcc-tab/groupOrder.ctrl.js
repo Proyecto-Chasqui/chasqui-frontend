@@ -93,8 +93,13 @@
             type: agrupationTypeVAL.TYPE_GROUP
         }
 
-        dialogCommons.selectDeliveryAddress(actions, adHocOrder);
-    };
+        // dialogCommons.selectDeliveryAddress(actions, adHocOrder);
+
+        $state.go('catalog.confirmOrder', { 
+          actions: actions, 
+          order: adHocOrder
+        });
+    }
 
 
     function doConfirmOrder(selectedAddress, answers) {

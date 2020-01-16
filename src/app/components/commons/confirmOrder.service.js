@@ -4,7 +4,7 @@
 	angular.module('chasqui').service('confirmOrder', confirmOrder);
 
 	function confirmOrder(dialogCommons, gccService, contextOrdersService, $rootScope, toastr, contextAgrupationsService,
-                        $mdDialog, $log, productoService, us, contextPurchaseService, vendedorService, nodeService) {
+                        $mdDialog, $log, productoService, us, contextPurchaseService, vendedorService, nodeService, $state) {
     
     function confirmOrderImpl(order){
       console.log(order);
@@ -61,12 +61,17 @@
     }
 
     function showDialog(order){
-        var actions = {
-            doOk: doConfirmPersonalOrder(order),
-            doNotOk: ignoreAction
-        };
-            
-        dialogCommons.selectDeliveryAddress(actions, order);
+      var actions = {
+          doOk: doConfirmPersonalOrder(order),
+          doNotOk: ignoreAction
+      };
+          
+      // dialogCommons.selectDeliveryAddress(actions, order);
+      
+      $state.go('catalog.confirmOrder', { 
+        actions: actions, 
+        order: order
+      });
     }
     
     
