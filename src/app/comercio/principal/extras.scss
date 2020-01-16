@@ -731,7 +731,7 @@ md-tabs md-ink-bar {
 
 .ch-help-selection-item-content-label{
   font-size: 22px;
-  margin-left: 5px;
+  margin-left: 10px;
   cursor: pointer;
 }
 
@@ -754,6 +754,7 @@ md-tabs md-ink-bar {
   justify-content: center;
   align-items: stretch;
   padding: 10px;
+  padding-left: 15px;
 }
 
 .ch-groups-help-question-title {
@@ -764,6 +765,7 @@ md-tabs md-ink-bar {
 .ch-groups-help-question-answer {
   margin-top: 8px;
   font-size: 14px;
+  padding-bottom: 5px;
 }
 
 
