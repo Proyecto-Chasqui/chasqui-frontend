@@ -211,14 +211,26 @@
             .state('catalog.deliveryPoints', {
                 url: '/puntosDeEntrega',
                 templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',
-                controller: 'DeliveryPointsCtrl'
+                controller: 'DeliveryPointsCtrl',
+                auth: true
             })
             .state('catalog.notifications', {
                 url: '/notificaciones',
                 templateUrl: 'app/comercio/administracion/notificaciones.html',
                 controller: 'PerfilController',
-                controllerAs: 'perfilCtrl'
+                controllerAs: 'perfilCtrl',
+                auth: true
             })    
+            .state('catalog.confirmOrder', {
+                url: '/confirmacionDelPedido',
+                templateUrl: 'app/comercio/carrito/confirm-order/confirm-order.tmpl.html',
+                controller: 'ConfirmOrderCtrl',
+                params: { 
+                  actions: null, 
+                  order: null
+                },
+                auth: true
+            })
             .state('catalog.profile', {
                 url: '/perfil',
                 templateUrl: 'app/comercio/administracion/perfil.html',
