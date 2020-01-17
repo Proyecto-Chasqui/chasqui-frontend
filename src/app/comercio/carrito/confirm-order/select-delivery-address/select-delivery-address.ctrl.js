@@ -4,8 +4,8 @@
 	angular.module('chasqui').controller('SelectDeliveryAddressController', SelectDeliveryAddressController);
 
 	/** @ngInject */
-	function SelectDeliveryAddressController($scope, contextPurchaseService, $log, vendedorService, sellerService, 
-                                              perfilService, $mdDialog, $state, $sce) {
+	function SelectDeliveryAddressController($scope, $rootScope, contextPurchaseService, $log, vendedorService, sellerService, 
+                                              perfilService, contextCatalogObserver, $state, $sce) {
         
         
     $scope.addresses = [];
@@ -41,18 +41,21 @@
     /////////////////////////////////////
     
     function init(){
+      contextCatalogObserver.observe(function(){
         contextPurchaseService.getSelectedCatalog().then(function(selectedCatalog){
             $scope.zonesMap = $sce.trustAsResourceUrl(selectedCatalog.urlMapa);
             $log.debug($scope.zonesMap);
             callDirecciones(selectedCatalog);
             loadZones(selectedCatalog.id);
             initAdress();
+            console.log($scope.order);
         })
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
                 $scope.minPrice = response.data.montoMinimo;
             }
-        );
+        )
+      });
     }
 
     function initAdress(){
@@ -206,9 +209,14 @@
             riseErrors();
         }
     })
-            
     
-    init();
+    $rootScope.$on('order-loaded-suc', function(event, order){
+      console.log("order-loaded-suc 2", order);
+      $scope.order = order;
+      init();
+    });
+    
+    // init();
 	}
 
 })();

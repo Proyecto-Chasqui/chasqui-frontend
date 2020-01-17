@@ -1,64 +1,95 @@
-<md-dialog aria-label="options dialog" class="ch-confirm-order">
-    <modal-window-title-bar title="Confirmación de compra"></modal-window-title-bar>
-    <md-dialog-content layout-padding >
-        <md-content layout="column" layout-align="space-between" class="md-padding">
-            <div layout="column" layout-align="space-between">
-                <md-progress-linear md-mode="determinate" value="{{currentNavItem*33 + 34}}"></md-progress-linear>
-                <div style="margin-top: 20px;">
-                    <span ng-show="sections.selectAddress || sections.questions" style="font-style: italic;">Las opciones marcadas con <strong>*</strong> son obligatorias</span>
-                    <div>
-                        <div ng-show="sections.selectAddress">
-                            <select-delivery-address 
-                                order="order"
-                                show-go-profile="showGoProfileButton"
-                                ok-action="selectDeliveryAddressOkAction">
-                            </select-delivery-address>
-                        </div>
-                        <div ng-show="sections.questions">
-                            <answer-seller-questions
-                                order="order"
-                                ok-action="answerSellerQuestionsOkAction">
-                            </answer-seller-questions>
-                        </div>
-                        <div ng-show="sections.orderSumary">
-                            <order-summary 
-                                order="order"
-                                selected-address="selectedAddress">
-                            </order-summary>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </md-content>
-    </md-dialog-content>
-        
-    <md-dialog-actions layout="row" layout-align="space-between">
-        <div>
-            <md-button class="cancel-order" ng-click="cancelAction()">
-                <label translate="CANCELAR"></label>
-            </md-button>
+<div id="chasqui-princiodepagina2"></div>
+
+<div class="ch-confirm-order ch-content">
+  <div layout="column" layout-align="space-between">
+    <div class="ch-confirm-order-steps">
+      <div class="ch-confirm-order-steps-step">
+        <label class="ch-confirm-order-steps-step-label" 
+               ng-class="sections.orderSumary? 'ch-confirm-order-steps-step-label-selected' : ''">
+          CARRITO
+        </label>
+      </div>
+      <label class="ch-confirm-order-steps-step-label-divider">/</label>
+      <div class="ch-confirm-order-steps-step">
+        <label class="ch-confirm-order-steps-step-label"
+               ng-class="sections.selectAddress? 'ch-confirm-order-steps-step-label-selected' : ''">
+          ENVIO
+        </label>
+      </div>
+      <label class="ch-confirm-order-steps-step-label-divider">/</label>
+      <div class="ch-confirm-order-steps-step">
+        <label class="ch-confirm-order-steps-step-label"
+               ng-class="sections.questions? 'ch-confirm-order-steps-step-label-selected' : ''">
+          PREGUNTAS DE CONSUMO
+        </label>
+      </div>
+      <label class="ch-confirm-order-steps-step-label-divider">/</label>
+      <div class="ch-confirm-order-steps-step">
+        <label class="ch-confirm-order-steps-step-label" 
+               ng-class="sections.confirmation? 'ch-confirm-order-steps-step-label-selected' : ''">
+          CONFIRMACIÓN
+        </label>
+      </div>
+    </div>
+    <div style="margin-top: 20px;">
+      <span ng-show="sections.selectAddress || sections.questions" style="font-style: italic;">Las opciones marcadas con <strong>*</strong> son obligatorias</span>
+      <div>
+        <div ng-show="sections.orderSumary">
+          <order-summary 
+            order="order"
+            selected-address="selectedAddress">
+          </order-summary>
         </div>
-        <div layout="row" layout-align="center center">
-            <div ng-show="currentNavItem > 0">
-                <md-button class="back" ng-click="back()">
-                    <label translate="ANTERIOR"></label>
-                </md-button>
-            </div>
-            <div ng-show="currentNavItem < 2 && !showGoProfileButton">
-                <md-button class="next" ng-click="next()">
-                    <label translate="SIGUIENTE"></label>
-                </md-button>
-            </div>
-            <div ng-show="currentNavItem == 2">
-                <md-button class="confirm-order" ng-click="next()">
-                    <label translate="CONFIRMAR"></label>
-                </md-button>
-            </div>
-            <div ng-show="showGoProfileButton">
-                <md-button class="go-profile" ng-click="goProfile()">
-                    <label translate="IR_PERFIL"></label>
-                </md-button>
-            </div>
+        <div ng-show="sections.selectAddress">
+          <select-delivery-address 
+            order="order"
+            show-go-profile="showGoProfileButton"
+            ok-action="selectDeliveryAddressOkAction">
+          </select-delivery-address>
         </div>
-    </md-dialog-actions>
-</md-dialog>
+        <div ng-show="sections.questions">
+          <answer-seller-questions
+            order="order"
+            ok-action="answerSellerQuestionsOkAction">
+          </answer-seller-questions>
+        </div>
+        <div ng-show="sections.confirmation">
+          <confirmation
+            order="order"
+            selected-address="selectedAddress">
+          </confirmation>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <div layout="row" layout-align="space-between">
+    <div>
+      <md-button class="cancel-order" ng-click="cancelAction()">
+      <label translate="CANCELAR"></label>
+      </md-button>
+    </div>
+    <div layout="row" layout-align="center center">
+      <div ng-show="currentNavItem > 0">
+      <md-button class="back" ng-click="back()">
+          <label translate="ANTERIOR"></label>
+      </md-button>
+      </div>
+      <div ng-show="currentNavItem < 2 && !showGoProfileButton">
+      <md-button class="next" ng-click="next()">
+          <label translate="SIGUIENTE"></label>
+      </md-button>
+      </div>
+      <div ng-show="currentNavItem == 2">
+      <md-button class="confirm-order" ng-click="next()">
+          <label translate="CONFIRMAR"></label>
+      </md-button>
+      </div>
+      <div ng-show="showGoProfileButton">
+      <md-button class="go-profile" ng-click="goProfile()">
+          <label translate="IR_PERFIL"></label>
+      </md-button>
+      </div>
+    </div>
+  </div>
+  </div>

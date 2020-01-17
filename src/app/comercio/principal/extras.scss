@@ -1550,3 +1550,35 @@ md-tabs md-ink-bar {
     opacity: 100%;
   }
 }
+
+// Confirmacion de compra
+
+.ch-confirm-order-steps{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.ch-confirm-order-steps-step{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.ch-confirm-order-steps-step-label{
+  font-size: 28px;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.ch-confirm-order-steps-step-label-selected {
+  font-weight: 600;
+}
+
+.ch-confirm-order-steps-step-label-divider{
+  font-size: 28px;
+  font-style: italic;
+}

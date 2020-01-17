@@ -4,7 +4,7 @@
 	angular.module('chasqui').controller('AnswerSellerQuestionsController', AnswerSellerQuestionsController);
 
 	/** @ngInject */
-	function AnswerSellerQuestionsController($scope, $stateParams, sellerService, $log) {
+	function AnswerSellerQuestionsController($scope, $rootScope, $stateParams, sellerService, $log) {
         
         $scope.questions = [];
         
@@ -28,8 +28,15 @@
                 }
             }[$scope.order.type]();
         }
-        
-        init();
+
+
+        $rootScope.$on('order-loaded-suc', function(event, order){
+          console.log("order-loaded-suc 1", order);
+          $scope.order = order;
+          init();
+        });
+    
+        // init();
         
         /////////////////////////////////////
                

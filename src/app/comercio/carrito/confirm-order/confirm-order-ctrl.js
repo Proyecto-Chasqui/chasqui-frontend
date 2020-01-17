@@ -4,15 +4,16 @@
 	angular.module('chasqui').controller('ConfirmOrderCtrl', ConfirmOrderCtrl);
 
 	/** @ngInject */
-	function ConfirmOrderCtrl($scope, contextPurchaseService, $log, sellerService, perfilService,
-                              $stateParams, $mdDialog, $state) {
+	function ConfirmOrderCtrl($scope, $rootScope, contextPurchaseService, $log, sellerService, perfilService,
+                              $stateParams, $mdDialog, $state, contextCatalogObserver, contextOrdersService) {
         
         $scope.catalog = null;
         $scope.currentNavItem = 0;
         $scope.sections = {
-            selectAddress: false,
-            questions: false,
-            orderSumary: false
+          orderSumary: false,
+          selectAddress: false,
+          questions: false,
+          confirmation: false,
         }
         
         ////////////////// okActions /////////////////
@@ -36,8 +37,26 @@
         /////////////////////////////////////
         
         function init(){
-            $scope.sections["selectAddress"] = true;
-            $scope.order = $stateParams.order;
+            $scope.sections.orderSumary = true;
+            // develop
+
+            function doOk(order){
+              $scope.order = order;
+              console.log("inside", $scope.order);
+              $rootScope.$broadcast('order-loaded-suc', $scope.order);
+            }
+
+            if($stateParams.order){
+              doOk($stateParams.order);
+            } else {
+              contextCatalogObserver.observe(function(){
+                contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType())
+                .then(function(){
+                  contextPurchaseService.getSelectedOrder()
+                  .then(doOk);
+                })
+              });
+            }
         }
         
         ////////////////// Public ///////////////////
@@ -64,6 +83,10 @@
                 },
                 function(){
                     $scope.$broadcast('check-answers');
+                },
+                function(){
+                    $stateParams.actions.doOk($scope.selectedAddress, $scope.answers);
+                    $mdDialog.hide();
                 },
                 function(){
                     $stateParams.actions.doOk($scope.selectedAddress, $scope.answers);
