@@ -1,76 +1,89 @@
-<div layout="row" layout-align="space-between center">
-    <div flex="50">
-        <div>
-            <span ng-show="order.type == 'PERSONAL'">Productos del pedido: </span>
-            <span ng-show="order.type == 'GROUP'">Pago por integrante del grupo: </span>
-            <span ng-show="order.type == 'NODE'">Pago por integrante del nodo: </span>
-        </div>
-        <md-list class="fixedRows">
-            <md-list-item ng-show="order.type == 'PERSONAL'" ng-repeat="product in order.productosResponse">
-                <md-divider></md-divider>
-                <div layout="column" layout-align="space-between" style="width: 100%;">
-                    <span><strong>{{product.nombre}}</strong></span>
-                    <p layout="row" layout-align="end end">
-                      <label>
-                        {{product.cantidad}} x 
-                      </label>
-                      <chq-price-product precio="product.precio" tamanho="1"></chq-price-product>
-                      <label>
-                        {{" = "}}
-                      </label>
-                      <chq-price-product precio="product.cantidad * product.precio" tamanho="1.2"></chq-price-product>
-                    </p>
-                </div>
-                <md-divider ng-if="$last"></md-divider>
-            </md-list-item>
-            
-            <md-list-item ng-show="order.type == 'GROUP' || order.type == 'NODE'" ng-repeat="nombre in order.nombresDeMiembros" layout="column" layout-align="space-around">
-                <md-divider></md-divider>
-                <div layout="row" layout-align="space-between center">
-                    <div><strong>{{nombre}}</strong></div>
-                    <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
-                </div>
-                <md-divider ng-if="$last"></md-divider>
-            </md-list-item>
-          
-            <md-list-item layout="column" layout-align="space-around">
-                <md-divider></md-divider>
-                <div layout="row" layout-align="space-between">
-                  <strong><span style="font-size: 1.5rem">Total: </span></strong>
-                  <chq-price-product precio="order.montoActual" tamanho="1.5"></chq-price-product>
-                </div>
-            </md-list-item>
-            
-        </md-list>
+<div class="ch-confirm-order-summary ch-responsive-layout">
+  <div class="ch-confirm-order-summary-products">
+    <!--div>
+      <span ng-show="order.type == 'PERSONAL'">Productos del pedido: </span>
+      <span ng-show="order.type == 'GROUP'">Pago por integrante del grupo: </span>
+      <span ng-show="order.type == 'NODE'">Pago por integrante del nodo: </span>
     </div>
-    <div flex="50" layout="row" layout-align="space-between">
-        <div flex="10">
+-->
+    <div class="ch-confirm-order-summary-products-list">
+      <div class="ch-confirm-order-summary-products-list-column" style="min-width: 300px;">
+        <label class="ch-confirm-order-summary-products-list-column-label">
+          PRODUCTO
+        </label>
+        <div class="ch-confirm-order-summary-products-list-column-item" ng-repeat="product in order.productosResponse">
+          <div class="ch-confirm-order-summary-products-list-column-item-data">
+            <img ng-src="{{urlBase}}{{product.imagen}}" class="ch-confirm-order-summary-products-list-column-item-img">
+            <label class="ch-confirm-order-summary-products-list-column-item-label">
+              {{product.nombre}}
+            </label>
+          </div>
         </div>
-        <div flex="80">
-            <div ng-show="selectedAddress.type == 'address'" layout="column" layout-align="space-between">
-                <div>
-                    <span>
-                        Tu pedido te va a ser entregado en <strong>{{selectedAddress.selected.calle}} {{selectedAddress.selected.altura}}, {{selectedAddress.selected.localidad}}</strong>.
-                    </span>
-                </div>
-                <div>
-                    <span style="font-style: italic;">
-                        {{selectedAddress.zone.descripcion}}
-                    </span>
-                </div>
-            </div>
-
-            <div ng-show="selectedAddress.type == 'deliveryPoint'" layout="column" layout-align="space-between start">
-                <span>
-                    Vas a poder pasar a retirar el pedido por <strong>{{selectedAddress.selected.nombre}}</strong>, que se encuentra en 
-                    <strong>{{selectedAddress.selected.direccion.calle}} {{selectedAddress.selected.direccion.altura}}, {{selectedAddress.selected.direccion.localidad}}</strong>.
-                </span>
-                <span style="font-style: italic;">{{selectedAddress.selected.mensaje}}</span>
-            </div>
-
-            <discriminacion-incentivo node="order.node" is-admin="true"></discriminacion-incentivo>
+      </div>
+      <div class="ch-confirm-order-summary-products-list-column">
+        <label class="ch-confirm-order-summary-products-list-column-label" style="">
+          PRECIO
+        </label>
+        <div class="ch-confirm-order-summary-products-list-column-item" ng-repeat="product in order.productosResponse">
+          <div class="ch-confirm-order-summary-products-list-column-item-price">
+            <chq-price-product precio="product.precio" tamanho="1"></chq-price-product>
+          </div>
         </div>
-        <div flex="10">
+      </div>
+      <div class="ch-confirm-order-summary-products-list-column">
+        <label class="ch-confirm-order-summary-products-list-column-label" style="">
+          CANTIDAD
+        </label>
+        <div class="ch-confirm-order-summary-products-list-column-item" ng-repeat="product in order.productosResponse">
+          <div class="ch-confirm-order-summary-products-list-column-item-count">
+            {{product.cantidad}}
+          </div>
         </div>
+      </div>
+      <div class="ch-confirm-order-summary-products-list-column">
+        <label class="ch-confirm-order-summary-products-list-column-label" style="">
+          TOTAL
+        </label>
+        <div class="ch-confirm-order-summary-products-list-column-item" ng-repeat="product in order.productosResponse">
+          <div class="ch-confirm-order-summary-products-list-column-item-total">
+            <chq-price-product precio="product.cantidad * product.precio" tamanho="1"></chq-price-product>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="ch-confirm-order-summary-total">
+    <div class="ch-confirm-order-summary-total-header">
+      <label class="ch-confirm-order-summary-total-header-label">
+        TOTAL DEL CHANGUITO
+      </label>
+    </div>
+        
+    <md-list-item ng-show="order.type == 'GROUP' || order.type == 'NODE'" ng-repeat="nombre in order.nombresDeMiembros" layout="column" layout-align="space-around">
+        <md-divider></md-divider>
+        <div layout="row" layout-align="space-between center">
+            <div><strong>{{nombre}}</strong></div>
+            <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
+        </div>
+        <md-divider ng-if="$last"></md-divider>
+    </md-list-item>
+
+    <div class="ch-confirm-order-summary-total-absolut">
+      <div layout="row" layout-align="space-between">
+        <label class="ch-confirm-order-summary-total-absolut-label">Total </label>
+        <chq-price-product precio="order.montoActual" tamanho="1.5"></chq-price-product>
+      </div>
+    </div>
+
+    <div class="ch-confirm-order-summary-actions">
+      <md-button class="cancel-order" ng-click="cancel()">
+        <label translate="CANCELAR"></label>
+      </md-button>
+
+      <md-button class="next" ng-click="next()">
+          <label translate="SIGUIENTE"></label>
+      </md-button>
+    </div>
+
+  </div>
 </div>

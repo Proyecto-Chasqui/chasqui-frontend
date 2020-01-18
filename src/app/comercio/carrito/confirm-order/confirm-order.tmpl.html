@@ -6,7 +6,7 @@
       <div class="ch-confirm-order-steps-step">
         <label class="ch-confirm-order-steps-step-label" 
                ng-class="sections.orderSumary? 'ch-confirm-order-steps-step-label-selected' : ''">
-          CARRITO
+          CHANGUITO
         </label>
       </div>
       <label class="ch-confirm-order-steps-step-label-divider">/</label>
@@ -35,9 +35,10 @@
       <span ng-show="sections.selectAddress || sections.questions" style="font-style: italic;">Las opciones marcadas con <strong>*</strong> son obligatorias</span>
       <div>
         <div ng-show="sections.orderSumary">
-          <order-summary 
+          <order-summary  
             order="order"
-            selected-address="selectedAddress">
+            next="actions.orderSumary.next"
+            cancel="actions.orderSumary.cancel">
           </order-summary>
         </div>
         <div ng-show="sections.selectAddress">

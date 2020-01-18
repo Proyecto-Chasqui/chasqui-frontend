@@ -7,9 +7,10 @@
     
         return {
             restrict: 'E',
-            scope: {
+            scope: { 
                 order: "=",
-                selectedAddress: "="
+                next: "=",
+                cancel: "="
             },
             controller: 'OrderSummaryController',
             templateUrl: 'app/comercio/carrito/confirm-order/order-summary/order-summary.tmpl.html'

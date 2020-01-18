@@ -15,6 +15,17 @@
           questions: false,
           confirmation: false,
         }
+
+        $scope.actions = {
+          orderSumary: {
+            next: function(){
+              console.log("next");
+            },
+            cancel: function(){
+              console.log("cancel");
+            }
+          }
+        }
         
         ////////////////// okActions /////////////////
         

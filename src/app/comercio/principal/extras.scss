@@ -1572,6 +1572,7 @@ md-tabs md-ink-bar {
   font-size: 28px;
   font-style: italic;
   cursor: pointer;
+  font-weight: 250;
 }
 
 .ch-confirm-order-steps-step-label-selected {
@@ -1581,4 +1582,151 @@ md-tabs md-ink-bar {
 .ch-confirm-order-steps-step-label-divider{
   font-size: 28px;
   font-style: italic;
+}
+
+.ch-confirm-order-summary{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ch-confirm-order-summary-products{
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding-right: 20px;
+  border-color: rgba(121, 121, 121, 0.3);
+  border-width: 0px 2px 0px 0px;
+  border-style: solid;
+}
+
+.ch-confirm-order-summary-products-list{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.ch-confirm-order-summary-products-list-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.ch-confirm-order-summary-products-list-column-label{
+  font-size: 20px;
+  padding-bottom: 10px;
+  border-color: rgba(121, 121, 121, 0.3);
+  border-width: 0px 0px 2px 0px;
+  border-style: solid;
+  padding-right: 15px;
+}
+
+.ch-confirm-order-summary-products-list-column-item{
+  height: 60px;
+  border-color: rgba(121, 121, 121, 0.3);
+  border-width: 0px 0px 2px 0px;
+  border-style: solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ch-confirm-order-summary-products-list-column-item-data{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ch-confirm-order-summary-products-list-column-item-img{
+  height: 40px;
+  margin-right: 10px;
+}
+
+.ch-confirm-order-summary-products-list-column-item-label{
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+.ch-confirm-order-summary-products-list-column-item-price{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.ch-confirm-order-summary-products-list-column-item-count{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.ch-confirm-order-summary-products-list-column-item-total{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.ch-confirm-order-summary-total{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-left: 20px;
+}
+
+.ch-confirm-order-summary-total-header{
+  flex: 1;
+  font-size: 20px;
+  padding-bottom: 10px;
+  border-color: rgba(121, 121, 121, 0.3);
+  border-width: 0px 0px 2px 0px;
+  border-style: solid;  
+}
+
+.ch-confirm-order-summary-total-header-label{
+  font-size: 18px;
+}
+
+.ch-confirm-order-summary-total-absolut{
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  border-color: rgba(121, 121, 121, 0.3);
+  border-width: 0px 0px 2px 0px;
+  border-style: solid;  
+  font-size: 18px;
+}
+
+.ch-confirm-order-summary-total-absolut-label{
+  font-size: 18px;
+}
+
+.ch-confirm-order-summary-actions{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ch-confirm-order-summary-actions md-button{
+  flex: 1;
 }
