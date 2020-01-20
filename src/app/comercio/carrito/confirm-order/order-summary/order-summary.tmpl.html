@@ -1,58 +1,59 @@
-<div class="ch-confirm-order-summary ch-responsive-layout">
-  <div class="ch-confirm-order-summary-products">
+<div class="ch-confirm-order-container ch-responsive-layout">
+  <div class="ch-confirm-order-left-panel">
     <!--div>
       <span ng-show="order.type == 'PERSONAL'">Productos del pedido: </span>
       <span ng-show="order.type == 'GROUP'">Pago por integrante del grupo: </span>
       <span ng-show="order.type == 'NODE'">Pago por integrante del nodo: </span>
     </div>
 -->
-    <div class="ch-confirm-order-summary-products-list">
-      <div class="ch-confirm-order-summary-products-list-column" style="min-width: 300px;">
-        <label class="ch-confirm-order-summary-products-list-column-label">
+    <div class="ch-confirm-order-left-panel-list">
+      <div class="ch-confirm-order-left-panel-list-column" style="min-width: 300px;">
+        <label class="ch-confirm-order-left-panel-list-column-label">
           PRODUCTO
         </label>
-        <div class="ch-confirm-order-summary-products-list-column-item" ng-repeat="product in order.productosResponse">
-          <div class="ch-confirm-order-summary-products-list-column-item-data">
-            <img ng-src="{{urlBase}}{{product.imagen}}" class="ch-confirm-order-summary-products-list-column-item-img">
-            <label class="ch-confirm-order-summary-products-list-column-item-label">
+        <div class="ch-confirm-order-left-panel-list-column-item" ng-repeat="product in order.productosResponse">
+          <div class="ch-confirm-order-left-panel-list-column-item-data">
+            <img ng-src="{{urlBase}}{{product.imagen}}" class="ch-confirm-order-left-panel-list-column-item-img">
+            <label class="ch-confirm-order-left-panel-list-column-item-label">
               {{product.nombre}}
             </label>
           </div>
         </div>
       </div>
-      <div class="ch-confirm-order-summary-products-list-column">
-        <label class="ch-confirm-order-summary-products-list-column-label" style="">
+      <div class="ch-confirm-order-left-panel-list-column">
+        <label class="ch-confirm-order-left-panel-list-column-label" style="">
           PRECIO
         </label>
-        <div class="ch-confirm-order-summary-products-list-column-item" ng-repeat="product in order.productosResponse">
-          <div class="ch-confirm-order-summary-products-list-column-item-price">
+        <div class="ch-confirm-order-left-panel-list-column-item" ng-repeat="product in order.productosResponse">
+          <div class="ch-confirm-order-left-panel-list-column-item-price">
             <chq-price-product precio="product.precio" tamanho="1"></chq-price-product>
           </div>
         </div>
       </div>
-      <div class="ch-confirm-order-summary-products-list-column">
-        <label class="ch-confirm-order-summary-products-list-column-label" style="">
+      <div class="ch-confirm-order-left-panel-list-column">
+        <label class="ch-confirm-order-left-panel-list-column-label" style="">
           CANTIDAD
         </label>
-        <div class="ch-confirm-order-summary-products-list-column-item" ng-repeat="product in order.productosResponse">
-          <div class="ch-confirm-order-summary-products-list-column-item-count">
+        <div class="ch-confirm-order-left-panel-list-column-item" ng-repeat="product in order.productosResponse">
+          <div class="ch-confirm-order-left-panel-list-column-item-count">
             {{product.cantidad}}
           </div>
         </div>
       </div>
-      <div class="ch-confirm-order-summary-products-list-column">
-        <label class="ch-confirm-order-summary-products-list-column-label" style="">
+      <div class="ch-confirm-order-left-panel-list-column">
+        <label class="ch-confirm-order-left-panel-list-column-label" style="">
           TOTAL
         </label>
-        <div class="ch-confirm-order-summary-products-list-column-item" ng-repeat="product in order.productosResponse">
-          <div class="ch-confirm-order-summary-products-list-column-item-total">
+        <div class="ch-confirm-order-left-panel-list-column-item" ng-repeat="product in order.productosResponse">
+          <div class="ch-confirm-order-left-panel-list-column-item-total">
             <chq-price-product precio="product.cantidad * product.precio" tamanho="1"></chq-price-product>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="ch-confirm-order-summary-total">
+
+  <div class="ch-confirm-order-right-panel">
     <div class="ch-confirm-order-summary-total-header">
       <label class="ch-confirm-order-summary-total-header-label">
         TOTAL DEL CHANGUITO
@@ -75,7 +76,7 @@
       </div>
     </div>
 
-    <div class="ch-confirm-order-summary-actions">
+    <div class="ch-confirm-order-actions">
       <md-button class="cancel-order" ng-click="cancel()">
         <label translate="CANCELAR"></label>
       </md-button>

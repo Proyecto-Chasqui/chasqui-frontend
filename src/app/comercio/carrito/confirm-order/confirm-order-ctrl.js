@@ -19,12 +19,20 @@
         $scope.actions = {
           orderSumary: {
             next: function(){
-              console.log("next");
+              show('selectAddress');
             },
             cancel: function(){
               console.log("cancel");
             }
-          }
+          },
+          selectAddress: {
+            next: function(){
+              show('questions');
+            },
+            cancel: function(){
+              show('orderSumary');
+            }
+          },
         }
         
         ////////////////// okActions /////////////////
@@ -48,7 +56,7 @@
         /////////////////////////////////////
         
         function init(){
-            $scope.sections.orderSumary = true;
+            $scope.sections.selectAddress = true;
             // develop
 
             function doOk(order){
@@ -97,11 +105,9 @@
                 },
                 function(){
                     $stateParams.actions.doOk($scope.selectedAddress, $scope.answers);
-                    $mdDialog.hide();
                 },
                 function(){
                     $stateParams.actions.doOk($scope.selectedAddress, $scope.answers);
-                    $mdDialog.hide();
                 }
             ][$scope.currentNavItem]();
         }
@@ -119,7 +125,7 @@
 
       function doNoOk(response){
         $scope.addressZone = {
-          descripcion: "La dirección del domicilio no está asociada con ninguna zona de entrega del vendedor. Por favor comuniquese con el adminsitrador del catálogo para confirmar los detalles de la compra."
+          descripcion: "La dirección del domicilio no está asociada con ninguna zona de entrega del vendedor. Por favor comuniquese con el administrador del catálogo para confirmar los detalles de la compra."
         }
       }
 

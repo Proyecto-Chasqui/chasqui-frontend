@@ -43,6 +43,9 @@ $colorBlanco: #FFFFFF;
 
   .ch-responsive-layout {
     flex-direction: column !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
   }
 }
 
@@ -1558,6 +1561,7 @@ md-tabs md-ink-bar {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .ch-confirm-order-steps-step{
@@ -1584,26 +1588,66 @@ md-tabs md-ink-bar {
   font-style: italic;
 }
 
-.ch-confirm-order-summary{
+.ch-confirm-order-mandatory-label{
+  flex: 1;
+  font-size: 20px;
+}
+
+.ch-confirm-order-underline{
+  padding-bottom: 10px;
+  border-color: rgba(121, 121, 121, 0.3);
+  border-width: 0px 0px 2px 0px;
+  border-style: solid;
+  font-style: italic;
+}
+
+// comunes a todas las pantallas de confirmacion
+
+.ch-confirm-order-container{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
 }
 
-.ch-confirm-order-summary-products{
+.ch-confirm-order-left-panel{
   flex: 5;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-end;
+  align-items: stretch;
   padding-right: 20px;
-  border-color: rgba(121, 121, 121, 0.3);
+  border-color: rgba(121, 121, 121, 1);
   border-width: 0px 2px 0px 0px;
   border-style: solid;
 }
 
-.ch-confirm-order-summary-products-list{
+.ch-confirm-order-right-panel{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-left: 20px;
+  margin: -2px;
+  border-color: rgba(121, 121, 121, 1);
+  border-width: 0px 0px 0px 2px;
+  border-style: solid;
+}
+
+
+.ch-confirm-order-actions{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+// ch-confirm-order-summary
+
+.ch-confirm-order-left-panel-list{
   flex: 1;
   display: flex;
   flex-direction: row;
@@ -1611,14 +1655,15 @@ md-tabs md-ink-bar {
   align-items: stretch;
 }
 
-.ch-confirm-order-summary-products-list-column{
+.ch-confirm-order-left-panel-list-column{
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
 }
 
-.ch-confirm-order-summary-products-list-column-label{
+.ch-confirm-order-left-panel-list-column-label{
   font-size: 20px;
   padding-bottom: 10px;
   border-color: rgba(121, 121, 121, 0.3);
@@ -1627,7 +1672,7 @@ md-tabs md-ink-bar {
   padding-right: 15px;
 }
 
-.ch-confirm-order-summary-products-list-column-item{
+.ch-confirm-order-left-panel-list-column-item{
   height: 60px;
   border-color: rgba(121, 121, 121, 0.3);
   border-width: 0px 0px 2px 0px;
@@ -1640,24 +1685,24 @@ md-tabs md-ink-bar {
   padding-bottom: 10px;
 }
 
-.ch-confirm-order-summary-products-list-column-item-data{
+.ch-confirm-order-left-panel-list-column-item-data{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
 }
 
-.ch-confirm-order-summary-products-list-column-item-img{
+.ch-confirm-order-left-panel-list-column-item-img{
   height: 40px;
   margin-right: 10px;
 }
 
-.ch-confirm-order-summary-products-list-column-item-label{
+.ch-confirm-order-left-panel-list-column-item-label{
   font-size: 18px;
   margin-right: 15px;
 }
 
-.ch-confirm-order-summary-products-list-column-item-price{
+.ch-confirm-order-left-panel-list-column-item-price{
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1665,7 +1710,7 @@ md-tabs md-ink-bar {
   align-items: stretch;
 }
 
-.ch-confirm-order-summary-products-list-column-item-count{
+.ch-confirm-order-left-panel-list-column-item-count{
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1673,7 +1718,7 @@ md-tabs md-ink-bar {
   align-items: stretch;
 }
 
-.ch-confirm-order-summary-products-list-column-item-total{
+.ch-confirm-order-left-panel-list-column-item-total{
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1681,13 +1726,37 @@ md-tabs md-ink-bar {
   align-items: stretch;
 }
 
+.ch-confirm-order-left-panel-list-row{
+  flex: 1;
+  border-color: rgba(121, 121, 121, 0.3);
+  border-width: 0px 0px 2px 0px;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ch-confirm-order-left-panel-list-row-explanation{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+.ch-confirm-order-left-panel-list-row-input{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
 .ch-confirm-order-summary-total{
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  padding-left: 20px;
 }
 
 .ch-confirm-order-summary-total-header{
@@ -1719,14 +1788,15 @@ md-tabs md-ink-bar {
   font-size: 18px;
 }
 
-.ch-confirm-order-summary-actions{
+.ch-confirm-order-right-panel-map{
   flex: 1;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 440px;
+  height: 300px;
 }
 
-.ch-confirm-order-summary-actions md-button{
-  flex: 1;
+.ch-confirm-order-right-panel-map-iframe{
 }

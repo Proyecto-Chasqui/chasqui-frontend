@@ -31,40 +31,43 @@
         </label>
       </div>
     </div>
-    <div style="margin-top: 20px;">
-      <span ng-show="sections.selectAddress || sections.questions" style="font-style: italic;">Las opciones marcadas con <strong>*</strong> son obligatorias</span>
-      <div>
-        <div ng-show="sections.orderSumary">
-          <order-summary  
-            order="order"
-            next="actions.orderSumary.next"
-            cancel="actions.orderSumary.cancel">
-          </order-summary>
-        </div>
-        <div ng-show="sections.selectAddress">
-          <select-delivery-address 
-            order="order"
-            show-go-profile="showGoProfileButton"
-            ok-action="selectDeliveryAddressOkAction">
-          </select-delivery-address>
-        </div>
-        <div ng-show="sections.questions">
-          <answer-seller-questions
-            order="order"
-            ok-action="answerSellerQuestionsOkAction">
-          </answer-seller-questions>
-        </div>
-        <div ng-show="sections.confirmation">
-          <confirmation
-            order="order"
-            selected-address="selectedAddress">
-          </confirmation>
-        </div>
+    <div>
+      <div ng-show="sections.orderSumary">
+        <order-summary  
+          order="order"
+          next="actions.orderSumary.next"
+          cancel="actions.orderSumary.cancel"
+          ng-class="sections.orderSumary? 'extend-top' : ''"
+        />
+      </div>
+      <div ng-show="sections.selectAddress">
+        <select-delivery-address 
+          order="order"
+          show-go-profile="showGoProfileButton"
+          ok-action="selectDeliveryAddressOkAction"
+          next="actions.selectAddress.next"
+          cancel="actions.selectAddress.cancel"
+          ng-class="sections.selectAddress? 'extend-top' : ''"
+        />
+      </div>
+      <div ng-show="sections.questions">
+        <answer-seller-questions
+          order="order"
+          ok-action="answerSellerQuestionsOkAction"
+          ng-class="sections.questions? 'extend-top' : ''"
+        />
+      </div>
+      <div ng-show="sections.confirmation">
+        <confirmation
+          order="order"
+          selected-address="selectedAddress"
+          ng-class="sections.confirmation? 'extend-top' : ''"
+        />
       </div>
     </div>
   </div>
     
-  <div layout="row" layout-align="space-between">
+  <!--div layout="row" layout-align="space-between">
     <div>
       <md-button class="cancel-order" ng-click="cancelAction()">
       <label translate="CANCELAR"></label>
@@ -93,4 +96,5 @@
       </div>
     </div>
   </div>
-  </div>
+  -->
+</div>
