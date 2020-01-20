@@ -1,91 +1,103 @@
-    <md-card>
-    <md-card-contents class="ch-warn-card-content" >
+<md-card>
+  <md-card-contents class="ch-warn-card-content" >
     <div ng-show="showMinPriceWarn">
-        <span class="ch-warn">{{advertencia}}</span>
+      <span class="ch-warn">{{advertencia}}</span>
     </div>
-     </md-card-contents>
-    </md-card>
+  </md-card-contents>
+</md-card>
 
-<div layout="row" layout-align="space-between center">
-    <div ng-show="mostrarSeleccionMultiple" flex="50" layout="column">
-        <span>Selecciona un modo de entrega: <strong>*</strong></span>
-        <span class="ch-error" ng-show="validated && !modeDefined">Se debe elegir un modo de entrega</span>
-    </div>
-    <md-select flex="50" ng-show="mostrarSeleccionMultiple" placeholder="Modo de entrega" ng-model="entregaSelected" style="min-width: 30vw;">
-        <md-option ng-value="delivery" ng-repeat="delivery in deliveryTypes" ng-click="setDeliveryType(delivery)">{{delivery.label}}</md-option>
-    </md-select>
-</div>
+<div class="ch-confirm-order-container ch-responsive-layout">
+  <div class="ch-confirm-order-left-panel">
 
-<element-wrapper supported-strategies="seleccionDeDireccionDelUsuario">
-    <div ng-show="deliveryTypes[0].show">
-        <div ng-show="addresses.length == 0">	
-            <div translate=PEDIR_DOMICILIO></div>
+    <span class="ch-confirm-order-mandatory-label ch-confirm-order-underline">
+      Las opciones marcadas con <strong>*</strong> son obligatorias
+    </span>
+
+    <div class="ch-confirm-order-left-panel-list">
+      <div class="ch-confirm-order-left-panel-list-column">
+
+        <div class="ch-confirm-order-left-panel-list-row" ng-show="mostrarSeleccionMultiple">
+          <div class="ch-confirm-order-left-panel-list-row-explanation">
+            <span class="ch-confirm-order-mandatory-label">Selecciona un modo de entrega: <strong>*</strong></span>
+            <span class="ch-error" ng-show="validated && !modeDefined">Se debe elegir un modo de entrega</span>
+          </div>
+          <div class="ch-confirm-order-left-panel-list-row-input">
+            <md-select placeholder="Modo de entrega" ng-model="entregaSelected">
+              <md-option ng-value="delivery" ng-repeat="delivery in deliveryTypes" ng-click="setDeliveryType(delivery)">{{delivery.label}}</md-option>
+            </md-select>
+          </div>
         </div>
-        <div ng-show="addresses.length > 0" layout="column" style="min-width: 50vw;">
-            <div layout="row" layout-align="space-between space-between">
-                <div flex="50" layout="column">
-                    <span>Domicilio de envio: <strong>*</strong></span>
-                    <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un domicilio</span>
-                </div>
-                <div class="ch-select-address">
-                  <md-input-container class="ch-select-address-item">
-                      <label>Domicilio seleccionado</label>
-                      <md-select name="selectedAddress" ng-model="address.selected">
-                          <md-option ng-repeat="address in addresses" ng-value="address" ng-click="getAddressZone(address)">
-                            {{address.alias}}
-                          </md-option>
-                      </md-select>
-                  </md-input-container>
 
-                  <div class="ch-select-address-item" ng-show="addressZone.nombre">
-                    <span><strong>Zona de entrega:</strong> {{addressZone.nombre}}</span>
-                  </div>
-
-                  <div class="ch-select-address-item" ng-show="addressZone.fechaCierrePedidos">
-                    <span><strong>Cierre de pedidos:</strong> {{addressZone.fechaCierrePedidos}}</span>
-                  </div>
-
-                  <div class="ch-select-address-item">
-                    <span style="font-style: italic;">{{addressZone.descripcion}}</span>
-                  </div>
-                </div>
-            </div>
-          
-            <div layout="row" layout-align="space-between start">
-              <div layout="column" layout-align="space-around start" flex="50">
-                  <span>Particularidades del domicilio:</span>
-                  <span style="font-style: italic;">Por ejemplo, el timbre no funciona o llame al celular para atenderlo</span>
+        <element-wrapper supported-strategies="seleccionDeDireccionDelUsuario">
+          <div class="ch-confirm-order-left-panel-list-row" ng-show="deliveryTypes[0].show" flex="1">
+            <div class="ch-confirm-order-left-panel-list-row-explanation">
+              <div ng-show="addresses.length == 0">	
+                <div translate=PEDIR_DOMICILIO></div>
               </div>
-              <md-input-container flex="50">
-                  <label>Particularidades</label>
-                  <textarea ng-model="address.particularities"></textarea>
+              <div ng-show="addresses.length > 0" layout="column">
+                <div>
+                  <span class="ch-confirm-order-mandatory-label">Domicilio de envio: <strong>*</strong></span>
+                  <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un domicilio</span>
+                </div>
+              </div>
+            </div>
+            <div class="ch-confirm-order-left-panel-list-row-input">
+              <md-input-container class="ch-select-address-item">
+                <label>Domicilio seleccionado</label>
+                <md-select name="selectedAddress" ng-model="address.selected">
+                  <md-option ng-repeat="address in addresses" ng-value="address" ng-click="getAddressZone(address)">
+                    {{address.alias}}
+                  </md-option>
+                </md-select>
+              </md-input-container>
+
+              <div class="ch-select-address-item" ng-show="addressZone.nombre">
+                <span><strong>Zona de entrega:</strong> {{addressZone.nombre}}</span>
+              </div>
+
+              <div class="ch-select-address-item" ng-show="addressZone.fechaCierrePedidos">
+                <span><strong>Cierre de pedidos:</strong> {{addressZone.fechaCierrePedidos}}</span>
+              </div>
+
+              <div class="ch-select-address-item">
+                <span style="font-style: italic;">{{addressZone.descripcion}}</span>
+              </div>
+            </div>
+          </div>
+        </element-wrapper>
+
+        <element-wrapper supported-strategies="seleccionDeDireccionDelUsuario">
+          <div class="ch-confirm-order-left-panel-list-row" ng-show="deliveryTypes[0].show && addresses.length > 0">
+            <div class="ch-confirm-order-left-panel-list-row-explanation">
+              <span class="ch-confirm-order-mandatory-label">Particularidades del domicilio:</span>
+              <span style="font-style: italic;">Por ejemplo, el timbre no funciona o llame al celular para atenderlo</span>
+            </div>
+            <div class="ch-confirm-order-left-panel-list-row-input">
+              <md-input-container>
+                <label>Particularidades</label>
+                <textarea ng-model="address.particularities"></textarea>
               </md-input-container>
             </div>
-        </div>
-    </div>
-</element-wrapper>
+          </div>
+        </element-wrapper>
 
-<element-wrapper supported-strategies="puntoDeEntrega">
-    <div ng-show="deliveryTypes[1].show">
-        <div ng-show="deliveryPoints.length == 0">
-            No hay puntos de entrega disponibles, debe elegir un domicilio propio para la entrega.
-        </div>
-        <div ng-show="deliveryPoints.length > 0" layout="row" layout-align="space-between start">
-            <div flex="50" layout="column">
-                <span>Selecciona un punto de entrega: <strong>*</strong></span>
-                <span class="ch-error" ng-show="validated && !deliveryPointDefined">Se debe seleccionar un punto de entrega</span>
-            </div>
-            <div flex="50">
-                <md-radio-group name="selectedDeliveryPoint" ng-model="address.selected" layout="column" layout-align="center start">
-                    <md-radio-button ng-repeat="deliveryPoint in deliveryPoints" ng-value="deliveryPoint">
-                        <div layout="column" layout-align="end start">
-                            <span><strong>{{deliveryPoint.nombre}}</strong></span>
-                            <span>{{deliveryPoint.direccion.calle}} {{deliveryPoint.direccion.altura}}, {{deliveryPoint.direccion.localidad}}</span>
-                            <span style="font-style: italic;">{{deliveryPoint.mensaje}}</span>
-                        </div>
-                    </md-radio-button>
-                </md-radio-group>
-            </div>
-        </div>
+      </div>
     </div>
-</element-wrapper>
+  </div>
+  <div class="ch-confirm-order-right-panel">
+
+    <div class="ch-confirm-order-right-panel-map">
+      <iframe ng-src="{{zonesMap}}" class="ch-confirm-order-right-panel-map-iframe"  width="440" height="300"></iframe>
+    </div>
+
+    <div class="ch-confirm-order-actions">
+      <md-button class="cancel-order" ng-click="cancel()">
+        <label translate="CANCELAR"></label>
+      </md-button>
+
+      <md-button class="next" ng-click="next()">
+          <label translate="SIGUIENTE"></label>
+      </md-button>
+    </div>
+  </div>
+</div>

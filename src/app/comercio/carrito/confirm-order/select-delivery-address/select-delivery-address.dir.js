@@ -10,7 +10,9 @@
             scope: {
                 order: "=",
                 showGoProfile: "=",
-                okAction: '='
+                okAction: '=',
+                next: "=",
+                cancel: "="
             },
             controller: 'SelectDeliveryAddressController',
             templateUrl: 'app/comercio/carrito/confirm-order/select-delivery-address/select-delivery-address.tmpl.html'
