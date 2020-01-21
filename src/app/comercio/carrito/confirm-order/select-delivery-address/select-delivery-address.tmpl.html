@@ -86,8 +86,31 @@
   </div>
   <div class="ch-confirm-order-right-panel">
 
-    <div class="ch-confirm-order-right-panel-map">
-      <iframe ng-src="{{zonesMap}}" class="ch-confirm-order-right-panel-map-iframe"  width="440" height="300"></iframe>
+    <div class="ch-confirm-order-right-panel-map" ng-controller="MapWebZonaPRController">
+      <leaflet id="mapaZonasPR" class="ch-confirm-order-right-panel-map-iframe" width="440" height="380"></leaflet>
+      <div style="z-index: 10000;">
+        <md-sidenav style=" height:575px; margin-top: 8.5em;" class="md-sidenav-right" md-component-id="right" md-disable-backdrop md-whiteframe="4">
+          <md-toolbar style="background-color: grey;">
+            <div class="md-toolbar-tools">{{nombre}}</div>
+          </md-toolbar>
+          <md-content layout-margin >
+
+            <!-- Area para la ayuda de las acciones Automaticas -->
+            <p >                       
+                <div align="left"><md-icon md-font-set="material-icons"> label_important </md-icon> Nombre: {{nombre}} </div>
+                <div ><md-icon md-font-set="material-icons"> description </md-icon> Descripción: {{descripcion}}</div>
+                <div ng-show="mostrarDia"><md-icon  md-font-set="material-icons"> calendar_today </md-icon> Fecha Cierre: {{day}}</div>
+                <div ng-show="mostrarDireccionPR"><md-icon  md-font-set="material-icons"> home </md-icon> Dirección: {{direccion}}</div>
+            </p>
+          
+          </md-content>
+          <div align="center">
+            <md-button ng-click="toggleClose()" class="md-raised">
+              Cerrar
+            </md-button>
+          </div>
+        </md-sidenav>
+      </div>
     </div>
 
     <div class="ch-confirm-order-actions">

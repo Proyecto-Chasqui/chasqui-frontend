@@ -1,3 +1,33 @@
+
+<div class="ch-confirm-order-container ch-responsive-layout">
+  <div class="ch-confirm-order-left-panel">
+
+    <span class="ch-confirm-order-mandatory-label ch-confirm-order-underline">
+      Las opciones marcadas con <strong>*</strong> son obligatorias
+    </span>
+
+    <div class="ch-confirm-order-left-panel-list">
+      <div class="ch-confirm-order-left-panel-list-column">
+      </div>
+    </div>
+  </div>
+  <div class="ch-confirm-order-right-panel">
+    <div class="ch-confirm-order-actions">
+
+      <md-button class="cancel-order" ng-click="cancel()">
+        <label translate="CANCELAR"></label>
+      </md-button>
+
+      <md-button class="next" ng-click="next()">
+          <label translate="SIGUIENTE"></label>
+      </md-button>
+      
+    </div>
+  </div>
+</div>
+
+
+
 <form name="inputAddress">
   <div ng-repeat="question in questions" ng-show="question.habilitada">
     <div layout="row" layout-align="space-between center">
