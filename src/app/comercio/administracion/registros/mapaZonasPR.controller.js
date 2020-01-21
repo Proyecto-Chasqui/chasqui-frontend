@@ -1,13 +1,12 @@
 angular.module('chasqui').controller('MapWebZonaPRController', MapWebZonaPRController);
 
 function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST, MapGeoJsonDecode, $scope, 
-  $rootScope, $log, $q, leafletData, ToastCommons, $mdDialog, $mdSidenav) {
+  $rootScope, $log, $q, leafletData, ToastCommons, $mdDialog, $mdSidenav, contextCatalogObserver, deliveryPointsService) {
   /*-------------------------------
     *------Variables Gobales--------
     *------------------------------*/
 
-  var vm = this;
-  var vmap;
+    var vmap;
   $scope.mostrarDia = true;
   $scope.nombre = "N/D";
   $scope.descripcion = "N/D";
@@ -77,7 +76,7 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
     'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
   id: 'mapbox.streets'
   }).addTo(map);
-    attribution = map.attributionControl;
+    var attribution = map.attributionControl;
     vmap.setView(posicionMapaPredeterminado);
     vmap.setZoom(9);
     //map.invalidateSize(false);
@@ -97,7 +96,7 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
   });
 
   function parseCoordinateToLatLngs(vcoordinates){
-    coordinates = [];
+    var coordinates = [];
     if(vcoordinates !== null){
       var i = 0;
       for(i; i<vcoordinates.length; i++){
@@ -160,8 +159,8 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
     }
   }
 
-  function drawSP(jsonText){
-    var data = JSON.parse(jsonText).puntosDeRetiro;
+  function drawSP(response){
+    var data = response.data.puntosDeRetiro;
     var i = 0;
     var lastCoordinatesSP = [];
     for(i; i<data.length; i++){
@@ -183,11 +182,14 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
   }
 
   function mostrarZonas(){
-      MapREST.obtainAllZones(drawZonas,contextPurchaseService.getCatalogContext());
+    MapREST.obtainAllZones(drawZonas,contextPurchaseService.getCatalogContext());
   }
 
   function mostrarPuntosDeRetiro(){
-    MapREST.obtainAllSellerPoints(drawSP,contextPurchaseService.getCatalogContext());
+    contextPurchaseService.getSelectedCatalog()
+    .then(function(catalog){
+      deliveryPointsService.deliveryPoints(catalog.nombreCorto).then(drawSP);
+    })
   }
 
   //workaround L.Icon.Default.imagePath
@@ -195,7 +197,13 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
     L.Icon.Default.imagePath = '../bower_components/leaflet/dist/images/';
   }
 
-  setdefaultimage();
-  mostrarZonas();
-  mostrarPuntosDeRetiro();
+  function init(){
+    contextCatalogObserver.observe(function(){
+      setdefaultimage();
+      mostrarZonas();
+      mostrarPuntosDeRetiro();
+    });
+  }
+
+  init();
 }
