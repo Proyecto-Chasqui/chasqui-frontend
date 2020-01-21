@@ -33,6 +33,14 @@
               show('orderSumary');
             }
           },
+          questions: {
+            next: function(){
+              show('selectAddress');
+            },
+            cancel: function(){
+              show('selectAddress');
+            }
+          },
         }
         
         ////////////////// okActions /////////////////
