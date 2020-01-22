@@ -32,7 +32,7 @@
       </div>
     </div>
     <div>
-      <div ng-show="sections.orderSumary">
+      <div ng-if="sections.orderSumary && order">
         <order-summary  
           order="order"
           next="actions.orderSumary.next"
@@ -40,7 +40,7 @@
           ng-class="sections.orderSumary? 'extend-top' : ''"
         />
       </div>
-      <div ng-show="sections.selectAddress">
+      <div ng-if="sections.selectAddress && order">
         <select-delivery-address 
           order="order"
           show-go-profile="showGoProfileButton"
@@ -50,7 +50,7 @@
           ng-class="sections.selectAddress? 'extend-top' : ''"
         />
       </div>
-      <div ng-show="sections.questions">
+      <div ng-if="sections.questions && order">
         <answer-seller-questions
           order="order"
           ok-action="answerSellerQuestionsOkAction"
@@ -59,7 +59,7 @@
           ng-class="sections.questions? 'extend-top' : ''"
         />
       </div>
-      <div ng-show="sections.confirmation">
+      <div ng-if="sections.confirmation && order">
         <confirmation
           order="order"
           selected-address="selectedAddress"
@@ -76,22 +76,22 @@
       </md-button>
     </div>
     <div layout="row" layout-align="center center">
-      <div ng-show="currentNavItem > 0">
+      <div ng-if="currentNavItem > 0">
       <md-button class="back" ng-click="back()">
           <label translate="ANTERIOR"></label>
       </md-button>
       </div>
-      <div ng-show="currentNavItem < 2 && !showGoProfileButton">
+      <div ng-if="currentNavItem < 2 && !showGoProfileButton">
       <md-button class="next" ng-click="next()">
           <label translate="SIGUIENTE"></label>
       </md-button>
       </div>
-      <div ng-show="currentNavItem == 2">
+      <div ng-if="currentNavItem == 2">
       <md-button class="confirm-order" ng-click="next()">
           <label translate="CONFIRMAR"></label>
       </md-button>
       </div>
-      <div ng-show="showGoProfileButton">
+      <div ng-if="showGoProfileButton">
       <md-button class="go-profile" ng-click="goProfile()">
           <label translate="IR_PERFIL"></label>
       </md-button>

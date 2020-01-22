@@ -121,8 +121,8 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
     MapDraw.resetStyleAllPolygons();
     MapDraw.resetAllMarkIconsTo(normalIcon);
     polygon.setStyle({
-    color: 'green'
-  });
+      color: 'green'
+    });
 
   }
 

@@ -5,7 +5,7 @@
 
 	/** @ngInject */
 	function SelectDeliveryAddressController($scope, $rootScope, contextPurchaseService, $log, vendedorService, sellerService, 
-                                              perfilService, contextCatalogObserver, $state, $sce) {
+                                              perfilService, contextCatalogObserver) {
         
         
     $scope.addresses = [];
@@ -42,13 +42,11 @@
     
     function init(){
       contextCatalogObserver.observe(function(){
-        contextPurchaseService.getSelectedCatalog().then(function(selectedCatalog){
-            $scope.zonesMap = $sce.trustAsResourceUrl(selectedCatalog.urlMapa);
-            $log.debug($scope.zonesMap);
-            callDirecciones(selectedCatalog);
-            loadZones(selectedCatalog.id);
-            initAdress();
-            console.log($scope.order);
+        contextPurchaseService.getSelectedCatalog()
+        .then(function(selectedCatalog){
+          callDirecciones(selectedCatalog);
+          initAdress();
+          console.log($scope.order);
         })
         vendedorService.obtenerConfiguracionVendedor().then(
             function(response){
@@ -93,8 +91,6 @@
         $scope.selectedDeliveryPoint = newDeliveryPoint;
     }
     
-    
-            
     function formatDate(date){
       return date.slice(0,2) + "/" + date.slice(3,5) + "/" + date.slice(6,10);
     }
@@ -116,16 +112,6 @@
 
       sellerService.getAddressZone(contextPurchaseService.getCatalogContext(), address.idDireccion, doNoOk).then(doOk);
     }
-    
-
-    function loadZones(catalogId){
-        
-        function doOk(response){
-            $scope.zones = response.data.map(function(z){z.fechaCierrePedidos = formatDate(z.fechaCierrePedidos); return z;});
-        }
-            
-        sellerService.getSellerZones(catalogId).then(doOk);
-    }
         
     function callDirecciones(catalog) {
 			$log.debug('call direcciones ');
@@ -143,8 +129,8 @@
 			function fillDeliveryPoints(response) {
         $log.debug('call delivery points ', response.data);
 				$scope.deliveryPoints = response.data.puntosDeRetiro;
-			}
-      		
+      }
+      
 			vendedorService.verPuntosDeEntrega().then(fillDeliveryPoints);
 			perfilService.verDirecciones().then(fillUserAddresses);
 		}
@@ -210,13 +196,13 @@
         }
     })
     
-    $rootScope.$on('order-loaded-suc', function(event, order){
-      console.log("order-loaded-suc 2", order);
-      $scope.order = order;
-      init();
-    });
+    // $rootScope.$on('order-loaded-suc', function(event, order){
+      // console.log("order-loaded-suc 2", order);
+      // $scope.order = order;
+      // init();
+    // });
     
-    // init();
+    init();
 	}
 
 })();

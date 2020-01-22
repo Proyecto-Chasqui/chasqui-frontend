@@ -35,7 +35,7 @@
           },
           questions: {
             next: function(){
-              show('selectAddress');
+              show('confirmation');
             },
             cancel: function(){
               show('selectAddress');
@@ -64,7 +64,7 @@
         /////////////////////////////////////
         
         function init(){
-            $scope.sections.selectAddress = true;
+            $scope.sections.orderSumary = true;
             // develop
 
             function doOk(order){
