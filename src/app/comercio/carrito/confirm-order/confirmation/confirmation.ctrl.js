@@ -4,18 +4,19 @@
 	angular.module('chasqui').controller('ConfirmationController', ConfirmationController);
 
 	/** @ngInject */
-	function ConfirmationController($scope){
+	function ConfirmationController($scope, URLS){
+    
+    $scope.urlBase = URLS.be_base;
+    
+    /////////////////////////////////////
+    
+    function init(){
         
-        
-        /////////////////////////////////////
-        
-        function init(){
-            
-        }
-        
-        init();
-        
-        /////////////////////////////////////
+    }
+    
+    init();
+    
+    /////////////////////////////////////
         
 	}
 
