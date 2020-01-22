@@ -1,4 +1,3 @@
-
 <div class="ch-confirm-order-container ch-responsive-layout">
   <div class="ch-confirm-order-left-panel">
 
@@ -8,6 +7,32 @@
 
     <div class="ch-confirm-order-left-panel-list">
       <div class="ch-confirm-order-left-panel-list-column">
+
+        <div class="ch-confirm-order-left-panel-list-row" ng-repeat="question in questions">
+          <div class="ch-confirm-order-left-panel-list-row-explanation">
+            <span class="ch-confirm-order-mandatory-label">{{question.nombre}}:<strong>*</strong></span>
+            <span class="ch-error" ng-show="validated && !question.answered">Se debe responder esta pregunta</span>
+          </div>
+          <div class="ch-confirm-order-left-panel-list-row-input">
+            <md-input-container ng-if="question.opciones.length == 0">
+              <input 
+                ng-model="question.answer"
+                placeholder="{{question.nombre}}"
+                name="{{question.nombre}}"
+                required
+              />
+            </md-input-container>
+            <md-input-container ng-if="question.opciones.length > 0">
+              <md-select 
+                placeholder="{{question.nombre}}" 
+                name="{{question.nombre}}" 
+                ng-model="question.answer"
+                required>
+                <md-option ng-repeat="answer in question.opciones" ng-value="answer">{{answer}}</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -15,7 +40,7 @@
     <div class="ch-confirm-order-actions">
 
       <md-button class="cancel-order" ng-click="cancel()">
-        <label translate="CANCELAR"></label>
+        <label translate="ATRAS"></label>
       </md-button>
 
       <md-button class="next" ng-click="next()">
@@ -25,33 +50,3 @@
     </div>
   </div>
 </div>
-
-
-
-<form name="inputAddress">
-  <div ng-repeat="question in questions" ng-show="question.habilitada">
-    <div layout="row" layout-align="space-between center">
-      <div flex="50" layout="column">
-        <span>{{question.nombre}}: <strong>*</strong></span>
-        <span class="ch-error" ng-show="validated && !question.answered">Se debe responder esta pregunta</span>
-      </div>
-      <md-input-container flex="50" ng-if="question.opciones.length == 0">
-        <input 
-          ng-model="question.answer"
-          placeholder="{{question.nombre}}"
-          name="{{question.nombre}}"
-          required
-        />
-      </md-input-container>
-      <md-input-container flex="50" ng-if="question.opciones.length > 0">
-        <md-select 
-          placeholder="{{question.nombre}}" 
-          name="{{question.nombre}}" 
-          ng-model="question.answer"
-          required>
-          <md-option ng-repeat="answer in question.opciones" ng-value="answer">{{answer}}</md-option>
-        </md-select>
-      </md-input-container>
-    </div>
-  </div>
-</form>
