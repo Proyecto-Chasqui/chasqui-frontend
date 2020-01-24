@@ -85,6 +85,7 @@
                 contextOrdersService.setVirtualPersonalOrder(contextPurchaseService.getCatalogContext());
                 $rootScope.refrescarNotificacion();
                 $rootScope.$emit('order-confirmed');
+                $state.go('catalog.userOrders');
             }
 
             var params = {

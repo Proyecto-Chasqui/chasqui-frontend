@@ -37,10 +37,12 @@
         }
       },
       questions: {
-        next: function(){
+        next: function(answers){
+          $scope.answers = answers;
           show('confirmation');
         },
-        cancel: function(){
+        cancel: function(answers){
+          $scope.answers = answers;
           show('selectAddress');
         }
       },
@@ -97,7 +99,7 @@
     
     function cancelAction(){
       $stateParams.actions.doNotOk();
-      $state.go('catalog.products')
+      $state.go('catalog.products');
     }
 
     function goProfile(){
