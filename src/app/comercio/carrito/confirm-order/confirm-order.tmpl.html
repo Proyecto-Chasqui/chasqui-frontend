@@ -53,7 +53,6 @@
       <div ng-if="sections.questions && order">
         <answer-seller-questions
           order="order"
-          ok-action="answerSellerQuestionsOkAction"
           next="actions.questions.next"
           cancel="actions.questions.cancel"
           ng-class="sections.questions? 'extend-top' : ''"
@@ -63,6 +62,8 @@
         <confirmation
           order="order"
           selected-address="selectedAddress"
+          next="actions.confirmation.next"
+          cancel="actions.confirmation.cancel"
           ng-class="sections.confirmation? 'extend-top' : ''"
         />
       </div>

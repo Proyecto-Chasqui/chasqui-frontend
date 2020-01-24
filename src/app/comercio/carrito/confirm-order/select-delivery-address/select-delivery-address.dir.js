@@ -10,7 +10,6 @@
             scope: {
                 order: "=",
                 showGoProfile: "=",
-                okAction: '=',
                 next: "=",
                 cancel: "=",
                 getAddress: "="

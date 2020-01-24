@@ -9,7 +9,9 @@
             restrict: 'E',
             scope: {
                 order: "=",
-                selectedAddress: "="
+                selectedAddress: "=",
+                next: "=",
+                cancel: "=",
             },
             controller: 'ConfirmationController',
             templateUrl: 'app/comercio/carrito/confirm-order/confirmation/confirmation.tmpl.html'

@@ -186,13 +186,6 @@
               || ($scope.order.type == "NODE" && $scope.address.selected != null);
     }
     
-    $scope.$on("check-direccion", function(){
-        if(validInformation()){
-            $scope.validated = false;
-            $scope.okAction($scope.address);
-        }
-    })
-    
     // $rootScope.$on('order-loaded-suc', function(event, order){
       // console.log("order-loaded-suc 2", order);
       // $scope.order = order;
