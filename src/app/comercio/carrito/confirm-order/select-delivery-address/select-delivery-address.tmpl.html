@@ -17,9 +17,9 @@
       <div class="ch-confirm-order-left-panel-list-column">
 
         <div class="ch-confirm-order-left-panel-list-row" ng-show="mostrarSeleccionMultiple">
-          <div class="ch-confirm-order-left-panel-list-row-explanation">
+          <div class="ch-confirm-order-left-panel-list-row-explanation" layout="column" layout-align="space-betwen start">
             <span class="ch-confirm-order-mandatory-label">Selecciona un modo de entrega: <strong>*</strong></span>
-            <span class="ch-error" ng-show="validated && !modeDefined">Se debe elegir un modo de entrega</span>
+            <span class="ch-error" ng-show="validated && !entregaSelected">Se debe elegir un modo de entrega</span>
           </div>
           <div class="ch-confirm-order-left-panel-list-row-input">
             <md-select placeholder="Modo de entrega" ng-model="entregaSelected">
@@ -35,9 +35,9 @@
                 <div translate=PEDIR_DOMICILIO></div>
               </div>
               <div ng-show="addresses.length > 0" layout="column">
-                <div>
+                <div layout="column" layout-align="space-betwen start">
                   <span class="ch-confirm-order-mandatory-label">Domicilio de envio: <strong>*</strong></span>
-                  <span class="ch-error" ng-show="validated && !addressDefined">Se debe elegir un domicilio</span>
+                  <span class="ch-error" ng-show="validated && !address.selected">Se debe elegir un domicilio</span>
                 </div>
               </div>
             </div>
@@ -114,11 +114,11 @@
     </div>
 
     <div class="ch-confirm-order-actions">
-      <md-button class="cancel-order" ng-click="cancel()">
+      <md-button class="cancel-order" ng-click="cancel(address)">
         <label translate="ATRAS"></label>
       </md-button>
 
-      <md-button class="next" ng-click="next()">
+      <md-button class="next" ng-click="validateAndNext()">
           <label translate="SIGUIENTE"></label>
       </md-button>
     </div>

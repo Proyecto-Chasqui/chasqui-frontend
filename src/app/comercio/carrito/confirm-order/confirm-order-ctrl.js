@@ -24,10 +24,15 @@
         }
       },
       selectAddress: {
-        next: function(){
+        next: function(address){
+          $scope.selectedAddress = address;
+          $scope.order.idDireccion = address.selected.idDireccion;
+          console.log(address)
           show('questions');
         },
-        cancel: function(){
+        cancel: function(address){
+          $scope.selectedAddress = address;
+          console.log(address)
           show('orderSumary');
         }
       },
@@ -78,6 +83,10 @@
     
     $scope.selectedAddress = null;
     $scope.answers = [];
+
+    $scope.getSelectedAddress = function(){
+      return $scope.selectedAddress;
+    }
         
     ////////////////// Public ///////////////////
     

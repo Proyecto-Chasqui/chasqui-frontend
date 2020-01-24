@@ -22,7 +22,6 @@
         }
     ];
     $scope.setDeliveryType = setDeliveryType;
-    $scope.setSelectedAddress = setSelectedAddress;
     $scope.setSelectedZone = setSelectedZone;
     $scope.setAddressParticularities = setAddressParticularities;
     $scope.setSelectedDeliveryPoint = setSelectedDeliveryPoint;
@@ -30,12 +29,11 @@
     $scope.validated = false;
     $scope.modeDefined = false;
     $scope.addressDefined = false;
-    $scope.zoneDefined = false;
-    $scope.deliveryPointDefined = false;
-    $scope.zonesMap = "";
     $scope.minPrice = 0;
     $scope.showMinPriceWarn = false;
     $scope.advertencia = "Su pedido no supera el monto minimo, solo puede pasar a retirar el pedido";
+
+    $scope.validateAndNext = validateAndNext;
 
         
     /////////////////////////////////////
@@ -45,6 +43,7 @@
         contextPurchaseService.getSelectedCatalog()
         .then(function(selectedCatalog){
           callDirecciones(selectedCatalog);
+          console.log("domicilio pre-seleccionado", $scope.getAddress());
           initAdress();
           console.log($scope.order);
         })
@@ -55,72 +54,31 @@
         )
       });
     }
+    
 
     function initAdress(){
-      $scope.address = {
-        type: "",
-        selected: null,
-        zone: null,
-        particularities: ""
-      }
-    }
-    
-    /////////////////////////////////////
-        
-    function setDeliveryType(deliverySelected){
-        $scope.deliveryTypes = $scope.deliveryTypes.map(function(d){d.show = d.label == deliverySelected.label; return d});
-        $scope.showGoProfile = $scope.deliveryTypes[0] == deliverySelected && $scope.addresses.length == 0;
-        initAdress();
-        $scope.validated = false;
-    }
-    
-    function setSelectedAddress(newAddress){
-        $scope.selectedAddress = newAddress;
-    }
-    
-    function setSelectedZone(newZone){
-        $scope.selectedZone = newZone;
-    }
-    
-    function setAddressParticularities(newComments){
-        $log.debug(newComments);
-        $scope.addressParticularities = newComments;
-    }
-    
-    function setSelectedDeliveryPoint(newDeliveryPoint){
-        $scope.selectedDeliveryPoint = newDeliveryPoint;
-    }
-    
-    function formatDate(date){
-      return date.slice(0,2) + "/" + date.slice(3,5) + "/" + date.slice(6,10);
-    }
-    
-    function getAddressZone(address){
-
-      function doOk(response){
-        $scope.addressZone = response.data;
-        $scope.addressZone.fechaCierrePedidos = formatDate($scope.addressZone.fechaCierrePedidos);
-        $scope.address.zone = $scope.addressZone;
-      }
-
-      function doNoOk(response){
-        $scope.addressZone = {
-          descripcion: "La dirección del domicilio no está asociada con ninguna zona de entrega del vendedor. Por favor comuniquese con el administrador del catálogo para confirmar los detalles de la compra."
+      if(!$scope.getAddress()){
+        $scope.address = {
+          type: "",
+          selected: null,
+          zone: null,
+          particularities: ""
         }
-        $scope.address.zone = $scope.addressZone;
       }
-
-      sellerService.getAddressZone(contextPurchaseService.getCatalogContext(), address.idDireccion, doNoOk).then(doOk);
     }
-        
+    
+
     function callDirecciones(catalog) {
 			$log.debug('call direcciones ');
 
 			function fillUserAddresses(response) {
-        console.log('call direcciones ', response.data);
         $scope.addresses = response.data;
-        if($scope.order.idDireccion){
-          $scope.address.selected = $scope.addresses.filter(function(address){return address.idDireccion == $scope.order.idDireccion})[0];
+        console.log("id direccion", $scope.getAddress());
+        // if($scope.order.idDireccion){
+        if($scope.getAddress()){
+          $scope.address = $scope.getAddress();
+
+          $scope.address.selected = $scope.addresses.filter(function(address){return address.idDireccion == $scope.address.selected.idDireccion})[0];
           getAddressZone($scope.address.selected);
         }
         showMultipleSelection(catalog);
@@ -134,8 +92,8 @@
 			vendedorService.verPuntosDeEntrega().then(fillDeliveryPoints);
 			perfilService.verDirecciones().then(fillUserAddresses);
 		}
-        
-        
+
+
     function showMultipleSelection(catalog){
       $scope.mostrarSeleccionMultiple = catalog.few.seleccionDeDireccionDelUsuario && catalog.few.puntoDeEntrega;
 
@@ -168,31 +126,70 @@
           $scope.showMinPriceWarn = true;
       }
 		}
+     
+    /////////////////////////////////////
         
-        
-    function validInformation(){
-        return ($scope.address.selected != null &&
-                (($scope.deliveryTypes[0].show) || 
-                $scope.deliveryTypes[1].show)) || (
-                  $scope.order.type == "NODE" && $scope.address.selected != null
-                );
+    function setDeliveryType(deliverySelected){
+        $scope.deliveryTypes = $scope.deliveryTypes.map(function(d){d.show = d.label == deliverySelected.label; return d});
+        $scope.showGoProfile = $scope.deliveryTypes[0] == deliverySelected && $scope.addresses.length == 0;
+        initAdress();
+        $scope.validated = false;
     }
     
-    function riseErrors(){
-        $scope.validated = true;
-        $scope.modeDefined = $scope.deliveryTypes.reduce(function(r,t){return r || t.show}, false);
-        $scope.addressDefined = $scope.deliveryTypes[0].show && $scope.address.selected != null;
-        //$scope.zoneDefined = $scope.deliveryTypes[0].show && $scope.address.zone != null;
-        $scope.deliveryPointDefined = $scope.deliveryTypes[1].show && $scope.address.selected != null;
+    function setSelectedZone(newZone){
+        $scope.selectedZone = newZone;
+    }
+    
+    function setAddressParticularities(newComments){
+        $scope.addressParticularities = newComments;
+    }
+    
+    function setSelectedDeliveryPoint(newDeliveryPoint){
+        $scope.selectedDeliveryPoint = newDeliveryPoint;
+    }
+    
+    function formatDate(date){
+      return date.slice(0,2) + "/" + date.slice(3,5) + "/" + date.slice(6,10);
+    }
+    
+    function getAddressZone(address){
+
+      function doOk(response){
+        $scope.addressZone = response.data;
+        $scope.addressZone.fechaCierrePedidos = formatDate($scope.addressZone.fechaCierrePedidos);
+        $scope.address.zone = $scope.addressZone;
+      }
+
+      function doNoOk(response){
+        $scope.addressZone = {
+          descripcion: "La dirección del domicilio no está asociada con ninguna zona de entrega del vendedor. Por favor comuniquese con el administrador del catálogo para confirmar los detalles de la compra."
+        }
+        $scope.address.zone = $scope.addressZone;
+      }
+
+      sellerService.getAddressZone(contextPurchaseService.getCatalogContext(), address.idDireccion, doNoOk).then(doOk);
+    }
+        
+       
+
+    function validateAndNext(){
+      $scope.validated = true;
+      if(validInformation()){
+        $scope.address.type = $scope.deliveryTypes[0].show? "address" : "deliveryPoint";
+        $scope.next($scope.address);
+      }
+    }
+        
+    function validInformation(){
+        return ($scope.address.selected != null 
+              && (($scope.deliveryTypes[0].show) || $scope.deliveryTypes[1].show))
+              || ($scope.order.type == "NODE" && $scope.address.selected != null);
     }
     
     $scope.$on("check-direccion", function(){
         if(validInformation()){
             $scope.validated = false;
-            $scope.address.type = $scope.deliveryTypes[0].show? "address" : "deliveryPoint";
             $scope.okAction($scope.address);
-        }else{
-            riseErrors();
         }
     })
     
