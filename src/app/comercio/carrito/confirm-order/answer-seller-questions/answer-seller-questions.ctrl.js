@@ -17,6 +17,16 @@
           $scope.questions = response.data;
           if($scope.questions.length == 0){
             $scope.next($scope.questions);
+          } else {
+             var prevAnsewers = $scope.getQuestions()
+            if(prevAnsewers.length > 0){
+              $scope.questions = $scope.questions.map(function(q){
+                var res = prevAnsewers.filter(function(a){
+                  return a.nombre === q.nombre;
+                })[0];
+                return res;
+              })
+            }
           }
       }
       
