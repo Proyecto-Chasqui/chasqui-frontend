@@ -1772,16 +1772,23 @@ md-tabs md-ink-bar {
   font-size: 18px;
 }
 
-.ch-confirm-order-summary-total-absolut{
-  height: 40px;
+.ch-confirm-order-summary-total-item{
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
   border-color: rgba(121, 121, 121, 0.3);
   border-width: 0px 0px 2px 0px;
-  border-style: solid;  
+  border-style: solid;
   font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+.ch-confirm-order-summary-total-absolut{
+  height: 40px !important;
 }
 
 .ch-confirm-order-summary-total-absolut-label{
