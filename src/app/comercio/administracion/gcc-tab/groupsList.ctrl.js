@@ -160,8 +160,6 @@
             return r.concat(m.pedido.productosResponse);
           }, []),
       }
-
-      //dialogCommons.selectDeliveryAddress(actions, adHocOrder);
       
       $state.go('catalog.confirmOrder', { 
         actions: actions, 
@@ -185,6 +183,7 @@
                                                               agrupationTypeVAL.TYPE_GROUP);
             $rootScope.$emit("groups-information-actualized");
             $state.go('catalog.userGroups.all');
+            dialogCommons.askToCollaborate();
           });
           toTop();
         }

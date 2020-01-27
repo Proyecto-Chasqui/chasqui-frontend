@@ -122,11 +122,16 @@
           montoActualPorMiembro: activeMembers.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual + m.pedido.incentivoActual; return r}, {}),
           type: agrupationTypeVAL.TYPE_NODE,
           idDireccion: node.direccionDelNodo.id,
-          node: node
+          node: node, 
+          productosResponse: activeMembers.reduce(function(r,m){
+            return r.concat(m.pedido.productosResponse);
+          }, []),
       }
-
-      dialogCommons.selectDeliveryAddress(actions, adHocOrder);
-
+ 
+      $state.go('catalog.confirmOrder', { 
+        actions: actions, 
+        order: adHocOrder
+      });
     }
 
     function doConfirmOrder(node){
@@ -144,6 +149,7 @@
                                                               node.id,
                                                               agrupationTypeVAL.TYPE_NODE);
             $rootScope.$emit("nodes-information-actualized");
+            $state.go('catalog.userNodes.all');
             dialogCommons.askToCollaborate();
           });
           toTop();
