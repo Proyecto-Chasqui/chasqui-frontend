@@ -155,10 +155,18 @@
           montoActual: activeMembers.reduce(function(r,m){return r + m.pedido.montoActual}, 0),
           nombresDeMiembros: activeMembers.map(function(m){return m.nickname}),
           montoActualPorMiembro: activeMembers.reduce(function(r,m){r[m.nickname] = m.pedido.montoActual; return r}, {}),
-          type: agrupationTypeVAL.TYPE_GROUP
+          type: agrupationTypeVAL.TYPE_GROUP, 
+          productosResponse: activeMembers.reduce(function(r,m){
+            return r.concat(m.pedido.productosResponse);
+          }, []),
       }
 
-      dialogCommons.selectDeliveryAddress(actions, adHocOrder);
+      //dialogCommons.selectDeliveryAddress(actions, adHocOrder);
+      
+      $state.go('catalog.confirmOrder', { 
+        actions: actions, 
+        order: adHocOrder
+      });
     }
 
     function doConfirmOrder(group){
@@ -176,6 +184,7 @@
                                                               group.id,
                                                               agrupationTypeVAL.TYPE_GROUP);
             $rootScope.$emit("groups-information-actualized");
+            $state.go('catalog.userGroups.all');
           });
           toTop();
         }

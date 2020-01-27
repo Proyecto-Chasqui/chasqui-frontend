@@ -1,11 +1,6 @@
 <div class="ch-confirm-order-container ch-responsive-layout">
   <div class="ch-confirm-order-left-panel">
-    <!--div>
-      <span ng-show="order.type == 'PERSONAL'">Productos del pedido: </span>
-      <span ng-show="order.type == 'GROUP'">Pago por integrante del grupo: </span>
-      <span ng-show="order.type == 'NODE'">Pago por integrante del nodo: </span>
-    </div>
--->
+
     <div class="ch-confirm-order-left-panel-list">
       <div class="ch-confirm-order-left-panel-list-column" style="min-width: 300px;">
         <label class="ch-confirm-order-left-panel-list-column-label">
@@ -51,23 +46,22 @@
         </div>
       </div>
     </div>
+
   </div>
 
   <div class="ch-confirm-order-right-panel">
     <div class="ch-confirm-order-summary-total-header">
       <label class="ch-confirm-order-summary-total-header-label">
-        TOTAL DEL CHANGUITO
+        RESUMEN
       </label>
     </div>
-        
-    <md-list-item ng-show="order.type == 'GROUP' || order.type == 'NODE'" ng-repeat="nombre in order.nombresDeMiembros" layout="column" layout-align="space-around">
-        <md-divider></md-divider>
-        <div layout="row" layout-align="space-between center">
-            <div><strong>{{nombre}}</strong></div>
-            <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
-        </div>
-        <md-divider ng-if="$last"></md-divider>
-    </md-list-item>
+    
+    <div class="ch-confirm-order-summary-total-item ch-confirm-order-summary-total-absolut" ng-if="order.type == 'GROUP' || order.type == 'NODE'" ng-repeat="nombre in order.nombresDeMiembros">
+      <div layout="row" layout-align="space-between">
+        <label class="ch-confirm-order-summary-total-absolut-label">{{nombre}} </label>
+        <chq-price-product precio="order.montoActualPorMiembro[nombre]" tamanho="1.2"></chq-price-product>
+      </div>
+    </div>
 
     <div class="ch-confirm-order-summary-total-item ch-confirm-order-summary-total-absolut">
       <div layout="row" layout-align="space-between">
