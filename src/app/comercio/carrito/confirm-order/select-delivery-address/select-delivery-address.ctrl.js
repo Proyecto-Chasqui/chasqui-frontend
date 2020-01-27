@@ -78,8 +78,10 @@
         if($scope.getAddress()){
           $scope.address = $scope.getAddress();
 
-          $scope.address.selected = $scope.addresses.filter(function(address){return address.idDireccion == $scope.address.selected.idDireccion})[0];
-          getAddressZone($scope.address.selected);
+          if($scope.address.selected){
+            $scope.address.selected = $scope.addresses.filter(function(address){return address.idDireccion == $scope.address.selected.idDireccion})[0];
+            getAddressZone($scope.address.selected);
+          }
         }
         showMultipleSelection(catalog);
 			}
