@@ -53,6 +53,7 @@
       <div ng-if="sections.questions && order">
         <answer-seller-questions
           order="order"
+          get-questions="getQuestions"
           next="actions.questions.next"
           cancel="actions.questions.cancel"
           ng-class="sections.questions? 'extend-top' : ''"

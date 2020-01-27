@@ -89,6 +89,10 @@
     $scope.getSelectedAddress = function(){
       return $scope.selectedAddress;
     }
+
+    $scope.getQuestions = function(){
+      return $scope.answers;
+    }
         
     ////////////////// Public ///////////////////
     
