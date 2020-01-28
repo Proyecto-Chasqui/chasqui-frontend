@@ -4,8 +4,8 @@
   angular.module('chasqui').controller('ConfirmOrderCtrl', ConfirmOrderCtrl);
 
   /** @ngInject */
-  function ConfirmOrderCtrl($scope, $rootScope, contextPurchaseService, $log, 
-                              $stateParams, $state, contextCatalogObserver, contextOrdersService) {
+  function ConfirmOrderCtrl($scope, $rootScope, contextPurchaseService, $log, agrupationTypeDispatcher,
+                              $stateParams, $state) {
         
     $scope.sections = {
       orderSumary: false,
@@ -27,12 +27,10 @@
         next: function(address){
           $scope.selectedAddress = address;
           $scope.order.idDireccion = address.selected.idDireccion;
-          console.log(address)
           show('questions');
         },
         cancel: function(address){
           $scope.selectedAddress = address;
-          console.log(address)
           show('orderSumary');
         }
       },
@@ -61,26 +59,9 @@
     
     //// Actions
     $scope.cancelAction = cancelAction;
-    $scope.goProfile = goProfile;
-    
+    $scope.goProfile = goProfile;    
     $scope.showGoProfileButton = false;
 
-    $scope.selectDeliveryAddressOkAction = selectDeliveryAddressOkAction;
-    $scope.answerSellerQuestionsOkAction = answerSellerQuestionsOkAction;
-            
-    ////////////////// okActions /////////////////
-    
-    function selectDeliveryAddressOkAction(address){
-      $scope.selectedAddress = address;
-      $log.debug(address);
-      show(Object.keys($scope.sections)[$scope.currentNavItem + 1]);
-    }
-    
-    function answerSellerQuestionsOkAction(answers){
-      $scope.answers = answers;
-      show(Object.keys($scope.sections)[$scope.currentNavItem + 1]);
-    }
-    
     ////////////////// Data //////////////////
     
     $scope.selectedAddress = null;
@@ -116,25 +97,34 @@
     
     function init(){
       $scope.sections.orderSumary = true;
-      // develop
 
-      function doOk(order){
-        $scope.order = order;
-        console.log("inside", $scope.order);
-        $rootScope.$broadcast('order-loaded-suc', $scope.order);
-      }
-
-      if($stateParams.order){
-        doOk($stateParams.order);
+      if($stateParams.order && $stateParams.actions){
+        $scope.order = $stateParams.order;
       } else {
-        contextCatalogObserver.observe(function(){
-          contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType())
-          .then(function(){
-            contextPurchaseService.getSelectedOrder()
-            .then(doOk);
-          })
-        });
+        $state.go('catalog.products');
       }
+
+
+
+      // develop start
+
+      // function doOk(order){
+      //   $scope.order = order;
+      // }
+
+      // if($stateParams.order){
+      //   doOk($stateParams.order);
+      // } else {
+      //   contextCatalogObserver.observe(function(){
+      //     contextOrdersService.ensureOrders(contextPurchaseService.getCatalogContext(), contextPurchaseService.getAgrupationContextType())
+      //     .then(function(){
+      //       contextPurchaseService.getSelectedOrder()
+      //       .then(doOk);
+      //     })
+      //   });
+      // }
+
+      // develop end
     }
     
     init();
