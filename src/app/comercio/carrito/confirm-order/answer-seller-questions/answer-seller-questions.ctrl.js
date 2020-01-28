@@ -44,12 +44,6 @@
   }
 
 
-  // $rootScope.$on('order-loaded-suc', function(event, order){
-  //   console.log("order-loaded-suc 1", order);
-  //   $scope.order = order;
-  //   init();
-  // });
-
   init();
   
   /////////////////////////////////////
