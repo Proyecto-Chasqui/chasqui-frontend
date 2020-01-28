@@ -5,7 +5,15 @@
     <md-dialog-content>
         <div class="content" layout="row" layout-xs="column" layout-align="space-between">
             <div flex-xs="100" flex="50">
-                <img ng-src="{{urlBase}}{{variety.imagenPrincipal != null? variety.imagenPrincipal : variety.imagen}}" style="width:100%">
+                <div flex>
+                  <img ng-src="{{urlBase}}{{imageSelect}}" class="tarjeta-imagen">
+                  
+                  <div style="width: 100%; margin-left:10px;" layout="row">
+                    <div ng-repeat="image in imagenes" class="image-mini-preview" >
+                      <img class="image-mini-producto"ng-src="{{urlBase}}{{image.path}}" ng-click="setImageSelected(image.path)">
+                    </div>
+                  </div>
+                </div>
             </div>
             <div class="ch-modal-modify-count"flex-xs="100" flex="50" layout="column" layout-align="space-between">
                 <div class="ch-modal-price-per-unit-and-description" flex="50" layout="column" layout-align="space-around">

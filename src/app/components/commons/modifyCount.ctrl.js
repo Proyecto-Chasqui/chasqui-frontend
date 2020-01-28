@@ -6,7 +6,7 @@
     .controller('ModifyCountCtrl', ModifyCountCtrl);
     
   function ModifyCountCtrl($log, $scope, $mdDialog, URLS, variety, order, texts, initCount, actions, 
-                           agrupationTypeDispatcher, contextPurchaseService, toastr, usuario_dao) {
+                           agrupationTypeDispatcher, contextPurchaseService, toastr, usuario_dao, productoService) {
     $scope.urlBase = URLS.be_base;
   
     $scope.title = texts.title;
@@ -15,6 +15,8 @@
     $scope._count = initCount == 0? 1 : initCount;
     $scope.showOkButton = showOkButton;
     $scope.isLogged = usuario_dao.isLogged();
+    $scope.imagenes = [];
+    $scope.imageSelect = variety.imagenPrincipal != null? variety.imagenPrincipal : variety.imagen;
 
     
     $scope.order = order;
@@ -94,6 +96,10 @@
       )
     }
 
+    $scope.setImageSelected = function(image){
+      $scope.imageSelect = image;
+    }
+
     function init(){
 
       contextPurchaseService.getSelectedCatalog()
@@ -101,7 +107,16 @@
         $scope.ventasHabilitadas = catalog.ventasHabilitadas;
         if(!catalog.ventasHabilitadas){
           toastr.warning("Solo se pueden eliminar unidades del pedido","Ventas deshabilitadas");
-        }        
+        }
+
+        // obtener las imagenes complementarias del producto
+
+        function setImagenes(response) {
+          $log.debug("imagenProducto", response);
+          $scope.imagenes = response.data;
+        }
+
+        productoService.imagenProducto(variety.idVariante).then(setImagenes);
       })
     }
 
