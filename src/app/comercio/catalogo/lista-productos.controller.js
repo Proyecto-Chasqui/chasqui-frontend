@@ -32,6 +32,7 @@
     vm.activeIndex = 1; // Seteado desde paginador
     vm.lastPage = undefined;
     vm.permitirComprar = false;
+    vm.isLogged = usuario_dao.isLogged();
 
     //////// dialogo medalla
     vm.showPrerenderedDialog = function(medalla) {
@@ -159,6 +160,34 @@
       return producto.nombreProducto;
     }
 
+
+    vm.mostrar = function(variety){
+      if(usuario_dao.isLogged()){
+        vm.agregar(variety);
+      } else {
+        var varietyName = (variety.nombreProducto === undefined)? variety.nombre : variety.nombreProducto;
+
+        dialogCommons.modifyVarietyCount(
+          variety,
+          null,  // order
+         {  // texts
+             title: varietyName,
+             okButtonAgregar: "Agregar al changuito",
+             okButtonModificar: "",
+             okButtonRemover: "",
+             cancelButton: "Volver"
+         },
+          0, // initial count
+          { // actions
+            doOk: function doOk(){
+              vm.agregar(variety);
+            },
+            doNoOk:  function doNoOk(){
+              return 0;
+            }
+         });
+      }
+    }
 
     // ///////////////////////
     // / Recive el evento de filtrado

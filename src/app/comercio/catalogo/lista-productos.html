@@ -8,7 +8,7 @@
       <chq-principal-product-image
         image="{{listaProductosCtrl.urlBase}}{{producto.imagenPrincipal}}"
         texto="Explore mas imágenes"
-        ng-click="listaProductosCtrl.agregar(producto)">
+        ng-click="listaProductosCtrl.mostrar(producto)">
       </chq-principal-product-image>
 	  
 	<div class="card-chasqui">
@@ -43,9 +43,9 @@
 	  
 	  
         <chq-add-button
-          text="{{'AGREGAR_BTN' | translate}}"
-          ng-click="listaProductosCtrl.agregar(producto)"
-          title="Agregar al changuito">
+          text="{{isLogged? 'AGREGAR' : 'VER'}}"
+          ng-click="listaProductosCtrl.mostrar(producto)"
+          title="{{'Agregar al changuito'">
         </chq-add-button>
       </chq-box-container>
 </div>

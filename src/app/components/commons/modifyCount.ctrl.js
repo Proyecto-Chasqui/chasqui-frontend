@@ -1,12 +1,12 @@
 (function() {
-	'use strict';
+  'use strict';
     
-    	angular
-		.module('chasqui')
-		.controller('ModifyCountCtrl', ModifyCountCtrl);
+  angular
+    .module('chasqui')
+    .controller('ModifyCountCtrl', ModifyCountCtrl);
     
   function ModifyCountCtrl($log, $scope, $mdDialog, URLS, variety, order, texts, initCount, actions, 
-                           agrupationTypeDispatcher, contextPurchaseService, toastr) {
+                           agrupationTypeDispatcher, contextPurchaseService, toastr, usuario_dao) {
     $scope.urlBase = URLS.be_base;
   
     $scope.title = texts.title;
@@ -14,6 +14,7 @@
     $scope.cancelButton = texts.cancelButton;
     $scope._count = initCount == 0? 1 : initCount;
     $scope.showOkButton = showOkButton;
+    $scope.isLogged = usuario_dao.isLogged();
 
     
     $scope.order = order;
@@ -81,7 +82,7 @@
     $scope.getTotalLabel = function(){
       return agrupationTypeDispatcher.byElem(
         order,
-        function(personal){
+        function(){
           return "El total de tu pedido individual es:";
         },
         function(groupOrder){
@@ -105,6 +106,6 @@
     }
 
     init();
-	} 
+  } 
     
 })();         
