@@ -71,6 +71,10 @@
         function setContextByCatalog(catalog){
           // Dadas las estrategias del catalogo depende el contexto inicial.
           
+          // Por defecto - develop
+          // order_context.setAgrupationId(idGrupoPedidoIndividual); 
+          // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
+
           if(catalog.few.compraIndividual && !catalog.few.gcc && !catalog.few.nodos){ 
             // Solo compra individual
             order_context.setAgrupationId(idGrupoPedidoIndividual); 
@@ -79,13 +83,7 @@
 
           if(!catalog.few.compraIndividual && !catalog.few.gcc && catalog.few.nodos){ 
             // Solo nodos
-            // order_context.setAgrupationId(idGrupoPedidoIndividual); 
-            // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
           }
-
-          // Ya no se setea más ningun pedido por defecto
-          // order_context.setAgrupationId(idGrupoPedidoIndividual); 
-          // order_context.setAgrupationType(agrupationTypeVAL.TYPE_PERSONAL); 
 
           setContextByCatalogId(catalog.id);
         }
