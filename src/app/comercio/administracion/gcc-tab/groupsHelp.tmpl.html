@@ -1,33 +1,36 @@
-<div  layout="row" layout-align="start">
-  <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userGroups.all" layout="row" layout-align="center">
-    <md-icon class="ch-button-content"> keyboard_arrow_left </md-icon>  
-    Volver
-  </md-button>
-</div>
-
-<div class="ch-groups-help">
-  <div class="ch-group-card ch-groups-help-question">
-    <span class="ch-groups-help-question-title">
-        ¿Qué es un grupo de compras?
-    </span>
-    <span class="ch-groups-help-question-answer">
-        Un grupo de compras colectivas está conformado por varias personas que se ponen de acuerdo para comprar conjuntamente. La persona que crea el grupo es quien lo administra. Debe invitar al resto de integrantes del grupo, que tienen que aceptar la invitación siguiendo el enlace que les llega por correo. Luego, cada integrante carga su changuito del grupo y confirma su compra. Cuando nadie más del grupo quiere comprar, quien administra el grupo debe cerrar el pedido grupal (además de su pedido individual).
-    </span>
-  </div>
-  <div ng-repeat="(i, pregunta) in preguntas" class="ch-group-card ch-groups-help-question" ng-click="showHelpsAnswer(i)" style="cursor: pointer;">
-    <div layout="row" layout-align="space-between center" class="ch-groups-help-question-title">
-      <span>
-        {{pregunta.titulo}}
-      </span>
-      <i class="material-icons" ng-show="!showHelp[i]">
-        expand_more
-      </i>
-      <i class="material-icons" ng-show="showHelp[i]">
-        expand_less
-      </i>
+<div class="ch-group">
+  <div class="ch-group-info">
+    <div>
+      <md-button class="md-raised md-primary md-button md-ink-ripple" ui-sref="catalog.userNodes.all" layout="row" layout-align="center">
+        <md-icon class="ch-button-content"> keyboard_arrow_left </md-icon>  
+        Volver
+      </md-button>
     </div>
-    <span ng-show="showHelp[i]" class="ch-groups-help-question-answer">
-      {{pregunta.respuesta}}
-    </span>
+  </div>
+
+  <div class="ch-groups-help ch-help-questions">
+    <div class="fade-in-left">
+      <div ng-repeat="(i, pregunta) in preguntas" class="ch-group-card ch-groups-help-question" ng-click="showHelpsAnswer(i)" style="cursor: pointer;">
+        <div layout="row" layout-align="space-between center" class="ch-groups-help-question-title">
+          <span>
+            {{pregunta.titulo}}
+          </span>
+          <i class="material-icons" ng-show="!showHelp[i]">
+            expand_more
+          </i>
+          <i class="material-icons" ng-show="showHelp[i]">
+            expand_less
+          </i>
+        </div>
+        <div ng-show="showHelp[i]" class="ch-groups-help-question-answer" ng-class="showHelp[i]? 'extend-top' : ''">
+          <div ng-repeat="paso in pregunta.pasos">
+            <li>{{paso.principal}}</li>
+            <ol type="a">
+              <li ng-repeat="subpaso in paso.subPasos"> {{subpaso}}</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
