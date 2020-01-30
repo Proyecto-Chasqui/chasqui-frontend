@@ -192,20 +192,20 @@
     // ///////////////////////
     // / Recive el evento de filtrado
 
-    $scope.$on('filterEvent', function(event, arg) {
-      $log.debug("filterEvent", arg);
-      vm.ultimoFiltro = arg;
+    $scope.$on('filterEvent', function(event, query) {
+      $log.debug("filterEvent", query);
+      vm.ultimoFiltro = query;
       vm.paging.total = 0;
       vm.paging.current = 1;
-      actualizar(arg);
+      actualizar(query);
       vm.activeIndex = 1;
       $scope.$broadcast('setLastPage', vm.lastPage) // favio 27-7-18
 
       loadPages();
     });
 
-    function actualizar(arg) {
-      findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, arg);
+    function actualizar(query) {
+      findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, query);
     }
 
 

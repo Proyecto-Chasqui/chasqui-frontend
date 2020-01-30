@@ -43,10 +43,12 @@
 		vm.categoriaSelect;
 		vm.productorSelect;
 		vm.medallaSelect; // Lista de sellos en un futuro.
-		vm.medallaProductorSelect;
+    vm.medallaProductorSelect;
+    vm.diffIdMedalla = 10000;
 		vm.sinFiltroSelect;
 
 		vm.urlBase = URLS.be_base;
+
 
 		vm.filtrar = function() {
 			filtrarMultiple();
@@ -63,17 +65,17 @@
 		}
 
 		function filtrarMultiple(){
-			var filtros = {};
-			filtros.query = vm.queryText;
-			filtros.categoria = vm.categoriaSelect;
-			filtros.productor = vm.productorSelect;
-			filtros.sello = vm.medallaSelect;
-			filtros.selloProductor = vm.medallaProductorSelect;
-			doFiltrar(filtros);
-		};
+			var query = {};
+			query.query = vm.queryText;
+			query.categoria = vm.categoriaSelect;
+			query.productor = vm.productorSelect;
+			query.sello = vm.medallaSelect < vm.diffIdMedalla ? vm.medallaSelect : undefined;
+      query.selloProductor = vm.medallaSelect >= vm.diffIdMedalla ? vm.medallaSelect - vm.diffIdMedalla: undefined;
+			doFiltrar(query);
+		}
 
-		var doFiltrar = function(valor) {
-			$rootScope.$broadcast('filterEvent', valor); // llama al evento del
+		var doFiltrar = function(query) {
+			$rootScope.$broadcast('filterEvent', query); // llama al evento del
 			// list-producto-controller
 		}
 

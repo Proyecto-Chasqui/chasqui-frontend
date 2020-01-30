@@ -35,23 +35,20 @@
 				<md-input-container class="md-block" flex>
 					<label>{{'SELLO' | translate}}</label>
 					<md-select ng-model="catalogoCtrl.medallaSelect">
-						<md-option ng-repeat="medalla in catalogoCtrl.medallas" value="{{medalla.idMedalla}}">
+            <md-option ng-repeat="medalla in catalogoCtrl.medallas" 
+              value="{{ medalla.idMedalla }}"
+              ng-click="setMedallaSelect(medalla, 'product')">
 							<div layout="row" layout-align="start center">
 								<img ng-src="{{catalogoCtrl.urlBase}}{{medalla.pathImagen}}" class="md-avatar" width="40" height="40"> <span style="padding-left: 1rem;">{{medalla.id}} {{medalla.nombre}}</span>
 							</div>
-						</md-option>
-					</md-select>
-				</md-input-container>
-			</div>
-			<div flex>
-				<md-input-container class="md-block" flex>
-					<label>{{'SELLO_PRODUCTOR' | translate}}</label>
-					<md-select ng-model="catalogoCtrl.medallaProductorSelect">
-						<md-option ng-repeat="medallaProductor in catalogoCtrl.medallasProductor" value="{{medallaProductor.idMedalla}}">
-							<div layout="row" layout-align="start center">
-								<img ng-src="{{catalogoCtrl.urlBase}}{{medallaProductor.pathImagen}}" class="md-avatar" width="40" height="40"> <span style="padding-left: 1rem;">{{medallaProductor.id}} {{medallaProductor.nombre}}</span>
-							</div>
-						</md-option>
+            </md-option>
+            <md-option ng-repeat="medallaProductor in catalogoCtrl.medallasProductor" 
+              value="{{ medallaProductor.idMedalla + catalogoCtrl.diffIdMedalla}}"
+              ng-click="setMedallaSelect(medallaProductor, 'producer')">
+              <div layout="row" layout-align="start center">
+                <img ng-src="{{catalogoCtrl.urlBase}}{{medallaProductor.pathImagen}}" class="md-avatar" width="40" height="40"> <span style="padding-left: 1rem;">{{medallaProductor.id}} {{medallaProductor.nombre}}</span>
+              </div>
+            </md-option>
 					</md-select>
 				</md-input-container>
 			</div>
@@ -62,7 +59,7 @@
             <div class="button-filtro" ng-click="catalogoCtrl.limpiarFiltros()">
 				{{'BORRAR_FILTROS' | translate}}
             </div>
-            </div>
+      </div>
 		</md-card-content>
 	</md-card2>
 </div>
