@@ -31,7 +31,7 @@
           </md-select>
         </md-input-container>
       </div>
-      <div flex>
+      <div flex ng-if="false">
         <md-input-container class="md-block" flex>
           <label>{{'SELLO' | translate}}</label>
           <md-select ng-model="catalogoCtrl.medallaSelect" ng-change="catalogoCtrl.filtrar()">
@@ -52,13 +52,29 @@
           </md-select>
         </md-input-container>
       </div>
-      <div>                    
-      <div class="button-filtro" ng-click="catalogoCtrl.filtrar()" ng-hide="true">
-        {{'BUSCAR' | translate}}
+      <div class="ch-filters-medals">
+        <img ng-repeat="medalla in catalogoCtrl.medallas"
+             ng-src="{{catalogoCtrl.urlBase}}{{medalla.pathImagen}}" 
+             class="ch-filters-medals-medal"
+             ng-class="catalogoCtrl.getMedallaSelect(medalla.idMedalla, 'product')? 'ch-filters-medals-medal-selected' : ''"
+             title="Filtrar {{medalla.nombre}}"
+             ng-click="catalogoCtrl.setMedallaSelect(medalla.idMedalla, 'product')"
+             width="40" height="40">
+        <img ng-repeat="medallaProductor in catalogoCtrl.medallasProductor"
+             ng-src="{{catalogoCtrl.urlBase}}{{medallaProductor.pathImagen}}" 
+             class="ch-filters-medals-medal"
+             ng-class="catalogoCtrl.getMedallaSelect(medallaProductor.idMedalla, 'producer')? 'ch-filters-medals-medal-selected' : ''"
+             title="Filtrar {{medallaProductor.nombre}}"
+             ng-click="catalogoCtrl.setMedallaSelect(medallaProductor.idMedalla, 'producer')"
+             width="40" height="40">
       </div>
-      <div class="button-filtro" ng-click="catalogoCtrl.limpiarFiltros()">
-        {{'BORRAR_FILTROS' | translate}}
-            </div>
+      <div>                    
+        <div class="button-filtro" ng-click="catalogoCtrl.filtrar()" ng-hide="true">
+          {{'BUSCAR' | translate}}
+        </div>
+        <div class="button-filtro" ng-click="catalogoCtrl.limpiarFiltros()">
+          {{'BORRAR_FILTROS' | translate}}
+        </div>
       </div>
     </md-card-content>
   </md-card2>

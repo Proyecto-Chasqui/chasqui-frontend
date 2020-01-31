@@ -234,9 +234,9 @@
         var query = {
           idVendedor: contextPurchaseService.getCatalogContext(),
           idCategoria: params.categoria,
-          idsSellosProducto: params.sello == undefined? [] : [params.sello],
           idProductor: params.productor,
-          idsSellosProductor: params.selloProductor == undefined? [] : [params.selloProductor],
+          idsSellosProducto: params.sello == undefined? [] : params.sello,
+          idsSellosProductor: params.selloProductor == undefined? [] : params.selloProductor,
           numeroDeOrden: StateCommons.getNextRandom(),
           query: params.query,
           pagina: pagina,

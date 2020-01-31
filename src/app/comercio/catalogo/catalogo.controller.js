@@ -42,13 +42,29 @@
 		vm.queryText;
 		vm.categoriaSelect;
 		vm.productorSelect;
-		vm.medallaSelect; // Lista de sellos en un futuro.
-    vm.medallaProductorSelect;
+		vm.medallasSelected = {
+      product: [],
+      producer: []
+    };
     vm.diffIdMedalla = 10000;
 		vm.sinFiltroSelect;
 
-		vm.urlBase = URLS.be_base;
+    vm.urlBase = URLS.be_base;
+    
+    vm.setMedallaSelect = function(id, type){
+      var medalla = vm.medallasSelected[type].filter(function(m){
+        return m.id == id;
+      })[0];
 
+      medalla.selected = !medalla.selected;
+      filtrarMultiple();
+    }
+
+    vm.getMedallaSelect = function(id, type){
+      return vm.medallasSelected[type].filter(function(m){
+        return m.id == id;
+      })[0].selected;
+    }
 
 		vm.filtrar = function() {
 			filtrarMultiple();
@@ -60,7 +76,19 @@
 			vm.medallaSelect = null;
 			vm.sinFiltroSelect = null;
 			vm.medallaProductorSelect = null;
-			vm.queryText = null;
+      vm.queryText = null;
+      vm.medallasSelected.product = vm.medallas.map(function(m){
+        return {
+          id: m.idMedalla,
+          selected: false
+        }
+      })
+      vm.medallasSelected.producer = vm.medallasProductor.map(function(m){
+        return {
+          id: m.idMedalla,
+          selected: false
+        }
+      })
 			filtrarMultiple();
 		}
 
@@ -69,8 +97,16 @@
 			query.query = vm.queryText;
 			query.categoria = vm.categoriaSelect;
 			query.productor = vm.productorSelect;
-			query.sello = vm.medallaSelect < vm.diffIdMedalla ? vm.medallaSelect : undefined;
-      query.selloProductor = vm.medallaSelect >= vm.diffIdMedalla ? vm.medallaSelect - vm.diffIdMedalla: undefined;
+			query.sello = vm.medallasSelected.product.filter(function(m){
+        return m.selected
+      }).map(function(m){
+        return m.id
+      })
+      query.selloProductor = vm.medallasSelected.producer.filter(function(m){
+        return m.selected
+      }).map(function(m){
+        return m.id
+      })
 			doFiltrar(query);
 		}
 
@@ -100,14 +136,26 @@
 		function callMedallas() {
 			productoService.getMedallas()
 				.then(function(response) {
-					vm.medallas = vm.medallas.concat(response.data);
+          vm.medallas = response.data;
+          vm.medallasSelected.product = vm.medallas.map(function(m){
+            return {
+              id: m.idMedalla,
+              selected: false
+            }
+          })
 				})
 		}
 
 		function callMedallasProductores() {
 			productoService.getMedallasProductor()
 				.then(function(response) {
-					vm.medallasProductor = response.data;
+          vm.medallasProductor = response.data;
+          vm.medallasSelected.producer = vm.medallasProductor.map(function(m){
+            return {
+              id: m.idMedalla,
+              selected: false
+            }
+          })
 				})
 		}
 
