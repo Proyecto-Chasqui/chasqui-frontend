@@ -81,6 +81,31 @@
           </div>
         </element-wrapper>
 
+        <element-wrapper supported-strategies="puntoDeEntrega">
+          <div ng-show="deliveryTypes[1].show">
+              <div ng-show="deliveryPoints.length == 0">
+                  No hay puntos de entrega disponibles, debe elegir un domicilio propio para la entrega.
+              </div>
+              <div ng-show="deliveryPoints.length > 0" layout="row" layout-align="space-between start">
+                  <div flex="50" layout="column">
+                      <span>Selecciona un punto de entrega: <strong>*</strong></span>
+                      <span class="ch-error" ng-show="validated && !deliveryPointDefined">Se debe seleccionar un punto de entrega</span>
+                  </div>
+                  <div flex="50">
+                      <md-radio-group name="selectedDeliveryPoint" ng-model="address.selected" layout="column" layout-align="center start">
+                          <md-radio-button ng-repeat="deliveryPoint in deliveryPoints" ng-value="deliveryPoint">
+                              <div layout="column" layout-align="end start">
+                                  <span><strong>{{deliveryPoint.nombre}}</strong></span>
+                                  <span>{{deliveryPoint.direccion.calle}} {{deliveryPoint.direccion.altura}}, {{deliveryPoint.direccion.localidad}}</span>
+                                  <span style="font-style: italic;">{{deliveryPoint.mensaje}}</span>
+                              </div>
+                          </md-radio-button>
+                      </md-radio-group>
+                  </div>
+              </div>
+          </div>
+        </element-wrapper>
+
       </div>
     </div>
   </div>
