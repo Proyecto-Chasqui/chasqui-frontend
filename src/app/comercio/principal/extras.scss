@@ -1827,7 +1827,7 @@ md-tabs md-ink-bar {
   margin-left: 0px;
   cursor: pointer;
   transition: all .7s ease;
-  opacity: 40%;
+  opacity: 0.4;
 }
 
 .ch-filters-medals-medal:hover{
@@ -1835,5 +1835,5 @@ md-tabs md-ink-bar {
 }
 
 .ch-filters-medals-medal-selected{
-  opacity: 100%;
+  opacity: 1;
 }
