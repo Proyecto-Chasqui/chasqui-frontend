@@ -27,6 +27,10 @@
       $state.go('home.login', {toPage: "home.multicatalogo"});
     }
 
+    $scope.$on('resetHeader', function(event, msg) {
+      init();
+    });
+
     function init() {
       $scope.usuario = usuario_dao.getUsuario();
       $scope.isLogued = usuario_dao.isLogged();
