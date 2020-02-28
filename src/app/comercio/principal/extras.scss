@@ -1689,7 +1689,8 @@ md-tabs md-ink-bar {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
+  overflow: hidden;
 }
 
 .ch-confirm-order-left-panel-list-column-item-img{
