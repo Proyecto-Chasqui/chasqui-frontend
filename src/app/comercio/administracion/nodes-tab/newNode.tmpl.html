@@ -51,7 +51,7 @@
         </div>
         <div layout="row" layout-align="space-between center">
             <div flex="50" layout="column">
-                <span><label translate>Domicilio de entrega</label></span>
+                <span><label translate>Domicilio de entrega</label><strong>*</strong></span>
                 <span style="font-style: italic;">Es donde se van a enviar los pedidos colectivos</span>
                 <span class="ch-error" ng-show="validated && !node.idDomicilio">Se debe elegir un domicilio propio</span>
             </div>
@@ -63,7 +63,7 @@
         </div>
         <div layout="row" layout-align="space-between center">
             <div flex="50" layout="column">
-                <span><label translate>Barrio</label></span>
+                <span><label translate>Barrio</label><strong>*</strong></span>
                 <span style="font-style: italic;">Barrio del domicilio de entrega</span>
                 <span class="ch-error" ng-show="validated && !node.barrio.length > 0">Se debe elegir un barrio</span>
             </div>
