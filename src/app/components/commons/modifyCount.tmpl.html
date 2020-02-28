@@ -8,7 +8,7 @@
               <img class="tarjeta-imagen" ng-src="{{urlBase}}{{imageSelect}}">
             </div>
             <div class="ch-tarjeta-contenedor-column-item">
-              <div style="width: 100%;" layout="row" layout-align="space-between center">
+              <div style="width: 100%;" layout="row" layout-align="start center">
                 <div ng-repeat="image in imagenes" class="image-mini-preview" >
                   <img class="image-mini-producto"ng-src="{{urlBase}}{{image.path}}" ng-click="setImageSelected(image.path)">
                 </div>
@@ -26,7 +26,7 @@
                 <chq-price-product precio="variety.precio + variety.incentivo" tamanho="1.2"></chq-price-product>
               </div>
             </div>
-            <div flex="1" layout="column" layout-align="space-around" ng-if="isLogged">
+            <div flex="1" layout="column" layout-align="space-around" ng-if="isLogged && ventasHabilitadas">
                 <div layout="row" layout-align="space-between center" flex="100">
                     <div flex="70" style="font-weight: bold">
                         ¿Cuántos querés?
@@ -84,7 +84,7 @@
       <md-button ng-click="cancelAction()" class="md-primary">
           {{cancelButton}}
       </md-button>
-      <md-button ng-click="okAction(count())" class="md-raised md-primary" ng-show="showOkButton()">
+      <md-button ng-click="okAction(count())" class="md-raised md-primary" ng-show="showOkButton()" ng-if="ventasHabilitadas">
           {{okButton()}}
       </md-button>
     </md-dialog-actions>

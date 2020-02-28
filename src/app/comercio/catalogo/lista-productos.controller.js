@@ -160,9 +160,8 @@
       return producto.nombreProducto;
     }
 
-
     vm.mostrar = function(variety){
-      if(usuario_dao.isLogged()){
+      if(usuario_dao.isLogged() && vm.permitirComprar){
         vm.agregar(variety);
       } else {
         var varietyName = (variety.nombreProducto === undefined)? variety.nombre : variety.nombreProducto;
