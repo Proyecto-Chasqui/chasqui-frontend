@@ -279,7 +279,7 @@
       .then(function(catalog){
         var text = catalog.mensajeVentasDeshabilitadas? 
           catalog.mensajeVentasDeshabilitadas :
-          "Por el momento este catálogo no permite compras, sin embargo podes navegar los productos y gestionar los pedidos que tenias pendientes";
+          "Por el momento este catálogo no permite compras, sin embargo podés navegar los productos y gestionar los pedidos que tenías pendientes";
 
         toastr.error(text,"Ventas deshabilitadas");
       })
