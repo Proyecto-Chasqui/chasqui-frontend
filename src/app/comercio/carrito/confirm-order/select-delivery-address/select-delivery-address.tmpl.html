@@ -60,7 +60,8 @@
               </div>
 
               <div class="ch-select-address-item">
-                <span style="font-style: italic;">{{addressZone.descripcion}}</span>
+                <span style="font-style: italic;" ng-if="!addressZone.notOkDescription">{{addressZone.descripcion}}</span>
+                <span style="font-style: italic; color: red;" ng-if="addressZone.notOkDescription">{{addressZone.descripcion}}</span>
               </div>
             </div>
           </div>

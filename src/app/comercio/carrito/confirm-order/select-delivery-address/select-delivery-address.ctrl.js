@@ -164,7 +164,8 @@
 
       function doNoOk(response){
         $scope.addressZone = {
-          descripcion: "La dirección del domicilio no está asociada con ninguna zona de entrega del vendedor. Por favor comuniquese con el administrador del catálogo para confirmar los detalles de la compra."
+          descripcion: "La dirección del domicilio no está asociada con ninguna zona de entrega del vendedor. Por favor comuniquese con el administrador del catálogo para confirmar los detalles de la compra.",
+          notOkDescription: true
         }
         $scope.address.zone = $scope.addressZone;
       }
