@@ -78,7 +78,7 @@
                                             translate: "TEL_CEL",
                                             model: "telefonoMovil",
                                             required: function(){
-                                                return !parseInt($scope.profile.telefonoFijo) > 0;
+                                                return !(parseInt($scope.profile.telefonoFijo) > 0);
                                             },
                                             type: "text",
                                             errors: [
@@ -92,7 +92,7 @@
                                             translate: "TEL_FIJO",
                                             model: "telefonoFijo",
                                             required: function(){ 
-                                                return !parseInt($scope.profile.telefonoMovil) > 0;
+                                                return !(parseInt($scope.profile.telefonoMovil) > 0);
                                             },
                                             type: "text",
                                             errors: [
@@ -181,17 +181,22 @@
 
         function validateProfile(profile){
 
-          var unTelefono = false;
-
-          return Object.keys(profile).filter(function(k){
+          var validated = Object.keys(profile).filter(function(k){
             return !$scope.hideField(k);
+          }).filter(function(k){
+            return k !== "telefonoFijo" && k !== "telefonoMovil";
           }).reduce(function(r,k){
             var fieldIsDefined = profile[k] !== undefined && profile[k] !== "";
-            if( k == "telefono" || k == "telefonoMovil"){
-              unTelefono = unTelefono || fieldIsDefined;
-            }
             return r && fieldIsDefined;
-          }, true) && unTelefono;
+          }, true);
+
+
+          var unTelefono = (profile.telefonoFijo !== undefined && profile.telefonoFijo !== "" && Number.isInteger(parseInt(profile.telefonoFijo)))
+                        || (profile.telefonoMovil !== undefined && profile.telefonoMovil !== "" && Number.isInteger(parseInt(profile.telefonoMovil)));
+                    
+          console.log(validated, unTelefono);
+
+          return validated && unTelefono;
             // var tieneApellido = profile.apellido !== undefined && profile.apellido !== "";
             // var tieneNick = profile.nickName !== undefined && profile.nickName !== "";
             // var tieneNombre = profile.nombre !== undefined && profile.nombre !== "";
@@ -205,6 +210,7 @@
         }
         
         $scope.labelButtonSave = function(profile){
+          console.log("validated:", validateProfile(profile));
             if(validateProfile(profile)){
                 setUserAvatar($scope.avatarSelected);
                 $scope.labelButtonAction(profile)
