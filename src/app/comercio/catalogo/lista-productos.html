@@ -11,44 +11,40 @@
         ng-click="listaProductosCtrl.mostrar(producto)">
       </chq-principal-product-image>
 	  
-	<div class="card-chasqui">
-      <chq-price-product precio="producto.precio + producto.incentivo" tamanho="1.6"></chq-price-product>
+      <div class="card-chasqui">
+        <chq-price-product precio="producto.precio + producto.incentivo" tamanho="1.6"></chq-price-product>
+          
+        <chq-product-description description="producto.nombreProducto"></chq-product-description>
+
+        <chq-producer-name
+          nombre="producto.nombreFabricante"
+          ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
+        </chq-producer-name>
+
+        <chq-box-container space="space-between">
+          
+          <div layout="row" layout-xs="row" layout-align="start center">
+            <chq-stamp
+              ng-repeat="medalla in producto.medallasProducto"
+              ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
+              image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+              texto="medalla.nombre">
+            </chq-stamp>
+            <chq-stamp
+              ng-repeat="medalla in producto.medallasProductor"
+              ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
+              image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
+              texto="medalla.nombre">
+            </chq-stamp>
+          </div>
       
-	  <chq-product-description description="producto.nombreProducto"></chq-product-description>
-
-      <chq-producer-name
-        nombre="producto.nombreFabricante"
-        ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
-      </chq-producer-name>
-
-      <chq-box-container space="space-between">
-
-	  
-	   <div layout="row" layout-xs="row" layout-align="start center">
-      	<chq-stamp
-          ng-repeat="medalla in producto.medallasProducto"
-          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
-          image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-          texto="medalla.nombre">
-        </chq-stamp>
-        
-	  		<chq-stamp
-          ng-repeat="medalla in producto.medallasProductor"
-          ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
-          image="{{listaProductosCtrl.urlBase}}{{medalla.pathImagen}}"
-          texto="medalla.nombre">
-         </chq-stamp>
-       </div>
-	  
-	  
-	  
-        <chq-add-button
-          text="{{listaProductosCtrl.isLogged && listaProductosCtrl.permitirComprar? 'AGREGAR' : 'VER'}}"
-          ng-click="listaProductosCtrl.mostrar(producto)"
-          title="{{'Agregar al changuito'">
-        </chq-add-button>
-      </chq-box-container>
-</div>
+          <chq-add-button
+            text="{{listaProductosCtrl.isLogged && listaProductosCtrl.permitirComprar? 'AGREGAR' : 'VER'}}"
+            ng-click="listaProductosCtrl.mostrar(producto)"
+            title="{{'Agregar al changuito'">
+          </chq-add-button>
+        </chq-box-container>
+      </div>
 
     </chq-product-card>
   </chq-catalog-box>
