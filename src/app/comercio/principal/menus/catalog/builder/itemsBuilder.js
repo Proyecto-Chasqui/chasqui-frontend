@@ -64,7 +64,7 @@
                           route: 'products',
                           label: 'MENU_CATALOGO',
                           needLogin: false,
-                          mobile_icon: 'list',
+                          mobile_icon: 'store',
                       };
 
       var userOrders = {
@@ -72,7 +72,7 @@
                           route: 'userOrders',
                           label: 'MENU_PEDIDO',
                           needLogin: true,
-                          mobile_icon: 'location_on',
+                          mobile_icon: 'list',
                       };
 
       var userGroups = { 
@@ -102,7 +102,8 @@
                           id: 'DELIVERY_POINTS',
                           route: 'deliveryPoints',
                           label: 'MENU_DELIVERY_POINTS',
-                          needLogin: false
+                          needLogin: false,
+                          mobile_icon: 'location_on',
                       };
 
       var userProfile = {  
