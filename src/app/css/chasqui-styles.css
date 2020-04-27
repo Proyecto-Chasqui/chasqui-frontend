@@ -1046,17 +1046,15 @@ width:400px;
   color: #2a2a2b;
 }
 
-.image-mini-preview {
-  border: 1px solid #3333331a;
-  margin-right: 5px;
-}
-
 .image-mini-producto {
-  width: 145px;
+  width: 120px;
+  margin-right: 10px;
+  border: 1px solid #3333331a;
+  cursor: pointer;
 }
 
-div.image-mini-preview:hover {
-    border: 1px solid #00adee;
+.image-mini-producto:hover {
+  border: 1px solid #00adee;
 }
 
 .toolbar-tarjeta {
@@ -1096,27 +1094,33 @@ background-color: #fff;
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
-  width: 1000px;
   padding-left: 10px;
   padding-right: 10px;
+  max-width: 800px;
 }
 
 .ch-tarjeta-contenedor-column{
-  width: 450px;
   flex: 1; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: stretch;
+  align-items: flex-start;
   margin-left: 10px;
   margin-right: 10px;
+  max-width: 380px;
 }
 
 .ch-tarjeta-contenedor-column-item{
-  width: 400px;
+  flex: 1; 
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-bottom: 10px;
 }
 
 .ch-modal-price-per-unit-and-description{
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -1132,7 +1136,8 @@ background-color: #fff;
 
 .tarjeta-imagen {
     border: 1px solid #3333331a;
-    width: 450px;
+    flex: 1;
+    max-width: 380px;
 }
 
 .tarjeta-descripcion-producto {
@@ -1163,13 +1168,11 @@ background-color: #fff;
       flex-direction: row;
       justify-content: center;
       align-items: stretch;
-      width: 900px;
       padding-left: 10px;
       padding-right: 10px;
     }
 
     .ch-tarjeta-contenedor-column{
-      width: 450px;
       flex: 1; 
       display: flex;
       flex-direction: column;
@@ -1180,7 +1183,10 @@ background-color: #fff;
     }
 
     .ch-tarjeta-contenedor-column-item{
-      width: 450px;
+      flex: 1; 
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
     }
 
     .tarjeta-nombre {
@@ -1201,11 +1207,12 @@ background-color: #fff;
     
     .tarjeta-imagen {
         border: 1px solid #3333331a;
-        width: 450px;
+        flex: 1;
     }
 
     .image-mini-producto {
-        height: 70px;
+      flex: 1;
+      margin: 5px;
     }
     
     .tarjeta-descripcion-producto {
@@ -1226,13 +1233,11 @@ background-color: #fff;
       flex-direction: row;
       justify-content: center;
       align-items: stretch;
-      width: 800px;
       padding-left: 10px;
       padding-right: 10px;
     }
 
     .ch-tarjeta-contenedor-column{
-      width: 400px;
       flex: 1; 
       display: flex;
       flex-direction: column;
@@ -1243,7 +1248,10 @@ background-color: #fff;
     }
 
     .ch-tarjeta-contenedor-column-item{
-      width: 400px;
+      flex: 1; 
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
     }
     
     .tarjeta-nombre {
@@ -1264,11 +1272,12 @@ background-color: #fff;
     
     .tarjeta-imagen {
         border: 1px solid #3333331a;
-        width: 400px;
+        flex: 1;
     }
 
     .image-mini-producto {
-        height: 50px;
+      flex: 1;
+      margin: 5px;
     }
     
     .tarjeta-descripcion-producto {
@@ -1289,13 +1298,11 @@ background-color: #fff;
       flex-direction: row;
       justify-content: center;
       align-items: stretch;
-      width: 560px;
       padding-left: 10px;
       padding-right: 10px;
     }
 
     .ch-tarjeta-contenedor-column{
-      width: 280px;
       flex: 1; 
       display: flex;
       flex-direction: column;
@@ -1306,7 +1313,10 @@ background-color: #fff;
     }
 
     .ch-tarjeta-contenedor-column-item{
-      width: 280px;
+      flex: 1; 
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
     }    
 
     .tarjeta-nombre {
@@ -1327,11 +1337,12 @@ background-color: #fff;
     
     .tarjeta-imagen {
         border: 1px solid #3333331a;
-        width: 280px;
+        flex: 1;
     }
 
     .image-mini-producto {
-        height: 40px;
+      flex: 1;
+      margin: 5px;
     }
     
     .tarjeta-descripcion-producto {

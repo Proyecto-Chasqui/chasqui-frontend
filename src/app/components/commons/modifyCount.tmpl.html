@@ -2,25 +2,30 @@
     <form ng-cloak>
     <modal-window-title-bar title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>
 
-    <md-dialog-content class="ch-tarjeta-contenedor">
-        <div class="ch-tarjeta-contenedor-column">
-            <div class="ch-tarjeta-contenedor-column-item">
-              <img class="tarjeta-imagen" ng-src="{{urlBase}}{{imageSelect}}">
-            </div>
-            <div class="ch-tarjeta-contenedor-column-item">
-              <div style="width: 100%;" layout="row" layout-align="start center">
-                <div ng-repeat="image in imagenes" class="image-mini-preview" >
-                  <img class="image-mini-producto"ng-src="{{urlBase}}{{image.path}}" ng-click="setImageSelected(image.path)">
-                </div>
-              </div>
-            </div>
+    <md-dialog-content class="ch-tarjeta-contenedor ch-responsive-layout">
+      <div class="ch-tarjeta-contenedor-column ch-responsive-xl">
+        <div class="ch-tarjeta-contenedor-column-item">
+          <img class="tarjeta-imagen" ng-src="{{urlBase}}{{imageSelect}}">
         </div>
-        <div class="ch-tarjeta-contenedor-column">
+        <div class="ch-tarjeta-contenedor-column-item">
+          <img ng-repeat="image in imagenes" 
+               class="image-mini-producto" 
+               ng-src="{{urlBase}}{{image.path}}" 
+               ng-click="setImageSelected(image.path)">
+        </div>
+      </div>
+      <div class="ch-tarjeta-contenedor-column ch-responsive-s">
+        <div class="ch-tarjeta-contenedor-column-item">
+          <img class="tarjeta-imagen" ng-src="{{urlBase}}{{imageSelect}}">
+        </div>
+      </div>
+      
+      <div class="ch-tarjeta-contenedor-column">
             <div flex="1" class="ch-modal-price-per-unit-and-description">
               <div flex="1" style="margin-bottom: 20px; font-style: italic" ng-bind-html="variety.descripcion">
               </div>
               <div  flex="1" layout="row" layout-align="start end">
-                <label>
+                <label style="margin-right: 5px;">
                   El precio por unidad es
                 </label>
                 <chq-price-product precio="variety.precio + variety.incentivo" tamanho="1.2"></chq-price-product>
