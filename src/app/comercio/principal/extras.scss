@@ -47,6 +47,23 @@ $colorBlanco: #FFFFFF;
     justify-content: space-between;
     align-items: stretch;
   }
+
+  .ch-responsive-layout-start{
+    align-items: flex-start !important;
+  }
+
+  .ch-home-ayudas-label{
+    margin-top: 10px;
+    margin-bottom: 10px !important;
+  }
+
+  .ch-home-ayudas-ayuda-icons-icon{
+    margin-bottom: 5px;
+  }
+
+  .ch-home-apoyan-logos-logo-img{
+    width: 280px !important;
+  }
 }
 
 
@@ -1076,6 +1093,7 @@ md-tabs md-ink-bar {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+  margin-top: 20px;
 }
 
 .ch-home-header-name-label{
@@ -1146,7 +1164,7 @@ md-tabs md-ink-bar {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: stretch;
+  align-items: center;
   flex-wrap: wrap;
 }
 
@@ -1162,6 +1180,12 @@ md-tabs md-ink-bar {
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
+}
+
+@media (max-width: 767px) {
+  .ch-home-catalogs-catalog{
+    margin-left: 0px !important;
+  }
 }
 
 .ch-home-catalogs-catalog:hover{
@@ -1424,6 +1448,7 @@ md-tabs md-ink-bar {
 .ch-home-chasqui-diferente-descripcion-titulo{
   font-size: 28px;
   margin-bottom: 20px;
+  line-height: 1.2;
 }
 
 .ch-home-chasqui-diferente-descripcion-contenido{
@@ -1446,6 +1471,7 @@ md-tabs md-ink-bar {
 .ch-home-apoyan-label{
   font-size: 28px;
   margin-bottom: 20px;
+  line-height: 1.2;
 }
 
 .ch-home-apoyan-logos{

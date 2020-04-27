@@ -1,7 +1,7 @@
 
 <div id="chasqui-content-full" class="chasqui-content-full-home">
   <div class="chasqui-content-full-home-container">
-    <div class="ch-home-header">
+    <div class="ch-home-header ch-responsive-layout">
         <div class="ch-home-header-name">
           <label class="ch-home-header-name-label">CHASQUI</label>
           <label class="ch-home-header-name-label-2">Comunidad de consumo solidario</label>
@@ -9,10 +9,10 @@
         <div class="ch-home-header-filter">
           <div class="ch-home-header-filter-input">
             <md-input-container class="ch-home-header-filter-input-string">
-              <label>Buscar por nombre</label>
+              <label>Buscar catalogo por nombre</label>
               <input ng-model="selectedTags.nombre" ng-change="confirmSearch()">
             </md-input-container>            
-            <div class="ch-home-header-filter-input-selections">
+            <div class="ch-home-header-filter-input-selections ch-responsive-layout">
               <md-input-container class="ch-home-header-filter-input-selections-options">
                 <label>Zona de entregas</label>
                 <md-select ng-model="selectedTags.idTagZonaDeCobertura" ng-change="confirmSearch()">
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="ch-home-catalogs">
-      <div class="ch-home-catalogs-container">
+      <div class="ch-home-catalogs-container ch-responsive-layout">
         <div class="ch-home-catalogs-catalog" ng-repeat="catalog in catalogs" ng-click="goToCatalog(catalog.nombreCorto)">
           <img class="ch-home-catalogs-catalog-img" ng-src="{{url(catalog.imagen)}}">
           <div class="ch-home-catalogs-catalog-details">
@@ -97,12 +97,12 @@
       </div>
     </div>
 
-    <div class="ch-home-ayudas">
-      <div class="ch-home-ayudas-ayuda">
+    <div class="ch-home-ayudas ch-responsive-layout ch-responsive-layout-start">
+      <div class="ch-home-ayudas-ayuda ch-responsive-layout">
         <label class="ch-home-ayudas-label">
           Formas de compra
         </label>
-        <div class="ch-home-ayudas-ayuda-icons">
+        <div class="ch-home-ayudas-ayuda-icons ch-responsive-layout ch-responsive-layout-start">
           <div class="ch-home-ayudas-ayuda-icons-icon">
             <img src="./assets/images/estrategias/compra_individual.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
             <label class="ch-home-ayudas-ayuda-icons-icon-label">
@@ -123,11 +123,11 @@
           </div>
         </div>
       </div>
-      <div class="ch-home-ayudas-ayuda">
+      <div class="ch-home-ayudas-ayuda ch-responsive-layout">
         <label class="ch-home-ayudas-label">
           Tipos de entrega
         </label>
-        <div class="ch-home-ayudas-ayuda-icons">
+        <div class="ch-home-ayudas-ayuda-icons ch-responsive-layout ch-responsive-layout-start">
           <div class="ch-home-ayudas-ayuda-icons-icon">
             <img src="./assets/images/estrategias/entrega_domicilio.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
             <label class="ch-home-ayudas-ayuda-icons-icon-label">
@@ -171,14 +171,14 @@
           Fomenta prácticas de consumo organizado que dan identidad  pero tambien sutentabilidad al campo de la Economía Social y Solidaria.
         </label>
       </div>
-      <div class="ch-home-chasqui-diferente-logo">
+      <div class="ch-home-chasqui-diferente-logo ch-responsive-xl">
         <img src ="./assets/images/logo_chasqui_diferente.png">
       </div>
     </div>
 
     <div class="ch-home-apoyan">
       <label class="ch-home-apoyan-label">Apoyan esta iniciativa</label>
-      <div class="ch-home-apoyan-logos">
+      <div class="ch-home-apoyan-logos ch-responsive-layout">
         <div class="ch-home-apoyan-logos-logo" ng-repeat="id in apoyos_id">
           <img src='{{getSupportLogo(id)}}' class="ch-home-apoyan-logos-logo-img">
         </div>

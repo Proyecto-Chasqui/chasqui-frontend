@@ -152,8 +152,13 @@
     function goToCatalog(catalogShortName){
         $state.go('catalog.products', {catalogShortName: catalogShortName});
     }
+
+    function toTop(){
+      window.scrollTo(0,0);
+    }
     
     function init(){
+      toTop();
       contextCatalogsService.getCatalogs().then(function(catalogs){
           $scope.catalogs = catalogs.map(function(c){
             c.deliveryTypes = deliveryTypes(c);
