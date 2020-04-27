@@ -1,6 +1,7 @@
 <md-dialog>
     <form ng-cloak>
-    <modal-window-title-bar title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>
+    <modal-window-title-bar class="ch-responsive-xl" title="{{title}}" cancel-action="cancelAction"></modal-window-title-bar>
+    <modal-window-title-bar class="ch-responsive-s" title="{{responsiveTexts.title}}" cancel-action="cancelAction"></modal-window-title-bar>
 
     <md-dialog-content class="ch-tarjeta-contenedor ch-responsive-layout">
       <div class="ch-tarjeta-contenedor-column ch-responsive-xl">
@@ -15,8 +16,17 @@
         </div>
       </div>
       <div class="ch-tarjeta-contenedor-column ch-responsive-s">
-        <div class="ch-tarjeta-contenedor-column-item">
-          <img class="tarjeta-imagen" ng-src="{{urlBase}}{{imageSelect}}">
+        <div class="ch-tarjeta-contenedor-column-item" style="position: relative;">
+          <ul rn-carousel 
+              rn-carousel-auto-slide 
+              rn-carousel-duration="{{100}}"
+              rn-carousel-transition="{{'slide'}}"
+              class="ch-tarjeta-carousel">
+
+            <li ng-repeat="image in imagenes" style="flex: 1;">
+                <img ng-src="{{urlBase}}{{image.path}}" class="tarjeta-imagen" alt="cargando...">
+            </li>
+          </ul>
         </div>
       </div>
       
@@ -89,8 +99,11 @@
       <md-button ng-click="cancelAction()" class="md-primary">
           {{cancelButton}}
       </md-button>
-      <md-button ng-click="okAction(count())" class="md-raised md-primary" ng-show="showOkButton()" ng-if="ventasHabilitadas">
+      <md-button ng-click="okAction(count())" class="md-raised md-primary ch-responsive-xl" ng-show="showOkButton()" ng-if="ventasHabilitadas">
           {{okButton()}}
+      </md-button>
+      <md-button ng-click="okAction(count())" class="md-raised md-primary ch-responsive-s" ng-show="showOkButton()" ng-if="ventasHabilitadas">
+          {{okButtonResponsive()}}
       </md-button>
     </md-dialog-actions>
   </form>

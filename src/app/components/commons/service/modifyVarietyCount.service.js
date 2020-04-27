@@ -42,11 +42,17 @@
                                                 okButtonModificar: "Modificar cantidad",
                                                 okButtonRemover: "Quitar del changuito",
                                                 cancelButton: "Cancelar"
+                                            },{
+                                              title: varietyName,
+                                              okButtonAgregar: "Agregar",
+                                              okButtonModificar: "Modificar cantidad",
+                                              okButtonRemover: "Quitar del changuito",
+                                              cancelButton: "Cancelar"
                                             },
-                                             initialCount,
-                                             {
-                                                doOk: doOk,
-                                                doNoOk: doNoOk
+                                            initialCount,
+                                            {
+                                              doOk: doOk,
+                                              doNoOk: doNoOk
                                             });
        })
    }

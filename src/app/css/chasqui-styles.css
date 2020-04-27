@@ -1140,6 +1140,14 @@ background-color: #fff;
     max-width: 380px;
 }
 
+.ch-tarjeta-carousel{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 140px;
+}
+
 .tarjeta-descripcion-producto {
     margin-top: 10px;
     margin-right:10px;
@@ -1300,6 +1308,7 @@ background-color: #fff;
       align-items: stretch;
       padding-left: 10px;
       padding-right: 10px;
+      margin-top: 10px;
     }
 
     .ch-tarjeta-contenedor-column{
@@ -1316,7 +1325,7 @@ background-color: #fff;
       flex: 1; 
       display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: center;
     }    
 
     .tarjeta-nombre {
@@ -1338,6 +1347,7 @@ background-color: #fff;
     .tarjeta-imagen {
         border: 1px solid #3333331a;
         flex: 1;
+        height: 140px;
     }
 
     .image-mini-producto {

@@ -99,7 +99,7 @@
     
         
     /* Dialogo para la modificación de la cantidad de productos de una variedad en el changuito */
-    vm.modifyVarietyCount = function(variety, order, texts, initCount, actions){
+    vm.modifyVarietyCount = function(variety, order, texts, responsiveTexts, initCount, actions){
       var modify = {
         parent: angular.element(document.body),
         templateUrl: "app/components/commons/modifyCount.tmpl.html",
@@ -109,6 +109,7 @@
           variety: variety, 
           order: order,
           texts: texts,
+          responsiveTexts,
           initCount: initCount,
           actions: actions
         }

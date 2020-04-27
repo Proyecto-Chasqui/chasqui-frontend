@@ -169,13 +169,20 @@
         dialogCommons.modifyVarietyCount(
           variety,
           null,  // order
-         {  // texts
-             title: varietyName,
-             okButtonAgregar: "Agregar al changuito",
-             okButtonModificar: "",
-             okButtonRemover: "",
-             cancelButton: "Volver"
-         },
+          {  // texts
+              title: varietyName,
+              okButtonAgregar: "Agregar al changuito",
+              okButtonModificar: "",
+              okButtonRemover: "",
+              cancelButton: "Volver"
+          },
+          {  // texts
+              title: varietyName,
+              okButtonAgregar: "Agregar al changuito",
+              okButtonModificar: "",
+              okButtonRemover: "",
+              cancelButton: "Volver"
+          },
           0, // initial count
           { // actions
             doOk: function doOk(){

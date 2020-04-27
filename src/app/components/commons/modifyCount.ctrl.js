@@ -5,12 +5,14 @@
     .module('chasqui')
     .controller('ModifyCountCtrl', ModifyCountCtrl);
     
-  function ModifyCountCtrl($log, $scope, $mdDialog, URLS, variety, order, texts, initCount, actions, 
+  function ModifyCountCtrl($log, $scope, $mdDialog, URLS, variety, order, texts, initCount, actions, responsiveTexts,
                            agrupationTypeDispatcher, contextPurchaseService, toastr, usuario_dao, productoService) {
     $scope.urlBase = URLS.be_base;
   
     $scope.title = texts.title;
-    $scope.okButton = getOkButtonText;
+    $scope.responsiveTexts = responsiveTexts;
+    $scope.okButton = getOkButtonText(texts);
+    $scope.okButtonResponsive = getOkButtonText(responsiveTexts);
     $scope.cancelButton = texts.cancelButton;
     $scope._count = initCount == 0? 1 : initCount;
     $scope.showOkButton = showOkButton;
@@ -54,15 +56,17 @@
         return $scope._count;
     }
     
-    function getOkButtonText(){
-      if(initCount == 0 && $scope._count > 0){
-          return texts.okButtonAgregar;
-      }
-      if(initCount > 0 && $scope._count == 0){
-        return texts.okButtonRemover;
-      }
-      if(initCount != $scope._count){
-        return texts.okButtonModificar;
+    function getOkButtonText(localTexts){
+      return function(){
+        if(initCount == 0 && $scope._count > 0){
+            return localTexts.okButtonAgregar;
+        }
+        if(initCount > 0 && $scope._count == 0){
+          return localTexts.okButtonRemover;
+        }
+        if(initCount != $scope._count){
+          return localTexts.okButtonModificar;
+        }
       }
     }
 
