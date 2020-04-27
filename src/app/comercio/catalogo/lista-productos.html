@@ -21,9 +21,9 @@
           ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
         </chq-producer-name>
 
-        <chq-box-container space="space-between">
+        <chq-box-container>
           
-          <div layout="row" layout-xs="row" layout-align="start center">
+          <div class="chq-product-stamps">
             <chq-stamp
               ng-repeat="medalla in producto.medallasProducto"
               ng-click="listaProductosCtrl.showPrerenderedDialog(medalla)"
