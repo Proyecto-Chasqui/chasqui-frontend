@@ -53,6 +53,7 @@
   "resolutions": {
     "jquery": "~2.1.4",
     "angular": "~1.5.3",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "slick-carousel": "~1.6.0"
   }
 }

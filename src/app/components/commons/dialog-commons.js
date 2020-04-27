@@ -109,7 +109,7 @@
           variety: variety, 
           order: order,
           texts: texts,
-          responsiveTexts,
+          responsiveTexts: responsiveTexts,
           initCount: initCount,
           actions: actions
         }
