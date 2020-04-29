@@ -900,7 +900,6 @@ padding-left: 40px;
 #destacados-slider-movil1 {display: none;}
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
-.ch-dialog.md-toolbar-tools .ch-dialog-modal-title{  font-size: 15px;}
 .ch-modal-price-per-unit-and-description {display: none;}
 }
 
@@ -927,12 +926,7 @@ padding-left: 40px;
 .imagenes-comocomprar {display: none;}
 .puntosderetiro {padding-left: 0px;}
 
-.ch-dialog.md-toolbar-tools .ch-dialog-modal-title{  
-font-size: 12px;
-font-weight: 300;
-line-height: 1.29;
-color: #111;
-}
+
 .ch-modal-price-per-unit-and-description {display: none;}
 
 .search-input-container {margin-left: 16px;}
@@ -1023,29 +1017,6 @@ width:400px;
         CARD TARJETA  
 **********************************************
 */
-
-.boton-cerrar-card {
-  position: absolute;
-  border-radius: 50%;
-  height: 32px;
-  width: 32px;
-  right: 5px;
-  top: 5px;
-  padding: 4px;
-  color: rgb(66, 82, 110);
-  background-color: white;
-  transition: background-color .1s, color .1s;
-  transition-property: background-color, color;
-  transition-duration: 0.1s, 0.1s;
-  transition-timing-function: ease, ease;
-  transition-delay: 0s, 0s;
-  cursor: pointer;
-}
-
-.boton-cerrar-card:hover {
-  background-color: #d7d8dd;
-  color: #2a2a2b;
-}
 
 .image-mini-producto {
   width: 120px;

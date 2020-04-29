@@ -62,15 +62,15 @@
   
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="myDialog">
-          <md-dialog layout-padding class="dialogo-medalla-productor">
+          <md-dialog class="dialogo-medalla-productor">
               <modal-window-title-bar 
                 title="{{listaProductosCtrl.medallaSelect.nombre}}"
                 cancel-action="listaProductosCtrl.cerrarDialogoMedalla">
               </modal-window-title-bar>
-              <div layout="column" layout-align="center center">
+              <md-dialog-content class="ch-dialog-content">
                   <ch-image src="listaProductosCtrl.medallaSelect.pathImagen" width="200" height="200" class="dialogo-imagen" ></ch-image>
                   <div class="txt-medalla" ng-bind-html="listaProductosCtrl.medallaSelect.descripcion"></div>
-              </div>
+              </md-dialog-content>
           </md-dialog>
       </div>
   </div>
@@ -78,15 +78,15 @@
   <!-- ********************* dialogo de productor *******************-->
   <div style="visibility: hidden">
       <div class="md-dialog-container" id="productorDialog">
-          <md-dialog layout-padding class="dialogo-medalla-productor">
+          <md-dialog class="dialogo-medalla-productor">
               <modal-window-title-bar 
                 title="{{listaProductosCtrl.emprendedorSelect.nombreProductor}}"
                 cancel-action="listaProductosCtrl.cerrarDialogoMedalla">
               </modal-window-title-bar>
-              <div layout="column" layout-align="center center">
+              <md-dialog-content class="ch-dialog-content">
                 <ch-image src="listaProductosCtrl.emprendedorSelect.pathImagen" width="200" height="200" class="dialogo-imagen"></ch-image>
-              </div>
               <div class="txt-medalla" ng-bind-html="listaProductosCtrl.emprendedorSelect.descripcionCorta"></div>
+              </md-dialog-content>
               <!--<md-button ui-sref="catalog.productor({idProductor: listaProductosCtrl.emprendedorSelect.idProductor})">
                       Más
               </md-button>-->

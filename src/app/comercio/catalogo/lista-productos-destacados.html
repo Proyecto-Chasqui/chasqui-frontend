@@ -85,15 +85,15 @@
   <!-- ********************* dialogo de medalla *******************-->
   <div style="visibility: hidden">
     <div class="md-dialog-container" id="myDialog">
-        <md-dialog layout-padding class="dialogo-medalla-productor">
+        <md-dialog class="dialogo-medalla-productor">
             <modal-window-title-bar 
               title="{{ctrl.medallaSelect.nombre}}"
               cancel-action="ctrl.cerrarDialogoMedalla">
             </modal-window-title-bar>
-            <div layout="column" layout-align="center center">
+            <md-dialog-content class="ch-dialog-content">
                 <ch-image src="ctrl.medallaSelect.pathImagen" width="200" height="200" class="dialogo-imagen" ></ch-image>
                 <div class="txt-medalla" ng-bind-html="ctrl.medallaSelect.descripcion"></div>
-            </div>
+            </md-dialog-content>
         </md-dialog>
     </div>
   </div>

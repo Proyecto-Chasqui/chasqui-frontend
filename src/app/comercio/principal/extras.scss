@@ -98,11 +98,63 @@ md-list-item.md-3-line > .md-no-style::before {
     }
 }
 
-// Barra de titulo de las ventanas modales
-.ch-dialog.md-toolbar-tools{
+/* Barra de titulo de modal */
+
+.ch-modal-title-bar{
+  margin-top: 10px;
+  margin-left: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ch-dialog-modal-title{  
+  font-size: 20px !important;
+  font-weight: 300;
+  color: #111;
+}
+
+.ch-dialog-modal-title-label{
   background-color: $colorBlanco;
   color: #98989b;
 }
+
+.boton-cerrar-card {
+  position: absolute;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  right: 5px;
+  top: 5px;
+  padding: 4px;
+  color: rgb(66, 82, 110);
+  background-color: white;
+  transition: background-color .1s, color .1s;
+  transition-property: background-color, color;
+  transition-duration: 0.1s, 0.1s;
+  transition-timing-function: ease, ease;
+  transition-delay: 0s, 0s;
+  cursor: pointer;
+}
+
+.boton-cerrar-card:hover {
+  background-color: #d7d8dd;
+  color: #2a2a2b;
+}
+
+///////////////////////////////////////////////
+
+.ch-dialog-content{
+  margin-top: 15px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 
 .titulo-pagina {
 	//font-size: 50px;

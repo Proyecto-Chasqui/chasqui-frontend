@@ -1,7 +1,16 @@
-<div>
+<div class="ch-image">
   <img ng-src="{{getPath(src)}}" width="{{width}}" height="{{height}}" alt="{{alt}}">
   
   <md-tooltip md-direction="bottom">
     {{description}}
   </md-tooltip>  
 </div>
+
+<style>
+  .ch-image{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+</style>
