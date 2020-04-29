@@ -1644,17 +1644,16 @@ md-tabs md-ink-bar {
 
 .ch-confirm-order-steps-step{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 10px;
 }
 
 .ch-confirm-order-steps-step-label{
   font-size: 28px;
   font-style: italic;
-  cursor: pointer;
   font-weight: 250;
+  margin: 10px;
 }
 
 .ch-confirm-order-steps-step-label-selected {

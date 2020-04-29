@@ -5,7 +5,7 @@
 
   /** @ngInject */
   function ConfirmOrderCtrl($scope, $rootScope, contextPurchaseService, $log, agrupationTypeDispatcher,
-                              $stateParams, $state) {
+                              $stateParams, $state, contextCatalogObserver, contextOrdersService) {
         
     $scope.sections = {
       orderSumary: false,

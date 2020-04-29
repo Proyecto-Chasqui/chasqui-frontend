@@ -2,7 +2,7 @@
 
 <div class="ch-confirm-order ch-content">
   <div layout="column" layout-align="space-between">
-    <div class="ch-confirm-order-steps">
+    <div class="ch-confirm-order-steps ch-responsive-xl">
       <div class="ch-confirm-order-steps-step">
         <label class="ch-confirm-order-steps-step-label" 
                ng-class="sections.orderSumary? 'ch-confirm-order-steps-step-label-selected' : ''">
@@ -31,6 +31,36 @@
         </label>
       </div>
     </div>
+
+    <div class="ch-confirm-order-steps ch-responsive-s">
+      <div class="ch-confirm-order-steps-step" ng-if="sections.orderSumary && order">
+        <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
+          CHANGUITO
+        </label>
+        <label class="ch-confirm-order-steps-step-label-divider">/..</label>
+      </div>
+      <div class="ch-confirm-order-steps-step" ng-if="sections.selectAddress && order">
+        <label class="ch-confirm-order-steps-step-label-divider">../</label>
+        <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
+          ENVIO
+        </label>
+        <label class="ch-confirm-order-steps-step-label-divider">/..</label>
+      </div>
+      <div class="ch-confirm-order-steps-step" ng-if="sections.questions && order">
+        <label class="ch-confirm-order-steps-step-label-divider">../</label>
+        <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
+          PREGUNTAS DE CONSUMO
+        </label>
+        <label class="ch-confirm-order-steps-step-label-divider">/..</label>
+      </div>
+      <div class="ch-confirm-order-steps-step" ng-if="sections.confirmation && order">
+        <label class="ch-confirm-order-steps-step-label-divider">../</label>
+        <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
+          CONFIRMACIÓN
+        </label>
+      </div>
+    </div>
+
     <div>
       <div ng-if="sections.orderSumary && order">
         <order-summary  
