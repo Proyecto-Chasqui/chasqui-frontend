@@ -1068,6 +1068,7 @@ background-color: #fff;
   align-items: stretch;
   padding-left: 10px;
   padding-right: 10px;
+  margin-top: 15px;
   max-width: 800px;
 }
 
@@ -1144,6 +1145,7 @@ background-color: #fff;
 
     /* Modal de producto */
     .ch-tarjeta-contenedor{
+      margin-top: 15px;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -1209,6 +1211,7 @@ background-color: #fff;
    
     /* Modal de producto */
     .ch-tarjeta-contenedor{
+      margin-top: 15px;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -1280,7 +1283,7 @@ background-color: #fff;
       align-items: stretch;
       padding-left: 10px;
       padding-right: 10px;
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     .ch-tarjeta-contenedor-column{
@@ -1361,8 +1364,8 @@ background-color: #fff;
    
 
 .filtros-buscador{
-    width: 250px;
-    padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }   
 
 .button-filtro{

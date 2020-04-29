@@ -23,13 +23,12 @@
   
     <div flex-xs>
       <div layout="column" style="max-width: 306px; overflow: hidden;">
-        <!-- Cambios de ubicacion en el carro de compra - tom -->			
-        <div ng-if="catalogoCtrl.isLogued" >
+        <div ng-if="catalogoCtrl.isLogued" flex>
           <section ng-include="'app/comercio/catalogo/contexto.compra.html'"></section>
           <section ng-include="'app/comercio/catalogo/contexto.pedido.html'" ng-cloak></section>
         </div>
 
-        <div>
+        <div flex>
           <section ng-include="'app/comercio/catalogo/filtros.html'">
           </section>
         </div>
