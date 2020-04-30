@@ -8,7 +8,7 @@
     <div class="ch-confirm-order-left-panel-list">
       <div class="ch-confirm-order-left-panel-list-column">
 
-        <div class="ch-confirm-order-left-panel-list-row" ng-repeat="question in questions">
+        <div class="ch-confirm-order-left-panel-list-row ch-responsive-layout" ng-repeat="question in questions">
           <div class="ch-confirm-order-left-panel-list-row-explanation">
             <span class="ch-confirm-order-mandatory-label">{{question.nombre}}:<strong>*</strong></span>
             <span class="ch-error" ng-show="validated && !question.answered">Se debe responder esta pregunta</span>

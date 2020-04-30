@@ -80,6 +80,7 @@
     function show(section){
       $scope.sections = Object.keys($scope.sections).reduce(function(r, s){r[s] = s == section;return r}, {});
       $scope.currentNavItem = Object.keys($scope.sections).indexOf(section);
+      toTop();
     }
     
     function cancelAction(){
@@ -92,6 +93,11 @@
         index: 1
       });
     }
+
+    function toTop(){
+      window.scrollTo(0,0);
+    }
+
     
     ////////////////// Private ///////////////////
     
