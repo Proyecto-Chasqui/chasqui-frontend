@@ -358,7 +358,6 @@ md-tabs md-ink-bar {
 
 
 .ch-confirm-order{
-  min-height: 0px !important;
 	color: $colorUno;
 	.md-title{
 		background-color: $colorDos !important;
@@ -1921,11 +1920,19 @@ md-tabs md-ink-bar {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
+}
+
+.ch-confirm-order-right-panel-map-iframe{
   width: 440px;
   height: 300px;
 }
 
-.ch-confirm-order-right-panel-map-iframe{
+
+@media (max-width: 767px) {
+  .ch-confirm-order-right-panel-map-iframe{
+    width: 100%;
+    height: 300px;
+  }
 }
 
 

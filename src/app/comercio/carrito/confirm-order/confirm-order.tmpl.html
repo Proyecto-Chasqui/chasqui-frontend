@@ -66,7 +66,7 @@
     next="actions.orderSumary.next"
     cancel="actions.orderSumary.cancel"
     ng-class="sections.orderSumary? 'extend-top' : ''"
-  />
+  ></order-summary>
   <select-delivery-address 
     ng-if="sections.selectAddress && order"
     order="order"
@@ -75,7 +75,7 @@
     next="actions.selectAddress.next"
     cancel="actions.selectAddress.cancel"
     ng-class="sections.selectAddress? 'extend-top' : ''"
-  />
+  ></select-delivery-address>
   <answer-seller-questions
     ng-if="sections.questions && order"
     order="order"
@@ -83,7 +83,7 @@
     next="actions.questions.next"
     cancel="actions.questions.cancel"
     ng-class="sections.questions? 'extend-top' : ''"
-  />
+  ></answer-seller-questions>
   <confirmation
     ng-if="sections.confirmation && order"
     order="order"
@@ -91,5 +91,5 @@
     next="actions.confirmation.next"
     cancel="actions.confirmation.cancel"
     ng-class="sections.confirmation? 'extend-top' : ''"
-  />
+  ></confirmation>
 </div>
