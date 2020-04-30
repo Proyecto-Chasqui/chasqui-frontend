@@ -247,7 +247,7 @@
     }
     
     function isCompraColectiva(notificacion){			
-			return us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas');
+			return us.contieneCadena(notificacion.mensaje ,'ha invitado al Grupo de Compras Colectivas');
     }
     
 

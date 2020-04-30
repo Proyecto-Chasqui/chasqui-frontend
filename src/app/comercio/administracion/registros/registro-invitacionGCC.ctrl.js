@@ -31,7 +31,7 @@
                 toastr.error(us.translate('Debe ingresar con el mismo mail de su invitación'), "Error");
               }
             } else {
-              toastr.success(us.translate('Al crear la cuenta de esta manera, estará aceptando pertenecer al grupo de compras colectivas'), "Creación de cuenta por invitación");
+              toastr.success(us.translate('Al crear la cuenta de esta manera, estará aceptando pertenecer al Grupo de Compras Colectivas'), "Creación de cuenta por invitación");
             }
         })
       })

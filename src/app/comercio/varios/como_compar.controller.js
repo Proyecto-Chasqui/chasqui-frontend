@@ -245,10 +245,10 @@
         // Groups
         questions: [
           {
-            titulo: "¿Qué es un grupo de compras colectivas?",
+            titulo: "¿Qué es un Grupo de Compras Colectivas?",
             pasos: [
               {
-                principal: 'Un grupo de compras colectivas está conformado por varias personas que se ponen de acuerdo para comprar conjuntamente a través de la comunidad de consumo solidario Chasqui.',
+                principal: 'Un Grupo de Compras Colectivas está conformado por varias personas que se ponen de acuerdo para comprar conjuntamente a través de la comunidad de consumo solidario Chasqui.',
                 subpasos: []
               }
             ]
@@ -256,7 +256,7 @@
             titulo: "¿Por qué hacer compras colectivas?",
             pasos: [
               {
-                principal: "Quienes participamos en un grupo de compras colectivas nos coordinamos para que sea más fácil hacer y recibir los pedidos. Haciendo compras colectivas, también reducimos los tiempos y costos de logística y contribuimos a la sustentabilidad de las iniciativas de la Economía Social y Solidaria.",
+                principal: "Quienes participamos en un Grupo de Compras Colectivas nos coordinamos para que sea más fácil hacer y recibir los pedidos. Haciendo compras colectivas, también reducimos los tiempos y costos de logística y contribuimos a la sustentabilidad de las iniciativas de la Economía Social y Solidaria.",
                 subpasos: []
               }
             ]
