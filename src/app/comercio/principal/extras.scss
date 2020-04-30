@@ -27,7 +27,10 @@ $colorBlanco: #FFFFFF;
   }
 
   .ch-responsive-layout {
+    display: flex;
     flex-direction: row !important;
+    justify-content: space-between;
+    align-items: stretch;
   }
 }
 
