@@ -1,134 +1,95 @@
 <div id="chasqui-princiodepagina2"></div>
 
-<div class="ch-confirm-order ch-content">
-  <div layout="column" layout-align="space-between">
-    <div class="ch-confirm-order-steps ch-responsive-xl">
-      <div class="ch-confirm-order-steps-step">
-        <label class="ch-confirm-order-steps-step-label" 
-               ng-class="sections.orderSumary? 'ch-confirm-order-steps-step-label-selected' : ''">
-          CHANGUITO
-        </label>
-      </div>
-      <label class="ch-confirm-order-steps-step-label-divider">/</label>
-      <div class="ch-confirm-order-steps-step">
-        <label class="ch-confirm-order-steps-step-label"
-               ng-class="sections.selectAddress? 'ch-confirm-order-steps-step-label-selected' : ''">
-          ENVIO
-        </label>
-      </div>
-      <label class="ch-confirm-order-steps-step-label-divider">/</label>
-      <div class="ch-confirm-order-steps-step">
-        <label class="ch-confirm-order-steps-step-label"
-               ng-class="sections.questions? 'ch-confirm-order-steps-step-label-selected' : ''">
-          PREGUNTAS DE CONSUMO
-        </label>
-      </div>
-      <label class="ch-confirm-order-steps-step-label-divider">/</label>
-      <div class="ch-confirm-order-steps-step">
-        <label class="ch-confirm-order-steps-step-label" 
-               ng-class="sections.confirmation? 'ch-confirm-order-steps-step-label-selected' : ''">
-          CONFIRMACIÓN
-        </label>
-      </div>
+<div class="ch-content ch-confirm-order">
+  <div class="ch-confirm-order-steps ch-responsive-xl">
+    <div class="ch-confirm-order-steps-step">
+      <label class="ch-confirm-order-steps-step-label" 
+              ng-class="sections.orderSumary? 'ch-confirm-order-steps-step-label-selected' : ''">
+        CHANGUITO
+      </label>
     </div>
-
-    <div class="ch-confirm-order-steps ch-responsive-s">
-      <div class="ch-confirm-order-steps-step" ng-if="sections.orderSumary && order">
-        <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
-          CHANGUITO
-        </label>
-        <label class="ch-confirm-order-steps-step-label-divider">/..</label>
-      </div>
-      <div class="ch-confirm-order-steps-step" ng-if="sections.selectAddress && order">
-        <label class="ch-confirm-order-steps-step-label-divider">../</label>
-        <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
-          ENVIO
-        </label>
-        <label class="ch-confirm-order-steps-step-label-divider">/..</label>
-      </div>
-      <div class="ch-confirm-order-steps-step" ng-if="sections.questions && order">
-        <label class="ch-confirm-order-steps-step-label-divider">../</label>
-        <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
-          PREGUNTAS DE CONSUMO
-        </label>
-        <label class="ch-confirm-order-steps-step-label-divider">/..</label>
-      </div>
-      <div class="ch-confirm-order-steps-step" ng-if="sections.confirmation && order">
-        <label class="ch-confirm-order-steps-step-label-divider">../</label>
-        <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
-          CONFIRMACIÓN
-        </label>
-      </div>
+    <label class="ch-confirm-order-steps-step-label-divider">/</label>
+    <div class="ch-confirm-order-steps-step">
+      <label class="ch-confirm-order-steps-step-label"
+              ng-class="sections.selectAddress? 'ch-confirm-order-steps-step-label-selected' : ''">
+        ENVIO
+      </label>
     </div>
-
-    <div>
-      <div ng-if="sections.orderSumary && order">
-        <order-summary  
-          order="order"
-          next="actions.orderSumary.next"
-          cancel="actions.orderSumary.cancel"
-          ng-class="sections.orderSumary? 'extend-top' : ''"
-        />
-      </div>
-      <div ng-if="sections.selectAddress && order">
-        <select-delivery-address 
-          order="order"
-          show-go-profile="showGoProfileButton"
-          get-address="getSelectedAddress"
-          next="actions.selectAddress.next"
-          cancel="actions.selectAddress.cancel"
-          ng-class="sections.selectAddress? 'extend-top' : ''"
-        />
-      </div>
-      <div ng-if="sections.questions && order">
-        <answer-seller-questions
-          order="order"
-          get-questions="getQuestions"
-          next="actions.questions.next"
-          cancel="actions.questions.cancel"
-          ng-class="sections.questions? 'extend-top' : ''"
-        />
-      </div>
-      <div ng-if="sections.confirmation && order">
-        <confirmation
-          order="order"
-          selected-address="selectedAddress"
-          next="actions.confirmation.next"
-          cancel="actions.confirmation.cancel"
-          ng-class="sections.confirmation? 'extend-top' : ''"
-        />
-      </div>
+    <label class="ch-confirm-order-steps-step-label-divider">/</label>
+    <div class="ch-confirm-order-steps-step">
+      <label class="ch-confirm-order-steps-step-label"
+              ng-class="sections.questions? 'ch-confirm-order-steps-step-label-selected' : ''">
+        PREGUNTAS DE CONSUMO
+      </label>
+    </div>
+    <label class="ch-confirm-order-steps-step-label-divider">/</label>
+    <div class="ch-confirm-order-steps-step">
+      <label class="ch-confirm-order-steps-step-label" 
+              ng-class="sections.confirmation? 'ch-confirm-order-steps-step-label-selected' : ''">
+        CONFIRMACIÓN
+      </label>
     </div>
   </div>
-    
-  <!--div layout="row" layout-align="space-between">
-    <div>
-      <md-button class="cancel-order" ng-click="cancelAction()">
-      <label translate="CANCELAR"></label>
-      </md-button>
+
+  <div class="ch-confirm-order-steps ch-responsive-s">
+    <div class="ch-confirm-order-steps-step" ng-if="sections.orderSumary && order">
+      <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
+        CHANGUITO
+      </label>
+      <label class="ch-confirm-order-steps-step-label-divider">/..</label>
     </div>
-    <div layout="row" layout-align="center center">
-      <div ng-if="currentNavItem > 0">
-      <md-button class="back" ng-click="back()">
-          <label translate="ANTERIOR"></label>
-      </md-button>
-      </div>
-      <div ng-if="currentNavItem < 2 && !showGoProfileButton">
-      <md-button class="next" ng-click="next()">
-          <label translate="SIGUIENTE"></label>
-      </md-button>
-      </div>
-      <div ng-if="currentNavItem == 2">
-      <md-button class="confirm-order" ng-click="next()">
-          <label translate="CONFIRMAR"></label>
-      </md-button>
-      </div>
-      <div ng-if="showGoProfileButton">
-      <md-button class="go-profile" ng-click="goProfile()">
-          <label translate="IR_PERFIL"></label>
-      </md-button>
-      </div>
+    <div class="ch-confirm-order-steps-step" ng-if="sections.selectAddress && order">
+      <label class="ch-confirm-order-steps-step-label-divider">../</label>
+      <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
+        ENVIO
+      </label>
+      <label class="ch-confirm-order-steps-step-label-divider">/..</label>
+    </div>
+    <div class="ch-confirm-order-steps-step" ng-if="sections.questions && order">
+      <label class="ch-confirm-order-steps-step-label-divider">../</label>
+      <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
+        PREGUNTAS DE CONSUMO
+      </label>
+      <label class="ch-confirm-order-steps-step-label-divider">/..</label>
+    </div>
+    <div class="ch-confirm-order-steps-step" ng-if="sections.confirmation && order">
+      <label class="ch-confirm-order-steps-step-label-divider">../</label>
+      <label class="ch-confirm-order-steps-step-label ch-confirm-order-steps-step-label-selected">
+        CONFIRMACIÓN
+      </label>
     </div>
   </div>
-  -->
+
+  <order-summary
+    ng-if="sections.orderSumary && order"
+    order="order"
+    next="actions.orderSumary.next"
+    cancel="actions.orderSumary.cancel"
+    ng-class="sections.orderSumary? 'extend-top' : ''"
+  />
+  <select-delivery-address 
+    ng-if="sections.selectAddress && order"
+    order="order"
+    show-go-profile="showGoProfileButton"
+    get-address="getSelectedAddress"
+    next="actions.selectAddress.next"
+    cancel="actions.selectAddress.cancel"
+    ng-class="sections.selectAddress? 'extend-top' : ''"
+  />
+  <answer-seller-questions
+    ng-if="sections.questions && order"
+    order="order"
+    get-questions="getQuestions"
+    next="actions.questions.next"
+    cancel="actions.questions.cancel"
+    ng-class="sections.questions? 'extend-top' : ''"
+  />
+  <confirmation
+    ng-if="sections.confirmation && order"
+    order="order"
+    selected-address="selectedAddress"
+    next="actions.confirmation.next"
+    cancel="actions.confirmation.cancel"
+    ng-class="sections.confirmation? 'extend-top' : ''"
+  />
 </div>

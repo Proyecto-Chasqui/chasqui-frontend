@@ -2,13 +2,13 @@
   <div class="ch-confirm-order-left-panel">
 
     <div class="ch-confirm-order-left-panel-list">
-      <div class="ch-confirm-order-left-panel-list-column" style="min-width: 300px;">
-        <label class="ch-confirm-order-left-panel-list-column-label">
+      <div class="ch-confirm-order-left-panel-list-column ch-confirm-order-left-panel-list-column-xl">
+        <label class="ch-confirm-order-left-panel-list-column-label ch-responsive-xl">
           PRODUCTO
         </label>
         <div class="ch-confirm-order-left-panel-list-column-item" ng-repeat="product in order.productosResponse">
           <div class="ch-confirm-order-left-panel-list-column-item-data">
-            <img ng-src="{{urlBase}}{{product.imagen}}" class="ch-confirm-order-left-panel-list-column-item-img">
+            <img ng-src="{{urlBase}}{{product.imagen}}" class="ch-confirm-order-left-panel-list-column-item-img ch-responsive-xl">
             <label class="ch-confirm-order-left-panel-list-column-item-label">
               {{product.nombre}}
             </label>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="ch-confirm-order-left-panel-list-column">
-        <label class="ch-confirm-order-left-panel-list-column-label" style="">
+        <label class="ch-confirm-order-left-panel-list-column-label ch-responsive-xl">
           PRECIO
         </label>
         <div class="ch-confirm-order-left-panel-list-column-item" ng-repeat="product in order.productosResponse">
@@ -26,17 +26,18 @@
         </div>
       </div>
       <div class="ch-confirm-order-left-panel-list-column">
-        <label class="ch-confirm-order-left-panel-list-column-label" style="">
+        <label class="ch-confirm-order-left-panel-list-column-label ch-responsive-xl">
           CANTIDAD
         </label>
         <div class="ch-confirm-order-left-panel-list-column-item" ng-repeat="product in order.productosResponse">
           <div class="ch-confirm-order-left-panel-list-column-item-count">
-            {{product.cantidad}}
+            <label class="ch-responsive-s">x</label>
+            <label>{{product.cantidad}}</label>
           </div>
         </div>
       </div>
-      <div class="ch-confirm-order-left-panel-list-column">
-        <label class="ch-confirm-order-left-panel-list-column-label" style="">
+      <div class="ch-confirm-order-left-panel-list-column ch-responsive-xl">
+        <label class="ch-confirm-order-left-panel-list-column-label ch-responsive-xl">
           TOTAL
         </label>
         <div class="ch-confirm-order-left-panel-list-column-item" ng-repeat="product in order.productosResponse">
@@ -50,7 +51,7 @@
   </div>
 
   <div class="ch-confirm-order-right-panel">
-    <div class="ch-confirm-order-summary-total-header">
+    <div class="ch-confirm-order-summary-total-header ch-responsive-xl">
       <label class="ch-confirm-order-summary-total-header-label">
         RESUMEN
       </label>
