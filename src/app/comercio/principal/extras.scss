@@ -623,12 +623,17 @@ md-tabs md-ink-bar {
 
 .ch-contexto-pedido-panel-list{
   max-height: 274px;
-  overflow: hidden;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .ch-contexto-pedido-panel-list-item {
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  flex: 1;
 }
 
 .ch-contexto-pedido-descripcion {
