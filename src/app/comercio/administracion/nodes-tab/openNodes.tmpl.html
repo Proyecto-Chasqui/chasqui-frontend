@@ -13,7 +13,7 @@
       <md-tab label="Buscar nodos abiertos">
         <div ng-repeat="(i, node) in openNodes" layout="column" layout-align="start" ng-if="!node.requested">
           <!--version web-->
-          <div class="ch-group-card ch-responsive-xl">
+          <div class="ch-group-card">
             <div class="ch-group-card-data">
               <div class="ch-group-card-data-information" ng-click="showOptionsForNode(i)">
                 <ch-image class="ch-group-card-data-avatar" src="node.miembros[0].avatar" description="node.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
@@ -79,7 +79,7 @@
 
       <md-tab label="{{'Solicitudes hechas ('+requests.length+')'}}" ng-if="userIsLog">
         <div ng-repeat="(i, request) in requests" layout="column" layout-align="start">
-          <div class="ch-group-card ch-responsive-xl">
+          <div class="ch-group-card">
             <div class="ch-group-card-data">
               <div class="ch-group-card-data-information" ng-click="showOptionsForNode(i)">
                 <ch-image class="ch-group-card-data-avatar" src="request.nodo.miembros[0].avatar" description="request.nodo.miembros[0].nickname + ' (Administrador)'" width="40" height="40"></ch-image>
