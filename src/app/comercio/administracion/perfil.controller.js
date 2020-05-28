@@ -155,7 +155,7 @@
 		}
 
 		vm.isCompraColectiva=function(notificacion){			
-			return us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas');
+			return us.contieneCadena(notificacion.mensaje ,'de compras colectivas');
 		}
 
     vm.getColor = function(notificacion){
