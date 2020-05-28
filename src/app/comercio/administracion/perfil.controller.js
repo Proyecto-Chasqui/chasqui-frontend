@@ -155,27 +155,27 @@
 		}
 
 		vm.isCompraColectiva=function(notificacion){			
-			return us.contieneCadena(notificacion.mensaje ,'ha invitado al Grupo de Compras Colectivas');
+			return us.contieneCadena(notificacion.mensaje ,'ha invitado al grupo de compras colectivas');
 		}
 
     vm.getColor = function(notificacion){
          var color = 'green';
-         if(us.contieneCadena(notificacion.mensaje ,'ha invitado al Grupo de Compras Colectivas') 
+         if(vm.isCompraColectiva(notificacion)
             && notificacion.estado === "NOTIFICACION_NO_LEIDA"){
             color = 'deep-purple';
          }
 
-         if(us.contieneCadena(notificacion.mensaje ,'ha invitado al Grupo de Compras Colectivas') 
+         if(vm.isCompraColectiva(notificacion) 
             && notificacion.estado === "NOTIFICACION_ACEPTADA"){
             color = 'light-green'; 
          }
 
-         if(us.contieneCadena(notificacion.mensaje ,'ha invitado al Grupo de Compras Colectivas') 
+         if(vm.isCompraColectiva(notificacion)
             && notificacion.estado === "NOTIFICACION_RECHAZADA"){
             color = 'red'; 
          }
 
-         if(!us.contieneCadena(notificacion.mensaje ,'ha invitado al Grupo de Compras Colectivas') 
+         if(!vm.isCompraColectiva(notificacion) 
             && notificacion.estado === "NOTIFICACION_NO_LEIDA"){
             color = 'lime';
          }
