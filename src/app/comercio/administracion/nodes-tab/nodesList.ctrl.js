@@ -193,7 +193,7 @@
     }
     
     function isCompraColectiva(notificacion){			
-			return us.contieneCadena(notificacion.mensaje ,'ha invitado al nodo de compras colectivas');
+			return us.contieneCadena(notificacion.mensaje.toLowerCase(),'ha invitado al nodo de compras colectivas');
     }
 
     function goToCatalog(node){

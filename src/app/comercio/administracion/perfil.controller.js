@@ -154,8 +154,8 @@
 			callNotificaciones();
 		}
 
-		vm.isCompraColectiva=function(notificacion){			
-			return us.contieneCadena(notificacion.mensaje ,'de compras colectivas');
+		vm.isCompraColectiva=function(notificacion){
+			return us.contieneCadena(notificacion.mensaje.toLowerCase() ,'de compras colectivas');
 		}
 
     vm.getColor = function(notificacion){
