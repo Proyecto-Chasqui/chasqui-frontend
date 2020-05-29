@@ -126,8 +126,14 @@
 
           <div class="" layout="column" ng-show="showOptions[i]">
               <md-tabs>
-                  <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(group)" label="{{::selfPara(miembro)}}">
-                      <md-content class="md-padding" layout="column" layout-align="space-around">
+                  <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(group)">
+                      <md-tab-label layout="row" layout-align="center center">
+                          <md-icon ng-show="pedidoTieneEstado('ABIERTO')(miembro) && isLoggedUserGroupAdmin(group)" style="color: rgb(255, 178, 34);"> warning </md-icon>
+                        <label>
+                            {{::selfPara(miembro)}}
+                        </label>
+                      </md-tab-label>
+                      <md-tab-body class="md-padding" layout="column" layout-align="space-around">
                           <div layout="column" layout-align="space-sround center" 
                                 ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
                               <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
@@ -170,7 +176,7 @@
                                   </div>
                               </md-list-item>
                           </md-list>
-                      </md-content>
+                      </md-tab-body>
                   </md-tab>
               </md-tabs>
               <md-button class="btn-confirmar" 
@@ -183,6 +189,9 @@
                 <md-icon ng-show="puedeCerrarPedidoGCC(group)" style="color:white; cursor: pointer;">
                     done
                 </md-icon>
+                <md-tooltip md-direction="bottom" ng-show="!puedeCerrarPedidoGCCSegunEstrategias(group)">
+                  No se puede cerrar el pedido colectivo: Hay integrantes con pedidos abiertos
+                </md-tooltip>
               </md-button>
           </div>
         </div>
@@ -249,8 +258,14 @@
 
           <div layout="column" ng-show="showOptions[i]">
             <md-tabs>
-                <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(group)" label="{{::selfPara(miembro)}}">
-                    <md-content class="md-padding" layout="column" layout-align="space-around">
+                <md-tab ng-repeat="miembro in miembrosActivosDelGrupo(group)">
+                    <md-tab-label layout="row" layout-align="center center">
+                        <md-icon ng-show="pedidoTieneEstado('ABIERTO')(miembro) && isLoggedUserGroupAdmin(group)" style="color: rgb(255, 178, 34);"> warning </md-icon>
+                      <label>
+                          {{::selfPara(miembro)}}
+                      </label>
+                    </md-tab-label>
+                    <md-tab-body class="md-padding" layout="column" layout-align="space-around">
                         <div layout="column" layout-align="space-sround center" 
                               ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
                             <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
@@ -290,7 +305,7 @@
                                 </div>
                             </md-list-item>
                         </md-list>
-                    </md-content>
+                    </md-tab-body>
                 </md-tab>
             </md-tabs>
             <md-button class="btn-confirmar" 
@@ -303,6 +318,9 @@
               <md-icon ng-show="puedeCerrarPedidoGCC(group)" style="color:white; cursor: pointer;">
                   done
               </md-icon>
+              <md-tooltip md-direction="bottom" ng-show="!puedeCerrarPedidoGCCSegunEstrategias(group)">
+                No se puede cerrar el pedido colectivo: Hay integrantes con pedidos abiertos
+              </md-tooltip>
             </md-button>
           </div>
       </div>

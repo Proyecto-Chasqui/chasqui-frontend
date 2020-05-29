@@ -153,8 +153,14 @@
 
           <div class="" layout="column" ng-show="showOptions[i]">
               <md-tabs md-dynamic-height>
-                  <md-tab ng-repeat="miembro in nodeActiveMembers(node)" label="{{miembro.nickname}}">
-                      <md-content class="md-padding" layout="column" layout-align="space-around">
+                  <md-tab ng-repeat="miembro in nodeActiveMembers(node)">
+                      <md-tab-label layout="row" layout-align="center center">
+                        <md-icon ng-show="pedidoTieneEstado('ABIERTO')(miembro) && isLoggedUserNodeAdmin(node)" style="color: rgb(255, 178, 34);"> warning </md-icon>
+                        <label>
+                            {{miembro.nickname}}
+                        </label>
+                      </md-tab-label>
+                      <md-tab-body class="md-padding" layout="column" layout-align="space-around">
                           <div layout="column" layout-align="space-sround center" 
                                 ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
                               <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
@@ -197,7 +203,7 @@
                                   </div>
                               </md-list-item>
                           </md-list>
-                      </md-content>
+                      </md-tab-body>
                   </md-tab>
               </md-tabs>
               <md-button class="btn-confirmar" 
@@ -210,6 +216,9 @@
                 <md-icon ng-show="puedeCerrarPedidoGCC(node)" style="color:white; cursor: pointer;">
                     done
                 </md-icon>
+                <md-tooltip md-direction="bottom" ng-show="!puedeCerrarPedidoGCCSegunEstrategias(node)">
+                  No se puede cerrar el pedido colectivo: Hay integrantes con pedidos abiertos
+                </md-tooltip>
               </md-button>
           </div>
         </div>
@@ -269,8 +278,14 @@
 
           <div layout="column" ng-show="showOptions[i]">
             <md-tabs md-dynamic-height>
-                <md-tab ng-repeat="miembro in nodeActiveMembers(node)" label="{{miembro.nickname}}">
-                    <md-content class="md-padding" layout="column" layout-align="space-around">
+                <md-tab ng-repeat="miembro in nodeActiveMembers(node)">
+                    <md-tab-label layout="row" layout-align="center center">
+                      <md-icon ng-show="pedidoTieneEstado('ABIERTO')(miembro) && isLoggedUserNodeAdmin(node)" style="color: rgb(255, 178, 34);"> warning </md-icon>
+                      <label>
+                          {{miembro.nickname}}
+                      </label>
+                    </md-tab-label>
+                    <md-tab-body class="md-padding" layout="column" layout-align="space-around">
                         <div layout="column" layout-align="space-sround center" 
                               ng-show="miembro.pedido == null || miembro.pedido.productosResponse.length == 0 || miembro.pedido.estado == 'CANCELADO'">
                             <div ng-show="isLoggedUser(miembro)" layout="column" layout-align="space-between center">
@@ -313,7 +328,7 @@
                                 </div>
                             </md-list-item>
                         </md-list>
-                    </md-content>
+                    </md-tab-body>
                 </md-tab>
             </md-tabs>
             <md-button class="btn-confirmar" 
@@ -326,6 +341,9 @@
               <md-icon ng-show="puedeCerrarPedidoGCC(node)" style="color:white; cursor: pointer;">
                   done
               </md-icon>
+              <md-tooltip md-direction="bottom" ng-show="!puedeCerrarPedidoGCCSegunEstrategias(node)">
+                No se puede cerrar el pedido colectivo: Hay integrantes con pedidos abiertos
+              </md-tooltip>
             </md-button>
           </div>
       </div>

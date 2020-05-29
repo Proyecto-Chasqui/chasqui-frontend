@@ -22,6 +22,7 @@
     $scope.countOrdersConfirmed = countOrdersConfirmed;
     $scope.showGoToCatalog = showGoToCatalog;
     $scope.nodeActiveMembers = nodeActiveMembers;
+    $scope.pedidoTieneEstado = pedidoTieneEstado;
     $scope.totalForMember = totalForMember;
     $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
     $scope.puedeCerrarPedidoGCCSegunEstrategias = puedeCerrarPedidoGCCSegunEstrategias;
@@ -97,7 +98,13 @@
     }
 
     function algunPedidoTieneEstado(miembros, estado){
-        return any(miembros, function(m){return m.pedido != null && m.pedido.estado == estado})
+        return any(miembros, pedidoTieneEstado(estado))
+    }
+
+    function pedidoTieneEstado(estado){
+      return function(miembro){
+        return miembro.pedido != null && miembro.pedido.estado == estado;
+      }
     }
 
     function showGoToCatalog(node){

@@ -15,6 +15,7 @@
     $scope.showOptionsForGroup = showOptionsForGroup;
     $scope.countOrdersConfirmed = countOrdersConfirmed;
     $scope.montoTotalGrupo = montoTotalGrupo;
+    $scope.pedidoTieneEstado = pedidoTieneEstado;
     $scope.getClassForItemGroup = getClassForItemGroup;
     $scope.goToCatalog = goToCatalog;
     $scope.miembrosActivosDelGrupo = miembrosActivosDelGrupo;
@@ -120,7 +121,13 @@
     }
 
     function algunPedidoTieneEstado(miembros, estado){
-        return any(miembros, function(m){return m.pedido != null && m.pedido.estado == estado})
+        return any(miembros, pedidoTieneEstado(estado))
+    }
+
+    function pedidoTieneEstado(estado){
+      return function(miembro){
+        return miembro.pedido != null && miembro.pedido.estado == estado;
+      }
     }
 
     function any(list, property){
