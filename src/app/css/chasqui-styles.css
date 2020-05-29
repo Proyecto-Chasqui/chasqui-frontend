@@ -328,6 +328,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fafafa', end
 .nav-logo{
     margin-left: 20px;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .frase-nav{

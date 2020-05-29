@@ -14,6 +14,7 @@ function CatalogMenuController($scope,vendedorService, $log,$rootScope, $state, 
     $scope.toTop = toTop;
     $scope.nroNoLeidas = 0;
     $scope.urlLogo = "assets/images/chasqui_logo.png";
+    $scope.goToHome = goToHome;
     
     ////////////////////////// INIT //////////////////////////
 
@@ -23,6 +24,7 @@ function CatalogMenuController($scope,vendedorService, $log,$rootScope, $state, 
             if(response.data.urlLogo != null){
                 $scope.urlLogo = URLS.be_base + response.data.urlLogo;
             }
+            $scope.urlWebVendedor = validateForNull(response.data.dataContacto.url);
         });
         $scope.usuario = usuario_dao.getUsuario();
         $scope.isLogued = usuario_dao.isLogged();
@@ -105,6 +107,23 @@ function CatalogMenuController($scope,vendedorService, $log,$rootScope, $state, 
     }
     
     ////////////////////////// Other //////////////////////////
+
+    function goToHome(){
+      if($scope.urlWebVendedor == ""){
+        $state.go("catalog.products");
+      } else {
+        window.open($scope.urlWebVendedor,'_blank');
+      }
+    }
+
+    function validateForNull(data){
+      var value = data + " "
+      if(data === null || data === undefined || data === ""){
+        value = "";
+      }
+      return value;
+    }
+
 
    $rootScope.refrescarNotificacion = function (){
 
