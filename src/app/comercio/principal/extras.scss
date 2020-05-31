@@ -728,6 +728,24 @@ md-tabs md-ink-bar {
   align-items: center;
 }
 
+.ch-agrupation-order-errors{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+
+.ch-agrupation-order-errors-error{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.ch-agrupation-order-errors-error-label{
+  flex: 1;
+  margin-left: 10px;
+}
+
 @media (max-width: 767px) {
   
   .ch-group-card-data {

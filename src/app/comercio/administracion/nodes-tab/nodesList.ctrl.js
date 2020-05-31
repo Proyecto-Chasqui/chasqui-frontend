@@ -5,7 +5,7 @@
 
   function NodesListCtrl(URLS, $scope, $rootScope, $state, contextPurchaseService, nodeService, $log, toastr,
                          usuario_dao, perfilService, us, dialogCommons, $mdDialog, agrupationTypeVAL,
-                         contextOrdersService, contextAgrupationsService) {
+                         contextOrdersService, contextAgrupationsService, vendedorService) {
 
     // Interfaz
 
@@ -20,12 +20,16 @@
     $scope.montoSinIncentivo = montoSinIncentivo;
     $scope.incentivoNodo = incentivoNodo;
     $scope.countOrdersConfirmed = countOrdersConfirmed;
+    $scope.countOrdersOpen = countOrdersOpen;
     $scope.showGoToCatalog = showGoToCatalog;
     $scope.nodeActiveMembers = nodeActiveMembers;
     $scope.pedidoTieneEstado = pedidoTieneEstado;
     $scope.totalForMember = totalForMember;
     $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
+    $scope.hayAlgunPedidoAbierto = hayAlgunPedidoAbierto;
+    $scope.hayAlgunPedidoConfirmado = hayAlgunPedidoConfirmado;
     $scope.puedeCerrarPedidoGCCSegunEstrategias = puedeCerrarPedidoGCCSegunEstrategias;
+    $scope.superaMontoMinimo = superaMontoMinimo;
     $scope.confirmNodeOrder = confirmNodeOrder;
 
     // Implementación
@@ -73,6 +77,10 @@
       return countOrdersWithState(node, "CONFIRMADO");
     }
 
+    function countOrdersOpen(node){
+      return countOrdersWithState(node, "ABIERTO");
+    }
+
     function nodeActiveMembers(node){
       return node.miembros.filter(function(m) { return m.invitacion == 'NOTIFICACION_ACEPTADA' });
     }
@@ -82,11 +90,15 @@
     }
 
     function puedeCerrarPedidoGCC(node){
-      return !hayAlgunPedidoAbierto(node) && hayAlgunPedidoConfirmado(node) && montoTotalNodo(node) >= $scope.montoMinimo;
+      return puedeCerrarPedidoGCCSegunEstrategias(node) && superaMontoMinimo(node);
     }
 
     function puedeCerrarPedidoGCCSegunEstrategias(node){
-        return !hayAlgunPedidoAbierto(node) && hayAlgunPedidoConfirmado(node);
+      return !hayAlgunPedidoAbierto(node) && hayAlgunPedidoConfirmado(node);
+    }
+
+    function superaMontoMinimo(node){
+      return montoTotalNodo(node) >= $scope.montoMinimo;
     }
 
     function hayAlgunPedidoAbierto(node) {
@@ -230,6 +242,11 @@
             return r.estado == "solicitud_nodo_en_gestion";
           });
         })
+        vendedorService.obtenerConfiguracionVendedor().then(
+          function(response){
+            $scope.montoMinimo = response.data.montoMinimo;
+          }
+        );
         $scope.showOptions = $scope.nodes.map(function(n){return false});
         callNotificaciones();
         contextPurchaseService.getSelectedCatalog()

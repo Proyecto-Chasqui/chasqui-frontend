@@ -14,6 +14,7 @@
     $scope.newGroup = newGroup;
     $scope.showOptionsForGroup = showOptionsForGroup;
     $scope.countOrdersConfirmed = countOrdersConfirmed;
+    $scope.countOrdersOpen = countOrdersOpen;
     $scope.montoTotalGrupo = montoTotalGrupo;
     $scope.pedidoTieneEstado = pedidoTieneEstado;
     $scope.getClassForItemGroup = getClassForItemGroup;
@@ -30,6 +31,7 @@
     
 
     $scope.confirmGCCOrder = confirmGCCOrder;
+    $scope.hayAlgunPedidoConfirmado = hayAlgunPedidoConfirmado;
     $scope.puedeCerrarPedidoGCCSegunEstrategias = puedeCerrarPedidoGCCSegunEstrategias;
     $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
     
@@ -57,7 +59,10 @@
     function countOrdersConfirmed(group){
         return countOrdersWithState(group, "CONFIRMADO");
     }
-      
+
+    function countOrdersOpen(group){
+      return countOrdersWithState(group, "ABIERTO");
+    }      
       
     function getClassForItemGroup(i){
         return $scope.showOptions[i]? "ch-item-selected" : "ch-item-no-selected";

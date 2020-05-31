@@ -334,17 +334,32 @@
             <md-button class="btn-confirmar" 
                 ng-click="confirmNodeOrder(node)"
                 ng-show="node.esAdministrador"
-                ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(node)">
+                ng-disabled="!puedeCerrarPedidoGCC(node)">
               <label translate style="cursor: pointer;">
                   CONFIRMAR_PEDIDO_NODE
               </label>
-              <md-icon ng-show="puedeCerrarPedidoGCC(node)" style="color:white; cursor: pointer;">
+              <md-icon style="color:white; cursor: pointer;">
                   done
               </md-icon>
-              <md-tooltip md-direction="bottom" ng-show="!puedeCerrarPedidoGCCSegunEstrategias(node)">
-                No se puede cerrar el pedido colectivo: Hay integrantes con pedidos abiertos
-              </md-tooltip>
             </md-button>
+            <div class="ch-agrupation-order-errors" ng-if="!puedeCerrarPedidoGCC(node)">
+              <div class="ch-agrupation-order-errors-error" ng-show="hayAlgunPedidoConfirmado(group) && !puedeCerrarPedidoGCCSegunEstrategias(node)">
+                <md-icon style="color:red;">
+                  error_outline
+                </md-icon>
+                <label class="ch-agrupation-order-errors-error-label">
+                  No se puede cerrar el pedido colectivo: Hay {{countOrdersOpen(node)}} integrante{{countOrdersOpen(node) == 1? '':'s'}} con el pedido abierto
+                </label>
+              </div>
+              <div class="ch-agrupation-order-errors-error" ng-show="!superaMontoMinimo(node)">
+                <md-icon style="color:red;">
+                    error_outline
+                </md-icon>
+                <label class="ch-agrupation-order-errors-error-label">
+                  No se puede cerrar el pedido colectivo: No se supera monto mínimo (${{montoMinimo}})
+                </label>
+              </div>
+            </div>
           </div>
       </div>
     </div>

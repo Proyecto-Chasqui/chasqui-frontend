@@ -311,18 +311,33 @@
             <md-button class="btn-confirmar" 
                 ng-click="confirmGCCOrder(group)"
                 ng-show="group.esAdministrador"
-                ng-disabled="!puedeCerrarPedidoGCCSegunEstrategias(group)">
+                ng-disabled="!puedeCerrarPedidoGCC(group)">
               <label translate style="cursor: pointer;">
                   CONFIRMAR_PEDIDO_GCC
               </label>
-              <md-icon ng-show="puedeCerrarPedidoGCC(group)" style="color:white; cursor: pointer;">
+              <md-icon style="color:white; cursor: pointer;">
                   done
               </md-icon>
-              <md-tooltip md-direction="bottom" ng-show="!puedeCerrarPedidoGCCSegunEstrategias(group)">
-                No se puede cerrar el pedido colectivo: Hay integrantes con pedidos abiertos
-              </md-tooltip>
             </md-button>
-          </div>
+            <div class="ch-agrupation-order-errors" ng-if="!puedeCerrarPedidoGCC(group)">
+              <div class="ch-agrupation-order-errors-error" ng-show="hayAlgunPedidoConfirmado(group) && !puedeCerrarPedidoGCCSegunEstrategias(group)">
+                <md-icon style="color:red;">
+                  error_outline
+                </md-icon>
+                <label class="ch-agrupation-order-errors-error-label">
+                  No se puede cerrar el pedido colectivo: Hay {{countOrdersOpen(group)}} integrante{{countOrdersOpen(group) == 1? '':'s'}} con el pedido abierto
+                </label>
+              </div>
+              <div class="ch-agrupation-order-errors-error" ng-show="!superaMontoMinimo(group)">
+                <md-icon style="color:red;">
+                    error_outline
+                </md-icon>
+                <label class="ch-agrupation-order-errors-error-label">
+                  No se puede cerrar el pedido colectivo: No se supera monto mínimo (${{montoMinimo}})
+                </label>
+              </div>
+            </div>
+        </div>
       </div>
     </div>
   </div>
