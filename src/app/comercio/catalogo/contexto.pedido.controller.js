@@ -87,6 +87,10 @@
         $rootScope.$on('ch-context-agrupation-change', function(event, grupo) {
             load();
         });
+      
+        $rootScope.$on('contexto.compra.cambia.grupo', function(event) {
+            load();
+        });
 
         //actualiza la lista de productos
         $rootScope.$on('lista-producto-agrego-producto', function(event) {

@@ -10,6 +10,7 @@
                                      contextAgrupationsService, vendedorService, $log) {
     
     $scope.grupos = [];
+    $scope.nodes = [];
     $scope.agrupationSelected = {};
     $scope.showSelector = showSelector;
     $scope.setPersonalAsAgrupationSelected = setPersonalAsAgrupationSelected;
@@ -26,23 +27,23 @@
           type: agrupationTypeVAL.TYPE_PERSONAL
         }
         vendedorService.obtenerConfiguracionVendedor().then(
-            function(response){
-                var few = response.data.few;
-                if(few.gcc){
-                    contextPurchaseService.getAgrupations()
-                    .then(function(agrupations_dao_int) {
-                      $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),
-                                                                               agrupationTypeVAL.TYPE_GROUP);
-                    });
-                }
-                if(few.nodos){
-                    contextPurchaseService.getAgrupations()
-                    .then(function(agrupations_dao_int) {
-                      $scope.nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),
-                                                                               agrupationTypeVAL.TYPE_NODE);
-                    });
-                }
-            }
+          function(response){
+            var few = response.data.few;
+            contextPurchaseService.getAgrupations()
+            .then(function(agrupations_dao_int) {
+              if(few.gcc){
+                $scope.grupos = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),
+                                                                        agrupationTypeVAL.TYPE_GROUP);
+              }
+              if(few.nodos){
+                $scope.nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(),
+                                                                            agrupationTypeVAL.TYPE_NODE);
+              }
+              if(!showSelector()){
+                $scope.okAction();
+              }
+            });
+          }
         );
       })
     }
@@ -55,10 +56,11 @@
       $log.debug("Cambio de contexto:", $scope.agrupationSelected);
       contextPurchaseService.setContextByAgrupation($scope.agrupationSelected);
       $rootScope.$emit('contexto.compra.cambia.grupo', $scope.agrupationSelected);
+      $rootScope.$broadcast('contexto.compra.cambia.grupo', $scope.agrupationSelected);
     }
 
     function showSelector(){
-        return $scope.grupos.length > 0;
+      return ($scope.grupos.length + $scope.nodes.length) > 0;
     }
 
     function setPersonalAsAgrupationSelected(idGrupo){
