@@ -84,7 +84,7 @@
         }
 
 
-        $rootScope.$on('contexto.compra.cambia.grupo', function(event, grupo) {
+        $rootScope.$on('ch-context-agrupation-change', function(event, grupo) {
             load();
         });
 
