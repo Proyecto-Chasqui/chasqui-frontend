@@ -71,11 +71,11 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
       */
     vmap = map;
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  id: 'mapbox.streets'
-  }).addTo(map);
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox.streets'
+    }).addTo(map);
     var attribution = map.attributionControl;
     vmap.setView(posicionMapaPredeterminado);
     vmap.setZoom(9);
@@ -181,15 +181,12 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
     }
   }
 
-  function mostrarZonas(){
-    MapREST.obtainAllZones(drawZonas,contextPurchaseService.getCatalogContext());
+  function mostrarZonas(catalog){
+    MapREST.obtainAllZones(drawZonas,catalog.id);
   }
 
-  function mostrarPuntosDeRetiro(){
-    contextPurchaseService.getSelectedCatalog()
-    .then(function(catalog){
-      deliveryPointsService.deliveryPoints(catalog.nombreCorto).then(drawSP);
-    })
+  function mostrarPuntosDeRetiro(catalog){
+    deliveryPointsService.deliveryPoints(catalog.nombreCorto).then(drawSP);
   }
 
   //workaround L.Icon.Default.imagePath
@@ -199,10 +196,12 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
 
   function init(){
     contextCatalogObserver.observe(function(){
-      setdefaultimage();
-      mostrarZonas();
-      mostrarPuntosDeRetiro();
-    });
+      contextPurchaseService.getSelectedCatalog().then(function(catalog){
+        setdefaultimage();
+        mostrarZonas(catalog);
+        mostrarPuntosDeRetiro(catalog);
+      });
+    })
   }
 
   init();
