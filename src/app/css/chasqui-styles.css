@@ -48,6 +48,11 @@ a img {
     border: none;
 }
 
+/* Mapa */
+.leaflet-top{
+  z-index: 10 !important;
+}
+
 
 /* colores */
 .violeta { color: #412467; }
@@ -778,6 +783,13 @@ padding-left: 40px;
     margin-left: 120px;
     margin-top: 16px;
 }
+
+/* Mapa */
+.ch-map-info{
+  height: 575px;
+  margin-top: 120px !important;
+}
+
 /*
 **********************************************
         RESPONISIBE MOBILE / TABLET
@@ -879,6 +891,15 @@ padding-left: 40px;
 .search-input-container {
     margin-left: 120px;
     margin-top: 16px;
+}
+
+
+#chasqui-princiodepagina2{
+  height: 88px !important;
+}
+
+.ch-map-info{
+  margin-top: 88px !important;
 }
 
 

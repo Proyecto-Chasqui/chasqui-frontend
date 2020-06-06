@@ -211,7 +211,7 @@
             .state('catalog.deliveryPoints', {
                 url: '/puntosDeEntrega',
                 templateUrl: 'app/comercio/administracion/deliveryPoints.tmpl.html',
-                controller: 'MapWebZonaPRController'
+                controller: 'DeliveryPointsCtrl'
             })
             .state('catalog.notifications', {
                 url: '/notificaciones',
