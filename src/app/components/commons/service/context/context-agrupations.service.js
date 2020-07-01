@@ -6,7 +6,7 @@
     
 	function contextAgrupationsService($localStorage, $q, setPromise, getContext, agrupations_dao, moment, gccService, 
                                         ensureContext, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal, 
-                                        agrupationTypeVAL, agrupationTypeDispatcher, usuario_dao, nodeService){
+                                        agrupationTypeVAL, agrupationTypeDispatcher, usuario_dao, nodeService, contextCatalogsService){
      
         
         ///////////////////////////////////////// Interface \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -67,23 +67,35 @@
             // Si la cache esta NO actualizada la actualiza y despues la retorna
             function(defered){
               var agrupations = [grupoIndividualVirtual];
+              contextCatalogsService.getCatalog(parseInt(catalogId)).then(function(catalog){
 
-                function doOKGroups(responseGroups) {
-                  var groups = formatAgrupations(responseGroups.data, agrupationTypeVAL.TYPE_GROUP);
-                  agrupations = agrupations.concat(groups);
+                function setAndReturn(){
+                  vm.ls.lastUpdate=moment();	
+                  agrupations_dao.loadAgrupations(catalogId, agrupations);
+                  defered.resolve(agrupations_dao);
+                }
 
-                  function doOKNodes(responseNodes){
-                    var nodes = formatAgrupations(responseNodes.data, agrupationTypeVAL.TYPE_NODE);
-                    agrupations = agrupations.concat(nodes);  
-
-                    vm.ls.lastUpdate=moment();	
-                    agrupations_dao.loadAgrupations(catalogId, agrupations);
-                    defered.resolve(agrupations_dao);
+                // Si el catalogo tiene grupos NO tiene nodos y viceversa
+                if(catalog.few.gcc){
+                  function doOKGroups(responseGroups) {
+                    var groups = formatAgrupations(responseGroups.data, agrupationTypeVAL.TYPE_GROUP);
+                    agrupations = agrupations.concat(groups);
+                    setAndReturn();
                   }
 
+                  gccService.groupsByUser().then(doOKGroups);                  
+                }
+
+                if(catalog.few.nodos){
+                  function doOKNodes(responseNodes){
+                    var nodes = formatAgrupations(responseNodes.data, agrupationTypeVAL.TYPE_NODE);
+                    agrupations = agrupations.concat(nodes); 
+                    setAndReturn();
+                  }
+                  
                   nodeService.nodosTodos(catalogId).then(doOKNodes);
                 }
-                gccService.groupsByUser().then(doOKGroups);
+              })
             });
 		    }
         
