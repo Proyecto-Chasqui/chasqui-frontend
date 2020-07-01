@@ -69,6 +69,7 @@
          *              order_context.orderId
          */
         function setContextByCatalog(catalog){
+          resetContext();
           // Dadas las estrategias del catalogo depende el contexto inicial.
           
           // Por defecto - develop
