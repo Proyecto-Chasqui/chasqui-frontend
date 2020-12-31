@@ -35,14 +35,14 @@
         <md-input-container class="md-block" flex>
           <label>{{'SELLO' | translate}}</label>
           <md-select ng-model="catalogoCtrl.medallaSelect" ng-change="catalogoCtrl.filtrar()">
-            <md-option ng-repeat="medalla in catalogoCtrl.medallas" 
+            <md-option ng-repeat="medalla in catalogoCtrl.medallas"
               value="{{ medalla.idMedalla }}"
               ng-click="setMedallaSelect(medalla, 'product')">
               <div layout="row" layout-align="start center">
                 <img ng-src="{{catalogoCtrl.urlBase}}{{medalla.pathImagen}}" class="md-avatar" width="40" height="40"> <span style="padding-left: 1rem;">{{medalla.id}} {{medalla.nombre}}</span>
               </div>
             </md-option>
-            <md-option ng-repeat="medallaProductor in catalogoCtrl.medallasProductor" 
+            <md-option ng-repeat="medallaProductor in catalogoCtrl.medallasProductor"
               value="{{ medallaProductor.idMedalla + catalogoCtrl.diffIdMedalla}}"
               ng-click="setMedallaSelect(medallaProductor, 'producer')">
               <div layout="row" layout-align="start center">
@@ -53,22 +53,20 @@
         </md-input-container>
       </div>
       <div class="ch-filters-medals">
-        <img ng-repeat="medalla in catalogoCtrl.medallas"
-             ng-src="{{catalogoCtrl.urlBase}}{{medalla.pathImagen}}" 
+        <figure ng-repeat="medalla in catalogoCtrl.medallas"
              class="ch-filters-medals-medal"
              ng-class="catalogoCtrl.getMedallaSelect(medalla.idMedalla, 'product')? 'ch-filters-medals-medal-selected' : ''"
-             title="Filtrar {{medalla.nombre}}"
-             ng-click="catalogoCtrl.setMedallaSelect(medalla.idMedalla, 'product')"
-             width="40" height="40">
-        <img ng-repeat="medallaProductor in catalogoCtrl.medallasProductor"
-             ng-src="{{catalogoCtrl.urlBase}}{{medallaProductor.pathImagen}}" 
-             class="ch-filters-medals-medal"
+             ng-click="catalogoCtrl.setMedallaSelect(medalla.idMedalla, 'product')">
+             <img ng-src="{{catalogoCtrl.urlBase}}{{medalla.pathImagen}}" title="Filtrar {{medalla.nombre}}" />
+        </figure>
+        <figure ng-repeat="medallaProductor in catalogoCtrl.medallasProductor"
              ng-class="catalogoCtrl.getMedallaSelect(medallaProductor.idMedalla, 'producer')? 'ch-filters-medals-medal-selected' : ''"
-             title="Filtrar {{medallaProductor.nombre}}"
-             ng-click="catalogoCtrl.setMedallaSelect(medallaProductor.idMedalla, 'producer')"
-             width="40" height="40">
+             class="ch-filters-medals-medal"
+             ng-click="catalogoCtrl.setMedallaSelect(medallaProductor.idMedalla, 'producer')">
+             <img ng-src="{{catalogoCtrl.urlBase}}{{medallaProductor.pathImagen}}" title="Filtrar {{medallaProductor.nombre}}" />
+        </figure>
       </div>
-      <div>                    
+      <div>
         <div class="button-filtro" ng-click="catalogoCtrl.filtrar()" ng-hide="true">
           {{'BUSCAR' | translate}}
         </div>
@@ -88,7 +86,7 @@ md-card2 {
     flex-direction: column;
     margin: 8px;
     /* box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12); */
-    color: rgba(0,0,0,0.87);  
+    color: rgba(0,0,0,0.87);
     /* background-color: rgb(255,255,255); */
     /* border-radius: 2px; */
     /* border-color: #111; */

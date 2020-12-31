@@ -20,7 +20,11 @@ Ver:
 
 ### Installation
 
-Chasqui requiere [Node.js](https://nodejs.org/) .
+Chasqui requiere [Node.js](https://nodejs.org/) en su versiÃ³n 8.9.4.
+
+```sh
+nvm use v8.9.4
+```
 
 Se necesita installar Gulp
 
@@ -34,14 +38,14 @@ $ cd chasqui
 $ npm install
 $ bower install
 ```
-Antes de usarlo, hay que copiar el archivo index.constants.js a "src/app/" y luego configurar los parámetros necesarios para su funcionamiento explicados ahí dentro.
+Antes de usarlo, hay que copiar el archivo index.constants.js a "src/app/" y luego configurar los parÃ¡metros necesarios para su funcionamiento explicados ahÃ­ dentro.
 
 Para usar en entorno de desarrollo se recomienda correrlo con gulp
 ```sh
-$ glup serve
+$ gulp serve
 ```
 
-Para installar en otros entornos 
+Para installar en otros entornos
 ```sh
 $ glup build
 ```
@@ -55,9 +59,9 @@ Para el caso de GlassFish copiar el contenido de la carpeta en [GlassFish]\\doma
 
 ### Entorno
 
-Este front end consume servicios REST de la aplicación de Back End. Se debe verificar que la url de los servicios sea correcta.
+Este front end consume servicios REST de la aplicaciÃ³n de Back End. Se debe verificar que la url de los servicios sea correcta.
 
-Para installar en otros entornos 
+Para installar en otros entornos
 ```sh
 $ index.constants.js
 --> URL_REST_BASE
@@ -66,7 +70,6 @@ $ index.constants.js
 ### Todos
 
  - en desarrollo
- 
+
 License
 ----
-

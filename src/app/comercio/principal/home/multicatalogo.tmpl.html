@@ -11,38 +11,38 @@
             <md-input-container class="ch-home-header-filter-input-string">
               <label>Buscar catalogo por nombre</label>
               <input ng-model="selectedTags.nombre" ng-change="confirmSearch()">
-            </md-input-container>            
+            </md-input-container>
             <div class="ch-home-header-filter-input-selections ch-responsive-layout">
               <md-input-container class="ch-home-header-filter-input-selections-options">
                 <label>Zona de entregas</label>
                 <md-select ng-model="selectedTags.idTagZonaDeCobertura" ng-change="confirmSearch()">
-                  <md-option ng-value="-1"> 
+                  <md-option ng-value="-1">
                     - - -
                   </md-option>
-                  <md-option ng-repeat="zona in tags.tagsZonaDeCobertura" ng-value="zona.id"> 
-                    {{ zona.nombre }} 
+                  <md-option ng-repeat="zona in tags.tagsZonaDeCobertura" ng-value="zona.id">
+                    {{ zona.nombre }}
                   </md-option>
                 </md-select>
               </md-input-container>
               <md-input-container class="ch-home-header-filter-input-selections-options">
                 <label>Tipo de organización</label>
                 <md-select ng-model="selectedTags.idTagTipoOrganizacion" ng-change="confirmSearch()">
-                  <md-option ng-value="-1"> 
+                  <md-option ng-value="-1">
                     - - -
                   </md-option>
-                  <md-option ng-repeat="tipoDeOrganizacion in tags.tagsTipoOrganizacion" ng-value="tipoDeOrganizacion.id"> 
-                    {{ tipoDeOrganizacion.nombre }} 
+                  <md-option ng-repeat="tipoDeOrganizacion in tags.tagsTipoOrganizacion" ng-value="tipoDeOrganizacion.id">
+                    {{ tipoDeOrganizacion.nombre }}
                   </md-option>
                 </md-select>
               </md-input-container>
               <md-input-container class="ch-home-header-filter-input-selections-options">
                 <label>Tipo de producto</label>
                 <md-select ng-model="selectedTags.idTagTipoProducto" ng-change="confirmSearch()">
-                  <md-option ng-value="-1"> 
+                  <md-option ng-value="-1">
                     - - -
                   </md-option>
-                  <md-option ng-repeat="tipoDeProducto in tags.tagsTipoProducto" ng-value="tipoDeProducto.id"> 
-                    {{ tipoDeProducto.nombre }} 
+                  <md-option ng-repeat="tipoDeProducto in tags.tagsTipoProducto" ng-value="tipoDeProducto.id">
+                    {{ tipoDeProducto.nombre }}
                   </md-option>
                 </md-select>
               </md-input-container>
@@ -107,19 +107,19 @@
             <img src="./assets/images/estrategias/compra_individual.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
             <label class="ch-home-ayudas-ayuda-icons-icon-label">
               Individual
-            </label>            
+            </label>
           </div>
           <div class="ch-home-ayudas-ayuda-icons-icon">
             <img src="./assets/images/estrategias/compra_grupal.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
             <label class="ch-home-ayudas-ayuda-icons-icon-label">
               Grupal
-            </label>            
+            </label>
           </div>
           <div class="ch-home-ayudas-ayuda-icons-icon">
             <img src="./assets/images/estrategias/compra_nodos.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
             <label class="ch-home-ayudas-ayuda-icons-icon-label">
               Nodos
-            </label>            
+            </label>
           </div>
         </div>
       </div>
@@ -132,13 +132,13 @@
             <img src="./assets/images/estrategias/entrega_domicilio.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
             <label class="ch-home-ayudas-ayuda-icons-icon-label">
               A domicilio
-            </label>            
+            </label>
           </div>
           <div class="ch-home-ayudas-ayuda-icons-icon">
             <img src="./assets/images/estrategias/entrega_lugar.svg" class="ch-home-ayudas-ayuda-icons-icon-container">
             <label class="ch-home-ayudas-ayuda-icons-icon-label">
               Retiro en el lugar
-            </label>            
+            </label>
           </div>
         </div>
       </div>
