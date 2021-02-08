@@ -2,17 +2,17 @@
 <div id="chasqui-content-full" class="chasqui-content-full-home">
   <div class="chasqui-content-full-home-container">
     <div class="ch-home-header ch-responsive-layout">
-        <div class="ch-home-header-name">
+        <!-- <div class="ch-home-header-name">
           <label class="ch-home-header-name-label">CHASQUI</label>
           <label class="ch-home-header-name-label-2">Comunidad de consumo solidario</label>
-        </div>
+        </div> -->
         <div class="ch-home-header-filter">
           <div class="ch-home-header-filter-input">
-            <md-input-container class="ch-home-header-filter-input-string">
-              <label>Buscar catalogo por nombre</label>
-              <input ng-model="selectedTags.nombre" ng-change="confirmSearch()">
-            </md-input-container>
             <div class="ch-home-header-filter-input-selections ch-responsive-layout">
+              <md-input-container class="ch-home-header-filter-input-string">
+                <label>Buscar catalogo por nombre</label>
+                <input ng-model="selectedTags.nombre" ng-change="confirmSearch()">
+              </md-input-container>
               <md-input-container class="ch-home-header-filter-input-selections-options">
                 <label>Zona de entregas</label>
                 <md-select ng-model="selectedTags.idTagZonaDeCobertura" ng-change="confirmSearch()">
@@ -51,7 +51,7 @@
         </div>
     </div>
     <div class="ch-home-catalogs">
-      <div class="ch-home-catalogs-container ch-responsive-layout">
+      <div class="ch-home-catalogs-container">
         <div class="ch-home-catalogs-catalog" ng-repeat="catalog in catalogs" ng-click="goToCatalog(catalog.nombreCorto)">
           <img class="ch-home-catalogs-catalog-img" ng-src="{{url(catalog.imagen)}}">
           <div class="ch-home-catalogs-catalog-details">
@@ -150,7 +150,8 @@
 
       </div>-->
     </div>
-
+  </div>
+  <div class="ch-home-bottom">
     <div class="ch-home-chasqui-banner">
       <div class="ch-home-chasqui-banner-content">
         <label>CHASQUI, Tecnología para la comercialización de la economía social y solidaria</label>

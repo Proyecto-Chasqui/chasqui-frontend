@@ -12,16 +12,17 @@
       </chq-principal-product-image>
 	  
       <div class="card-chasqui">
-        <chq-price-product precio="producto.precio + producto.incentivo" tamanho="1.6"></chq-price-product>
-          
-        <chq-product-description description="producto.nombreProducto"></chq-product-description>
+        <div>
+          <chq-price-product precio="producto.precio + producto.incentivo" tamanho="1.6"></chq-price-product>
+            
+          <chq-product-description description="producto.nombreProducto"></chq-product-description>
 
-        <chq-producer-name
-          nombre="producto.nombreFabricante"
-          ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
-        </chq-producer-name>
-
-        <chq-box-container>
+          <chq-producer-name
+            nombre="producto.nombreFabricante"
+            ng-click="listaProductosCtrl.showPrerenderedDialogProductor(producto.idFabricante)">
+          </chq-producer-name>
+        </div>
+        <div class="chq-product-bottom">
           
           <div class="chq-product-stamps">
             <chq-stamp
@@ -39,11 +40,11 @@
           </div>
       
           <chq-add-button
-            text="{{listaProductosCtrl.isLogged && listaProductosCtrl.permitirComprar? 'AGREGAR' : 'VER'}}"
+            text="{{listaProductosCtrl.isLogged && listaProductosCtrl.permitirComprar? 'Agregar al changuito' : 'Ver detalle'}}"
             ng-click="listaProductosCtrl.mostrar(producto)"
             title="{{'Agregar al changuito'">
           </chq-add-button>
-        </chq-box-container>
+        </div>
       </div>
 
     </chq-product-card>

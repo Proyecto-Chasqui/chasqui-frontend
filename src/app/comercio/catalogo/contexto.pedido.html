@@ -1,35 +1,55 @@
 
 <md-card3 class="ch-contexto-pedido-panel" ng-controller="ContextoPedidoController">
     <div ng-show="showOrderResume">
-        <md-subheader class="md-no-sticky" layout="column" layout-align="space-between">
-          <label style="margin-bottom: 10px;">
-            <element-wrapper not-supported-strategies="nodos">
-              {{'PROD_EN_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}}
-            </element-wrapper>
-            <element-wrapper supported-strategies="nodos">
-              {{'PROD_EN_PEDIDO_NODO' | translate}}
-            </element-wrapper>
-          </label>
-          <div layout="row" layout-align="space-between">
-            <label>
-              {{'TOTAL' | translate}}
-            </label>
-            <chq-price-product precio="pedidoSelected.montoActual + pedidoSelected.incentivoActual" tamanho="1"></chq-price-product>
-          </div>
-        </md-subheader>
-        <div layout="row" layout-align="space-between">
-          <md-button style="color: white" ng-click="cancelOrder(pedidoSelected)" class="cancel-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
-            <label translate="CANCELAR"></label>
-          </md-button>
-          <md-button style="color: white" ng-click="confirmOrder(pedidoSelected)" class="confirm-order order-button-catalog" ng-show="pedidoSelected.estado != 'CONFIRMADO'">
-            <label translate="CONFIRMAR"></label>
-          </md-button>
+      <div layout="row" layout-align="space-between" class="cart-event-content" ng-click="OpenCart(openCartStatus)">
+        <md-icon class="ng-scope material-icons" role="img" aria-label="editar">shopping_cart</md-icon>
+        <h3>
+          <element-wrapper not-supported-strategies="nodos">
+            {{'PROD_EN_PEDIDO' | translate}} {{pedidoSelected.aliasGrupo}}: {{pedidoSelected.productosResponse.length}}
+          </element-wrapper>
+          <element-wrapper supported-strategies="nodos">
+            {{'PROD_EN_PEDIDO_NODO' | translate}}: {{pedidoSelected.productosResponse.length}}
+          </element-wrapper>
+        </h3>
+        <div>
+          <h4 class="cart-total-precio">
+            TOTAL<br/>
+            <strong>$ {{pedidoSelected.montoActual + pedidoSelected.incentivoActual}}</strong>
+          </h4>
         </div>
-        <md-list class="md-dense ch-contexto-pedido-panel-list">
+        <md-icon class="ng-scope material-icons material-icons-arrow" role="img" aria-label="editar">{{ openCartStatus ? 'keyboard_arrow_down' : 'keyboard_arrow_right'}}</md-icon>
+      </div>
+
+      <ul class="cart-list {{openCartStatus ? 'cart-list-open': ''}}">
+        <li class="cart-list-item" ng-repeat="variety in pedidoSelected.productosResponse">
+            <h5 class="cart-list-titulo">{{ variety.nombre }}</h5>
+            <figure>
+              <img ng-src="{{urlBase}}{{variety.imagen}}" class="cart-list-img" alt="{{variety.nombre}}" />
+            </figure>
+            <h3 class="cart-list-precio">$ {{ variety.cantidad * (variety.precio + variety.incentivo) }}</h3>
+            <md-button mb-stroked ng-click="modifyVarietyCount(variety, pedidoSelected)" ng-disabled="pedidoSelected.estado == 'CONFIRMADO'" class="cart-list-cantidad">
+              {{variety.cantidad}} {{ variety.cantidad > 1 ? 'unidades' : 'unidad'}}
+              <md-icon class="ng-scope material-icons" role="img" aria-label="editar">mode</md-icon>
+            </md-button>
+        </li>
+      </ul>
+
+      <div layout="row" layout-align="end" class="cart-event-content">
+        <md-button style="color: white" ng-click="cancelOrder(pedidoSelected)" class="cancel-order order-button-catalog"
+          ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+          <label translate="CANCELAR"></label>
+        </md-button>
+        <md-button style="color: white" ng-click="confirmOrder(pedidoSelected)" class="confirm-order order-button-catalog"
+          ng-show="pedidoSelected.estado != 'CONFIRMADO'">
+          <label translate="CONFIRMAR"></label>
+        </md-button>
+      </div>
+
+        <!-- <md-list class="md-dense ch-contexto-pedido-panel-list">
             <md-list-item class="md-3-line ch-contexto-pedido-panel-list-item" ng-repeat="variety in pedidoSelected.productosResponse">
                 <md-button ng-click="modifyVarietyCount(variety, pedidoSelected)" ng-disabled="pedidoSelected.estado == 'CONFIRMADO'">
                     <div layout="row" layout-align="space-between center">
-                        <img ng-src="{{urlBase}}{{variety.imagen}}" class="md-avatar" alt="{{variety.nombre}}" />
+                          <img ng-src="{{urlBase}}{{variety.imagen}}" class="md-avatar" alt="{{variety.nombre}}" />
                         <div class="md-list-item-text" layout="column">
                             <h4>{{ variety.nombre }}</h4>
                             <p layout="row" layout-align="start end">
@@ -49,10 +69,10 @@
                     </md-tooltip>
                 </md-button>
             </md-list-item>
-        </md-list>
-        <md-subheader class="md-no-sticky ch-contexto-pedido-descripcion" ng-show="pedidoSelected.estado == 'CONFIRMADO'">
-            {{'PEDIDO_CONFIRMADO_MSG_1' | translate}} {{pedidoSelected.aliasGrupo}} {{'PEDIDO_CONFIRMADO_MSG_2' | translate}}
-        </md-subheader>
+        </md-list> -->
+      <md-subheader class="md-no-sticky ch-contexto-pedido-descripcion" ng-show="pedidoSelected.estado == 'CONFIRMADO'">
+          {{'PEDIDO_CONFIRMADO_MSG_1' | translate}} {{pedidoSelected.aliasGrupo}} {{'PEDIDO_CONFIRMADO_MSG_2' | translate}}
+      </md-subheader>
     </div>
     <md-subheader ng-show="!showOrderResume">
       <element-wrapper not-supported-strategies="nodos">

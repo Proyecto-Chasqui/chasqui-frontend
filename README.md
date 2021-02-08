@@ -1,5 +1,12 @@
 ![](http://proyectochasqui.org/images/logo_chasqui_400.png)
 
+
+## Instalación
+
+Ver CONFIGURATIONS.md
+
+# Indice
+
 1. [¿Qué es Chasqui?](#qué-es-chasqui)
 2. [Información técnica](#información-técnica)
 3. [Notas de las diferentes versiones](#notas-de-las-diferentes-versiones)

@@ -46,15 +46,15 @@
                     <div flex="70" style="font-weight: bold">
                         ¿Cuántos querés?
                     </div>
-                    <div layout="row" layout-align="space-between center" flex="30">
+                    <div layout="row" layout-align="space-between center" flex="30" class="suma-cantidad">
                       <a href="" ng-disabled="count() <= 0">
                         <i class="material-icons" ng-click="countPlus(-1)">
                           remove
                         </i>
                       </a>
-                      <md-input-container style="font-size: 18; margin: 0px;">
-                        <input style="width: 35px" ng-model="count" ng-model-options="{ getterSetter: true }">
-                      </md-input-container>
+                      <div class="suma-cantidad-input">
+                        <input ng-model="count" ng-model-options="{ getterSetter: true }">
+                      </div>
                       <a href="">
                         <i class="material-icons" ng-click="countPlus(1)" ng-show="ventasHabilitadas">
                           add
@@ -62,7 +62,7 @@
                       </a>
                     </div>
                 </div>
-                <div layout="row" layout-align="space-between center" flex="100">
+                <div layout="row" layout-align="space-between center" flex="100" class="suma-copy">
                     <div flex="70" style="font-weight: bold">
                         <div ng-show="count() == 0">
                           No llevar el producto te sale:
