@@ -1007,7 +1007,9 @@ width:400px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  height: 64px;
+}
+.chq-product-stamps chq-stamp {
+    margin-bottom: 10px;
 }
 
 .txt-sellos {
@@ -1598,13 +1600,10 @@ text-decoration:none;
     .anchobanner {
         max-width:1500px;
         padding-top: 88px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    @media (max-width: 1199px) and (min-width: 992px) {
-        .anchobanner {
-            max-width:918px;
-        }
-    }
 
 
     @media (min-width: 1400px) {
