@@ -160,13 +160,25 @@
     function init(){
       toTop();
       contextCatalogsService.getCatalogs().then(function(catalogs){
-          $scope.catalogs = catalogs.map(function(c){
-            c.deliveryTypes = deliveryTypes(c);
-            c.agrupationsTypes = agrupationsTypes(c);
-            return c;
-          }).filter(function(c){
-            return c.visibleEnMulticatalogo;
-          });
+        // $scope.catalogs = catalogs.map(function(c){
+        //   c.deliveryTypes = deliveryTypes(c);
+        //   c.agrupationsTypes = agrupationsTypes(c);
+        //   return c;
+        // }).filter(function(c){
+        //   return c.visibleEnMulticatalogo;
+        // });
+
+        $scope.catalogs = catalogs.data.map(function (c) {
+          console.log(c)
+          c.deliveryTypes = []; //deliveryTypes(c);
+          c.agrupationsTypes = []; //agrupationsTypes(c);
+          return c;
+        }).filter(function (c) {
+          return c.visible_en_multicatalogo.data;
+        });
+
+        
+        console.log($scope.catalogs)
       })
       sellerService.getSellersTags().then(function(response){
         $scope.tags = response.data;

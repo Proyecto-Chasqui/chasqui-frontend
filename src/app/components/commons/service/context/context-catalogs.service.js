@@ -25,7 +25,8 @@
                     defered.resolve(preCacheCatalogs);
                 }else{
                     sellerService.getSellers().then(function(response){
-                        catalogs_dao.loadCatalogs(response.data);
+                        console.log(response)
+                        catalogs_dao.loadCatalogs(response.data.data);
                         defered.resolve(catalogs_dao.getCatalogs());
                     }); 
                 }
