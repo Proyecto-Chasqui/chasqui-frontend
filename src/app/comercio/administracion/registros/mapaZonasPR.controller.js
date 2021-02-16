@@ -7,21 +7,21 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
     *------------------------------*/
 
     var vmap;
-  $scope.mostrarDia = true;
-  $scope.nombre = "N/D";
-  $scope.descripcion = "N/D";
-  $scope.day = "N/D";
-  $scope.direccion = "N/D";
-  $scope.mostrarDireccionPR = false;
-  var posicionMapaPredeterminado = [-34.602581, -58.441341];
+    $scope.mostrarDia = true;
+    $scope.nombre = "N/D";
+    $scope.descripcion = "N/D";
+    $scope.day = "N/D";
+    $scope.direccion = "N/D";
+    $scope.mostrarDireccionPR = false;
+    var posicionMapaPredeterminado = [-34.602581, -58.441341];
 
-  var normalIcon = L.icon({
-    iconUrl: './assets/images/commerce51.png',
+    var normalIcon = L.icon({
+      iconUrl: './assets/images/commerce51.png',
 
-    iconSize: [51, 51],
-    iconAnchor: [25, 50],
-    popupAnchor: [0, -50]
-  });
+      iconSize: [51, 51],
+      iconAnchor: [25, 50],
+      popupAnchor: [0, -50]
+    });
 
   var markedIcon = L.icon({
     iconUrl: './assets/images/commerce51marked.png',
@@ -69,7 +69,7 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
       * Variables en contexto del mapa
       * y configuraciones.
       */
-    var vmap = map;
+    vmap = map;
     var urlMapbox = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
     //https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw
     
