@@ -4,40 +4,29 @@
 
     angular
         .module('chasqui')
-        .constant('settings', {
-            APP_TITLE: 'chasqui',
-            API_URL: 'http://localhost/api',
-            DEBUG_ENABLED: true
-        })
-
         .constant('URLS', function() {
-            
-            var backends = [
-                //    Servidor LOCAL
-               "backend local sin http//", // COMPLETAR
-                
-                // Backend desarrollo
-                "backend de desarrollo http//" // COMPLETAR
-            ];
-
-            var serverIndex = 1;
-            
-            var URL_BASE = "http://".concat(backends[serverIndex]);
-
-            var URL_BASE_WEBSOCKET = "ws://".concat(backends[serverIndex]);           
-
-            var URL_REST_BASE = URL_BASE + "rest/";
-
-            var PRODUCTO = URL_REST_BASE + "productos/";
-
-            return {
-                be_base: URL_BASE,
-
-                be_rest: URL_REST_BASE,
-
-                be_websocket: URL_BASE_WEBSOCKET,
+            const environmentActive = 'development';
+            const environment = {
+                development: {
+                    be_base:        'http://localhost:8080/panel/',
+                    be_rest:        'http://localhost:8080/panel/rest/',
+                    be_websocket:   'wss://staging.proyectochasqui.com:6789',
+                    api:            'http://localhost:3030/'
+                },
+                staging: {
+                    be_base:        'https://staging.proyectochasqui.com/panel/',
+                    be_rest:        'https://staging.proyectochasqui.com/panel/rest/',
+                    be_websocket:   'wss://staging.proyectochasqui.com:6789',
+                    api:            'https://api.staging.proyectochasqui.com/'
+                },
+                production: {
+                    be_base:        'https://proyectochasqui.com/panel/',
+                    be_rest:        'https://proyectochasqui.com/panel/rest/',
+                    be_websocket:   'wss://proyectochasqui.com:6789',
+                    api:            'http://api.proyectochasqui.com/'
+                }
             }
-
+            return environment[environmentActive];
         }())
 
 })();
