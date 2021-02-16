@@ -50,12 +50,12 @@
             // categorias: function(idVendedor) {
             //     return URLS.be_rest + "client/categoria/all/" + idVendedor;
             // },
-            categorias: (idVendedor) => URLS.api + `categorias?id_vendedor=${idVendedor}&$select[]=id&$select[]=nombre`,
+            categorias: (idVendedor) => `${URLS.api}categorias?id_vendedor=${idVendedor}&$select[]=id&$select[]=nombre`,
 
             // productores: function(idVendedor) {
             //     return URLS.be_rest + "client/productor/all/" + idVendedor;
             // },
-            productores: (idVendedor) => URLS.api + `productores?id_vendedor=${idVendedor}`,
+            productores: (idVendedor) => `${URLS.api}productores?id_vendedor=${idVendedor}&$limit=100`,
 
             // productosSinFiltro: URLS.be_rest + "client/producto/sinFiltro",
 
@@ -63,9 +63,10 @@
                 return URLS.be_rest + "client/producto/sinFiltro";
             },
 
-            productosByMultiplesFiltros: function(idVendedor){
-                return URLS.be_rest + "client/producto/productosByMultiplesFiltros";
-            },
+            // productosByMultiplesFiltros: function(idVendedor){
+            //     return URLS.be_rest + "client/producto/productosByMultiplesFiltros";
+            // },
+            productosByMultiplesFiltros: (params) => `${URLS.api}productos/?${params}&ocultado=false`,
 
             medallas: URLS.be_rest + "client/medalla/all",
 

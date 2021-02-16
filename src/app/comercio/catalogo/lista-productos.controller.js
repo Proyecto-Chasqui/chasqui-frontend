@@ -47,10 +47,7 @@
 
     vm.showPrerenderedDialogProductor = function(id) {
 
-      angular.forEach(vm.emprendedores, function(empr, key) {
-        if (empr.idProductor === id)
-          vm.emprendedorSelect = empr;
-      });
+      vm.emprendedorSelect = vm.emprendedores.filter(emprendedor => emprendedor.idProductor === id)[0];
 
       $mdDialog.show({
         contentElement: '#productorDialog',
@@ -223,6 +220,7 @@
       $log.debug('find productos multiples filtros');
       function doOk(response) {
         $log.debug('findProductosPorMultiplesFiltros Response ', response);
+        response.data = productoService.normalizadorProductos(response.data)
 
         vm.productos = response.data.productos;
         $log.debug('productos', vm.productos);

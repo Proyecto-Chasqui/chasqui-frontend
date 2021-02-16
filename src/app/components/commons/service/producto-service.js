@@ -27,7 +27,8 @@
             verDirecciones: verDirecciones,
             imagenProducto: imagenProducto,
             normalizadorMedallas: normalizadorMedallas,
-            normalizadorCategorias: normalizadorCategorias
+            normalizadorCategorias: normalizadorCategorias,
+            normalizadorProductos: normalizadorProductos
         };
 
         
@@ -65,7 +66,20 @@
             return setPromise(function(defered){
                 contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
                     $log.debug(" service getProductosByMultiplesFiltros ");
-                    defered.resolve(promiseService.doPostPublic(REST_ROUTES.productosByMultiplesFiltros(catalog.id), params));
+                    //defered.resolve(promiseService.doPostPublic(REST_ROUTES.productosByMultiplesFiltros(catalog.id), params));
+
+                    var args = [];
+                    args.push(`$limit=${params.cantItems}`)
+                    args.push(`$skip=${(params.pagina-1)*params.cantItems}`)
+                    args.push(`id_vendedor=${catalog.id}`)
+
+                    if (params.idCategoria) args.push(`id_categoria=${params.idCategoria}`)
+                    if (params.idProductor) args.push(`id_productor=${params.idProductor}`)
+                    if (params.idsSellosProducto.length > 0) args.push(`id_medallas_producto=${params.idsSellosProducto}`)
+                    if (params.idsSellosProductor.length > 0) args.push(`id_medallas_productor=${params.idsSellosProductor}`)
+                    if (params.query) args.push(`nombre[$like]=%${params.query.replace(/ /g, '%')}%`);
+                    
+                    defered.resolve(promiseService.doGet(REST_ROUTES.productosByMultiplesFiltros(args.join('&')), {}));
                 });
             });
         }
@@ -181,6 +195,52 @@
             return {
                 idCategoria: data.id,
                 nombre: data.nombre,
+            }
+        }
+
+
+        function normalizadorProductos(result) {
+            return {
+                "cantItems": result.limit,
+                "pagina": Math.ceil(result.skip / result.limit) + 1,
+                "total": result.total,
+                "totalDePaginas": Math.ceil(result.total / result.limit),
+                "productos": result.data.map(producto => 
+                    ({
+                        "idProducto": producto.id,
+                        "idVariante": producto.VARIANTEs[0].id,
+                        "idCategoria": producto.id_categoria,
+                        "idFabricante": producto.id_productor,
+                        "imagenPrincipal": producto.VARIANTEs[0].IMAGENs.filter(imagen => (imagen.orden === 0))[0].path,
+                        "codigoArticulo": producto.VARIANTEs[0].codigo,
+                        "nombreProducto": producto.nombre,
+                        "nombreVariedad": producto.VARIANTEs[0].nombre,
+                        "nombreFabricante": producto.PRODUCTOR.nombre,
+                        "precioParteEntera": producto.VARIANTEs[0].precio,
+                        "precioParteDecimal": 0,
+                        "descripcion": producto.VARIANTEs[0].descripcion,
+                        "destacado": producto.VARIANTEs[0].destacado,
+                        "precio": producto.VARIANTEs[0].precio,
+                        "incentivo": producto.VARIANTEs[0].incentivo,
+                        "stock": producto.VARIANTEs[0].stock,
+                        "medallasProducto": producto.CARACTERISTICAs.map(medalla => (
+                            {
+                                "nombre": medalla.nombre,
+                                "idMedalla": medalla.id,
+                                "pathImagen": medalla.path_imagen,
+                                "descripcion": medalla.descripcion
+                            }
+                        )),
+                        "medallasProductor": [
+                            {
+                                "nombre": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR?.nombre,
+                                "idMedalla": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR?.id,
+                                "pathImagen": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR?.path_imagen,
+                                "descripcion": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR?.descripcion_corta
+                            }
+                        ],
+                    })
+                )
             }
         }
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
