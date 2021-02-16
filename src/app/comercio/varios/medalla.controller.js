@@ -40,7 +40,7 @@
 			productoService.getMedallas()
 				.then(function(response) {
 
-					vm.medallas = response.data;
+					vm.medallas = response.data.data.map((data) => productoService.normalizadorMedallas(data));
 
 				})
 

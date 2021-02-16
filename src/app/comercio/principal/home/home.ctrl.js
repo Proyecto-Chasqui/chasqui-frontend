@@ -52,10 +52,10 @@
 
       console.log(selectedTags);
 
-      sellerService.getSellersWithTags(selectedTags).then(function(response){
-        $scope.catalogs = response.data;
-        console.log($scope.catalogs);
-      })
+      // sellerService.getSellersWithTags(selectedTags).then(function(response){
+      //   $scope.catalogs = response.data;
+      //   console.log($scope.catalogs);
+      // })
 
     }
 
@@ -80,6 +80,6 @@
       })
     }
     
-    init();
+    //init();
 	}
 })();

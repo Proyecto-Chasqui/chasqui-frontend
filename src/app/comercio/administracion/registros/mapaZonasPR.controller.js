@@ -144,8 +144,9 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
   }
 
   function drawZonas(jsonText){
-    var data = JSON.parse(jsonText);
+    var dataAll = JSON.parse(jsonText);
     var i = 0;
+    var data = dataAll.data
     var lastCoordinates=[];
     for(i; i<data.length; i++){
       var coordinates =parseCoordinateToLatLngs(data[i].geometry.coordinates);
@@ -163,7 +164,7 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
   }
 
   function drawSP(response){
-    var data = response.data.puntosDeRetiro;
+    var data = response.data.data;
     var i = 0;
     var lastCoordinatesSP = [];
     for(i; i<data.length; i++){
@@ -189,7 +190,7 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
   }
 
   function mostrarPuntosDeRetiro(catalog){
-    deliveryPointsService.deliveryPoints(catalog.nombreCorto).then(drawSP);
+    deliveryPointsService.deliveryPoints(catalog.id).then(drawSP);
   }
 
   //workaround L.Icon.Default.imagePath

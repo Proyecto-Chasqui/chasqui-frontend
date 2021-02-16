@@ -29,7 +29,7 @@
                 productorService.getProductores()
                     .then(function(response) { 
                         var idProductor = $stateParams.idProductor;
-                        $scope.productores = response.data; 
+                        $scope.productores = response.data.data.map((data) => productorService.normalizarProductores(data));
                         $log.debug($scope.productores, idProductor);
                         $scope.productor = $scope.productores.filter(function(p){ return p.idProductor === parseInt(idProductor);})[0];
                         $log.debug(idProductor, $scope.productor);

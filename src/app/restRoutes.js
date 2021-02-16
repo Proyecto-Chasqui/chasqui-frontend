@@ -5,7 +5,6 @@
     angular.module('chasqui').factory('REST_ROUTES', REST_ROUTES);
     
     function REST_ROUTES(URLS) {
-
         return {
             PRODUCTOS_X_PAG: 12,
 
@@ -15,19 +14,24 @@
 
             defaultLogo: "imagenes/logo_ch_login.png",
 
+            //sellers: URLS.be_rest + "client/vendedor/all",
             sellers: URLS.api + "vendedores",
 
-            sellersTags: URLS.be_rest + "client/vendedor/obtenerTags",
+            //sellersTags: URLS.be_rest + "client/vendedor/obtenerTags",
+            sellersTags: URLS.api + "tags",
 
-            sellersWithTags: URLS.be_rest + "client/vendedor/obtenerVendedoresConTags",
+            //sellersWithTags: URLS.be_rest + "client/vendedor/obtenerVendedoresConTags",
+            sellersWithTags: (params) => `${URLS.api}vendedores?${params}`,
 
             seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
+            //seller: function (sellerId) { return URLS.api + "vendedores/" + sellerId},
             
             sellerIndividualQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
             
             sellerColectiveQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoColectivo/" + sellerId},
             
             sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
+            //sellerZones: sellerId => `${URLS.api}vendedor-retiro-zonas/?id_vendedor=${sellerId}`,
 
             getAddressZone: URLS.be_rest + "client/vendedor/obtenerZonaDeDireccion",
 
@@ -43,13 +47,15 @@
 
             singUpInvitacionGCC: URLS.be_rest + "client/sso/singUp/invitation",
 
-            categorias: function(idVendedor) {
-                return URLS.be_rest + "client/categoria/all/" + idVendedor;
-            },
+            // categorias: function(idVendedor) {
+            //     return URLS.be_rest + "client/categoria/all/" + idVendedor;
+            // },
+            categorias: (idVendedor) => URLS.api + `categorias?id_vendedor=${idVendedor}&$select[]=id&$select[]=nombre`,
 
-            productores: function(idVendedor) {
-                return URLS.be_rest + "client/productor/all/" + idVendedor;
-            },
+            // productores: function(idVendedor) {
+            //     return URLS.be_rest + "client/productor/all/" + idVendedor;
+            // },
+            productores: (idVendedor) => URLS.api + `productores?id_vendedor=${idVendedor}`,
 
             // productosSinFiltro: URLS.be_rest + "client/producto/sinFiltro",
 
@@ -67,9 +73,11 @@
                 return URLS.be_rest + "client/producto/images/" + idVariante;
             },
 
-            medallasProducto: URLS.be_rest + "client/medalla/producto/all",
+            //medallasProducto: URLS.be_rest + "client/medalla/producto/all",
+            medallasProducto: URLS.api + "medallas",
 
-            medallasProductor: URLS.be_rest + "client/medalla/productor/all",
+            //medallasProductor: URLS.be_rest + "client/medalla/productor/all",
+            medallasProductor: URLS.api + "medallas-productores",
 
             medallaById: function(id) {
 
@@ -181,7 +189,8 @@
 
             /* Nodos */
 
-            nodosAbiertos: function(idVendedor){return URLS.be_rest + "client/vendedor/nodosAbiertos/" + idVendedor;},
+            //nodosAbiertos: function(idVendedor){return URLS.be_rest + "client/vendedor/nodosAbiertos/" + idVendedor;},
+            nodosAbiertos: (slug) => (`${URLS.api}nodos/${slug}`),
 
             userRequests: function(idVendedor){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaDeUsuario/" + idVendedor;},
 
@@ -234,9 +243,11 @@
             
             /* Otros */
 
-            puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
+            //puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
+            puntosDeRetiro: (idVendedor) => `${ URLS.api }vendedor-retiro-puntos/?id_punto_de_retiro=${idVendedor}`,
 
-            datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
+            //datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
+            datosDePortada: (slug) => (`${URLS.api}vendedores/${slug}`),
 
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 

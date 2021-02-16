@@ -24,13 +24,15 @@
 
     this.obtainAllZones=function(aCallback, idVendedor){
       var aQuery = new HttpClient();
-      var httpquery = URLS.be_base + 'rest/client/vendedor/zonasGeo/' + idVendedor;
+      //var httpquery = URLS.be_base + 'rest/client/vendedor/zonasGeo/' + idVendedor;
+      var httpquery = `${URLS.api}vendedor-retiro-zonas/?id_vendedor=${idVendedor}`;
       aQuery.get(httpquery, aCallback);
     }
 
     this.obtainAllSellerPoints=function(aCallback, idVendedor){
       var aQuery = new HttpClient();
-      var httpquery = URLS.be_base + 'rest/client/vendedor/puntosDeRetiro/id/' + idVendedor;
+      //var httpquery = URLS.be_base + 'rest/client/vendedor/puntosDeRetiro/id/' + idVendedor;
+      var httpquery = `${URLS.api}vendedor-retiro-puntos/?id_punto_de_retiro=${idVendedor}`;
       aQuery.get(httpquery, aCallback);
     }
 	      //rest (deprecable)

@@ -25,7 +25,9 @@
             cancelarPedidoIndividual: cancelarPedidoIndividual,
             confirmarPedidoIndividual: confirmarPedidoIndividual,
             verDirecciones: verDirecciones,
-            imagenProducto: imagenProducto
+            imagenProducto: imagenProducto,
+            normalizadorMedallas: normalizadorMedallas,
+            normalizadorCategorias: normalizadorCategorias
         };
 
         
@@ -41,7 +43,7 @@
         }
 
         function getMedallas(){
-            $log.debug(" service getMedallas ");
+            // $log.debug(" service getMedallas ");
             return promiseService.doGet(REST_ROUTES.medallasProducto, {});
         }
 
@@ -166,7 +168,21 @@
             return promiseService.doPost(REST_ROUTES.confirmarPedidoIndividual, params);
         }
         
-        
+        function normalizadorMedallas(data) {
+            return {
+                idMedalla: data.id,
+                nombre: data.nombre,
+                descripcion: data.descripcion,
+                pathImagen: data.path_imagen
+            }
+        }
+
+        function normalizadorCategorias(data) {
+            return {
+                idCategoria: data.id,
+                nombre: data.nombre,
+            }
+        }
         ///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
                 
         

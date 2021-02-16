@@ -260,8 +260,8 @@
     function callEmprendedores() {
       $log.debug("---callEmprendedor ---");
 
-      productorService.getProductores().then(function(data){ 
-        vm.emprendedores = data.data; 
+      productorService.getProductores().then(function(response){ 
+        vm.emprendedores = response.data.data.map((data) => productorService.normalizarProductores(data));
       })
     }
 

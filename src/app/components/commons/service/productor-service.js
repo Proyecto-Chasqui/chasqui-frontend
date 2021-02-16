@@ -28,5 +28,22 @@
 			return promiseService.doGet(REST_ROUTES.medallasProductor, {});
 		}
 
+		vm.normalizarProductores = function(data) {
+			return {
+				idProductor: data.id,
+				nombreProductor: data.nombre,
+				pathImagen: data.imagen,
+				descripcionCorta: data.descripcion_corta,
+				descripcionLarga: data.descripcion_larga,
+				direccion: {
+					pais: data.pais,
+					provincia: data.provincia,
+					localidad: data.localidad,
+					calle: data.calle,
+					altura: data.altura
+				}
+			}
+		}
+
 	} // function
 })(); // anonimo

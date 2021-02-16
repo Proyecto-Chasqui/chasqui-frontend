@@ -28,6 +28,7 @@
       createPersonalOrder: createPersonalOrder,
       confirmPersonalOrder: confirmPersonalOrder,
       confirmNodeOrder: confirmNodeOrder,
+      normalizadorNodos: normalizadorNodos,
     };
 
 		function nodosAbiertos(idCatalog, doNoOk){
@@ -173,6 +174,34 @@
     function confirmNodeOrder(params, doNoOk){
 			$log.debug(" service confirmNodePersonalOrder ");
 			return promiseService.doPost(REST_ROUTES.confirmNodeOrder, params, doNoOk);
+    }
+
+    function normalizadorNodos() {
+      return {
+        barrio: "Parque Patricios",
+        descripcion: null,
+        direccionDelNodo: { 
+          alias: "zavaleta 441",
+          altura: null,
+          calle: "zavaleta",
+          calleAdyacente1: "lagos",
+          calleAdyacente2: "p.chutro",
+          codigoPostal: "1437",
+          comentario: "DE MAÑANA TEMPRANO",
+          departamento: "4",
+          geoUbicacion: null,
+          id: 753,
+          latitud: "0.0",
+          localidad: "parke patricios",
+          longitud: "0.0",
+          pais: null,
+          predeterminada: false,
+          provincia: null,
+        },
+        emailAdministrador: "marisolsenson@gmail.com",
+        idNodo: 65,
+        nombreDelNodo: "Mar",
+      }
     }
 
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

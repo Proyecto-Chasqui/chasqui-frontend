@@ -121,7 +121,9 @@
 		function callCategorias() {
 			productoService.getCategorias()
 				.then(function(response) {
-					vm.categorias = response.data;
+					
+					vm.categorias = response.data.data.map((data) => productoService.normalizadorCategorias(data));
+					//vm.categorias = response.data;
 				})
 
 		}
@@ -129,33 +131,33 @@
 		function callProductores() {
 			productorService.getProductores()
 				.then(function(response) {
-					vm.productores = response.data;
+					vm.productores = response.data.data.map((data) => productorService.normalizarProductores(data));
 				})
 		}
 
 		function callMedallas() {
 			productoService.getMedallas()
 				.then(function(response) {
-          vm.medallas = response.data;
-          vm.medallasSelected.product = vm.medallas.map(function(m){
-            return {
-              id: m.idMedalla,
-              selected: false
-            }
-          })
+					vm.medallas = response.data.data.map((data) => productoService.normalizadorMedallas(data));
+          			vm.medallasSelected.product = vm.medallas.map(function(m){
+					return {
+					id: m.idMedalla,
+					selected: false
+					}
 				})
+			})
 		}
 
 		function callMedallasProductores() {
 			productoService.getMedallasProductor()
 				.then(function(response) {
-          vm.medallasProductor = response.data;
-          vm.medallasSelected.producer = vm.medallasProductor.map(function(m){
-            return {
-              id: m.idMedalla,
-              selected: false
-            }
-          })
+					vm.medallasProductor = response.data.data.map((data) => productoService.normalizadorMedallas(data));
+					vm.medallasSelected.producer = vm.medallasProductor.map(function(m){
+						return {
+						id: m.idMedalla,
+						selected: false
+						}
+					})
 				})
 		}
 
