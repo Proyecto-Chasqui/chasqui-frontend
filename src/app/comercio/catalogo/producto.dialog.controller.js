@@ -14,7 +14,7 @@
 
 		$scope.urlBase = URLS.be_base;
 		$scope.producto = productSelected;
-		$scope.imagenes = [];
+		$scope.imagenes = productSelected.imagenes;
 		$scope.imageSelect = productSelected.imagenPrincipal;
 		$scope.class = "";
 
@@ -38,14 +38,14 @@
 
 		////////////
     
-    function init(){
-      function setImagenes(response) {
-        $log.debug("imagenProducto", response);
-        $scope.imagenes = response.data;
-      }
-
-      productoService.imagenProducto($scope.producto.idVariante).then(setImagenes);
-    }
+    // function init(){
+    //   function setImagenes(response) {
+    //     $log.debug("imagenProducto", response);
+    //     $scope.imagenes = response.data;
+    //   }
+	//   //setImagenes($scope.producto.imagenes)
+    //   productoService.imagenProducto($scope.producto.idVariante).then(setImagenes);
+    // }
     
     init();
 

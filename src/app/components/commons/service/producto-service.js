@@ -212,6 +212,7 @@
                         "idCategoria": producto.id_categoria,
                         "idFabricante": producto.id_productor,
                         "imagenPrincipal": producto.VARIANTEs[0].IMAGENs.filter(imagen => (imagen.orden === 0))[0].path,
+                        "imagenes": producto.VARIANTEs[0].IMAGENs,
                         "codigoArticulo": producto.VARIANTEs[0].codigo,
                         "nombreProducto": producto.nombre,
                         "nombreVariedad": producto.VARIANTEs[0].nombre,

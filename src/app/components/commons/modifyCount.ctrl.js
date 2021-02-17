@@ -17,7 +17,7 @@
     $scope._count = initCount == 0? 1 : initCount;
     $scope.showOkButton = showOkButton;
     $scope.isLogged = usuario_dao.isLogged();
-    $scope.imagenes = [];
+    $scope.imagenes = variety.imagenes;
     $scope.imageSelect = variety.imagenPrincipal != null? variety.imagenPrincipal : variety.imagen;
 
     
@@ -115,12 +115,14 @@
 
         // obtener las imagenes complementarias del producto
 
-        function setImagenes(response) {
-          $log.debug("imagenProducto", response);
-          $scope.imagenes = response.data;
-        }
+        // function setImagenes(response) {
+        //   $log.debug("imagenProducto", response);
+        //   $scope.imagenes = response.data;
 
-        productoService.imagenProducto(variety.idVariante).then(setImagenes);
+        //   console.log(response.data)
+        // }
+        
+        //productoService.imagenProducto(variety.idVariante).then(setImagenes);
       })
     }
 
