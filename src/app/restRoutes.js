@@ -15,23 +15,23 @@
             defaultLogo: "imagenes/logo_ch_login.png",
 
             //sellers: URLS.be_rest + "client/vendedor/all",
-            sellers: URLS.api + "vendedores",
+            sellers: `${URLS.api}vendedores`,
 
             //sellersTags: URLS.be_rest + "client/vendedor/obtenerTags",
-            sellersTags: URLS.api + "tags",
+            sellersTags: `${URLS.api}tags`,
 
             //sellersWithTags: URLS.be_rest + "client/vendedor/obtenerVendedoresConTags",
             sellersWithTags: (params) => `${URLS.api}vendedores?${params}`,
 
             //seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
-            seller: function (sellerId) { return URLS.api + "vendedores/" + sellerId},
+            seller: (sellerId) => `${URLS.api}vendedores/${sellerId}`,
             
             sellerIndividualQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
             
             sellerColectiveQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoColectivo/" + sellerId},
             
-            sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
-            //sellerZones: sellerId => `${URLS.api}vendedor-retiro-zonas/?id_vendedor=${sellerId}`,
+            //sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
+            sellerZones: sellerId => `${URLS.api}vendedor-retiro-zonas/?id_vendedor=${sellerId}`,
 
             getAddressZone: URLS.be_rest + "client/vendedor/obtenerZonaDeDireccion",
 
@@ -248,7 +248,7 @@
             puntosDeRetiro: (idVendedor) => `${ URLS.api }vendedor-retiro-puntos/?id_punto_de_retiro=${idVendedor}`,
 
             //datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
-            datosDePortada: (slug) => (`${URLS.api}vendedores/${slug}`),
+            datosDePortada: (slug) => (`${URLS.api}vendedores?nombre_corto_vendedor=${slug}`),
 
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 
