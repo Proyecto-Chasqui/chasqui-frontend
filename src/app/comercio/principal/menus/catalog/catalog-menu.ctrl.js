@@ -83,7 +83,7 @@ function CatalogMenuController($scope,vendedorService, $log,$rootScope, $state, 
     function resetNotificacion() {
         $scope.callNotificaciones = false;
         $scope.icon = 'notifications_none';
-        $scope.fill = 'white';
+        $scope.fill = '#ccc';
         $scope.nroNoLeidas = 0;
     }
 
@@ -97,7 +97,7 @@ function CatalogMenuController($scope,vendedorService, $log,$rootScope, $state, 
     $scope.verNotificaciones = function() {
         $log.debug("Ver notificaciones");
         $scope.icon = 'notifications_none';
-        $scope.fill = 'white';
+        $scope.fill = '#ccc';
         $state.go('catalog.notifications');
     }
     

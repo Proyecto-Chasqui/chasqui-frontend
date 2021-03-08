@@ -40,12 +40,6 @@
 	text-align: justify;
 }
 
-.wrapper {
-	margin: 8px auto;
-	max-width: 1024px;
-	width: 100%;
-}
-
 .height-min {
 	height: 100%;
 	min-height: 60vh;
@@ -110,16 +104,9 @@
 }
 
 .ch-content {
-  min-height: 52.2vh !important;
-	margin-top: 20px;
-  margin-bottom: 20px;
-	width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
+	margin: 30px auto;
+    max-width: 1500px;
+    padding: 0 30px;
 }
 
 .ch-content-full {
@@ -140,11 +127,68 @@ md-toast.md-center {
 	opacity: .2;
 }
 
-/*
-md-dialog {
-  position: fixed;
-    top: 40%;
-    left: 50%;
-    z-index: 1050;
-    margin-left: -10%;
-}*/
+.button-filtro {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    min-height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 6px;
+    box-sizing: border-box;
+	border: 1px solid #666;
+	color: #666;
+	padding: 0 6px;
+	margin: 10px;
+    text-transform: uppercase;
+	font-size: 12px;
+	&:hover {
+		background: #666;
+		color: #fff;
+	}
+}
+
+.ch-modal-title-bar {
+	border-bottom: 1px solid #ccc;
+	margin: 0;
+	padding: 20px;
+	width: 100%;
+}
+.boton-cerrar-card {
+	top: 15px;
+	right: 15px;
+	background: #f1f1f1;
+}
+.ch-dialog-content {
+	margin: 0;
+	padding: 0;
+	.txt-medalla {
+		padding: 20px;
+	}
+	
+}
+.suma-cantidad {
+	a {
+	display: block;
+	height: 24px;
+		border-radius: 50%;
+	    background: #ccc;
+	}
+	input {
+		font-size: 18px;
+		line-height: 35px;
+		width: 40px; 
+		margin: 0px;
+		text-align: center;
+		border: 1px solid #ccc;
+	}
+}
+.suma-copy {
+	margin: 10px 0;
+	padding: 10px 0;
+	border-bottom: 1px dotted #ccc;
+}
+md-dialog-actions {
+	border-top: 1px solid #ccc;
+	margin-top: 10px;
+}

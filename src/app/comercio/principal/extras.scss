@@ -277,7 +277,7 @@ md-tabs md-ink-bar {
 	background-color: $colorDos;
   color: white;
   cursor: pointer;
-  height: 36px !important;
+  height: 40px !important;
 }
 
 .md-button.md-primary.md-raised:hover:not([disabled]){
@@ -486,36 +486,46 @@ md-tabs md-ink-bar {
 
 .md-button.cancel-order.order-button-catalog{
 	color: #fff;
-		background-color: $colorCancela !important;
+		//background-color: $colorCancela !important;
+    background-color: #999 !important;
+    cursor: pointer;
 		&:hover{
-			background-color: $colorHoverCancelar !important;
-			box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+			//background-color: $colorHoverCancelar !important;
+			background-color: #888 !important;
+			box-shadow: 0px 0px 3px 0 rgba(0, 0, 0, .5);
 	}
 }
 
 .md-button.confirm-order.order-button-catalog{
 	color: #fff;
-	background-color: $colorConfirmar !important;
+  background-color: $colorConfirmar !important;
+  cursor: pointer;
 	&:hover{
 		background-color: $colorHoverConfirmar !important;
-		box-shadow: 0px 2px 3px rgba(0, 0, 0, .9);
+		box-shadow: 0px 0px 3px 0 rgba(0, 0, 0, .5);
 	}
 }
 
-.btn-chq-ingresa{
-	background-color: $colorUno !important;
-	color: #ffffff !important;
-	border: 2px solid #ffffff !important;
-	border-radius: 2px !important;
+.md-button.btn-chq-ingresa{
+	background-color: $colorUno;
+  color: #ffffff;
+  border: 1px solid $colorUno;
+  font-size: 18px;
+  padding: 0.3em 1.2em;
 	&:hover{
-		color: $colorDos !important;
-		border: 2px solid $colorDos !important;
-		box-shadow: 0px 2px 3px rgba(0, 0, 0, .9)!important;
-		text-shadow: 0px 2px 3px rgba(0, 0, 0, .9) !important;
+		color: $colorUno;
 	}
 
 }
 
+.ch-home-bottom {
+  padding: 30px;
+  background: #f5f5f5;
+}
+.ch-home-bottom > div {
+  max-width: 1100px;
+  margin: 0 auto;
+}
 
 .puedeConfirmar .md-bar {
   background-color: rgb(67, 160, 71) !important;
@@ -599,7 +609,7 @@ md-tabs md-ink-bar {
 }
 
 .ch-contexto-pedido-panel{
-  max-height: 400px;
+  // max-height: 400px;
 }
 
 .ch-agrupation-selection-item {
@@ -1194,16 +1204,16 @@ md-tabs md-ink-bar {
 }
 
 .ch-home-header-filter-input{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .ch-home-header-filter-input-string{
   flex: 1;
   margin-bottom: 0px !important;
+  flex-grow: 3;
+  margin-right: 20px;
 }
 
 .ch-home-header-filter-input-selections{
@@ -1242,7 +1252,7 @@ md-tabs md-ink-bar {
   flex: 1;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: stretch !important;
   flex-wrap: wrap;
 }
@@ -1252,7 +1262,7 @@ md-tabs md-ink-bar {
   max-width: 280px;
   background-color: white;
   border-radius: 10px;
-  margin: 15px;
+  margin: 10px;
   background: #F1F1F1;
   transition: all 0.3s ease-out;
   display: flex;
@@ -1485,25 +1495,14 @@ md-tabs md-ink-bar {
 }
 
 .ch-home-chasqui-banner{
-  flex: 1;
-  background: rgb(15, 175, 3);
-  height: 116px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
+  color: $colorUno;
+  padding-top: 20px;
+  padding-bottom: 20px;
+ }
 
 .ch-home-chasqui-banner-content{
-  flex: 1;
-  margin: 10px;
-  text-align: center;
-  border: 5px solid white;
-  color: white;
-  padding: 20px;
   font-size: 24px;
+  text-align: left;
 }
 
 .ch-home-chasqui-diferente{
@@ -1511,7 +1510,7 @@ md-tabs md-ink-bar {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 40px;
 }
 
@@ -1531,13 +1530,14 @@ md-tabs md-ink-bar {
 }
 
 .ch-home-chasqui-diferente-descripcion-contenido{
-  font-size: 12px;
+  font-size: 16px;
   margin-top: 10px;
 }
 
 .ch-home-chasqui-diferente-logo{
-  margin-left: 130px;
+  margin-left: 0px;
   margin-right: 65px;
+  order: -1;
 }
 
 .ch-home-apoyan{
@@ -1549,7 +1549,8 @@ md-tabs md-ink-bar {
 
 .ch-home-apoyan-label{
   font-size: 28px;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 0;
   line-height: 1.2;
 }
 
@@ -1559,6 +1560,7 @@ md-tabs md-ink-bar {
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
+  background: #f5f5f5;
 }
 
 .ch-home-apoyan-logos-logo{
@@ -1996,4 +1998,46 @@ md-tabs md-ink-bar {
 .ch-filters-medals-medal-selected{
   background: #fff;
   transform: rotate(-30deg);
+}
+
+chq-product-card {
+  background: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all .5s ease;
+  display: flex;
+  &:hover {
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+  }
+  .chq-product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    chq-principal-product-image {
+      overflow: hidden;
+      border-bottom: 1px solid #ccc;
+      height: 150px;
+    }
+    .product-description {
+      font-size: 18px;
+    }
+    .producer-name-container {
+      cursor: pointer;
+      font-size: 16px;
+      &:hover .producer-name {
+        color: #333;
+      }
+    }  
+    .card-chasqui {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+      .chq-product-bottom {
+        padding-top: 20px;
+      }
+    }
+  }
 }

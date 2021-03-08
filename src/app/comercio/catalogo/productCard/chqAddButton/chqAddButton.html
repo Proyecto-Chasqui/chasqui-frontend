@@ -1,38 +1,28 @@
-<div class="chq-add-button" title="{{ title }}">
-	<span class="chq-text-add-button">
-		<p>{{text}}</p>
-	</span>
-</div>
+<div class="chq-add-button" title="{{ title }}">{{text}}</div>
 
 <style type="text/css">
-	.chq-add-button{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 4rem;
+	.chq-add-button {
+		display: block;
 		cursor: pointer;
-        color: #fff;
-		background-color: #00adee;
+		color: #00adee;
+		border: 1px solid #00adee;
+		background-color: #fff;
 		transition: all .5s ease;	
-        height: 32px;
-        line-height: 32px;
-        text-transform: capitalize;
-        font-size: 13px;
-        padding: 0 10px;
-        border-radius: 4px;
-        margin-right: 5px;
-		font-family: 'Barlow', sans-serif; Roboto,Arial,sans-serif,-apple-system;
+        font-size: 15px;
+        padding: 5px 10px;
+		border-radius: 4px;
+		text-align: center;
+		cursor: pointer;
 	}
 
 	.chq-add-button:hover{
-        color: #00adee;
-		background-color: #a5e0f7;
+        color: #fff;
+		background-color: #00adee;
 	}
 	
 
     @media(min-width: 768px){
 	.chq-add-button{
-		width: 5.6rem;
 	}
 }
 

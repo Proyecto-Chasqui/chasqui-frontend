@@ -17,7 +17,7 @@
       contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
           // nueva implementacion
 
-          const newOrder = {
+          var newOrder = {
             id: -agrupation.id,
             idGrupo: agrupation.id,
             idVendedor: catalog.id,
@@ -27,7 +27,7 @@
             montoMinimo: 600.0,
             montoActual: 0.0,
             productosResponse: []
-          }
+          };
 
           contextAgrupationsService.modifyAgrupation(catalog.id, 
                                                      agrupation.id, 
@@ -47,22 +47,21 @@
       var defered = $q.defer();
 			var promise = defered.promise;
 			$log.debug("Groups wo order:", agrupationsWithoutOrders);
-            
-            async.each(agrupationsWithoutOrders, function(agrupation, callback) {  
-                $log.debug("Inside");
-                createOrderForGroup(agrupation).then(function(newOrder){
-                    orders.push(newOrder);
-                    $log.debug('Pedido agregado', newOrder, orders);
-                    callback();
-                })
-                
-            }, function(err) {
-                if( err ) {
-                  $log.debug('A file failed to process');
-                } else {
-                  defered.resolve(orders);
-                }
-            });
+      async.each(agrupationsWithoutOrders, function(agrupation, callback) {  
+          $log.debug("Inside");
+          createOrderForGroup(agrupation).then(function(newOrder){
+              orders.push(newOrder);
+              $log.debug('Pedido agregado', newOrder, orders);
+              callback();
+          })
+          
+      }, function(err) {
+          if( err ) {
+            $log.debug('A file failed to process');
+          } else {
+            defered.resolve(orders);
+          }
+      });
             
             return promise;
         }

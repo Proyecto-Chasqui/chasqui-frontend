@@ -24,6 +24,8 @@
         $scope.modifyVarietyCount = modifyVarietyCount.modifyDialog;
         $scope.confirmOrder = confirmOrder;
         $scope.cancelOrder = cancelOrder;
+        $scope.OpenCart = OpenCart;
+        $scope.openCartStatus = false;
               
       
         /////////////////////////////////////////////////
@@ -35,6 +37,10 @@
                                   "No", 
                                   doCancelOrder(order), 
                                   ignoreAction);
+        }
+
+        function OpenCart(status) {
+            $scope.openCartStatus = status ? false : true;
         }
 
 

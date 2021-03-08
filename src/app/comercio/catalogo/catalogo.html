@@ -22,8 +22,8 @@
   <div layout="row" layout-xs="column">
   
     <div flex-xs>
-      <div layout="column" style="max-width: 306px; overflow: hidden;">
-        <div ng-if="catalogoCtrl.isLogued" flex>
+      <div layout="column" class="navbar">
+        <div ng-if="catalogoCtrl.isLogued" flex class="ch-wrapper">
           <section ng-include="'app/comercio/catalogo/contexto.compra.html'"></section>
           <section ng-include="'app/comercio/catalogo/contexto.pedido.html'" ng-cloak></section>
         </div>
@@ -46,11 +46,8 @@
 <style>
 
 .search_submit  {
-    width:10%;
-    position: absolute;
     height: 45px;
     line-height: 45px;
-    text-align: center;
     text-align: center;
     color: white;
     background: #909090;
