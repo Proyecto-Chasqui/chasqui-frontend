@@ -38,11 +38,11 @@
         window.scrollTo(0,0);
     }
 
-    $scope.$on('logout', function(event) {
+    $scope.$on('logout', function() {
         init();
     });
 
-    $scope.$on('resetHeader', function(event) {
+    $scope.$on('resetHeader', function() {
         init();
     });
 

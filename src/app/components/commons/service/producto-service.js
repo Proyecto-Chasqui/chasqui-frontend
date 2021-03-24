@@ -234,10 +234,10 @@
                         )),
                         "medallasProductor": [
                             {
-                                "nombre": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR?.nombre,
-                                "idMedalla": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR?.id,
-                                "pathImagen": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR?.path_imagen,
-                                "descripcion": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR?.descripcion_corta
+                                "nombre": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR && producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR.nombre,
+                                "idMedalla": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR && producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR.id,
+                                "pathImagen": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR && producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR.path_imagen,
+                                "descripcion": producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR && producto.PRODUCTOR.CARACTERISTICA_PRODUCTOR.descripcion_corta
                             }
                         ],
                     })

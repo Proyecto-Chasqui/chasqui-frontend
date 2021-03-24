@@ -23,8 +23,8 @@
             //sellersWithTags: URLS.be_rest + "client/vendedor/obtenerVendedoresConTags",
             sellersWithTags: (params) => `${URLS.api}vendedores?${params}`,
 
-            //seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
-            seller: (sellerId) => `${URLS.api}vendedores/${sellerId}`,
+            seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
+            //seller: (sellerId) => `${URLS.api}vendedores/${sellerId}`, //revisar obtenerConfiguracionVendedor()
             
             sellerIndividualQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
             
