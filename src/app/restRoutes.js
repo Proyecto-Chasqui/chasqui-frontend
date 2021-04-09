@@ -15,7 +15,7 @@
             defaultLogo: "imagenes/logo_ch_login.png",
 
             //sellers: URLS.be_rest + "client/vendedor/all",
-            sellers: `${URLS.api}vendedores`,
+            sellers: `${URLS.api}vendedores?$limit=100`,
 
             //sellersTags: URLS.be_rest + "client/vendedor/obtenerTags",
             sellersTags: `${URLS.api}tags`,
