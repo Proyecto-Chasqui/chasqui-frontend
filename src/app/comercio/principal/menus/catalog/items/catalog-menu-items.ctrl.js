@@ -7,7 +7,7 @@
 
     
 	function CatalogMenuItemsController($scope, $stateParams, itemsBuilder, navigation_state, usuario_dao, 
-                                       contextCatalogsService, $log) {
+        contextCatalogsService, $log, vendedorService) {
        
         
     $scope.catalog;
@@ -20,10 +20,14 @@
         $scope.isLogued = usuario_dao.isLogged();
         contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
             $scope.catalog = catalog;
-            $log.debug("general items: ", $scope.general);
-            $scope.menuItems = $scope.general? 
-                                    itemsBuilder.general($scope.catalog.few, $scope.catalog.portadaVisible):
-                                    itemsBuilder.catalog($scope.catalog.few);
+            // console.log(contextCatalogsService)
+            // console.log("general items: ", $scope.general);
+            // $log.debug("catalog: ", $scope.catalog);
+            vendedorService.verDatosDePortada().then(function (response) {
+                $scope.menuItems = $scope.general
+                    ? itemsBuilder.general($scope.catalog.few, response.data.portadaVisible.data[0])
+                    : itemsBuilder.catalog($scope.catalog.few);
+            });
         })
     }
 

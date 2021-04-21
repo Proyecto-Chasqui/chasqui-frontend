@@ -63,7 +63,6 @@
         visibleEnMulticatalogo: data.visible_en_multicatalogo,
         ventasHabilitadas: data.ventas_habilitadas,
         mensajeVentasDeshabilitadas: data.mensaje_venta_deshabilitada,
-        tiempoDeVencimiento: data.tiempo_vencimiento_pedidos,
         few: {
           gcc: data.ESTRATEGIA_DE_COMERCIALIZACION.permite_gcc,
           nodos: data.ESTRATEGIA_DE_COMERCIALIZACION.permite_nodos,

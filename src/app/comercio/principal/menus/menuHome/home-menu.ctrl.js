@@ -27,7 +27,7 @@
       $state.go('home.login', {toPage: "home.multicatalogo"});
     }
 
-    $scope.$on('resetHeader', function(event, msg) {
+    $scope.$on('resetHeader', function() {
       init();
     });
 

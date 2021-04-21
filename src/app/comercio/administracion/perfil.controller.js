@@ -58,7 +58,7 @@
 		}
 
 		var callCambiarPass = function() {
-			function doOk(response) {
+			function doOk() {
 				toastr.success(us.translate('PASS_ACTUALIZADA'), us.translate('AVISO_TOAST_TITLE'));
         vm.oldPassword = "";
         vm.pass1 = "";
@@ -66,7 +66,7 @@
         vm.oldPassNotMatch = false;
 			}
 
-			function doNoOk(response) {
+			function doNoOk() {
 				toastr.error("La contraseña anterior no es válida");
         vm.oldPassNotMatch = true;
         vm.oldPassword = "";
@@ -81,7 +81,7 @@
     
     
 		vm.marcarLeido = function(notificacion) {
-			function doOk(response) {
+			function doOk() {
 				notificacion.estado = 'Leido';
                 $rootScope.refrescarNotificacion();
 			}
@@ -90,7 +90,7 @@
 		}
 
 		vm.aceptarInvitacion = function(notificacion) {
-			function doOk(response) {
+			function doOk() {
 				toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
 				notificacion.estado = 'Leido';
 				contextPurchaseService.refreshGrupos()
@@ -103,7 +103,7 @@
 		}
 
 		vm.rechazarInvitacion = function(notificacion) {
-			function doOk(response) {
+			function doOk() {
 				toastr.info(us.translate('RECHAZADO'), us.translate('AVISO_TOAST_TITLE') );
 				notificacion.estado = 'Leido';
 			}
@@ -223,7 +223,7 @@
         return res;
     }
 
-    $scope.showEdit = function(profile){
+    $scope.showEdit = function(){
         return !editting;
     }
 
@@ -236,7 +236,7 @@
         }
     }
 
-    $scope.showCancel = function(profile){
+    $scope.showCancel = function(){
         return editting;
     }
 

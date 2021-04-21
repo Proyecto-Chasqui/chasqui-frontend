@@ -74,7 +74,7 @@
         $scope.agrupationSelected.type = agrupationTypeVAL.TYPE_NODE;
     }
 
-    $rootScope.$on('contexto.compra.cambia.grupo', function(event, grupo) {
+    $rootScope.$on('contexto.compra.cambia.grupo', function() {
       init();
     });
 

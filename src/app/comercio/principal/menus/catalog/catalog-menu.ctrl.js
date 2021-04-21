@@ -166,7 +166,7 @@ function CatalogMenuController($scope,vendedorService, $log,$rootScope, $state, 
     
     
     
-    $scope.$on('resetHeader', function(event, msg) {
+    $scope.$on('resetHeader', function() {
         init();
     });
 

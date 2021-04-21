@@ -35,7 +35,7 @@
         
         function getAgrupation(catalogId, agrupationId, agrupationType){
             return setPromise(function(defered){
-                ensureAgrupations(catalogId, agrupationType).then(function(agrupations){
+                ensureAgrupations(catalogId, agrupationType).then(function(){
                     defered.resolve(agrupations_dao.getAgrupation(catalogId, agrupationId, agrupationType));
                 })
             });
@@ -77,23 +77,19 @@
 
                 // Si el catalogo tiene grupos NO tiene nodos y viceversa
                 if(catalog.few.gcc){
-                  function doOKGroups(responseGroups) {
+                  gccService.groupsByUser().then(function(responseGroups) {
                     var groups = formatAgrupations(responseGroups.data, agrupationTypeVAL.TYPE_GROUP);
                     agrupations = agrupations.concat(groups);
                     setAndReturn();
-                  }
-
-                  gccService.groupsByUser().then(doOKGroups);                  
+                  });                  
                 }
 
                 if(catalog.few.nodos){
-                  function doOKNodes(responseNodes){
+                  nodeService.nodosTodos(catalogId).then(function (responseNodes) {
                     var nodes = formatAgrupations(responseNodes.data, agrupationTypeVAL.TYPE_NODE);
-                    agrupations = agrupations.concat(nodes); 
+                    agrupations = agrupations.concat(nodes);
                     setAndReturn();
-                  }
-                  
-                  nodeService.nodosTodos(catalogId).then(doOKNodes);
+                  });
                 }
               })
             });

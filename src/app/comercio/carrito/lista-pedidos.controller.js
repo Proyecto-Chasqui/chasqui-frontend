@@ -62,11 +62,11 @@
     });
 
 
-    function setTabSeleccionado(tabSelected) {
-        $scope.selectedIndex = $scope.orders.map(function(o){return o.id}).indexOf(tabSelected);
-        $scope.selectedIndex = ($scope.selectedIndex === -1)? 0: $scope.selectedIndex;
-        $scope.selected = $scope.orders[$scope.selectedIndex];
-    }
+    // function setTabSeleccionado(tabSelected) {
+    //     $scope.selectedIndex = $scope.orders.map(function(o){return o.id}).indexOf(tabSelected);
+    //     $scope.selectedIndex = ($scope.selectedIndex === -1)? 0: $scope.selectedIndex;
+    //     $scope.selected = $scope.orders[$scope.selectedIndex];
+    // }
 
     $scope.isPersonal = function(order){
         return order.idGrupo === 0;
@@ -146,18 +146,18 @@
 
     ///////////////////////////////////
 
-    $rootScope.$on('lista-producto-agrego-producto', function(event) {
-        $log.debug("on lista-producto-agrego-producto");
+    $rootScope.$on('lista-producto-agrego-producto', function() {
+        // $log.debug("on lista-producto-agrego-producto");
         init();
     });
 
-    $rootScope.$on('order-confirmed', function(event) {
-        $log.debug("on order-confirmed");
+    $rootScope.$on('order-confirmed', function() {
+        // $log.debug("on order-confirmed");
         init();
     });
 
-    $rootScope.$on('order-cancelled', function(event) {
-        $log.debug("on order-cancelled");
+    $rootScope.$on('order-cancelled', function() {
+        // $log.debug("on order-cancelled");
         init();
     });
 

@@ -106,12 +106,12 @@
                           mobile_icon: 'location_on',
                       };
 
-      var userProfile = {  
-                          id: 'PROFILE',
-                          route: 'profile',
-                          label: 'MENU_PERFIL',
-                          needLogin: true
-                      }
+      // var userProfile = {  
+      //                     id: 'PROFILE',
+      //                     route: 'profile',
+      //                     label: 'MENU_PERFIL',
+      //                     needLogin: true
+      //                 }
 
       return impl;
     

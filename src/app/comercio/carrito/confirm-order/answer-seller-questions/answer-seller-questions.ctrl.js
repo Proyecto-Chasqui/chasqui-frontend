@@ -4,7 +4,7 @@
 	angular.module('chasqui').controller('AnswerSellerQuestionsController', AnswerSellerQuestionsController);
 
 	/** @ngInject */
-	function AnswerSellerQuestionsController($scope, $stateParams, sellerService) {
+	function AnswerSellerQuestionsController($scope) {
       
     $scope.questions = [];
     $scope.validateAndNext = validateAndNext;
@@ -13,34 +13,34 @@
       
     function init(){
         
-      function doOk(response){
-          $scope.questions = response.data;
-          if($scope.questions.length == 0){
-            $scope.next($scope.questions);
-          } else {
-             var prevAnsewers = $scope.getQuestions()
-            if(prevAnsewers.length > 0){
-              $scope.questions = $scope.questions.map(function(q){
-                var res = prevAnsewers.filter(function(a){
-                  return a.nombre === q.nombre;
-                })[0];
-                return res;
-              })
-            }
-          }
-      }
+      // function doOk(response){
+      //     $scope.questions = response.data;
+      //     if($scope.questions.length == 0){
+      //       $scope.next($scope.questions);
+      //     } else {
+      //        var prevAnsewers = $scope.getQuestions()
+      //       if(prevAnsewers.length > 0){
+      //         $scope.questions = $scope.questions.map(function(q){
+      //           var res = prevAnsewers.filter(function(a){
+      //             return a.nombre === q.nombre;
+      //           })[0];
+      //           return res;
+      //         })
+      //       }
+      //     }
+      // }
       
-      var getQuestions = {
-          PERSONAL: function(){
-              sellerService.getSellerIndividualQuestions($stateParams.catalogShortName).then(doOk);                    
-          },
-          GROUP: function(){
-              sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
-          },
-          NODE: function(){
-              sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
-          }
-      }[$scope.order.type]();
+      // var getQuestions = {
+      //     PERSONAL: function(){
+      //         sellerService.getSellerIndividualQuestions($stateParams.catalogShortName).then(doOk);                    
+      //     },
+      //     GROUP: function(){
+      //         sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
+      //     },
+      //     NODE: function(){
+      //         sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
+      //     }
+      // }[$scope.order.type]();
   }
 
 

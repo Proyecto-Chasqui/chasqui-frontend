@@ -6,8 +6,7 @@
 	*/
 	angular.module('chasqui').controller('ChqProductDescriptionCtrl', ChqProductDescriptionCtrl);
 
-	function ChqProductDescriptionCtrl($scope){
-		$scope.description = $scope.description;
+	function ChqProductDescriptionCtrl(){
 	}
 }
 )();

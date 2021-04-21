@@ -1,4 +1,3 @@
-/* global malarkey:false, moment:false */
 (function() {
     'use strict';
 
@@ -59,7 +58,7 @@
 
             // productosSinFiltro: URLS.be_rest + "client/producto/sinFiltro",
 
-            productosSinFiltro: function(idVendedor) {
+            productosSinFiltro: function() {
                 return URLS.be_rest + "client/producto/sinFiltro";
             },
 
