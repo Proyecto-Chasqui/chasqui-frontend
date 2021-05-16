@@ -74,10 +74,10 @@
             },
 
             //medallasProducto: URLS.be_rest + "client/medalla/producto/all",
-            medallasProducto: URLS.api + "medallas",
+            medallasProducto: URLS.api + "medallas?eliminada=0",
 
             //medallasProductor: URLS.be_rest + "client/medalla/productor/all",
-            medallasProductor: URLS.api + "medallas-productores",
+            medallasProductor: URLS.api + "medallas-productores?eliminada=0",
 
             medallaById: function(id) {
 

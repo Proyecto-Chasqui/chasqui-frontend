@@ -62,7 +62,7 @@
 		vm.login = function(user) {
 			$log.debug(" service login ");
 
-			function doNoOk(response, headers) {
+			function doNoOk() {
 				toastr
 					.error("Fallo la autenticación, verifique los datos", "Error");
 			}

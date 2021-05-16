@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -6,13 +6,6 @@
         .controller('FooterController', FooterController);
 
     /** @ngInject */
-    function FooterController($log) {
-        $log.debug('FooterController ..... ');
-
-        var vm = this
-
-        vm.texto = " Chasqui"
-
-
+    function FooterController() {
     }
 })();

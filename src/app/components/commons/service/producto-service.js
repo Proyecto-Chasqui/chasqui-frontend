@@ -138,7 +138,7 @@
             return promiseService.doPost(REST_ROUTES.crearPedidoIndividual, params, doNoOK);
         }
 
-        function verPedidoIndividual(params) {
+        function verPedidoIndividual() {
             return setPromise(function(defered){
                 contextCatalogsService.getCatalogByShortName($stateParams.catalogShortName).then(function(catalog){
                     $log.debug(" service verPedidoIndividual ");
@@ -168,7 +168,7 @@
             return promiseService.doDelete(REST_ROUTES.cancelarPedidoIndividual(id), {});
         }
 
-        function verDirecciones(params) {
+        function verDirecciones() {
             $log.debug(" service verDirecciones ");
             return promiseService.doGetPrivate(REST_ROUTES.verDirecciones, {});
         }

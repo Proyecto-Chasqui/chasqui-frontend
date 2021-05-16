@@ -15,7 +15,7 @@
               $scope.notSupportedStrategies = "";
             }
           
-            contextCatalogsService.getCatalogs().then(function(catalogs){
+            contextCatalogsService.getCatalogs().then(function(){
                 contextPurchaseService.getSelectedCatalog().then(function(catalog){
                   if(catalog != undefined){
                     $scope.showElement = catalogSupportStrategies(catalog, $scope.supportedStrategies) ||

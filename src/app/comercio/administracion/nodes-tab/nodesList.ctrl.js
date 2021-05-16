@@ -106,7 +106,7 @@
     }
 
     function hayAlgunPedidoConfirmado(node){
-        return algunPedidoTieneEstado(node.miembros, 'CONFIRMADO');
+        return algunPedidoTieneEstado(node.miembros, 'CONFIRMADO');        
     }
 
     function algunPedidoTieneEstado(miembros, estado){

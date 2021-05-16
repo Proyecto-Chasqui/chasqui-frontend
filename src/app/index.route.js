@@ -269,7 +269,7 @@
                 controllerAs: 'principalCtrl'
             })
     
-      .state('terminosYcondiciones', {
+      .state('home.terminosYcondiciones', {
         url: '/terminosYcondiciones',
         templateUrl: 'app/comercio/varios/terminos.html',
         controller: 'TerminosCtrl',

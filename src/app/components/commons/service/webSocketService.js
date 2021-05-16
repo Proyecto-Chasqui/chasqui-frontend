@@ -15,11 +15,11 @@ angular
         digestMessageService.webSocketMessageDispatch(JSON.parse(message.data));
       });
       //solo para debug, elminar los toast cuando se vaya a produccion
-      dataStream.onClose(function(message){
+      dataStream.onClose(function(){
         //toastr.info("","WEBSOCKET CLOSE",{timeOut: 8000});
       });
 
-      dataStream.onOpen(function(message){
+      dataStream.onOpen(function(){
         //toastr.info("","WEBSOCKET OPEN",{timeOut: 8000});
       });
 
