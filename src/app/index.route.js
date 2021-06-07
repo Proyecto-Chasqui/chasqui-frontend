@@ -179,8 +179,8 @@
                 })
                 .state('catalog.userNodes.all', {
                   url: '/todos',
-                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
-                  controller: 'NodesListCtrl',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList2.tmpl.html',
+                  controller: 'NodesList2Ctrl',
                   auth: false
                 })
                 .state('catalog.userNodes.node', {

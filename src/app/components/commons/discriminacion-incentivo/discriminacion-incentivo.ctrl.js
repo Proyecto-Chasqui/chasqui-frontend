@@ -49,9 +49,9 @@
     /////////////////////////////////////
     
     function init(){
-      if($stateParams.order && "montoTotalSinIncentivo" in $stateParams.order) {
-        $scope.montoTotalNodo = $stateParams.order.montoActual;
-        $scope.montoSinIncentivo = $stateParams.order.montoTotalSinIncentivo;
+      if($stateParams.order && "totalConIncentivo" in $stateParams.order) {
+        $scope.montoTotalNodo = $stateParams.order.totalConIncentivo;
+        $scope.montoSinIncentivo = $stateParams.order.totalSinIncentivo;
         $scope.incentivoNodo = $stateParams.order.incentivoTotal;
       } else {
         $scope.montoTotalNodo = _montoTotalNodo($scope.node);
