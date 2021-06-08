@@ -65,7 +65,7 @@
             // productosByMultiplesFiltros: function(idVendedor){
             //     return URLS.be_rest + "client/producto/productosByMultiplesFiltros";
             // },
-            productosByMultiplesFiltros: (params) => `${URLS.api}productos/?${params}&ocultado=false`,
+            productosByMultiplesFiltros: (params) => `${URLS.api}productos/?${params}&ocultado=false&$sort[nombre]=1`,
 
             medallas: URLS.be_rest + "client/medalla/all",
 
