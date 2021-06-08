@@ -53,7 +53,7 @@
 
     function getNodeRequests(nodeId, doNoOk){
 			$log.debug(" service getNodeRequests ");
-			return promiseService.doGetPrivate(REST_ROUTES.getNodeRequests(nodeId), {idNodo: nodeId}, doNoOk);
+			return []; // promiseService.doGetPrivate(REST_ROUTES.getNodeRequests(nodeId), {idNodo: nodeId}, doNoOk);
     }
 
     function openRequests(idCatalog, doNoOk){
