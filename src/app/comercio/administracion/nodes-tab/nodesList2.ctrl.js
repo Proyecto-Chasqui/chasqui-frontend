@@ -317,6 +317,29 @@
       nodeService.quitarMiembro(params).then(callback);
     }
 
+    /** Salir del nodo. Manejo del popUP */
+    function exitGroup(colectivo, onOk) {
+      const miembro = usuario_dao.getUsuario();
+
+      dialogCommons.confirm(
+          us.translate('SALIR'), 
+          us.translate('SEGURO_SALIR'), 
+          us.translate('SI_MEVOY'), 
+          us.translate('CANCELAR'),
+          function(result) {
+            callQuitarMiembro(miembro, colectivo, function(){
+              if(onOk) {
+                onOk(miembro);
+              }
+              toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
+            });
+          },
+          function() {
+            $log.debug("se quedo");
+          }
+      )
+   }
+
     function quitarMiembro(miembro, colectivo, callback) {
       // Esto es un resabio de la forma de cargar miembros
       var nombre = miembro.nickname == null ? miembro.email : miembro.nickname;
@@ -490,6 +513,12 @@
       _ensambleNodo(e.detail).then((node) => confirmNodeOrder(node));
     }
 
+    function doExitGroup(e) {
+      const colectivo = e.detail.colectivo;
+      const onOk = e.detail.callback;
+      exitGroup(colectivo, onOk);
+    }
+
     // Inicialización
     function init() {
       // if (usuario_dao.isLogged()) {
@@ -537,6 +566,7 @@
         chasquiColectivos.addEventListener("onInvitar", doInvitar);
         chasquiColectivos.addEventListener("onIrAComprar", doIrAComprar);
         chasquiColectivos.addEventListener("onQuitarMiembro", doQuitarMiembro);
+        chasquiColectivos.addEventListener("onSalirGrupo", doExitGroup);
         chasquiColectivos.addEventListener(
           "onConfirmarPedidoColectivo",
           doConfirmarPedidoColectivo
@@ -551,8 +581,6 @@
           .setAttribute("style", "overflow: hidden");
       }
     }
-
-    // $rootScope.$on("nodes-are-loaded", init);
 
     init();
   }
