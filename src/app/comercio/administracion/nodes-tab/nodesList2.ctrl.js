@@ -477,7 +477,7 @@
       if (!nodo) {
         return;
       }
-      $state.go("catalog.userNodes.node.admin", { nodeId: 1 });
+      $state.go("catalog.userNodes.node.admin", { nodeId:nodo.id});
     }
 
     function doQuitarMiembro(e) {
