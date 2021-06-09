@@ -183,6 +183,12 @@
                   controller: 'NodesList2Ctrl',
                   auth: false
                 })
+                .state('catalog.userNodes.allLegacy', {
+                  url: '/legacy',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
+                  controller: 'NodesListCtrl',
+                  auth: false
+                })
                 .state('catalog.userNodes.node', {
                     url: '/:nodeId',
                     templateUrl: 'app/comercio/administracion/nodes-tab/node.tmpl.html',
