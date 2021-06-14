@@ -219,16 +219,15 @@
     function findProductosPorMultiplesFiltros(pagina, items, params){
       $log.debug('find productos multiples filtros');
       function doOk(response) {
-        $log.debug('findProductosPorMultiplesFiltros Response ', response);
-        response.data = productoService.normalizadorProductos(response.data)
+        var data = productoService.normalizadorProductos(response.data)
 
-        vm.productos = response.data.productos;
+        vm.productos = data.productos;
         $log.debug('productos', vm.productos);
-        vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-        vm.paging.current = response.data.pagina;
-        vm.paging.disponibles = Math.ceil(response.data.total / CANT_ITEMS);
+        vm.paging.total = Math.ceil(data.total / CANT_ITEMS);
+        vm.paging.current = data.pagina;
+        vm.paging.disponibles = Math.ceil(data.total / CANT_ITEMS);
         vm.pageNum = (6 <= vm.paging.disponibles)? 6 : vm.paging.disponibles;
-        vm.lastPage = response.data.totalDePaginas;
+        vm.lastPage = data.totalDePaginas;
         vm.setLastPage();
         toTop();
       }
