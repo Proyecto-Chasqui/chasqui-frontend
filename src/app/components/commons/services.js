@@ -3,7 +3,7 @@
 
   angular.module('chasqui').factory('restProxy', ChasquiRest);
 
-  function ChasquiRest($http, $rootScope, us,  $log, $state, toastr, usuario_dao, $stateParams, catalogs_dao) {
+  function ChasquiRest($http, $rootScope, us,  $log, $state, toastr, usuario_dao, $stateParams, httpGetCached) {
     /*
      * LocalStorage conserva el token del usuario. Para acceder él:
      * usuario_dao.getToken()
@@ -62,7 +62,7 @@
       }
 
       var doGet = function() {
-        $http({
+        httpGetCached.get({
           method: 'GET',
           url: url,
           data: params,
