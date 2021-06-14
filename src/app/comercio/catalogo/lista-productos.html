@@ -10,6 +10,8 @@
         texto="Explore mas imágenes"
         ng-click="listaProductosCtrl.mostrar(producto)">
       </chq-principal-product-image>
+
+      <div class="destacado" ng-if="producto.destacado">Destacado</div>
 	  
       <div class="card-chasqui">
         <div>
@@ -107,6 +109,24 @@ width:350px;
 padding-bottom:20px;
 padding-top:10px;
 }
+
+.chq-product-container {
+  position: relative;
+}
+
+.chq-product-container .destacado {
+  position: absolute;
+  top: 150px;
+  left: 1rem;
+  transform: translateY(-50%);
+  width: fit-content;
+  background-color: #43a047;
+  color: white;
+  font-weight: bold;
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
 
 
 </style>
