@@ -122,7 +122,7 @@
 			productoService.getCategorias()
 				.then(function(response) {
 					
-					vm.categorias = response.data.data.map((data) => productoService.normalizadorCategorias(data));
+					vm.categorias = response.data.map((data) => productoService.normalizadorCategorias(data));
 					//vm.categorias = response.data;
 				})
 
