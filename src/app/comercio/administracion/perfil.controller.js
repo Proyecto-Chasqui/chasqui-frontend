@@ -158,6 +158,18 @@
 			return us.contieneCadena(notificacion.mensaje.toLowerCase() ,'de compras colectivas');
 		}
 
+        vm.isInvitacion = function(notificacion) {
+            var mensaje = notificacion.mensaje.toLowerCase();
+            return mensaje.indexOf("te ha invitado") > -1 && mensaje.indexOf("compras colectivas") > -1;
+        }
+
+        vm.isInvitacionPendiente = function(notificacion) {
+            if (notificacion.estado !== 'NOTIFICACION_NO_LEIDA') {
+                return false;
+            }
+            return vm.isInvitacion(notificacion);
+        }
+
     vm.getColor = function(notificacion){
          var color = 'green';
          if(vm.isCompraColectiva(notificacion)

@@ -21,7 +21,7 @@
       <div layout="row" layout-align="end center"> 
         <md-button 
           class="md-raised md-primary" 
-          ng-show="item.estado == 'NOTIFICACION_NO_LEIDA' && !perfilCtrl.isCompraColectiva(item)"
+          ng-show="item.estado == 'NOTIFICACION_NO_LEIDA' && !perfilCtrl.isInvitacion(item)"
           ng-click="perfilCtrl.marcarLeido(item)">
           <md-icon> assignment_turned_in </md-icon>
           <md-tooltip md-direction="left">
@@ -31,7 +31,7 @@
 
         <md-button 
           class="md-raised confirm-order order-button-catalog" 
-          ng-show="perfilCtrl.isCompraColectiva(item) && item.estado == 'NOTIFICACION_NO_LEIDA'" 
+          ng-show="perfilCtrl.isInvitacionPendiente(item)" 
           ng-click="perfilCtrl.aceptarInvitacion(item)">
           <md-icon> group_add </md-icon>
           <md-tooltip md-direction="left">
@@ -41,7 +41,7 @@
 
         <md-button 
           class="md-raised cancel-order order-button-catalog" 
-          ng-show="perfilCtrl.isCompraColectiva(item) && item.estado == 'NOTIFICACION_NO_LEIDA'"
+          ng-show="perfilCtrl.isInvitacionPendiente(item)"
           ng-click="perfilCtrl.rechazarInvitacion(item)">
           <md-icon> person_add_disabled </md-icon>
           <md-tooltip md-direction="left">
