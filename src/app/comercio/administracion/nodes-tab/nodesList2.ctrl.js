@@ -459,6 +459,13 @@
       invitarUsuario(colectivo, onOk);
     }
 
+    function doIrAHistorial(e) {
+      const colectivo = e.detail;
+      $state.go("catalog.userNodes.node.historicOrders", {
+        nodeId: colectivo.id,
+      });
+    }
+
     function doIrAComprar(e) {
       const colectivo = e.detail;
 
@@ -477,7 +484,7 @@
       if (!nodo) {
         return;
       }
-      $state.go("catalog.userNodes.node.admin", { nodeId:nodo.id});
+      $state.go("catalog.userNodes.node.admin", { nodeId: nodo.id });
     }
 
     function doQuitarMiembro(e) {
@@ -567,6 +574,7 @@
         chasquiColectivos.addEventListener("onIrAComprar", doIrAComprar);
         chasquiColectivos.addEventListener("onQuitarMiembro", doQuitarMiembro);
         chasquiColectivos.addEventListener("onSalirGrupo", doExitGroup);
+        chasquiColectivos.addEventListener("onHistorial", doIrAHistorial);
         chasquiColectivos.addEventListener(
           "onConfirmarPedidoColectivo",
           doConfirmarPedidoColectivo
