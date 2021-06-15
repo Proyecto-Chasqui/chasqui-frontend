@@ -29,7 +29,49 @@
       confirmPersonalOrder: confirmPersonalOrder,
       confirmNodeOrder: confirmNodeOrder,
       normalizadorNodos: normalizadorNodos,
+      nodosLiteTodos,
+      pedidosLite, 
+      statsPedidosActivos,
+      pedidoLiteActivo,
+      productosPedidosLite, 
+      resumenProductosPedidosConfirmados,
+      miembrosGrupo
     };
+
+    function nodosLiteTodos(idCatalog, doNoOk){
+			$log.debug(" service nodosLiteTodos ");
+			return promiseService.doGetPrivate(REST_ROUTES.nodosLiteTodos(idCatalog), {idVendedor: idCatalog}, doNoOk);
+    }
+
+		function pedidosLite(idColectivo, doNoOk){
+			$log.debug(" service pedidosLites ");
+			return promiseService.doGetPrivate(REST_ROUTES.pedidosLite(idColectivo), {idColectivo: idColectivo}, doNoOk);
+    }
+
+		function statsPedidosActivos(idColectivo, doNoOk){
+			$log.debug(" service statsPedidosActivos ");
+			return promiseService.doGetPrivate(REST_ROUTES.statsPedidosActivos(idColectivo), {idColectivo: idColectivo}, doNoOk);
+    }
+
+    function pedidoLiteActivo(idColectivo, doNoOk) {
+      $log.debug(" service pedidosLites ");
+			return promiseService.doGetPrivate(REST_ROUTES.pedidoLiteActivo(idColectivo), {idColectivo: idColectivo}, doNoOk);
+    }
+
+		function productosPedidosLite(idPedido, doNoOk){
+			$log.debug(" service productosPedidosLite ");
+			return promiseService.doGetPrivate(REST_ROUTES.productosPedidosLite(idPedido), {idPedido: idPedido}, doNoOk);
+    }
+    
+		function resumenProductosPedidosConfirmados(idColectivo, doNoOk){
+			$log.debug(" service productosPedidosLite ");
+			return promiseService.doGetPrivate(REST_ROUTES.resumenProductosPedidosConfirmados(idColectivo), {idColectivo: idColectivo}, doNoOk);
+    }
+
+		function miembrosGrupo(idGrupo, doNoOk){
+			$log.debug(" service miembrosGrupo ");
+			return promiseService.doGetPrivate(REST_ROUTES.miembrosGrupo(idGrupo), {idGrupo: idGrupo}, doNoOk);
+    }
 
 		function nodosAbiertos(idCatalog, doNoOk){
 			$log.debug(" service nodosAbiertos ");

@@ -33,7 +33,10 @@
       contextCatalogObserver.observe(function(){
         contextPurchaseService.getAgrupations().then(function(agrupations_dao_int){
           var nodes = agrupations_dao_int.getAgrupationsByType(contextPurchaseService.getCatalogContext(), agrupationTypeVAL.TYPE_NODE);
-          $scope.node = nodes[$stateParams.nodeId];
+          var node = nodes.find(function(n) {
+            return n.id == $stateParams.nodeId;
+          })
+          $scope.node = node || node[$stateParams.nodeId];
           $rootScope.$broadcast('node-is-loaded', $scope.node);
           toTop();
         });

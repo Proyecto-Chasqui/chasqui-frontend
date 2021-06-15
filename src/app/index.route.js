@@ -179,6 +179,12 @@
                 })
                 .state('catalog.userNodes.all', {
                   url: '/todos',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList2.tmpl.html',
+                  controller: 'NodesList2Ctrl',
+                  auth: false
+                })
+                .state('catalog.userNodes.allLegacy', {
+                  url: '/legacy',
                   templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
                   controller: 'NodesListCtrl',
                   auth: false

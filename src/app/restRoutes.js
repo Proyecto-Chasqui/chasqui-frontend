@@ -204,6 +204,14 @@
 
             nodosTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/all/' + idVendedor;},
 
+            nodosLiteTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/lite/all/' + idVendedor;},        
+            pedidosLite : function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/pedidos'},
+            statsPedidosActivos : function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/pedidosStats'},
+            resumenProductosPedidosConfirmados: function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/resumenProductosPedidosConfirmados'},
+            pedidoLiteActivo: function(idColectivo) {return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/pedidoActivo'},
+            productosPedidosLite : function(idPedido){return URLS.be_rest + 'user/pedido/' + idPedido +'/productos'},
+            miembrosGrupo : function(idGrupo){return URLS.be_rest + 'user/gcc/' + idGrupo +'/miembros'},
+
             nuevoNodo: URLS.be_rest + "user/nodo/alta",
 
             editarSolicitud: URLS.be_rest + "user/nodo/editarSolicitudDeCreacion",

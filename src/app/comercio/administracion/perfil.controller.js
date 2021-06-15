@@ -6,7 +6,7 @@
     
 	function PerfilController($log, $scope, $rootScope,
 		$mdDialog, ToastCommons, toastr, $stateParams, perfilService,
-		gccService,us,contextPurchaseService, usuario_dao, navigation_state) {
+		gccService,nodeService, us,contextPurchaseService, usuario_dao, navigation_state) {
             
 		$log.debug("Init PerfilController ....");
 
@@ -98,7 +98,12 @@
 			var params = {};
 			params.idInvitacion = notificacion.id;
 
-			gccService.aceptarInvitacionAGrupo(params).then(doOk)
+            if(vm.isInvitacionANodo(notificacion)) {
+                nodeService.acceptInvitation(params).then(doOk)
+            } else {
+                gccService.aceptarInvitacionAGrupo(params).then(doOk)
+            }
+
 
 		}
 
@@ -110,8 +115,11 @@
 			var params = {};
 			params.idInvitacion = notificacion.id;
 
-			gccService.rechazarInvitacionAGrupo(params).then(doOk)
-
+            if(vm.isInvitacionANodo(notificacion)) { 
+                nodeService.declineInvitation(params).then(doOk);
+            } else {
+                gccService.rechazarInvitacionAGrupo(params).then(doOk);
+            }
 		}
 
 
@@ -157,6 +165,23 @@
 		vm.isCompraColectiva=function(notificacion){
 			return us.contieneCadena(notificacion.mensaje.toLowerCase() ,'de compras colectivas');
 		}
+
+        vm.isInvitacion = function(notificacion) {
+            var mensaje = notificacion.mensaje.toLowerCase();
+            return mensaje.indexOf("te ha invitado") > -1 && mensaje.indexOf("compras colectivas") > -1;
+        }
+
+        vm.isInvitacionPendiente = function(notificacion) {
+            if (notificacion.estado !== 'NOTIFICACION_NO_LEIDA') {
+                return false;
+            }
+            return vm.isInvitacion(notificacion);
+        }
+
+        vm.isInvitacionANodo = function(notificacion) {
+            var mensaje = notificacion.mensaje.toLowerCase();
+            return mensaje.indexOf("te ha invitado al nodo") > -1 && mensaje.indexOf("compras colectivas") > -1;
+        }
 
     vm.getColor = function(notificacion){
          var color = 'green';
