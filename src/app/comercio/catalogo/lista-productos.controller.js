@@ -7,10 +7,10 @@
   /**
    * @ngInject Lista de productos.
    */
-  function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES, StateCommons,
+  function ListaProductosController($scope, $log, URLS, REST_ROUTES, StateCommons,
     $state, toastr, productoService, us, contextCatalogsService,
     $mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
-        usuario_dao, $stateParams, addProductService, dialogCommons, vendedorService) {
+        usuario_dao, addProductService, dialogCommons) {
 
     $log.debug('ListaProductosController',
       $scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -74,16 +74,8 @@
     vm.paging = {
      total: 0,
      current: 1,
-     onPageChanged: loadPages,
+     onPageChanged: loadPages
     };
-
-    // function loadPages() {
-    //   $log.debug('Current page is : ' + vm.paging.current);
-    //   // TODO : Load current page Data here
-    //   vm.currentPage = vm.paging.current;
-
-    //   findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro)
-    // }
 
     vm.setLastPage = function(){
       $scope.$broadcast('setLastPage', vm.lastPage)
@@ -101,7 +93,6 @@
       loadPages();
   });
 
-  //$scope.$on(vm.lastPage, vm.setLastPage());
 
 
     function loadPages() {
@@ -307,10 +298,7 @@
     
     function init(){
       initCatalogContext();
-      //vm.productos = findProductos(1,10,{});
       callEmprendedores();
-      //loadPages();
-      // findProductos();
     }
     
     init();
