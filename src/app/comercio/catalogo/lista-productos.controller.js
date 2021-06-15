@@ -289,16 +289,24 @@
       })
     }
     
-    function init(){
+    function initCatalogContext() {
+      contextCatalogObserver.observe(function executeWhenCatalogIsLoaded(){     
+
+        setCatalogState(function(){
       if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
         $log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
+    
         setCatalogState(function(){
           vm.agregar(contextPurchaseService.ls.varianteSelected);
           contextPurchaseService.ls.varianteSelected = undefined;
         })
-
       }
-      setCatalogState(function(){});
+        })
+      });
+    }
+    
+    function init(){
+      initCatalogContext();
       //vm.productos = findProductos(1,10,{});
       callEmprendedores();
       //loadPages();
