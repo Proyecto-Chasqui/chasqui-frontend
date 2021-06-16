@@ -19,33 +19,16 @@
     $mdDialog,
     agrupationTypeVAL,
     contextOrdersService,
-    contextAgrupationsService,
-    vendedorService
+    contextAgrupationsService
   ) {
     // Interfaz
 
     $scope.urlBase = URLS.be_base;
     $scope.showOptions = [];
-    $scope.openRequests = $scope.openRequests;
-    $scope.showOptionsForNode = showOptionsForNode;
     $scope.isLoggedUserNodeAdmin = isLoggedUserNodeAdmin;
     $scope.userIsLog = usuario_dao.isLogged();
     $scope.goToCatalog = goToCatalog;
-    $scope.montoTotalNodo = montoTotalNodo;
-    $scope.montoSinIncentivo = montoSinIncentivo;
-    $scope.incentivoNodo = incentivoNodo;
-    $scope.countOrdersConfirmed = countOrdersConfirmed;
-    $scope.countOrdersOpen = countOrdersOpen;
     $scope.showGoToCatalog = showGoToCatalog;
-    $scope.nodeActiveMembers = nodeActiveMembers;
-    $scope.pedidoTieneEstado = pedidoTieneEstado;
-    $scope.totalForMember = totalForMember;
-    $scope.puedeCerrarPedidoGCC = puedeCerrarPedidoGCC;
-    $scope.hayAlgunPedidoAbierto = hayAlgunPedidoAbierto;
-    $scope.hayAlgunPedidoConfirmado = hayAlgunPedidoConfirmado;
-    $scope.puedeCerrarPedidoGCCSegunEstrategias =
-      puedeCerrarPedidoGCCSegunEstrategias;
-    $scope.superaMontoMinimo = superaMontoMinimo;
     $scope.confirmNodeOrder = confirmNodeOrder;
 
     // Implementación
@@ -54,104 +37,8 @@
       return miembro.email == usuario_dao.getUsuario().email;
     };
 
-    function showOptionsForNode(nodeIndex) {
-      $scope.showOptions = $scope.showOptions.map(function (o, i) {
-        return i == nodeIndex && !o;
-      });
-    }
-
     function isLoggedUserNodeAdmin(node) {
       return node.esAdministrador;
-    }
-
-    function montoTotalNodo(node) {
-      return node.miembros != undefined
-        ? node.miembros.reduce(function (r, m) {
-            if (m.pedido != null && m.pedido.estado == "CONFIRMADO") {
-              return r + m.pedido.montoActual + m.pedido.incentivoActual;
-            } else {
-              return r;
-            }
-          }, 0)
-        : 0;
-    }
-
-    function montoSinIncentivo(node) {
-      return node.miembros != undefined
-        ? node.miembros.reduce(function (r, m) {
-            if (m.pedido != null && m.pedido.estado == "CONFIRMADO") {
-              return r + m.pedido.montoActual;
-            } else {
-              return r;
-            }
-          }, 0)
-        : 0;
-    }
-
-    function incentivoNodo(node) {
-      return node.miembros != undefined
-        ? node.miembros.reduce(function (r, m) {
-            if (m.pedido != null && m.pedido.estado == "CONFIRMADO") {
-              return r + m.pedido.incentivoActual;
-            } else {
-              return r;
-            }
-          }, 0)
-        : 0;
-    }
-
-    function countOrdersConfirmed(node) {
-      return countOrdersWithState(node, "CONFIRMADO");
-    }
-
-    function countOrdersOpen(node) {
-      return countOrdersWithState(node, "ABIERTO");
-    }
-
-    function nodeActiveMembers(node) {
-      return node.miembros.filter(function (m) {
-        return m.invitacion == "NOTIFICACION_ACEPTADA";
-      });
-    }
-
-    function totalForMember(member) {
-      return member.pedido != null
-        ? member.pedido.productosResponse.reduce(function (r, p) {
-            return r + (p.precio + p.incentivo) * p.cantidad;
-          }, 0)
-        : 0;
-    }
-
-    function puedeCerrarPedidoGCC(node) {
-      return (
-        puedeCerrarPedidoGCCSegunEstrategias(node) && superaMontoMinimo(node)
-      );
-    }
-
-    function puedeCerrarPedidoGCCSegunEstrategias(node) {
-      return true; //!hayAlgunPedidoAbierto(node) && hayAlgunPedidoConfirmado(node);
-    }
-
-    function superaMontoMinimo(node) {
-      return montoTotalNodo(node) >= $scope.montoMinimo;
-    }
-
-    function hayAlgunPedidoAbierto(node) {
-      return algunPedidoTieneEstado(node.miembros, "ABIERTO");
-    }
-
-    function hayAlgunPedidoConfirmado(node) {
-      return algunPedidoTieneEstado(node.miembros, "CONFIRMADO");
-    }
-
-    function algunPedidoTieneEstado(miembros, estado) {
-      return any(miembros, pedidoTieneEstado(estado));
-    }
-
-    function pedidoTieneEstado(estado) {
-      return function (miembro) {
-        return miembro.pedido != null && miembro.pedido.estado == estado;
-      };
     }
 
     function showGoToCatalog(node) {
@@ -168,7 +55,7 @@
     function confirmNodeOrder(node) {
       var actions = {
         doOk: doConfirmOrder(node),
-        doNotOk: ignoreAction,
+        doNotOk: ignoreAction
       };
 
       var activeMembers = node.miembros
@@ -188,7 +75,7 @@
         {
           totalConIncentivo: 0,
           totalSinIncentivo: 0,
-          incentivoTotal: 0,
+          incentivoTotal: 0
         }
       );
 
@@ -211,12 +98,12 @@
           productosPedidos ||
           activeMembers.reduce(function (r, m) {
             return r.concat(m.pedido.productosResponse);
-          }, []),
+          }, [])
       };
 
       $state.go("catalog.confirmOrder", {
         actions: actions,
-        order: adHocOrder,
+        order: adHocOrder
       });
     }
 
@@ -258,9 +145,9 @@
           opcionesSeleccionadas: answers.map(function (a) {
             return {
               nombre: a.nombre,
-              opcionSeleccionada: a.answer,
+              opcionSeleccionada: a.answer
             };
-          }),
+          })
         };
 
         nodeService
@@ -281,25 +168,6 @@
       $mdDialog.hide();
     }
 
-    function callNotificaciones() {
-      function doOk(response) {
-        $scope.invitaciones = response.data.filter(function (notificacion) {
-          return (
-            notificacion.estado == "NOTIFICACION_NO_LEIDA" &&
-            isCompraColectiva(notificacion)
-          );
-        }).length;
-      }
-      perfilService.notificacionesNoLeidas().then(doOk);
-    }
-
-    function isCompraColectiva(notificacion) {
-      return us.contieneCadena(
-        notificacion.mensaje.toLowerCase(),
-        "ha invitado al nodo de compras colectivas"
-      );
-    }
-
     function goToCatalog(node) {
       contextPurchaseService.setContextByAgrupation(node);
       $state.go("catalog.products");
@@ -311,7 +179,7 @@
 
       var params = {
         idGrupo: colectivo.id,
-        emailCliente: miembro.email,
+        emailCliente: miembro.email
       };
 
       nodeService.quitarMiembro(params).then(callback);
@@ -326,7 +194,7 @@
           us.translate('SEGURO_SALIR'), 
           us.translate('SI_MEVOY'), 
           us.translate('CANCELAR'),
-          function(result) {
+          function() {
             callQuitarMiembro(miembro, colectivo, function(){
               if(onOk) {
                 onOk(miembro);
@@ -376,27 +244,12 @@
       );
     }
 
-    function countOrdersWithState(node, state) {
-      return node.miembros.filter(function (m) {
-        return m.pedido != null && m.pedido.estado == state;
-      }).length;
-    }
-
-    function any(list, property) {
-      return (
-        list != undefined &&
-        list.reduce(function (r, e) {
-          return r || property(e);
-        }, false)
-      );
-    }
-
     function toTop() {
       window.scrollTo(0, 0);
     }
 
     function callInvitarUsuario(email, node) {
-      var doOk = function (response) {
+      var doOk = function () {
         toastr.info(
           us.translate("ENVIARA_MAIL"),
           us.translate("AVISO_TOAST_TITLE")
@@ -407,7 +260,7 @@
           email: email,
           invitacion: "NOTIFICACION_NO_LEIDA",
           estadoPedido: "INEXISTENTE",
-          pedido: null,
+          pedido: null
         };
 
         node.miembros.push(recienInvitado);
@@ -415,7 +268,7 @@
 
       var params = {
         idGrupo: node.id,
-        emailInvitado: email,
+        emailInvitado: email
       };
 
       const promise = nodeService.invitarUsuario(params);
@@ -462,7 +315,7 @@
     function doIrAHistorial(e) {
       const colectivo = e.detail;
       $state.go("catalog.userNodes.node.historicOrders", {
-        nodeId: colectivo.id,
+        nodeId: colectivo.id
       });
     }
 
@@ -471,7 +324,7 @@
 
       const nodo = Object.assign(
         {
-          type: agrupationTypeVAL.TYPE_NODE,
+          type: agrupationTypeVAL.TYPE_NODE
         },
         colectivo
       );
@@ -504,7 +357,7 @@
           nodeService
             .pedidosLite(node.id)
             .then((r) => r.data)
-            .then((d) => d.list),
+            .then((d) => d.list)
         ]);
 
         p.then((values) => {
@@ -528,37 +381,8 @@
 
     // Inicialización
     function init() {
-      // if (usuario_dao.isLogged()) {
-      //   nodeService
-      //     .openRequests(contextPurchaseService.getCatalogContext())
-      //     .then(function (response) {
-      //       $scope.openRequests = response.data.filter(function (r) {
-      //         return r.estado == "solicitud_nodo_en_gestion";
-      //       });
-      //     });
-      //   vendedorService
-      //     .obtenerConfiguracionVendedor()
-      //     .then(function (response) {
-      //       $scope.montoMinimo = response.data.montoMinimo;
-      //     });
-      //   $scope.showOptions = $scope.nodes.map(function (n) {
-      //     return false;
-      //   });
-      //   callNotificaciones();
-      //   contextPurchaseService.getSelectedCatalog().then(function (catalog) {
-      //     $scope.ventasHabilitadas = catalog.ventasHabilitadas;
-      //     if (!catalog.ventasHabilitadas) {
-      //       var text = catalog.mensajeVentasDeshabilitadas
-      //         ? catalog.mensajeVentasDeshabilitadas
-      //         : "Por el momento este catálogo no permite compras, sin embargo podes navegar los productos y gestionar los pedidos que tenias pendientes";
-
-      //       toastr.error(text, "Ventas deshabilitadas");
-      //     }
-      //   });
-      // }
       toTop();
 
-      console.log(" window.nodeService", nodeService);
       window.nodeService = nodeService;
 
       const chasquiColectivos = document.getElementById("chasquiColectivos");
