@@ -28,7 +28,10 @@
       delete activedRequest[url];
     }
 
-    var getCached = function({url, data, headers}) {
+    var getCached = function(props) {
+      const url = props.url;
+      const data = props.data;
+      const headers = props.headers;
       const current = _getCurrent(url);
       if(current) {
         return current.promise;
