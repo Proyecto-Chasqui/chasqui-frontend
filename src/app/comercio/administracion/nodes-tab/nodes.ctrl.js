@@ -49,14 +49,6 @@
               g.descripcion = g.descripcion && g.descripcion.length > 60? g.descripcion.slice(0,60) + "..." : g.descripcion;
               return g;
             });
-            $scope.nodes.forEach(function(node) {
-              if(node.esAdministrador){
-                nodeService.getNodeRequests(node.id)
-                .then(function(response){
-                  node.requests = response.data.filter(function(r){return r.estado == "solicitud_pertenencia_nodo_enviado"});
-                })
-              }
-            });
 
             $rootScope.$broadcast('nodes-are-loaded', $scope.nodes);
 
