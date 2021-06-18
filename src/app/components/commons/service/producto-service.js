@@ -144,16 +144,12 @@
                     $log.debug(" service verPedidoIndividual ");
 
                     function doNoOk(response) {
-                        $log.debug("--- callPedidoIndividual ", response.data);
-
-                        if (response.status == 404) {
-                            toastr.error("Noy  hay pedidos !" , "Error");
-                        } else {
-                            toastr.error("ocurrio un error inesperado!" , "Error");
-                        }
+                        defered.reject(response);
                     }
 
-                    defered.resolve(promiseService.doGetPrivate(REST_ROUTES.verPedidoIndividual(catalog.id), {}, doNoOk));
+                    var promise = promiseService.doGetPrivate(REST_ROUTES.verPedidoIndividual(catalog.id), {}, doNoOk);
+
+                    promise.then(defered.resolve);
                 });
             });
         }
