@@ -197,7 +197,6 @@
          *  Last modification: 6/4/18
          */
         function ensurePersonalOrder(catalogId){
-            console.log("ensurePersonalOrder");
             return ensureContext(
                 vm.ls.lastUpdate,
                 "personal order",
@@ -228,7 +227,6 @@
          *  Last modification: 6/4/18
          */
         function ensureGroupsOrders(catalogId){
-            console.log("ensureGroupsOrders");
             return ensureContext(
                 vm.ls.lastUpdate,
                 "group orders",
@@ -258,7 +256,6 @@
          *  Last modification: 3/11/19
          */
         function ensureNodesOrders(catalogId){
-            console.log("ensureNodesOrders");
           return ensureContext(
             vm.ls.lastUpdate,
             "node orders",
