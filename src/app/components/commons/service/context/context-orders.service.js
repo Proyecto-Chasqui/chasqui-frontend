@@ -4,7 +4,7 @@
 	angular.module('chasqui').service('contextOrdersService', contextOrdersService);
 
 	function contextOrdersService(getContext, orders_dao, $localStorage, gccService, moment, contextAgrupationsService,
-                                  createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal,
+                                  createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual,
                                   agrupationTypeVAL, nodeService, agrupationTypeDispatcher, productoService, ensureContext,
                                   setPromise, $log){
 
@@ -324,22 +324,16 @@
             })
         }
 
-        function any(list, property){
-            return list.reduce(function(r,e){return r || property(e)}, false);
-        }
-
         function replacePersonalOrder(catalogId, newPersonalOrder){
             orders_dao.resetType(catalogId, agrupationTypeVAL.TYPE_PERSONAL);
             addOrder(catalogId, newPersonalOrder);
         }
 
         // Pedido individual virtual
-        var idPedidoIndividualGrupoPersonal = 0;    // Ningún pedido tiene id = 0
-
         var pedidoIndividualVirtual = {
             aliasGrupo: "Individual",
             estado: "CANCELADO",
-            id: idPedidoIndividualGrupoPersonal,
+            id: 0, // Ningún pedido tiene id = 0,
             idGrupo: idGrupoPedidoIndividual,
             type: agrupationTypeVAL.TYPE_PERSONAL,
             productosResponse: []
