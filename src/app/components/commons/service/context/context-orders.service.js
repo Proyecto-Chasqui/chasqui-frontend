@@ -197,31 +197,26 @@
          *  Last modification: 6/4/18
          */
         function ensurePersonalOrder(catalogId){
+            console.log("ensurePersonalOrder");
             return ensureContext(
                 vm.ls.lastUpdate,
                 "personal order",
                 orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL),
                 function(defered){
-                    isPersonalOrderOpen(catalogId).then(function(isOpen){
-                        if(isOpen){
-                            $log.debug("isOpen");
-                            function doOkPedido(response) {
-                                var personalOrder = response.data;
-                                personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
-                                personalOrder.idGrupo = idGrupoPedidoIndividual;
-                                personalOrder.aliasGrupo = "Individual";
-                                replacePersonalOrder(catalogId, personalOrder);
-                                defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
-                            }
 
-                            productoService.verPedidoIndividual().then(doOkPedido);
-                        }else{
-                            $log.debug("nop isOpen");
-                            addOrder(catalogId, pedidoIndividualVirtual);
-                            defered.resolve([pedidoIndividualVirtual]);
-                        }
-                    })
+                    function doOkPedido(response) {
+                        var personalOrder = response.data;
+                        personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
+                        personalOrder.idGrupo = idGrupoPedidoIndividual;
+                        personalOrder.aliasGrupo = "Individual";
+                        replacePersonalOrder(catalogId, personalOrder);
+                        defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
+                    }
 
+                    function fetchIndividual() {
+                        productoService.verPedidoIndividual().then(doOkPedido);
+                    }
+                    fetchIndividual();
                 });
         }
 
@@ -233,6 +228,7 @@
          *  Last modification: 6/4/18
          */
         function ensureGroupsOrders(catalogId){
+            console.log("ensureGroupsOrders");
             return ensureContext(
                 vm.ls.lastUpdate,
                 "group orders",
@@ -262,6 +258,7 @@
          *  Last modification: 3/11/19
          */
         function ensureNodesOrders(catalogId){
+            console.log("ensureNodesOrders");
           return ensureContext(
             vm.ls.lastUpdate,
             "node orders",
@@ -326,17 +323,6 @@
                 })
             })
         }
-
-        function isPersonalOrderOpen(catalogId){
-            return setPromise(function(defered){
-                function doOk(response) {
-                    defered.resolve(any(response.data, function(o){return o.idGrupo == null}));
-                }
-
-                gccService.pedidosByUser(catalogId).then(doOk);
-            });
-        }
-
 
         function any(list, property){
             return list.reduce(function(r,e){return r || property(e)}, false);
