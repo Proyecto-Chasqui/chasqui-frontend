@@ -388,6 +388,7 @@
       const chasquiColectivos = document.getElementById("chasquiColectivos");
       if (chasquiColectivos) {
         nodeService.getLoggedUser = usuario_dao.getUsuario;
+        nodeService.BE_BASE = URLS.be_base;
         chasquiColectivos.setService(
           nodeService,
           contextPurchaseService.getCatalogContext()
