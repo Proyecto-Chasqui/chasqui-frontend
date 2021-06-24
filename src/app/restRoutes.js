@@ -202,9 +202,24 @@
 
             openRequests: function(idVendedor){return URLS.be_rest + "user/nodo/solicitudesDeCreacion/" + idVendedor;},
 
-            nodosTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/all/' + idVendedor;},
+            nodosTodos: function (idVendedor) {
+                //return URLS.be_rest + "user/nodo/all/" + idVendedor;
+                return URLS.be_rest + "user/nodo/misNodos/" + idVendedor;
+            },
+            
+            misNodos: function(idVendedor) {
+                return URLS.be_rest + "user/nodo/misNodos/" + idVendedor;
+            },
+            
+            /**
+            * @deprecated usar misNodos
+            * @param {number} idVendedor 
+            * @returns {string}
+            */
+            nodosLiteTodos: function (idVendedor) {
+                return URLS.be_rest + "user/nodo/misNodos/" + idVendedor;
+            },
 
-            nodosLiteTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/lite/all/' + idVendedor;},        
             pedidosLite : function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/pedidos'},
             statsPedidosActivos : function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/pedidosStats'},
             resumenProductosPedidosConfirmados: function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/resumenProductosPedidosConfirmados'},
@@ -238,7 +253,19 @@
 
             // cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
 
-            pedidosDeLosNodos: function(idVendedor) {return URLS.be_rest + 'user/nodo/pedidos/' + idVendedor;},
+            /**
+            * @deprecated usar misPedidosActivosDeLosNodos
+            * @param {number} idVendedor 
+            * @returns {string}
+            */
+            pedidosDeLosNodos: function(idVendedor) {
+                // return URLS.be_rest + 'user/nodo/pedidos/' + idVendedor;
+                return URLS.be_rest + "user/nodo/lite/misPedidosActivos/" + idVendedor;
+            },
+
+            misPedidosActivosDeLosNodos: function(idVendedor) {
+                return URLS.be_rest + "user/nodo/lite/misPedidosActivos/" + idVendedor;
+            },
 
             createNodePersonalOrder: URLS.be_rest + "user/nodo/individual",
 
