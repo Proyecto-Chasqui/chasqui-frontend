@@ -35,7 +35,8 @@
       pedidoLiteActivo,
       productosPedidosLite, 
       resumenProductosPedidosConfirmados,
-      miembrosGrupo
+      miembrosGrupo,
+      misPedidosActivosDeLosNodos
     };
 
     function nodosLiteTodos(idCatalog, doNoOk){
@@ -203,6 +204,11 @@
 			return promiseService.doGetPrivate(REST_ROUTES.pedidosDeLosNodos(idVendedor), {}, doNoOk);
     }
 
+    function misPedidosActivosDeLosNodos(idVendedor, doNoOk){
+			$log.debug(" service misPedidosActivosDeLosNodos ");
+			return promiseService.doGetPrivate(REST_ROUTES.misPedidosActivosDeLosNodos(idVendedor), {}, doNoOk);
+    }
+
     function createPersonalOrder(params, doNoOk){
 			$log.debug(" service createNodePersonalOrder ");
 			return promiseService.doPost(REST_ROUTES.createNodePersonalOrder, params, doNoOk);
@@ -247,7 +253,7 @@
     }
 
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-                
+               
     return nodeServiceInt;
 	}
 })();
