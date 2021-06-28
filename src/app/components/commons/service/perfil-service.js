@@ -6,6 +6,8 @@
 	function perfilService($log, REST_ROUTES, promiseService, toastr) {
 		var vm = this;
 
+		var cacheNotificacionesNoLeidas = null;
+
 		vm.verDirecciones = function() {
 			$log.debug(" service verDirecciones ");
 			return promiseService.doGetPrivate(REST_ROUTES.verDirecciones, {});
@@ -28,7 +30,30 @@
 
 		vm.notificacionesNoLeidas = function() {
 			$log.debug(" service notificacionesNoLeidas ");
-			return promiseService.doGetPrivate(REST_ROUTES.notificacionesNoLeidas, {});
+			var promise = promiseService.doGetPrivate(REST_ROUTES.notificacionesNoLeidas, {});
+			promise.then(function(response) {
+				cacheNotificacionesNoLeidas = response.data;
+			});
+			return promise;
+		}
+
+		vm.invitacionesPendientes = function() {
+			return new Promise(function(resolve, reject) {
+				function filterToResolve(notis) {
+					var ret = notis.filter(function(noti) {
+						return vm.isInvitacionPendiente(noti);
+					});
+  				resolve(ret);
+				}
+
+				if(!cacheNotificacionesNoLeidas) {
+					vm.notificacionesNoLeidas().then(function() {
+							filterToResolve(cacheNotificacionesNoLeidas || []);
+						}, reject);
+				} else {
+					filterToResolve(cacheNotificacionesNoLeidas);
+				}
+			})
 		}
 
 		vm.notificacionesLeidas = function(cantidad) {
@@ -144,6 +169,32 @@
 			return promiseService.doPostPublic(REST_ROUTES.getMailInvitacionAlGCC, {
                 idInvitacion: idInvitacion
             }, doNoOk);
+		}
+
+		vm.isInvitacion = function(notificacion) {
+			if(!notificacion) {
+				return false;
+			}
+			var mensaje = notificacion.mensaje.toLowerCase();
+			return mensaje.indexOf("te ha invitado") > -1 && mensaje.indexOf("compras colectivas") > -1;
+		}
+
+		vm.isInvitacionPendiente = function(notificacion) {
+			if(!notificacion){
+				return false;
+			}
+			if (notificacion.estado !== 'NOTIFICACION_NO_LEIDA') {
+					return false;
+			}
+			return vm.isInvitacion(notificacion);
+		}
+
+		vm.isInvitacionANodo = function(notificacion) {
+			if (!notificacion) {
+				 return false;
+			}
+			var mensaje = notificacion.mensaje.toLowerCase();
+			return mensaje.indexOf("te ha invitado al nodo") > -1 && mensaje.indexOf("compras colectivas") > -1;
 		}
         
         

@@ -103,8 +103,6 @@
             } else {
                 gccService.aceptarInvitacionAGrupo(params).then(doOk)
             }
-
-
 		}
 
 		vm.rechazarInvitacion = function(notificacion) {
@@ -166,22 +164,11 @@
 			return us.contieneCadena(notificacion.mensaje.toLowerCase() ,'de compras colectivas');
 		}
 
-        vm.isInvitacion = function(notificacion) {
-            var mensaje = notificacion.mensaje.toLowerCase();
-            return mensaje.indexOf("te ha invitado") > -1 && mensaje.indexOf("compras colectivas") > -1;
-        }
+        vm.isInvitacion = perfilService.isInvitacion;
 
-        vm.isInvitacionPendiente = function(notificacion) {
-            if (notificacion.estado !== 'NOTIFICACION_NO_LEIDA') {
-                return false;
-            }
-            return vm.isInvitacion(notificacion);
-        }
+        vm.isInvitacionPendiente = perfilService.isInvitacionPendiente;
 
-        vm.isInvitacionANodo = function(notificacion) {
-            var mensaje = notificacion.mensaje.toLowerCase();
-            return mensaje.indexOf("te ha invitado al nodo") > -1 && mensaje.indexOf("compras colectivas") > -1;
-        }
+        vm.isInvitacionANodo = perfilService.isInvitacionANodo;
 
     vm.getColor = function(notificacion){
          var color = 'green';

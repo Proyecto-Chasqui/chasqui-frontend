@@ -10,6 +10,7 @@
     $state,
     contextPurchaseService,
     nodeService,
+    gccService,
     $log,
     toastr,
     usuario_dao,
@@ -55,7 +56,7 @@
     function confirmNodeOrder(node) {
       var actions = {
         doOk: doConfirmOrder(node),
-        doNotOk: ignoreAction
+        doNotOk: ignoreAction,
       };
 
       var activeMembers = node.miembros
@@ -75,7 +76,7 @@
         {
           totalConIncentivo: 0,
           totalSinIncentivo: 0,
-          incentivoTotal: 0
+          incentivoTotal: 0,
         }
       );
 
@@ -98,12 +99,12 @@
           productosPedidos ||
           activeMembers.reduce(function (r, m) {
             return r.concat(m.pedido.productosResponse);
-          }, [])
+          }, []),
       };
 
       $state.go("catalog.confirmOrder", {
         actions: actions,
-        order: adHocOrder
+        order: adHocOrder,
       });
     }
 
@@ -145,9 +146,9 @@
           opcionesSeleccionadas: answers.map(function (a) {
             return {
               nombre: a.nombre,
-              opcionSeleccionada: a.answer
+              opcionSeleccionada: a.answer,
             };
-          })
+          }),
         };
 
         nodeService
@@ -179,7 +180,7 @@
 
       var params = {
         idGrupo: colectivo.id,
-        emailCliente: miembro.email
+        emailCliente: miembro.email,
       };
 
       nodeService.quitarMiembro(params).then(callback);
@@ -190,23 +191,26 @@
       const miembro = usuario_dao.getUsuario();
 
       dialogCommons.confirm(
-          us.translate('SALIR'), 
-          us.translate('SEGURO_SALIR'), 
-          us.translate('SI_MEVOY'), 
-          us.translate('CANCELAR'),
-          function() {
-            callQuitarMiembro(miembro, colectivo, function(){
-              if(onOk) {
-                onOk(miembro);
-              }
-              toastr.success(us.translate('TE_FUISTE_GRUPO'), us.translate('AVISO_TOAST_TITLE'));
-            });
-          },
-          function() {
-            $log.debug("se quedo");
-          }
-      )
-   }
+        us.translate("SALIR"),
+        us.translate("SEGURO_SALIR"),
+        us.translate("SI_MEVOY"),
+        us.translate("CANCELAR"),
+        function () {
+          callQuitarMiembro(miembro, colectivo, function () {
+            if (onOk) {
+              onOk(miembro);
+            }
+            toastr.success(
+              us.translate("TE_FUISTE_GRUPO"),
+              us.translate("AVISO_TOAST_TITLE")
+            );
+          });
+        },
+        function () {
+          $log.debug("se quedo");
+        }
+      );
+    }
 
     function quitarMiembro(miembro, colectivo, callback) {
       // Esto es un resabio de la forma de cargar miembros
@@ -260,7 +264,7 @@
           email: email,
           invitacion: "NOTIFICACION_NO_LEIDA",
           estadoPedido: "INEXISTENTE",
-          pedido: null
+          pedido: null,
         };
 
         node.miembros.push(recienInvitado);
@@ -268,7 +272,7 @@
 
       var params = {
         idGrupo: node.id,
-        emailInvitado: email
+        emailInvitado: email,
       };
 
       const promise = nodeService.invitarUsuario(params);
@@ -315,7 +319,7 @@
     function doIrAHistorial(e) {
       const colectivo = e.detail;
       $state.go("catalog.userNodes.node.historicOrders", {
-        nodeId: colectivo.id
+        nodeId: colectivo.id,
       });
     }
 
@@ -324,7 +328,7 @@
 
       const nodo = Object.assign(
         {
-          type: agrupationTypeVAL.TYPE_NODE
+          type: agrupationTypeVAL.TYPE_NODE,
         },
         colectivo
       );
@@ -347,6 +351,32 @@
       quitarMiembro(miembro, colectivo, callback);
     }
 
+    function doAceptarInvitacion(e) {
+      const notificacion = e.detail.notificacion;
+      const callback = e.detail.callback;
+      if (!notificacion || !notificacion.id) {
+        toastr.error("No se encontró la notificación", "Error");
+        return;
+      }
+
+      function doOk() {
+        toastr.success(
+          us.translate("ACEPTADO"),
+          us.translate("AVISO_TOAST_TITLE")
+        );
+        notificacion.estado = "Leido";
+        callback();
+      }
+      var params = {};
+      params.idInvitacion = notificacion.id;
+
+      if (perfilService.isInvitacionANodo(notificacion)) {
+        nodeService.acceptInvitation(params).then(doOk);
+      } else {
+        gccService.aceptarInvitacionAGrupo(params).then(doOk);
+      }
+    }
+
     function _ensambleNodo(node) {
       //popular miembros
       return new Promise((resolve, reject) => {
@@ -357,7 +387,7 @@
           nodeService
             .pedidosLite(node.id)
             .then((r) => r.data)
-            .then((d) => d.list)
+            .then((d) => d.list),
         ]);
 
         p.then((values) => {
@@ -379,6 +409,16 @@
       exitGroup(colectivo, onOk);
     }
 
+    function doIrAIngresar() {
+      $state.go("catalog.login");
+    }
+
+    function doCrearGrupo() {
+      toastr.info("Funcionalidad temporalmente deshabilitada", "En reparación");
+      // $state.go("catalog.userNodes.newNode");
+      //$state.go("catalog.userNodes.editNewNode") // ng-if="openRequests.length > 0"
+    }
+
     // Inicialización
     function init() {
       toTop();
@@ -389,6 +429,9 @@
       if (chasquiColectivos) {
         nodeService.getLoggedUser = usuario_dao.getUsuario;
         nodeService.BE_BASE = URLS.be_base;
+        nodeService.invitacionesPendientes =
+          perfilService.invitacionesPendientes;
+
         chasquiColectivos.setService(
           nodeService,
           contextPurchaseService.getCatalogContext()
@@ -400,6 +443,12 @@
         chasquiColectivos.addEventListener("onQuitarMiembro", doQuitarMiembro);
         chasquiColectivos.addEventListener("onSalirGrupo", doExitGroup);
         chasquiColectivos.addEventListener("onHistorial", doIrAHistorial);
+        chasquiColectivos.addEventListener("onIngresar", doIrAIngresar);
+        chasquiColectivos.addEventListener("onCrearGrupo", doCrearGrupo);
+        chasquiColectivos.addEventListener(
+          "onAceptarInvitacion",
+          doAceptarInvitacion
+        );
         chasquiColectivos.addEventListener(
           "onConfirmarPedidoColectivo",
           doConfirmarPedidoColectivo
