@@ -119,7 +119,6 @@
         //   $log.debug("imagenProducto", response);
         //   $scope.imagenes = response.data;
 
-        //   console.log(response.data)
         // }
         
         //productoService.imagenProducto(variety.idVariante).then(setImagenes);

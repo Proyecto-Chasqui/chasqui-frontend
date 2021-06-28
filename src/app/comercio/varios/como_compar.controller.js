@@ -529,7 +529,6 @@
       
 
     function showHelpsAnswer(indexI,indexJ){
-      console.log(indexI,indexJ,$scope.showHelp);
       $scope.showHelp[indexI] = $scope.showHelp[indexI].map(function(qs,j){
         return j == indexJ && !$scope.showHelp[indexI][indexJ];
       });
@@ -543,8 +542,6 @@
           return false;
         })
       });
-
-      console.log($scope.showHelp);
 
       contextCatalogObserver.observe(function(){
         contextPurchaseService.getSelectedCatalog().then(function(catalog){
