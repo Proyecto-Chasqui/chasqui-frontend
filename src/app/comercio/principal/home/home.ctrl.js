@@ -50,8 +50,6 @@
       selectedTags.idsTagsTipoProducto = $scope.selectedTags.idTagTipoProducto == 0? [] : [$scope.selectedTags.idTagTipoProducto];
       selectedTags.idsTagsZonaDeCobertura = $scope.selectedTags.idTagZonaDeCobertura == 0? [] : [$scope.selectedTags.idTagZonaDeCobertura];
 
-      console.log(selectedTags);
-
       // sellerService.getSellersWithTags(selectedTags).then(function(response){
       //   $scope.catalogs = response.data;
       //   console.log($scope.catalogs);
@@ -76,7 +74,6 @@
       })
       sellerService.getSellersTags().then(function(response){
         $scope.tags = response.data;
-        console.log($scope.tags);
       })
     }
     
