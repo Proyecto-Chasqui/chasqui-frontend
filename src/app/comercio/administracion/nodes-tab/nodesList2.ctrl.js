@@ -20,7 +20,8 @@
     $mdDialog,
     agrupationTypeVAL,
     contextOrdersService,
-    contextAgrupationsService
+    contextAgrupationsService,
+    vendedorService
   ) {
     // Interfaz
 
@@ -431,6 +432,7 @@
         nodeService.BE_BASE = URLS.be_base;
         nodeService.invitacionesPendientes =
           perfilService.invitacionesPendientes;
+        nodeService.datosVendedor = vendedorService.verDatosDePortada;
 
         chasquiColectivos.setService(
           nodeService,
