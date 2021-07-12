@@ -1,5 +1,5 @@
 
-<footer class="footer" layout="row" layout-align="space-between center" layout-xs="column">
+<footer class="footer" layout="row" layout-align="space-between center" layout-xs="column" ng-controller="FooterController">
 	<div class="FooterLinks">
 		<label class="FooterLinks-label">Seguinos en</label>
 		<a href="https://www.facebook.com/proyectochasquiok" target="_blank" rel="noopener noreferrer">
@@ -27,7 +27,7 @@
 	<div class="FooterLinks FooterLinks--vertical">
 		<label class="FooterLinks-label">Ayuda</label>
 		<a>¿C&oacute;mo comprar?</a>
-		<a href="" target="_blank">Solicitud de arrepentimiento</a>
+		<a ng-click="goSolicitudArrepentimiento()">Solicitud de arrepentimiento</a>
 	</div>
 
 	<div class="FooterLinks FooterLinks--vertical">

@@ -1,6 +1,6 @@
 {
     "ALIAS_DOMICILIO": "Address nickname",
-    "CAMPO_OBLIGATORIO": "Required field",
+    "CAMPO_OBLIGATORIO": "Campo obligatorio",
     "CALLE_DIRECCION": "Street",
     "ALTURA_DIRECCION": "Number",
     "DEPARTAMENTO_DIRECCION": "Flat",

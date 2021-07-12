@@ -44,6 +44,13 @@
             params: { mail: null },
             abstract: true
         })
+
+        .state('catalog.arrepentimiento', {
+          url: '/arrepentimiento',
+          templateUrl: 'app/comercio/varios/arrepentimiento.html',
+          controller: 'ArrepentimientoController',
+          controllerAs: "arrepentimientoCtrl"
+        })
       
             .state('catalog.terminosYcondiciones', {
               url: '/terminosYcondiciones',
@@ -275,13 +282,20 @@
                 controllerAs: 'principalCtrl'
             })
     
+            
+
       .state('home.terminosYcondiciones', {
         url: '/terminosYcondiciones',
         templateUrl: 'app/comercio/varios/terminos.html',
         controller: 'TerminosCtrl',
       })
 
-
+      .state('home.arrepentimiento', {
+        url: '/arrepentimiento',
+        templateUrl: 'app/comercio/varios/arrepentimiento.html',
+        controller: 'ArrepentimientoController',
+        controllerAs: "arrepentimientoCtrl"
+      })
     
       .state('error', {
         url: '/error/:key',

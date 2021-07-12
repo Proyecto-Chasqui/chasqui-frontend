@@ -1,0 +1,91 @@
+
+<div id="chasqui-content-full" class="Arrepentimiento" ng-class="{'isContextoTienda': isContextoTienda}">
+  <div class="Arrepentimiento-container" ng-hide="enviadoSuccess">
+    
+    <h2 class="Arrepentimiento-title">Solicitud de arrepentimiento</h2>
+
+    <div class="Arrepentimiento-description">
+      La solicitud tendrá validez si es realizada dentro de los plazos determinados en la Resolución 424/2020 de la Secretaría de Comercio Interior y no se traten de productos exceptuados como productos personalizados y todos los comprendidos en el art. 1116 del Código Civil y Comercial.
+    </div>
+
+    <form name="arrepentimientoForm" novalidate>
+      <div layout-gt-sm="row">							
+          <md-input-container class="md-block" flex-gt-sm> 
+            <label>Nombre completo</label>
+            <input type="text" name="nombre" ng-model="solicitud.nombre" required />
+                <div ng-messages="arrepentimientoForm.nombre.$error" >
+                    <div ng-message="required" translate="CAMPO_OBLIGATORIO"></div>
+                </div>
+          </md-input-container> 
+      </div>
+      <div layout-gt-sm="row">							
+          <md-input-container class="md-block" flex-gt-sm> 
+            <label>E-Mail de compra</label>
+            <input type="email" name="email" ng-model="solicitud.email" required />
+                <div ng-messages="arrepentimientoForm.email.$error" >
+                    <div ng-message="required" translate="CAMPO_OBLIGATORIO"></div>
+                    <div ng-message="email" translate="E-mail no válido"></div>
+                </div>
+          </md-input-container> 
+      </div>
+      <div layout-gt-sm="row" ng-hide="isContextoTienda">							
+          <md-input-container class="md-block" flex-gt-sm> 
+            <label>Tienda</label>
+            <input type="text" name="nombreVendedor" ng-model="solicitud.nombreVendedor" required />
+                <div ng-messages="arrepentimientoForm.nombreVendedor.$error" >
+                    <div ng-message="required" translate="CAMPO_OBLIGATORIO"></div>
+                </div>
+          </md-input-container> 
+      </div>
+
+      <div layout-gt-sm="row">							
+          <md-input-container class="md-block" flex-gt-sm> 
+            <label>Tel&eacute;fono de contacto</label>
+            <input type="text" name="telefono" ng-model="solicitud.telefono" required />
+                <div ng-messages="arrepentimientoForm.telefono.$error" >
+                    <div ng-message="required" translate="CAMPO_OBLIGATORIO"></div>
+                </div>
+          </md-input-container> 
+      </div>
+
+      <div layout-gt-sm="row">							
+          <md-input-container class="md-block" flex-gt-sm> 
+            <label>¿Qu&eacute; pas&oacute; con tu pedido?</label>
+            <textarea rows="3" name="comentario" ng-model="solicitud.comentario" required></textarea>
+                <div ng-messages="arrepentimientoForm.comentario.$error" >
+                    <div ng-message="required" translate="CAMPO_OBLIGATORIO"></div>
+                </div>
+          </md-input-container> 
+      </div>
+
+      <div class="Arrepentimiento-toolbar">
+        
+        <md-button type="submit" class="btn-confirmar" ng-click="enviar()" aria-label="enviar">
+          <label translate="ENVIAR"></label>
+        </md-button>
+        <md-button type="button" ng-click="volver()" aria-label="cancelar">
+          <label translate="CANCELAR"></label>
+        </md-button>
+
+      </div>
+
+
+   </form>
+  </div>
+
+  <div class="Arrepentimiento-container" ng-show="enviadoSuccess">
+    <div class="ArrepentimientoEnviado">
+      <div class="ArrepentimientoEnviado-mensaje">
+
+        Se envió la solicitud a <br />
+        <span class="ArrepentimientoEnviado-emailTo">{{enviadoAEmail}}</span>
+        <br /><br />
+        Pronto se contactaran con vos
+      </div>
+      <md-button class="btn-confirmar" ng-click="volver()" aria-label="ir al inicio">
+        Ir al inicio
+      </md-button>
+    </div>
+  </div>
+
+</div>
