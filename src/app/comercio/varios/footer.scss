@@ -27,6 +27,10 @@ $colorLink: #575555;
 		color: $colorLinkHover;
 	}
 
+	a[ng-click] {
+		cursor: pointer;
+	}
+
 	&--vertical {
 		a {
 			display: block;
