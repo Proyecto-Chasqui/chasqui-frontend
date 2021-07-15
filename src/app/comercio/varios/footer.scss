@@ -15,10 +15,13 @@ $colorLink: #575555;
 	&-label {
 		font-weight: bold;
 		display: block;
-		font-size: 1.1rem;
+		font-size: 1.15rem;
+		margin-bottom: 0.6rem;
 	}
 
 	a {
+		font-size: 1rem;
+		
 		color: $colorLink;
 		text-decoration: none;
 	}
@@ -34,6 +37,7 @@ $colorLink: #575555;
 	&--vertical {
 		a {
 			display: block;
+			margin-bottom: 0.5rem;
 		}
 	}
 }
