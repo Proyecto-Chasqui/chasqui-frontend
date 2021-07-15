@@ -366,6 +366,7 @@
           us.translate("AVISO_TOAST_TITLE")
         );
         notificacion.estado = "Leido";
+        contextPurchaseService.refreshGrupos();
         callback();
       }
       var params = {};
