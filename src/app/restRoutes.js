@@ -284,6 +284,8 @@
             //datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
             datosDePortada: (slug) => (`${URLS.api}vendedores?nombre_corto_vendedor=${slug}`),
 
+            solicitudArrepentimiento: `${URLS.be_rest}client/soporte/arrepentimiento`,
+
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 
 

@@ -1,8 +1,88 @@
-h1.mensaje-footer {
-	color: red;
-	text-align: center;
-}
+
+$colorLinkHover: #0f88eb;
+$colorLink: #575555;
 
 .footer {
-	background: #bdcbcd;
+	padding: 1.5rem;
+	background-color: #cccccc;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+}
+
+.FooterLinks {
+
+	&-label {
+		font-weight: bold;
+		display: block;
+		font-size: 1.15rem;
+		margin-bottom: 0.6rem;
+	}
+
+	a {
+		font-size: 1rem;
+		
+		color: $colorLink;
+		text-decoration: none;
+	}
+
+	a:hover {
+		color: $colorLinkHover;
+	}
+
+	a[ng-click] {
+		cursor: pointer;
+	}
+
+	&--vertical {
+		a {
+			display: block;
+			margin-bottom: 0.5rem;
+		}
+	}
+}
+
+.FooterIcon {
+  width: 25px;
+	height: 25px;
+	margin: 0.5rem;
+	fill: $colorLink;
+
+	&:hover{
+		fill: $colorLinkHover;
+	}
+}
+
+
+
+.FooterSponsors {
+	padding: 1rem;
+	padding-bottom: 1.5rem;
+	background-color: #cccccc;
+	display: flex;
+  flex-direction: row;
+  align-items: center;
+	justify-content: center;
+	
+	&-logo {
+		padding-left:2rem;
+		padding-right:2rem;
+		display:flex;
+
+		img {
+			height: 30px;
+		}
+	}
+}
+
+.FooterCopyright {
+	color:rgb(100, 100, 100);
+	padding: 0.5rem;
+	background-color: #f7f7f7;
+	display: flex;
+	align-items: center;
+	&-label {
+		margin-left: 0.5rem;
+		font-size: 0.8rem;
+	}
 }
