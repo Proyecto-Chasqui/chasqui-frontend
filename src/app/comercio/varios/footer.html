@@ -1,7 +1,7 @@
 
 <footer class="footer" layout="row" layout-align="space-between center" layout-xs="column" ng-controller="FooterController">
 	<div class="FooterLinks">
-		<label class="FooterLinks-label">Seguinos en</label>
+		<label class="FooterLinks-label">Seguí a Chasqui en</label>
 		<a href="https://www.facebook.com/proyectochasquiok" target="_blank" rel="noopener noreferrer">
 			<svg class="FooterIcon" viewBox="0 0 24 24">
 				<path d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z" />
@@ -25,28 +25,39 @@
 	</div>
 
 	<div class="FooterLinks FooterLinks--vertical">
+		<label class="FooterLinks-label">Enlaces</label>
+		<a ng-show="urlWebVendedor" href="{{urlWebVendedor}}" target="_blank" rel="noopener noreferrer">{{nombreVendedor}}</a>
+		<a ng-hide="isOnMulticatalogo" ui-sref="home.multicatalogo">Ir al Multicat&aacute;logo</a>
+		<a href="https://observatorioess.org.ar/chasqui/" target="_blank" rel="noopener noreferrer">Observatorio ESS</a>
+	</div>
+
+	<div class="FooterLinks FooterLinks--vertical">
 		<label class="FooterLinks-label">Ayuda</label>
 		<a ng-click="goSolicitudArrepentimiento()">Solicitud de arrepentimiento</a>
 	</div>
 
 	<div class="FooterLinks FooterLinks--vertical">
 		<label class="FooterLinks-label">Informaci&oacute;n</label>
-		<a href="https://observatorioess.org.ar/chasqui/" target="_blank" rel="noopener noreferrer">Observatorio ESS</a>
+		
 		<a ui-sref="home.terminosYcondiciones"> T&eacute;rminos y condiciones</a>
 	</div>
 </footer>
 
 <div class="FooterSponsors">
 	<div class="FooterSponsors-logo">
-		<a href="https://observatorioess.org.ar/chasqui/" target="_blank" rel="noopener noreferrer">
+		<a href="https://observatorioess.org.ar/chasqui" target="_blank" rel="noopener noreferrer">
 			<img ng-src="app/components/image/unqui.png" alt="Universidad nacional de Quilmes">
 		</a>
 	</div>
 	<div class="FooterSponsors-logo">
-		<img ng-src="app/components/image/proyectowow.png" alt="Proyecto Wow">
+		<a href="https://proyectowow.com.ar" target="_blank" rel="noopener noreferrer">
+			<img ng-src="app/components/image/proyectowow.png" alt="Proyecto Wow">
+		</a>
 	</div>
 	<div class="FooterSponsors-logo">
-		<img ng-src="app/components/image/facttic.png" alt="Facttic">
+		<a href="https://facttic.org.ar" target="_blank" rel="noopener noreferrer">
+			<img ng-src="app/components/image/facttic.png" alt="Facttic">
+		</a>
 	</div>
 </div>
 

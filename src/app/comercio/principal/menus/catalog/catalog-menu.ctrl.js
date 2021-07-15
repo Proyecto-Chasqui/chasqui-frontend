@@ -109,11 +109,8 @@ function CatalogMenuController($scope,vendedorService, $log,$rootScope, $state, 
     ////////////////////////// Other //////////////////////////
 
     function goToHome(){
-      if($scope.urlWebVendedor == ""){
         $state.go("catalog.products");
-      } else {
-        window.open($scope.urlWebVendedor,'_blank');
-      }
+
     }
 
     function validateForNull(data){
