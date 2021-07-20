@@ -4,11 +4,12 @@
 	angular.module('chasqui').controller('discriminacionIncentivoController', discriminacionIncentivoController);
 
 	/** @ngInject */
-	function discriminacionIncentivoController($scope, $stateParams, sellerService, $log) {
+	function discriminacionIncentivoController($scope, $stateParams) {
     
-    $scope.montoTotalNodo = 0;
-    $scope.montoSinIncentivo = 0;
-    $scope.incentivoNodo = 0;
+    var vm = $scope;
+    vm.montoTotalNodo = 0;
+    vm.montoSinIncentivo = 0;
+    vm.incentivoNodo = 0;
 
     /////////////////////////////////////
                
@@ -49,15 +50,19 @@
     /////////////////////////////////////
     
     function init(){
+      var node = vm.node;
       if($stateParams.order && "totalConIncentivo" in $stateParams.order) {
-        $scope.montoTotalNodo = $stateParams.order.totalConIncentivo;
-        $scope.montoSinIncentivo = $stateParams.order.totalSinIncentivo;
-        $scope.incentivoNodo = $stateParams.order.incentivoTotal;
+        vm.montoTotalNodo = $stateParams.order.totalConIncentivo;
+        vm.montoSinIncentivo = $stateParams.order.totalSinIncentivo;
+        vm.incentivoNodo = $stateParams.order.incentivoTotal;
+      } else if (node && node.miembros) {
+        vm.montoTotalNodo = _montoTotalNodo($scope.node);
+        vm.montoSinIncentivo = _montoSinIncentivo($scope.node);
+        vm.incentivoNodo = _incentivoNodo($scope.node);
       } else {
-        $scope.montoTotalNodo = _montoTotalNodo($scope.node);
-        $scope.montoSinIncentivo = _montoSinIncentivo($scope.node);
-        $scope.incentivoNodo = _incentivoNodo($scope.node);
-
+        vm.montoTotalNodo = 0;
+        vm.montoSinIncentivo = 0;
+        vm.incentivoNodo = 0;
       }
     }
     
