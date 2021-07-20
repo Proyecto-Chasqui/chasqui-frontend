@@ -4,43 +4,40 @@
 	angular.module('chasqui').controller('AnswerSellerQuestionsController', AnswerSellerQuestionsController);
 
 	/** @ngInject */
-	function AnswerSellerQuestionsController($scope) {
-      
-    $scope.questions = [];
-    $scope.validateAndNext = validateAndNext;
+	function AnswerSellerQuestionsController($scope, $stateParams, sellerService) {
+    
+    var vm = $scope;
+    vm.questions = [];
+    vm.validateAndNext = validateAndNext;
     
     /////////////////////////////////////
       
     function init(){
+      var catalogShortName = $stateParams.catalogShortName;
         
-      // function doOk(response){
-      //     $scope.questions = response.data;
-      //     if($scope.questions.length == 0){
-      //       $scope.next($scope.questions);
-      //     } else {
-      //        var prevAnsewers = $scope.getQuestions()
-      //       if(prevAnsewers.length > 0){
-      //         $scope.questions = $scope.questions.map(function(q){
-      //           var res = prevAnsewers.filter(function(a){
-      //             return a.nombre === q.nombre;
-      //           })[0];
-      //           return res;
-      //         })
-      //       }
-      //     }
-      // }
-      
-      // var getQuestions = {
-      //     PERSONAL: function(){
-      //         sellerService.getSellerIndividualQuestions($stateParams.catalogShortName).then(doOk);                    
-      //     },
-      //     GROUP: function(){
-      //         sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
-      //     },
-      //     NODE: function(){
-      //         sellerService.getSellerColectiveQuestions($stateParams.catalogShortName).then(doOk);
-      //     }
-      // }[$scope.order.type]();
+      function doOk(response){
+          vm.questions = response.data;
+          if(vm.questions.length == 0){
+            vm.next(vm.questions);
+          } else {
+             var prevAnsewers = vm.getQuestions()
+            if(prevAnsewers.length > 0){
+              vm.questions = vm.questions.map(function(q){
+                return prevAnsewers.filter(function(a){
+                  return a.nombre === q.nombre;
+                })[0];
+              })
+            }
+          }
+      }
+
+      var fetchQuestionsMapper = {
+          PERSONAL: sellerService.getSellerIndividualQuestions,
+          GROUP: sellerService.getSellerColectiveQuestions,
+          NODE: sellerService.getSellerColectiveQuestions
+      }
+
+      fetchQuestionsMapper[vm.order.type](catalogShortName).then(doOk);
   }
 
 
@@ -49,14 +46,14 @@
   /////////////////////////////////////
           
   function validateAndNext(){
-    $scope.validated = true;
+    vm.validated = true;
     if(validInformation()){
-      $scope.next($scope.questions);
+      vm.next(vm.questions);
     }
   }
 
   function validInformation(){
-      return $scope.questions.reduce(function(r,q){return r && (q.answer != null || q.answer != undefined)}, true);
+      return vm.questions.reduce(function(r,q){return r && (q.answer != null || q.answer != undefined)}, true);
   }
 	}
 
