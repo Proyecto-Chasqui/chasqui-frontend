@@ -6,6 +6,7 @@ angular
     service('webSocketService', webSocketService);
 
     function webSocketService(toastr,$websocket,$log,contextPurchaseService,digestMessageService,URLS){
+      return; // deshabilita el inicio del webSocket hasta nuevo aviso, por ahora trae mas complicaciones que funcionalidades
     	//parametrizar
       var dataStream = $websocket(URLS.be_websocket, null, { reconnectIfNotNormalClose: true });
 
