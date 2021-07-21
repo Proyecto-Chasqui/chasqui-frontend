@@ -49,12 +49,12 @@
             // categorias: function(idVendedor) {
             //     return URLS.be_rest + "client/categoria/all/" + idVendedor;
             // },
-            categorias: (idVendedor) => `${URLS.api}categorias?id_vendedor=${idVendedor}&$select[]=id&$select[]=nombre`,
+            categorias: (idVendedor) => `${URLS.api}categorias?id_vendedor=${idVendedor}&$select[]=id&$select[]=nombre&$sort[nombre]=1`,
 
             // productores: function(idVendedor) {
             //     return URLS.be_rest + "client/productor/all/" + idVendedor;
             // },
-            productores: (idVendedor) => `${URLS.api}productores?id_vendedor=${idVendedor}&$limit=100`,
+            productores: (idVendedor) => `${URLS.api}productores?id_vendedor=${idVendedor}&$sort[nombre]=1&$limit=100`,
 
             // productosSinFiltro: URLS.be_rest + "client/producto/sinFiltro",
 
