@@ -1,6 +1,6 @@
 {
   "name": "chasqui",
-  "version": "1.4.2",
+  "version": "1.5.5",
   "dependencies": {
     "angular-leaflet-directive": "^0.10.0",
     "angularjs-slick": "^1.0.1",

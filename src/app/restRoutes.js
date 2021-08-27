@@ -54,7 +54,7 @@
             // productores: function(idVendedor) {
             //     return URLS.be_rest + "client/productor/all/" + idVendedor;
             // },
-            productores: (idVendedor) => `${URLS.api}productores?id_vendedor=${idVendedor}&$sort[nombre]=1&$limit=100`,
+            productores: (idVendedor) => `${URLS.api}productores?id_vendedor=${idVendedor}&$sort[nombre]=1&$limit=200`,
 
             // productosSinFiltro: URLS.be_rest + "client/producto/sinFiltro",
 
