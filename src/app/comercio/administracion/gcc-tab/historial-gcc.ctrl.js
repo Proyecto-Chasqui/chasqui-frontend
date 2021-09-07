@@ -20,7 +20,6 @@
             function doOk(response) {
                 $scope.pedidosFiltrados = response.data;
                 $scope.pedidosFiltrados.reverse();
-                console.log($scope.pedidosFiltrados);
             }
             
             gccService.pedidosColectivosConEstado($scope.group.id, states).then(doOk);
@@ -68,7 +67,6 @@
     /////////////////// INIT ////////////////////
 
     function init(){
-      console.log("init");
       getOrdersWithStates($scope.states.map(mapToBEStates))
     }
 

@@ -35,7 +35,7 @@
         
         function getAgrupation(catalogId, agrupationId, agrupationType){
             return setPromise(function(defered){
-                ensureAgrupations(catalogId, agrupationType).then(function(agrupations){
+                ensureAgrupations(catalogId, agrupationType).then(function(){
                     defered.resolve(agrupations_dao.getAgrupation(catalogId, agrupationId, agrupationType));
                 })
             });
@@ -77,23 +77,19 @@
 
                 // Si el catalogo tiene grupos NO tiene nodos y viceversa
                 if(catalog.few.gcc){
-                  function doOKGroups(responseGroups) {
+                  gccService.groupsByUser().then(function(responseGroups) {
                     var groups = formatAgrupations(responseGroups.data, agrupationTypeVAL.TYPE_GROUP);
                     agrupations = agrupations.concat(groups);
                     setAndReturn();
-                  }
-
-                  gccService.groupsByUser().then(doOKGroups);                  
+                  });                  
                 }
 
                 if(catalog.few.nodos){
-                  function doOKNodes(responseNodes){
+                  nodeService.nodosTodos(catalogId).then(function (responseNodes) {
                     var nodes = formatAgrupations(responseNodes.data, agrupationTypeVAL.TYPE_NODE);
-                    agrupations = agrupations.concat(nodes); 
+                    agrupations = agrupations.concat(nodes);
                     setAndReturn();
-                  }
-                  
-                  nodeService.nodosTodos(catalogId).then(doOKNodes);
+                  });
                 }
               })
             });
@@ -108,39 +104,45 @@
         function confirmAgrupationOrder(catalogId, agrupationId, agrupationType){
           modifyAgrupation(catalogId, agrupationId, agrupationType, function(group){
             group.idPedidoIndividual = -agrupationId;
-            group.miembros = group.miembros.map(function(m){
-              if(m.invitacion == "NOTIFICACION_ACEPTADA"){
-                m.estadoPedido = "ABIERTO";
-                m.pedido = null;
-              }
-              return m;
-            })
+            if (group.miembros) {
+              group.miembros = group.miembros.map(function (m) {
+                if (m.invitacion == "NOTIFICACION_ACEPTADA") {
+                  m.estadoPedido = "ABIERTO";
+                  m.pedido = null;
+                }
+                return m;
+              });
+            }
             return group;
           })
         }
 
         function cancelAgrupationOrder(catalogId, agrupationId, agrupationType){
-          modifyAgrupation(catalogId, agrupationId, agrupationType, function(agrupation){
-            agrupation.miembros = agrupation.miembros.map(function(m){
-              if(m.email == usuario_dao.getUsuario().email){
-                m.estadoPedido = "ABIERTO";
-                m.pedido = null;
-              }
-              return m;
-            })
+          modifyAgrupation(catalogId, agrupationId, agrupationType, function (agrupation) {
+            if (agrupation.miembros) {
+              agrupation.miembros = agrupation.miembros.map(function (m) {
+                if (m.email == usuario_dao.getUsuario().email) {
+                  m.estadoPedido = "ABIERTO";
+                  m.pedido = null;
+                }
+                return m;
+              });
+            }
             return agrupation;
           })
         }
         
         function confirmPersonalOrder(catalogId, agrupationId, agrupationType, personalOrder){
-          modifyAgrupation(catalogId, agrupationId, agrupationType, function(group){
-            group.miembros = group.miembros.map(function(m){
-              if(m.email == usuario_dao.getUsuario().email){
-                m.pedido = personalOrder;
-                m.pedido.estado = "CONFIRMADO";
-              }
-              return m;
-            })
+          modifyAgrupation(catalogId, agrupationId, agrupationType, function (group) {
+            if (group.miembros) {
+              group.miembros = group.miembros.map(function(m){
+                if(m.email == usuario_dao.getUsuario().email){
+                  m.pedido = personalOrder;
+                  m.pedido.estado = "CONFIRMADO";
+                }
+                return m;
+              })
+            }
             return group;
           })
         }

@@ -58,7 +58,7 @@ function orders_dao(catalogs_data, fn_snoc, agrupationTypeDispatcher, $log){
     }
     
     function resetType(catalogId, orderType){
-        modifyOrdersInCatalog(catalogId, orderType, function(orders){
+        modifyOrdersInCatalog(catalogId, orderType, function(){
             return [];
         })
     }

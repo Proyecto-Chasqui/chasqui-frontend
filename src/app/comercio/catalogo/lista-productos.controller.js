@@ -7,10 +7,10 @@
   /**
    * @ngInject Lista de productos.
    */
-  function ListaProductosController($scope, $rootScope, $log, URLS, REST_ROUTES, StateCommons,
+  function ListaProductosController($scope, $log, URLS, REST_ROUTES, StateCommons,
     $state, toastr, productoService, us, contextCatalogsService,
     $mdDialog, productorService, contextPurchaseService, contextCatalogObserver,
-        usuario_dao, $stateParams, addProductService, dialogCommons, vendedorService) {
+        usuario_dao, addProductService, dialogCommons) {
 
     $log.debug('ListaProductosController',
       $scope.$parent.$parent.catalogoCtrl.isFiltro1);
@@ -47,10 +47,7 @@
 
     vm.showPrerenderedDialogProductor = function(id) {
 
-      angular.forEach(vm.emprendedores, function(empr, key) {
-        if (empr.idProductor === id)
-          vm.emprendedorSelect = empr;
-      });
+      vm.emprendedorSelect = vm.emprendedores.filter(emprendedor => emprendedor.idProductor === id)[0];
 
       $mdDialog.show({
         contentElement: '#productorDialog',
@@ -77,16 +74,8 @@
     vm.paging = {
      total: 0,
      current: 1,
-     onPageChanged: loadPages,
+     onPageChanged: loadPages
     };
-
-    // function loadPages() {
-    //   $log.debug('Current page is : ' + vm.paging.current);
-    //   // TODO : Load current page Data here
-    //   vm.currentPage = vm.paging.current;
-
-    //   findProductosPorMultiplesFiltros(vm.paging.current, CANT_ITEMS, vm.ultimoFiltro)
-    // }
 
     vm.setLastPage = function(){
       $scope.$broadcast('setLastPage', vm.lastPage)
@@ -104,7 +93,6 @@
       loadPages();
   });
 
-  //$scope.$on(vm.lastPage, vm.setLastPage());
 
 
     function loadPages() {
@@ -222,15 +210,15 @@
     function findProductosPorMultiplesFiltros(pagina, items, params){
       $log.debug('find productos multiples filtros');
       function doOk(response) {
-        $log.debug('findProductosPorMultiplesFiltros Response ', response);
+        var data = productoService.normalizadorProductos(response.data)
 
-        vm.productos = response.data.productos;
+        vm.productos = data.productos;
         $log.debug('productos', vm.productos);
-        vm.paging.total = Math.ceil(response.data.total / CANT_ITEMS);
-        vm.paging.current = response.data.pagina;
-        vm.paging.disponibles = Math.ceil(response.data.total / CANT_ITEMS);
+        vm.paging.total = Math.ceil(data.total / CANT_ITEMS);
+        vm.paging.current = data.pagina;
+        vm.paging.disponibles = Math.ceil(data.total / CANT_ITEMS);
         vm.pageNum = (6 <= vm.paging.disponibles)? 6 : vm.paging.disponibles;
-        vm.lastPage = response.data.totalDePaginas;
+        vm.lastPage = data.totalDePaginas;
         vm.setLastPage();
         toTop();
       }
@@ -260,8 +248,8 @@
     function callEmprendedores() {
       $log.debug("---callEmprendedor ---");
 
-      productorService.getProductores().then(function(data){ 
-        vm.emprendedores = data.data; 
+      productorService.getProductores().then(function(response){ 
+        vm.emprendedores = response.data.data.map((data) => productorService.normalizarProductores(data));
       })
     }
 
@@ -292,20 +280,25 @@
       })
     }
     
-    function init(){
+    function initCatalogContext() {
+      contextCatalogObserver.observe(function executeWhenCatalogIsLoaded(){     
+
+        setCatalogState(function(){
       if (!us.isUndefinedOrNull(contextPurchaseService.ls.varianteSelected)) {
         $log.debug("tiene una variante seleccionda", contextPurchaseService.ls.varianteSelected)
+    
         setCatalogState(function(){
           vm.agregar(contextPurchaseService.ls.varianteSelected);
           contextPurchaseService.ls.varianteSelected = undefined;
         })
-
       }
-      setCatalogState(function(){});
-      //vm.productos = findProductos(1,10,{});
+        })
+      });
+    }
+    
+    function init(){
+      initCatalogContext();
       callEmprendedores();
-      //loadPages();
-      // findProductos();
     }
     
     init();

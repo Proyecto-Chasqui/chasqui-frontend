@@ -7,7 +7,6 @@
                         $mdDialog, $log, productoService, us, contextPurchaseService, vendedorService, nodeService, $state) {
     
     function confirmOrderImpl(order){
-      console.log(order);
         var confirm = {
           PERSONAL: confirmPersonalOrder,
           GROUP: confirmGCCOrder,

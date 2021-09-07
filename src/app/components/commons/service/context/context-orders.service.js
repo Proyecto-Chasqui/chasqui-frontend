@@ -4,7 +4,7 @@
 	angular.module('chasqui').service('contextOrdersService', contextOrdersService);
 
 	function contextOrdersService(getContext, orders_dao, $localStorage, gccService, moment, contextAgrupationsService,
-                                  createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual, idPedidoIndividualGrupoPersonal,
+                                  createOrdersForGroupsWithoutOrders, idGrupoPedidoIndividual,
                                   agrupationTypeVAL, nodeService, agrupationTypeDispatcher, productoService, ensureContext,
                                   setPromise, $log){
 
@@ -93,7 +93,7 @@
                     defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
                 }
 
-                function doOkCrear(response) {
+                function doOkCrear() {
                     productoService.verPedidoIndividual().then(doOkPedido);
                 }
 
@@ -202,26 +202,20 @@
                 "personal order",
                 orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL),
                 function(defered){
-                    isPersonalOrderOpen(catalogId).then(function(isOpen){
-                        if(isOpen){
-                            $log.debug("isOpen");
-                            function doOkPedido(response) {
-                                var personalOrder = response.data;
-                                personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
-                                personalOrder.idGrupo = idGrupoPedidoIndividual;
-                                personalOrder.aliasGrupo = "Individual";
-                                replacePersonalOrder(catalogId, personalOrder);
-                                defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
-                            }
 
-                            productoService.verPedidoIndividual().then(doOkPedido);
-                        }else{
-                            $log.debug("nop isOpen");
-                            addOrder(catalogId, pedidoIndividualVirtual);
-                            defered.resolve([pedidoIndividualVirtual]);
-                        }
-                    })
+                    function doOkPedido(response) {
+                        var personalOrder = response.data;
+                        personalOrder.type = agrupationTypeVAL.TYPE_PERSONAL;
+                        personalOrder.idGrupo = idGrupoPedidoIndividual;
+                        personalOrder.aliasGrupo = "Individual";
+                        replacePersonalOrder(catalogId, personalOrder);
+                        defered.resolve(orders_dao.getOrdersByType(catalogId, agrupationTypeVAL.TYPE_PERSONAL));
+                    }
 
+                    function fetchIndividual() {
+                        productoService.verPedidoIndividual().then(doOkPedido);
+                    }
+                    fetchIndividual();
                 });
         }
 
@@ -327,33 +321,16 @@
             })
         }
 
-        function isPersonalOrderOpen(catalogId){
-            return setPromise(function(defered){
-                function doOk(response) {
-                    defered.resolve(any(response.data, function(o){return o.idGrupo == null}));
-                }
-
-                gccService.pedidosByUser(catalogId).then(doOk);
-            });
-        }
-
-
-        function any(list, property){
-            return list.reduce(function(r,e){return r || property(e)}, false);
-        }
-
         function replacePersonalOrder(catalogId, newPersonalOrder){
             orders_dao.resetType(catalogId, agrupationTypeVAL.TYPE_PERSONAL);
             addOrder(catalogId, newPersonalOrder);
         }
 
         // Pedido individual virtual
-        var idPedidoIndividualGrupoPersonal = 0;    // Ningún pedido tiene id = 0
-
         var pedidoIndividualVirtual = {
             aliasGrupo: "Individual",
             estado: "CANCELADO",
-            id: idPedidoIndividualGrupoPersonal,
+            id: 0, // Ningún pedido tiene id = 0,
             idGrupo: idGrupoPedidoIndividual,
             type: agrupationTypeVAL.TYPE_PERSONAL,
             productosResponse: []

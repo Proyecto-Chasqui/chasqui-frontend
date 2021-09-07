@@ -23,7 +23,7 @@ Ver:
 Chasqui requiere [Node.js](https://nodejs.org/) en su versión 8.9.4.
 
 ```sh
-nvm use v8.9.4
+nvm use v10.15.3
 ```
 
 Se necesita installar Gulp
@@ -47,7 +47,7 @@ $ gulp serve
 
 Para installar en otros entornos
 ```sh
-$ glup build
+$ gulp build
 ```
 El cual genera el código fuente en la carpeta /dist
 

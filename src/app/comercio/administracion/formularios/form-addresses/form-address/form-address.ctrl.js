@@ -18,7 +18,7 @@
     $scope.latitudValida = false;
     $scope.longitudValida = false;
 
-    $rootScope.$on('guardarDireccion', function(event, args) {
+    $rootScope.$on('guardarDireccion', function() {
       $rootScope.guardarDireccion($scope.address);
     });
     //Muestra un alert simple, puede cambiarse para levantar

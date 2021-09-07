@@ -7,7 +7,7 @@
 	/**
 	 * Formulario para crear un grupo
 	 */
-	function FormUsuarioController($log, $state, toastr, $scope, $timeout, perfilService, us, usuario_dao, REST_ROUTES, URLS) {
+	function FormUsuarioController($log, $state, toastr, $scope, $timeout, perfilService) {
         
         
         var fields = ["nombre", "apellido", "nickName", 
@@ -237,10 +237,11 @@
         
         // [0..3]   : avatars predeterminados
         // 4        : avatar cargado por usuario
-        var avatars_id = [0,1,2,3]; 
+        var avatars_id = [0,1,2,3];
         var startAvatar = 0;
-        
+
         var userLoadedAvatar = false;
+        
         $scope.preds_avatars = avatars_id.map(function(a_id){
                 return {
                     id: getAvatarId(a_id),
@@ -364,7 +365,7 @@
         
         
         $scope.cargarAvatar = function(element){
-            $scope.$apply(function(scope) {
+            $scope.$apply(function() {
                 var img_avatar = new Image();
                 img_avatar.src = URL.createObjectURL(element.files[0]);
                 resizeImg("custom_avatar", img_avatar, avatar_height, avatar_width, function(){
@@ -379,25 +380,33 @@
         }
         
         
-        function extensionDe(nombreDelArchivo){
+        function extensionDe(){
             return "jpg";
-            return nombreDelArchivo.substring(nombreDelArchivo.lastIndexOf('.')).toLowerCase();
+            //return nombreDelArchivo.substring(nombreDelArchivo.lastIndexOf('.')).toLowerCase();
         }
         
         function base64data(img){
             return img.substring(img.lastIndexOf(",") + 1);
         }
         
-        function getAvatarFromUserToken(user){
-            return {
-                    id: "avatarSelected",
-                    src: URLS.be_base + user.avatar,
-                    extension: extensionDe(user.avatar)
-                }
+        // function getAvatarFromUserToken(user){
+        //     return {
+        //             id: "avatarSelected",
+        //             src: URLS.be_base + user.avatar,
+        //             extension: extensionDe(user.avatar)
+        //         }
+        // }
+        
+        
+        function doOk(response) {
+            $log.debug("callVerUsuario", response);
+            $scope.profile = response.data;
+            //$scope.avatarSelected = getAvatarFromUserToken(usuario_dao.getUsuario());
+            // TODO hacer que el avatarSelected sea el mismo que el del usuario
+            $scope.avatarSelected = $scope.preds_avatars[startAvatar];
+            init();
         }
-        
-        
-        
+
         if($scope.new){
             $scope.profile = fields.reduce(function(r, field){
                                     r[field] = "";
@@ -406,14 +415,7 @@
             $scope.avatarSelected = $scope.preds_avatars[startAvatar];
             init();
         }else{
-			function doOk(response) {
-				$log.debug("callVerUsuario", response);
-				$scope.profile = response.data;
-                //$scope.avatarSelected = getAvatarFromUserToken(usuario_dao.getUsuario());
-                // TODO hacer que el avatarSelected sea el mismo que el del usuario
-                $scope.avatarSelected = $scope.preds_avatars[startAvatar];
-                init();
-			}
+			
 			perfilService.verUsuario().then(doOk);
         }
         

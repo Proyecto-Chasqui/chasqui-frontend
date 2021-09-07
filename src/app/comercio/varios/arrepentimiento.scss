@@ -1,0 +1,43 @@
+.Arrepentimiento {
+  margin: initial;
+  padding-bottom: 3rem;
+
+  &.isContextoTienda#chasqui-content-full {
+    margin-top: 2rem;
+  }
+
+  &-title, &-description {
+    margin-bottom: 1rem;
+  }
+
+  &-container {
+    max-width: 600px;
+    margin: auto; 
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    
+  }
+
+  &-toolbar {
+    text-align: right;
+  }
+
+  md-input-container {
+    margin: 10px 0;
+  }
+}
+
+.ArrepentimientoEnviado {
+  text-align: center;
+  &-mensaje {
+    font-size: 1.5rem;
+    color: $colorConfirmar;
+    margin-bottom: 2rem;
+  }
+
+  &-emailTo {
+    font-size: 1.3rem;
+  }
+}

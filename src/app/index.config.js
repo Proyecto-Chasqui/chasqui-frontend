@@ -13,7 +13,7 @@
         // Set options third-party lib
         toastrConfig.allowHtml = true;
         toastrConfig.timeOut = 15000;
-        maxOpened: 3,
+        //wowmaxOpened: 3,
         toastrConfig.positionClass = 'toast-bottom-right';
         toastrConfig.preventOpenDuplicates = true;
         toastrConfig.progressBar = true;

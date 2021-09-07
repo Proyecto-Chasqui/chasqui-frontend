@@ -44,6 +44,13 @@
             params: { mail: null },
             abstract: true
         })
+
+        .state('catalog.arrepentimiento', {
+          url: '/arrepentimiento',
+          templateUrl: 'app/comercio/varios/arrepentimiento.html',
+          controller: 'ArrepentimientoController',
+          controllerAs: "arrepentimientoCtrl"
+        })
       
             .state('catalog.terminosYcondiciones', {
               url: '/terminosYcondiciones',
@@ -179,6 +186,12 @@
                 })
                 .state('catalog.userNodes.all', {
                   url: '/todos',
+                  templateUrl: 'app/comercio/administracion/nodes-tab/nodesList2.tmpl.html',
+                  controller: 'NodesList2Ctrl',
+                  auth: false
+                })
+                .state('catalog.userNodes.allLegacy', {
+                  url: '/legacy',
                   templateUrl: 'app/comercio/administracion/nodes-tab/nodesList.tmpl.html',
                   controller: 'NodesListCtrl',
                   auth: false
@@ -269,13 +282,20 @@
                 controllerAs: 'principalCtrl'
             })
     
-      .state('terminosYcondiciones', {
+            
+
+      .state('home.terminosYcondiciones', {
         url: '/terminosYcondiciones',
         templateUrl: 'app/comercio/varios/terminos.html',
         controller: 'TerminosCtrl',
       })
 
-
+      .state('home.arrepentimiento', {
+        url: '/arrepentimiento',
+        templateUrl: 'app/comercio/varios/arrepentimiento.html',
+        controller: 'ArrepentimientoController',
+        controllerAs: "arrepentimientoCtrl"
+      })
     
       .state('error', {
         url: '/error/:key',

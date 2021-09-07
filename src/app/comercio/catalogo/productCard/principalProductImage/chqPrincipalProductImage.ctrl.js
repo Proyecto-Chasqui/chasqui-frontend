@@ -7,7 +7,7 @@
 	*/
 	angular.module('chasqui').controller('ChqPrincipalProductImageCtrl', ChqPrincipalProductImageCtrl);
 
-	function ChqPrincipalProductImageCtrl($scope){
+	function ChqPrincipalProductImageCtrl(){
 	}
 }
 )();

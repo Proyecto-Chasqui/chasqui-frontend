@@ -6,7 +6,7 @@
     
 	function PerfilController($log, $scope, $rootScope,
 		$mdDialog, ToastCommons, toastr, $stateParams, perfilService,
-		gccService,us,contextPurchaseService, usuario_dao, navigation_state) {
+		gccService,nodeService, us,contextPurchaseService, usuario_dao, navigation_state) {
             
 		$log.debug("Init PerfilController ....");
 
@@ -58,7 +58,7 @@
 		}
 
 		var callCambiarPass = function() {
-			function doOk(response) {
+			function doOk() {
 				toastr.success(us.translate('PASS_ACTUALIZADA'), us.translate('AVISO_TOAST_TITLE'));
         vm.oldPassword = "";
         vm.pass1 = "";
@@ -66,7 +66,7 @@
         vm.oldPassNotMatch = false;
 			}
 
-			function doNoOk(response) {
+			function doNoOk() {
 				toastr.error("La contraseña anterior no es válida");
         vm.oldPassNotMatch = true;
         vm.oldPassword = "";
@@ -81,7 +81,7 @@
     
     
 		vm.marcarLeido = function(notificacion) {
-			function doOk(response) {
+			function doOk() {
 				notificacion.estado = 'Leido';
                 $rootScope.refrescarNotificacion();
 			}
@@ -90,7 +90,7 @@
 		}
 
 		vm.aceptarInvitacion = function(notificacion) {
-			function doOk(response) {
+			function doOk() {
 				toastr.success(us.translate('ACEPTADO'), us.translate('AVISO_TOAST_TITLE'));
 				notificacion.estado = 'Leido';
 				contextPurchaseService.refreshGrupos()
@@ -98,20 +98,26 @@
 			var params = {};
 			params.idInvitacion = notificacion.id;
 
-			gccService.aceptarInvitacionAGrupo(params).then(doOk)
-
+            if(vm.isInvitacionANodo(notificacion)) {
+                nodeService.acceptInvitation(params).then(doOk)
+            } else {
+                gccService.aceptarInvitacionAGrupo(params).then(doOk)
+            }
 		}
 
 		vm.rechazarInvitacion = function(notificacion) {
-			function doOk(response) {
+			function doOk() {
 				toastr.info(us.translate('RECHAZADO'), us.translate('AVISO_TOAST_TITLE') );
 				notificacion.estado = 'Leido';
 			}
 			var params = {};
 			params.idInvitacion = notificacion.id;
 
-			gccService.rechazarInvitacionAGrupo(params).then(doOk)
-
+            if(vm.isInvitacionANodo(notificacion)) { 
+                nodeService.declineInvitation(params).then(doOk);
+            } else {
+                gccService.rechazarInvitacionAGrupo(params).then(doOk);
+            }
 		}
 
 
@@ -157,6 +163,12 @@
 		vm.isCompraColectiva=function(notificacion){
 			return us.contieneCadena(notificacion.mensaje.toLowerCase() ,'de compras colectivas');
 		}
+
+        vm.isInvitacion = perfilService.isInvitacion;
+
+        vm.isInvitacionPendiente = perfilService.isInvitacionPendiente;
+
+        vm.isInvitacionANodo = perfilService.isInvitacionANodo;
 
     vm.getColor = function(notificacion){
          var color = 'green';
@@ -223,7 +235,7 @@
         return res;
     }
 
-    $scope.showEdit = function(profile){
+    $scope.showEdit = function(){
         return !editting;
     }
 
@@ -236,7 +248,7 @@
         }
     }
 
-    $scope.showCancel = function(profile){
+    $scope.showCancel = function(){
         return editting;
     }
 

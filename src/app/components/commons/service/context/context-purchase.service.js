@@ -260,11 +260,11 @@
 			return order_context.getAgrupationType() === agrupationTypeVAL.TYPE_PERSONAL;
 		}
 
-		function isPedidoInividualSelected() {
-			return contextOrdersService.getOrder(order_context.getCatalogId(), 
-                                                 order_context.getOrderId(), 
-                                                 order_context.getAgrupationType()).type === agrupationTypeVAL.TYPE_PERSONAL;
-		}
+		// function isPedidoInividualSelected() {
+		// 	return contextOrdersService.getOrder(order_context.getCatalogId(), 
+        //                                          order_context.getOrderId(), 
+        //                                          order_context.getAgrupationType()).type === agrupationTypeVAL.TYPE_PERSONAL;
+		// }
 
         
         
@@ -273,9 +273,9 @@
          */
 		function isAdmin(pedidoParam) {
 			var result = false;
-			angular.forEach(contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString()), function(grupo, key) {
+			angular.forEach(contextAgrupationsService.getAgrupations(order_context.getCatalogId().toString()), function(grupo) {
 				if (grupo.esAdministrador) {
-					angular.forEach(grupo.miembros, function(miembro, key) {
+					angular.forEach(grupo.miembros, function(miembro) {
 						if (miembro.pedido && miembro.pedido.id === pedidoParam.id) {
 							result = true;
 						};
@@ -299,9 +299,9 @@
 			 return order.idGrupo;
 		}
 
-		function getOrderByAgrupation(agrupation) {
-       return contextAgrupationsService.getAgrupation(getCatalogContext(), agrupation.id, agrupation.type).idPedidoIndividual;
-		}
+	// 	function getOrderByAgrupation(agrupation) {
+    //    return contextAgrupationsService.getAgrupation(getCatalogContext(), agrupation.id, agrupation.type).idPedidoIndividual;
+	// 	}
         
         ///////////////////////////////////////// INIT \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\     
         
@@ -315,7 +315,7 @@
         }
         
         init();
-        
+        // eslint-disable-next-line
 		$(window).unload(function() {
 			$log.debug("reset por F5");
             clean();

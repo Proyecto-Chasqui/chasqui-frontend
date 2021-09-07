@@ -6,7 +6,7 @@
 	*/
 	angular.module('chasqui').controller('ChqStampCtrl', ChqStampCtrl);
 
-	function ChqStampCtrl($scope, $log){
+	function ChqStampCtrl(){
 	}
 }
 )();

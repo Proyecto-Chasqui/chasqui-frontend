@@ -6,6 +6,7 @@ angular
     service('webSocketService', webSocketService);
 
     function webSocketService(toastr,$websocket,$log,contextPurchaseService,digestMessageService,URLS){
+      return; // deshabilita el inicio del webSocket hasta nuevo aviso, por ahora trae mas complicaciones que funcionalidades
     	//parametrizar
       var dataStream = $websocket(URLS.be_websocket, null, { reconnectIfNotNormalClose: true });
 
@@ -15,11 +16,11 @@ angular
         digestMessageService.webSocketMessageDispatch(JSON.parse(message.data));
       });
       //solo para debug, elminar los toast cuando se vaya a produccion
-      dataStream.onClose(function(message){
+      dataStream.onClose(function(){
         //toastr.info("","WEBSOCKET CLOSE",{timeOut: 8000});
       });
 
-      dataStream.onOpen(function(message){
+      dataStream.onOpen(function(){
         //toastr.info("","WEBSOCKET OPEN",{timeOut: 8000});
       });
 

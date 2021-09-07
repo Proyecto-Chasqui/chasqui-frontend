@@ -6,9 +6,9 @@
 		.run(runBlock);
 
 	/** @ngInject */
-	function runBlock($log, $rootScope, $state, us, usuario_dao, $stateParams) {
+	function runBlock($log, $rootScope, $state, us, usuario_dao) {
 
-		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+		$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
 
 			if (us.isUndefinedOrNull(toState.auth))
 				toState.auth = false

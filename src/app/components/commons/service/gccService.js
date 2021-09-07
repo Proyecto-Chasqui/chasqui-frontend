@@ -26,10 +26,10 @@
             cerrarGrupo: cerrarGrupo,
         };
 
-		function pedidosByUser(idCatalog, doNoOK){
-			$log.debug(" service pedidosByUser ");
-			return promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(idCatalog), {}, doNoOK);
-		}
+		// function pedidosByUser(idCatalog, doNoOK){
+		// 	$log.debug(" service pedidosByUser ");
+		// 	return promiseService.doGetPrivate(REST_ROUTES.pedidosByUser(idCatalog), {}, doNoOK);
+		// }
         
 		function pedidosByUser(doNoOK){
 			return setPromise(function(defered){

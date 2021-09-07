@@ -6,7 +6,7 @@
 	*/
 	angular.module('chasqui').controller('ChqProducerNameCtrl', ChqProducerNameCtrl);
 
-	function ChqProducerNameCtrl($scope){
+	function ChqProducerNameCtrl(){
 	}
 }
 )();

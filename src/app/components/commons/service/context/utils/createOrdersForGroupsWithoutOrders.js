@@ -46,7 +46,8 @@
     return function (agrupationsWithoutOrders, orders){
       var defered = $q.defer();
 			var promise = defered.promise;
-			$log.debug("Groups wo order:", agrupationsWithoutOrders);
+      $log.debug("Groups wo order:", agrupationsWithoutOrders);
+      // eslint-disable-next-line
       async.each(agrupationsWithoutOrders, function(agrupation, callback) {  
           $log.debug("Inside");
           createOrderForGroup(agrupation).then(function(newOrder){

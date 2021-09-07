@@ -4,16 +4,17 @@
 	angular.module('chasqui').controller('discriminacionIncentivoController', discriminacionIncentivoController);
 
 	/** @ngInject */
-	function discriminacionIncentivoController($scope, $stateParams, sellerService, $log) {
+	function discriminacionIncentivoController($scope, $stateParams) {
     
-    $scope.montoTotalNodo = montoTotalNodo;
-    $scope.montoSinIncentivo = montoSinIncentivo;
-    $scope.incentivoNodo = incentivoNodo;
+    var vm = $scope;
+    vm.montoTotalNodo = 0;
+    vm.montoSinIncentivo = 0;
+    vm.incentivoNodo = 0;
 
     /////////////////////////////////////
                
     
-    function montoTotalNodo(node){
+    function _montoTotalNodo(node){
       return node.miembros != undefined? node.miembros.reduce(function(r,m){
         if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
             return r + m.pedido.montoActual + m.pedido.incentivoActual;
@@ -24,7 +25,7 @@
     }
 
 
-    function montoSinIncentivo(node){
+    function _montoSinIncentivo(node){
       return node.miembros != undefined? node.miembros.reduce(function(r,m){
         if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
             return r + m.pedido.montoActual;
@@ -35,7 +36,7 @@
     }
 
 
-    function incentivoNodo(node){
+    function _incentivoNodo(node){
       return node.miembros != undefined? node.miembros.reduce(function(r,m){
         if((m.pedido != null && m.pedido.estado == "CONFIRMADO")){
             return r + m.pedido.incentivoActual;
@@ -49,7 +50,20 @@
     /////////////////////////////////////
     
     function init(){
-    
+      var node = vm.node;
+      if($stateParams.order && "totalConIncentivo" in $stateParams.order) {
+        vm.montoTotalNodo = $stateParams.order.totalConIncentivo;
+        vm.montoSinIncentivo = $stateParams.order.totalSinIncentivo;
+        vm.incentivoNodo = $stateParams.order.incentivoTotal;
+      } else if (node && node.miembros) {
+        vm.montoTotalNodo = _montoTotalNodo($scope.node);
+        vm.montoSinIncentivo = _montoSinIncentivo($scope.node);
+        vm.incentivoNodo = _incentivoNodo($scope.node);
+      } else {
+        vm.montoTotalNodo = 0;
+        vm.montoSinIncentivo = 0;
+        vm.incentivoNodo = 0;
+      }
     }
     
     init();

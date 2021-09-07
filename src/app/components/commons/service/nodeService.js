@@ -28,7 +28,51 @@
       createPersonalOrder: createPersonalOrder,
       confirmPersonalOrder: confirmPersonalOrder,
       confirmNodeOrder: confirmNodeOrder,
+      normalizadorNodos: normalizadorNodos,
+      nodosLiteTodos,
+      pedidosLite, 
+      statsPedidosActivos,
+      pedidoLiteActivo,
+      productosPedidosLite, 
+      resumenProductosPedidosConfirmados,
+      miembrosGrupo,
+      misPedidosActivosDeLosNodos
     };
+
+    function nodosLiteTodos(idCatalog, doNoOk){
+			$log.debug(" service nodosLiteTodos ");
+			return promiseService.doGetPrivate(REST_ROUTES.nodosLiteTodos(idCatalog), {idVendedor: idCatalog}, doNoOk);
+    }
+
+		function pedidosLite(idColectivo, doNoOk){
+			$log.debug(" service pedidosLites ");
+			return promiseService.doGetPrivate(REST_ROUTES.pedidosLite(idColectivo), {idColectivo: idColectivo}, doNoOk);
+    }
+
+		function statsPedidosActivos(idColectivo, doNoOk){
+			$log.debug(" service statsPedidosActivos ");
+			return promiseService.doGetPrivate(REST_ROUTES.statsPedidosActivos(idColectivo), {idColectivo: idColectivo}, doNoOk);
+    }
+
+    function pedidoLiteActivo(idColectivo, doNoOk) {
+      $log.debug(" service pedidosLites ");
+			return promiseService.doGetPrivate(REST_ROUTES.pedidoLiteActivo(idColectivo), {idColectivo: idColectivo}, doNoOk);
+    }
+
+		function productosPedidosLite(idPedido, doNoOk){
+			$log.debug(" service productosPedidosLite ");
+			return promiseService.doGetPrivate(REST_ROUTES.productosPedidosLite(idPedido), {idPedido: idPedido}, doNoOk);
+    }
+    
+		function resumenProductosPedidosConfirmados(idColectivo, doNoOk){
+			$log.debug(" service productosPedidosLite ");
+			return promiseService.doGetPrivate(REST_ROUTES.resumenProductosPedidosConfirmados(idColectivo), {idColectivo: idColectivo}, doNoOk);
+    }
+
+		function miembrosGrupo(idGrupo, doNoOk){
+			$log.debug(" service miembrosGrupo ");
+			return promiseService.doGetPrivate(REST_ROUTES.miembrosGrupo(idGrupo), {idGrupo: idGrupo}, doNoOk);
+    }
 
 		function nodosAbiertos(idCatalog, doNoOk){
 			$log.debug(" service nodosAbiertos ");
@@ -160,6 +204,11 @@
 			return promiseService.doGetPrivate(REST_ROUTES.pedidosDeLosNodos(idVendedor), {}, doNoOk);
     }
 
+    function misPedidosActivosDeLosNodos(idVendedor, doNoOk){
+			$log.debug(" service misPedidosActivosDeLosNodos ");
+			return promiseService.doGetPrivate(REST_ROUTES.misPedidosActivosDeLosNodos(idVendedor), {}, doNoOk);
+    }
+
     function createPersonalOrder(params, doNoOk){
 			$log.debug(" service createNodePersonalOrder ");
 			return promiseService.doPost(REST_ROUTES.createNodePersonalOrder, params, doNoOk);
@@ -175,8 +224,36 @@
 			return promiseService.doPost(REST_ROUTES.confirmNodeOrder, params, doNoOk);
     }
 
+    function normalizadorNodos() {
+      return {
+        barrio: "Parque Patricios",
+        descripcion: null,
+        direccionDelNodo: { 
+          alias: "zavaleta 441",
+          altura: null,
+          calle: "zavaleta",
+          calleAdyacente1: "lagos",
+          calleAdyacente2: "p.chutro",
+          codigoPostal: "1437",
+          comentario: "DE MAÑANA TEMPRANO",
+          departamento: "4",
+          geoUbicacion: null,
+          id: 753,
+          latitud: "0.0",
+          localidad: "parke patricios",
+          longitud: "0.0",
+          pais: null,
+          predeterminada: false,
+          provincia: null,
+        },
+        emailAdministrador: "marisolsenson@gmail.com",
+        idNodo: 65,
+        nombreDelNodo: "Mar",
+      }
+    }
+
 		///////////////////////////////////////// Private \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-                
+               
     return nodeServiceInt;
 	}
 })();

@@ -84,46 +84,47 @@
 
     function init(){
       contextCatalogObserver.observe(function(){
-        contextPurchaseService.getSelectedCatalog().then(function(catalog){
-          if(catalog.portadaVisible){
+        // contextPurchaseService.getSelectedCatalog().then(function(catalog){
+          //if(catalog.portadaVisible){
             vendedorService.verDatosDePortada().then(function(response){
-              completarDatosDeContacto(response.data.dataContacto);
-              var i;
-              var text = response.data.textoPortada;
-              var urlportada = response.data.urlImagenesPortada;
-              if(text !== null){
-                if(text.length > 1){
-                  $scope.texto = text;
-                }
-              }
-              if(urlportada != null){
-                if(urlportada.length >0){
-                  $scope.imagenUrlPortada = URLS.be_base + urlportada[0];
-                }
-              }
-              if(response.data.urlImagenesBanner !== null){
-                for (i = 0; i < response.data.urlImagenesBanner.length; i++) { 
-                  if(i===0){
-                    $scope.imageurl1 = URLS.be_base + response.data.urlImagenesBanner[i];
-                  }
-                  if(i===1){
-                    $scope.imageurl2 = URLS.be_base + response.data.urlImagenesBanner[i];
-                  }
-      
-                  if(i===2){
-                    $scope.imageurl3 = URLS.be_base + response.data.urlImagenesBanner[i];
+              if(response.data.portadaVisible.data[0]) {
+                completarDatosDeContacto(response.data.dataContacto);
+                var i;
+                var text = response.data.textoPortada;
+                var urlportada = response.data.urlImagenesPortada;
+                if(text !== null){
+                  if(text.length > 1){
+                    $scope.texto = text;
                   }
                 }
+                if(urlportada != null){
+                  if(urlportada.length >0){
+                    $scope.imagenUrlPortada = URLS.be_base + urlportada[0];
+                  }
+                }
+                if(response.data.urlImagenesBanner !== null){
+                  for (i = 0; i < response.data.urlImagenesBanner.length; i++) { 
+                    if(i===0){
+                      $scope.imageurl1 = URLS.be_base + response.data.urlImagenesBanner[i];
+                    }
+                    if(i===1){
+                      $scope.imageurl2 = URLS.be_base + response.data.urlImagenesBanner[i];
+                    }
+        
+                    if(i===2){
+                      $scope.imageurl3 = URLS.be_base + response.data.urlImagenesBanner[i];
+                    }
+                  }
+                }
+              } else {
+                $state.go("catalog.products");
               }
             });
 
             vendedorService.obtenerConfiguracionVendedor().then(function(response){
               $scope.nombreOrganizacion = response.data.nombre;
             });
-          } else {
-            $state.go("catalog.products");
-          }
-        })
+        // })
       });
     }
 

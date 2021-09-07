@@ -195,7 +195,7 @@ box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.
 
 .btn-confirmar{
 	background: $colorConfirmar !important;
-	color: white;
+	color: white !important;
 }
 
 .md-accent {
@@ -227,14 +227,6 @@ md-tabs md-ink-bar {
 	}
 	color: $colorUno !important;
 	background-color: $colorDos !important;
-}
-
-
-.footer {
-  z-index: 10000;
-	background-color: #2F3539 !important;
-	background: #bdcbcd;
-	padding: 1rem 2rem;
 }
 
 

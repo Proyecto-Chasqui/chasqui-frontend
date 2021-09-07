@@ -1,11 +1,9 @@
-/* global malarkey:false, moment:false */
 (function() {
     'use strict';
 
     angular.module('chasqui').factory('REST_ROUTES', REST_ROUTES);
     
     function REST_ROUTES(URLS) {
-
         return {
             PRODUCTOS_X_PAG: 12,
 
@@ -15,19 +13,24 @@
 
             defaultLogo: "imagenes/logo_ch_login.png",
 
-            sellers: URLS.be_rest + "client/vendedor/all",
+            //sellers: URLS.be_rest + "client/vendedor/all",
+            sellers: `${URLS.api}vendedores?$limit=100`,
 
-            sellersTags: URLS.be_rest + "client/vendedor/obtenerTags",
+            //sellersTags: URLS.be_rest + "client/vendedor/obtenerTags",
+            sellersTags: `${URLS.api}tags`,
 
-            sellersWithTags: URLS.be_rest + "client/vendedor/obtenerVendedoresConTags",
+            //sellersWithTags: URLS.be_rest + "client/vendedor/obtenerVendedoresConTags",
+            sellersWithTags: (params) => `${URLS.api}vendedores?${params}`,
 
             seller: function(sellerId){ return URLS.be_rest + "client/vendedor/" + sellerId},
+            //seller: (sellerId) => `${URLS.api}vendedores/${sellerId}`, //revisar obtenerConfiguracionVendedor()
             
             sellerIndividualQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoIndividual/" + sellerId},
             
             sellerColectiveQuestions: function(sellerId){ return URLS.be_rest + "client/vendedor/preguntasDeConsumoColectivo/" + sellerId},
             
-            sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
+            //sellerZones: function(sellerId){ return URLS.be_rest + "client/vendedor/zonas/" + sellerId},
+            sellerZones: sellerId => `${URLS.api}vendedor-retiro-zonas/?id_vendedor=${sellerId}`,
 
             getAddressZone: URLS.be_rest + "client/vendedor/obtenerZonaDeDireccion",
 
@@ -43,23 +46,26 @@
 
             singUpInvitacionGCC: URLS.be_rest + "client/sso/singUp/invitation",
 
-            categorias: function(idVendedor) {
-                return URLS.be_rest + "client/categoria/all/" + idVendedor;
-            },
+            // categorias: function(idVendedor) {
+            //     return URLS.be_rest + "client/categoria/all/" + idVendedor;
+            // },
+            categorias: (idVendedor) => `${URLS.api}categorias?id_vendedor=${idVendedor}&$select[]=id&$select[]=nombre&$sort[nombre]=1`,
 
-            productores: function(idVendedor) {
-                return URLS.be_rest + "client/productor/all/" + idVendedor;
-            },
+            // productores: function(idVendedor) {
+            //     return URLS.be_rest + "client/productor/all/" + idVendedor;
+            // },
+            productores: (idVendedor) => `${URLS.api}productores?id_vendedor=${idVendedor}&$sort[nombre]=1&$limit=200`,
 
             // productosSinFiltro: URLS.be_rest + "client/producto/sinFiltro",
 
-            productosSinFiltro: function(idVendedor) {
+            productosSinFiltro: function() {
                 return URLS.be_rest + "client/producto/sinFiltro";
             },
 
-            productosByMultiplesFiltros: function(idVendedor){
-                return URLS.be_rest + "client/producto/productosByMultiplesFiltros";
-            },
+            // productosByMultiplesFiltros: function(idVendedor){
+            //     return URLS.be_rest + "client/producto/productosByMultiplesFiltros";
+            // },
+            productosByMultiplesFiltros: (params) => `${URLS.api}productos/?${params}&ocultado=false&$sort[destacado]=true&$sort[nombre]=1`,
 
             medallas: URLS.be_rest + "client/medalla/all",
 
@@ -67,9 +73,11 @@
                 return URLS.be_rest + "client/producto/images/" + idVariante;
             },
 
-            medallasProducto: URLS.be_rest + "client/medalla/producto/all",
+            //medallasProducto: URLS.be_rest + "client/medalla/producto/all",
+            medallasProducto: URLS.api + "medallas?eliminada=0",
 
-            medallasProductor: URLS.be_rest + "client/medalla/productor/all",
+            //medallasProductor: URLS.be_rest + "client/medalla/productor/all",
+            medallasProductor: URLS.api + "medallas-productores?eliminada=0",
 
             medallaById: function(id) {
 
@@ -181,7 +189,8 @@
 
             /* Nodos */
 
-            nodosAbiertos: function(idVendedor){return URLS.be_rest + "client/vendedor/nodosAbiertos/" + idVendedor;},
+            //nodosAbiertos: function(idVendedor){return URLS.be_rest + "client/vendedor/nodosAbiertos/" + idVendedor;},
+            nodosAbiertos: (slug) => (`${URLS.api}nodos/${slug}`),
 
             userRequests: function(idVendedor){return URLS.be_rest + "user/nodo/obtenerSolicitudesDePertenenciaDeUsuario/" + idVendedor;},
 
@@ -193,7 +202,30 @@
 
             openRequests: function(idVendedor){return URLS.be_rest + "user/nodo/solicitudesDeCreacion/" + idVendedor;},
 
-            nodosTodos : function(idVendedor){return URLS.be_rest + 'user/nodo/all/' + idVendedor;},
+            nodosTodos: function (idVendedor) {
+                //return URLS.be_rest + "user/nodo/all/" + idVendedor;
+                return URLS.be_rest + "user/nodo/misNodos/" + idVendedor;
+            },
+            
+            misNodos: function(idVendedor) {
+                return URLS.be_rest + "user/nodo/misNodos/" + idVendedor;
+            },
+            
+            /**
+            * @deprecated usar misNodos
+            * @param {number} idVendedor 
+            * @returns {string}
+            */
+            nodosLiteTodos: function (idVendedor) {
+                return URLS.be_rest + "user/nodo/misNodos/" + idVendedor;
+            },
+
+            pedidosLite : function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/pedidos'},
+            statsPedidosActivos : function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/pedidosStats'},
+            resumenProductosPedidosConfirmados: function(idColectivo){return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/resumenProductosPedidosConfirmados'},
+            pedidoLiteActivo: function(idColectivo) {return URLS.be_rest + 'user/nodo/lite/' + idColectivo +'/pedidoActivo'},
+            productosPedidosLite : function(idPedido){return URLS.be_rest + 'user/pedido/' + idPedido +'/productos'},
+            miembrosGrupo : function(idGrupo){return URLS.be_rest + 'user/gcc/' + idGrupo +'/miembros'},
 
             nuevoNodo: URLS.be_rest + "user/nodo/alta",
 
@@ -221,7 +253,19 @@
 
             // cederAdministracion: URLS.be_rest + "user/gcc/cederAdministracion",
 
-            pedidosDeLosNodos: function(idVendedor) {return URLS.be_rest + 'user/nodo/pedidos/' + idVendedor;},
+            /**
+            * @deprecated usar misPedidosActivosDeLosNodos
+            * @param {number} idVendedor 
+            * @returns {string}
+            */
+            pedidosDeLosNodos: function(idVendedor) {
+                // return URLS.be_rest + 'user/nodo/pedidos/' + idVendedor;
+                return URLS.be_rest + "user/nodo/lite/misPedidosActivos/" + idVendedor;
+            },
+
+            misPedidosActivosDeLosNodos: function(idVendedor) {
+                return URLS.be_rest + "user/nodo/lite/misPedidosActivos/" + idVendedor;
+            },
 
             createNodePersonalOrder: URLS.be_rest + "user/nodo/individual",
 
@@ -234,9 +278,13 @@
             
             /* Otros */
 
-            puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
+            //puntosDeRetiro: function(idVendedor){ return URLS.be_rest + "client/vendedor/puntosDeRetiro/" + idVendedor;},
+            puntosDeRetiro: (idVendedor) => `${ URLS.api }vendedor-retiro-puntos/?id_punto_de_retiro=${idVendedor}`,
 
-            datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
+            //datosDePortada: function(nombreCortoVendedor) {return URLS.be_rest + "client/vendedor/datosPortada/" + nombreCortoVendedor;},
+            datosDePortada: (slug) => (`${URLS.api}vendedores?nombre_corto_vendedor=${slug}`),
+
+            solicitudArrepentimiento: `${URLS.be_rest}client/soporte/arrepentimiento`,
 
             //////////////////////////////////////////////////////////
             //////////////// OTRAS CONSTANTES 
