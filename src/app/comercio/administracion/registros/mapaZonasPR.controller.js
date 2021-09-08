@@ -100,7 +100,7 @@ function MapWebZonaPRController(contextPurchaseService, MapDraw, MapUI ,MapREST,
 
   function parseCoordinateToLatLngs(vcoordinates){
     var coordinates = [];
-    if(vcoordinates !== null){
+    if(vcoordinates){
       var i = 0;
       for(i; i<vcoordinates.length; i++){
         var coordinate = vcoordinates[i];
